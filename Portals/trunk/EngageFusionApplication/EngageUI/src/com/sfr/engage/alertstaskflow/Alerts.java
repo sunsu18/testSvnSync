@@ -2,6 +2,8 @@ package com.sfr.engage.alertstaskflow;
 
 
 import com.sfr.core.bean.User;
+import com.sfr.engage.alertstaskflow.Alerts.Bindings;
+import com.sfr.engage.cardtaskflow.CardBean;
 import com.sfr.engage.core.AlertsSubscribeCustomerType;
 import com.sfr.engage.core.AlertsSubscribeFrequencyType;
 import com.sfr.engage.core.AlertsSubscribeRequest;
@@ -58,8 +60,8 @@ import oracle.jbo.ViewObject;
 public class Alerts {
     private List<FuelTimings> fueltimings = new ArrayList<FuelTimings>();
     private List<FuelTimings> configureFuelTimings = new ArrayList<FuelTimings>();
-    private RichPopup alert1Popup;
     private HttpSession session;
+    private transient Bindings bindings;
     private ExternalContext ectx;
     private HttpServletRequest request;
     private List<PartnerInfo> partnerInfoList;
@@ -70,22 +72,7 @@ public class Alerts {
     private boolean SelectionPanel = true;
     private boolean cardsSelectionPanel = false;
     private String configuredPartner;
-
-    //    private List<SelectItem> partnerAlert2List;
-    //    private List<String> partnerValue2 = null;
-    //
-    //
-    //
-    //    private List<SelectItem> accountList = null;
-    //    private List<String> accountValue;
-    //
-    //    private List<SelectItem> cardGroupList = null;
-    //    private List<String> cardGroupValue;
-    //
-    //    private List<SelectItem> cardList = null;
-    //    private List<String> cardValue;
-
-
+    private String selectedPartner;
     private List<SelectItem> partnerIdList;
     private List<SelectItem> partnerIdList2;
     private List<SelectItem> configurePartnerIdList;
@@ -117,104 +104,36 @@ public class Alerts {
     private List<String> initialCard2Value;
     private List<SelectItem> configureCardNumberList;
     private List<String> configureCardNumberValue;
-    private RichPopup alert2Popup;
     private String langValue;
     AlertsSubscribeRequest req = new AlertsSubscribeRequest();
     AlertsSubscribeResponse response = new AlertsSubscribeResponse();
-    private RichPanelGroupLayout successfullalert;
-    private RichPanelGroupLayout alertSuccessProperty;
-    private RichDialog alert1PopupDialog;
-    private RichSelectOneChoice alert1PartnerValues;
-    private RichInputText fromTimingsHh;
-    private RichInputText fromTimingsMm;
-    private RichInputText toTimingsHh;
-    private RichInputText toTimingsMm;
-    private RichTable alert1Table;
-    private RichSelectManyChoice accountDropdwonAlert2;
-    private RichSelectManyChoice cardGroupDowndownAlert2;
-    private RichSelectManyChoice cardDropdownAlert2;
-    private RichSelectManyChoice partnerDropdownAlert2;
-    private RichSelectBooleanRadio ltrPerDayRadio;
-    private RichSelectBooleanRadio ltrPerWeekRadio;
-    private RichSelectBooleanRadio ltrPerMonthRadio;
     private String userEmail;
     private String userFirstName;
     private String userMobileNo;
     private String CountryCode;
-    private RichInputText fuelCapacityAlert2;
-    private RichCommandButton okButtonAlert2;
-    private RichCommandButton cancelButtonAlert2;
-    private RichPanelGroupLayout successAlert2;
-    private RichCommandButton closeButtonAlert2;
     EngageResourceBundle resourceBundle = new EngageResourceBundle();
-    private RichPanelGroupLayout alert1ValidData;
-    private RichCommandButton closeButtonAlert1;
-    private RichCommandButton cancelButtonAlert1;
-    private RichCommandButton okButtonAlert1;
-    private RichCommandButton editButtonAlert1;
-    private RichPanelGroupLayout alert2ValidData;
-    private RichPanelGroupLayout searchResultsPanel;
-    private RichPopup configureAlert1Popup;
-    private RichDialog configureAlert1PopupDialog;
-    private RichSelectOneChoice configureAlert1PartnerValues;
-    private RichTable configureAlert1Table;
-    private RichInputText configureFromTimingsHh;
-    private RichInputText configureFromTimingsMm;
-    private RichInputText configureToTimingsHh;
-    private RichInputText configureToTimingsMm;
-    private RichCommandButton editButtonConfigureAlert1;
-    private RichCommandButton okButtonConfigureAlert1;
-    private RichCommandButton cancelButtonConfigureAlert1;
-    private RichCommandButton closeButtonConfigureAlert1;
-    private RichPopup configureAlert2Popup;
-    private RichSelectManyChoice configurePartnerDropdownAlert2;
-    private RichSelectManyChoice configureAccountDropdwonAlert2;
-    private RichSelectManyChoice configureCardGroupDowndownAlert2;
-    private RichSelectManyChoice configureCardDropdownAlert2;
-    private RichSelectBooleanRadio configureLtrPerDayRadio;
-    private RichSelectBooleanRadio configureLtrPerWeekRadio;
-    private RichSelectBooleanRadio configureLtrPerMonthRadio;
-    private RichInputText configureFuelCapacityAlert2;
-    private RichCommandButton configureOkButtonAlert2;
-    private RichCommandButton configureCloseButtonAlert2;
-    private RichCommandButton configureCancelButtonAlert2;
-    private RichInputText searchStringInputtext;
     private List<String> suggestedCardNumberList;
-    private RichPanelGroupLayout mainSelectionPanel;
-    private RichSelectBooleanRadio mainSelectionPanelRadio;
-    private RichSelectBooleanRadio cardSelectionPanelRadio;
-    private RichPanelGroupLayout cardSelectionPanel;
     private String passingPartner = "";
     private String passingAccount = "";
     private String passingCardgrpMain = "";
     private String passingCardgrpSub = "";
     private String passingCardgrpSeq = "";
     private String passingCardKsId = "";
-    private RichSelectManyChoice viewAlertDropdown;
-    private RichSelectManyChoice viewAlertCardGroupDropdown;
-    private RichSelectManyChoice viewAlertsPartnerDropdown;
-    private RichSelectManyChoice viewAlertsAccountDropdown;
     public static final ADFLogger _logger = AccessDataControl.getSFRLogger();
     private AccessDataControl accessDC = new AccessDataControl();
 
     public Alerts() {
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside constructor of Alerts");
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
-        
         partnerInfoList = new ArrayList<PartnerInfo>();
         partnerAlert1List = new ArrayList<SelectItem>();
-
-
         partnerValue = new ArrayList<String>();
-
-
         partnerIdList = new ArrayList<SelectItem>();
         partnerIdValue = new ArrayList<String>();
-
         partnerIdList2 = new ArrayList<SelectItem>();
         partnerIdValue2 = new ArrayList<String>();
-
         accountIdList = new ArrayList<SelectItem>();
         accountIdValue = new ArrayList<String>();
         accountIdList2 = new ArrayList<SelectItem>();
@@ -234,18 +153,13 @@ public class Alerts {
         cardNumberList2 = new ArrayList<SelectItem>();
         cardNumberValue2 = new ArrayList<String>();
         suggestedCardNumberList = new ArrayList<String>();
-
-
         Conversion conv = new Conversion();
-
 
         if (session.getAttribute(Constants.DISPLAY_PORTAL_LANG) != null) {
             langValue = conv.getCustomerCountryCode((String)session.getAttribute(Constants.DISPLAY_PORTAL_LANG));
         }
 
-
         defaultTimings();
-
 
         userEmail = "";
         userFirstName = "";
@@ -256,7 +170,6 @@ public class Alerts {
             if (user.getEmailID() != null && user.getFirstName() != null) {
                 userEmail = user.getEmailID();
                 userFirstName = user.getFirstName();
-
             }
             if (user.getPhoneNumber() != null) {
                 userMobileNo = user.getPhoneNumber();
@@ -275,10 +188,21 @@ public class Alerts {
         }
 
         populateDefaultDropdown(true);
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside clearSearchListener method of Alerts");
     }
-
+    
+    /**
+     * @return bindings Object
+     */
+    public Bindings getBindings() {
+        if (bindings == null) {
+            bindings = new Bindings();
+        }
+        return bindings;
+    }
+    
     public String getPartnerName(String partnerId) {
-
+        
         if (partnerInfoList != null && partnerInfoList.size() > 0) {
             for (int i = 0; i < partnerInfoList.size(); i++) {
                 if (partnerInfoList.get(i).getPartnerName() != null && partnerInfoList.get(i).getPartnerValue() != null &&
@@ -287,17 +211,12 @@ public class Alerts {
                 }
             }
         }
-
         return null;
-
     }
 
     public void populateDefaultDropdown(boolean changeViewAlertsDropdown) {
-
-
         if (partnerInfoList != null && partnerInfoList.size() > 0) {
             for (int i = 0; i < partnerInfoList.size(); i++) {
-                //lang = partnerInfoList.get(0).getCountry().toString().trim();
                 if (partnerInfoList.get(i).getPartnerName() != null && partnerInfoList.get(i).getPartnerValue() != null) {
                     SelectItem selectItem = new SelectItem();
                     selectItem.setLabel(partnerInfoList.get(i).getPartnerName().toString());
@@ -389,7 +308,6 @@ public class Alerts {
             System.out.println("Account id value length cons" + initailAccountIdVAlue.size());
             System.out.println("Cardgroup id value length cons" + initialCardGroupValue.size());
             System.out.println("Card id value length cons" + initialCardValue.size());
-
             Collections.sort(accountIdList, comparator);
             Collections.sort(cardGroupList, comparator);
             Collections.sort(cardNumberList, comparator);
@@ -404,7 +322,6 @@ public class Alerts {
     public void defaultTimings() {
         fueltimings = new ArrayList<FuelTimings>();
         fueltimings.clear();
-
         FuelTimings f = new FuelTimings();
         if (resourceBundle.containsKey("MONDAY")) {
             f.setWeekday((String)resourceBundle.getObject("MONDAY"));
@@ -479,33 +396,21 @@ public class Alerts {
     public void configureDefaultTimings(String subscriptionId, String country) {
         configureFuelTimings = new ArrayList<FuelTimings>();
         configureFuelTimings.clear();
-
-
         DCBindingContainer bindings;
-
         bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
-
-
         DCIteratorBinding iter1;
         if (bindings != null && bindings.findIteratorBinding("PrtCardRuleBusinessHoursRVO1Iterator") != null) {
             iter1 = bindings.findIteratorBinding("PrtCardRuleBusinessHoursRVO1Iterator");
-
-
             ViewObject businessHoursVO = iter1.getViewObject();
-
             businessHoursVO.setNamedWhereClauseParam("SubID", subscriptionId);
-
             businessHoursVO.setNamedWhereClauseParam("countryCode", country);
-
             businessHoursVO.executeQuery();
 
             FuelTimings f;
             if (businessHoursVO.getEstimatedRowCount() != 0) {
                 while (businessHoursVO.hasNext()) {
                     f = new FuelTimings();
-
                     PrtCardRuleBusinessHoursRVORowImpl currRow = (PrtCardRuleBusinessHoursRVORowImpl)businessHoursVO.next();
-
                     if (currRow != null) {
                         if (currRow.getDay() != null && currRow.getBusiStartFrom() != null && currRow.getBusiStartTo() != null) {
                             System.out.println("currRow.getDay() " + currRow.getDay());
@@ -528,37 +433,37 @@ public class Alerts {
 
 
     public void configureBusinessHoursAlert(ActionEvent actionEvent) {
+        getBindings().getSearchResultsPanel().setRendered(false);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResultsPanel());
         defaultTimings();
         System.out.println("fueltimings size " + fueltimings.size());
-        AdfFacesContext.getCurrentInstance().addPartialTarget(alert1Table);
-        alert1ValidData.setVisible(false);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(alert1ValidData);
-        alertSuccessProperty.setVisible(false);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(alertSuccessProperty);
-        alert1PartnerValues.resetValue();
-        AdfFacesContext.getCurrentInstance().addPartialTarget(alert1PartnerValues);
-        fromTimingsHh.setReadOnly(true);
-        fromTimingsMm.setReadOnly(true);
-        toTimingsHh.setReadOnly(true);
-        toTimingsMm.setReadOnly(true);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(fromTimingsHh);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(fromTimingsMm);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(toTimingsHh);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(toTimingsMm);
-        closeButtonAlert1.setRendered(false);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(closeButtonAlert1);
-        okButtonAlert1.setVisible(true);
-        cancelButtonAlert1.setVisible(true);
-        editButtonAlert1.setVisible(true);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(okButtonAlert1);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(cancelButtonAlert1);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(editButtonAlert1);
-        alert1PartnerValues.setDisabled(false);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(alert1PartnerValues);
-
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlert1Table());
+        getBindings().getAlert1ValidData().setVisible(false);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlert1ValidData());
+        getBindings().getAlertSuccessProperty().setVisible(false);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlertSuccessProperty());
+        getBindings().getAlert1PartnerValues().resetValue();
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlert1PartnerValues());
+        getBindings().getFromTimingsHh().setReadOnly(true);
+        getBindings().getFromTimingsMm().setReadOnly(true);
+        getBindings().getToTimingsHh().setReadOnly(true);
+        getBindings().getToTimingsMm().setReadOnly(true);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getFromTimingsHh());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getFromTimingsMm());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getToTimingsHh());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getToTimingsMm());
+        getBindings().getCloseButtonAlert1().setRendered(false);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCloseButtonAlert1());
+        getBindings().getOkButtonAlert1().setVisible(true);
+        getBindings().getCancelButtonAlert1().setVisible(true);
+        getBindings().getEditButtonAlert1().setVisible(true);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getOkButtonAlert1());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCancelButtonAlert1());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getEditButtonAlert1());
+        getBindings().getAlert1PartnerValues().setDisabled(false);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlert1PartnerValues());
         RichPopup.PopupHints ps = new RichPopup.PopupHints();
-        alert1Popup.show(ps);
-
+        getBindings().getAlert1Popup().show(ps);
     }
 
     public void setFueltimings(List<FuelTimings> fueltimings) {
@@ -569,32 +474,21 @@ public class Alerts {
         return fueltimings;
     }
 
-    public void setAlert1Popup(RichPopup alert1Popup) {
-        this.alert1Popup = alert1Popup;
-    }
-
-    public RichPopup getAlert1Popup() {
-        return alert1Popup;
-    }
-
     public void claoseAlert1Popup(ActionEvent actionEvent) {
-
-        getAlert1Popup().hide();
-        getAlert2Popup().hide();
+        getBindings().getAlert1Popup().hide();
+        getBindings().getAlert2Popup().hide();
     }
 
     public void editAlert1Timings(ActionEvent actionEvent) {
-
-        fromTimingsHh.setReadOnly(false);
-        fromTimingsMm.setReadOnly(false);
-        toTimingsHh.setReadOnly(false);
-        toTimingsMm.setReadOnly(false);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(fromTimingsHh);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(fromTimingsMm);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(toTimingsHh);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(toTimingsMm);
+        getBindings().getFromTimingsHh().setReadOnly(false);
+        getBindings().getFromTimingsMm().setReadOnly(false);
+        getBindings().getToTimingsHh().setReadOnly(false);
+        getBindings().getToTimingsMm().setReadOnly(false);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getFromTimingsHh());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getFromTimingsMm());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getToTimingsHh());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getToTimingsMm());
     }
-
 
     public void setSession(HttpSession session) {
         this.session = session;
@@ -628,7 +522,6 @@ public class Alerts {
         return partnerInfoList;
     }
 
-
     public void setPartnerValue(List<String> partnerValue) {
         this.partnerValue = partnerValue;
     }
@@ -646,7 +539,6 @@ public class Alerts {
         return cardGroupValue;
     }
 
-
     public void setCardGroupList(List<SelectItem> cardGroupList) {
         this.cardGroupList = cardGroupList;
     }
@@ -655,27 +547,15 @@ public class Alerts {
         return cardGroupList;
     }
 
-
-    public void setAlert2Popup(RichPopup alert2Popup) {
-        this.alert2Popup = alert2Popup;
-    }
-
-    public RichPopup getAlert2Popup() {
-        return alert2Popup;
-    }
-
     public void configureFuelCapacityAlert(ActionEvent actionEvent) {
-
-
+        getBindings().getSearchResultsPanel().setRendered(false);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResultsPanel());
         System.out.println("cardNumberValue +  cardNumberList" + cardNumberValue.size() + " " + cardNumberList.size());
         System.out.println("cardGroupValue +  cardGroupList" + cardGroupValue.size() + " " + cardGroupList.size());
         System.out.println("accountIdValue +  accountIdList" + accountIdValue.size() + " " + accountIdList.size());
         System.out.println("partnerIdValue +  partnerIdList" + partnerIdValue.size() + " " + partnerIdList.size());
-        //  if(cardNumberValue == null || cardNumberList == null || cardGroupValue == null || cardGroupList == null || accountIdValue == null || accountIdList == null || partnerIdValue == null || partnerIdList == null)  {
         System.out.println("populating default dropdown");
         partnerValue = new ArrayList<String>();
-
-
         partnerAlert1List = new ArrayList<SelectItem>();
         partnerIdList = new ArrayList<SelectItem>();
         partnerIdValue = new ArrayList<String>();
@@ -690,48 +570,45 @@ public class Alerts {
         cardNumberValue = new ArrayList<String>();
 
         populateDefaultDropdown(false);
-        //}
         RichPopup.PopupHints ps = new RichPopup.PopupHints();
-        alert2Popup.show(ps);
-        successAlert2.setRendered(false);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(successAlert2);
-        fuelCapacityAlert2.setDisabled(false);
-        fuelCapacityAlert2.resetValue();
-        okButtonAlert2.setRendered(true);
-        cancelButtonAlert2.setRendered(true);
-        ltrPerMonthRadio.setDisabled(false);
-        ltrPerMonthRadio.resetValue();
-        ltrPerWeekRadio.setDisabled(false);
-        ltrPerWeekRadio.resetValue();
-        ltrPerDayRadio.setDisabled(false);
-        ltrPerDayRadio.resetValue();
-        ltrPerDayRadio.setSelected(true);
-        cardDropdownAlert2.setDisabled(false);
-        cardDropdownAlert2.resetValue();
-        cardGroupDowndownAlert2.setDisabled(false);
-        cardGroupDowndownAlert2.resetValue();
-        accountDropdwonAlert2.setDisabled(false);
-        accountDropdwonAlert2.resetValue();
-        partnerDropdownAlert2.setDisabled(false);
-        partnerDropdownAlert2.resetValue();
-
-        closeButtonAlert2.setRendered(false);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(fuelCapacityAlert2);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(okButtonAlert2);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(cancelButtonAlert2);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(ltrPerMonthRadio);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(ltrPerWeekRadio);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(ltrPerDayRadio);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(cardDropdownAlert2);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(cardGroupDowndownAlert2);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(accountDropdwonAlert2);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(partnerDropdownAlert2);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(closeButtonAlert2);
-
-        successAlert2.setRendered(false);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(successAlert2);
-        alert2ValidData.setVisible(false);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(alert2ValidData);
+        getBindings().getAlert2Popup().show(ps);
+        getBindings().getSuccessAlert2().setRendered(false);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSuccessAlert2());
+        getBindings().getFuelCapacityAlert2().setDisabled(false);
+        getBindings().getFuelCapacityAlert2().resetValue();
+        getBindings().getOkButtonAlert2().setRendered(true);
+        getBindings().getCancelButtonAlert2().setRendered(true);
+        getBindings().getLtrPerMonthRadio().setDisabled(false);
+        getBindings().getLtrPerMonthRadio().resetValue();
+        getBindings().getLtrPerWeekRadio().setDisabled(false);
+        getBindings().getLtrPerWeekRadio().resetValue();
+        getBindings().getLtrPerDayRadio().setDisabled(false);
+        getBindings().getLtrPerDayRadio().resetValue();
+        getBindings().getLtrPerDayRadio().setSelected(true);
+        getBindings().getCardDropdownAlert2().setDisabled(false);
+        getBindings().getCardDropdownAlert2().resetValue();
+        getBindings().getCardGroupDowndownAlert2().setDisabled(false);
+        getBindings().getCardGroupDowndownAlert2().resetValue();
+        getBindings().getAccountDropdwonAlert2().setDisabled(false);
+        getBindings().getAccountDropdwonAlert2().resetValue();
+        getBindings().getPartnerDropdownAlert2().setDisabled(false);
+        getBindings().getPartnerDropdownAlert2().resetValue();
+        getBindings().getCloseButtonAlert2().setRendered(false);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getFuelCapacityAlert2());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getOkButtonAlert2());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCancelButtonAlert2());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getLtrPerMonthRadio());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getLtrPerWeekRadio());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getLtrPerDayRadio());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardDropdownAlert2());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupDowndownAlert2());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccountDropdwonAlert2());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getPartnerDropdownAlert2());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCloseButtonAlert2());
+        getBindings().getSuccessAlert2().setRendered(false);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSuccessAlert2());
+        getBindings().getAlert2ValidData().setVisible(false);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlert2ValidData());
     }
 
     public void setLangValue(String langValue) {
@@ -743,19 +620,11 @@ public class Alerts {
     }
 
     public void setBusinessHoursAlert(ActionEvent actionEvent) {
-        // Add event code here...
         System.out.println("inside alerts bean");
-
         BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
-
         if (validateinput()) {
-
-
             if (bindings != null) {
-
-
                 OperationBinding operationBinding = bindings.getOperationBinding("subscribeAlerts");
-
                 if (operationBinding != null) {
                     BigInteger bigint = new BigInteger("1");
                     req.setRuleID(bigint);
@@ -766,46 +635,31 @@ public class Alerts {
                     BigInteger bigint2 = new BigInteger(userMobileNo);
                     customerobj.setMobileNumber(bigint2);
                     req.setCustomer(customerobj);
-
                     AlertsSubscribeFrequencyType freq = new AlertsSubscribeFrequencyType();
                     freq.setScheduleFrequency("DAILY");
-
                     req.setSubscribeFrequency(freq);
                     req.setNotificationChannel("EMAIL");
                     req.setNotificationFormat("EXCEL");
-
                     operationBinding.getParamsMap().put("subscribeRequest", req);
                     response = (AlertsSubscribeResponse)operationBinding.execute();
-
-
                     System.out.println("response " + response);
                     System.out.println("response = " + response.getSubscriptionID());
                     if (response.getSubscriptionID() != null) {
-
-
                         DCBindingContainer bindings2 = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
                         DCIteratorBinding CardRuleSubscriptionIter = bindings2.findIteratorBinding("PrtCardRuleSubscriptionVO1Iterator");
                         DCIteratorBinding CardRuleBusinessHoursIter = bindings2.findIteratorBinding("PrtCardRuleBusinessHoursVO1Iterator");
-
-
                         if (CardRuleSubscriptionIter != null && CardRuleBusinessHoursIter != null) {
-
                             ViewObject cardRuleSubscription = CardRuleSubscriptionIter.getViewObject();
                             ViewObject cardRuleBusinessHours = CardRuleBusinessHoursIter.getViewObject();
-
-
                             Row cardRuleSubscriptionRow = cardRuleSubscription.createRow();
-
-
                             if (session.getAttribute("partnerLang") != null) {
                                 cardRuleSubscriptionRow.setAttribute("CountryCode", session.getAttribute("partnerLang"));
                             }
-
                             cardRuleSubscriptionRow.setAttribute("UserId", userEmail);
                             cardRuleSubscriptionRow.setAttribute("SubscrId", response.getSubscriptionID().toString().trim());
                             cardRuleSubscriptionRow.setAttribute("RuleId", "1");
                             cardRuleSubscriptionRow.setAttribute("SubscrStatus", "ACTIVE");
-                            cardRuleSubscriptionRow.setAttribute("PartnerId", alert1PartnerValues.getValue().toString());
+                            cardRuleSubscriptionRow.setAttribute("PartnerId", getBindings().getAlert1PartnerValues().getValue().toString());
                             cardRuleSubscriptionRow.setAttribute("AccountId", "ALL");
                             cardRuleSubscriptionRow.setAttribute("CardgroupMain", "ALL");
                             cardRuleSubscriptionRow.setAttribute("CardgroupSub", "ALL");
@@ -813,25 +667,16 @@ public class Alerts {
                             cardRuleSubscriptionRow.setAttribute("ModifiedBy", userEmail);
                             cardRuleSubscriptionRow.setAttribute("CardKsid", "ALL");
                             cardRuleSubscription.insertRow(cardRuleSubscriptionRow);
-
-                            RichTable rt = getAlert1Table();
-
+                            RichTable rt = getBindings().getAlert1Table();
                             Object o;
                             FuelTimings checkFuelTimings;
-
-
                             for (int i = 0; i < 7; i++) {
-
                                 o = rt.getRowData(i);
                                 checkFuelTimings = (FuelTimings)o;
-
                                 Row cardRuleBusinessHoursRow = cardRuleBusinessHours.createRow();
-
                                 if (session.getAttribute("partnerLang") != null) {
                                     cardRuleBusinessHoursRow.setAttribute("CountryCode", session.getAttribute("partnerLang"));
-
                                 }
-
                                 cardRuleBusinessHoursRow.setAttribute("SubscrId", response.getSubscriptionID().toString().trim());
                                 cardRuleBusinessHoursRow.setAttribute("RuleId", "1");
                                 cardRuleBusinessHoursRow.setAttribute("Day", fueltimings.get(i).getWeekday());
@@ -841,54 +686,44 @@ public class Alerts {
                                                                       checkFuelTimings.getToHh().toString().trim() + ":" + checkFuelTimings.getToMm().toString().trim());
                                 cardRuleBusinessHoursRow.setAttribute("ModifiedBy", userEmail);
                                 cardRuleBusinessHours.insertRow(cardRuleBusinessHoursRow);
-
                             }
-
-
                             operationBinding = bindings.getOperationBinding("Commit");
                             operationBinding.execute();
-
-
                         }
 
-                        alertSuccessProperty.setVisible(true);
-                        AdfFacesContext.getCurrentInstance().addPartialTarget(alertSuccessProperty);
-                        alert1ValidData.setVisible(false);
-                        AdfFacesContext.getCurrentInstance().addPartialTarget(alert1ValidData);
-                        closeButtonAlert1.setRendered(true);
-                        AdfFacesContext.getCurrentInstance().addPartialTarget(closeButtonAlert1);
-                        okButtonAlert1.setVisible(false);
-                        cancelButtonAlert1.setVisible(false);
-                        editButtonAlert1.setVisible(false);
-                        AdfFacesContext.getCurrentInstance().addPartialTarget(okButtonAlert1);
-                        AdfFacesContext.getCurrentInstance().addPartialTarget(cancelButtonAlert1);
-                        AdfFacesContext.getCurrentInstance().addPartialTarget(editButtonAlert1);
-                        alert1PartnerValues.setDisabled(true);
-                        AdfFacesContext.getCurrentInstance().addPartialTarget(alert1PartnerValues);
-                        fromTimingsHh.setReadOnly(true);
-                        AdfFacesContext.getCurrentInstance().addPartialTarget(fromTimingsHh);
-                        fromTimingsMm.setReadOnly(true);
-                        AdfFacesContext.getCurrentInstance().addPartialTarget(fromTimingsMm);
-                        toTimingsHh.setReadOnly(true);
-                        AdfFacesContext.getCurrentInstance().addPartialTarget(toTimingsHh);
-                        toTimingsMm.setReadOnly(true);
-                        AdfFacesContext.getCurrentInstance().addPartialTarget(toTimingsMm);
+                        getBindings().getAlertSuccessProperty().setVisible(true);
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlertSuccessProperty());
+                        getBindings().getAlert1ValidData().setVisible(false);
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlert1ValidData());
+                        getBindings().getCloseButtonAlert1().setRendered(true);
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCloseButtonAlert1());
+                        getBindings().getOkButtonAlert1().setVisible(false);
+                        getBindings().getCancelButtonAlert1().setVisible(false);
+                        getBindings().getEditButtonAlert1().setVisible(false);
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getOkButtonAlert1());
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCancelButtonAlert1());
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getEditButtonAlert1());
+                        getBindings().getAlert1PartnerValues().setDisabled(true);
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlert1PartnerValues());
+                        getBindings().getFromTimingsHh().setReadOnly(true);
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getFromTimingsHh());
+                        getBindings().getFromTimingsMm().setReadOnly(true);
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getFromTimingsMm());
+                        getBindings().getToTimingsHh().setReadOnly(true);
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getToTimingsHh());
+                        getBindings().getToTimingsMm().setReadOnly(true);
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getToTimingsMm());
 
                     }
-
-
                 }
-
             }
 
         } else {
-            alertSuccessProperty.setVisible(false);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(alertSuccessProperty);
-            alert1ValidData.setVisible(true);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(alert1ValidData);
-            //showErrorMessage("Please Enter Valid Data");
+            getBindings().getAlertSuccessProperty().setVisible(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlertSuccessProperty());
+            getBindings().getAlert1ValidData().setVisible(true);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlert1ValidData());
         }
-
     }
 
     public String showErrorMessage(String errorVar) {
@@ -905,41 +740,29 @@ public class Alerts {
 
     public boolean validateinput() {
         boolean validinput = true;
-
-        if (alert1PartnerValues.getValue() != null && alert1PartnerValues.getValue().toString() != null) {
-
-
-            RichTable rt = getAlert1Table();
+        if (getBindings().getAlert1PartnerValues().getValue() != null && getBindings().getAlert1PartnerValues().getValue().toString() != null) {
+            RichTable rt = getBindings().getAlert1Table();
             Object o;
             FuelTimings checkFuelTimings;
-
-
             int fromHh;
             int fromMm;
             int toHh;
             int toMm;
-
             for (int i = 0; i < 7; i++) {
-
                 o = rt.getRowData(i);
                 checkFuelTimings = (FuelTimings)o;
-
                 if (checkFuelTimings.getFromHh() != null && checkFuelTimings.getFromHh().toString().trim() != null && checkFuelTimings.getFromMm() != null &&
                     checkFuelTimings.getFromMm().toString().trim() != null && checkFuelTimings.getToHh() != null &&
                     checkFuelTimings.getToHh().toString().trim() != null && checkFuelTimings.getToMm() != null &&
                     checkFuelTimings.getToMm().toString().trim() != null) {
                     String regex = "\\d+";
                     if (checkFuelTimings.getFromHh().toString().trim().matches(regex) && checkFuelTimings.getFromMm().toString().trim().matches(regex) &&
-                        checkFuelTimings.getToHh().toString().trim().matches(regex) && checkFuelTimings.getToMm().toString().trim().matches(regex))
-
-                    {
+                        checkFuelTimings.getToHh().toString().trim().matches(regex) && checkFuelTimings.getToMm().toString().trim().matches(regex)){
                         fromHh = Integer.parseInt(checkFuelTimings.getFromHh().toString().trim());
                         fromMm = Integer.parseInt(checkFuelTimings.getFromMm().toString().trim());
                         toHh = Integer.parseInt(checkFuelTimings.getToHh().toString().trim());
                         toMm = Integer.parseInt(checkFuelTimings.getToMm().toString().trim());
-
                         if (fromHh < 24 && toHh < 24 && fromMm < 60 && toMm < 60) {
-
                         } else {
                             validinput = false;
                             break;
@@ -948,20 +771,14 @@ public class Alerts {
                         validinput = false;
                         break;
                     }
-
-
                 } else {
                     validinput = false;
                     break;
                 }
-
-
             }
-
         } else {
             validinput = false;
         }
-
         return validinput;
     }
 
@@ -976,89 +793,13 @@ public class Alerts {
         return passingValues;
     }
 
-    public void setSuccessfullalert(RichPanelGroupLayout successfullalert) {
-        this.successfullalert = successfullalert;
-    }
-
-    public RichPanelGroupLayout getSuccessfullalert() {
-        return successfullalert;
-    }
-
-    public void setAlertSuccessProperty(RichPanelGroupLayout alertSuccessProperty) {
-        this.alertSuccessProperty = alertSuccessProperty;
-    }
-
-    public RichPanelGroupLayout getAlertSuccessProperty() {
-        return alertSuccessProperty;
-    }
-
-    public void setAlert1PopupDialog(RichDialog alert1PopupDialog) {
-        this.alert1PopupDialog = alert1PopupDialog;
-    }
-
-    public RichDialog getAlert1PopupDialog() {
-        return alert1PopupDialog;
-    }
-
-
-    public void setAlert1PartnerValues(RichSelectOneChoice alert1PartnerValues) {
-        this.alert1PartnerValues = alert1PartnerValues;
-    }
-
-    public RichSelectOneChoice getAlert1PartnerValues() {
-        return alert1PartnerValues;
-    }
-
-    public void setFromTimingsHh(RichInputText fromTimingsHh) {
-        this.fromTimingsHh = fromTimingsHh;
-    }
-
-    public RichInputText getFromTimingsHh() {
-        return fromTimingsHh;
-    }
-
-    public void setFromTimingsMm(RichInputText fromTimingsMm) {
-        this.fromTimingsMm = fromTimingsMm;
-    }
-
-    public RichInputText getFromTimingsMm() {
-        return fromTimingsMm;
-    }
-
-    public void setToTimingsHh(RichInputText toTimingsHh) {
-        this.toTimingsHh = toTimingsHh;
-    }
-
-    public RichInputText getToTimingsHh() {
-        return toTimingsHh;
-    }
-
-    public void setToTimingsMm(RichInputText toTimingsMm) {
-        this.toTimingsMm = toTimingsMm;
-    }
-
-    public RichInputText getToTimingsMm() {
-        return toTimingsMm;
-    }
-
-    public void setAlert1Table(RichTable alert1Table) {
-        this.alert1Table = alert1Table;
-    }
-
-    public RichTable getAlert1Table() {
-        return alert1Table;
-    }
-
     public void setPartnerAlert1List(List<SelectItem> partnerAlert1List) {
         this.partnerAlert1List = partnerAlert1List;
     }
 
     public List<SelectItem> getPartnerAlert1List() {
-
-
         return partnerAlert1List;
     }
-
 
     Comparator<SelectItem> comparator = new Comparator<SelectItem>() {
         @Override
@@ -1083,18 +824,14 @@ public class Alerts {
             cardGroupValue = new ArrayList<String>();
             cardNumberList = new ArrayList<SelectItem>();
             cardNumberValue = new ArrayList<String>();
-
             String[] partnerString = StringConversion(populateStringValues(valueChangeEvent.getNewValue().toString()));
-
             if (partnerString.length > 0) {
                 for (int i = 0; i < partnerInfoList.size(); i++) {
                     for (int p = 0; p < partnerString.length; p++) {
                         if (partnerInfoList.get(i).getPartnerValue().toString() != null &&
                             partnerInfoList.get(i).getPartnerValue().toString().equals(partnerString[p].trim())) {
                             if (partnerInfoList.get(i).getAccountList() != null && partnerInfoList.get(i).getAccountList().size() > 0) {
-
                                 for (int j = 0; j < partnerInfoList.get(i).getAccountList().size(); j++) {
-
                                     if (partnerInfoList.get(i).getAccountList().get(j).getAccountNumber() != null) {
                                         SelectItem selectItem = new SelectItem();
                                         selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
@@ -1104,7 +841,6 @@ public class Alerts {
                                         accountIdValue.add(partnerInfoList.get(i).getPartnerValue().toString() +
                                                            partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
                                     }
-
 
                                     for (int k = 0; k < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().size(); k++) {
                                         if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID() != null) {
@@ -1141,7 +877,6 @@ public class Alerts {
                             }
                         }
                     }
-
                 }
                 initailAccountIdVAlue = accountIdValue;
                 initialCardGroupValue = cardGroupValue;
@@ -1154,9 +889,9 @@ public class Alerts {
                 Collections.sort(cardNumberList, comparator);
             }
         } else {
-            accountDropdwonAlert2.setValue(null);
-            cardDropdownAlert2.setValue(null);
-            cardDropdownAlert2.setValue(null);
+            getBindings().getAccountDropdwonAlert2().setValue(null);
+            getBindings().getCardDropdownAlert2().setValue(null);
+            getBindings().getCardDropdownAlert2().setValue(null);
             this.accountIdValue = null;
             this.accountIdList = null;
             this.cardGroupValue = null;
@@ -1164,11 +899,9 @@ public class Alerts {
             this.cardNumberList = null;
             this.cardNumberValue = null;
         }
-
-        AdfFacesContext.getCurrentInstance().addPartialTarget(accountDropdwonAlert2);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(cardGroupDowndownAlert2);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(cardDropdownAlert2);
-
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccountDropdwonAlert2());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupDowndownAlert2());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardDropdownAlert2());
     }
 
     public void partner2ValueChangeListener(ValueChangeEvent valueChangeEvent) {
@@ -1180,18 +913,14 @@ public class Alerts {
             cardGroupValue2 = new ArrayList<String>();
             cardNumberList2 = new ArrayList<SelectItem>();
             cardNumberValue2 = new ArrayList<String>();
-
             String[] partnerString = StringConversion(populateStringValues(valueChangeEvent.getNewValue().toString()));
-
             if (partnerString.length > 0) {
                 for (int i = 0; i < partnerInfoList.size(); i++) {
                     for (int p = 0; p < partnerString.length; p++) {
                         if (partnerInfoList.get(i).getPartnerValue().toString() != null &&
                             partnerInfoList.get(i).getPartnerValue().toString().equals(partnerString[p].trim())) {
                             if (partnerInfoList.get(i).getAccountList() != null && partnerInfoList.get(i).getAccountList().size() > 0) {
-
                                 for (int j = 0; j < partnerInfoList.get(i).getAccountList().size(); j++) {
-
                                     if (partnerInfoList.get(i).getAccountList().get(j).getAccountNumber() != null) {
                                         SelectItem selectItem = new SelectItem();
                                         selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
@@ -1201,8 +930,6 @@ public class Alerts {
                                         accountIdValue2.add(partnerInfoList.get(i).getPartnerValue().toString() +
                                                             partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
                                     }
-
-
                                     for (int k = 0; k < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().size(); k++) {
                                         if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID() != null) {
                                             SelectItem selectItem = new SelectItem();
@@ -1215,7 +942,6 @@ public class Alerts {
                                                                 partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString() +
                                                                 partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
                                         }
-
                                         for (int cc = 0; cc < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().size(); cc++) {
                                             if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID() != null &&
                                                 partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID() !=
@@ -1243,40 +969,21 @@ public class Alerts {
                 initailAccountId2VAlue = accountIdValue2;
                 initialCardGroup2Value = cardGroupValue2;
                 initialCard2Value = cardNumberValue2;
-                //                System.out.println("Account id value length partnerValueChangeListener" + initailAccountIdVAlue.size());
-                //                System.out.println("Cardgroup id value length partnerValueChangeListener" + initialCardGroupValue.size());
-                //                System.out.println("Card id value length partnerValueChangeListener" + initialCardValue.size());
                 Collections.sort(accountIdList2, comparator);
                 Collections.sort(cardGroupList2, comparator);
                 Collections.sort(cardNumberList2, comparator);
             }
         }
-        //        } else {
-        //            accountDropdwonAlert2.setValue(null);
-        //            cardDropdownAlert2.setValue(null);
-        //            cardDropdownAlert2.setValue(null);
-        //            this.accountIdValue = null;
-        //            //System.out.println("Account id value length partnerelse" + accountIdValue.size());
-        //            this.accountIdList = null;
-        //            this.cardGroupValue = null;
-        //            this.cardGroupList = null;
-        //            this.cardNumberList = null;
-        //            this.cardNumberValue = null;
-        //        }
-
-        AdfFacesContext.getCurrentInstance().addPartialTarget(viewAlertsAccountDropdown);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(viewAlertCardGroupDropdown);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(viewAlertDropdown);
-        searchResultsPanel.setRendered(false);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(searchResultsPanel);
-
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertsAccountDropdown());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertCardGroupDropdown());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertDropdown());
+        getBindings().getSearchResultsPanel().setRendered(false);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResultsPanel());
     }
 
     public void account2ValueChangeListener(ValueChangeEvent valueChangeEvent) {
-
         if (valueChangeEvent.getNewValue() != null) {
             String[] accountString = StringConversion(populateStringValues(valueChangeEvent.getNewValue().toString()).replaceAll(" ", ""));
-
             System.out.println("accountlist");
             for (int y = 0; y < accountString.length; y++)
                 System.out.println(accountString[y]);
@@ -1284,7 +991,6 @@ public class Alerts {
             cardGroupValue2 = new ArrayList<String>();
             cardNumberList2 = new ArrayList<SelectItem>();
             cardNumberValue2 = new ArrayList<String>();
-
             for (int z = 0; z < partnerInfoList.size(); z++) {
                 System.out.println("z " + z);
                 if (partnerInfoList.get(z).getAccountList() != null && partnerInfoList.get(z).getAccountList().size() > 0) {
@@ -1346,7 +1052,6 @@ public class Alerts {
                             }
                         }
                     }
-
                 }
             }
 
@@ -1356,28 +1061,17 @@ public class Alerts {
             Collections.sort(cardGroupList2, comparator);
             Collections.sort(cardNumberList2, comparator);
         }
-
-        //        } else {
-        //            cardGroupDowndownAlert2.setValue(null);
-        //            cardDropdownAlert2.setValue(null);
-        //            this.cardGroupValue = null;
-        //            this.cardNumberValue = null;
-        //        }
-
-
-        AdfFacesContext.getCurrentInstance().addPartialTarget(viewAlertsAccountDropdown);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(viewAlertCardGroupDropdown);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(viewAlertDropdown);
-        searchResultsPanel.setRendered(false);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(searchResultsPanel);
-
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertsAccountDropdown());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertCardGroupDropdown());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertDropdown());
+        getBindings().getSearchResultsPanel().setRendered(false);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResultsPanel());
     }
 
     public void accountValueChangeListener(ValueChangeEvent valueChangeEvent) {
 
         if (valueChangeEvent.getNewValue() != null) {
             String[] accountString = StringConversion(populateStringValues(valueChangeEvent.getNewValue().toString()).replaceAll(" ", ""));
-
             System.out.println("accountlist");
             for (int y = 0; y < accountString.length; y++)
                 System.out.println(accountString[y]);
@@ -1385,9 +1079,7 @@ public class Alerts {
             cardGroupValue = new ArrayList<String>();
             cardNumberList = new ArrayList<SelectItem>();
             cardNumberValue = new ArrayList<String>();
-
             for (int z = 0; z < partnerInfoList.size(); z++) {
-
                 if (partnerInfoList.get(z).getAccountList() != null && partnerInfoList.get(z).getAccountList().size() > 0) {
                     for (int i = 0; i < partnerInfoList.get(z).getAccountList().size(); i++) {
 
@@ -1410,7 +1102,6 @@ public class Alerts {
                                                                 partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString() +
                                                                 partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
                                             cardGroupList.add(selectItem);
-
                                             cardGroupValue.add(partnerInfoList.get(z).getPartnerValue().toString().trim() +
                                                                partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString() +
                                                                partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
@@ -1419,7 +1110,6 @@ public class Alerts {
                                                                partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString() +
                                                                "added in cardGroupValue");
                                         }
-
                                         for (int cc = 0; cc < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().size(); cc++) {
                                             if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getCardID() != null &&
                                                 partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getExternalCardID() !=
@@ -1447,42 +1137,32 @@ public class Alerts {
                             }
                         }
                     }
-
                 }
             }
-
             initialCardValue = cardNumberValue;
             initialCardGroupValue = cardGroupValue;
             Collections.sort(accountIdList, comparator);
             Collections.sort(cardGroupList, comparator);
             Collections.sort(cardNumberList, comparator);
-
         } else {
-            cardGroupDowndownAlert2.setValue(null);
-            cardDropdownAlert2.setValue(null);
+            getBindings().getCardGroupDowndownAlert2().setValue(null);
+            getBindings().getCardDropdownAlert2().setValue(null);
             this.cardGroupValue = null;
             this.cardNumberValue = null;
         }
-
-
-        AdfFacesContext.getCurrentInstance().addPartialTarget(accountDropdwonAlert2);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(cardGroupDowndownAlert2);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(cardDropdownAlert2);
-
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccountDropdwonAlert2());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupDowndownAlert2());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardDropdownAlert2());
     }
 
     public void cardgroup2ValueChangeListener(ValueChangeEvent valueChangeEvent) {
-
         if (valueChangeEvent.getNewValue() != null) {
             String[] cardgroupString = StringConversion(populateStringValues(valueChangeEvent.getNewValue().toString()).replaceAll(" ", ""));
-
             System.out.println("accountlist");
             for (int y = 0; y < cardgroupString.length; y++)
                 System.out.println(cardgroupString[y]);
-
             cardNumberList2 = new ArrayList<SelectItem>();
             cardNumberValue2 = new ArrayList<String>();
-
             for (int z = 0; z < partnerInfoList.size(); z++) {
                 if (partnerInfoList.get(z).getAccountList() != null && partnerInfoList.get(z).getAccountList().size() > 0) {
                     for (int i = 0; i < partnerInfoList.get(z).getAccountList().size(); i++) {
@@ -1528,34 +1208,25 @@ public class Alerts {
                 }
             }
         }
-        //        }
         else {
-            cardDropdownAlert2.setValue(null);
+            getBindings().getCardDropdownAlert2().setValue(null);
             this.cardNumberValue = null;
         }
-
-
-        AdfFacesContext.getCurrentInstance().addPartialTarget(viewAlertsAccountDropdown);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(viewAlertCardGroupDropdown);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(viewAlertDropdown);
-        searchResultsPanel.setRendered(false);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(searchResultsPanel);
-
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertsAccountDropdown());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertCardGroupDropdown());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertDropdown());
+        getBindings().getSearchResultsPanel().setRendered(false);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResultsPanel());
     }
 
 
     public void cardgroupValueChangeListener(ValueChangeEvent valueChangeEvent) {
-
         if (valueChangeEvent.getNewValue() != null) {
             String[] cardgroupString = StringConversion(populateStringValues(valueChangeEvent.getNewValue().toString()).replaceAll(" ", ""));
-
-            //System.out.println("accountlist");
             for (int y = 0; y < cardgroupString.length; y++)
                 System.out.println(cardgroupString[y]);
-
             cardNumberList = new ArrayList<SelectItem>();
             cardNumberValue = new ArrayList<String>();
-
             for (int z = 0; z < partnerInfoList.size(); z++) {
                 if (partnerInfoList.get(z).getAccountList() != null && partnerInfoList.get(z).getAccountList().size() > 0) {
                     for (int i = 0; i < partnerInfoList.get(z).getAccountList().size(); i++) {
@@ -1601,50 +1272,13 @@ public class Alerts {
                 }
             }
         } else {
-            cardDropdownAlert2.setValue(null);
+            getBindings().getCardDropdownAlert2().setValue(null);
             this.cardNumberValue = null;
         }
-
-
-        AdfFacesContext.getCurrentInstance().addPartialTarget(accountDropdwonAlert2);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(cardGroupDowndownAlert2);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(cardDropdownAlert2);
-
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccountDropdwonAlert2());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupDowndownAlert2());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardDropdownAlert2());
     }
-
-
-    public void setAccountDropdwonAlert2(RichSelectManyChoice accountDropdwonAlert2) {
-        this.accountDropdwonAlert2 = accountDropdwonAlert2;
-    }
-
-    public RichSelectManyChoice getAccountDropdwonAlert2() {
-        return accountDropdwonAlert2;
-    }
-
-    public void setCardGroupDowndownAlert2(RichSelectManyChoice cardGroupDowndownAlert2) {
-        this.cardGroupDowndownAlert2 = cardGroupDowndownAlert2;
-    }
-
-    public RichSelectManyChoice getCardGroupDowndownAlert2() {
-        return cardGroupDowndownAlert2;
-    }
-
-    public void setCardDropdownAlert2(RichSelectManyChoice cardDropdownAlert2) {
-        this.cardDropdownAlert2 = cardDropdownAlert2;
-    }
-
-    public RichSelectManyChoice getCardDropdownAlert2() {
-        return cardDropdownAlert2;
-    }
-
-    public void setPartnerDropdownAlert2(RichSelectManyChoice partnerDropdownAlert2) {
-        this.partnerDropdownAlert2 = partnerDropdownAlert2;
-    }
-
-    public RichSelectManyChoice getPartnerDropdownAlert2() {
-        return partnerDropdownAlert2;
-    }
-
 
     public void setPartnerIdList(List<SelectItem> partnerIdList) {
         this.partnerIdList = partnerIdList;
@@ -1695,33 +1329,6 @@ public class Alerts {
     }
 
     public void setFuelCapacityAlert(ActionEvent actionEvent) {
-
-
-        //        fuelCapacityAlert2.setDisabled(true);
-        //        okButtonAlert2.setDisabled(true);
-        //        cancelButtonAlert2.setDisabled(true);
-        //        okButtonAlert2.setRendered(false);
-        //        cancelButtonAlert2.setRendered(false);
-        //        ltrPerDayRadio.setDisabled(true);
-        //        cardDropdownAlert2.setDisabled(true);
-        //        cardGroupDowndownAlert2.setDisabled(true);
-        //        accountDropdwonAlert2.setDisabled(true);
-        //        partnerDropdownAlert2.setDisabled(true);
-        //        successAlert2 .setRendered(false);
-        //        closeButtonAlert2.setRendered(false);
-        //        AdfFacesContext.getCurrentInstance().addPartialTarget(fuelCapacityAlert2);
-        //        AdfFacesContext.getCurrentInstance().addPartialTarget(okButtonAlert2);
-        //        AdfFacesContext.getCurrentInstance().addPartialTarget(cancelButtonAlert2);
-        //        AdfFacesContext.getCurrentInstance().addPartialTarget(ltrPerMonthRadio);
-        //        AdfFacesContext.getCurrentInstance().addPartialTarget(ltrPerWeekRadio);
-        //        AdfFacesContext.getCurrentInstance().addPartialTarget(ltrPerDayRadio);
-        //        AdfFacesContext.getCurrentInstance().addPartialTarget(cardDropdownAlert2);
-        //        AdfFacesContext.getCurrentInstance().addPartialTarget(cardGroupDowndownAlert2);
-        //        AdfFacesContext.getCurrentInstance().addPartialTarget(accountDropdwonAlert2);
-        //        AdfFacesContext.getCurrentInstance().addPartialTarget(partnerDropdownAlert2);
-        //        AdfFacesContext.getCurrentInstance().addPartialTarget(closeButtonAlert2);
-        //
-        //        AdfFacesContext.getCurrentInstance().addPartialTarget(successAlert2);
         if (validateinput2()) {
             System.out.println("inside alerts bean");
             String userEmail = "";
@@ -1750,47 +1357,44 @@ public class Alerts {
             cardListString = cardListString.substring(0, cardListString.length() - 1);
 
             System.out.println("converted cardListString arraylist " + cardListString);
-            System.out.println("converted cardListString arraylist " + populateStringValues(cardDropdownAlert2.getValue().toString().trim()));
+            System.out.println("converted cardListString arraylist " + populateStringValues(getBindings().getCardDropdownAlert2().getValue().toString().trim()));
             System.out.println("length1 " + cardListString.length());
-            System.out.println("lenght2 " + (populateStringValues(cardDropdownAlert2.getValue().toString().trim()).replaceAll(" ", "")).length());
+            System.out.println("lenght2 " + (populateStringValues(getBindings().getCardDropdownAlert2().getValue().toString().trim()).replaceAll(" ", "")).length());
 
 
-            if (cardListString.length() == (populateStringValues(cardDropdownAlert2.getValue().toString().trim()).replaceAll(" ", "")).length()) {
+            if (cardListString.length() == (populateStringValues(getBindings().getCardDropdownAlert2().getValue().toString().trim()).replaceAll(" ", "")).length()) {
                 System.out.println("card dropdown is unchanged");
                 readCardGroup();
             } else {
                 readCard();
             }
 
-
         } else {
 
-            successAlert2.setRendered(false);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(successAlert2);
-            alert2ValidData.setVisible(true);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(alert2ValidData);
+            getBindings().getSuccessAlert2().setRendered(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSuccessAlert2());
+            getBindings().getAlert2ValidData().setVisible(true);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlert2ValidData());
         }
-
     }
 
     public boolean validateinput2() {
         boolean validinput2 = true;
-        if (partnerDropdownAlert2.getValue() != null && partnerDropdownAlert2.getValue().toString().trim().replaceAll(" ", "") != null &&
-            partnerDropdownAlert2.getValue().toString().trim().replaceAll(" ", "") != "" && accountDropdwonAlert2.getValue() != null &&
-            accountDropdwonAlert2.getValue().toString().trim().replaceAll(" ", "") != null &&
-            accountDropdwonAlert2.getValue().toString().trim().replaceAll(" ", "") != "" && cardGroupDowndownAlert2.getValue() != null &&
-            cardGroupDowndownAlert2.getValue().toString().trim().replaceAll(" ", "") != null &&
-            cardGroupDowndownAlert2.getValue().toString().trim().replaceAll(" ", "") != "" && cardDropdownAlert2.getValue() != null &&
-            cardDropdownAlert2.getValue().toString().trim().replaceAll(" ", "") != null &&
-            cardDropdownAlert2.getValue().toString().trim().replaceAll(" ", "") != "" && fuelCapacityAlert2.getValue() != null &&
-            fuelCapacityAlert2.getValue().toString().trim() != null) {
+        if (getBindings().getPartnerDropdownAlert2().getValue() != null && getBindings().getPartnerDropdownAlert2().getValue().toString().trim().replaceAll(" ", "") != null &&
+            getBindings().getPartnerDropdownAlert2().getValue().toString().trim().replaceAll(" ", "") != "" && getBindings().getAccountDropdwonAlert2().getValue() != null &&
+            getBindings().getAccountDropdwonAlert2().getValue().toString().trim().replaceAll(" ", "") != null &&
+            getBindings().getAccountDropdwonAlert2().getValue().toString().trim().replaceAll(" ", "") != "" && getBindings().getCardGroupDowndownAlert2().getValue() != null &&
+            getBindings().getCardGroupDowndownAlert2().getValue().toString().trim().replaceAll(" ", "") != null &&
+            getBindings().getCardGroupDowndownAlert2().getValue().toString().trim().replaceAll(" ", "") != "" && getBindings().getCardDropdownAlert2().getValue() != null &&
+            getBindings().getCardDropdownAlert2().getValue().toString().trim().replaceAll(" ", "") != null &&
+            getBindings().getCardDropdownAlert2().getValue().toString().trim().replaceAll(" ", "") != "" && getBindings().getFuelCapacityAlert2().getValue() != null &&
+            getBindings().getFuelCapacityAlert2().getValue().toString().trim() != null) {
             String regex = "\\d+";
-            if (fuelCapacityAlert2.getValue().toString().trim().replaceAll(" ", "").matches(regex)) {
-                System.out.println("fuelCapacityAlert2 " + fuelCapacityAlert2.getValue().toString().trim().replaceAll(" ", ""));
+            if (getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", "").matches(regex)) {
+                System.out.println("fuelCapacityAlert2 " + getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
             } else {
-                System.out.println("fuelCapacityAlert22 " + fuelCapacityAlert2.getValue().toString().trim().replaceAll(" ", ""));
+                System.out.println("fuelCapacityAlert22 " + getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
                 validinput2 = false;
-
             }
         } else {
             validinput2 = false;
@@ -1810,12 +1414,12 @@ public class Alerts {
         cardGroupListString = cardGroupListString.substring(0, cardGroupListString.length() - 1);
 
         System.out.println("converted cardGroupListString arraylist " + cardGroupListString);
-        System.out.println("converted cardGroupListString arraylist " + populateStringValues(cardGroupDowndownAlert2.getValue().toString().trim()));
+        System.out.println("converted cardGroupListString arraylist " + populateStringValues(getBindings().getCardGroupDowndownAlert2().getValue().toString().trim()));
         System.out.println("length1 " + cardGroupListString.length());
-        System.out.println("lenght2 " + (populateStringValues(cardGroupDowndownAlert2.getValue().toString().trim()).replaceAll(" ", "")).length());
+        System.out.println("lenght2 " + (populateStringValues(getBindings().getCardGroupDowndownAlert2().getValue().toString().trim()).replaceAll(" ", "")).length());
 
 
-        if (cardGroupListString.length() == (populateStringValues(cardGroupDowndownAlert2.getValue().toString().trim()).replaceAll(" ", "")).length()) {
+        if (cardGroupListString.length() == (populateStringValues(getBindings().getCardGroupDowndownAlert2().getValue().toString().trim()).replaceAll(" ", "")).length()) {
             System.out.println("cardGroup dropdown is unchanged");
             readAccount();
         } else {
@@ -1845,19 +1449,6 @@ public class Alerts {
                     req.setSubscribeFrequency(freq);
                     req.setNotificationChannel("EMAIL");
                     req.setNotificationFormat("EXCEL");
-
-
-                    //response = (AlertsSubscribeResponse)operationBinding.execute();
-
-
-                    //                        response.setSubscriptionID("136798");
-                    //                        System.out.println("response " + response);
-                    //                        System.out.println("response = " +  response.getSubscriptionID());
-
-
-                    //                            alertSuccessProperty.setVisible(true);
-                    //                            AdfFacesContext.getCurrentInstance().addPartialTarget(alert1PopupDialog);
-
                     DCBindingContainer bindings2 = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
                     DCIteratorBinding CardRuleSubscriptionIter = bindings2.findIteratorBinding("PrtCardRuleSubscriptionVO1Iterator");
 
@@ -1867,10 +1458,7 @@ public class Alerts {
                     ViewObject prtCardFuelCapacity = PrtCardFuelCapacityIter.getViewObject();
 
                     if (CardRuleSubscriptionIter != null && PrtCardFuelCapacityIter != null) {
-
-
-                        //String partner[] = (populateStringValues(partnerDropdownAlert2.getValue().toString().trim()).replaceAll(" ", "")).split(",");
-                        String cardgroup[] = (populateStringValues(cardGroupDowndownAlert2.getValue().toString().trim()).replaceAll(" ", "")).split(",");
+                        String cardgroup[] = (populateStringValues(getBindings().getCardGroupDowndownAlert2().getValue().toString().trim()).replaceAll(" ", "")).split(",");
                         String accountId = "";
                         String partnerId = "";
                         String cardgroupId = "";
@@ -1883,16 +1471,11 @@ public class Alerts {
 
                             {
                                 Row cardRuleSubscriptionRow = cardRuleSubscription.createRow();
-
-
                                 cardRuleSubscriptionRow.setAttribute("CountryCode", CountryCode);
-
-
                                 cardRuleSubscriptionRow.setAttribute("UserId", userEmail);
                                 cardRuleSubscriptionRow.setAttribute("SubscrId", response.getSubscriptionID().toString().trim());
                                 cardRuleSubscriptionRow.setAttribute("RuleId", "2");
                                 cardRuleSubscriptionRow.setAttribute("SubscrStatus", "ACTIVE");
-
                                 partnerId = cardgroup[cardgrp].substring(0, 8);
                                 accountId = cardgroup[cardgrp].substring(8, 18);
                                 cardgroupId = cardgroup[cardgrp].substring(18);
@@ -1904,69 +1487,55 @@ public class Alerts {
                                 cardRuleSubscriptionRow.setAttribute("ModifiedBy", userEmail);
                                 cardRuleSubscriptionRow.setAttribute("CardKsid", "ALL");
                                 cardRuleSubscription.insertRow(cardRuleSubscriptionRow);
-
                                 Row prtCardFuelCapacityRow = prtCardFuelCapacity.createRow();
-
                                 prtCardFuelCapacityRow.setAttribute("CountryCode", CountryCode);
                                 prtCardFuelCapacityRow.setAttribute("SubscrId", response.getSubscriptionID().toString().trim());
                                 prtCardFuelCapacityRow.setAttribute("RuleId", "2");
 
-                                if (ltrPerDayRadio.getValue() != null && ltrPerDayRadio.getValue().toString().equalsIgnoreCase("true"))
-                                    prtCardFuelCapacityRow.setAttribute("FuelPerDay", fuelCapacityAlert2.getValue().toString().trim().replaceAll(" ", ""));
+                                if (getBindings().getLtrPerDayRadio().getValue() != null && getBindings().getLtrPerDayRadio().getValue().toString().equalsIgnoreCase("true"))
+                                    prtCardFuelCapacityRow.setAttribute("FuelPerDay", getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
 
-                                if (ltrPerWeekRadio.getValue() != null && ltrPerWeekRadio.getValue().toString().equalsIgnoreCase("true"))
-                                    prtCardFuelCapacityRow.setAttribute("FuelPerWeek", fuelCapacityAlert2.getValue().toString().trim().replaceAll(" ", ""));
+                                if (getBindings().getLtrPerWeekRadio().getValue() != null && getBindings().getLtrPerWeekRadio().getValue().toString().equalsIgnoreCase("true"))
+                                    prtCardFuelCapacityRow.setAttribute("FuelPerWeek", getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
 
-                                if (ltrPerMonthRadio.getValue() != null && ltrPerMonthRadio.getValue().toString().equalsIgnoreCase("true"))
-                                    prtCardFuelCapacityRow.setAttribute("FuelPerMonth", fuelCapacityAlert2.getValue().toString().trim().replaceAll(" ", ""));
+                                if (getBindings().getLtrPerMonthRadio().getValue() != null && getBindings().getLtrPerMonthRadio().getValue().toString().equalsIgnoreCase("true"))
+                                    prtCardFuelCapacityRow.setAttribute("FuelPerMonth", getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
 
                                 prtCardFuelCapacityRow.setAttribute("ModifiedBy", userEmail);
-                                //String seq = null;
-
-                                //prtCardFuelCapacityRow.setAttribute("RuleFuelCapId", seq);
-
                             }
                         }
-
-
                         operationBinding = bindings.getOperationBinding("Commit");
                         operationBinding.execute();
-
-
                     }
-
-
                 }
             }
 
-            alert2ValidData.setVisible(false);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(alert2ValidData);
-            successAlert2.setRendered(true);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(successAlert2);
-            fuelCapacityAlert2.setDisabled(true);
-            okButtonAlert2.setRendered(false);
-            cancelButtonAlert2.setRendered(false);
-            ltrPerMonthRadio.setDisabled(true);
-            ltrPerWeekRadio.setDisabled(true);
-            ltrPerDayRadio.setDisabled(true);
-            cardDropdownAlert2.setDisabled(true);
-            cardGroupDowndownAlert2.setDisabled(true);
-            accountDropdwonAlert2.setDisabled(true);
-            partnerDropdownAlert2.setDisabled(true);
-            closeButtonAlert2.setRendered(true);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(fuelCapacityAlert2);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(okButtonAlert2);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(cancelButtonAlert2);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(ltrPerMonthRadio);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(ltrPerWeekRadio);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(ltrPerDayRadio);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(cardDropdownAlert2);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(cardGroupDowndownAlert2);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(accountDropdwonAlert2);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(partnerDropdownAlert2);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(closeButtonAlert2);
-
-
+            getBindings().getAlert2ValidData().setVisible(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlert2ValidData());
+            getBindings().getSuccessAlert2().setRendered(true);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSuccessAlert2());
+            getBindings().getFuelCapacityAlert2().setDisabled(true);
+            getBindings().getOkButtonAlert2().setRendered(false);
+            getBindings().getCancelButtonAlert2().setRendered(false);
+            getBindings().getLtrPerMonthRadio().setDisabled(true);
+            getBindings().getLtrPerWeekRadio().setDisabled(true);
+            getBindings().getLtrPerDayRadio().setDisabled(true);
+            getBindings().getCardDropdownAlert2().setDisabled(true);
+            getBindings().getCardGroupDowndownAlert2().setDisabled(true);
+            getBindings().getAccountDropdwonAlert2().setDisabled(true);
+            getBindings().getPartnerDropdownAlert2().setDisabled(true);
+            getBindings().getCloseButtonAlert2().setRendered(true);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getFuelCapacityAlert2());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getOkButtonAlert2());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCancelButtonAlert2());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getLtrPerMonthRadio());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getLtrPerWeekRadio());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getLtrPerDayRadio());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardDropdownAlert2());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupDowndownAlert2());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccountDropdwonAlert2());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getPartnerDropdownAlert2());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCloseButtonAlert2());
         }
     }
 
@@ -1999,19 +1568,6 @@ public class Alerts {
                 req.setSubscribeFrequency(freq);
                 req.setNotificationChannel("EMAIL");
                 req.setNotificationFormat("EXCEL");
-
-
-                //response = (AlertsSubscribeResponse)operationBinding.execute();
-
-
-                //                        response.setSubscriptionID("136798");
-                //                        System.out.println("response " + response);
-                //                        System.out.println("response = " +  response.getSubscriptionID());
-
-
-                //                            alertSuccessProperty.setVisible(true);
-                //                            AdfFacesContext.getCurrentInstance().addPartialTarget(alert1PopupDialog);
-
                 DCBindingContainer bindings2 = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
                 DCIteratorBinding CardRuleSubscriptionIter = bindings2.findIteratorBinding("PrtCardRuleSubscriptionVO1Iterator");
 
@@ -2021,10 +1577,7 @@ public class Alerts {
                 ViewObject prtCardFuelCapacity = PrtCardFuelCapacityIter.getViewObject();
 
                 if (CardRuleSubscriptionIter != null && PrtCardFuelCapacityIter != null) {
-
-
-                    //String partner[] = (populateStringValues(partnerDropdownAlert2.getValue().toString().trim()).replaceAll(" ", "")).split(",");
-                    String card[] = (populateStringValues(cardDropdownAlert2.getValue().toString().trim()).replaceAll(" ", "")).split(",");
+                    String card[] = (populateStringValues(getBindings().getCardDropdownAlert2().getValue().toString().trim()).replaceAll(" ", "")).split(",");
                     String accountId = "";
                     String partnerId = "";
                     String cardgroupId = "";
@@ -2034,20 +1587,13 @@ public class Alerts {
                         response = (AlertsSubscribeResponse)operationBinding.execute();
                         System.out.println("response = " + response.getSubscriptionID());
 
-                        if (response.getSubscriptionID() != null)
-
-                        {
+                        if (response.getSubscriptionID() != null){
                             Row cardRuleSubscriptionRow = cardRuleSubscription.createRow();
-
-
                             cardRuleSubscriptionRow.setAttribute("CountryCode", CountryCode);
-
-
                             cardRuleSubscriptionRow.setAttribute("UserId", userEmail);
                             cardRuleSubscriptionRow.setAttribute("SubscrId", response.getSubscriptionID().toString().trim());
                             cardRuleSubscriptionRow.setAttribute("RuleId", "2");
                             cardRuleSubscriptionRow.setAttribute("SubscrStatus", "ACTIVE");
-
                             partnerId = card[cardcc].substring(0, 8);
                             accountId = card[cardcc].substring(8, 18);
                             cardgroupId = card[cardcc].substring(18, 29);
@@ -2060,71 +1606,51 @@ public class Alerts {
                             cardRuleSubscriptionRow.setAttribute("ModifiedBy", userEmail);
                             cardRuleSubscriptionRow.setAttribute("CardKsid", cardId);
                             cardRuleSubscription.insertRow(cardRuleSubscriptionRow);
-
                             Row prtCardFuelCapacityRow = prtCardFuelCapacity.createRow();
-
                             prtCardFuelCapacityRow.setAttribute("CountryCode", CountryCode);
                             prtCardFuelCapacityRow.setAttribute("SubscrId", response.getSubscriptionID().toString().trim());
                             prtCardFuelCapacityRow.setAttribute("RuleId", "2");
-
-                            if (ltrPerDayRadio.getValue() != null && ltrPerDayRadio.getValue().toString().equalsIgnoreCase("true"))
-                                prtCardFuelCapacityRow.setAttribute("FuelPerDay", fuelCapacityAlert2.getValue().toString().trim().replaceAll(" ", ""));
-
-                            if (ltrPerWeekRadio.getValue() != null && ltrPerWeekRadio.getValue().toString().equalsIgnoreCase("true"))
-                                prtCardFuelCapacityRow.setAttribute("FuelPerWeek", fuelCapacityAlert2.getValue().toString().trim().replaceAll(" ", ""));
-
-                            if (ltrPerMonthRadio.getValue() != null && ltrPerMonthRadio.getValue().toString().equalsIgnoreCase("true"))
-                                prtCardFuelCapacityRow.setAttribute("FuelPerMonth", fuelCapacityAlert2.getValue().toString().trim().replaceAll(" ", ""));
-
+                            if (getBindings().getLtrPerDayRadio().getValue() != null && getBindings().getLtrPerDayRadio().getValue().toString().equalsIgnoreCase("true"))
+                                prtCardFuelCapacityRow.setAttribute("FuelPerDay", getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
+                            if (getBindings().getLtrPerWeekRadio().getValue() != null && getBindings().getLtrPerWeekRadio().getValue().toString().equalsIgnoreCase("true"))
+                                prtCardFuelCapacityRow.setAttribute("FuelPerWeek", getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
+                            if (getBindings().getLtrPerMonthRadio().getValue() != null && getBindings().getLtrPerMonthRadio().getValue().toString().equalsIgnoreCase("true"))
+                                prtCardFuelCapacityRow.setAttribute("FuelPerMonth", getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
                             prtCardFuelCapacityRow.setAttribute("ModifiedBy", userEmail);
-                            //String seq = null;
-
-                            //prtCardFuelCapacityRow.setAttribute("RuleFuelCapId", seq);
-
                         }
                     }
-
-
                     operationBinding = bindings.getOperationBinding("Commit");
                     operationBinding.execute();
-
-
                 }
-
-
             }
 
-            alert2ValidData.setVisible(false);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(alert2ValidData);
-
-
-            successAlert2.setRendered(true);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(successAlert2);
-            fuelCapacityAlert2.setDisabled(true);
-            okButtonAlert2.setRendered(false);
-            cancelButtonAlert2.setRendered(false);
-            ltrPerMonthRadio.setDisabled(true);
-            ltrPerWeekRadio.setDisabled(true);
-            ltrPerDayRadio.setDisabled(true);
-            cardDropdownAlert2.setDisabled(true);
-            cardGroupDowndownAlert2.setDisabled(true);
-            accountDropdwonAlert2.setDisabled(true);
-            partnerDropdownAlert2.setDisabled(true);
-
-            closeButtonAlert2.setRendered(true);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(fuelCapacityAlert2);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(okButtonAlert2);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(cancelButtonAlert2);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(ltrPerMonthRadio);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(ltrPerWeekRadio);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(ltrPerDayRadio);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(cardDropdownAlert2);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(cardGroupDowndownAlert2);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(accountDropdwonAlert2);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(partnerDropdownAlert2);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(closeButtonAlert2);
+            getBindings().getAlert2ValidData().setVisible(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlert2ValidData());
+            getBindings().getSuccessAlert2().setRendered(true);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSuccessAlert2());
+            getBindings().getFuelCapacityAlert2().setDisabled(true);
+            getBindings().getOkButtonAlert2().setRendered(false);
+            getBindings().getCancelButtonAlert2().setRendered(false);
+            getBindings().getLtrPerMonthRadio().setDisabled(true);
+            getBindings().getLtrPerWeekRadio().setDisabled(true);
+            getBindings().getLtrPerDayRadio().setDisabled(true);
+            getBindings().getCardDropdownAlert2().setDisabled(true);
+            getBindings().getCardGroupDowndownAlert2().setDisabled(true);
+            getBindings().getAccountDropdwonAlert2().setDisabled(true);
+            getBindings().getPartnerDropdownAlert2().setDisabled(true);
+            getBindings().getCloseButtonAlert2().setRendered(true);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getFuelCapacityAlert2());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getOkButtonAlert2());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCancelButtonAlert2());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getLtrPerMonthRadio());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getLtrPerWeekRadio());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getLtrPerDayRadio());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardDropdownAlert2());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupDowndownAlert2());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccountDropdwonAlert2());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getPartnerDropdownAlert2());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCloseButtonAlert2());
         }
-
     }
 
     public void readAccount() {
@@ -2139,12 +1665,12 @@ public class Alerts {
 
         System.out.println("converted accListString arraylist " + accountListString);
         System.out.println("converted accListString arraylist " +
-                           (populateStringValues(accountDropdwonAlert2.getValue().toString().trim()).replaceAll(" ", "")));
+                           (populateStringValues(getBindings().getAccountDropdwonAlert2().getValue().toString().trim()).replaceAll(" ", "")));
         System.out.println("length1 " + accountListString.length());
-        System.out.println("lenght2 " + (populateStringValues(accountDropdwonAlert2.getValue().toString().trim()).replaceAll(" ", "")).length());
+        System.out.println("lenght2 " + (populateStringValues(getBindings().getAccountDropdwonAlert2().getValue().toString().trim()).replaceAll(" ", "")).length());
 
 
-        if (accountListString.length() == (populateStringValues(accountDropdwonAlert2.getValue().toString().trim()).replaceAll(" ", "")).length()) {
+        if (accountListString.length() == (populateStringValues(getBindings().getAccountDropdwonAlert2().getValue().toString().trim()).replaceAll(" ", "")).length()) {
             System.out.println("account dropdown is unchanged");
             readPartner();
         } else {
@@ -2175,19 +1701,6 @@ public class Alerts {
                     req.setSubscribeFrequency(freq);
                     req.setNotificationChannel("EMAIL");
                     req.setNotificationFormat("EXCEL");
-
-
-                    //response = (AlertsSubscribeResponse)operationBinding.execute();
-
-
-                    //                        response.setSubscriptionID("136798");
-                    //                        System.out.println("response " + response);
-                    //                        System.out.println("response = " +  response.getSubscriptionID());
-
-
-                    //                            alertSuccessProperty.setVisible(true);
-                    //                            AdfFacesContext.getCurrentInstance().addPartialTarget(alert1PopupDialog);
-
                     DCBindingContainer bindings2 = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
                     DCIteratorBinding CardRuleSubscriptionIter = bindings2.findIteratorBinding("PrtCardRuleSubscriptionVO1Iterator");
 
@@ -2197,10 +1710,7 @@ public class Alerts {
                     ViewObject prtCardFuelCapacity = PrtCardFuelCapacityIter.getViewObject();
 
                     if (CardRuleSubscriptionIter != null && PrtCardFuelCapacityIter != null) {
-
-
-                        //String partner[] = (populateStringValues(partnerDropdownAlert2.getValue().toString().trim()).replaceAll(" ", "")).split(",");
-                        String account[] = (populateStringValues(accountDropdwonAlert2.getValue().toString().trim()).replaceAll(" ", "")).split(",");
+                        String account[] = (populateStringValues(getBindings().getAccountDropdwonAlert2().getValue().toString().trim()).replaceAll(" ", "")).split(",");
                         String accountId = "";
                         String partnerId = "";
                         for (int acc = 0; acc < account.length; acc++) {
@@ -2208,20 +1718,13 @@ public class Alerts {
                             response = (AlertsSubscribeResponse)operationBinding.execute();
                             System.out.println("response = " + response.getSubscriptionID());
 
-                            if (response.getSubscriptionID() != null)
-
-                            {
+                            if (response.getSubscriptionID() != null){
                                 Row cardRuleSubscriptionRow = cardRuleSubscription.createRow();
-
-
                                 cardRuleSubscriptionRow.setAttribute("CountryCode", CountryCode);
-
-
                                 cardRuleSubscriptionRow.setAttribute("UserId", userEmail);
                                 cardRuleSubscriptionRow.setAttribute("SubscrId", response.getSubscriptionID().toString().trim());
                                 cardRuleSubscriptionRow.setAttribute("RuleId", "2");
                                 cardRuleSubscriptionRow.setAttribute("SubscrStatus", "ACTIVE");
-
                                 partnerId = account[acc].substring(0, 8);
                                 accountId = account[acc].substring(8);
                                 cardRuleSubscriptionRow.setAttribute("PartnerId", partnerId);
@@ -2232,99 +1735,70 @@ public class Alerts {
                                 cardRuleSubscriptionRow.setAttribute("ModifiedBy", userEmail);
                                 cardRuleSubscriptionRow.setAttribute("CardKsid", "ALL");
                                 cardRuleSubscription.insertRow(cardRuleSubscriptionRow);
-
                                 Row prtCardFuelCapacityRow = prtCardFuelCapacity.createRow();
-
                                 prtCardFuelCapacityRow.setAttribute("CountryCode", CountryCode);
                                 prtCardFuelCapacityRow.setAttribute("SubscrId", response.getSubscriptionID().toString().trim());
                                 prtCardFuelCapacityRow.setAttribute("RuleId", "2");
-
-                                if (ltrPerDayRadio.getValue() != null && ltrPerDayRadio.getValue().toString().equalsIgnoreCase("true"))
-                                    prtCardFuelCapacityRow.setAttribute("FuelPerDay", fuelCapacityAlert2.getValue().toString().trim().replaceAll(" ", ""));
-
-                                if (ltrPerWeekRadio.getValue() != null && ltrPerWeekRadio.getValue().toString().equalsIgnoreCase("true"))
-                                    prtCardFuelCapacityRow.setAttribute("FuelPerWeek", fuelCapacityAlert2.getValue().toString().trim().replaceAll(" ", ""));
-
-                                if (ltrPerMonthRadio.getValue() != null && ltrPerMonthRadio.getValue().toString().equalsIgnoreCase("true"))
-                                    prtCardFuelCapacityRow.setAttribute("FuelPerMonth", fuelCapacityAlert2.getValue().toString().trim().replaceAll(" ", ""));
-
+                                if (getBindings().getLtrPerDayRadio().getValue() != null && getBindings().getLtrPerDayRadio().getValue().toString().equalsIgnoreCase("true"))
+                                    prtCardFuelCapacityRow.setAttribute("FuelPerDay", getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
+                                if (getBindings().getLtrPerWeekRadio().getValue() != null && getBindings().getLtrPerWeekRadio().getValue().toString().equalsIgnoreCase("true"))
+                                    prtCardFuelCapacityRow.setAttribute("FuelPerWeek", getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
+                                if (getBindings().getLtrPerMonthRadio().getValue() != null && getBindings().getLtrPerMonthRadio().getValue().toString().equalsIgnoreCase("true"))
+                                    prtCardFuelCapacityRow.setAttribute("FuelPerMonth", getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
                                 prtCardFuelCapacityRow.setAttribute("ModifiedBy", userEmail);
-                                //                                            String seq = null;
-                                //                                            seq = "1839"+acc;
-                                //                                            prtCardFuelCapacityRow.setAttribute("RuleFuelCapId", seq);
-
                             }
                         }
-
-
                         operationBinding = bindings.getOperationBinding("Commit");
                         operationBinding.execute();
-
-
                     }
-
-
                 }
             }
-            alert2ValidData.setVisible(false);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(alert2ValidData);
-            successAlert2.setRendered(true);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(successAlert2);
-            fuelCapacityAlert2.setDisabled(true);
-            okButtonAlert2.setRendered(false);
-            cancelButtonAlert2.setRendered(false);
-            ltrPerMonthRadio.setDisabled(true);
-            ltrPerWeekRadio.setDisabled(true);
-            ltrPerDayRadio.setDisabled(true);
-            cardDropdownAlert2.setDisabled(true);
-            cardGroupDowndownAlert2.setDisabled(true);
-            accountDropdwonAlert2.setDisabled(true);
-            partnerDropdownAlert2.setDisabled(true);
-
-            closeButtonAlert2.setRendered(true);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(fuelCapacityAlert2);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(okButtonAlert2);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(cancelButtonAlert2);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(ltrPerMonthRadio);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(ltrPerWeekRadio);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(ltrPerDayRadio);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(cardDropdownAlert2);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(cardGroupDowndownAlert2);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(accountDropdwonAlert2);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(partnerDropdownAlert2);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(closeButtonAlert2);
+            getBindings().getAlert2ValidData().setVisible(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlert2ValidData());
+            getBindings().getSuccessAlert2().setRendered(true);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSuccessAlert2());
+            getBindings().getFuelCapacityAlert2().setDisabled(true);
+            getBindings().getOkButtonAlert2().setRendered(false);
+            getBindings().getCancelButtonAlert2().setRendered(false);
+            getBindings().getLtrPerMonthRadio().setDisabled(true);
+            getBindings().getLtrPerWeekRadio().setDisabled(true);
+            getBindings().getLtrPerDayRadio().setDisabled(true);
+            getBindings().getCardDropdownAlert2().setDisabled(true);
+            getBindings().getCardGroupDowndownAlert2().setDisabled(true);
+            getBindings().getAccountDropdwonAlert2().setDisabled(true);
+            getBindings().getPartnerDropdownAlert2().setDisabled(true);
+            getBindings().getCloseButtonAlert2().setRendered(true);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getFuelCapacityAlert2());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getOkButtonAlert2());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCancelButtonAlert2());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getLtrPerMonthRadio());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getLtrPerWeekRadio());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getLtrPerDayRadio());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardDropdownAlert2());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupDowndownAlert2());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccountDropdwonAlert2());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getPartnerDropdownAlert2());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCloseButtonAlert2());
         }
-
     }
 
     public void readPartner() {
         String partnerListString = "";
-
         for (String s : partnerIdValue) {
             partnerListString += s + ",";
         }
         partnerListString = partnerListString.substring(0, partnerListString.length() - 1);
-
         System.out.println("converted partnerListString arraylist " + partnerListString);
-        System.out.println("converted partnerListString arraylist " + populateStringValues(partnerDropdownAlert2.getValue().toString().trim()));
+        System.out.println("converted partnerListString arraylist " + populateStringValues(getBindings().getPartnerDropdownAlert2().getValue().toString().trim()));
         System.out.println("length1 " + partnerListString.length());
-        System.out.println("lenght2 " + (populateStringValues(partnerDropdownAlert2.getValue().toString().trim()).replaceAll(" ", "")).length());
-
-
-        if (partnerListString.length() == (populateStringValues(partnerDropdownAlert2.getValue().toString().trim()).replaceAll(" ", "")).length())
-
-        {
+        System.out.println("lenght2 " + (populateStringValues(getBindings().getPartnerDropdownAlert2().getValue().toString().trim()).replaceAll(" ", "")).length());
+        if (partnerListString.length() == (populateStringValues(getBindings().getPartnerDropdownAlert2().getValue().toString().trim()).replaceAll(" ", "")).length()){
             System.out.println("partner dropdown is unchanged");
         }
         //logic to store in db at partner level
-
-
         BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
-
         if (bindings != null) {
             OperationBinding operationBinding = bindings.getOperationBinding("subscribeAlerts");
-
-
             if (operationBinding != null) {
                 BigInteger bigint = new BigInteger("1");
                 req.setRuleID(bigint);
@@ -2335,53 +1809,25 @@ public class Alerts {
                 BigInteger bigint2 = new BigInteger("9898989898");
                 customerobj.setMobileNumber(bigint2);
                 req.setCustomer(customerobj);
-
                 AlertsSubscribeFrequencyType freq = new AlertsSubscribeFrequencyType();
                 freq.setScheduleFrequency("DAILY");
-
                 req.setSubscribeFrequency(freq);
                 req.setNotificationChannel("EMAIL");
                 req.setNotificationFormat("EXCEL");
-
-
-                //response = (AlertsSubscribeResponse)operationBinding.execute();
-
-
-                //                        response.setSubscriptionID("136798");
-                //                        System.out.println("response " + response);
-                //                        System.out.println("response = " +  response.getSubscriptionID());
-
-
-                //                            alertSuccessProperty.setVisible(true);
-                //                            AdfFacesContext.getCurrentInstance().addPartialTarget(alert1PopupDialog);
-
                 DCBindingContainer bindings2 = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
                 DCIteratorBinding CardRuleSubscriptionIter = bindings2.findIteratorBinding("PrtCardRuleSubscriptionVO1Iterator");
-
                 DCIteratorBinding PrtCardFuelCapacityIter = bindings2.findIteratorBinding("PrtCardFuelCapacityVO1Iterator");
-
                 ViewObject cardRuleSubscription = CardRuleSubscriptionIter.getViewObject();
                 ViewObject prtCardFuelCapacity = PrtCardFuelCapacityIter.getViewObject();
-
                 if (CardRuleSubscriptionIter != null && PrtCardFuelCapacityIter != null) {
-
-
-                    String partner[] = (populateStringValues(partnerDropdownAlert2.getValue().toString().trim()).replaceAll(" ", "")).split(",");
-
+                    String partner[] = (populateStringValues(getBindings().getPartnerDropdownAlert2().getValue().toString().trim()).replaceAll(" ", "")).split(",");
                     for (int part = 0; part < partner.length; part++) {
                         operationBinding.getParamsMap().put("subscribeRequest", req);
                         response = (AlertsSubscribeResponse)operationBinding.execute();
                         System.out.println("response = " + response.getSubscriptionID());
-
-                        if (response.getSubscriptionID() != null)
-
-                        {
+                        if (response.getSubscriptionID() != null){
                             Row cardRuleSubscriptionRow = cardRuleSubscription.createRow();
-
-
                             cardRuleSubscriptionRow.setAttribute("CountryCode", CountryCode);
-
-
                             cardRuleSubscriptionRow.setAttribute("UserId", userEmail);
                             cardRuleSubscriptionRow.setAttribute("SubscrId", response.getSubscriptionID().toString().trim());
                             cardRuleSubscriptionRow.setAttribute("RuleId", "2");
@@ -2394,91 +1840,53 @@ public class Alerts {
                             cardRuleSubscriptionRow.setAttribute("ModifiedBy", userEmail);
                             cardRuleSubscriptionRow.setAttribute("CardKsid", "ALL");
                             cardRuleSubscription.insertRow(cardRuleSubscriptionRow);
-
                             Row prtCardFuelCapacityRow = prtCardFuelCapacity.createRow();
-
                             prtCardFuelCapacityRow.setAttribute("CountryCode", CountryCode);
                             prtCardFuelCapacityRow.setAttribute("SubscrId", response.getSubscriptionID().toString().trim());
                             prtCardFuelCapacityRow.setAttribute("RuleId", "2");
+                            if (getBindings().getLtrPerDayRadio().getValue() != null && getBindings().getLtrPerDayRadio().getValue().toString().equalsIgnoreCase("true"))
+                                prtCardFuelCapacityRow.setAttribute("FuelPerDay", getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
 
-                            if (ltrPerDayRadio.getValue() != null && ltrPerDayRadio.getValue().toString().equalsIgnoreCase("true"))
-                                prtCardFuelCapacityRow.setAttribute("FuelPerDay", fuelCapacityAlert2.getValue().toString().trim().replaceAll(" ", ""));
+                            if (getBindings().getLtrPerWeekRadio().getValue() != null && getBindings().getLtrPerWeekRadio().getValue().toString().equalsIgnoreCase("true"))
+                                prtCardFuelCapacityRow.setAttribute("FuelPerWeek", getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
 
-                            if (ltrPerWeekRadio.getValue() != null && ltrPerWeekRadio.getValue().toString().equalsIgnoreCase("true"))
-                                prtCardFuelCapacityRow.setAttribute("FuelPerWeek", fuelCapacityAlert2.getValue().toString().trim().replaceAll(" ", ""));
-
-                            if (ltrPerMonthRadio.getValue() != null && ltrPerMonthRadio.getValue().toString().equalsIgnoreCase("true"))
-                                prtCardFuelCapacityRow.setAttribute("FuelPerMonth", fuelCapacityAlert2.getValue().toString().trim().replaceAll(" ", ""));
+                            if (getBindings().getLtrPerMonthRadio().getValue() != null && getBindings().getLtrPerMonthRadio().getValue().toString().equalsIgnoreCase("true"))
+                                prtCardFuelCapacityRow.setAttribute("FuelPerMonth", getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
 
                             prtCardFuelCapacityRow.setAttribute("ModifiedBy", userEmail);
-
-
                         }
                     }
-
-
                     operationBinding = bindings.getOperationBinding("Commit");
                     operationBinding.execute();
-
-
                 }
-
-
             }
-
-            alert2ValidData.setVisible(false);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(alert2ValidData);
-            successAlert2.setRendered(true);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(successAlert2);
-            fuelCapacityAlert2.setDisabled(true);
-            okButtonAlert2.setRendered(false);
-            cancelButtonAlert2.setRendered(false);
-            ltrPerMonthRadio.setDisabled(true);
-            ltrPerWeekRadio.setDisabled(true);
-            ltrPerDayRadio.setDisabled(true);
-            cardDropdownAlert2.setDisabled(true);
-            cardGroupDowndownAlert2.setDisabled(true);
-            accountDropdwonAlert2.setDisabled(true);
-            partnerDropdownAlert2.setDisabled(true);
-
-            closeButtonAlert2.setRendered(true);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(fuelCapacityAlert2);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(okButtonAlert2);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(cancelButtonAlert2);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(ltrPerMonthRadio);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(ltrPerWeekRadio);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(ltrPerDayRadio);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(cardDropdownAlert2);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(cardGroupDowndownAlert2);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(accountDropdwonAlert2);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(partnerDropdownAlert2);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(closeButtonAlert2);
+            getBindings().getAlert2ValidData().setVisible(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlert2ValidData());
+            getBindings().getSuccessAlert2().setRendered(true);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSuccessAlert2());
+            getBindings().getFuelCapacityAlert2().setDisabled(true);
+            getBindings().getOkButtonAlert2().setRendered(false);
+            getBindings().getCancelButtonAlert2().setRendered(false);
+            getBindings().getLtrPerMonthRadio().setDisabled(true);
+            getBindings().getLtrPerWeekRadio().setDisabled(true);
+            getBindings().getLtrPerDayRadio().setDisabled(true);
+            getBindings().getCardDropdownAlert2().setDisabled(true);
+            getBindings().getCardGroupDowndownAlert2().setDisabled(true);
+            getBindings().getAccountDropdwonAlert2().setDisabled(true);
+            getBindings().getPartnerDropdownAlert2().setDisabled(true);
+            getBindings().getCloseButtonAlert2().setRendered(true);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getFuelCapacityAlert2());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getOkButtonAlert2());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCancelButtonAlert2());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getLtrPerMonthRadio());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getLtrPerWeekRadio());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getLtrPerDayRadio());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardDropdownAlert2());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupDowndownAlert2());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccountDropdwonAlert2());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getPartnerDropdownAlert2());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCloseButtonAlert2());
         }
-    }
-
-
-    public void setLtrPerDayRadio(RichSelectBooleanRadio ltrPerDayRadio) {
-        this.ltrPerDayRadio = ltrPerDayRadio;
-    }
-
-    public RichSelectBooleanRadio getLtrPerDayRadio() {
-        return ltrPerDayRadio;
-    }
-
-    public void setLtrPerWeekRadio(RichSelectBooleanRadio ltrPerWeekRadio) {
-        this.ltrPerWeekRadio = ltrPerWeekRadio;
-    }
-
-    public RichSelectBooleanRadio getLtrPerWeekRadio() {
-        return ltrPerWeekRadio;
-    }
-
-    public void setLtrPerMonthRadio(RichSelectBooleanRadio ltrPerMonthRadio) {
-        this.ltrPerMonthRadio = ltrPerMonthRadio;
-    }
-
-    public RichSelectBooleanRadio getLtrPerMonthRadio() {
-        return ltrPerMonthRadio;
     }
 
     public void setUserEmail(String userEmail) {
@@ -2513,14 +1921,6 @@ public class Alerts {
         return CountryCode;
     }
 
-    public void setFuelCapacityAlert2(RichInputText fuelCapacityAlert2) {
-        this.fuelCapacityAlert2 = fuelCapacityAlert2;
-    }
-
-    public RichInputText getFuelCapacityAlert2() {
-        return fuelCapacityAlert2;
-    }
-
     public void setInitailAccountIdVAlue(List<String> initailAccountIdVAlue) {
         this.initailAccountIdVAlue = initailAccountIdVAlue;
     }
@@ -2545,167 +1945,90 @@ public class Alerts {
         return initialCardValue;
     }
 
-    public void setOkButtonAlert2(RichCommandButton okButtonAlert2) {
-        this.okButtonAlert2 = okButtonAlert2;
-    }
-
-    public RichCommandButton getOkButtonAlert2() {
-        return okButtonAlert2;
-    }
-
-    public void setCancelButtonAlert2(RichCommandButton cancelButtonAlert2) {
-        this.cancelButtonAlert2 = cancelButtonAlert2;
-    }
-
-    public RichCommandButton getCancelButtonAlert2() {
-        return cancelButtonAlert2;
-    }
-
-    public void setSuccessAlert2(RichPanelGroupLayout successAlert2) {
-        this.successAlert2 = successAlert2;
-    }
-
-    public RichPanelGroupLayout getSuccessAlert2() {
-        return successAlert2;
-    }
-
-
-    public void setCloseButtonAlert2(RichCommandButton closeButtonAlert2) {
-        this.closeButtonAlert2 = closeButtonAlert2;
-    }
-
-    public RichCommandButton getCloseButtonAlert2() {
-        return closeButtonAlert2;
-    }
-
-    public void setAlert1ValidData(RichPanelGroupLayout alert1ValidData) {
-        this.alert1ValidData = alert1ValidData;
-    }
-
-    public RichPanelGroupLayout getAlert1ValidData() {
-        return alert1ValidData;
-    }
-
-    public void setCloseButtonAlert1(RichCommandButton closeButtonAlert1) {
-        this.closeButtonAlert1 = closeButtonAlert1;
-    }
-
-    public RichCommandButton getCloseButtonAlert1() {
-        return closeButtonAlert1;
-    }
-
-    public void closeAlert1Popup(ActionEvent actionEvent) {
-        // Add event code here...
-
-        getAlert1Popup().hide();
-    }
-
-    public void setCancelButtonAlert1(RichCommandButton cancelButtonAlert1) {
-        this.cancelButtonAlert1 = cancelButtonAlert1;
-    }
-
-    public RichCommandButton getCancelButtonAlert1() {
-        return cancelButtonAlert1;
-    }
-
-    public void setOkButtonAlert1(RichCommandButton okButtonAlert1) {
-        this.okButtonAlert1 = okButtonAlert1;
-    }
-
-    public RichCommandButton getOkButtonAlert1() {
-        return okButtonAlert1;
-    }
-
-    public void setEditButtonAlert1(RichCommandButton editButtonAlert1) {
-        this.editButtonAlert1 = editButtonAlert1;
-    }
-
-    public RichCommandButton getEditButtonAlert1() {
-        return editButtonAlert1;
-    }
-
-    public void setAlert2ValidData(RichPanelGroupLayout alert2ValidData) {
-        this.alert2ValidData = alert2ValidData;
-    }
-
-    public RichPanelGroupLayout getAlert2ValidData() {
-        return alert2ValidData;
-    }
-
     public void viewSubscribedAlerts(ActionEvent actionEvent) {
-        
         //TODO : HITK - validate dropdown values 
-
+        
 
         ViewObject prtCardRuleSubscriptionVO = ADFUtils.getViewObject("PrtCardRuleSubscriptionRVO1Iterator");
         if (SelectionPanel) {
+//            if(getBindings().getPartnerDropdownAlert2().getValue() != null){
+//                
+//            }else {
+//                showErrorMessage("ENGAGE_NO_PARTNER");
+//            }
+//            
+//            if(getBindings().getAccountDropdwonAlert2().getValue() != null){
+//                
+//            }else {
+//                showErrorMessage("ENGAGE_NO_ACCOUNT");
+//            }
+//            
+//            if(getBindings().getCardGroupDowndownAlert2().getValue() != null){
+//                
+//            }else {
+//                showErrorMessage("ENGAGE_NO_CARD_GROUP");
+//            }
+//            
+//            if(getBindings().getCardGroupDowndownAlert2().getValue() != null){
+//                
+//            }else {
+//                showErrorMessage("ENGAGE_NO_CARD");
+//            }
+            
             if (!prtCardRuleSubscriptionVO.equals(null)) {
-
                 String cardListString = "";
-
                 for (String s : initialCard2Value) {
                     cardListString += s + ",";
                 }
                 cardListString = cardListString.substring(0, cardListString.length() - 1);
-
-                System.out.println("converted cardListString arraylist " + cardListString);
-                System.out.println("converted cardListString arraylist " + populateStringValues(viewAlertDropdown.getValue().toString().trim()));
-                System.out.println("length1 " + cardListString.length());
-                System.out.println("lenght2 " + (populateStringValues(viewAlertDropdown.getValue().toString().trim()).replaceAll(" ", "")).length());
-
-
-                if (cardListString.length() == (populateStringValues(viewAlertDropdown.getValue().toString().trim()).replaceAll(" ", "")).length()) {
-                    System.out.println("card dropdown is unchanged");
-                    readCardGroupLevel();
-                } else {
-                    readCardlevel();
+                if(getBindings().getViewAlertDropdown().getValue() != null){
+                    System.out.println("converted cardListString arraylist " + cardListString);
+                    System.out.println("converted cardListString arraylist " + populateStringValues(getBindings().getViewAlertDropdown().getValue().toString().trim()));
+                    System.out.println("length1 " + cardListString.length());
+                    System.out.println("lenght2 " + (populateStringValues(getBindings().getViewAlertDropdown().getValue().toString().trim()).replaceAll(" ", "")).length());
+                    if (cardListString.length() == (populateStringValues(getBindings().getViewAlertDropdown().getValue().toString().trim()).replaceAll(" ", "")).length()) {
+                        System.out.println("card dropdown is unchanged");
+                        readCardGroupLevel();
+                    } else {
+                        readCardlevel();
+                    } 
+                }else{
+                    showErrorMessage("ENGAGE_NO_CARD");
                 }
-
-
             }
         } else if (cardsSelectionPanel) {
-
-            if (suggestedCardNumberList.contains(searchStringInputtext.getValue().toString().trim())) {
-                searchCorrespondingDetalis();
-
-                if (!prtCardRuleSubscriptionVO.equals(null)) {
-                    prtCardRuleSubscriptionVO.setNamedWhereClauseParam("pId", passingPartner);
-                    prtCardRuleSubscriptionVO.setNamedWhereClauseParam("userId", userEmail);
-                    prtCardRuleSubscriptionVO.setNamedWhereClauseParam("countryCode", CountryCode);
-                    String cardQuery =
-                        "(INSTR(:card,PARTNER_ID||ACCOUNT_ID||CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ||CARD_KSID)<>0 OR (CARD_KSID = 'ALL')";
-                    String cardValuesList = passingPartner + passingAccount + passingCardgrpMain + passingCardgrpSub + passingCardgrpSeq + passingCardKsId;
-                    System.out.println("cardValuesList " + cardValuesList);
-                    prtCardRuleSubscriptionVO.defineNamedWhereClauseParam("card", cardValuesList, null);
-
-                    String accountQuery = "INSTR(:account,PARTNER_ID||ACCOUNT_ID)<>0 OR (ACCOUNT_ID = 'ALL')) ";
-                    String accountValueList = passingPartner + passingAccount;
-                    System.out.println("accountValueList " + accountValueList);
-                    prtCardRuleSubscriptionVO.defineNamedWhereClauseParam("account", accountValueList, null);
-
-                    String cardGroupQuery =
-                        "(INSTR(:cardGroup,PARTNER_ID||ACCOUNT_ID||CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ)<>0 OR ((CARDGROUP_MAIN = 'ALL') AND (CARDGROUP_SUB = 'ALL') AND (CARDGROUP_SEQ = 'ALL'))) ";
-                    String cardgrpValueList = passingPartner + passingAccount + passingCardgrpMain + passingCardgrpSub + passingCardgrpSeq;
-                    System.out.println("cardgrpValueList " + cardgrpValueList);
-                    prtCardRuleSubscriptionVO.defineNamedWhereClauseParam("cardGroup", cardgrpValueList, null);
-
-
-                    prtCardRuleSubscriptionVO.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + cardQuery);
-                    System.out.println("Query for card search : " + prtCardRuleSubscriptionVO.getQuery());
-                    prtCardRuleSubscriptionVO.executeQuery();
-                    System.out.println("Estimated row count for Card Rule Subscription Query in case of card selection :" +
-                                       prtCardRuleSubscriptionVO.getEstimatedRowCount());
-                    searchResultsPanel.setRendered(true);
-                    AdfFacesContext.getCurrentInstance().addPartialTarget(searchResultsPanel);
+            if(getBindings().getSearchStringInputtext().getValue() != null){
+                if (suggestedCardNumberList.contains(getBindings().getSearchStringInputtext().getValue().toString().trim())) {
+                    searchCorrespondingDetalis();
+                    if (!prtCardRuleSubscriptionVO.equals(null)) {
+                        prtCardRuleSubscriptionVO.setNamedWhereClauseParam("pId", passingPartner);
+                        prtCardRuleSubscriptionVO.setNamedWhereClauseParam("userId", userEmail);
+                        prtCardRuleSubscriptionVO.setNamedWhereClauseParam("countryCode", CountryCode);
+                        String cardQuery =
+                            "(INSTR(:card,PARTNER_ID||ACCOUNT_ID||CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ||CARD_KSID)<>0 OR (CARD_KSID = 'ALL')";
+                        String cardValuesList = passingPartner + passingAccount + passingCardgrpMain + passingCardgrpSub + passingCardgrpSeq + passingCardKsId;
+                        System.out.println("cardValuesList " + cardValuesList);
+                        prtCardRuleSubscriptionVO.defineNamedWhereClauseParam("card", cardValuesList, null);
+                        String accountQuery = "INSTR(:account,PARTNER_ID||ACCOUNT_ID)<>0 OR (ACCOUNT_ID = 'ALL')) ";
+                        String accountValueList = passingPartner + passingAccount;
+                        System.out.println("accountValueList " + accountValueList);
+                        prtCardRuleSubscriptionVO.defineNamedWhereClauseParam("account", accountValueList, null);
+                        String cardGroupQuery =
+                            "(INSTR(:cardGroup,PARTNER_ID||ACCOUNT_ID||CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ)<>0 OR ((CARDGROUP_MAIN = 'ALL') AND (CARDGROUP_SUB = 'ALL') AND (CARDGROUP_SEQ = 'ALL'))) ";
+                        String cardgrpValueList = passingPartner + passingAccount + passingCardgrpMain + passingCardgrpSub + passingCardgrpSeq;
+                        System.out.println("cardgrpValueList " + cardgrpValueList);
+                        prtCardRuleSubscriptionVO.defineNamedWhereClauseParam("cardGroup", cardgrpValueList, null);
+                        prtCardRuleSubscriptionVO.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + cardQuery);
+                        System.out.println("Query for card search : " + prtCardRuleSubscriptionVO.getQuery());
+                        prtCardRuleSubscriptionVO.executeQuery();
+                        System.out.println("Estimated row count for Card Rule Subscription Query in case of card selection :" +
+                                           prtCardRuleSubscriptionVO.getEstimatedRowCount());
+                        getBindings().getSearchResultsPanel().setRendered(true);
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResultsPanel());
+                    }
                 }
-            }
-            else
-                
-            {
-                //TODO : HITK - Hide search results & validate card number
-                System.out.println("nothing to search");
-                
-                
+            }else{
+                showErrorMessage("ENGAGE_NO_CARD");
             }
         }
     }
@@ -2714,9 +2037,7 @@ public class Alerts {
 
         System.out.println("reading at card level");
         ViewObject prtCardRuleSubscriptionVO = ADFUtils.getViewObject("PrtCardRuleSubscriptionRVO1Iterator");
-
-
-        String[] values = populateStringValues(viewAlertDropdown.getValue().toString()).split(",");
+        String[] values = populateStringValues(getBindings().getViewAlertDropdown().getValue().toString()).split(",");
         String[] partner = new String[values.length];
         String[] account = new String[values.length];
         String[] cardgrp = new String[values.length];
@@ -2780,46 +2101,31 @@ public class Alerts {
             prtCardRuleSubscriptionVO.executeQuery();
         }
         
-      
-        
             if (accountIdValue2.size() > 150) {
 
             } else {
                 accountQuery = "INSTR(:account,ACCOUNT_ID)<>0 OR (ACCOUNT_ID = 'ALL')) ";
                 prtCardRuleSubscriptionVO.defineNamedWhereClauseParam("account", mergeArraytoCommaSeperatedSting(account), null);
-
-
             }
             
-            
             if (cardGroupValue2.size() > 150) {
-
-
-                    } else {
-                
-                        cardGroupQuery = "(INSTR(:cardGroup,CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ)<>0 OR ((CARDGROUP_MAIN = 'ALL') AND (CARDGROUP_SUB = 'ALL') AND (CARDGROUP_SEQ = 'ALL'))) ";
+            } else {
+                cardGroupQuery = "(INSTR(:cardGroup,CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ)<>0 OR ((CARDGROUP_MAIN = 'ALL') AND (CARDGROUP_SUB = 'ALL') AND (CARDGROUP_SEQ = 'ALL'))) ";
                 prtCardRuleSubscriptionVO.defineNamedWhereClauseParam("cardGroup", mergeArraytoCommaSeperatedSting(cardgrp), null);
-
-                    
-                    }
-
+            }
         
-
-                    if (cardNumberValue2.size() > 150) {
-
-
-                    } else {
-                        cardQuery = "(INSTR(:card,CARD_KSID)<>0 OR (CARD_KSID = 'ALL')";
-                        String cardValuesList = mergeArraytoCommaSeperatedSting(card);
-                        prtCardRuleSubscriptionVO.defineNamedWhereClauseParam("card", cardValuesList, null);
-                        prtCardRuleSubscriptionVO.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + cardQuery);
-
-                    }
+            if (cardNumberValue2.size() > 150) {
+            } else {
+                    cardQuery = "(INSTR(:card,CARD_KSID)<>0 OR (CARD_KSID = 'ALL')";
+                    String cardValuesList = mergeArraytoCommaSeperatedSting(card);
+                    prtCardRuleSubscriptionVO.defineNamedWhereClauseParam("card", cardValuesList, null);
+                    prtCardRuleSubscriptionVO.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + cardQuery);
+            }
                     System.out.println("Query: "+prtCardRuleSubscriptionVO.getQuery());
                     prtCardRuleSubscriptionVO.executeQuery();
                     System.out.println("Estimated row count for Card Rule Subscription Query:" + prtCardRuleSubscriptionVO.getEstimatedRowCount());
-                    searchResultsPanel.setRendered(true);
-                    AdfFacesContext.getCurrentInstance().addPartialTarget(searchResultsPanel);
+                    getBindings().getSearchResultsPanel().setRendered(true);
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResultsPanel());
 
 
     }
@@ -2829,189 +2135,58 @@ public class Alerts {
         System.out.println("reading at cardgrp level");
 
         String cardGroupListString = "";
-        System.out.println("Account id value length readCardGroup" + cardGroupValue2.size());
-        System.out.println("Account id value length readCardGroup" + initialCardGroup2Value.size());
+//        System.out.println("Account id value length readCardGroup" + cardGroupValue2.size());
+//        System.out.println("Account id value length readCardGroup" + initialCardGroup2Value.size());
 
         for (String s : initialCardGroup2Value) {
             cardGroupListString += s + ",";
         }
         cardGroupListString = cardGroupListString.substring(0, cardGroupListString.length() - 1);
-
-        System.out.println("converted cardGroupListString arraylist " + cardGroupListString);
-        System.out.println("converted cardGroupListString arraylist " + populateStringValues(viewAlertCardGroupDropdown.getValue().toString().trim()));
-        System.out.println("length1 " + cardGroupListString.length());
-        System.out.println("lenght2 " + (populateStringValues(viewAlertCardGroupDropdown.getValue().toString().trim()).replaceAll(" ", "")).length());
-
-
-        if (cardGroupListString.length() == (populateStringValues(viewAlertCardGroupDropdown.getValue().toString().trim()).replaceAll(" ", "")).length()) {
-            System.out.println("cardGroup dropdown is unchanged");
-            readAccountlevel();
-        } else {
-
-
-            String[] values = populateStringValues(viewAlertCardGroupDropdown.getValue().toString()).split(",");
-            String[] partner = new String[values.length];
-            String[] account = new String[values.length];
-            String[] cardgrp = new String[values.length];
-
-            for (int i = 0; i < values.length; i++) {
-                partner[i] = values[i].trim().substring(0, 8);
-                account[i] = values[i].trim().substring(8, 18);
-                cardgrp[i] = values[i].trim().substring(18);
-
-            }
-
-
-            System.out.println("partner values to be passed are ");
-            for (int j = 0; j < partner.length; j++) {
-                System.out.println(partner[j]);
-            }
-
-            System.out.println("account values to be passed are ");
-            for (int j = 0; j < account.length; j++) {
-                System.out.println(account[j]);
-            }
-
-            System.out.println("cardgrp values to be passed are ");
-            for (int j = 0; j < cardgrp.length; j++) {
-                System.out.println(cardgrp[j]);
-            }
-
-            ViewObject prtCardRuleSubscriptionVO = ADFUtils.getViewObject("PrtCardRuleSubscriptionRVO1Iterator");
-
-            prtCardRuleSubscriptionVO.setNamedWhereClauseParam("pId", mergeArraytoCommaSeperatedSting(partner));
-            prtCardRuleSubscriptionVO.setNamedWhereClauseParam("userId", userEmail);
-            prtCardRuleSubscriptionVO.setNamedWhereClauseParam("countryCode", CountryCode);
-            String accountQuery = "(";
-            String cardGroupQuery = "(";
+        if(getBindings().getViewAlertCardGroupDropdown().getValue() != null){
+            System.out.println("converted cardGroupListString arraylist " + cardGroupListString);
+            System.out.println("converted cardGroupListString arraylist " + populateStringValues(getBindings().getViewAlertCardGroupDropdown().getValue().toString().trim()));
+            System.out.println("length1 " + cardGroupListString.length());
+            System.out.println("lenght2 " + (populateStringValues(getBindings().getViewAlertCardGroupDropdown().getValue().toString().trim()).replaceAll(" ", "")).length());
             
-            if("INSTR(:account,ACCOUNT_ID)<>0 OR (ACCOUNT_ID = 'ALL')) AND (INSTR(:cardGroup,CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ)<>0 OR ((CARDGROUP_MAIN = 'ALL') AND (CARDGROUP_SUB = 'ALL') AND (CARDGROUP_SEQ = 'ALL')) AND (INSTR(:card,CARD_KSID)<>0 OR (CARD_KSID = 'ALL')".equalsIgnoreCase(prtCardRuleSubscriptionVO.getWhereClause())) {
-                System.out.println("removed cardGroup where clause");
+            if (cardGroupListString.length() == (populateStringValues(getBindings().getViewAlertCardGroupDropdown().getValue().toString().trim()).replaceAll(" ", "")).length()) {
+                System.out.println("cardGroup dropdown is unchanged");
+                readAccountlevel();
+            } else {
+                String[] values = populateStringValues(getBindings().getViewAlertCardGroupDropdown().getValue().toString()).split(",");
+                String[] partner = new String[values.length];
+                String[] account = new String[values.length];
+                String[] cardgrp = new String[values.length];
+
+                for (int i = 0; i < values.length; i++) {
+                    partner[i] = values[i].trim().substring(0, 8);
+                    account[i] = values[i].trim().substring(8, 18);
+                    cardgrp[i] = values[i].trim().substring(18);
+                }
+
+                System.out.println("partner values to be passed are ");
+                for (int j = 0; j < partner.length; j++) {
+                    System.out.println(partner[j]);
+                }
+
+                System.out.println("account values to be passed are ");
+                for (int j = 0; j < account.length; j++) {
+                    System.out.println(account[j]);
+                }
+
+                System.out.println("cardgrp values to be passed are ");
+                for (int j = 0; j < cardgrp.length; j++) {
+                    System.out.println(cardgrp[j]);
+                }
+
+                ViewObject prtCardRuleSubscriptionVO = ADFUtils.getViewObject("PrtCardRuleSubscriptionRVO1Iterator");
+                prtCardRuleSubscriptionVO.setNamedWhereClauseParam("pId", mergeArraytoCommaSeperatedSting(partner));
+                prtCardRuleSubscriptionVO.setNamedWhereClauseParam("userId", userEmail);
+                prtCardRuleSubscriptionVO.setNamedWhereClauseParam("countryCode", CountryCode);
+                String accountQuery = "(";
+                String cardGroupQuery = "(";
                 
-                prtCardRuleSubscriptionVO.removeNamedWhereClauseParam("account");
-                prtCardRuleSubscriptionVO.removeNamedWhereClauseParam("cardGroup");
-                prtCardRuleSubscriptionVO.removeNamedWhereClauseParam("card");
-                prtCardRuleSubscriptionVO.setWhereClause("");
-                prtCardRuleSubscriptionVO.executeQuery();
-            }
-            if("INSTR(:account,ACCOUNT_ID)<>0 OR (ACCOUNT_ID = 'ALL')) AND (INSTR(:cardGroup,CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ)<>0 OR ((CARDGROUP_MAIN = 'ALL') AND (CARDGROUP_SUB = 'ALL') AND (CARDGROUP_SEQ = 'ALL'))".equalsIgnoreCase(prtCardRuleSubscriptionVO.getWhereClause())) {
-                System.out.println("removed account where clause");
-                prtCardRuleSubscriptionVO.removeNamedWhereClauseParam("account");
-                prtCardRuleSubscriptionVO.removeNamedWhereClauseParam("cardGroup");
-                prtCardRuleSubscriptionVO.setWhereClause("");
-                prtCardRuleSubscriptionVO.executeQuery();
-            }
-            
-            if("INSTR(:account,ACCOUNT_ID)<>0 OR (ACCOUNT_ID = 'ALL'))".equalsIgnoreCase(prtCardRuleSubscriptionVO.getWhereClause())){
-                System.out.println("removed account where clause");
-                prtCardRuleSubscriptionVO.removeNamedWhereClauseParam("account");
-                prtCardRuleSubscriptionVO.setWhereClause("");
-                prtCardRuleSubscriptionVO.executeQuery();
-            }
-            
-
-            
-            
-            
-            if (accountIdValue2.size() > 150) {
-                accountQuery = accountQuery + ")";
-
-            } else {
-                accountQuery = "INSTR(:account,ACCOUNT_ID)<>0 OR (ACCOUNT_ID = 'ALL')) ";
-                prtCardRuleSubscriptionVO.defineNamedWhereClauseParam("account",mergeArraytoCommaSeperatedSting(account) , null);
-
-            }
-
-
-            if (cardGroupValue2.size() > 150) {
-
-
-            } else {
-
-                cardGroupQuery =
-                        "(INSTR(:cardGroup,CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ)<>0 OR ((CARDGROUP_MAIN = 'ALL') AND (CARDGROUP_SUB = 'ALL') AND (CARDGROUP_SEQ = 'ALL')) ";
-                prtCardRuleSubscriptionVO.defineNamedWhereClauseParam("cardGroup", mergeArraytoCommaSeperatedSting(cardgrp),
-                                                                      null);
-
-
-            }
-
-            prtCardRuleSubscriptionVO.setWhereClause(accountQuery + "AND " + cardGroupQuery);
-            System.out.println("Query: " + prtCardRuleSubscriptionVO.getQuery());
-            prtCardRuleSubscriptionVO.executeQuery();
-            System.out.println("Estimated row count for Card Group Rule Subscription Query:" + prtCardRuleSubscriptionVO.getEstimatedRowCount());
-            searchResultsPanel.setRendered(true);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(searchResultsPanel);
-
-        }
-
-
-    }
-
-    public void readAccountlevel() {
-
-
-        System.out.println("reading at account level");
-
-        System.out.println("Account id value length readAccount" + accountIdValue2.size());
-        System.out.println("Account id value length readAccount" + initailAccountId2VAlue.size());
-        String accountListString = "";
-
-        for (String s : initailAccountId2VAlue) {
-            accountListString += s + ",";
-        }
-        accountListString = accountListString.substring(0, accountListString.length() - 1);
-
-        System.out.println("converted accListString arraylist " + accountListString);
-        System.out.println("converted accListString arraylist " +
-                           (populateStringValues(viewAlertsAccountDropdown.getValue().toString().trim()).replaceAll(" ", "")));
-        System.out.println("length1 " + accountListString.length());
-        System.out.println("lenght2 " + (populateStringValues(viewAlertsAccountDropdown.getValue().toString().trim()).replaceAll(" ", "")).length());
-
-
-        if (accountListString.length() == (populateStringValues(viewAlertsAccountDropdown.getValue().toString().trim()).replaceAll(" ", "")).length()) {
-            System.out.println("account dropdown is unchanged");
-            readPartnerLevel();
-        } else {
-            String[] values = populateStringValues(viewAlertsAccountDropdown.getValue().toString()).split(",");
-            String[] partner = new String[values.length];
-            String[] account = new String[values.length];
-
-
-            for (int i = 0; i < values.length; i++) {
-                partner[i] = values[i].trim().substring(0, 8);
-                account[i] = values[i].trim().substring(8);
-
-
-            }
-
-
-            System.out.println("partner values to be passed are ");
-            for (int j = 0; j < partner.length; j++) {
-                System.out.println(partner[j]);
-            }
-
-            System.out.println("account values to be passed are ");
-            for (int j = 0; j < account.length; j++) {
-                System.out.println(account[j]);
-            }
-            ViewObject prtCardRuleSubscriptionVO = ADFUtils.getViewObject("PrtCardRuleSubscriptionRVO1Iterator");
-
-            prtCardRuleSubscriptionVO.setNamedWhereClauseParam("pId", mergeArraytoCommaSeperatedSting(partner));
-            prtCardRuleSubscriptionVO.setNamedWhereClauseParam("userId", userEmail);
-            prtCardRuleSubscriptionVO.setNamedWhereClauseParam("countryCode", CountryCode);
-            String accountQuery = "(";
-            String cardGroupQuery = "(";
-            String cardQuery = "(";
-
-
-            if (accountIdValue2.size() > 150) {
-
-
-            } else {
                 if("INSTR(:account,ACCOUNT_ID)<>0 OR (ACCOUNT_ID = 'ALL')) AND (INSTR(:cardGroup,CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ)<>0 OR ((CARDGROUP_MAIN = 'ALL') AND (CARDGROUP_SUB = 'ALL') AND (CARDGROUP_SEQ = 'ALL')) AND (INSTR(:card,CARD_KSID)<>0 OR (CARD_KSID = 'ALL')".equalsIgnoreCase(prtCardRuleSubscriptionVO.getWhereClause())) {
                     System.out.println("removed cardGroup where clause");
-                    
                     prtCardRuleSubscriptionVO.removeNamedWhereClauseParam("account");
                     prtCardRuleSubscriptionVO.removeNamedWhereClauseParam("cardGroup");
                     prtCardRuleSubscriptionVO.removeNamedWhereClauseParam("card");
@@ -3033,23 +2208,119 @@ public class Alerts {
                     prtCardRuleSubscriptionVO.executeQuery();
                 }
                 
-       
-                
-                accountQuery = "INSTR(:account,ACCOUNT_ID)<>0 OR (ACCOUNT_ID = 'ALL')";
-                prtCardRuleSubscriptionVO.defineNamedWhereClauseParam("account", this.mergeArraytoCommaSeperatedSting(account), null);
-                prtCardRuleSubscriptionVO.setWhereClause(accountQuery);
+                if (accountIdValue2.size() > 150) {
+                    accountQuery = accountQuery + ")";
+                } else {
+                    accountQuery = "INSTR(:account,ACCOUNT_ID)<>0 OR (ACCOUNT_ID = 'ALL')) ";
+                    prtCardRuleSubscriptionVO.defineNamedWhereClauseParam("account",mergeArraytoCommaSeperatedSting(account) , null);
+                }
 
+                if (cardGroupValue2.size() > 150) {
+                } else {
+                    cardGroupQuery =
+                            "(INSTR(:cardGroup,CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ)<>0 OR ((CARDGROUP_MAIN = 'ALL') AND (CARDGROUP_SUB = 'ALL') AND (CARDGROUP_SEQ = 'ALL')) ";
+                    prtCardRuleSubscriptionVO.defineNamedWhereClauseParam("cardGroup", mergeArraytoCommaSeperatedSting(cardgrp),
+                                                                          null);
+                }
+                prtCardRuleSubscriptionVO.setWhereClause(accountQuery + "AND " + cardGroupQuery);
+                System.out.println("Query: " + prtCardRuleSubscriptionVO.getQuery());
+                prtCardRuleSubscriptionVO.executeQuery();
+                System.out.println("Estimated row count for Card Group Rule Subscription Query:" + prtCardRuleSubscriptionVO.getEstimatedRowCount());
+                getBindings().getSearchResultsPanel().setRendered(true);
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResultsPanel());
             }
-
-
-            System.out.println("Query: " + prtCardRuleSubscriptionVO.getQuery());
-            prtCardRuleSubscriptionVO.executeQuery();
-            System.out.println("Estimated row count for Account Subscription Query:" + prtCardRuleSubscriptionVO.getEstimatedRowCount());
-            searchResultsPanel.setRendered(true);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(searchResultsPanel);
+        }else{
+            showErrorMessage("ENGAGE_NO_CARD_GROUP");
         }
+        
 
+        
+    }
 
+    public void readAccountlevel() {
+//        System.out.println("reading at account level");
+//        System.out.println("Account id value length readAccount" + accountIdValue2.size());
+//        System.out.println("Account id value length readAccount" + initailAccountId2VAlue.size());
+        String accountListString = "";
+        for (String s : initailAccountId2VAlue) {
+            accountListString += s + ",";
+        }
+        accountListString = accountListString.substring(0, accountListString.length() - 1);
+        if(getBindings().getViewAlertsAccountDropdown().getValue() != null){
+            System.out.println("converted accListString arraylist " + accountListString);
+            System.out.println("converted accListString arraylist " +
+                               (populateStringValues(getBindings().getViewAlertsAccountDropdown().getValue().toString().trim()).replaceAll(" ", "")));
+            System.out.println("length1 " + accountListString.length());
+            System.out.println("lenght2 " + (populateStringValues(getBindings().getViewAlertsAccountDropdown().getValue().toString().trim()).replaceAll(" ", "")).length());
+            
+            if (accountListString.length() == (populateStringValues(getBindings().getViewAlertsAccountDropdown().getValue().toString().trim()).replaceAll(" ", "")).length()) {
+                System.out.println("account dropdown is unchanged");
+                readPartnerLevel();
+            } else {
+                String[] values = populateStringValues(getBindings().getViewAlertsAccountDropdown().getValue().toString()).split(",");
+                String[] partner = new String[values.length];
+                String[] account = new String[values.length];
+
+                for (int i = 0; i < values.length; i++) {
+                    partner[i] = values[i].trim().substring(0, 8);
+                    account[i] = values[i].trim().substring(8);
+                }
+
+                System.out.println("partner values to be passed are ");
+                for (int j = 0; j < partner.length; j++) {
+                    System.out.println(partner[j]);
+                }
+
+                System.out.println("account values to be passed are ");
+                for (int j = 0; j < account.length; j++) {
+                    System.out.println(account[j]);
+                }
+                ViewObject prtCardRuleSubscriptionVO = ADFUtils.getViewObject("PrtCardRuleSubscriptionRVO1Iterator");
+                prtCardRuleSubscriptionVO.setNamedWhereClauseParam("pId", mergeArraytoCommaSeperatedSting(partner));
+                prtCardRuleSubscriptionVO.setNamedWhereClauseParam("userId", userEmail);
+                prtCardRuleSubscriptionVO.setNamedWhereClauseParam("countryCode", CountryCode);
+                String accountQuery = "(";
+                String cardGroupQuery = "(";
+                String cardQuery = "(";
+
+                if (accountIdValue2.size() > 150) {
+                } else {
+                    if("INSTR(:account,ACCOUNT_ID)<>0 OR (ACCOUNT_ID = 'ALL')) AND (INSTR(:cardGroup,CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ)<>0 OR ((CARDGROUP_MAIN = 'ALL') AND (CARDGROUP_SUB = 'ALL') AND (CARDGROUP_SEQ = 'ALL')) AND (INSTR(:card,CARD_KSID)<>0 OR (CARD_KSID = 'ALL')".equalsIgnoreCase(prtCardRuleSubscriptionVO.getWhereClause())) {
+                        System.out.println("removed cardGroup where clause");
+                        
+                        prtCardRuleSubscriptionVO.removeNamedWhereClauseParam("account");
+                        prtCardRuleSubscriptionVO.removeNamedWhereClauseParam("cardGroup");
+                        prtCardRuleSubscriptionVO.removeNamedWhereClauseParam("card");
+                        prtCardRuleSubscriptionVO.setWhereClause("");
+                        prtCardRuleSubscriptionVO.executeQuery();
+                    }
+                    if("INSTR(:account,ACCOUNT_ID)<>0 OR (ACCOUNT_ID = 'ALL')) AND (INSTR(:cardGroup,CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ)<>0 OR ((CARDGROUP_MAIN = 'ALL') AND (CARDGROUP_SUB = 'ALL') AND (CARDGROUP_SEQ = 'ALL'))".equalsIgnoreCase(prtCardRuleSubscriptionVO.getWhereClause())) {
+                        System.out.println("removed account where clause");
+                        prtCardRuleSubscriptionVO.removeNamedWhereClauseParam("account");
+                        prtCardRuleSubscriptionVO.removeNamedWhereClauseParam("cardGroup");
+                        prtCardRuleSubscriptionVO.setWhereClause("");
+                        prtCardRuleSubscriptionVO.executeQuery();
+                    }
+                    
+                    if("INSTR(:account,ACCOUNT_ID)<>0 OR (ACCOUNT_ID = 'ALL'))".equalsIgnoreCase(prtCardRuleSubscriptionVO.getWhereClause())){
+                        System.out.println("removed account where clause");
+                        prtCardRuleSubscriptionVO.removeNamedWhereClauseParam("account");
+                        prtCardRuleSubscriptionVO.setWhereClause("");
+                        prtCardRuleSubscriptionVO.executeQuery();
+                    } 
+                    accountQuery = "INSTR(:account,ACCOUNT_ID)<>0 OR (ACCOUNT_ID = 'ALL')";
+                    prtCardRuleSubscriptionVO.defineNamedWhereClauseParam("account", this.mergeArraytoCommaSeperatedSting(account), null);
+                    prtCardRuleSubscriptionVO.setWhereClause(accountQuery);
+                }
+                System.out.println("Query: " + prtCardRuleSubscriptionVO.getQuery());
+                prtCardRuleSubscriptionVO.executeQuery();
+                System.out.println("Estimated row count for Account Subscription Query:" + prtCardRuleSubscriptionVO.getEstimatedRowCount());
+                getBindings().getSearchResultsPanel().setRendered(true);
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResultsPanel());
+            }
+        }else{
+            showErrorMessage("ENGAGE_NO_ACCOUNT");
+        }
     }
 
     private String mergeArraytoCommaSeperatedSting(String[] data) {
@@ -3066,31 +2337,29 @@ public class Alerts {
 
     public void readPartnerLevel() {
         System.out.println("reading at partner level");
-
-        String[] values = populateStringValues(viewAlertsPartnerDropdown.getValue().toString()).split(",");
-        String[] partner = new String[values.length];
-        for (int i = 0; i < values.length; i++) {
-            partner[i] = values[i].trim().substring(0, 8);
-
+        if(getBindings().getViewAlertsPartnerDropdown().getValue() != null){
+            String[] values = populateStringValues(getBindings().getViewAlertsPartnerDropdown().getValue().toString()).split(",");
+            String[] partner = new String[values.length];
+            for (int i = 0; i < values.length; i++) {
+                partner[i] = values[i].trim().substring(0, 8);
+            }
+            System.out.println("partner values to be passed are ");
+            for (int j = 0; j < partner.length; j++) {
+                System.out.println(partner[j]);
+            }
+            ViewObject prtCardRuleSubscriptionVO = ADFUtils.getViewObject("PrtCardRuleSubscriptionRVO1Iterator");
+            prtCardRuleSubscriptionVO.setNamedWhereClauseParam("pId", populateStringValues(getBindings().getViewAlertsPartnerDropdown().getValue().toString()));
+            prtCardRuleSubscriptionVO.setNamedWhereClauseParam("userId", userEmail);
+            prtCardRuleSubscriptionVO.setNamedWhereClauseParam("countryCode", CountryCode);
+            System.out.println("Query: " + prtCardRuleSubscriptionVO.getQuery());
+            prtCardRuleSubscriptionVO.executeQuery();
+            System.out.println("Estimated row count for Card Rule Subscription Query:" + prtCardRuleSubscriptionVO.getEstimatedRowCount());
+            getBindings().getSearchResultsPanel().setRendered(true);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResultsPanel());
+        }else{
+            showErrorMessage("ENGAGE_NO_PARTNER");
         }
-        System.out.println("partner values to be passed are ");
-        for (int j = 0; j < partner.length; j++) {
-            System.out.println(partner[j]);
-        }
-        ViewObject prtCardRuleSubscriptionVO = ADFUtils.getViewObject("PrtCardRuleSubscriptionRVO1Iterator");
-
-        prtCardRuleSubscriptionVO.setNamedWhereClauseParam("pId", populateStringValues(viewAlertsPartnerDropdown.getValue().toString()));
-        prtCardRuleSubscriptionVO.setNamedWhereClauseParam("userId", userEmail);
-        prtCardRuleSubscriptionVO.setNamedWhereClauseParam("countryCode", CountryCode);
-        System.out.println("Query: " + prtCardRuleSubscriptionVO.getQuery());
-        prtCardRuleSubscriptionVO.executeQuery();
-        System.out.println("Estimated row count for Card Rule Subscription Query:" + prtCardRuleSubscriptionVO.getEstimatedRowCount());
-        searchResultsPanel.setRendered(true);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(searchResultsPanel);
-
-
     }
-
 
     public void searchCorrespondingDetalis() {
         for (int i = 0; i < partnerInfoList.size(); i++) {
@@ -3104,7 +2373,7 @@ public class Alerts {
                         passingCardgrpSeq = partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupSeq();
                         for (int cc = 0; cc < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().size(); cc++) {
                             if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID() != null &&
-                                partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().equalsIgnoreCase(searchStringInputtext.getValue().toString().trim())) {
+                                partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().equalsIgnoreCase(getBindings().getSearchStringInputtext().getValue().toString().trim())) {
                                 passingCardKsId = partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID();
                                 return;
                             }
@@ -3115,18 +2384,7 @@ public class Alerts {
         }
     }
 
-
-    public void setSearchResultsPanel(RichPanelGroupLayout searchResultsPanel) {
-        this.searchResultsPanel = searchResultsPanel;
-    }
-
-    public RichPanelGroupLayout getSearchResultsPanel() {
-        return searchResultsPanel;
-    }
-
     public void viewConfiguredAlertPopup(ActionEvent actionEvent) {
-        // Add event code here...
-        configuredPartner = "";
         if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("SubscrIdkey") != null) {
             System.out.println(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("SubscrIdkey").toString().trim());
         }
@@ -3134,57 +2392,35 @@ public class Alerts {
             System.out.println(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("RuleIdkey").toString().trim());
             if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("RuleIdkey").toString().trim().equalsIgnoreCase("1")) {
                 configuredPartner = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim();
-//                configurePartnerAlert1List = new ArrayList<SelectItem>();
-//                configurePartnerIdValue = "";
-//                SelectItem selectItem = new SelectItem();
-//                selectItem.setLabel(getPartnerName(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim()));
-//                selectItem.setValue(getPartnerName(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim()));
-//                //partnerIdList.add(selectItem);
-//                configuredPartner = (getPartnerName(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim()));
-//                configurePartnerIdValue = (getPartnerName(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim()));
-//                configurePartnerAlert1List.add(selectItem);
-//                configureAlert1PartnerValues.setValue(getPartnerName(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim()));
-//                //setConfigurePartnerIdValue(getPartnerName(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim()));
-//                AdfFacesContext.getCurrentInstance().addPartialTarget(configureAlert1PartnerValues);
-//                System.out.println("Value setted is  " + configuredPartner);
                 configureDefaultTimings(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("SubscrIdkey").toString().trim(), CountryCode);
-//                configureAlert1PartnerValues.setValue(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim());
                 RichPopup.PopupHints ps = new RichPopup.PopupHints();
-                configureAlert1Popup.show(ps);
+                getBindings().getConfigureAlert1Popup().show(ps);
             } else if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("RuleIdkey").toString().trim().equalsIgnoreCase("2")) {
-
                 configurePartnerIdList = new ArrayList<SelectItem>();
                 configurePartnerIdValue2 = new ArrayList<String>();
                 SelectItem selectItem = new SelectItem();
                 selectItem.setLabel(getPartnerName(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim()));
                 selectItem.setValue(getPartnerName(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim()));
-                //partnerIdList.add(selectItem);
                 configurePartnerIdValue2.add(getPartnerName(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim()));
                 configurePartnerIdList.add(selectItem);
-
-
                 configureAccountIdList = new ArrayList<SelectItem>();
                 configureAccountIdValue = new ArrayList<String>();
                 selectItem = new SelectItem();
                 selectItem.setLabel(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("AccountIdkey").toString().trim());
                 selectItem.setValue(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("AccountIdkey").toString().trim());
-                //partnerIdList.add(selectItem);
                 configureAccountIdValue.add(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("AccountIdkey").toString().trim());
                 configureAccountIdList.add(selectItem);
-
                 configureCardGroupList = new ArrayList<SelectItem>();
                 configureCardGroupValue = new ArrayList<String>();
                 selectItem = new SelectItem();
                 if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("CardGroupkey").toString().trim().equals("ALLALLALL")) {
                     selectItem.setLabel("ALL");
                     selectItem.setValue("ALL");
-                    //partnerIdList.add(selectItem);
                     configureCardGroupValue.add("ALL");
                     configureCardGroupList.add(selectItem);
                 } else {
                     selectItem.setLabel(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("CardGroupkey").toString().trim());
                     selectItem.setValue(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("CardGroupkey").toString().trim());
-                    //partnerIdList.add(selectItem);
                     configureCardGroupValue.add(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("CardGroupkey").toString().trim());
                     configureCardGroupList.add(selectItem);
                 }
@@ -3195,14 +2431,13 @@ public class Alerts {
 
                 selectItem.setLabel(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("CardKsidkey").toString().trim());
                 selectItem.setValue(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("CardKsidkey").toString().trim());
-                //partnerIdList.add(selectItem);
                 configureCardNumberValue.add(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("CardKsidkey").toString().trim());
                 configureCardNumberList.add(selectItem);
 
 
                 fetchFuelCapacity(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("SubscrIdkey").toString().trim(), CountryCode);
                 RichPopup.PopupHints ps = new RichPopup.PopupHints();
-                configureAlert2Popup.show(ps);
+                getBindings().getConfigureAlert2Popup().show(ps);
 
 
             }
@@ -3240,9 +2475,9 @@ public class Alerts {
             fuelCapacityVO.setNamedWhereClauseParam("countryCode", country);
 
             fuelCapacityVO.executeQuery();
-            configureLtrPerDayRadio.setSelected(false);
-            configureLtrPerWeekRadio.setSelected(false);
-            configureLtrPerMonthRadio.setSelected(false);
+            getBindings().getConfigureLtrPerDayRadio().setSelected(false);
+            getBindings().getConfigureLtrPerWeekRadio().setSelected(false);
+            getBindings().getConfigureLtrPerMonthRadio().setSelected(false);
 
             if (fuelCapacityVO.getEstimatedRowCount() != 0) {
                 while (fuelCapacityVO.hasNext()) {
@@ -3252,14 +2487,14 @@ public class Alerts {
 
                     if (currRow != null) {
                         if (currRow.getFuelPerDay() != null) {
-                            configureLtrPerDayRadio.setSelected(true);
-                            configureFuelCapacityAlert2.setValue(currRow.getFuelPerDay());
+                            getBindings().getConfigureLtrPerDayRadio().setSelected(true);
+                            getBindings().getConfigureFuelCapacityAlert2().setValue(currRow.getFuelPerDay());
                         } else if (currRow.getFuelPerWeek() != null) {
-                            configureLtrPerWeekRadio.setSelected(true);
-                            configureFuelCapacityAlert2.setValue(currRow.getFuelPerWeek());
+                            getBindings().getConfigureLtrPerWeekRadio().setSelected(true);
+                            getBindings().getConfigureFuelCapacityAlert2().setValue(currRow.getFuelPerWeek());
                         } else if (currRow.getFuelPerMonth() != null) {
-                            configureLtrPerMonthRadio.setSelected(true);
-                            configureFuelCapacityAlert2.setValue(currRow.getFuelPerMonth());
+                            getBindings().getConfigureLtrPerMonthRadio().setSelected(true);
+                            getBindings().getConfigureFuelCapacityAlert2().setValue(currRow.getFuelPerMonth());
                         }
 
                     }
@@ -3268,36 +2503,11 @@ public class Alerts {
                 }
             }
 
-            AdfFacesContext.getCurrentInstance().addPartialTarget(configureLtrPerDayRadio);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(configureLtrPerWeekRadio);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(configureLtrPerMonthRadio);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(configureFuelCapacityAlert2);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getConfigureLtrPerDayRadio());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getConfigureLtrPerWeekRadio());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getConfigureLtrPerMonthRadio());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getConfigureFuelCapacityAlert2());
         }
-    }
-
-
-    public void setConfigureAlert1Popup(RichPopup configureAlert1Popup) {
-        this.configureAlert1Popup = configureAlert1Popup;
-    }
-
-    public RichPopup getConfigureAlert1Popup() {
-        return configureAlert1Popup;
-    }
-
-    public void setConfigureAlert1PopupDialog(RichDialog configureAlert1PopupDialog) {
-        this.configureAlert1PopupDialog = configureAlert1PopupDialog;
-    }
-
-    public RichDialog getConfigureAlert1PopupDialog() {
-        return configureAlert1PopupDialog;
-    }
-
-    public void setConfigureAlert1PartnerValues(RichSelectOneChoice configureAlert1PartnerValues) {
-        this.configureAlert1PartnerValues = configureAlert1PartnerValues;
-    }
-
-    public RichSelectOneChoice getConfigureAlert1PartnerValues() {
-        return configureAlert1PartnerValues;
     }
 
     public void setConfigurePartnerAlert1List(List<SelectItem> configurePartnerAlert1List) {
@@ -3316,96 +2526,18 @@ public class Alerts {
         return configureFuelTimings;
     }
 
-    public void setConfigureAlert1Table(RichTable configureAlert1Table) {
-        this.configureAlert1Table = configureAlert1Table;
-    }
-
-    public RichTable getConfigureAlert1Table() {
-        return configureAlert1Table;
-    }
-
-    public void setConfigureFromTimingsHh(RichInputText configureFromTimingsHh) {
-        this.configureFromTimingsHh = configureFromTimingsHh;
-    }
-
-    public RichInputText getConfigureFromTimingsHh() {
-        return configureFromTimingsHh;
-    }
-
-    public void setConfigureFromTimingsMm(RichInputText configureFromTimingsMm) {
-        this.configureFromTimingsMm = configureFromTimingsMm;
-    }
-
-    public RichInputText getConfigureFromTimingsMm() {
-        return configureFromTimingsMm;
-    }
-
-    public void setConfigureToTimingsHh(RichInputText configureToTimingsHh) {
-        this.configureToTimingsHh = configureToTimingsHh;
-    }
-
-    public RichInputText getConfigureToTimingsHh() {
-        return configureToTimingsHh;
-    }
-
-    public void setConfigureToTimingsMm(RichInputText configureToTimingsMm) {
-        this.configureToTimingsMm = configureToTimingsMm;
-    }
-
-    public RichInputText getConfigureToTimingsMm() {
-        return configureToTimingsMm;
-    }
-
-    public void setEditButtonConfigureAlert1(RichCommandButton editButtonConfigureAlert1) {
-        this.editButtonConfigureAlert1 = editButtonConfigureAlert1;
-    }
-
-    public RichCommandButton getEditButtonConfigureAlert1() {
-        return editButtonConfigureAlert1;
-    }
-
     public void editAlert1ConfigureTimings(ActionEvent actionEvent) {
-        // Add event code here...
     }
 
     public void setBusinessHoursConfigureAlert(ActionEvent actionEvent) {
-        // Add event code here...
-    }
-
-    public void setOkButtonConfigureAlert1(RichCommandButton okButtonConfigureAlert1) {
-        this.okButtonConfigureAlert1 = okButtonConfigureAlert1;
-    }
-
-    public RichCommandButton getOkButtonConfigureAlert1() {
-        return okButtonConfigureAlert1;
     }
 
     public void claoseConfigureAlert1Popup(ActionEvent actionEvent) {
-        // Add event code here...
-
-        getConfigureAlert1Popup().hide();
-
-    }
-
-    public void setCancelButtonConfigureAlert1(RichCommandButton cancelButtonConfigureAlert1) {
-        this.cancelButtonConfigureAlert1 = cancelButtonConfigureAlert1;
-    }
-
-    public RichCommandButton getCancelButtonConfigureAlert1() {
-        return cancelButtonConfigureAlert1;
-    }
-
-    public void setCloseButtonConfigureAlert1(RichCommandButton closeButtonConfigureAlert1) {
-        this.closeButtonConfigureAlert1 = closeButtonConfigureAlert1;
-    }
-
-    public RichCommandButton getCloseButtonConfigureAlert1() {
-        return closeButtonConfigureAlert1;
+        getBindings().getConfigureAlert1Popup().hide();
     }
 
     public void closeConfigureAlert1Popup(ActionEvent actionEvent) {
-        // Add event code here...
-        getConfigureAlert1Popup().hide();
+        getBindings().getConfigureAlert1Popup().hide();
     }
 
     public void setConfigurePartnerIdValue(String configurePartnerIdValue) {
@@ -3417,22 +2549,6 @@ public class Alerts {
             configurePartnerIdValue = configuredPartner;
         }
         return configurePartnerIdValue;
-    }
-
-    public void setConfigureAlert2Popup(RichPopup configureAlert2Popup) {
-        this.configureAlert2Popup = configureAlert2Popup;
-    }
-
-    public RichPopup getConfigureAlert2Popup() {
-        return configureAlert2Popup;
-    }
-
-    public void setConfigurePartnerDropdownAlert2(RichSelectManyChoice configurePartnerDropdownAlert2) {
-        this.configurePartnerDropdownAlert2 = configurePartnerDropdownAlert2;
-    }
-
-    public RichSelectManyChoice getConfigurePartnerDropdownAlert2() {
-        return configurePartnerDropdownAlert2;
     }
 
     public void setConfigurePartnerIdValue2(List<String> configurePartnerIdValue2) {
@@ -3499,93 +2615,11 @@ public class Alerts {
         return configureCardNumberValue;
     }
 
-    public void setConfigureAccountDropdwonAlert2(RichSelectManyChoice configureAccountDropdwonAlert2) {
-        this.configureAccountDropdwonAlert2 = configureAccountDropdwonAlert2;
-    }
-
-    public RichSelectManyChoice getConfigureAccountDropdwonAlert2() {
-        return configureAccountDropdwonAlert2;
-    }
-
-    public void setConfigureCardGroupDowndownAlert2(RichSelectManyChoice configureCardGroupDowndownAlert2) {
-        this.configureCardGroupDowndownAlert2 = configureCardGroupDowndownAlert2;
-    }
-
-    public RichSelectManyChoice getConfigureCardGroupDowndownAlert2() {
-        return configureCardGroupDowndownAlert2;
-    }
-
-    public void setConfigureCardDropdownAlert2(RichSelectManyChoice configureCardDropdownAlert2) {
-        this.configureCardDropdownAlert2 = configureCardDropdownAlert2;
-    }
-
-    public RichSelectManyChoice getConfigureCardDropdownAlert2() {
-        return configureCardDropdownAlert2;
-    }
-
-    public void setConfigureLtrPerDayRadio(RichSelectBooleanRadio configureLtrPerDayRadio) {
-        this.configureLtrPerDayRadio = configureLtrPerDayRadio;
-    }
-
-    public RichSelectBooleanRadio getConfigureLtrPerDayRadio() {
-        return configureLtrPerDayRadio;
-    }
-
-    public void setConfigureLtrPerWeekRadio(RichSelectBooleanRadio configureLtrPerWeekRadio) {
-        this.configureLtrPerWeekRadio = configureLtrPerWeekRadio;
-    }
-
-    public RichSelectBooleanRadio getConfigureLtrPerWeekRadio() {
-        return configureLtrPerWeekRadio;
-    }
-
-    public void setConfigureLtrPerMonthRadio(RichSelectBooleanRadio configureLtrPerMonthRadio) {
-        this.configureLtrPerMonthRadio = configureLtrPerMonthRadio;
-    }
-
-    public RichSelectBooleanRadio getConfigureLtrPerMonthRadio() {
-        return configureLtrPerMonthRadio;
-    }
-
-    public void setConfigureFuelCapacityAlert2(RichInputText configureFuelCapacityAlert2) {
-        this.configureFuelCapacityAlert2 = configureFuelCapacityAlert2;
-    }
-
-    public RichInputText getConfigureFuelCapacityAlert2() {
-        return configureFuelCapacityAlert2;
-    }
-
-    public void setConfigureOkButtonAlert2(RichCommandButton configureOkButtonAlert2) {
-        this.configureOkButtonAlert2 = configureOkButtonAlert2;
-    }
-
-    public RichCommandButton getConfigureOkButtonAlert2() {
-        return configureOkButtonAlert2;
-    }
-
     public void setConfigureFuelCapacityAlert(ActionEvent actionEvent) {
-        // Add event code here...
     }
 
     public void claoseConfigureAlert2Popup(ActionEvent actionEvent) {
-        // Add event code here...
-        getConfigureAlert2Popup().hide();
-    }
-
-    public void setConfigureCloseButtonAlert2(RichCommandButton configureCloseButtonAlert2) {
-        this.configureCloseButtonAlert2 = configureCloseButtonAlert2;
-    }
-
-    public RichCommandButton getConfigureCloseButtonAlert2() {
-        return configureCloseButtonAlert2;
-    }
-
-    public void setConfigureCancelButtonAlert2(RichCommandButton configureCancelButtonAlert2) {
-        this.configureCancelButtonAlert2 = configureCancelButtonAlert2;
-    }
-
-    public RichCommandButton getConfigureCancelButtonAlert2() {
-        return configureCancelButtonAlert2;
+        getBindings().getConfigureAlert2Popup().hide();
     }
 
     public void setSearchString(String searchString) {
@@ -3596,16 +2630,7 @@ public class Alerts {
         return searchString;
     }
 
-    public void setSearchStringInputtext(RichInputText searchStringInputtext) {
-        this.searchStringInputtext = searchStringInputtext;
-    }
-
-    public RichInputText getSearchStringInputtext() {
-        return searchStringInputtext;
-    }
-
     public List suggesstedItemsResult(String string) {
-        // Add event code here...
         ArrayList<SelectItem> selectItems = new ArrayList<SelectItem>();
         System.out.println("size " + suggestedCardNumberList.size());
         for (int i = 0; i < suggestedCardNumberList.size(); i++) {
@@ -3628,71 +2653,33 @@ public class Alerts {
         return suggestedCardNumberList;
     }
 
-    public void setMainSelectionPanel(RichPanelGroupLayout mainSelectionPanel) {
-        this.mainSelectionPanel = mainSelectionPanel;
-    }
-
-    public RichPanelGroupLayout getMainSelectionPanel() {
-        return mainSelectionPanel;
-    }
-
-    public void setMainSelectionPanelRadio(RichSelectBooleanRadio mainSelectionPanelRadio) {
-        this.mainSelectionPanelRadio = mainSelectionPanelRadio;
-    }
-
-    public RichSelectBooleanRadio getMainSelectionPanelRadio() {
-        return mainSelectionPanelRadio;
-    }
-
-    public void setCardSelectionPanelRadio(RichSelectBooleanRadio cardSelectionPanelRadio) {
-        this.cardSelectionPanelRadio = cardSelectionPanelRadio;
-    }
-
-    public RichSelectBooleanRadio getCardSelectionPanelRadio() {
-        return cardSelectionPanelRadio;
-    }
-
-    public void setCardSelectionPanel(RichPanelGroupLayout cardSelectionPanel) {
-        this.cardSelectionPanel = cardSelectionPanel;
-    }
-
-    public RichPanelGroupLayout getCardSelectionPanel() {
-        return cardSelectionPanel;
-    }
-
     public void mainSelectionPanelRadioListner(ValueChangeEvent valueChangeEvent) {
-        //        if(cardSelectionPanelRadio.getValue()!=null && cardSelectionPanelRadio.getValue().toString().equals(true)) {
-        //            SelectionPanel = false;
-        //            cardsSelectionPanel = true;
-        //            if(cardsSelectionPanel)
-        //            System.out.println("Search by card number");
-        //        }
-        //        else
+        getBindings().getSearchResultsPanel().setRendered(false);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResultsPanel());
         if (valueChangeEvent.getNewValue() != null && valueChangeEvent.getNewValue().equals(true)) {
-            getViewAlertsPartnerDropdown().setDisabled(false);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getViewAlertsPartnerDropdown());
-            getViewAlertsAccountDropdown().setDisabled(false);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getViewAlertsAccountDropdown());
-            getViewAlertCardGroupDropdown().setDisabled(false);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getViewAlertCardGroupDropdown());
-            getViewAlertDropdown().setDisabled(false);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getViewAlertDropdown());
-            getSearchStringInputtext().resetValue();
-            getSearchStringInputtext().setDisabled(true);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getSearchStringInputtext());
+            getBindings().getViewAlertsPartnerDropdown().setDisabled(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertsPartnerDropdown());
+            getBindings().getViewAlertsAccountDropdown().setDisabled(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertsAccountDropdown());
+            getBindings().getViewAlertCardGroupDropdown().setDisabled(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertCardGroupDropdown());
+            getBindings().getViewAlertDropdown().setDisabled(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertDropdown());
+            getBindings().getSearchStringInputtext().resetValue();
+            getBindings().getSearchStringInputtext().setDisabled(true);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchStringInputtext());
         }else{
-            getViewAlertsPartnerDropdown().setDisabled(true);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getViewAlertsPartnerDropdown());
-            getViewAlertsAccountDropdown().setDisabled(true);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getViewAlertsAccountDropdown());
-            getViewAlertCardGroupDropdown().setDisabled(true);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getViewAlertCardGroupDropdown());
-            getViewAlertDropdown().setDisabled(true);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getViewAlertDropdown());
-            getSearchStringInputtext().setDisabled(false);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getSearchStringInputtext());
+            getBindings().getViewAlertsPartnerDropdown().setDisabled(true);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertsPartnerDropdown());
+            getBindings().getViewAlertsAccountDropdown().setDisabled(true);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertsAccountDropdown());
+            getBindings().getViewAlertCardGroupDropdown().setDisabled(true);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertCardGroupDropdown());
+            getBindings().getViewAlertDropdown().setDisabled(true);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertDropdown());
+            getBindings().getSearchStringInputtext().setDisabled(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchStringInputtext());
         }
-        
         
         System.out.println("valueChangeEvent mainSelectionPanelRadioListner" + valueChangeEvent.getNewValue().toString());
         if (valueChangeEvent.getNewValue() != null && valueChangeEvent.getNewValue().toString().equals("true")) {
@@ -3701,36 +2688,34 @@ public class Alerts {
             if (SelectionPanel)
                 System.out.println("Search by all");
         }
-        
-        searchResultsPanel.setRendered(false);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(searchResultsPanel);
     }
 
     public void cardSelectionPanelRadioListner(ValueChangeEvent valueChangeEvent) {
-
+        getBindings().getSearchResultsPanel().setRendered(false);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResultsPanel());
         if (valueChangeEvent.getNewValue() != null && valueChangeEvent.getNewValue().equals(true)) {
-            getViewAlertsPartnerDropdown().setDisabled(true);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getViewAlertsPartnerDropdown());
-            getViewAlertsAccountDropdown().setDisabled(true);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getViewAlertsAccountDropdown());
-            getViewAlertCardGroupDropdown().setDisabled(true);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getViewAlertCardGroupDropdown());
-            getViewAlertDropdown().setDisabled(true);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getViewAlertDropdown());
-            getSearchStringInputtext().resetValue();
-            getSearchStringInputtext().setDisabled(false);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getSearchStringInputtext());
+            getBindings().getViewAlertsPartnerDropdown().setDisabled(true);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertsPartnerDropdown());
+            getBindings().getViewAlertsAccountDropdown().setDisabled(true);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertsAccountDropdown());
+            getBindings().getViewAlertCardGroupDropdown().setDisabled(true);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertCardGroupDropdown());
+            getBindings().getViewAlertDropdown().setDisabled(true);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertDropdown());
+            getBindings().getSearchStringInputtext().resetValue();
+            getBindings().getSearchStringInputtext().setDisabled(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchStringInputtext());
         }else{
-            getViewAlertsPartnerDropdown().setDisabled(false);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getViewAlertsPartnerDropdown());
-            getViewAlertsAccountDropdown().setDisabled(false);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getViewAlertsAccountDropdown());
-            getViewAlertCardGroupDropdown().setDisabled(false);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getViewAlertCardGroupDropdown());
-            getViewAlertDropdown().setDisabled(false);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getViewAlertDropdown());
-            getSearchStringInputtext().setDisabled(true);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getSearchStringInputtext());
+            getBindings().getViewAlertsPartnerDropdown().setDisabled(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertsPartnerDropdown());
+            getBindings().getViewAlertsAccountDropdown().setDisabled(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertsAccountDropdown());
+            getBindings().getViewAlertCardGroupDropdown().setDisabled(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertCardGroupDropdown());
+            getBindings().getViewAlertDropdown().setDisabled(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertDropdown());
+            getBindings().getSearchStringInputtext().setDisabled(true);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchStringInputtext());
         }
 
         System.out.println("valueChangeEvent cardSelectionPanelRadioListner" + valueChangeEvent.getNewValue().toString());
@@ -3740,16 +2725,6 @@ public class Alerts {
             if (cardsSelectionPanel)
                 System.out.println("Search by card number");
         }
-        //        else
-        //            if(mainSelectionPanelRadio.getValue().toString().equals(true)) {
-        //            SelectionPanel = true;
-        //            cardsSelectionPanel = false;
-        //            if(SelectionPanel)
-        //                System.out.println("Search by all");
-        //        }
-        
-        searchResultsPanel.setRendered(false);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(searchResultsPanel);
     }
 
 
@@ -3881,38 +2856,6 @@ public class Alerts {
         return cardNumberValue2;
     }
 
-    public void setViewAlertDropdown(RichSelectManyChoice viewAlertDropdown) {
-        this.viewAlertDropdown = viewAlertDropdown;
-    }
-
-    public RichSelectManyChoice getViewAlertDropdown() {
-        return viewAlertDropdown;
-    }
-
-    public void setViewAlertCardGroupDropdown(RichSelectManyChoice viewAlertCardGroupDropdown) {
-        this.viewAlertCardGroupDropdown = viewAlertCardGroupDropdown;
-    }
-
-    public RichSelectManyChoice getViewAlertCardGroupDropdown() {
-        return viewAlertCardGroupDropdown;
-    }
-
-    public void setViewAlertsPartnerDropdown(RichSelectManyChoice viewAlertsPartnerDropdown) {
-        this.viewAlertsPartnerDropdown = viewAlertsPartnerDropdown;
-    }
-
-    public RichSelectManyChoice getViewAlertsPartnerDropdown() {
-        return viewAlertsPartnerDropdown;
-    }
-
-    public void setViewAlertsAccountDropdown(RichSelectManyChoice viewAlertsAccountDropdown) {
-        this.viewAlertsAccountDropdown = viewAlertsAccountDropdown;
-    }
-
-    public RichSelectManyChoice getViewAlertsAccountDropdown() {
-        return viewAlertsAccountDropdown;
-    }
-
     public void setConfiguredPartner(String configuredPartner) {
         this.configuredPartner = configuredPartner;
     }
@@ -3947,18 +2890,599 @@ public class Alerts {
 
     public void clearSearchListener(ActionEvent actionEvent) {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside clearSearchListener method of Alerts");
-        getViewAlertsPartnerDropdown().setValue(null);
-        this.partnerIdValue2 = null;
-        getViewAlertsAccountDropdown().setValue(null);
-        this.accountIdValue2 = null;
-        getViewAlertCardGroupDropdown().setValue(null);
-        this.cardGroupValue2 = null;
-        getViewAlertDropdown().setValue(null);
-        this.cardNumberValue2 = null;
-        searchResultsPanel.setRendered(false);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(searchResultsPanel);
-        getSearchStringInputtext().setValue(null);
+       
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside clearSearchListener method of Alerts");
+    }
+
+    public void setSelectedPartner(String selectedPartner) {
+        this.selectedPartner = selectedPartner;
+    }
+
+    public String getSelectedPartner() {
+        if(configuredPartner != null){
+            selectedPartner = getPartnerName(configuredPartner);
+        }
+        return selectedPartner;
+    }
+
+    public class Bindings {
+        private RichPopup alert1Popup;
+        private RichPopup alert2Popup;
+        private RichPanelGroupLayout successfullalert;
+        private RichPanelGroupLayout alertSuccessProperty;
+        private RichDialog alert1PopupDialog;
+        private RichSelectOneChoice alert1PartnerValues;
+        private RichInputText fromTimingsHh;
+        private RichInputText fromTimingsMm;
+        private RichInputText toTimingsHh;
+        private RichInputText toTimingsMm;
+        private RichTable alert1Table;
+        private RichSelectManyChoice accountDropdwonAlert2;
+        private RichSelectManyChoice cardGroupDowndownAlert2;
+        private RichSelectManyChoice cardDropdownAlert2;
+        private RichSelectManyChoice partnerDropdownAlert2;
+        private RichSelectBooleanRadio ltrPerDayRadio;
+        private RichSelectBooleanRadio ltrPerWeekRadio;
+        private RichSelectBooleanRadio ltrPerMonthRadio;
+        private RichInputText fuelCapacityAlert2;
+        private RichCommandButton okButtonAlert2;
+        private RichCommandButton cancelButtonAlert2;
+        private RichPanelGroupLayout successAlert2;
+        private RichCommandButton closeButtonAlert2;
+        private RichSelectManyChoice viewAlertDropdown;
+        private RichSelectManyChoice viewAlertCardGroupDropdown;
+        private RichSelectManyChoice viewAlertsPartnerDropdown;
+        private RichSelectManyChoice viewAlertsAccountDropdown;
+        private RichPanelGroupLayout alert1ValidData;
+        private RichCommandButton closeButtonAlert1;
+        private RichCommandButton cancelButtonAlert1;
+        private RichCommandButton okButtonAlert1;
+        private RichCommandButton editButtonAlert1;
+        private RichPanelGroupLayout alert2ValidData;
+        private RichPanelGroupLayout searchResultsPanel;
+        private RichPopup configureAlert1Popup;
+        private RichDialog configureAlert1PopupDialog;
+        private RichSelectOneChoice configureAlert1PartnerValues;
+        private RichTable configureAlert1Table;
+        private RichInputText configureFromTimingsHh;
+        private RichInputText configureFromTimingsMm;
+        private RichInputText configureToTimingsHh;
+        private RichInputText configureToTimingsMm;
+        private RichCommandButton editButtonConfigureAlert1;
+        private RichCommandButton okButtonConfigureAlert1;
+        private RichCommandButton cancelButtonConfigureAlert1;
+        private RichCommandButton closeButtonConfigureAlert1;
+        private RichPopup configureAlert2Popup;
+        private RichSelectManyChoice configurePartnerDropdownAlert2;
+        private RichSelectManyChoice configureAccountDropdwonAlert2;
+        private RichSelectManyChoice configureCardGroupDowndownAlert2;
+        private RichSelectManyChoice configureCardDropdownAlert2;
+        private RichSelectBooleanRadio configureLtrPerDayRadio;
+        private RichSelectBooleanRadio configureLtrPerWeekRadio;
+        private RichSelectBooleanRadio configureLtrPerMonthRadio;
+        private RichInputText configureFuelCapacityAlert2;
+        private RichCommandButton configureOkButtonAlert2;
+        private RichCommandButton configureCloseButtonAlert2;
+        private RichCommandButton configureCancelButtonAlert2;
+        private RichInputText searchStringInputtext;
+        private List<String> suggestedCardNumberList;
+        private RichPanelGroupLayout mainSelectionPanel;
+        private RichSelectBooleanRadio mainSelectionPanelRadio;
+        private RichSelectBooleanRadio cardSelectionPanelRadio;
+        private RichPanelGroupLayout cardSelectionPanel;
+
+        public void setAlert1Popup(RichPopup alert1Popup) {
+            this.alert1Popup = alert1Popup;
+        }
+
+        public RichPopup getAlert1Popup() {
+            return alert1Popup;
+        }
+
+        public void setAlert2Popup(RichPopup alert2Popup) {
+            this.alert2Popup = alert2Popup;
+        }
+
+        public RichPopup getAlert2Popup() {
+            return alert2Popup;
+        }
+
+        public void setSuccessfullalert(RichPanelGroupLayout successfullalert) {
+            this.successfullalert = successfullalert;
+        }
+
+        public RichPanelGroupLayout getSuccessfullalert() {
+            return successfullalert;
+        }
+
+        public void setAlertSuccessProperty(RichPanelGroupLayout alertSuccessProperty) {
+            this.alertSuccessProperty = alertSuccessProperty;
+        }
+
+        public RichPanelGroupLayout getAlertSuccessProperty() {
+            return alertSuccessProperty;
+        }
+
+        public void setAlert1PopupDialog(RichDialog alert1PopupDialog) {
+            this.alert1PopupDialog = alert1PopupDialog;
+        }
+
+        public RichDialog getAlert1PopupDialog() {
+            return alert1PopupDialog;
+        }
+
+        public void setAlert1PartnerValues(RichSelectOneChoice alert1PartnerValues) {
+            this.alert1PartnerValues = alert1PartnerValues;
+        }
+
+        public RichSelectOneChoice getAlert1PartnerValues() {
+            return alert1PartnerValues;
+        }
+
+        public void setFromTimingsHh(RichInputText fromTimingsHh) {
+            this.fromTimingsHh = fromTimingsHh;
+        }
+
+        public RichInputText getFromTimingsHh() {
+            return fromTimingsHh;
+        }
+
+        public void setFromTimingsMm(RichInputText fromTimingsMm) {
+            this.fromTimingsMm = fromTimingsMm;
+        }
+
+        public RichInputText getFromTimingsMm() {
+            return fromTimingsMm;
+        }
+
+        public void setToTimingsHh(RichInputText toTimingsHh) {
+            this.toTimingsHh = toTimingsHh;
+        }
+
+        public RichInputText getToTimingsHh() {
+            return toTimingsHh;
+        }
+
+        public void setToTimingsMm(RichInputText toTimingsMm) {
+            this.toTimingsMm = toTimingsMm;
+        }
+
+        public RichInputText getToTimingsMm() {
+            return toTimingsMm;
+        }
+
+        public void setAlert1Table(RichTable alert1Table) {
+            this.alert1Table = alert1Table;
+        }
+
+        public RichTable getAlert1Table() {
+            return alert1Table;
+        }
+
+        public void setAccountDropdwonAlert2(RichSelectManyChoice accountDropdwonAlert2) {
+            this.accountDropdwonAlert2 = accountDropdwonAlert2;
+        }
+
+        public RichSelectManyChoice getAccountDropdwonAlert2() {
+            return accountDropdwonAlert2;
+        }
+
+        public void setCardGroupDowndownAlert2(RichSelectManyChoice cardGroupDowndownAlert2) {
+            this.cardGroupDowndownAlert2 = cardGroupDowndownAlert2;
+        }
+
+        public RichSelectManyChoice getCardGroupDowndownAlert2() {
+            return cardGroupDowndownAlert2;
+        }
+
+        public void setCardDropdownAlert2(RichSelectManyChoice cardDropdownAlert2) {
+            this.cardDropdownAlert2 = cardDropdownAlert2;
+        }
+
+        public RichSelectManyChoice getCardDropdownAlert2() {
+            return cardDropdownAlert2;
+        }
+
+        public void setPartnerDropdownAlert2(RichSelectManyChoice partnerDropdownAlert2) {
+            this.partnerDropdownAlert2 = partnerDropdownAlert2;
+        }
+
+        public RichSelectManyChoice getPartnerDropdownAlert2() {
+            return partnerDropdownAlert2;
+        }
+
+        public void setLtrPerDayRadio(RichSelectBooleanRadio ltrPerDayRadio) {
+            this.ltrPerDayRadio = ltrPerDayRadio;
+        }
+
+        public RichSelectBooleanRadio getLtrPerDayRadio() {
+            return ltrPerDayRadio;
+        }
+
+        public void setLtrPerWeekRadio(RichSelectBooleanRadio ltrPerWeekRadio) {
+            this.ltrPerWeekRadio = ltrPerWeekRadio;
+        }
+
+        public RichSelectBooleanRadio getLtrPerWeekRadio() {
+            return ltrPerWeekRadio;
+        }
+
+        public void setLtrPerMonthRadio(RichSelectBooleanRadio ltrPerMonthRadio) {
+            this.ltrPerMonthRadio = ltrPerMonthRadio;
+        }
+
+        public RichSelectBooleanRadio getLtrPerMonthRadio() {
+            return ltrPerMonthRadio;
+        }
+
+        public void setFuelCapacityAlert2(RichInputText fuelCapacityAlert2) {
+            this.fuelCapacityAlert2 = fuelCapacityAlert2;
+        }
+
+        public RichInputText getFuelCapacityAlert2() {
+            return fuelCapacityAlert2;
+        }
+
+        public void setOkButtonAlert2(RichCommandButton okButtonAlert2) {
+            this.okButtonAlert2 = okButtonAlert2;
+        }
+
+        public RichCommandButton getOkButtonAlert2() {
+            return okButtonAlert2;
+        }
+
+        public void setCancelButtonAlert2(RichCommandButton cancelButtonAlert2) {
+            this.cancelButtonAlert2 = cancelButtonAlert2;
+        }
+
+        public RichCommandButton getCancelButtonAlert2() {
+            return cancelButtonAlert2;
+        }
+
+        public void setSuccessAlert2(RichPanelGroupLayout successAlert2) {
+            this.successAlert2 = successAlert2;
+        }
+
+        public RichPanelGroupLayout getSuccessAlert2() {
+            return successAlert2;
+        }
+
+        public void setCloseButtonAlert2(RichCommandButton closeButtonAlert2) {
+            this.closeButtonAlert2 = closeButtonAlert2;
+        }
+
+        public RichCommandButton getCloseButtonAlert2() {
+            return closeButtonAlert2;
+        }
+
+        public void setViewAlertDropdown(RichSelectManyChoice viewAlertDropdown) {
+            this.viewAlertDropdown = viewAlertDropdown;
+        }
+
+        public RichSelectManyChoice getViewAlertDropdown() {
+            return viewAlertDropdown;
+        }
+
+        public void setViewAlertCardGroupDropdown(RichSelectManyChoice viewAlertCardGroupDropdown) {
+            this.viewAlertCardGroupDropdown = viewAlertCardGroupDropdown;
+        }
+
+        public RichSelectManyChoice getViewAlertCardGroupDropdown() {
+            return viewAlertCardGroupDropdown;
+        }
+
+        public void setViewAlertsPartnerDropdown(RichSelectManyChoice viewAlertsPartnerDropdown) {
+            this.viewAlertsPartnerDropdown = viewAlertsPartnerDropdown;
+        }
+
+        public RichSelectManyChoice getViewAlertsPartnerDropdown() {
+            return viewAlertsPartnerDropdown;
+        }
+
+        public void setViewAlertsAccountDropdown(RichSelectManyChoice viewAlertsAccountDropdown) {
+            this.viewAlertsAccountDropdown = viewAlertsAccountDropdown;
+        }
+
+        public RichSelectManyChoice getViewAlertsAccountDropdown() {
+            return viewAlertsAccountDropdown;
+        }
+
+        public void setAlert1ValidData(RichPanelGroupLayout alert1ValidData) {
+            this.alert1ValidData = alert1ValidData;
+        }
+
+        public RichPanelGroupLayout getAlert1ValidData() {
+            return alert1ValidData;
+        }
+
+        public void setCloseButtonAlert1(RichCommandButton closeButtonAlert1) {
+            this.closeButtonAlert1 = closeButtonAlert1;
+        }
+
+        public RichCommandButton getCloseButtonAlert1() {
+            return closeButtonAlert1;
+        }
+
+        public void setCancelButtonAlert1(RichCommandButton cancelButtonAlert1) {
+            this.cancelButtonAlert1 = cancelButtonAlert1;
+        }
+
+        public RichCommandButton getCancelButtonAlert1() {
+            return cancelButtonAlert1;
+        }
+
+        public void setOkButtonAlert1(RichCommandButton okButtonAlert1) {
+            this.okButtonAlert1 = okButtonAlert1;
+        }
+
+        public RichCommandButton getOkButtonAlert1() {
+            return okButtonAlert1;
+        }
+
+        public void setEditButtonAlert1(RichCommandButton editButtonAlert1) {
+            this.editButtonAlert1 = editButtonAlert1;
+        }
+
+        public RichCommandButton getEditButtonAlert1() {
+            return editButtonAlert1;
+        }
+
+        public void setAlert2ValidData(RichPanelGroupLayout alert2ValidData) {
+            this.alert2ValidData = alert2ValidData;
+        }
+
+        public RichPanelGroupLayout getAlert2ValidData() {
+            return alert2ValidData;
+        }
+
+        public void setSearchResultsPanel(RichPanelGroupLayout searchResultsPanel) {
+            this.searchResultsPanel = searchResultsPanel;
+        }
+
+        public RichPanelGroupLayout getSearchResultsPanel() {
+            return searchResultsPanel;
+        }
+
+        public void setConfigureAlert1Popup(RichPopup configureAlert1Popup) {
+            this.configureAlert1Popup = configureAlert1Popup;
+        }
+
+        public RichPopup getConfigureAlert1Popup() {
+            return configureAlert1Popup;
+        }
+
+        public void setConfigureAlert1PopupDialog(RichDialog configureAlert1PopupDialog) {
+            this.configureAlert1PopupDialog = configureAlert1PopupDialog;
+        }
+
+        public RichDialog getConfigureAlert1PopupDialog() {
+            return configureAlert1PopupDialog;
+        }
+
+        public void setConfigureAlert1PartnerValues(RichSelectOneChoice configureAlert1PartnerValues) {
+            this.configureAlert1PartnerValues = configureAlert1PartnerValues;
+        }
+
+        public RichSelectOneChoice getConfigureAlert1PartnerValues() {
+            return configureAlert1PartnerValues;
+        }
+
+        public void setConfigureAlert1Table(RichTable configureAlert1Table) {
+            this.configureAlert1Table = configureAlert1Table;
+        }
+
+        public RichTable getConfigureAlert1Table() {
+            return configureAlert1Table;
+        }
+
+        public void setConfigureFromTimingsHh(RichInputText configureFromTimingsHh) {
+            this.configureFromTimingsHh = configureFromTimingsHh;
+        }
+
+        public RichInputText getConfigureFromTimingsHh() {
+            return configureFromTimingsHh;
+        }
+
+        public void setConfigureFromTimingsMm(RichInputText configureFromTimingsMm) {
+            this.configureFromTimingsMm = configureFromTimingsMm;
+        }
+
+        public RichInputText getConfigureFromTimingsMm() {
+            return configureFromTimingsMm;
+        }
+
+        public void setConfigureToTimingsHh(RichInputText configureToTimingsHh) {
+            this.configureToTimingsHh = configureToTimingsHh;
+        }
+
+        public RichInputText getConfigureToTimingsHh() {
+            return configureToTimingsHh;
+        }
+
+        public void setConfigureToTimingsMm(RichInputText configureToTimingsMm) {
+            this.configureToTimingsMm = configureToTimingsMm;
+        }
+
+        public RichInputText getConfigureToTimingsMm() {
+            return configureToTimingsMm;
+        }
+
+        public void setEditButtonConfigureAlert1(RichCommandButton editButtonConfigureAlert1) {
+            this.editButtonConfigureAlert1 = editButtonConfigureAlert1;
+        }
+
+        public RichCommandButton getEditButtonConfigureAlert1() {
+            return editButtonConfigureAlert1;
+        }
+
+        public void setOkButtonConfigureAlert1(RichCommandButton okButtonConfigureAlert1) {
+            this.okButtonConfigureAlert1 = okButtonConfigureAlert1;
+        }
+
+        public RichCommandButton getOkButtonConfigureAlert1() {
+            return okButtonConfigureAlert1;
+        }
+
+        public void setCancelButtonConfigureAlert1(RichCommandButton cancelButtonConfigureAlert1) {
+            this.cancelButtonConfigureAlert1 = cancelButtonConfigureAlert1;
+        }
+
+        public RichCommandButton getCancelButtonConfigureAlert1() {
+            return cancelButtonConfigureAlert1;
+        }
+
+        public void setCloseButtonConfigureAlert1(RichCommandButton closeButtonConfigureAlert1) {
+            this.closeButtonConfigureAlert1 = closeButtonConfigureAlert1;
+        }
+
+        public RichCommandButton getCloseButtonConfigureAlert1() {
+            return closeButtonConfigureAlert1;
+        }
+
+        public void setConfigureAlert2Popup(RichPopup configureAlert2Popup) {
+            this.configureAlert2Popup = configureAlert2Popup;
+        }
+
+        public RichPopup getConfigureAlert2Popup() {
+            return configureAlert2Popup;
+        }
+
+        public void setConfigurePartnerDropdownAlert2(RichSelectManyChoice configurePartnerDropdownAlert2) {
+            this.configurePartnerDropdownAlert2 = configurePartnerDropdownAlert2;
+        }
+
+        public RichSelectManyChoice getConfigurePartnerDropdownAlert2() {
+            return configurePartnerDropdownAlert2;
+        }
+
+        public void setConfigureAccountDropdwonAlert2(RichSelectManyChoice configureAccountDropdwonAlert2) {
+            this.configureAccountDropdwonAlert2 = configureAccountDropdwonAlert2;
+        }
+
+        public RichSelectManyChoice getConfigureAccountDropdwonAlert2() {
+            return configureAccountDropdwonAlert2;
+        }
+
+        public void setConfigureCardGroupDowndownAlert2(RichSelectManyChoice configureCardGroupDowndownAlert2) {
+            this.configureCardGroupDowndownAlert2 = configureCardGroupDowndownAlert2;
+        }
+
+        public RichSelectManyChoice getConfigureCardGroupDowndownAlert2() {
+            return configureCardGroupDowndownAlert2;
+        }
+
+        public void setConfigureCardDropdownAlert2(RichSelectManyChoice configureCardDropdownAlert2) {
+            this.configureCardDropdownAlert2 = configureCardDropdownAlert2;
+        }
+
+        public RichSelectManyChoice getConfigureCardDropdownAlert2() {
+            return configureCardDropdownAlert2;
+        }
+
+        public void setConfigureLtrPerDayRadio(RichSelectBooleanRadio configureLtrPerDayRadio) {
+            this.configureLtrPerDayRadio = configureLtrPerDayRadio;
+        }
+
+        public RichSelectBooleanRadio getConfigureLtrPerDayRadio() {
+            return configureLtrPerDayRadio;
+        }
+
+        public void setConfigureLtrPerWeekRadio(RichSelectBooleanRadio configureLtrPerWeekRadio) {
+            this.configureLtrPerWeekRadio = configureLtrPerWeekRadio;
+        }
+
+        public RichSelectBooleanRadio getConfigureLtrPerWeekRadio() {
+            return configureLtrPerWeekRadio;
+        }
+
+        public void setConfigureLtrPerMonthRadio(RichSelectBooleanRadio configureLtrPerMonthRadio) {
+            this.configureLtrPerMonthRadio = configureLtrPerMonthRadio;
+        }
+
+        public RichSelectBooleanRadio getConfigureLtrPerMonthRadio() {
+            return configureLtrPerMonthRadio;
+        }
+
+        public void setConfigureFuelCapacityAlert2(RichInputText configureFuelCapacityAlert2) {
+            this.configureFuelCapacityAlert2 = configureFuelCapacityAlert2;
+        }
+
+        public RichInputText getConfigureFuelCapacityAlert2() {
+            return configureFuelCapacityAlert2;
+        }
+
+        public void setConfigureOkButtonAlert2(RichCommandButton configureOkButtonAlert2) {
+            this.configureOkButtonAlert2 = configureOkButtonAlert2;
+        }
+
+        public RichCommandButton getConfigureOkButtonAlert2() {
+            return configureOkButtonAlert2;
+        }
+
+        public void setConfigureCloseButtonAlert2(RichCommandButton configureCloseButtonAlert2) {
+            this.configureCloseButtonAlert2 = configureCloseButtonAlert2;
+        }
+
+        public RichCommandButton getConfigureCloseButtonAlert2() {
+            return configureCloseButtonAlert2;
+        }
+
+        public void setConfigureCancelButtonAlert2(RichCommandButton configureCancelButtonAlert2) {
+            this.configureCancelButtonAlert2 = configureCancelButtonAlert2;
+        }
+
+        public RichCommandButton getConfigureCancelButtonAlert2() {
+            return configureCancelButtonAlert2;
+        }
+
+        public void setSearchStringInputtext(RichInputText searchStringInputtext) {
+            this.searchStringInputtext = searchStringInputtext;
+        }
+
+        public RichInputText getSearchStringInputtext() {
+            return searchStringInputtext;
+        }
+
+        public void setSuggestedCardNumberList(List<String> suggestedCardNumberList) {
+            this.suggestedCardNumberList = suggestedCardNumberList;
+        }
+
+        public List<String> getSuggestedCardNumberList() {
+            return suggestedCardNumberList;
+        }
+
+        public void setMainSelectionPanel(RichPanelGroupLayout mainSelectionPanel) {
+            this.mainSelectionPanel = mainSelectionPanel;
+        }
+
+        public RichPanelGroupLayout getMainSelectionPanel() {
+            return mainSelectionPanel;
+        }
+
+        public void setMainSelectionPanelRadio(RichSelectBooleanRadio mainSelectionPanelRadio) {
+            this.mainSelectionPanelRadio = mainSelectionPanelRadio;
+        }
+
+        public RichSelectBooleanRadio getMainSelectionPanelRadio() {
+            return mainSelectionPanelRadio;
+        }
+
+        public void setCardSelectionPanelRadio(RichSelectBooleanRadio cardSelectionPanelRadio) {
+            this.cardSelectionPanelRadio = cardSelectionPanelRadio;
+        }
+
+        public RichSelectBooleanRadio getCardSelectionPanelRadio() {
+            return cardSelectionPanelRadio;
+        }
+
+        public void setCardSelectionPanel(RichPanelGroupLayout cardSelectionPanel) {
+            this.cardSelectionPanel = cardSelectionPanel;
+        }
+
+        public RichPanelGroupLayout getCardSelectionPanel() {
+            return cardSelectionPanel;
+        }
+
     }
 }
 
