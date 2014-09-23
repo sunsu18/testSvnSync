@@ -299,7 +299,7 @@ public class EngageResourceBundle extends ListResourceBundle {
       {"LTR_MONTH",""},{"LTRS",""},{"SEARCH_TEXT",""},{"PLEASE_WAIT",""},
       {"ENGAGE_USER_DETAILS",""},{"ENGAGE_ENTER_CARD",""},
       {"CARD_STATUS_SELECTOR",""},{"ENGAGE_CARD_2_ID",""},{"RULE",""},
-      {"SUBSCRIPTION_DATE",""}};
+      {"SUBSCRIPTION_DATE",""},{"ALERT_DETAILS",""}};
 
     /**
      * This method populates the values of all resource keys from database through PrtGenTranslationVO based on lang parameter.

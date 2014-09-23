@@ -499,7 +499,7 @@ public class UserDisplayBean {
     
     public void searchResult(ActionEvent actionEvent) {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside searchResult method of User Display");
-        isTableVisible = true;
+        isTableVisible = false;
         isCgMgrVisible = false;
         isEmpVisible = false;
         isAccMgrVisible = false;

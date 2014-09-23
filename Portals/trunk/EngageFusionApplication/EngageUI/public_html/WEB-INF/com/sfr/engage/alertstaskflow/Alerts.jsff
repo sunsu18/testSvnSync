@@ -465,12 +465,14 @@
         <af:spacer width="24" height="10" id="s47"/>
       </af:panelGroupLayout>
       <af:spacer width="5" height="10" id="s64"/>
-    <af:panelGroupLayout id="pgl37" visible="#{pageFlowScope.AlertsBean.isTableVisible}" partialTriggers="cb3 cb2 smc2 smc5 smc6 cb8 cb8 cb9 sbr42 sbr41"
-                             binding="#{pageFlowScope.AlertsBean.bindings.searchResultsPanel}">
+    <af:panelGroupLayout id="pgl69" visible="#{pageFlowScope.AlertsBean.isTableVisible}" partialTriggers="cb3 cb2 smc2 smc5 smc6 cb8 cb8 cb9 sbr42 sbr41"
+                             binding="#{pageFlowScope.AlertsBean.bindings.searchResultsPanel}" layout="vertical">
     <af:panelGroupLayout id="panelGroupLayout1" layout="horizontal">
       <af:separator id="separator1" inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
     </af:panelGroupLayout>
     <af:spacer width="10" height="10" id="s81"/>
+    <af:outputText value="#{sfr.ALERT_DETAILS}" id="ot68"/>
+    <af:spacer height="10" id="s82"/>
       <af:table value="#{bindings.PrtCardRuleSubscriptionRVO11.collectionModel}"
                 var="row" width="962px" styleClass="AFStretchWidth"
                 rows="#{bindings.PrtCardRuleSubscriptionRVO11.rangeSize}"
