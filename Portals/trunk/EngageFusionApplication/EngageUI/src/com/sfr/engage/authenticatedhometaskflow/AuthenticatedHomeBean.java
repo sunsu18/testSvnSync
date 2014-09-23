@@ -16,9 +16,6 @@ import com.sfr.util.validations.Conversion;
 import java.io.IOException;
 import java.io.Serializable;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -45,8 +42,6 @@ import oracle.adf.view.rich.component.rich.data.RichTree;
 import oracle.adf.view.rich.component.rich.layout.RichPanelGroupLayout;
 import oracle.adf.view.rich.component.rich.output.RichOutputText;
 import oracle.adf.view.rich.component.rich.output.RichSpacer;
-
-import oracle.adf.view.rich.context.AdfFacesContext;
 
 import oracle.jbo.ViewObject;
 
@@ -574,7 +569,30 @@ bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
         ViewObject vo = ADFUtils.getViewObject("PrtHomeInvoiceRVO1Iterator");
 
         vo.setNamedWhereClauseParam("countryCode", country);
-        vo.setNamedWhereClauseParam("partnerId", partnerId);
+        String userEmail = user.getEmailID();
+        vo.setNamedWhereClauseParam("userid", userEmail);
+        
+        if (user.getRoleList().get(0).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR)) {
+            
+            
+            if (user.getRoleList().get(0).getIdString().get(0).contains("AC")) {
+                System.out.println("passing role WCP_CARD_B2B_MGR_ACC to home INvoices");
+                vo.setNamedWhereClauseParam("role", "WCP_CARD_B2B_MGR_ACC");
+            }
+            else
+            if(user.getRoleList().get(0).getIdString().get(0).contains("CG")) {
+                System.out.println("passing role WCP_CARD_B2B_MGR_CG to home INvoices");
+                vo.setNamedWhereClauseParam("role", "WCP_CARD_B2B_MGR_CG");
+            }
+        }
+        if (user.getRoleList().get(0).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_ADMIN)) {
+            
+            System.out.println("passing role WCP_CARD_B2B_ADMIN to home INvoices");
+                vo.setNamedWhereClauseParam("role", "WCP_CARD_B2B_ADMIN");
+           
+            
+        }
+        
         vo.executeQuery();
 
         if (vo.getEstimatedRowCount() != 0) {
@@ -648,7 +666,29 @@ bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
                  " Arraylist in Transaction VO " + partnerId);
 
         latestTransactionVO.setNamedWhereClauseParam("countryCode", country);
-        latestTransactionVO.setNamedWhereClauseParam("partnerId", partnerId);
+       
+        if (user.getRoleList().get(0).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR)) {
+            
+            
+            if (user.getRoleList().get(0).getIdString().get(0).contains("AC")) {
+                System.out.println("passing role WCP_CARD_B2B_MGR_ACC to home Transactions");
+                latestTransactionVO.setNamedWhereClauseParam("role", "WCP_CARD_B2B_MGR_ACC");
+            }
+            else
+            if(user.getRoleList().get(0).getIdString().get(0).contains("CG")) {
+                System.out.println("passing role WCP_CARD_B2B_MGR_CG to home Transactions");
+                latestTransactionVO.setNamedWhereClauseParam("role", "WCP_CARD_B2B_MGR_CG");
+            }
+        }
+        if (user.getRoleList().get(0).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_ADMIN)) {
+            
+            System.out.println("passing role WCP_CARD_B2B_ADMIN to home Transactions");
+                latestTransactionVO.setNamedWhereClauseParam("role", "WCP_CARD_B2B_ADMIN");
+           
+            
+        }
+        String userEmail = user.getEmailID();
+        latestTransactionVO.setNamedWhereClauseParam("userid", userEmail);
 
         latestTransactionVO.executeQuery();
         if (latestTransactionVO.getEstimatedRowCount() != 0) {

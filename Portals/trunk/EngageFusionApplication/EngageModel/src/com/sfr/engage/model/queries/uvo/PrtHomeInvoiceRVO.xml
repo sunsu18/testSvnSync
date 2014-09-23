@@ -24,17 +24,38 @@
     Kind="where"
     Type="java.lang.String"/>
   <Variable
-    Name="partnerId"
+    Name="userid"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="role"
     Kind="where"
     Type="java.lang.String"/>
   <SQLQuery>
     <![CDATA[select * from(select prt_card_payment_doc.invoice_doc_number, prt_card_payment_doc.invoicing_date, prt_card_payment_doc.invoicing_due_date,prt_card_invoice_details.INV_GROSS_AMT
-
 from prt_card_payment_doc join prt_card_invoice_details ON 
-
 (prt_card_payment_doc.invoice_doc_number = prt_card_invoice_details.invoice_doc_number and prt_card_payment_doc.country_code = prt_card_invoice_details.country_code)
+Where :role = 'WCP_CARD_B2B_ADMIN' AND prt_card_payment_doc.COUNTRY_CODE = :countryCode AND prt_card_payment_doc.PARTNER_ID in (Select prt_card_user_role_mapping.partner_id from PRT_CARD_USER_ROLE_MAPPING where user_email =: userid) 
+AND prt_card_payment_doc.INVOICE_LEVEL is not null
+order by prt_card_payment_doc.invoicing_date DESC,prt_card_payment_doc.invoice_doc_number DESC) where rownum <=5
 
-Where prt_card_payment_doc.COUNTRY_CODE = :countryCode AND INSTR(:partnerId,prt_card_payment_doc.PARTNER_ID) <> 0 
+union 
+
+select * from(select prt_card_payment_doc.invoice_doc_number, prt_card_payment_doc.invoicing_date, prt_card_payment_doc.invoicing_due_date,prt_card_invoice_details.INV_GROSS_AMT
+from prt_card_payment_doc join prt_card_invoice_details ON 
+(prt_card_payment_doc.invoice_doc_number = prt_card_invoice_details.invoice_doc_number and prt_card_payment_doc.country_code = prt_card_invoice_details.country_code)
+Where :role = 'WCP_CARD_B2B_MGR_ACC' AND prt_card_payment_doc.COUNTRY_CODE = :countryCode AND prt_card_payment_doc.PARTNER_ID in (Select prt_card_user_role_mapping.partner_id from PRT_CARD_USER_ROLE_MAPPING where user_email =: userid) 
+AND prt_card_payment_doc.account_id in (Select prt_card_user_role_mapping.user_association from PRT_CARD_USER_ROLE_MAPPING where user_email =: userid) 
+AND prt_card_payment_doc.INVOICE_LEVEL is not null
+order by prt_card_payment_doc.invoicing_date DESC,prt_card_payment_doc.invoice_doc_number DESC) where rownum <=5
+
+union 
+
+select * from(select prt_card_payment_doc.invoice_doc_number, prt_card_payment_doc.invoicing_date, prt_card_payment_doc.invoicing_due_date,prt_card_invoice_details.INV_GROSS_AMT
+from prt_card_payment_doc join prt_card_invoice_details ON 
+(prt_card_payment_doc.invoice_doc_number = prt_card_invoice_details.invoice_doc_number and prt_card_payment_doc.country_code = prt_card_invoice_details.country_code)
+Where :role = 'WCP_CARD_B2B_MGR_CG' AND prt_card_payment_doc.COUNTRY_CODE = :countryCode AND prt_card_payment_doc.PARTNER_ID in (Select prt_card_user_role_mapping.partner_id from PRT_CARD_USER_ROLE_MAPPING where user_email =: userid) 
+AND prt_card_payment_doc.cardgroup_main_type||prt_card_payment_doc.cardgroup_sub_type||prt_card_payment_doc.cardgroup_seq in (Select prt_card_user_role_mapping.user_association from PRT_CARD_USER_ROLE_MAPPING where user_email =: userid)
 AND prt_card_payment_doc.INVOICE_LEVEL is not null
 order by prt_card_payment_doc.invoicing_date DESC,prt_card_payment_doc.invoice_doc_number DESC) where rownum <=5]]>
   </SQLQuery>

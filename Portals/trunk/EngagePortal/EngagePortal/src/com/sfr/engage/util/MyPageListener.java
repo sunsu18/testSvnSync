@@ -1490,6 +1490,9 @@ public class MyPageListener implements PagePhaseListener {
                                 session.setAttribute("executePartnerObjLogic", "no");
                                 log.info(accessDC.getDisplayRecord() + this.getClass() + " Session variable added");
                                 log.info(accessDC.getDisplayRecord() + this.getClass() + " flag value changed now");
+                                log.info(accessDC.getDisplayRecord() + this.getClass() + "cardTypeHS size is " + cardTypeHS.size());
+                                session.setAttribute("cardTypeList", cardTypeHS);
+
 
                             }
                         }

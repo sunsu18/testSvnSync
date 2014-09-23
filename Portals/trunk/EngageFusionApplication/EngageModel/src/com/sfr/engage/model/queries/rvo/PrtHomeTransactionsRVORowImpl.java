@@ -199,8 +199,6 @@ public class PrtHomeTransactionsRVORowImpl extends ViewRowImpl {
     }
 
 
-
-
     public static final int PURCHASECURRENCY = AttributesEnum.PurchaseCurrency.index();
     public static final int PARTNERID = AttributesEnum.PartnerId.index();
     public static final int KSID = AttributesEnum.Ksid.index();

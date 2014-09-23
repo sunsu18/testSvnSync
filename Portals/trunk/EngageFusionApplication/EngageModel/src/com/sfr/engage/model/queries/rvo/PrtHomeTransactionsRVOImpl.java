@@ -34,21 +34,6 @@ public class PrtHomeTransactionsRVOImpl extends ViewObjectImpl {
         setNamedWhereClauseParam("countryCode", value);
     }
 
-    /**
-     * Returns the bind variable value for partnerId.
-     * @return bind variable value for partnerId
-     */
-    public String getpartnerId() {
-        return (String)getNamedWhereClauseParam("partnerId");
-    }
-
-    /**
-     * Sets <code>value</code> for bind variable partnerId.
-     * @param value value to bind as partnerId
-     */
-    public void setpartnerId(String value) {
-        setNamedWhereClauseParam("partnerId", value);
-    }
 
     /**
      * executeQueryForCollection - overridden for custom java data source support.
@@ -81,5 +66,37 @@ public class PrtHomeTransactionsRVOImpl extends ViewObjectImpl {
     public long getQueryHitCount(ViewRowSetImpl viewRowSet) {
         long value = super.getQueryHitCount(viewRowSet);
         return value;
+    }
+
+    /**
+     * Returns the bind variable value for userid.
+     * @return bind variable value for userid
+     */
+    public String getuserid() {
+        return (String)getNamedWhereClauseParam("userid");
+    }
+
+    /**
+     * Sets <code>value</code> for bind variable userid.
+     * @param value value to bind as userid
+     */
+    public void setuserid(String value) {
+        setNamedWhereClauseParam("userid", value);
+    }
+
+    /**
+     * Returns the bind variable value for role.
+     * @return bind variable value for role
+     */
+    public String getrole() {
+        return (String)getNamedWhereClauseParam("role");
+    }
+
+    /**
+     * Sets <code>value</code> for bind variable role.
+     * @param value value to bind as role
+     */
+    public void setrole(String value) {
+        setNamedWhereClauseParam("role", value);
     }
 }

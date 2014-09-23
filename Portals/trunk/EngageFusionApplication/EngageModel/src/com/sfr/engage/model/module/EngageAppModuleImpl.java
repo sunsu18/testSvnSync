@@ -440,22 +440,6 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
 
 
     /**
-     * Container's getter for PrtHomeInvoiceRVO2.
-     * @return PrtHomeInvoiceRVO2
-     */
-    public ViewObjectImpl getPrtHomeInvoiceRVO2() {
-        return (ViewObjectImpl)findViewObject("PrtHomeInvoiceRVO2");
-    }
-
-    /**
-     * Container's getter for PrtHomeTransactionsRVO1.
-     * @return PrtHomeTransactionsRVO1
-     */
-    public ViewObjectImpl getPrtHomeTransactionsRVO1() {
-        return (ViewObjectImpl)findViewObject("PrtHomeTransactionsRVO1");
-    }
-
-    /**
      * Container's getter for PrtPartnerVO1.
      * @return PrtPartnerVO1
      */
@@ -537,13 +521,6 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
         return (PrtInvoiceDetailVoImpl)findViewObject("PrtInvoiceDetailVo1");
     }
 
-    /**
-     * Container's getter for PrtHomeInvoiceRVO1.
-     * @return PrtHomeInvoiceRVO1
-     */
-    public ViewObjectImpl getPrtHomeInvoiceRVO1() {
-        return (ViewObjectImpl)findViewObject("PrtHomeInvoiceRVO1");
-    }
 
     /**
      * Container's getter for PrtNewInvoiceVO1.
@@ -715,5 +692,29 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
      */
     public ViewObjectImpl getPrtCardRuleBusinessHoursRVO1() {
         return (ViewObjectImpl)findViewObject("PrtCardRuleBusinessHoursRVO1");
+    }
+
+    /**
+     * Container's getter for PrtHomeInvoiceRVO1.
+     * @return PrtHomeInvoiceRVO1
+     */
+    public ViewObjectImpl getPrtHomeInvoiceRVO1() {
+        return (ViewObjectImpl)findViewObject("PrtHomeInvoiceRVO1");
+    }
+
+    /**
+     * Container's getter for PrtHomeInvoiceRVO2.
+     * @return PrtHomeInvoiceRVO2
+     */
+    public ViewObjectImpl getPrtHomeInvoiceRVO2() {
+        return (ViewObjectImpl)findViewObject("PrtHomeInvoiceRVO2");
+    }
+
+    /**
+     * Container's getter for PrtHomeTransactionsRVO1.
+     * @return PrtHomeTransactionsRVO1
+     */
+    public PrtHomeTransactionsRVOImpl getPrtHomeTransactionsRVO1() {
+        return (PrtHomeTransactionsRVOImpl)findViewObject("PrtHomeTransactionsRVO1");
     }
 }
