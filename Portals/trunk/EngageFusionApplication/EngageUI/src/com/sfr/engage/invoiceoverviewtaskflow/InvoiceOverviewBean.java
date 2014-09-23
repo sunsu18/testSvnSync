@@ -914,35 +914,36 @@ public class InvoiceOverviewBean implements Serializable {
 
         if (invoiceGroupingValue != null) {
             invoiceType = invoiceGroupingValue;
-//            if (invoiceGroupingValue.equals("FAK")) {
-//
-//
-//                cardTransactionVO.setWhereClause("INVOICE_NUMBER_NON_COLLECTIVE =:nonCollecInvNo and pals_country_code=:country_code");
-//                cardTransactionVO.defineNamedWhereClauseParam("nonCollecInvNo",
-//                                                              invoiceNumberValue,
-//                                                              null);
-//                cardTransactionVO.defineNamedWhereClauseParam("country_code",
-//                                                              lang, null);
-//            } else {
-//                if (invoiceGroupingValue.equals("SAM")) {
-//
-//                    cardTransactionVO.setWhereClause("INVOICE_NUMBER_COLLECTIVE =:collecInvNo and pals_country_code=:country_code");
-//                    cardTransactionVO.defineNamedWhereClauseParam("collecInvNo",
-//                                                                  invoiceNumberValue,
-//                                                                  null);
-//                    cardTransactionVO.defineNamedWhereClauseParam("country_code",
-//                                                                  lang, null);
-//                }
-//            }
-//            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
-//                         "cardTransaction Query=" +
-//                         cardTransactionVO.getQuery());
-//            cardTransactionVO.executeQuery();
-//            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
-//                         "cardTransactionVO estimatedRow:" +
-//                         cardTransactionVO.getEstimatedRowCount());
-            
-            executeInvoiceTransactions(invoiceGroupingValue,invoiceNumberValue);
+            //            if (invoiceGroupingValue.equals("FAK")) {
+            //
+            //
+            //                cardTransactionVO.setWhereClause("INVOICE_NUMBER_NON_COLLECTIVE =:nonCollecInvNo and pals_country_code=:country_code");
+            //                cardTransactionVO.defineNamedWhereClauseParam("nonCollecInvNo",
+            //                                                              invoiceNumberValue,
+            //                                                              null);
+            //                cardTransactionVO.defineNamedWhereClauseParam("country_code",
+            //                                                              lang, null);
+            //            } else {
+            //                if (invoiceGroupingValue.equals("SAM")) {
+            //
+            //                    cardTransactionVO.setWhereClause("INVOICE_NUMBER_COLLECTIVE =:collecInvNo and pals_country_code=:country_code");
+            //                    cardTransactionVO.defineNamedWhereClauseParam("collecInvNo",
+            //                                                                  invoiceNumberValue,
+            //                                                                  null);
+            //                    cardTransactionVO.defineNamedWhereClauseParam("country_code",
+            //                                                                  lang, null);
+            //                }
+            //            }
+            //            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+            //                         "cardTransaction Query=" +
+            //                         cardTransactionVO.getQuery());
+            //            cardTransactionVO.executeQuery();
+            //            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+            //                         "cardTransactionVO estimatedRow:" +
+            //                         cardTransactionVO.getEstimatedRowCount());
+
+            executeInvoiceTransactions(invoiceGroupingValue,
+                                       invoiceNumberValue);
         }
         getBindings().getRadioBtnPopUp().setSubmittedValue(null);
         getBindings().getRadioBtnPopUp().setValue(null);
@@ -1679,9 +1680,10 @@ public class InvoiceOverviewBean implements Serializable {
         if (valueChangeEvent != null &&
             valueChangeEvent.getNewValue() != null &&
             valueChangeEvent.getNewValue().equals("Transactions")) {
-            if(getBindings().getCollectiveInvoNoOt().getValue() != null){
-            removeDynamicconditionOnTxQuery();
-            executeInvoiceTransactions(invoiceType,getBindings().getCollectiveInvoNoOt().getValue().toString().trim());
+            if (getBindings().getCollectiveInvoNoOt().getValue() != null) {
+                removeDynamicconditionOnTxQuery();
+                executeInvoiceTransactions(invoiceType,
+                                           getBindings().getCollectiveInvoNoOt().getValue().toString().trim());
             }
             isTransactionVisible = true;
             isInvoiceCollectionVisible = false;
@@ -1791,7 +1793,6 @@ public class InvoiceOverviewBean implements Serializable {
                          "Queries are saved in session");
 
         }
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getNonInvoiceTransactionPanel());
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
                      "Exiting radioBtnPopUpVCE for Invoices");
     }
@@ -1951,28 +1952,27 @@ public class InvoiceOverviewBean implements Serializable {
             "a:active {text-decoration:underline;}" + "</style>" +
             "</head>\n" +
             "\n" +
-
             "<body>\n" +
+
             "<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n" +
             "  <tr>\n" +
             "    <td align=\"left\" valign=\"top\" bgcolor=\"\" style=\"background-color:;\"><br>\n" +
             "    <br>\n" +
             "    <table width=\"800\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n" +
-            "      <tr>" +
+            "      <tr>" + "      </tr>" +
 
-            "      </tr>" + "      <tr>" +
+            "      <tr>" +
             "        <td align=\"left\" valign=\"top\"><img src=\"cid:image\" width=\"\" height=\"50\" style=\"display:block;\"></td>\n" +
             "      </tr>" + "<tr> " +
             "<td align=\"left\" valign=\"top\" style=\"background-color:rgb(255,255,255); color:#ffffff; font-family:gerogia; font-size:6px;\"><font Color=\"#ffffff\">hi</font></td>" +
             "</tr>" + "      <tr>\n" +
             "        <td width=\"800\" align=\"center\" valign=\"top\" bgcolor=\"#006c00\" style=\"background-color:rgb(58,56,57); color:#000000;\">" +
-
             "<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"5\">\n" +
+
             "          <tr>\n" +
             "            <td width=\"50%\" align=\"left\" valign=\"top\" style=\"color:#ffffff; font-family:gerogia; font-size:16px;\">&nbsp;&nbsp;" +
-            month + " " + dayOfMonth + ", " + year +
+            month + " " + dayOfMonth + ", " + year + " </td>" +
 
-            " </td>" +
             "            <td align=\"right\" valign=\"top\" style=\"color:#ffffff; font-family:gerogia; font-size:16px;\"><font Color=\"#73D2EE\">      </font></td>\n" +
             "          </tr>\n" +
             "        </table></td>\n" +
@@ -1996,12 +1996,12 @@ public class InvoiceOverviewBean implements Serializable {
             "        <td align=\"left\" valign=\"top\" bgcolor=\"#006c00\" style=\"background-color:rgb(243,243,243); \"><table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"15\">\n" +
             "          <tr>\n" +
             "            <td align=\"left\" valign=\"top\" style=\"color:#7F7F7F; font-family:gerogia; font-size:16px; \">Copyright © 2013 Statoil Fuel & Retail<br>" +
-
             "     <td align=\"right\" valign=\"top\" style=\"color:#ffffff; font-family:gerogia; font-size:16px;\"><a href=" +
 
             contact_Link +
 
             "><font Color=\"#F89518\">Contact Statoil</font></a></td>" +
+
             "          </tr>\n" +
             "        </table></td>\n" +
             "      </tr>\n" +
@@ -2649,7 +2649,68 @@ public class InvoiceOverviewBean implements Serializable {
                         fcss.setColor((short)0);
                         css.setFont(fcss);
 
+
                         XLS_SH_R = XLS_SH.createRow(0);
+                        XLS_SH_R_C = XLS_SH_R.createCell(0);
+                        XLS_SH_R_C.setCellStyle(cs);
+                        if (resourceBundle.containsKey("ENGAGE_INVOICE_POPUP_1") &&
+                            resourceBundle.containsKey("ENGAGE_INVOICE_POPUP_2")) {
+
+
+                            DateFormat sdf =
+                                new SimpleDateFormat("yyyy-MM-dd");
+                            Date date =
+                                sdf.parse(getBindings().getPopUpInvoiceDate().getValue().toString());
+
+
+                            XLS_SH_R_C.setCellValue((String)resourceBundle.getObject("ENGAGE_INVOICE_POPUP_1") +
+                                                    ": " +
+                                                    getBindings().getCollectiveInvoNoOt().getValue().toString() +
+                                                    " " +
+                                                    (String)resourceBundle.getObject("ENGAGE_INVOICE_POPUP_2") +
+                                                    ": " +
+                                                    formatConversion(date));
+
+
+                        }
+
+
+                        XLS_SH_R = XLS_SH.createRow(1);
+                        XLS_SH_R_C = XLS_SH_R.createCell(0);
+                        XLS_SH_R_C.setCellStyle(cs);
+                        if (resourceBundle.containsKey("ENGAGE_INVOICE_NET")) {
+                            XLS_SH_R_C.setCellValue((String)resourceBundle.getObject("ENGAGE_INVOICE_NET") +
+                                                    ": " +
+                                                    formatConversion(Float.parseFloat(getBindings().getPopUpInvNet().getValue().toString()),
+                                                                     locale));
+
+
+                        }
+
+                        XLS_SH_R = XLS_SH.createRow(2);
+                        XLS_SH_R_C = XLS_SH_R.createCell(0);
+                        XLS_SH_R_C.setCellStyle(cs);
+                        if (resourceBundle.containsKey("ENGAGE_INVOICE_VAT")) {
+                            XLS_SH_R_C.setCellValue((String)resourceBundle.getObject("ENGAGE_INVOICE_VAT") +
+                                                    ": " +
+                                                    formatConversion(Float.parseFloat(getBindings().getPopUpInvVat().getValue().toString()),
+                                                                     locale));
+                        }
+
+                        XLS_SH_R = XLS_SH.createRow(3);
+                        XLS_SH_R_C = XLS_SH_R.createCell(0);
+                        XLS_SH_R_C.setCellStyle(cs);
+                        if (resourceBundle.containsKey("ENGAGE_INVOICE_TOTAL_AMOUNT")) {
+                            XLS_SH_R_C.setCellValue((String)resourceBundle.getObject("ENGAGE_INVOICE_TOTAL_AMOUNT") +
+                                                    ": " +
+                                                    formatConversion(Float.parseFloat(getBindings().getPopUpInvGross().getValue().toString()),
+                                                                     locale));
+                        }
+
+
+                        XLS_SH_R = XLS_SH.createRow(4);
+
+                        XLS_SH_R = XLS_SH.createRow(5);
                         XLS_SH_R_C = XLS_SH_R.createCell(0);
                         XLS_SH_R_C.setCellStyle(cs);
                         if (resourceBundle.containsKey("ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN")) {
@@ -2658,16 +2719,16 @@ public class InvoiceOverviewBean implements Serializable {
                         }
 
 
-                        XLS_SH_R = XLS_SH.createRow(1);
+                        XLS_SH_R = XLS_SH.createRow(6);
 
-                        XLS_SH_R = XLS_SH.createRow(2);
+                        XLS_SH_R = XLS_SH.createRow(7);
                         for (int col = 0; col < headerValues.length; col++) {
                             XLS_SH_R_C = XLS_SH_R.createCell(col);
                             XLS_SH_R_C.setCellStyle(css);
                             XLS_SH_R_C.setCellValue(headerValues[col]);
                         }
 
-                        int rowVal = 2;
+                        int rowVal = 7;
 
                         ViewObject cardTransactionVO =
                             ADFUtils.getViewObject("PrtCardTransactionInvoiceRVO1Iterator");
@@ -3162,16 +3223,19 @@ getTimeHour(row.getTransactionTime().timestampValue());
                                             headerValues.length - 1) {
                                             out.print(";");
                                         }
-                                    }
-                                    else if ("Date".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                    } else if ("Date".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                         if (row.getTransactionDt() != null) {
 
                                             String time = "";
-                                            if (row.getTransactionTime() != null) {
-                                                time = getTimeHour(row.getTransactionTime().timestampValue());
+                                            if (row.getTransactionTime() !=
+                                                null) {
+                                                time =
+getTimeHour(row.getTransactionTime().timestampValue());
                                             }
-                                            out.print(formatConversion(new Date(row.getTransactionDt().timestampValue().getTime())) + " " + time);
-                                            if (cellValue != headerValues.length - 1) {
+                                            out.print(formatConversion(new Date(row.getTransactionDt().timestampValue().getTime())) +
+                                                      " " + time);
+                                            if (cellValue !=
+                                                headerValues.length - 1) {
                                                 out.print(";");
                                             }
                                         }
@@ -3179,66 +3243,73 @@ getTimeHour(row.getTransactionTime().timestampValue());
                                         if (row.getPartnerId() != null) {
                                             out.print(row.getPartnerId().toString());
                                         }
-                                        if (cellValue != headerValues.length - 1) {
+                                        if (cellValue !=
+                                            headerValues.length - 1) {
                                             out.print(";");
                                         }
                                     } else if ("Account".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                         if (row.getAccountId() != null) {
                                             out.print(row.getAccountId().toString());
                                         }
-                                        if (cellValue != headerValues.length - 1) {
+                                        if (cellValue !=
+                                            headerValues.length - 1) {
                                             out.print(";");
                                         }
-                                    } 
-                                    else if ("CardTextLine2".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
-                                                                if (row.getCardTextLine2() != null) {
-                                                                    out.print(row.getCardTextLine2().toString());
-                                                                }
-                                                                if (cellValue != headerValues.length - 1) {
-                                                                    out.print(";");
-                                                                }
-                                                            }
-                                    else if ("Total Amount".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
-                                                               if (row.getInvoicedNetAmountRebated() != null) {
-                                                                   out.print(formatConversion(row.getInvoicedNetAmountRebated(), locale));
-                                                               }
-                                                               if (cellValue != headerValues.length - 1) {
-                                                                   out.print(";");
-                                                               }
-                                                           }
-                                    else if ("Vat".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                    } else if ("CardTextLine2".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                        if (row.getCardTextLine2() != null) {
+                                            out.print(row.getCardTextLine2().toString());
+                                        }
+                                        if (cellValue !=
+                                            headerValues.length - 1) {
+                                            out.print(";");
+                                        }
+                                    } else if ("Total Amount".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                        if (row.getInvoicedNetAmountRebated() !=
+                                            null) {
+                                            out.print(formatConversion(row.getInvoicedNetAmountRebated(),
+                                                                       locale));
+                                        }
+                                        if (cellValue !=
+                                            headerValues.length - 1) {
+                                            out.print(";");
+                                        }
+                                    } else if ("Vat".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
 
-                                                                if (row.getInvoivedVatRebated() != null) {
-                                                                    out.print(formatConversion(row.getInvoivedVatRebated(), locale));
-                                                                }
-                                                                if (cellValue != headerValues.length - 1) {
-                                                                    out.print(";");
-                                                                }
-                                                            }
-                                    else if ("CardGroup Description".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
-                                                                if (row.getCardGroupDesc() != null) {
-                                                                    out.print(row.getCardGroupDesc().toString());
-                                                                }
-                                                                if (cellValue != headerValues.length - 1) {
-                                                                    out.print(";");
-                                                                }
+                                        if (row.getInvoivedVatRebated() !=
+                                            null) {
+                                            out.print(formatConversion(row.getInvoivedVatRebated(),
+                                                                       locale));
+                                        }
+                                        if (cellValue !=
+                                            headerValues.length - 1) {
+                                            out.print(";");
+                                        }
+                                    } else if ("CardGroup Description".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                        if (row.getCardGroupDesc() != null) {
+                                            out.print(row.getCardGroupDesc().toString());
+                                        }
+                                        if (cellValue !=
+                                            headerValues.length - 1) {
+                                            out.print(";");
+                                        }
                                     } else if ("CardGroup Id".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                         if (row.getCardgroupId() != null) {
                                             out.print(row.getCardgroupId().toString());
                                         }
-                                        if (cellValue != headerValues.length - 1) {
+                                        if (cellValue !=
+                                            headerValues.length - 1) {
+                                            out.print(";");
+                                        }
+                                    } else if ("Card2Id".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                        if (row.getCard2Id() != null) {
+                                            out.print(row.getCard2Id().toString());
+                                        }
+                                        if (cellValue !=
+                                            headerValues.length - 1) {
                                             out.print(";");
                                         }
                                     }
-                                    else if ("Card2Id".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
-                                                                if (row.getCard2Id() != null) {
-                                                                    out.print(row.getCard2Id().toString());
-                                                                }
-                                                                if (cellValue != headerValues.length - 1) {
-                                                                    out.print(";");
-                                                                }
-                                                            }
-                                    
+
                                 }
                                 out.println();
                             }
@@ -3450,15 +3521,14 @@ getTimeHour(row.getTransactionTime().timestampValue());
                                                 out.print("|");
                                             }
                                         } else if ("Driver Name".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
-                                                if (row.getDriverName() !=
-                                                    null) {
-                                                    out.print(row.getDriverName().toString());
-                                                }
-                                                if (cellValue !=
-                                                    headerValues.length - 1) {
-                                                    out.print("|");
-                                                }
+                                            if (row.getDriverName() != null) {
+                                                out.print(row.getDriverName().toString());
                                             }
+                                            if (cellValue !=
+                                                headerValues.length - 1) {
+                                                out.print("|");
+                                            }
+                                        }
 
                                         else if ("Discounted Price".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                             if (row.getInvoicedUnitPriceRebated() !=
@@ -3470,16 +3540,20 @@ getTimeHour(row.getTransactionTime().timestampValue());
                                                 headerValues.length - 1) {
                                                 out.print("|");
                                             }
-                                        } 
-                                        else if ("Date".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
-                                            if (row.getTransactionDt() != null) {
+                                        } else if ("Date".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                            if (row.getTransactionDt() !=
+                                                null) {
 
                                                 String time = "";
-                                                if (row.getTransactionTime() != null) {
-                                                    time = getTimeHour(row.getTransactionTime().timestampValue());
+                                                if (row.getTransactionTime() !=
+                                                    null) {
+                                                    time =
+getTimeHour(row.getTransactionTime().timestampValue());
                                                 }
-                                                out.print(formatConversion(new Date(row.getTransactionDt().timestampValue().getTime())) + " " + time);
-                                                if (cellValue != headerValues.length - 1) {
+                                                out.print(formatConversion(new Date(row.getTransactionDt().timestampValue().getTime())) +
+                                                          " " + time);
+                                                if (cellValue !=
+                                                    headerValues.length - 1) {
                                                     out.print("|");
                                                 }
                                             }
@@ -3487,67 +3561,75 @@ getTimeHour(row.getTransactionTime().timestampValue());
                                             if (row.getPartnerId() != null) {
                                                 out.print(row.getPartnerId().toString());
                                             }
-                                            if (cellValue != headerValues.length - 1) {
+                                            if (cellValue !=
+                                                headerValues.length - 1) {
                                                 out.print("|");
                                             }
                                         } else if ("Account".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                             if (row.getAccountId() != null) {
                                                 out.print(row.getAccountId().toString());
                                             }
-                                            if (cellValue != headerValues.length - 1) {
+                                            if (cellValue !=
+                                                headerValues.length - 1) {
                                                 out.print("|");
                                             }
-                                        } 
-                                        else if ("CardTextLine2".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
-                                                                    if (row.getCardTextLine2() != null) {
-                                                                        out.print(row.getCardTextLine2().toString());
-                                                                    }
-                                                                    if (cellValue != headerValues.length - 1) {
-                                                                        out.print("|");
-                                                                    }
-                                                                }
-                                        else if ("Total Amount".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
-                                                                   if (row.getInvoicedNetAmountRebated() != null) {
-                                                                       out.print(formatConversion(row.getInvoicedNetAmountRebated(), locale));
-                                                                   }
-                                                                   if (cellValue != headerValues.length - 1) {
-                                                                       out.print("|");
-                                                                   }
-                                                               }
-                                        else if ("Vat".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                        } else if ("CardTextLine2".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                            if (row.getCardTextLine2() !=
+                                                null) {
+                                                out.print(row.getCardTextLine2().toString());
+                                            }
+                                            if (cellValue !=
+                                                headerValues.length - 1) {
+                                                out.print("|");
+                                            }
+                                        } else if ("Total Amount".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                            if (row.getInvoicedNetAmountRebated() !=
+                                                null) {
+                                                out.print(formatConversion(row.getInvoicedNetAmountRebated(),
+                                                                           locale));
+                                            }
+                                            if (cellValue !=
+                                                headerValues.length - 1) {
+                                                out.print("|");
+                                            }
+                                        } else if ("Vat".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
 
-                                                                    if (row.getInvoivedVatRebated() != null) {
-                                                                        out.print(formatConversion(row.getInvoivedVatRebated(), locale));
-                                                                    }
-                                                                    if (cellValue != headerValues.length - 1) {
-                                                                        out.print("|");
-                                                                    }
-                                                                }
-                                        else if ("CardGroup Description".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
-                                                                    if (row.getCardGroupDesc() != null) {
-                                                                        out.print(row.getCardGroupDesc().toString());
-                                                                    }
-                                                                    if (cellValue != headerValues.length - 1) {
-                                                                        out.print("|");
-                                                                    }
+                                            if (row.getInvoivedVatRebated() !=
+                                                null) {
+                                                out.print(formatConversion(row.getInvoivedVatRebated(),
+                                                                           locale));
+                                            }
+                                            if (cellValue !=
+                                                headerValues.length - 1) {
+                                                out.print("|");
+                                            }
+                                        } else if ("CardGroup Description".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                            if (row.getCardGroupDesc() !=
+                                                null) {
+                                                out.print(row.getCardGroupDesc().toString());
+                                            }
+                                            if (cellValue !=
+                                                headerValues.length - 1) {
+                                                out.print("|");
+                                            }
                                         } else if ("CardGroup Id".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                             if (row.getCardgroupId() != null) {
                                                 out.print(row.getCardgroupId().toString());
                                             }
-                                            if (cellValue != headerValues.length - 1) {
+                                            if (cellValue !=
+                                                headerValues.length - 1) {
                                                 out.print("|");
                                             }
-                                        }
-                                        else 
-                                        {
+                                        } else {
                                             if ("Card2Id".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
-                                                                    if (row.getCard2Id() != null) {
-                                                                        out.print(row.getCard2Id().toString());
-                                                                    }
-                                                                    if (cellValue != headerValues.length - 1) {
-                                                                        out.print("|");
-                                                                    }
-                                                                }
+                                                if (row.getCard2Id() != null) {
+                                                    out.print(row.getCard2Id().toString());
+                                                }
+                                                if (cellValue !=
+                                                    headerValues.length - 1) {
+                                                    out.print("|");
+                                                }
+                                            }
                                         }
 
 
@@ -3757,7 +3839,6 @@ getTimeHour(row.getTransactionTime().timestampValue());
             XLS_SH_R_C = XLS_SH_R.createCell(0);
             XLS_SH_R_C.setCellStyle(cs);
 
-             
 
             //            if (resourceBundle.containsKey("TYPE")) {
             //                XLS_SH_R_C.setCellValue(resourceBundle.getObject("TYPE") + ": " + reportType);
@@ -3781,11 +3862,11 @@ getTimeHour(row.getTransactionTime().timestampValue());
             XLS_SH_R = XLS_SH.createRow(5);
             XLS_SH_R_C = XLS_SH_R.createCell(0);
             XLS_SH_R_C.setCellStyle(cs);
-            
-           
-            
+
+
             if (resourceBundle.containsKey("ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN")) {
-                XLS_SH_R_C.setCellValue(resourceBundle.getObject("ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN")+ currencyCode);              
+                XLS_SH_R_C.setCellValue(resourceBundle.getObject("ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN") +
+                                        currencyCode);
             }
 
             for (int row = 6; row <= 7; row++) {
@@ -3794,23 +3875,23 @@ getTimeHour(row.getTransactionTime().timestampValue());
 
             String[] headerValues =
                 selectedValues.split(Constants.ENGAGE_REPORT_DELIMITER);
-        
+
             HSSFCellStyle css = XLS.createCellStyle();
             HSSFFont fcss = XLS.createFont();
             fcss.setFontHeightInPoints((short)10);
             fcss.setItalic(true);
             fcss.setColor((short)0);
             css.setFont(fcss);
-            XLS_SH_R = XLS_SH.createRow(7); 
-            
-            
+            XLS_SH_R = XLS_SH.createRow(7);
+
+
             for (int col = 0; col < headerValues.length; col++) {
                 XLS_SH_R_C = XLS_SH_R.createCell(col);
                 XLS_SH_R_C.setCellStyle(css);
                 XLS_SH_R_C.setCellValue(headerValues[col].trim());
             }
 
-            int rowVal = 8; 
+            int rowVal = 8;
 
             ViewObject prtNewInvoiceVO =
                 ADFUtils.getViewObject("PrtNewInvoiceVO1Iterator");
@@ -4163,18 +4244,6 @@ getTimeHour(row.getTransactionTime().timestampValue());
         getBindings().getInvoiceResultsCollection().queueEvent(queryEvent3);
 
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceResultsCollection());
-        
-        FilterableQueryDescriptor qdNonCollectiveInvoiceTx =
-
-                    (FilterableQueryDescriptor)getBindings().getNonInvoiceCollectiveTxTable().getFilterModel();
-                
-                QueryEvent qENonCollectiveInvoiceTx =
-
-                    new QueryEvent(getBindings().getNonInvoiceCollectiveTxTable(), qdNonCollectiveInvoiceTx);
-
-                getBindings().getNonInvoiceCollectiveTxTable().queueEvent(qENonCollectiveInvoiceTx);
-
-                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getNonInvoiceCollectiveTxTable());
 
 
     }
@@ -4237,27 +4306,13 @@ getTimeHour(row.getTransactionTime().timestampValue());
                                                                                   queryDescriptor3));
 
         }
-        
-        FilterableQueryDescriptor nonCollecTxtableDescriptor =
 
-                    (FilterableQueryDescriptor)getBindings().getNonInvoiceCollectiveTxTable().getFilterModel();
 
-                if (nonCollecTxtableDescriptor != null && nonCollecTxtableDescriptor.getFilterCriteria() != null)
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceResults());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceResultsPopup());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceResultsCollection());
 
-                {
 
-                    nonCollecTxtableDescriptor.getFilterCriteria().clear();
-
-                    getBindings().getNonInvoiceCollectiveTxTable().queueEvent(new QueryEvent(getBindings().getNonInvoiceCollectiveTxTable(), nonCollecTxtableDescriptor));
-
-                }
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceResults());
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceResultsPopup());
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceResultsCollection());
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getNonInvoiceCollectiveTxTable());
-
-              
-                
     }
 
 
@@ -4484,7 +4539,7 @@ getTimeHour(row.getTransactionTime().timestampValue());
                 }
             }
             if (strTransactionPrepopulatedColumns != null) {
-                                shuttleStatusTransaction=true;
+                shuttleStatusTransaction = true;
                 String[] strHead =
                     strTransactionPrepopulatedColumns.split(Constants.ENGAGE_REPORT_DELIMITER);
                 for (int col = 0; col < strHead.length; col++) {
@@ -4555,50 +4610,46 @@ getTimeHour(row.getTransactionTime().timestampValue());
         }
         return transactionFileNamefileName;
     }
-    
-    public String collectiveInvoiceNumberAction(){
-            String nonCollectiveInvoiceNumberValue = null;
-            //showNonCollectiveInvoicePanel = false;
-            ViewObject cardTransactionVO = ADFUtils.getViewObject("PrtCardTransactionInvoiceRVO1Iterator");
-            BindingContainer bc =BindingContext.getCurrent().getCurrentBindingsEntry();
-            DCIteratorBinding transVoItr = (DCIteratorBinding)bc.get("PrtCardTransactionInvoiceRVO1Iterator");
-            removeDynamicconditionOnTxQuery();
-            
-            if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("collectiveInvoiceNumber") != null){
-                nonCollectiveInvoiceNumberValue = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("collectiveInvoiceNumber").toString();
-                executeInvoiceTransactions(Constants.ENGAGE_INVOICE_TX_LINK,nonCollectiveInvoiceNumberValue);
-            }
-            if(transVoItr.getEstimatedRowCount() > 0){
-                showNonCollectiveInvoicePanel = true;
-            }
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getNonInvoiceTransactionPanel());
-            return null;
-        }
-    
-    public void executeInvoiceTransactions(String invoiceType, String invoiceNumber){
-            ViewObject cardTransactionVO = ADFUtils.getViewObject("PrtCardTransactionInvoiceRVO1Iterator");
-            resetTableFilter();
-            if (invoiceNumber != null && invoiceType != null) {
-                if (invoiceType.equals("FAK") || invoiceType.equals(Constants.ENGAGE_INVOICE_TX_LINK)) {
-                    cardTransactionVO.setWhereClause("INVOICE_NUMBER_NON_COLLECTIVE =:nonCollecInvNo and pals_country_code=:country_code");
-                    cardTransactionVO.defineNamedWhereClauseParam("nonCollecInvNo", invoiceNumber, null);
-                    cardTransactionVO.defineNamedWhereClauseParam("country_code", lang, null);
-                } else {
-                    if (invoiceType.equals("SAM")) {
-                        
-                        cardTransactionVO.setWhereClause("INVOICE_NUMBER_COLLECTIVE =:collecInvNo and pals_country_code=:country_code");
-                        cardTransactionVO.defineNamedWhereClauseParam("collecInvNo", invoiceNumber, null);
-                        cardTransactionVO.defineNamedWhereClauseParam("country_code", lang, null);
-                    }
+
+
+    public void executeInvoiceTransactions(String invoiceType,
+                                           String invoiceNumber) {
+        ViewObject cardTransactionVO =
+            ADFUtils.getViewObject("PrtCardTransactionInvoiceRVO1Iterator");
+        //            resetTableFilter();
+        if (invoiceNumber != null && invoiceType != null) {
+            if (invoiceType.equals("FAK") ||
+                invoiceType.equals(Constants.ENGAGE_INVOICE_TX_LINK)) {
+                cardTransactionVO.setWhereClause("INVOICE_NUMBER_NON_COLLECTIVE =:nonCollecInvNo and pals_country_code=:country_code");
+                cardTransactionVO.defineNamedWhereClauseParam("nonCollecInvNo",
+                                                              invoiceNumber,
+                                                              null);
+                cardTransactionVO.defineNamedWhereClauseParam("country_code",
+                                                              lang, null);
+            } else {
+                if (invoiceType.equals("SAM")) {
+
+                    cardTransactionVO.setWhereClause("INVOICE_NUMBER_COLLECTIVE =:collecInvNo and pals_country_code=:country_code");
+                    cardTransactionVO.defineNamedWhereClauseParam("collecInvNo",
+                                                                  invoiceNumber,
+                                                                  null);
+                    cardTransactionVO.defineNamedWhereClauseParam("country_code",
+                                                                  lang, null);
                 }
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "cardTransaction Query=" + cardTransactionVO.getQuery());
-                cardTransactionVO.executeQuery();
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "cardTransactionVO estimatedRow:" + cardTransactionVO.getEstimatedRowCount());
             }
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                         "cardTransaction Query=" +
+                         cardTransactionVO.getQuery());
+            cardTransactionVO.executeQuery();
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                         "cardTransactionVO estimatedRow:" +
+                         cardTransactionVO.getEstimatedRowCount());
         }
-    
-    public void removeDynamicconditionOnTxQuery(){
-        ViewObject cardTransactionVO = ADFUtils.getViewObject("PrtCardTransactionInvoiceRVO1Iterator");
+    }
+
+    public void removeDynamicconditionOnTxQuery() {
+        ViewObject cardTransactionVO =
+            ADFUtils.getViewObject("PrtCardTransactionInvoiceRVO1Iterator");
         if ("INVOICE_NUMBER_COLLECTIVE =:collecInvNo and pals_country_code=:country_code".equalsIgnoreCase(cardTransactionVO.getWhereClause())) {
             cardTransactionVO.removeNamedWhereClauseParam("collecInvNo");
             cardTransactionVO.removeNamedWhereClauseParam("country_code");
@@ -4611,7 +4662,7 @@ getTimeHour(row.getTransactionTime().timestampValue());
             cardTransactionVO.setWhereClause("");
             cardTransactionVO.executeQuery();
         }
-        
+
     }
 
     public void setContentTypeTransaction(String contentTypeTransaction) {
@@ -4667,7 +4718,18 @@ getTimeHour(row.getTransactionTime().timestampValue());
         private RichSelectOneRadio transactionSelectionExportOneRadio;
         private RichPanelGroupLayout nonInvoiceTransactionPanel;
         private RichTable nonInvoiceCollectiveTxTable;
+        private RichOutputText popUpInvoiceDate;
+        private RichOutputText popUpInvNet;
+        private RichOutputText popUpInvVat;
+        private RichOutputText popUpInvGross;
 
+        public void setPopUpInvoiceDate(RichOutputText popUpInvoiceDate) {
+            this.popUpInvoiceDate = popUpInvoiceDate;
+        }
+
+        public RichOutputText getPopUpInvoiceDate() {
+            return popUpInvoiceDate;
+        }
 
         public void setRadioBtnPopUp(RichSelectOneRadio radioBtnPopUp) {
             this.radioBtnPopUp = radioBtnPopUp;
@@ -4708,6 +4770,31 @@ getTimeHour(row.getTransactionTime().timestampValue());
 
         public RichPopup getConfirmation_mail_popup() {
             return confirmation_mail_popup;
+        }
+
+
+        public void setPopUpInvNet(RichOutputText popUpInvNet) {
+            this.popUpInvNet = popUpInvNet;
+        }
+
+        public RichOutputText getPopUpInvNet() {
+            return popUpInvNet;
+        }
+
+        public void setPopUpInvVat(RichOutputText popUpInvVat) {
+            this.popUpInvVat = popUpInvVat;
+        }
+
+        public RichOutputText getPopUpInvVat() {
+            return popUpInvVat;
+        }
+
+        public void setPopUpInvGross(RichOutputText popUpInvGross) {
+            this.popUpInvGross = popUpInvGross;
+        }
+
+        public RichOutputText getPopUpInvGross() {
+            return popUpInvGross;
         }
 
         public void setEmail_recipient_popup(RichInputText email_recipient_popup) {
@@ -4962,7 +5049,7 @@ getTimeHour(row.getTransactionTime().timestampValue());
         public RichTable getInvoiceResultsPopup() {
             return invoiceResultsPopup;
         }
-        
+
         public void setNonInvoiceTransactionPanel(RichPanelGroupLayout nonInvoiceTransactionPanel) {
             this.nonInvoiceTransactionPanel = nonInvoiceTransactionPanel;
         }

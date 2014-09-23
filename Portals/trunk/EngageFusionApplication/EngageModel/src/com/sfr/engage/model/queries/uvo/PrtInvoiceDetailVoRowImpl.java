@@ -15,6 +15,26 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
      * AttributesEnum: generated enum for identifying attributes and accessors. Do not modify.
      */
     public enum AttributesEnum {
+        SumPrdQuantity {
+            public Object get(PrtInvoiceDetailVoRowImpl obj) {
+                return obj.getSumPrdQuantity();
+            }
+
+            public void put(PrtInvoiceDetailVoRowImpl obj, Object value) {
+                obj.setSumPrdQuantity((Number)value);
+            }
+        }
+        ,
+        Card1Id {
+            public Object get(PrtInvoiceDetailVoRowImpl obj) {
+                return obj.getCard1Id();
+            }
+
+            public void put(PrtInvoiceDetailVoRowImpl obj, Object value) {
+                obj.setCard1Id((String)value);
+            }
+        }
+        ,
         CardEmbossNum {
             public Object get(PrtInvoiceDetailVoRowImpl obj) {
                 return obj.getCardEmbossNum();
@@ -22,6 +42,16 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
 
             public void put(PrtInvoiceDetailVoRowImpl obj, Object value) {
                 obj.setCardEmbossNum((String)value);
+            }
+        }
+        ,
+        CardTextline2 {
+            public Object get(PrtInvoiceDetailVoRowImpl obj) {
+                return obj.getCardTextline2();
+            }
+
+            public void put(PrtInvoiceDetailVoRowImpl obj, Object value) {
+                obj.setCardTextline2((String)value);
             }
         }
         ,
@@ -95,6 +125,16 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
             }
         }
         ,
+        InvoicedUnitPriceRebated {
+            public Object get(PrtInvoiceDetailVoRowImpl obj) {
+                return obj.getInvoicedUnitPriceRebated();
+            }
+
+            public void put(PrtInvoiceDetailVoRowImpl obj, Object value) {
+                obj.setInvoicedUnitPriceRebated((Number)value);
+            }
+        }
+        ,
         InvTotalGrossAmt {
             public Object get(PrtInvoiceDetailVoRowImpl obj) {
                 return obj.getInvTotalGrossAmt();
@@ -144,6 +184,16 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
                 obj.setInvNetAmount((Number)value);
             }
         }
+        ,
+        InvGrossTotalamt {
+            public Object get(PrtInvoiceDetailVoRowImpl obj) {
+                return obj.getInvGrossTotalamt();
+            }
+
+            public void put(PrtInvoiceDetailVoRowImpl obj, Object value) {
+                obj.setInvGrossTotalamt((Number)value);
+            }
+        }
         ;
         private static AttributesEnum[] vals = null;
         private static int firstIndex = 0;
@@ -174,7 +224,10 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
     }
 
 
+    public static final int SUMPRDQUANTITY = AttributesEnum.SumPrdQuantity.index();
+    public static final int CARD1ID = AttributesEnum.Card1Id.index();
     public static final int CARDEMBOSSNUM = AttributesEnum.CardEmbossNum.index();
+    public static final int CARDTEXTLINE2 = AttributesEnum.CardTextline2.index();
     public static final int PARTNERID = AttributesEnum.PartnerId.index();
     public static final int COUNTRYCODE = AttributesEnum.CountryCode.index();
     public static final int INVOICENUMBER = AttributesEnum.InvoiceNumber.index();
@@ -182,16 +235,34 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
     public static final int INVOICEDATE = AttributesEnum.InvoiceDate.index();
     public static final int ACCOUNTID = AttributesEnum.AccountId.index();
     public static final int INVOICINGDUEDATE = AttributesEnum.InvoicingDueDate.index();
+    public static final int INVOICEDUNITPRICEREBATED = AttributesEnum.InvoicedUnitPriceRebated.index();
     public static final int INVTOTALGROSSAMT = AttributesEnum.InvTotalGrossAmt.index();
     public static final int INVOICINGDATE = AttributesEnum.InvoicingDate.index();
     public static final int INVTOTALVATAMT = AttributesEnum.InvTotalVatAmt.index();
     public static final int INVOICEDCARD = AttributesEnum.InvoicedCard.index();
     public static final int INVNETAMOUNT = AttributesEnum.InvNetAmount.index();
+    public static final int INVGROSSTOTALAMT = AttributesEnum.InvGrossTotalamt.index();
 
     /**
      * This is the default constructor (do not remove).
      */
     public PrtInvoiceDetailVoRowImpl() {
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute Card1Id.
+     * @return the Card1Id
+     */
+    public String getCard1Id() {
+        return (String) getAttributeInternal(CARD1ID);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute Card1Id.
+     * @param value value to set the  Card1Id
+     */
+    public void setCard1Id(String value) {
+        setAttributeInternal(CARD1ID, value);
     }
 
     /**
@@ -208,6 +279,22 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
      */
     public void setCardEmbossNum(String value) {
         setAttributeInternal(CARDEMBOSSNUM, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute CardTextline2.
+     * @return the CardTextline2
+     */
+    public String getCardTextline2() {
+        return (String) getAttributeInternal(CARDTEXTLINE2);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute CardTextline2.
+     * @param value value to set the  CardTextline2
+     */
+    public void setCardTextline2(String value) {
+        setAttributeInternal(CARDTEXTLINE2, value);
     }
 
     /**
@@ -323,6 +410,22 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
     }
 
     /**
+     * Gets the attribute value for the calculated attribute InvoicedUnitPriceRebated.
+     * @return the InvoicedUnitPriceRebated
+     */
+    public Number getInvoicedUnitPriceRebated() {
+        return (Number) getAttributeInternal(INVOICEDUNITPRICEREBATED);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute InvoicedUnitPriceRebated.
+     * @param value value to set the  InvoicedUnitPriceRebated
+     */
+    public void setInvoicedUnitPriceRebated(Number value) {
+        setAttributeInternal(INVOICEDUNITPRICEREBATED, value);
+    }
+
+    /**
      * Gets the attribute value for the calculated attribute InvTotalGrossAmt.
      * @return the InvTotalGrossAmt
      */
@@ -387,6 +490,22 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
     }
 
     /**
+     * Gets the attribute value for the calculated attribute SumPrdQuantity.
+     * @return the SumPrdQuantity
+     */
+    public Number getSumPrdQuantity() {
+        return (Number) getAttributeInternal(SUMPRDQUANTITY);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute SumPrdQuantity.
+     * @param value value to set the  SumPrdQuantity
+     */
+    public void setSumPrdQuantity(Number value) {
+        setAttributeInternal(SUMPRDQUANTITY, value);
+    }
+
+    /**
      * Gets the attribute value for the calculated attribute InvNetAmount.
      * @return the InvNetAmount
      */
@@ -412,6 +531,32 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
      */
     public void setInvNetAmount(Number value) {
         setAttributeInternal(INVNETAMOUNT, value);
+    }
+
+
+    /**
+     * Gets the attribute value for the calculated attribute InvGrossTotalamt.
+     * @return the InvGrossTotalamt
+     */
+    public Number getInvGrossTotalamt() {
+        oracle.jbo.domain.Number num;
+        float total = 0.0f;
+        if (getInvTotalGrossAmt() != null && getInvoicedUnitPriceRebated() != null) {
+            total = getInvTotalGrossAmt().floatValue() - getInvoicedUnitPriceRebated().floatValue();
+            num = new oracle.jbo.domain.Number(total);
+        } else {
+            num = (Number) getAttributeInternal(INVNETAMOUNT);
+        }
+        return num;
+       
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute InvGrossTotalamt.
+     * @param value value to set the  InvGrossTotalamt
+     */
+    public void setInvGrossTotalamt(Number value) {
+        setAttributeInternal(INVGROSSTOTALAMT, value);
     }
 
     /**

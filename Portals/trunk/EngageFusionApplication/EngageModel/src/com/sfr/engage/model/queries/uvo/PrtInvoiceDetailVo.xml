@@ -36,15 +36,59 @@
     Kind="where"
     Type="java.lang.String"/>
   <SQLQuery>
-    <![CDATA[select prt_card.card_emboss_num, prt_card_payment_doc.PARTNER_ID,prt_card_payment_doc.COUNTRY_CODE,prt_card_invoice.invoice_number, prt_card_invoice.collective_invoice_number,prt_card_invoice.invoice_date,prt_card_payment_doc.ACCOUNT_ID, prt_card_payment_doc.invoicing_due_date,
-prt_card_invoice.inv_total_gross_amt ,prt_card_payment_doc.INVOICING_DATE,prt_card_invoice.inv_total_vat_amt, prt_card_invoice.invoiced_card
-from prt_card_invoice join prt_card_payment_doc ON (prt_card_payment_doc.invoice_doc_number =prt_card_invoice.collective_invoice_number
-AND prt_card_payment_doc.country_code= prt_card_invoice.country_code)
-left join prt_card on (prt_card_invoice.invoiced_card = prt_card.prt_card_pk and prt_card_invoice.country_code=prt_card.country_code)
-where prt_card_payment_doc.COUNTRY_CODE = :countryCode AND
-INSTR(:partnerId,prt_card_payment_doc.PARTNER_ID)<>0 
-AND prt_card_invoice.collective_invoice_number=: invoiceNo]]>
+    <![CDATA[SELECT sum(prd.quantity),prh.card_1_id ,pc.card_emboss_num,pc.card_textline_2, pdc.PARTNER_ID,pdc.COUNTRY_CODE,pci.invoice_number, pci.collective_invoice_number,pci.invoice_date,pdc.ACCOUNT_ID, pdc.invoicing_due_date,prd.INVOICED_UNIT_PRICE_REBATED,
+pci.inv_total_gross_amt ,pdc.INVOICING_DATE,pci.inv_total_vat_amt, pci.invoiced_card
+from prt_card_transaction_detail prd, 
+     prt_card_transaction_header prh , 
+     prt_card pc,
+     prt_card_invoice pci,
+     prt_card_payment_doc pdc
+where pdc.country_code            = pci.country_code
+and pdc.invoice_doc_number        = pci.collective_invoice_number 
+and prh.invoice_number_collective = pdc.invoice_doc_number
+and prh.pals_country_code         = pdc.country_code
+and prd.uref_transaction_id       = prh.uref_transaction_id 
+and prd.pals_country_code         = prh.pals_country_code
+and pci.invoiced_card(+)          = pc.prt_card_pk
+and pci.country_code(+)           = pc.country_code
+and prh.ksid                      = pc.prt_card_pk
+and prh.pals_country_code         = pc.country_code
+AND pdc.COUNTRY_CODE = :countryCode 
+AND INSTR(:partnerId,pdc.PARTNER_ID)<>0 
+AND pci.collective_invoice_number=: invoiceNo
+and prd.PRICE_ELEMENT_CODE IS NULL
+AND ((prh.prelim_status_code IS NOT NULL AND prh.prelim_status_code !='EXP') OR prh.prelim_status_code IS NULL)
+GROUP BY prh.card_1_id, pc.card_emboss_num, pc.card_textline_2, pdc.PARTNER_ID, pdc.COUNTRY_CODE, pci.invoice_number, pci.collective_invoice_number, pci.invoice_date, pdc.ACCOUNT_ID, pdc.invoicing_due_date, pci.inv_total_gross_amt, pdc.INVOICING_DATE, pci.inv_total_vat_amt, pci.invoiced_card,prd.INVOICED_UNIT_PRICE_REBATED]]>
   </SQLQuery>
+  <ViewAttribute
+    Name="SumPrdQuantity"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="SUM(PRD.QUANTITY)"
+    Expression="SUM(PRD.QUANTITY)"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Card1Id"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="20"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CARD_1_ID"
+    Expression="CARD_1_ID"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </ViewAttribute>
   <ViewAttribute
     Name="CardEmbossNum"
     IsUpdateable="false"
@@ -58,6 +102,21 @@ AND prt_card_invoice.collective_invoice_number=: invoiceNo]]>
     SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CardTextline2"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CARD_TEXTLINE_2"
+    Expression="CARD_TEXTLINE_2"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
@@ -167,6 +226,22 @@ AND prt_card_invoice.collective_invoice_number=: invoiceNo]]>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
+    Name="InvoicedUnitPriceRebated"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="126"
+    Scale="0"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="FLOAT"
+    AliasName="INVOICED_UNIT_PRICE_REBATED"
+    Expression="INVOICED_UNIT_PRICE_REBATED"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
     Name="InvTotalGrossAmt"
     IsUpdateable="false"
     IsPersistent="false"
@@ -229,6 +304,16 @@ AND prt_card_invoice.collective_invoice_number=: invoiceNo]]>
   </ViewAttribute>
   <ViewAttribute
     Name="InvNetAmount"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="VIEW_ATTR"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="InvGrossTotalamt"
     IsUpdateable="false"
     IsSelected="false"
     IsPersistent="false"

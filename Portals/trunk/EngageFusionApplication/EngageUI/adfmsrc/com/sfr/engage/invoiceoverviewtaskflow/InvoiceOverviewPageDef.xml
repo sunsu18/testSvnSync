@@ -116,23 +116,6 @@
         </AttrNames>
       </nodeDefinition>
     </tree>
-    <tree IterBinding="PrtInvoiceDetailVo1Iterator" id="PrtInvoiceDetailVo1">
-      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtInvoiceDetailVo"
-                      Name="PrtInvoiceDetailVo10">
-        <AttrNames>
-          <Item Value="CollectiveInvoiceNumber"/>
-          <Item Value="InvoiceDate"/>
-          <Item Value="InvoicingDueDate"/>
-          <Item Value="InvTotalVatAmt"/>
-          <Item Value="InvTotalGrossAmt"/>
-          <Item Value="InvNetAmount"/>
-          <Item Value="InvoiceNumber"/>
-          <Item Value="InvoicedCard"/>
-          <Item Value="InvoicingDate"/>
-          <Item Value="CardEmbossNum"/>
-        </AttrNames>
-      </nodeDefinition>
-    </tree>
     <tree IterBinding="PrtCardTransactionInvoiceRVO1Iterator"
           id="PrtCardTransactionInvoiceRVO1">
       <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtCardTransactionInvoiceRVO"
@@ -191,19 +174,18 @@
         </AttrNames>
       </nodeDefinition>
     </tree>
-    <tree IterBinding="PrtCardTransactionInvoiceRVO1Iterator"
-          id="PrtCardTransactionInvoiceRVO11">
-      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtCardTransactionInvoiceRVO"
-                      Name="PrtCardTransactionInvoiceRVO110">
+    <tree IterBinding="PrtInvoiceDetailVo1Iterator" id="PrtInvoiceDetailVo1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtInvoiceDetailVo"
+                      Name="PrtInvoiceDetailVo10">
         <AttrNames>
-          <Item Value="UnitOfMeasure"/>
-          <Item Value="ProductName"/>
-          <Item Value="Quantity"/>
-          <Item Value="StationName"/>
-          <Item Value="InvoiceNumberNonCollective"/>
-          <Item Value="Card1Id"/>
-          <Item Value="InvoicedGrossAmount"/>
-          <Item Value="InvoicedNetAmount"/>
+          <Item Value="CardEmbossNum"/>
+          <Item Value="CardTextline2"/>
+          <Item Value="InvTotalVatAmt"/>
+          <Item Value="InvNetAmount"/>
+          <Item Value="InvTotalGrossAmt"/>
+          <Item Value="InvoicedUnitPriceRebated"/>
+          <Item Value="InvGrossTotalamt"/>
+          <Item Value="SumPrdQuantity"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
