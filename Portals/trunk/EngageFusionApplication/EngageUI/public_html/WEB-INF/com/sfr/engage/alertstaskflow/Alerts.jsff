@@ -423,6 +423,7 @@
          <af:selectManyChoice id="smc7" contentStyle="width: 175px;"
                               value="#{pageFlowScope.AlertsBean.cardNumberValue2}"
                               autoSubmit="true"
+                              valueChangeListener="#{pageFlowScope.AlertsBean.cardNumberValueChangeListener}"
                               binding="#{pageFlowScope.AlertsBean.bindings.viewAlertDropdown}">
           <f:selectItems value="#{pageFlowScope.AlertsBean.cardNumberList2}"
                           id="si9"/>
@@ -464,13 +465,12 @@
         <af:spacer width="24" height="10" id="s47"/>
       </af:panelGroupLayout>
       <af:spacer width="5" height="10" id="s64"/>
-    <af:panelGroupLayout id="pgl37" rendered="false"
+    <af:panelGroupLayout id="pgl37" visible="#{pageFlowScope.AlertsBean.isTableVisible}" partialTriggers="cb3 cb2 smc2 smc5 smc6 cb8 cb8 cb9 sbr42 sbr41"
                              binding="#{pageFlowScope.AlertsBean.bindings.searchResultsPanel}">
     <af:panelGroupLayout id="panelGroupLayout1" layout="horizontal">
       <af:separator id="separator1" inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
     </af:panelGroupLayout>
     <af:spacer width="10" height="10" id="s81"/>
-    
       <af:table value="#{bindings.PrtCardRuleSubscriptionRVO11.collectionModel}"
                 var="row" width="962px" styleClass="AFStretchWidth"
                 rows="#{bindings.PrtCardRuleSubscriptionRVO11.rangeSize}"
@@ -483,26 +483,10 @@
                 filterVisible="true" varStatus="vs"
                 selectionListener="#{bindings.PrtCardRuleSubscriptionRVO11.collectionModel.makeCurrent}"
                 rowSelection="multiple" id="t2">
-        <!--<af:column sortProperty="SubscrId" filterable="true" sortable="true"
-                   headerText="#{bindings.PrtCardRuleSubscriptionRVO11.hints.SubscrId.label}"
-                   id="c11">
-          <af:outputText value="#{row.SubscrId}" id="ot37">
-            <af:convertNumber groupingUsed="false" pattern="#{bindings.PrtCardRuleSubscriptionRVO11.hints.SubscrId.format}"/>
-          </af:outputText>
-        </af:column>-->
         <af:column sortProperty="RuleId" filterable="false" sortable="true"
                    headerText="#{sfr.RULE}" 
                    id="c9" width="325">
-          <!--<af:inputText value="#{row.bindings.RuleId.inputValue eq '1' ? (sfr.FUELING_OUTSIDE_BUSINESS_HOURS) : (sfr.FUELING_OVER_CERTAIN_QUANTITY_IN_GIVEN_PERIOD)}"
-                        
-                        id="it11">
-            --><!--<f:validator binding="#{row.bindings.RuleId.validator}"/>--><!--
-            --><!--<af:convertNumber groupingUsed="false"
-                              pattern="#{bindings.PrtCardRuleSubscriptionRVO11.hints.RuleId.format}"/>--><!--
-          </af:inputText>-->
           <af:outputText value="#{row.RuleId eq '1' ? (sfr.FUELING_OUTSIDE_BUSINESS_HOURS) : (sfr.FUELING_OVER_CERTAIN_QUANTITY_IN_GIVEN_PERIOD)}" id="ot36">
-            <!--<af:convertNumber groupingUsed="false"
-                              pattern="#{bindings.PrtCardRuleSubscriptionRVO11.hints.RuleId.format}"/>-->
           </af:outputText>
         </af:column>
         <af:column sortProperty="PartnerId" filterable="true" sortable="true"
@@ -515,17 +499,6 @@
                    id="c4" width="90">
           <af:outputText value="#{row.AccountId}" id="ot34"/>
         </af:column>
-        <!--<af:column sortProperty="CardgroupMain" filterable="true"
-                   sortable="true"
-                   headerText="#{bindings.PrtCardRuleSubscriptionRVO11.hints.CardgroupMain.label}"
-                   id="c8">
-          <af:outputText value="#{row.CardgroupMain}" id="ot40"/>
-        </af:column>-->
-        <!--<af:column sortProperty="CardgroupSeq" filterable="true" sortable="true"
-                   headerText="#{bindings.PrtCardRuleSubscriptionRVO11.hints.CardgroupSeq.label}"
-                   id="c6">
-          <af:outputText value="#{row.CardgroupSeq}" id="ot32"/>
-        </af:column>-->
         <af:column sortProperty="CardgroupId" filterable="true" sortable="true"
                    width="100" headerText="#{sfr.CARDGROUP_ID}" filterFeatures="caseInsensitive"
                    id="c10">
@@ -607,14 +580,6 @@
                            width="275">
                 <af:outputText value="#{sfr.PARTNER_ENG}" id="ot37"/>
                 <af:spacer width="10" height="10" id="s55"/>
-                <!--<af:selectOneChoice id="soc2" contentStyle="width: 175px;"
-                                    unselectedLabel="#{sfr.PLEASE_SELECT}"
-                                    binding="#{pageFlowScope.AlertsBean.bindings.configureAlert1PartnerValues}"
-                                    value="#{pageFlowScope.AlertsBean.selectedPartner}"
-                                    readOnly="true">
-                  <f:selectItems value="#{pageFlowScope.AlertsBean.configurePartnerAlert1List}"
-                                 id="si10"/>
-                </af:selectOneChoice>-->
                 <af:outputText value="#{pageFlowScope.AlertsBean.selectedPartner}"
                                id="ot62"/>
               </h:panelGrid>
