@@ -6,7 +6,7 @@ import com.sfr.core.bean.User;
 import com.sfr.engage.core.AccountInfo;
 import com.sfr.engage.core.CardGroupInfo;
 import com.sfr.engage.core.CardInfo;
-import com.sfr.engage.core.MyCardComp;
+import com.sfr.engage.core.CardStatusComparator;
 import com.sfr.engage.core.PartnerInfo;
 import com.sfr.engage.model.datacontrol.UserClient;
 import com.sfr.engage.model.queries.uvo.PrtAccountVORowImpl;
@@ -847,7 +847,7 @@ public class MyPageListener implements PagePhaseListener {
                                                                                         //cardgrouplist.add(cardgrp);
 
 
-                                                                                        Collections.sort(cardlist, new MyCardComp());
+                                                                                        Collections.sort(cardlist, new CardStatusComparator());
                                                                                         cardgrp.setCard(cardlist);
                                                                                         cardgrp.setUnblockedCardList(unblockedcardlist);
                                                                                         cardgrp.setPerBlockAndActiveCardList(perBlockAndActiveCardList);
@@ -949,15 +949,9 @@ public class MyPageListener implements PagePhaseListener {
                                                                      cardgroupMainType);
                                                             log.info(accessDC.getDisplayRecord() + this.getClass() + " CardgroupSubtype " + cardgroupSubType);
 
-                                                            
-
-
-                                                          
-                                                           
-
 
                                                             bindings =
-                                                                (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry().get("pageTemplateBinding");
+                                                                    (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry().get("pageTemplateBinding");
                                                             if (bindings == null || bindings.findIteratorBinding("PrtCardVO1Iterator") == null) {
                                                                 bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
                                                             }
@@ -1016,13 +1010,14 @@ public class MyPageListener implements PagePhaseListener {
                                                                 vo3.executeQuery();
                                                                 log.info(accessDC.getDisplayRecord() + this.getClass() + "row count from card vo" +
                                                                          vo3.getEstimatedRowCount());
-                                                                log.info("parameters passed in PrtCardVO1Iterator are " + cardgroupSeq + " " + (String)session.getAttribute(Constants.userLang) + " " + cardgroupMainType + " " + cardgroupSubType + " " +                                                                                                 user.getRoleList().get(i).getIdString().get(idlist).substring(pIdStart +
-                                                                                                                                                              2,
-                                                                                                                                                              pIdStart +
-                                                                                                                                                              10));
+                                                                log.info("parameters passed in PrtCardVO1Iterator are " + cardgroupSeq + " " +
+                                                                         (String)session.getAttribute(Constants.userLang) + " " + cardgroupMainType + " " +
+                                                                         cardgroupSubType + " " +
+                                                                         user.getRoleList().get(i).getIdString().get(idlist).substring(pIdStart + 2,
+                                                                                                                                       pIdStart + 10));
 
                                                                 if (vo3.getEstimatedRowCount() != 0) {
-                                                                    
+
                                                                     while (vo3.hasNext()) {
                                                                         PrtCardVORowImpl currRowcard = (PrtCardVORowImpl)vo3.next();
                                                                         if (currRowcard.getAccountId() != null) {
@@ -1032,9 +1027,9 @@ public class MyPageListener implements PagePhaseListener {
                                                                         }
                                                                         vo3.previous();
                                                                         break;
-                                                                        
+
                                                                     }
-                                                                    
+
 
                                                                     cardViewObject(vo3);
 
@@ -1877,7 +1872,7 @@ public class MyPageListener implements PagePhaseListener {
                                 cardViewObject(cardVO);
                             }
                             if (!addflagcardgroup) {
-                                Collections.sort(cardlist, new MyCardComp());
+                                Collections.sort(cardlist, new CardStatusComparator());
                                 cardgrp.setCard(cardlist);
                                 cardgrp.setUnblockedCardList(unblockedcardlist);
                                 cardgrp.setPerBlockAndActiveCardList(perBlockAndActiveCardList);
