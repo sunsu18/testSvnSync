@@ -2,14 +2,8 @@ package com.sfr.engage.core;
 
 import java.io.Serializable;
 
-import java.util.Comparator;
 
-/**
- * TODO : ASHTHA - 30, Apr, 2014 :
- *  1. ADD Class level and complete method level JAVA DOC toString() method
- *  2. Override toString() method
- */
-public class CardInfo implements  Serializable {
+public class CardInfo implements Serializable {
     @SuppressWarnings("compatibility")
     private static final long serialVersionUID = 1L;
     private String cardID;
@@ -90,17 +84,6 @@ public class CardInfo implements  Serializable {
         return displayCardNumber;
     }
 
-//    /**
-//     * To sort the list of Account objects based on Account number.
-//     * @param o - Object with which the current Account has to be compared
-//     * @return Returns
-//     */
-//    public int compareTo(CardInfo o) {
-//        return this.getBlockAction().compareTo(o.getBlockAction());
-//        //getCardID().compareTo(o.getCardID());
-//        
-//    }
-
     public void setBlockAction(String blockAction) {
         this.blockAction = blockAction;
     }
@@ -108,19 +91,4 @@ public class CardInfo implements  Serializable {
     public String getBlockAction() {
         return blockAction;
     }
-
-//    public int compare(CardInfo o1, CardInfo o2) {
-//        int statusComparison = o1.getBlockAction().compareTo(o2.getBlockAction());
-//        if(statusComparison >= 0 || statusComparison <0) {
-//        System.out.println("inside if");
-//        return  o1.getExternalCardID().compareTo(o2.getExternalCardID());
-//        }
-//        else
-//        {
-//            System.out.println("not in if");
-//            return  o1.getExternalCardID().compareTo(o2.getExternalCardID());
-//        }
-//        //return statusComparison == 0 ? o1.getExternalCardID().compareTo(o2.getExternalCardID()) : statusComparison == 1 ? 
-//        
-//    }
 }

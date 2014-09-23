@@ -1,39 +1,32 @@
 package com.sfr.engage.core;
 
 
-import java.io.Serializable;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
-public class ValueListSplit implements Serializable {
-    @SuppressWarnings("compatibility")
-    private Map<String, String> mapList;
-    private static final long serialVersionUID = 1L;
+public class ValueListSplit {
 
     public ValueListSplit() {
         super();
     }
 
-    public Map<String, String> callValueList(int size,
-                                             List<String> passedList) {
+    public static Map<String, String> callValueList(int size, List<String> passedList) {
         int dividedValue;
         int loopValue;
-        mapList = new HashMap<String, String>();
-        dividedValue = size / 150;
+        final int oneFifty = 150;
+        Map<String, String> mapList = new HashMap<String, String>();
+        dividedValue = size / oneFifty;
         loopValue = dividedValue + 1;
-        int count = 150;
+        int count = oneFifty;
         int startIndex = 0;
-        int maxIndex = 150;
+        int maxIndex = oneFifty;
         for (int i = 0; i < loopValue; i++) {
             String valuesList = "";
             for (int j = startIndex; j < maxIndex; j++) {
                 if (j != size) {
-                    valuesList =
-                            valuesList + passedList.get(j).toString().trim() +
-                            ",";
+                    valuesList = valuesList + passedList.get(j).toString().trim() + ",";
                 } else {
                     break;
                 }
@@ -46,7 +39,6 @@ public class ValueListSplit implements Serializable {
                 maxIndex = maxIndex + count;
             }
         }
-
         return mapList;
     }
 }
