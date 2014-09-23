@@ -1145,6 +1145,13 @@ public class MyPageListener implements PagePhaseListener {
                                                                         accountlist.add(acc);
                                                                         part.setAccountList(accountlist);
                                                                         part.setCompanyOverview(false);
+                                                                        if (session.getAttribute("partnerLang") != null) {
+                                                                            part.setCountry((String)session.getAttribute("partnerLang"));
+                                                                        } else {
+                                                                            log.info(accessDC.getDisplayRecord() + this.getClass() +
+                                                                                     " partner language null in session");
+                                                                            part.setCountry(null);
+                                                                        }
                                                                     } else {
                                                                         //Account exists so take cardgroup list from that account object & before adding just check we have to add or update
                                                                         //the existing one
@@ -1223,6 +1230,13 @@ public class MyPageListener implements PagePhaseListener {
                                                                     accountlist.add(acc);
                                                                     part.setAccountList(accountlist);
                                                                     part.setCompanyOverview(false);
+                                                                    if (session.getAttribute("partnerLang") != null) {
+                                                                        part.setCountry((String)session.getAttribute("partnerLang"));
+                                                                    } else {
+                                                                        log.info(accessDC.getDisplayRecord() + this.getClass() +
+                                                                                 " partner language null in session");
+                                                                        part.setCountry(null);
+                                                                    }
 
                                                                 }
 
