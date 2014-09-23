@@ -1016,6 +1016,10 @@ public class MyPageListener implements PagePhaseListener {
                                                                 vo3.executeQuery();
                                                                 log.info(accessDC.getDisplayRecord() + this.getClass() + "row count from card vo" +
                                                                          vo3.getEstimatedRowCount());
+                                                                log.info("parameters passed in PrtCardVO1Iterator are " + cardgroupSeq + " " + (String)session.getAttribute(Constants.userLang) + " " + cardgroupMainType + " " + cardgroupSubType + " " +                                                                                                 user.getRoleList().get(i).getIdString().get(idlist).substring(pIdStart +
+                                                                                                                                                              2,
+                                                                                                                                                              pIdStart +
+                                                                                                                                                              10));
 
                                                                 if (vo3.getEstimatedRowCount() != 0) {
                                                                     
@@ -2005,7 +2009,7 @@ public class MyPageListener implements PagePhaseListener {
 
             //            }
         }
-        log.info("cardTypeHS size for cardgroup is " + cardTypeHS);
+        log.info("cardTypeHS size for cardgroup is " + cardTypeHS.size());
 
     }
 
