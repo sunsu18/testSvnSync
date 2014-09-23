@@ -31,6 +31,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -195,6 +196,102 @@ public class MessageInboxBean implements Serializable {
             log.info(accessDC.getDisplayRecord() + this.getClass() +
                      " langSession" + langSession);
 
+            Date dateNow = new java.util.Date();
+            GregorianCalendar gc = new GregorianCalendar();
+            gc.setTime(dateNow);
+            gc.add(GregorianCalendar.MONTH, -3);
+            Date dateBefore = gc.getTime();
+            SimpleDateFormat dateformat =
+                               new SimpleDateFormat("dd-MMM-yy");
+            String tmpFrom = dateformat.format(dateBefore);
+
+            String tmpTo = dateformat.format(dateBefore); 
+
+            Set<String> cardTypeSet = new HashSet<String>();
+            List<String> customerTypeList = new ArrayList<String>();
+            if (session.getAttribute("cardTypeList") != null) {
+
+                cardTypeSet =
+                        (Set<String>)session.getAttribute("cardTypeList");
+            }
+            List<String> cardTypeListTemp = new ArrayList<String>(cardTypeSet);
+            String cardTypeList =
+                cardTypeListTemp.toString().substring(1, cardTypeListTemp.toString().length() -
+                                                      1).replace("", "");
+            
+            ViewObject prtCustomerCardMapVO =
+                ADFUtils.getViewObject("PrtCustomerCardMapRVO1_1Iterator");
+            prtCustomerCardMapVO.setNamedWhereClauseParam("cardType",
+                                                          cardTypeList);
+            prtCustomerCardMapVO.executeQuery();
+            if (prtCustomerCardMapVO.getEstimatedRowCount() != 0) {
+                while (prtCustomerCardMapVO.hasNext()) {
+                    PrtCustomerCardMapRVO1RowImpl currRow =
+                        (PrtCustomerCardMapRVO1RowImpl)prtCustomerCardMapVO.next();
+                    if (currRow != null) {
+                        customerTypeList.add(currRow.getCustomerType());
+                        customerTypeValue =
+                                customerTypeList.toString().substring(1,
+                                                                      customerTypeList.toString().length() -
+                                                                      1).replace("",
+                                                                                 "");
+                    }
+                }
+                customerTypeValue = customerTypeValue + ",ALL";
+
+            }
+			
+			
+			                log.info(accessDC.getDisplayRecord() + this.getClass() +
+                         " lang passed in PRTPCMFEEDS is " +
+                         conversionUtility.getCustomerCountryCode(langSession));
+                if (customerTypeValue != null) {
+                ViewObject prtPCMFeedsVO =
+                    ADFUtils.getViewObject("PrtPcmFeedsRVO1Iterator");
+                                     
+                    
+                    if(prtPCMFeedsVO.getWhereClause() != null && "INSTR(:customerType,CUSTOMER_TYPE)<>0  AND INFORMATION_TYPE =:infoType AND COUNTRY_CODE=:countryCode AND EFFECTIVE_DATE >=:fromDate AND EFFECTIVE_DATE <=:toDate AND INSTR(:showFlag,trim(SHOW_FLAG))<>0".equalsIgnoreCase(prtPCMFeedsVO.getWhereClause())){
+                        prtPCMFeedsVO.removeNamedWhereClauseParam("customerType");
+                        prtPCMFeedsVO.removeNamedWhereClauseParam("infoType");
+                        prtPCMFeedsVO.removeNamedWhereClauseParam("countryCode");
+                        prtPCMFeedsVO.removeNamedWhereClauseParam("fromDate");
+                        prtPCMFeedsVO.removeNamedWhereClauseParam("toDate");
+                        prtPCMFeedsVO.removeNamedWhereClauseParam("showFlag");
+                        prtPCMFeedsVO.setWhereClause("");
+                        prtPCMFeedsVO.executeQuery();
+                    }
+                    
+
+                    prtPCMFeedsVO.setWhereClause("INSTR(:customerType,CUSTOMER_TYPE)<>0  AND INFORMATION_TYPE =:infoType AND COUNTRY_CODE=:countryCode AND EFFECTIVE_DATE <=:fromDate AND END_DATE >=:toDate");
+                    prtPCMFeedsVO.defineNamedWhereClauseParam("customerType",
+                                                              customerTypeValue,
+                                                              null);
+                    prtPCMFeedsVO.defineNamedWhereClauseParam("infoType",
+                                                              "MESSAGES",
+                                                              null);
+                    prtPCMFeedsVO.defineNamedWhereClauseParam("countryCode",
+                                                              conversionUtility.getCustomerCountryCode(langSession),
+                                                              null);
+                    prtPCMFeedsVO.defineNamedWhereClauseParam("fromDate",
+                                                              tmpFrom,
+                                                              null);
+                    prtPCMFeedsVO.defineNamedWhereClauseParam("toDate",
+                                                              tmpTo,
+                                                              null);
+                    prtPCMFeedsVO.executeQuery();
+                    log.info(accessDC.getDisplayRecord() + this.getClass() +
+                             " " + "Information Row Count " +
+                             prtPCMFeedsVO.getEstimatedRowCount());
+
+							 
+				    if (prtPCMFeedsVO.getEstimatedRowCount() > 0) {
+				        isSearchTableVisible = true;
+				    } 
+                    else{
+                        isSearchTableVisible = false;
+                    }
+							 
+				}
 
         }
 
@@ -349,6 +446,9 @@ public class MessageInboxBean implements Serializable {
         String newToDate = null;
         String messageValue = null;
         isSearchTableVisible = false;
+        
+        if(getBindings().getMessageType().getValue() != null) {           
+        displayErrorComponent(getBindings().getMessageType(), false);    
         if (isMessageAdmin) {
             if (getBindings().getCategory().getValue() != null &&
                 getBindings().getMessageType().getValue() != null &&
@@ -463,6 +563,25 @@ public class MessageInboxBean implements Serializable {
                         isSearchTableVisible = true;
                     } else {
                         isSearchTableVisible = false;
+                        if(messageValue.equalsIgnoreCase("NO")) {
+                            FacesMessage msg =
+                                new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                                 (String)resourceBundle.getObject("ENG_NO_READ_MSGS"),
+                                                 "");
+                            FacesContext.getCurrentInstance().addMessage(null,
+                                                                         msg);                            
+                        }
+                        
+                        else  if(messageValue.equalsIgnoreCase("YES")) {
+                            FacesMessage msg =
+                                new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                                 (String)resourceBundle.getObject("ENG_NO_UNREAD_MSGS"),
+                                                 "");
+                            FacesContext.getCurrentInstance().addMessage(null,
+                                                                         msg);                            
+                        }
+                        
+                        else { 
                         if (resourceBundle.containsKey("ENG_NO_ADMIN_MSGS")) {
                             FacesMessage msg =
                                 new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -470,6 +589,7 @@ public class MessageInboxBean implements Serializable {
                                                  "");
                             FacesContext.getCurrentInstance().addMessage(null,
                                                                          msg);
+                        }
                         }
                     }
                 }
@@ -490,6 +610,59 @@ public class MessageInboxBean implements Serializable {
             }
             return;
         }
+        
+    }
+    else {
+        displayErrorComponent(getBindings().getMessageType(), true);    
+        showErrorMessage("ENGAGE_SELECT_TRANSACTION_MANDATORY");          
+    }
+    }
+
+
+    public void displayErrorComponent(UIComponent component, boolean status) {
+
+        RichSelectManyChoice soc = new RichSelectManyChoice();
+
+         if (component instanceof RichSelectManyChoice) {
+            soc = (RichSelectManyChoice)component;
+            if (status) {
+                soc.setContentStyle("border: 1px solid red;height:15px;width: 175px;padding:1px;margin-left:-3px;");
+                if (component.getId().contains("selectManyChoice1") ||
+                    component.getId().contains("smc1") ||
+                    component.getId().contains("selectManyChoice3") ||
+                    component.getId().contains("selectManyChoice4") ||
+                    component.getId().contains("smc4"))
+                    soc.setContentStyle("border: 1px solid red;height:15px;width: 175px;padding:1px;margin-left:-3px;");
+
+            } else {
+                soc.setContentStyle("border: 1px solid #b9b9b4;height:15px;width: 175px;padding:1px;margin-left:-3px;");
+                if (component.getId().contains("selectManyChoice1") ||
+                    component.getId().contains("smc1") ||
+                    component.getId().contains("selectManyChoice3") ||
+                    component.getId().contains("selectManyChoice4") ||
+                    component.getId().contains("smc4"))
+                    soc.setContentStyle("border: 1px solid #b9b9b4;height:15px;width: 175px;padding:1px;margin-left:-3px;");
+            }
+            AdfFacesContext.getCurrentInstance().addPartialTarget(soc);
+        }
+      
+    }
+
+    private Boolean isComponentEmpty(UIComponent rit1) {
+
+        RichSelectManyChoice soc = new RichSelectManyChoice();
+        if (rit1 instanceof RichSelectManyChoice) {
+            soc = (RichSelectManyChoice)rit1;
+            if (soc.getValue() == null || soc.getValue().equals("")) {
+              
+                displayErrorComponent(soc, true);
+                return true;
+            } else {
+                displayErrorComponent(soc, false);
+                return false;
+            }
+        }
+        return true;
     }
 
 

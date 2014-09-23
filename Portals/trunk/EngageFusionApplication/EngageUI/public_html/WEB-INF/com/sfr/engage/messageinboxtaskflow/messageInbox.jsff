@@ -29,13 +29,13 @@
       <af:panelGroupLayout id="pgl12"
                            inlineStyle="height:auto; text-align:justify; width:8.0px;"
                            layout="vertical">
-       <af:outputText value="*" id="col"/>
-       <af:spacer width="20" height="20" id="s21"/>
-       <af:outputText value="*" id="ot14"/>
-       <af:spacer width="20" height="20" id="s18"/>
-       <af:outputText value="*" id="ot18"/>
-       <af:spacer width="20" height="20" id="spacer7"/>
-       <af:outputText value="*" id="outputText5"/>
+       <!--<af:outputText value="*" id="col"/>-->
+       <!--<af:spacer width="20" height="20" id="s21"/>-->
+       <!--<af:outputText value="*" id="ot14"/>-->
+       <!--<af:spacer width="20" height="20" id="s18"/>-->
+       <!--<af:outputText value="*" id="ot18"/>-->
+       <!--<af:spacer width="20" height="20" id="spacer7"/>-->
+       <!--<af:outputText value="*" id="outputText5"/>-->
       </af:panelGroupLayout>
       <af:panelGroupLayout id="pgl36"
                            inlineStyle="height:auto; text-align:justify; width:130.0px;overflow:hidden;"
