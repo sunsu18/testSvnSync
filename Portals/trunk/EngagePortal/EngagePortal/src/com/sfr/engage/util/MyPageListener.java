@@ -1919,6 +1919,7 @@ public class MyPageListener implements PagePhaseListener {
                 }
 
                 if (currRowcard.getCardType() != null) {
+                    log.info("currRowcard.getCardType() " + currRowcard.getCardType().toString());
                     cardTypeHS.add(currRowcard.getCardType().toString());
                 }
 
@@ -2004,6 +2005,7 @@ public class MyPageListener implements PagePhaseListener {
 
             //            }
         }
+        log.info("cardTypeHS size for cardgroup is " + cardTypeHS);
 
     }
 
