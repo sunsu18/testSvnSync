@@ -1,5 +1,6 @@
 package com.sfr.engage.userdisplaytaskflow;
 
+
 import com.sfr.engage.core.PartnerInfo;
 import com.sfr.engage.core.ValueListSplit;
 import com.sfr.engage.model.resources.EngageResourceBundle;
@@ -13,14 +14,17 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import oracle.adf.share.logging.ADFLogger;
 import oracle.adf.view.rich.component.rich.input.RichInputText;
 import oracle.adf.view.rich.component.rich.input.RichSelectBooleanRadio;
@@ -29,8 +33,9 @@ import oracle.adf.view.rich.context.AdfFacesContext;
 
 import oracle.jbo.ViewObject;
 
+
 public class UserDisplayBean {
-    
+
     private HttpSession session;
     private ExternalContext ectx;
     private HttpServletRequest request;
@@ -64,7 +69,7 @@ public class UserDisplayBean {
     private Map<String, String> mapAccountListValue;
     private Map<String, String> mapCardGroupListValue;
     private Map<String, String> mapCardListValue;
-    private ValueListSplit valueList;
+
 
     public UserDisplayBean() {
         super();
@@ -75,7 +80,6 @@ public class UserDisplayBean {
         session = request.getSession(false);
         partnerIdValue = new ArrayList<String>();
         roleValue = new ArrayList<String>();
-        valueList = new ValueListSplit();
         roleValue.add("WCP_CARD_B2B_ADMIN");
         roleValue.add("WCP_CARD_B2B_MGR_AC");
         roleValue.add("WCP_CARD_B2B_MGR_CG");
@@ -120,17 +124,17 @@ public class UserDisplayBean {
                                     cardGroupValue.add(partnerInfoList.get(i).getPartnerValue().toString().trim() +
                                                        partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
                                 }
-                                
-                                for (int cc = 0; cc < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().size(); cc++){
+
+                                for (int cc = 0; cc < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().size(); cc++) {
                                     if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID() != null &&
-                                        partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID() != null){
-                                            SelectItem selectItem = new SelectItem();
-                                            selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString());
-                                            selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
-                                            cardNumberList.add(selectItem);
-                                            suggestedCardNumberList.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString());
-                                            cardNumberValue.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
-                                        }
+                                        partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID() != null) {
+                                        SelectItem selectItem = new SelectItem();
+                                        selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString());
+                                        selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
+                                        cardNumberList.add(selectItem);
+                                        suggestedCardNumberList.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString());
+                                        cardNumberValue.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
+                                    }
                                 }
                             }
                         }
@@ -142,17 +146,17 @@ public class UserDisplayBean {
                 Collections.sort(cardNumberList, comparator);
             }
         }
-        
+
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting Constructor of User Display");
     }
-    
+
     Comparator<SelectItem> comparator = new Comparator<SelectItem>() {
         @Override
         public int compare(SelectItem s1, SelectItem s2) {
             return s1.getLabel().compareTo(s2.getLabel());
         }
     };
-    
+
     /**
      * @return bindings Object
      */
@@ -162,7 +166,7 @@ public class UserDisplayBean {
         }
         return bindings;
     }
-    
+
     public String populateStringValues(String var) {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside populateStringValues method of User Display");
         String passingValues = null;
@@ -174,14 +178,14 @@ public class UserDisplayBean {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting populateStringValues method of User Display");
         return passingValues;
     }
-    
+
     public String[] StringConversion(String passedVal) {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside StringConversion method of User Display");
         String[] val = passedVal.split(",");
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting StringConversion method of User Display");
         return val;
     }
-    
+
     public void partnerValueChangeListener(ValueChangeEvent valueChangeEvent) {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside partnerValueChangeListener method of User Display");
         isTableVisible = false;
@@ -192,7 +196,7 @@ public class UserDisplayBean {
             cardGroupValue = new ArrayList<String>();
             cardNumberList = new ArrayList<SelectItem>();
             cardNumberValue = new ArrayList<String>();
-            
+
             String[] partnerString = StringConversion(populateStringValues(valueChangeEvent.getNewValue().toString()));
 
             if (partnerString.length > 0) {
@@ -223,16 +227,17 @@ public class UserDisplayBean {
                                             cardGroupValue.add(partnerInfoList.get(i).getPartnerValue().toString().trim() +
                                                                partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
                                         }
-                                        
+
                                         for (int cc = 0; cc < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().size(); cc++) {
                                             if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID() != null &&
-                                                partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID() != null){
-                                                    SelectItem selectItem = new SelectItem();
-                                                    selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString());
-                                                    selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
-                                                    cardNumberList.add(selectItem);
-                                                    cardNumberValue.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
-                                                }
+                                                partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID() !=
+                                                null) {
+                                                SelectItem selectItem = new SelectItem();
+                                                selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString());
+                                                selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
+                                                cardNumberList.add(selectItem);
+                                                cardNumberValue.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
+                                            }
                                         }
                                     }
                                 }
@@ -258,7 +263,7 @@ public class UserDisplayBean {
         }
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside partnerValueChangeListener method of User Display");
     }
-    
+
     public void accountValueChangeListener(ValueChangeEvent valueChangeEvent) {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside accountValueChangeListener method of User Display");
         isTableVisible = false;
@@ -268,7 +273,7 @@ public class UserDisplayBean {
             cardGroupValue = new ArrayList<String>();
             cardNumberList = new ArrayList<SelectItem>();
             cardNumberValue = new ArrayList<String>();
-            
+
             for (int z = 0; z < partnerInfoList.size(); z++) {
                 if (partnerInfoList.get(z).getAccountList() != null && partnerInfoList.get(z).getAccountList().size() > 0) {
                     for (int i = 0; i < partnerInfoList.get(z).getAccountList().size(); i++) {
@@ -287,16 +292,17 @@ public class UserDisplayBean {
                                             cardGroupValue.add(partnerInfoList.get(z).getPartnerValue().toString().trim() +
                                                                partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
                                         }
-                                        
+
                                         for (int cc = 0; cc < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().size(); cc++) {
                                             if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getCardID() != null &&
-                                                partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getExternalCardID() != null){
-                                                    SelectItem selectItem = new SelectItem();
-                                                    selectItem.setLabel(partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString());
-                                                    selectItem.setValue(partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
-                                                    cardNumberList.add(selectItem);
-                                                    cardNumberValue.add(partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
-                                                }
+                                                partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getExternalCardID() !=
+                                                null) {
+                                                SelectItem selectItem = new SelectItem();
+                                                selectItem.setLabel(partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString());
+                                                selectItem.setValue(partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
+                                                cardNumberList.add(selectItem);
+                                                cardNumberValue.add(partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
+                                            }
                                         }
                                     }
                                 }
@@ -317,7 +323,7 @@ public class UserDisplayBean {
         }
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside accountValueChangeListener method of User Display");
     }
-    
+
     public void cardgroupValueChangeListener(ValueChangeEvent valueChangeEvent) {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside cardgroupValueChangeListener method of User Display");
         isTableVisible = false;
@@ -325,31 +331,32 @@ public class UserDisplayBean {
             String[] cardgroupString = StringConversion(populateStringValues(valueChangeEvent.getNewValue().toString()));
             cardNumberList = new ArrayList<SelectItem>();
             cardNumberValue = new ArrayList<String>();
-            
+
             for (int z = 0; z < partnerInfoList.size(); z++) {
                 if (partnerInfoList.get(z).getAccountList() != null && partnerInfoList.get(z).getAccountList().size() > 0) {
                     for (int i = 0; i < partnerInfoList.get(z).getAccountList().size(); i++) {
-                        if(partnerInfoList.get(z).getAccountList().get(i).getCardGroup() != null &&
-                           partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size() > 0){
-                            for(int cg = 0; cg < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size(); cg++){
-                                for (int cgs = 0; cgs < cardgroupString.length; cgs++){
+                        if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup() != null &&
+                            partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size() > 0) {
+                            for (int cg = 0; cg < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size(); cg++) {
+                                for (int cgs = 0; cgs < cardgroupString.length; cgs++) {
                                     if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup() != null &&
-                                        (partnerInfoList.get(z).getPartnerValue().toString().trim() + 
-                                         partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCardGroupID().toString().trim()).equals(cardgroupString[cgs].trim())){
-                                             for (int cc = 0; cc < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCard().size(); cc++) {
-                                                if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCard().get(cc).getCardID() != null &&
-                                                    partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCard().get(cc).getExternalCardID() != null){
-                                                    SelectItem selectItem = new SelectItem();
-                                                    selectItem.setLabel(partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCard().get(cc).getExternalCardID().toString());
-                                                    selectItem.setValue(partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCard().get(cc).getCardID().toString());
-                                                    cardNumberList.add(selectItem);
-                                                    cardNumberValue.add(partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCard().get(cc).getCardID().toString());
-                                                }
-                                             }
-                                         }
+                                        (partnerInfoList.get(z).getPartnerValue().toString().trim() +
+                                         partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCardGroupID().toString().trim()).equals(cardgroupString[cgs].trim())) {
+                                        for (int cc = 0; cc < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCard().size(); cc++) {
+                                            if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCard().get(cc).getCardID() != null &&
+                                                partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCard().get(cc).getExternalCardID() !=
+                                                null) {
+                                                SelectItem selectItem = new SelectItem();
+                                                selectItem.setLabel(partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCard().get(cc).getExternalCardID().toString());
+                                                selectItem.setValue(partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCard().get(cc).getCardID().toString());
+                                                cardNumberList.add(selectItem);
+                                                cardNumberValue.add(partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCard().get(cc).getCardID().toString());
+                                            }
+                                        }
+                                    }
                                 }
                             }
-                           }
+                        }
                     }
                     Collections.sort(cardGroupList, comparator);
                     Collections.sort(cardNumberList, comparator);
@@ -361,7 +368,7 @@ public class UserDisplayBean {
         }
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside cardgroupValueChangeListener method of User Display");
     }
-    
+
     public void multicardRadioValueChangeListener(ValueChangeEvent valueChangeEvent) {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside multicardRadioValueChangeListener method of User Display");
         isTableVisible = false;
@@ -379,8 +386,7 @@ public class UserDisplayBean {
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRole());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchStringInputtext());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCard());
-        }
-        else if (valueChangeEvent.getNewValue() != null && valueChangeEvent.getNewValue().equals(false)) {
+        } else if (valueChangeEvent.getNewValue() != null && valueChangeEvent.getNewValue().equals(false)) {
             getBindings().getPartner().setDisabled(true);
             getBindings().getAccount().setDisabled(true);
             getBindings().getCardGroup().setDisabled(true);
@@ -413,8 +419,7 @@ public class UserDisplayBean {
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCard());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRole());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchStringInputtext());
-        }
-        else if (valueChangeEvent.getNewValue() != null && valueChangeEvent.getNewValue().equals(false)) {
+        } else if (valueChangeEvent.getNewValue() != null && valueChangeEvent.getNewValue().equals(false)) {
             getBindings().getPartner().setDisabled(false);
             getBindings().getAccount().setDisabled(false);
             getBindings().getCardGroup().setDisabled(false);
@@ -466,7 +471,7 @@ public class UserDisplayBean {
         }
         return roleList;
     }
-    
+
     /**
      * @param errorVar
      * @return
@@ -483,11 +488,11 @@ public class UserDisplayBean {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting showErrorMessage method of User Dispaly");
         return null;
     }
-    
+
     public List suggestedSearchString(String string) {
         ArrayList<SelectItem> selectItems = new ArrayList<SelectItem>();
-        for(int i = 0; i < suggestedCardNumberList.size(); i++){
-            if(suggestedCardNumberList.get(i).toString().toUpperCase().contains(string)){
+        for (int i = 0; i < suggestedCardNumberList.size(); i++) {
+            if (suggestedCardNumberList.get(i).toString().toUpperCase().contains(string)) {
                 SelectItem selectItem = new SelectItem();
                 selectItem.setLabel(suggestedCardNumberList.get(i));
                 selectItem.setValue(suggestedCardNumberList.get(i));
@@ -496,7 +501,7 @@ public class UserDisplayBean {
         }
         return selectItems;
     }
-    
+
     public void searchResult(ActionEvent actionEvent) {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside searchResult method of User Display");
         isTableVisible = false;
@@ -505,40 +510,40 @@ public class UserDisplayBean {
         isAccMgrVisible = false;
         isAdminVisible = false;
         boolean resultDisplay = false;
-        
-        try{
-            if(getBindings().getMultipleCardRadio().getValue().equals(true) && getBindings().getSingleCardRadio().getValue().equals(false)){
-                if(getBindings().getPartner().getValue() != null){
-                    if(getBindings().getAccount().getValue() != null){
+
+        try {
+            if (getBindings().getMultipleCardRadio().getValue().equals(true) && getBindings().getSingleCardRadio().getValue().equals(false)) {
+                if (getBindings().getPartner().getValue() != null) {
+                    if (getBindings().getAccount().getValue() != null) {
                     } else {
                         showErrorMessage("ENGAGE_NO_ACCOUNT");
                     }
-                    
+
                     if (getBindings().getCardGroup().getValue() != null) {
                     } else {
                         showErrorMessage("ENGAGE_NO_CARD_GROUP");
                     }
-                    
+
                     if (getBindings().getCard().getValue() != null) {
                     } else {
                         showErrorMessage("ENGAGE_NO_CARD");
                     }
-                    
+
                     if (getBindings().getRole().getValue() != null) {
                     } else {
                         showErrorMessage("ENGAGE_NO_ROLE");
                     }
-                    
-                    if(getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_ADMIN")){
+
+                    if (getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_ADMIN")) {
                         ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForAdminRVO1Iterator");
                         vo.setNamedWhereClauseParam("cc", lang);
-                        vo.setNamedWhereClauseParam("roleName",Constants.ROLE_WCP_CARD_B2B_ADMIN);
+                        vo.setNamedWhereClauseParam("roleName", Constants.ROLE_WCP_CARD_B2B_ADMIN);
                         vo.setNamedWhereClauseParam("PID", populateStringValues(getBindings().getPartner().getValue().toString().trim()));
                         vo.executeQuery();
                         isTableVisible = true;
                         resultDisplay = true;
                     }
-                    if(getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_MGR_AC")){
+                    if (getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_MGR_AC")) {
                         ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForAccMgrRVO1Iterator");
                         if (accountQuery.length() > 1 && accountQuery != null) {
                             if (vo.getWhereClause() != null) {
@@ -556,13 +561,13 @@ public class UserDisplayBean {
                                 }
                             }
                         }
-                        accountQuery = "(";  
+                        accountQuery = "(";
                         vo.setNamedWhereClauseParam("cc", lang);
-                        vo.setNamedWhereClauseParam("roleName",Constants.ROLE_WCP_CARD_B2B_MGR);
+                        vo.setNamedWhereClauseParam("roleName", Constants.ROLE_WCP_CARD_B2B_MGR);
                         vo.setNamedWhereClauseParam("PID", populateStringValues(getBindings().getPartner().getValue().toString()));
                         if (accountIdValue.size() > 150) {
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
-                            mapAccountListValue = valueList.callValueList(accountIdValue.size(), accountIdValue);
+                            mapAccountListValue = ValueListSplit.callValueList(accountIdValue.size(), accountIdValue);
                             for (int i = 0; i < mapAccountListValue.size(); i++) {
                                 String values = "account" + i;
                                 accountQuery = accountQuery + "INSTR(:" + values + ",ACCOUNT_ID)<>0 OR ";
@@ -577,10 +582,10 @@ public class UserDisplayBean {
                         }
                         vo.setWhereClause(accountQuery);
                         String passingRole = "WCP_CARD_B2B_MGR";
-                        
+
                         if (accountIdValue.size() > 150) {
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
-                            mapAccountListValue = valueList.callValueList(accountIdValue.size(), accountIdValue);
+                            mapAccountListValue = ValueListSplit.callValueList(accountIdValue.size(), accountIdValue);
                             for (int i = 0; i < mapAccountListValue.size(); i++) {
                                 String values = "account" + i;
                                 String listName = "listName" + i;
@@ -590,15 +595,15 @@ public class UserDisplayBean {
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
                             vo.defineNamedWhereClauseParam("account", populateStringValues(getBindings().getAccount().getValue().toString()), null);
                         }
-                        
+
                         vo.executeQuery();
                         session.setAttribute("user_display_account_Query", accountQuery);
                         session.setAttribute("user_display_map_Account_List", mapAccountListValue);
                         isTableVisible = true;
                         resultDisplay = true;
                     }
-                    if(getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_MGR_CG")){
-                        
+                    if (getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_MGR_CG")) {
+
                         ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForCgMgrRVO1Iterator");
                         if (cardGroupQuery.length() > 1 && cardGroupQuery != null) {
                             if (vo.getWhereClause() != null) {
@@ -616,11 +621,11 @@ public class UserDisplayBean {
                                 }
                             }
                         }
-                        cardGroupQuery = "(";                        
+                        cardGroupQuery = "(";
 
                         if (cardGroupValue.size() > 150) {
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
-                            mapCardGroupListValue = valueList.callValueList(cardGroupValue.size(), cardGroupValue);
+                            mapCardGroupListValue = ValueListSplit.callValueList(cardGroupValue.size(), cardGroupValue);
                             for (int i = 0; i < mapCardGroupListValue.size(); i++) {
                                 String values = "cardGroup" + i;
                                 cardGroupQuery = cardGroupQuery + "INSTR(:" + values + ",PARTNER_ID||CARD_GROUP)<>0 OR ";
@@ -633,14 +638,14 @@ public class UserDisplayBean {
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values < 150 ");
                             cardGroupQuery = "INSTR(:cardGroup,PARTNER_ID||CARD_GROUP)<>0 ";
                         }
-                        
+
                         vo.setWhereClause(cardGroupQuery);
                         vo.setNamedWhereClauseParam("cc", lang);
                         vo.setNamedWhereClauseParam("roleName", Constants.ROLE_WCP_CARD_B2B_MGR);
                         vo.setNamedWhereClauseParam("PID", populateStringValues(getBindings().getPartner().getValue().toString()));
                         if (cardGroupValue.size() > 150) {
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
-                            mapCardGroupListValue = valueList.callValueList(cardGroupValue.size(), cardGroupValue);
+                            mapCardGroupListValue = ValueListSplit.callValueList(cardGroupValue.size(), cardGroupValue);
                             for (int i = 0; i < mapCardGroupListValue.size(); i++) {
                                 String values = "cardGroup" + i;
                                 String listName = "listName" + i;
@@ -650,15 +655,15 @@ public class UserDisplayBean {
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values < 150 ");
                             vo.defineNamedWhereClauseParam("cardGroup", populateStringValues(getBindings().getCardGroup().getValue().toString()), null);
                         }
-                        
+
                         vo.executeQuery();
                         session.setAttribute("user_display_cardGroup_Query", cardGroupQuery);
                         session.setAttribute("user_display_map_CardGroup_List", mapCardGroupListValue);
                         isTableVisible = true;
                         resultDisplay = true;
                     }
-                    if(getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_EMP")){
-                        
+                    if (getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_EMP")) {
+
                         ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForEmpRVO1Iterator");
                         if (cardQuery.length() > 1 && cardQuery != null) {
                             if (vo.getWhereClause() != null) {
@@ -677,10 +682,10 @@ public class UserDisplayBean {
                             }
                         }
                         cardQuery = "(";
-                        
+
                         if (cardNumberValue.size() > 150) {
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values > 150 ");
-                            mapCardListValue = valueList.callValueList(cardNumberValue.size(), cardNumberValue);
+                            mapCardListValue = ValueListSplit.callValueList(cardNumberValue.size(), cardNumberValue);
                             for (int i = 0; i < mapCardListValue.size(); i++) {
                                 String values = "card" + i;
                                 cardQuery = cardQuery + "INSTR(:" + values + ",CARD)<>0 OR ";
@@ -699,7 +704,7 @@ public class UserDisplayBean {
                         vo.setNamedWhereClauseParam("PID", populateStringValues(getBindings().getPartner().getValue().toString()));
                         if (cardNumberValue.size() > 150) {
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values > 150 ");
-                            mapCardListValue = valueList.callValueList(cardNumberValue.size(), cardNumberValue);
+                            mapCardListValue = ValueListSplit.callValueList(cardNumberValue.size(), cardNumberValue);
                             for (int i = 0; i < mapCardListValue.size(); i++) {
                                 String values = "card" + i;
                                 String listName = "listName" + i;
@@ -709,31 +714,34 @@ public class UserDisplayBean {
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values < 150 ");
                             vo.defineNamedWhereClauseParam("card", populateStringValues(getBindings().getCard().getValue().toString()), null);
                         }
-                        
+
                         vo.executeQuery();
                         session.setAttribute("user_display_card_Query", cardQuery);
                         session.setAttribute("user_display_map_Card_List", mapCardListValue);
                         isTableVisible = true;
                         resultDisplay = true;
                     }
-                    
-                }else {
+
+                } else {
                     showErrorMessage("ENGAGE_NO_PARTNER");
                 }
-            } else if(getBindings().getSingleCardRadio().getValue().equals(true) && getBindings().getMultipleCardRadio().getValue().equals(false)){
-                if(getBindings().getSearchStringInputtext().getValue() != null){
+            } else if (getBindings().getSingleCardRadio().getValue().equals(true) && getBindings().getMultipleCardRadio().getValue().equals(false)) {
+                if (getBindings().getSearchStringInputtext().getValue() != null) {
                     String enteredCard = getBindings().getSearchStringInputtext().getValue().toString();
-                    String passingPartner = "",passingAccount = "",passingCardgroup = "",passingCard = "",passingRole = "WCP_CARD_B2B_ADMIN,WCP_CARD_B2B_MGR_AC,WCP_CARD_B2B_MGR_CG,WCP_CARD_B2B_EMP";
+                    String passingPartner = "", passingAccount = "", passingCardgroup = "", passingCard = "", passingRole =
+                        "WCP_CARD_B2B_ADMIN,WCP_CARD_B2B_MGR_AC,WCP_CARD_B2B_MGR_CG,WCP_CARD_B2B_EMP";
                     for (int i = 0; i < partnerInfoList.size(); i++) {
                         if (partnerInfoList.get(i).getAccountList() != null && partnerInfoList.get(i).getAccountList().size() > 0) {
                             for (int j = 0; j < partnerInfoList.get(i).getAccountList().size(); j++) {
                                 for (int k = 0; k < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().size(); k++) {
-                                    for (int cc = 0; cc < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().size(); cc++){
+                                    for (int cc = 0; cc < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().size(); cc++) {
                                         if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID() != null &&
-                                            partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID() != null &&
-                                            partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().equalsIgnoreCase(enteredCard)){
+                                            partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID() !=
+                                            null &&
+                                            partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().equalsIgnoreCase(enteredCard)) {
                                             passingCard = partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID();
-                                            passingCardgroup = partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString();
+                                            passingCardgroup =
+                                                    partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString();
                                             passingAccount = partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString();
                                             passingPartner = partnerInfoList.get(i).getPartnerValue().toString();
                                         }
@@ -742,7 +750,7 @@ public class UserDisplayBean {
                             }
                         }
                     }
-                    
+
                     //execute query
                     if (session != null) {
                         if (session.getAttribute("user_display_account_Query") != null) {
@@ -764,17 +772,17 @@ public class UserDisplayBean {
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card " + cardQuery);
                         }
                     }
-                    
-                    if(getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_ADMIN")){
+
+                    if (getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_ADMIN")) {
                         ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForAdminRVO1Iterator");
                         vo.setNamedWhereClauseParam("cc", lang);
-                        vo.setNamedWhereClauseParam("roleName",Constants.ROLE_WCP_CARD_B2B_ADMIN);
+                        vo.setNamedWhereClauseParam("roleName", Constants.ROLE_WCP_CARD_B2B_ADMIN);
                         vo.setNamedWhereClauseParam("PID", passingPartner);
                         vo.executeQuery();
                         isTableVisible = true;
                         resultDisplay = true;
                     }
-                    if(getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_MGR_AC")){
+                    if (getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_MGR_AC")) {
                         ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForAccMgrRVO1Iterator");
                         if (accountQuery.length() > 1 && accountQuery != null) {
                             if (vo.getWhereClause() != null) {
@@ -792,14 +800,14 @@ public class UserDisplayBean {
                                 }
                             }
                         }
-                        accountQuery = "(";                    
-                        
+                        accountQuery = "(";
+
                         mapAccountListValue = null;
                         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
                         accountQuery = "INSTR(:account,ACCOUNT_ID)<>0 ";
                         vo.setWhereClause(accountQuery);
                         vo.setNamedWhereClauseParam("cc", lang);
-                        vo.setNamedWhereClauseParam("roleName",Constants.ROLE_WCP_CARD_B2B_MGR);
+                        vo.setNamedWhereClauseParam("roleName", Constants.ROLE_WCP_CARD_B2B_MGR);
                         vo.setNamedWhereClauseParam("PID", passingPartner);
                         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
                         vo.defineNamedWhereClauseParam("account", passingAccount, null);
@@ -807,8 +815,8 @@ public class UserDisplayBean {
                         session.setAttribute("user_display_account_Query", accountQuery);
                         isAccMgrVisible = true;
                     }
-                    if(getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_MGR_CG")){
-                        
+                    if (getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_MGR_CG")) {
+
                         ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForCgMgrRVO1Iterator");
                         if (cardGroupQuery.length() > 1 && cardGroupQuery != null) {
                             if (vo.getWhereClause() != null) {
@@ -826,27 +834,27 @@ public class UserDisplayBean {
                                 }
                             }
                         }
-                        cardGroupQuery = "(";                        
+                        cardGroupQuery = "(";
 
                         mapCardGroupListValue = null;
                         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values < 150 ");
                         cardGroupQuery = "INSTR(:cardGroup,PARTNER_ID||CARD_GROUP)<>0 ";
-                        
+
                         vo.setWhereClause(cardGroupQuery);
                         vo.setNamedWhereClauseParam("cc", lang);
                         vo.setNamedWhereClauseParam("roleName", Constants.ROLE_WCP_CARD_B2B_MGR);
                         vo.setNamedWhereClauseParam("PID", passingPartner);
                         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values < 150 ");
                         vo.defineNamedWhereClauseParam("cardGroup", passingPartner + passingCardgroup, null);
-                        
+
                         vo.executeQuery();
                         session.setAttribute("user_display_cardGroup_Query", cardGroupQuery);
                         session.setAttribute("user_display_map_CardGroup_List", mapCardGroupListValue);
                         isTableVisible = true;
                         resultDisplay = true;
                     }
-                    if(getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_EMP")){
-                        
+                    if (getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_EMP")) {
+
                         ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForEmpRVO1Iterator");
                         if (cardQuery.length() > 1 && cardQuery != null) {
                             if (vo.getWhereClause() != null) {
@@ -865,7 +873,7 @@ public class UserDisplayBean {
                             }
                         }
                         cardQuery = "(";
-                        
+
                         mapCardListValue = null;
                         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values < 150 ");
                         cardQuery = "INSTR(:card,CARD)<>0 ";
@@ -875,34 +883,34 @@ public class UserDisplayBean {
                         vo.setNamedWhereClauseParam("PID", passingPartner);
                         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values < 150 ");
                         vo.defineNamedWhereClauseParam("card", passingCard, null);
-                        
+
                         vo.executeQuery();
                         session.setAttribute("user_display_card_Query", cardQuery);
                         session.setAttribute("user_display_map_Card_List", mapCardListValue);
                         isTableVisible = true;
                         resultDisplay = true;
                     }
-                } else{
+                } else {
                     showErrorMessage("ENGAGE_NO_CARD");
                 }
             }
-            if(resultDisplay){
-                if(getBindings().getSearchStringInputtext().getValue() != null && getBindings().getSearchStringInputtext().getValue().equals(true)){
+            if (resultDisplay) {
+                if (getBindings().getSearchStringInputtext().getValue() != null && getBindings().getSearchStringInputtext().getValue().equals(true)) {
                     isCgMgrVisible = true;
                     isEmpVisible = true;
                     isAccMgrVisible = true;
                     isAdminVisible = true;
-                }else{
-                    if(getBindings().getRole().getValue().toString().contains("WCP_CARD_B2B_ADMIN")){
+                } else {
+                    if (getBindings().getRole().getValue().toString().contains("WCP_CARD_B2B_ADMIN")) {
                         isAdminVisible = true;
                     }
-                    if(getBindings().getRole().getValue().toString().contains("WCP_CARD_B2B_MGR_AC")){
+                    if (getBindings().getRole().getValue().toString().contains("WCP_CARD_B2B_MGR_AC")) {
                         isAccMgrVisible = true;
                     }
-                    if(getBindings().getRole().getValue().toString().contains("WCP_CARD_B2B_MGR_CG")){
+                    if (getBindings().getRole().getValue().toString().contains("WCP_CARD_B2B_MGR_CG")) {
                         isCgMgrVisible = true;
                     }
-                    if(getBindings().getRole().getValue().toString().contains("WCP_CARD_B2B_EMP")){
+                    if (getBindings().getRole().getValue().toString().contains("WCP_CARD_B2B_EMP")) {
                         isEmpVisible = true;
                     }
                 }
@@ -912,7 +920,7 @@ public class UserDisplayBean {
         }
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside searchResult method of User Display");
     }
-    
+
     public void clearSearchListener(ActionEvent actionEvent) {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside clearSearchListener method of User Display");
         getBindings().getPartner().setValue(null);
@@ -936,7 +944,7 @@ public class UserDisplayBean {
         isTableVisible = false;
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside clearSearchListener method of User Display");
     }
-    
+
     public void setPartnerIdList(List<SelectItem> partnerIdList) {
         this.partnerIdList = partnerIdList;
     }
@@ -1078,7 +1086,7 @@ public class UserDisplayBean {
     }
 
     public class Bindings {
-        
+
         private RichSelectManyChoice partner;
         private RichSelectManyChoice account;
         private RichSelectManyChoice cardGroup;
@@ -1087,7 +1095,7 @@ public class UserDisplayBean {
         private RichSelectBooleanRadio multipleCardRadio;
         private RichSelectBooleanRadio singleCardRadio;
         private RichInputText searchStringInputtext;
-        
+
         public void setPartner(RichSelectManyChoice partner) {
             this.partner = partner;
         }
@@ -1127,7 +1135,7 @@ public class UserDisplayBean {
         public RichSelectManyChoice getRole() {
             return role;
         }
-        
+
         public void setMultipleCardRadio(RichSelectBooleanRadio multipleCardRadio) {
             this.multipleCardRadio = multipleCardRadio;
         }

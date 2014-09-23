@@ -10,8 +10,5 @@
     <ParameterInfo id="p0" Type="boolean" isStructured="false"/>
   </MethodAccessor>
   <MethodAccessor IsCollection="false" Type="boolean" id="isCardOverview" ReturnNodeName="Return"/>
-  <MethodAccessor IsCollection="false" Type="int" id="compareTo" ReturnNodeName="Return">
-    <ParameterInfo id="p0" Type="com.sfr.engage.core.CardInfo" isStructured="true"/>
-  </MethodAccessor>
   <ConstructorMethod IsCollection="true" Type="com.sfr.engage.core.CardInfo" BeanClass="com.sfr.engage.core.CardInfo" id="CardInfo"/>
 </JavaBean>

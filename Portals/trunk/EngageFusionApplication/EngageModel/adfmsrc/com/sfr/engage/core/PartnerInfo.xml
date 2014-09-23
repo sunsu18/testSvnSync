@@ -16,5 +16,9 @@
     <ParameterInfo id="p0" Type="boolean" isStructured="false"/>
   </MethodAccessor>
   <MethodAccessor IsCollection="false" Type="boolean" id="isConsistsTwoCard" ReturnNodeName="Return"/>
+  <MethodAccessor IsCollection="false" Type="void" id="setConsistTwoInOneCard" ReturnNodeName="Return">
+    <ParameterInfo id="p0" Type="boolean" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="boolean" id="isConsistTwoInOneCard" ReturnNodeName="Return"/>
   <ConstructorMethod IsCollection="true" Type="com.sfr.engage.core.PartnerInfo" BeanClass="com.sfr.engage.core.PartnerInfo" id="PartnerInfo"/>
 </JavaBean>

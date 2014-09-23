@@ -19,8 +19,7 @@
       <TypeInfo FullName="com.sfr.engage.model.datacontrol.UserClient"/>
     </CreatableTypes>
     <Source>
-      <bean-definition BeanClass="com.sfr.engage.model.datacontrol.UserClient"
-                       xmlns="http://xmlns.oracle.com/adfm/adapter/bean"/>
+      <bean-definition BeanClass="com.sfr.engage.model.datacontrol.UserClient" xmlns="http://xmlns.oracle.com/adfm/adapter/bean"/>
     </Source>
   </AdapterDataControl>
   <AdapterDataControl id="PartnerInfoListClient"
@@ -53,10 +52,12 @@
       <TypeInfo FullName="java.io.File"/>
       <TypeInfo FullName="javax.faces.context.ExternalContext"/>
       <TypeInfo FullName="com.sfr.engage.model.datacontrol.PartnerInfoListClient"/>
+      <TypeInfo FullName="com.sfr.core.bean.Roles"/>
+      <TypeInfo FullName="com.sfr.core.bean.BusinessError"/>
+      <TypeInfo FullName="com.sfr.core.bean.User"/>
     </CreatableTypes>
     <Source>
-      <bean-definition BeanClass="com.sfr.engage.model.datacontrol.PartnerInfoListClient"
-                       xmlns="http://xmlns.oracle.com/adfm/adapter/bean"/>
+      <bean-definition BeanClass="com.sfr.engage.model.datacontrol.PartnerInfoListClient" xmlns="http://xmlns.oracle.com/adfm/adapter/bean"/>
     </Source>
   </AdapterDataControl>
   <AdapterDataControl id="Alerts"
@@ -76,8 +77,7 @@
       <TypeInfo FullName="com.sfr.engage.model.datacontrol.Alerts"/>
     </CreatableTypes>
     <Source>
-      <bean-definition BeanClass="com.sfr.engage.model.datacontrol.Alerts"
-                       xmlns="http://xmlns.oracle.com/adfm/adapter/bean"/>
+      <bean-definition BeanClass="com.sfr.engage.model.datacontrol.Alerts" xmlns="http://xmlns.oracle.com/adfm/adapter/bean"/>
     </Source>
   </AdapterDataControl>
 </DataControlConfigs>

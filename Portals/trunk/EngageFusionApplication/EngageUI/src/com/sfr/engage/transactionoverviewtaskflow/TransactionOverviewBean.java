@@ -1,50 +1,86 @@
 package com.sfr.engage.transactionoverviewtaskflow;
 
 
-import com.sfr.core.bean.*;
-import com.sfr.engage.core.*;
-import com.sfr.engage.model.queries.rvo.*;
-import com.sfr.engage.model.resources.*;
-import com.sfr.util.*;
-import com.sfr.util.constants.*;
-import com.sfr.util.validations.*;
+import com.sfr.core.bean.User;
+import com.sfr.engage.core.PartnerInfo;
+import com.sfr.engage.core.ReportBundle;
+import com.sfr.engage.core.ValueListSplit;
+import com.sfr.engage.model.queries.rvo.PrtCardDriverVehicleInfoRVORowImpl;
+import com.sfr.engage.model.queries.rvo.PrtCardTransactionHeaderUrefIdUpdateOdometerRvoRowImpl;
+import com.sfr.engage.model.queries.rvo.PrtCardTransactionOverviewRVORowImpl;
+import com.sfr.engage.model.queries.rvo.PrtCardTransactionVehicleInfoRVORowImpl;
+import com.sfr.engage.model.queries.rvo.PrtExportInfoRVORowImpl;
+import com.sfr.engage.model.resources.EngageResourceBundle;
+import com.sfr.util.ADFUtils;
+import com.sfr.util.AccessDataControl;
+import com.sfr.util.constants.Constants;
+import com.sfr.util.validations.Conversion;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.io.Serializable;
 
-import java.sql.*;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 
-import java.text.*;
+import java.text.DateFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.ResourceBundle;
 
-import javax.el.*;
+import javax.el.ELContext;
+import javax.el.ExpressionFactory;
+import javax.el.MethodExpression;
 
-import javax.faces.application.*;
-import javax.faces.context.*;
-import javax.faces.event.*;
-import javax.faces.model.*;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+import javax.faces.event.ValueChangeEvent;
+import javax.faces.model.SelectItem;
 
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
-import oracle.adf.model.*;
-import oracle.adf.share.logging.*;
-import oracle.adf.view.rich.component.rich.*;
-import oracle.adf.view.rich.component.rich.data.*;
-import oracle.adf.view.rich.component.rich.input.*;
-import oracle.adf.view.rich.component.rich.layout.*;
+import oracle.adf.model.BindingContext;
+import oracle.adf.share.logging.ADFLogger;
+import oracle.adf.view.rich.component.rich.RichPopup;
+import oracle.adf.view.rich.component.rich.data.RichTable;
+import oracle.adf.view.rich.component.rich.input.RichInputDate;
+import oracle.adf.view.rich.component.rich.input.RichInputText;
+import oracle.adf.view.rich.component.rich.input.RichSelectManyChoice;
+import oracle.adf.view.rich.component.rich.input.RichSelectManyShuttle;
+import oracle.adf.view.rich.component.rich.input.RichSelectOneChoice;
+import oracle.adf.view.rich.component.rich.input.RichSelectOneRadio;
+import oracle.adf.view.rich.component.rich.layout.RichPanelGroupLayout;
 import oracle.adf.view.rich.component.rich.output.RichOutputText;
-import oracle.adf.view.rich.context.*;
-import oracle.adf.view.rich.event.*;
+import oracle.adf.view.rich.context.AdfFacesContext;
+import oracle.adf.view.rich.event.QueryEvent;
 import oracle.adf.view.rich.model.FilterableQueryDescriptor;
-import oracle.adf.view.rich.util.*;
+import oracle.adf.view.rich.util.ResetUtils;
 
 import oracle.binding.BindingContainer;
 import oracle.binding.OperationBinding;
 
-import oracle.jbo.*;
+import oracle.jbo.RowSetIterator;
+import oracle.jbo.ViewObject;
 
-import org.apache.poi.hssf.usermodel.*;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 
 public class TransactionOverviewBean implements Serializable {
@@ -103,7 +139,7 @@ public class TransactionOverviewBean implements Serializable {
     private Locale locale;
     private String partnerCountry = null;
     private Conversion conversionUtility;
-    private ValueListSplit valueList;
+
     private String accountQuery = "(";
     private String accountQueryVehicle = "(";
     private String accountQueryDriver = "(";
@@ -147,12 +183,12 @@ public class TransactionOverviewBean implements Serializable {
     public static final ADFLogger _logger = AccessDataControl.getSFRLogger();
     private AccessDataControl accessDC = new AccessDataControl();
     private String cardGroupRadio = "CardGroup";
-    
+
     private boolean showDriverCode = false;
 
     public TransactionOverviewBean() {
         conversionUtility = new Conversion();
-        valueList = new ValueListSplit();
+
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
@@ -163,7 +199,7 @@ public class TransactionOverviewBean implements Serializable {
         typeValue = new ArrayList<String>();
         partnerId = null;
         cardGroupRadio = "CardGroup";
-        
+
         if (session.getAttribute("Partner_Object_List") != null) {
             partnerInfoList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
             if (partnerInfoList != null) {
@@ -498,8 +534,7 @@ public class TransactionOverviewBean implements Serializable {
                 if (langDB.equalsIgnoreCase("en_US")) {
                     langDB = "EN";
                 } else {
-                    langDB =
-                            langDB.substring(langDB.length() - 2, langDB.length());
+                    langDB = langDB.substring(langDB.length() - 2, langDB.length());
                     langDB = langDB.toUpperCase();
                 }
                 if ("CardGroup".equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
@@ -762,7 +797,7 @@ public class TransactionOverviewBean implements Serializable {
 
                         if (accountIdValue.size() > 150) {
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle/driver > 150 ");
-                            mapAccountVehicleListValue = valueList.callValueList(accountIdValue.size(), accountIdValue);
+                            mapAccountVehicleListValue = ValueListSplit.callValueList(accountIdValue.size(), accountIdValue);
                             for (int i = 0; i < mapAccountVehicleListValue.size(); i++) {
                                 String values = "account" + i;
                                 accountQueryVehicle = accountQueryVehicle + "INSTR(:" + values + ",ACCOUNT_NUMBER)<>0 OR ";
@@ -780,7 +815,7 @@ public class TransactionOverviewBean implements Serializable {
 
                         if (accountIdValue.size() > 150) {
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle > 150 ");
-                            mapAccountVehicleListValue = valueList.callValueList(accountIdValue.size(), accountIdValue);
+                            mapAccountVehicleListValue = ValueListSplit.callValueList(accountIdValue.size(), accountIdValue);
                             for (int i = 0; i < mapAccountVehicleListValue.size(); i++) {
                                 String values = "account" + i;
                                 String listName = "listName" + i;
@@ -860,7 +895,7 @@ public class TransactionOverviewBean implements Serializable {
 
                         if (accountIdValue.size() > 150) {
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle/driver > 150 ");
-                            mapAccountDriverListValue = valueList.callValueList(accountIdValue.size(), accountIdValue);
+                            mapAccountDriverListValue = ValueListSplit.callValueList(accountIdValue.size(), accountIdValue);
                             for (int i = 0; i < mapAccountDriverListValue.size(); i++) {
                                 String values = "account" + i;
                                 accountQueryDriver = accountQueryDriver + "INSTR(:" + values + ",ACCOUNT_NUMBER)<>0 OR ";
@@ -878,7 +913,7 @@ public class TransactionOverviewBean implements Serializable {
 
                         if (accountIdValue.size() > 150) {
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle > 150 ");
-                            mapAccountDriverListValue = valueList.callValueList(accountIdValue.size(), accountIdValue);
+                            mapAccountDriverListValue = ValueListSplit.callValueList(accountIdValue.size(), accountIdValue);
                             for (int i = 0; i < mapAccountDriverListValue.size(); i++) {
                                 String values = "account" + i;
                                 String listName = "listName" + i;
@@ -1149,7 +1184,7 @@ public class TransactionOverviewBean implements Serializable {
             vo.setNamedWhereClauseParam("toDate", newToDate);
             if (accountIdValue.size() > 150) {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
-                mapAccountListValue = valueList.callValueList(accountIdValue.size(), accountIdValue);
+                mapAccountListValue = ValueListSplit.callValueList(accountIdValue.size(), accountIdValue);
                 for (int i = 0; i < mapAccountListValue.size(); i++) {
                     String values = "account" + i;
                     accountQuery = accountQuery + "INSTR(:" + values + ",ACCOUNT_ID)<>0 OR ";
@@ -1171,7 +1206,7 @@ public class TransactionOverviewBean implements Serializable {
                         if ("International".equalsIgnoreCase(getBindings().getReportFormat().getValue().toString().trim())) {
                             if (cardNumberValue.size() > 150) {
                                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values > 150 ");
-                                mapCardListValue = valueList.callValueList(cardNumberValue.size(), cardNumberValue);
+                                mapCardListValue = ValueListSplit.callValueList(cardNumberValue.size(), cardNumberValue);
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
                                     String values = "card" + i;
                                     cardQuery = cardQuery + "INSTR(:" + values + ",KSID)<>0 OR ";
@@ -1211,7 +1246,7 @@ public class TransactionOverviewBean implements Serializable {
                         } else {
                             if (cardNumberValue.size() > 150) {
                                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values > 150 ");
-                                mapCardListValue = valueList.callValueList(cardNumberValue.size(), cardNumberValue);
+                                mapCardListValue = ValueListSplit.callValueList(cardNumberValue.size(), cardNumberValue);
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
                                     String values = "card" + i;
                                     cardQuery = cardQuery + "INSTR(:" + values + ",KSID)<>0 OR ";
@@ -1254,7 +1289,7 @@ public class TransactionOverviewBean implements Serializable {
                         if ("International".equalsIgnoreCase(getBindings().getReportFormat().getValue().toString().trim())) {
                             if (vehicleNumberValue.size() > 150) {
                                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Vehicle Values > 150 ");
-                                mapCardListValue = valueList.callValueList(vehicleNumberValue.size(), vehicleNumberValue);
+                                mapCardListValue = ValueListSplit.callValueList(vehicleNumberValue.size(), vehicleNumberValue);
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
                                     String values = "card" + i;
                                     cardQuery = cardQuery + "INSTR(:" + values + ",KSID)<>0 OR ";
@@ -1294,7 +1329,7 @@ public class TransactionOverviewBean implements Serializable {
                         } else {
                             if (vehicleNumberValue.size() > 150) {
                                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Vehicle Values > 150 ");
-                                mapCardListValue = valueList.callValueList(vehicleNumberValue.size(), vehicleNumberValue);
+                                mapCardListValue = ValueListSplit.callValueList(vehicleNumberValue.size(), vehicleNumberValue);
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
                                     String values = "card" + i;
                                     cardQuery = cardQuery + "INSTR(:" + values + ",KSID)<>0 OR ";
@@ -1338,7 +1373,7 @@ public class TransactionOverviewBean implements Serializable {
                             if ("International".equalsIgnoreCase(getBindings().getReportFormat().getValue().toString().trim())) {
                                 if (driverNameValue.size() > 150) {
                                     _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Driver Values > 150 ");
-                                    mapCardListValue = valueList.callValueList(driverNameValue.size(), driverNameValue);
+                                    mapCardListValue = ValueListSplit.callValueList(driverNameValue.size(), driverNameValue);
                                     for (int i = 0; i < mapCardListValue.size(); i++) {
                                         String values = "card" + i;
                                         cardQuery = cardQuery + "INSTR(:" + values + ",KSID)<>0 OR ";
@@ -1378,7 +1413,7 @@ public class TransactionOverviewBean implements Serializable {
                             } else {
                                 if (driverNameValue.size() > 150) {
                                     _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Driver Values > 150 ");
-                                    mapCardListValue = valueList.callValueList(driverNameValue.size(), driverNameValue);
+                                    mapCardListValue = ValueListSplit.callValueList(driverNameValue.size(), driverNameValue);
                                     for (int i = 0; i < mapCardListValue.size(); i++) {
                                         String values = "card" + i;
                                         cardQuery = cardQuery + "INSTR(:" + values + ",KSID)<>0 OR ";
@@ -1426,7 +1461,7 @@ public class TransactionOverviewBean implements Serializable {
                     if ("International".equalsIgnoreCase(getBindings().getReportFormat().getValue().toString().trim())) {
                         if (cardGroupValue.size() > 150) {
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
-                            mapCardGroupListValue = valueList.callValueList(cardGroupValue.size(), cardGroupValue);
+                            mapCardGroupListValue = ValueListSplit.callValueList(cardGroupValue.size(), cardGroupValue);
                             for (int i = 0; i < mapCardGroupListValue.size(); i++) {
                                 String values = "cardGroup" + i;
                                 cardGroupQuery =
@@ -1454,7 +1489,7 @@ public class TransactionOverviewBean implements Serializable {
                     } else {
                         if (cardGroupValue.size() > 150) {
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
-                            mapCardGroupListValue = valueList.callValueList(cardGroupValue.size(), cardGroupValue);
+                            mapCardGroupListValue = ValueListSplit.callValueList(cardGroupValue.size(), cardGroupValue);
                             for (int i = 0; i < mapCardGroupListValue.size(); i++) {
                                 String values = "cardGroup" + i;
                                 cardGroupQuery =
@@ -1486,7 +1521,7 @@ public class TransactionOverviewBean implements Serializable {
 
             if (accountIdValue.size() > 150) {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
-                mapAccountListValue = valueList.callValueList(accountIdValue.size(), accountIdValue);
+                mapAccountListValue = ValueListSplit.callValueList(accountIdValue.size(), accountIdValue);
                 for (int i = 0; i < mapAccountListValue.size(); i++) {
                     String values = "account" + i;
                     String listName = "listName" + i;
@@ -1598,25 +1633,26 @@ public class TransactionOverviewBean implements Serializable {
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Partner ID 2-Card Vehicle Name" + vehicleName);
         }
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Partner ID 2-Card Vehicle Name" + vehicleName);
-        
-            if (lang == "DK" || "DK".equalsIgnoreCase(lang.trim())) {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " To check Partner for 2 In 1 card");
-                for (int pa = 0; pa < partnerIdValues.size(); pa++) {
-                    for (int k = 0; k < partnerInfoList.size(); k++) {
-                        if (partnerIdValues.get(pa).equalsIgnoreCase(partnerInfoList.get(k).getPartnerValue().toString())) {
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Flag of Partner for 2 In 1 card" + partnerInfoList.get(k).isConsistsTwoCard());
-                            if (partnerInfoList.get(k).isConsistTwoInOneCard()) {
-                                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Flag of Partner for 2 In 1 card" + showDriverCode);
-                                showDriverCode = true;
-                            }
+
+        if (lang == "DK" || "DK".equalsIgnoreCase(lang.trim())) {
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " To check Partner for 2 In 1 card");
+            for (int pa = 0; pa < partnerIdValues.size(); pa++) {
+                for (int k = 0; k < partnerInfoList.size(); k++) {
+                    if (partnerIdValues.get(pa).equalsIgnoreCase(partnerInfoList.get(k).getPartnerValue().toString())) {
+                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Flag of Partner for 2 In 1 card" +
+                                     partnerInfoList.get(k).isConsistsTwoCard());
+                        if (partnerInfoList.get(k).isConsistTwoInOneCard()) {
+                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Flag of Partner for 2 In 1 card" + showDriverCode);
+                            showDriverCode = true;
                         }
                     }
                 }
-            }else {
-                showDriverCode = false;
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Flag of Partner for 2 In 1 card" + showDriverCode);
             }
-            
+        } else {
+            showDriverCode = false;
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Flag of Partner for 2 In 1 card" + showDriverCode);
+        }
+
         searchResults();
         return null;
     }
@@ -1974,7 +2010,7 @@ public class TransactionOverviewBean implements Serializable {
         } else {
             langDB = langDB.substring(langDB.length() - 2, langDB.length());
             langDB = langDB.toUpperCase();
-        }        
+        }
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "langDB =" + langDB);
         String columnsReport = rb.getContentsForReport("TRANSACTION", langDB, passedString);
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "From Resource Bundle:" + columnsReport);
@@ -2167,11 +2203,11 @@ public class TransactionOverviewBean implements Serializable {
             ViewObject prtCardTransactionOverViewRVO = ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");
             RowSetIterator iterator = prtCardTransactionOverViewRVO.createRowSetIterator(null);
             iterator.reset();
-            while (iterator.hasNext()) {            
+            while (iterator.hasNext()) {
                 PrtCardTransactionOverviewRVORowImpl row = (PrtCardTransactionOverviewRVORowImpl)iterator.next();
                 rowVal = rowVal + 1;
                 XLS_SH_R = XLS_SH.createRow(rowVal);
-                if (row != null) {                    
+                if (row != null) {
                     int dataColumn = 0;
                     if (cellValueSpace > 0) {
                         dataColumn = dataColumn + cellValueSpace;
@@ -2256,12 +2292,12 @@ public class TransactionOverviewBean implements Serializable {
                                 XLS_SH_R_C.setCellStyle(csRight);
                                 XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getCurrencyGrossAmount().toString())), locale));
                             }
-                        } else if ("Total Amount".equalsIgnoreCase(headerDataValues[cellValue].trim())) {                            
+                        } else if ("Total Amount".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getInvoicedGrossAmountRebated() != null) {
                                 val = true;
                                 valLoc = dataColumn;
                                 XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
-                                XLS_SH_R_C.setCellStyle(csRight);                                
+                                XLS_SH_R_C.setCellStyle(csRight);
                                 XLS_SH_R_C.setCellValue(formatConversion(row.getInvoicedGrossAmountRebated(), locale));
                             }
                         } else if ("Invoice No".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
@@ -2362,8 +2398,7 @@ public class TransactionOverviewBean implements Serializable {
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getCard2Id().toString());
                             }
-                        }  
-                        else {
+                        } else {
                             if ("Driver Name".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getDriverName() != null) {
                                     XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
@@ -2447,7 +2482,7 @@ public class TransactionOverviewBean implements Serializable {
             iterator.reset();
             while (iterator.hasNext()) {
                 PrtCardTransactionOverviewRVORowImpl row = (PrtCardTransactionOverviewRVORowImpl)iterator.next();
-                if (row != null) {                    
+                if (row != null) {
                     for (int cellValue = 0; cellValue < headerDataValues.length; cellValue++) {
 
 
@@ -2651,14 +2686,14 @@ public class TransactionOverviewBean implements Serializable {
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
                             }
-                        }else if ("Card2Id".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if ("Card2Id".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getCard2Id() != null) {
                                 out.print(row.getCard2Id().toString());
                             }
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
                             }
-                        }else {
+                        } else {
                             if ("Driver Name".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getDriverName() != null) {
                                     out.print(row.getDriverName().toString());
@@ -2900,14 +2935,14 @@ public class TransactionOverviewBean implements Serializable {
                                 if (cellValue != headerValues.length - 1) {
                                     out.print("|");
                                 }
-                            }else if ("Card2Id".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            } else if ("Card2Id".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getCard2Id() != null) {
                                     out.print(row.getCard2Id().toString());
                                 }
                                 if (cellValue != headerValues.length - 1) {
                                     out.print("|");
                                 }
-                            }else {
+                            } else {
                                 if ("Driver Name".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                     if (row.getDriverName() != null) {
                                         out.print(row.getDriverName().toString());
