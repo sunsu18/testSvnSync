@@ -100,8 +100,21 @@ height: 14px;
 .af_inputText.AFNoWrapMarker .af_inputText_label, .af_inputListOfValues.AFNoWrapMarker .af_inputListOfValues_label, .af_inputComboboxListOfValues.AFNoWrapMarker .af_inputComboboxListOfValues_label, .af_selectOneChoice.AFNoWrapMarker .af_selectOneChoice_label, .af_inputDate, .af_menu_child-container .af_menu_detachable-header, .af_selectManyChoice, .nowrap *, .af_inputListOfValues, .af_inputComboboxListOfValues, .NoLabelWrap .af_quickQuery_label, .NoLabelWrap .af_selectBooleanCheckbox_label, .NoLabelWrap .af_selectOneChoice_label, .NoLabelWrap .af_inputText_label, .NoLabelWrap .af_inputDate_label, .NoLabelWrap .af_panelLabelAndMessage_label, .af_commandLink.WCSearchResultsPrevNextLink {
 white-space: normal;
 }
+.af_mandatoryfield .af_selectManyChoice {
+white-space: normal;    
+}
 
 .af_selectManyChoice_options {
+overflow-x: visible !important;
+list-style-image: none;
+list-style-position: outside;
+list-style-type: none;
+border-width: 0px;
+margin: 0px;
+padding-right:30px;
+}
+
+.af_mandatoryfield .af_selectManyChoice_options {
 overflow-x: visible !important;
 list-style-image: none;
 list-style-position: outside;
@@ -118,6 +131,10 @@ padding-right:30px;
     background-color: transparent !important;
 }
 
+
+.af_mandatoryfield .af_selectManyChoice_item.p_AFSelected {
+    background-color: transparent !important;
+}
 
 
 /*Popup Styling*/
@@ -168,6 +185,10 @@ width: 75% !important;
 
 .OraBGColorMedium, .af_tree_data-row.p_AFSelected.p_AFFocused .af_tree_node-stamp-text, .af_table_data-row.p_AFSelected.p_AFFocused .af_column_data-cell, .af_table_data-row.p_AFSelected.p_AFFocused .af_column_banded-data-cell, .af_selectOneListbox_item.p_AFDisabled.p_AFSelected, .af_showDetailFrame .af_table_data-row.p_AFSelected.p_AFFocused .af_column_data-cell, .WCContent > div > .af_region .af_table_data-row.p_AFSelected.p_AFFocused .af_column_data-cell, .af_selectManyChoice_item.p_AFSelected, .af_selectOrderShuttle_item.p_AFSelected, .af_selectManyShuttle_item.p_AFSelected {
 background-color: transparent !important;
+}
+
+.af_mandatoryfield .af_selectManyChoice_item.p_AFSelected {
+background-color: transparent !important;    
 }
 
 .af_column_column-filter-cell {
@@ -932,30 +953,23 @@ overflow-y: auto;
 }
 
 .af_selectManyChoice_dropdown, .af_inputComboboxListOfValues_dropdown-icon-style,.af_selectOneChoice_content{
-/*padding-right: 16px;
-background-repeat: no-repeat;
-vertical-align: text-bottom;
-background-position: center;
-padding: 1px 10px 3px 1px;
-font-size: 10px;
-padding-bottom: 4px;
-display: inline-block;
--webkit-box-sizing: border-box;
-height: 11px;
-background-position-y: 60%;*/
+
  margin-left: -1px !important;
-    margin-right: -1px !important;
-    margin-bottom: -2px !important;
-    margin-top: -1px !important;
-    font-size: 9px !important;
-    background-color:white !important;
+margin-right: -1px !important;
+margin-bottom: -2px !important;
+ margin-top: -1px !important;
+font-size: 9px !important;
+ background-color:white !important;
     border:none !important;
     background-position: center center !important;
     background-repeat: no-repeat !important;
     background-size: 7px auto !important;
     padding:0px !important;
 
-/*background-color: #f2ad00;*/
+
+}
+.af_mandatoryfield .af_selectManyChoice_dropdown,.af_mandatoryfield .af_inputComboboxListOfValues_dropdown-icon-style,.af_mandatoryfield .af_selectOneChoice_content{
+border:1px solid red !important;
 }
 
 .af_selectManyChoice_dropdown-icon-style, .af_inputComboboxListOfValues_dropdown-icon-style{
@@ -969,6 +983,15 @@ background-position-y: 60%;*/
     font-size: 13px !important;
     font-weight: normal !important;
     padding:1px;
+}
+
+.af_mandatoryfield .af_selectManyChoice_control{
+    font-family : Lucida Sans,Georgia,Serif !important;
+    font-size: 12px !important;
+    font-weight: normal !important;
+    border:1px solid red !important;
+    /*border: 1px Red !important;*/
+    /*padding:1px;*/
 }
 .af_selectManyChoice_content,af_selectOneChoice_content {
 font-family : Lucida Sans,Georgia,Serif !important;
@@ -1302,6 +1325,14 @@ font-style:normal;
     padding:0px;
 }
 
+.af_mandatoryfield .af_selectManyChoice_content{
+    height: 15px; !important
+}
+
+.af_mandatoryfield .af_selectManyChoice_control{
+    padding:0px; !important
+}
+
 
 }
 
@@ -1354,6 +1385,10 @@ width : 232.0px;
     margin-bottom:-8px;
     margin-left:-14px;
     padding:1px 0px 3px 1px;
+}
+
+.af_mandatoryfield .af_selectManyChoice_dropdown-icon-style:hover {
+    background-image: url("/faces/images/ie_drop.png") !important;
 }
 
 .AFContentCell .af_selectManyChoice_control{
