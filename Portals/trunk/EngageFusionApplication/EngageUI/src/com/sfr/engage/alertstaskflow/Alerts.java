@@ -2,6 +2,8 @@ package com.sfr.engage.alertstaskflow;
 
 
 import com.sfr.core.bean.User;
+import com.sfr.engage.alertstaskflow.Alerts.Bindings;
+import com.sfr.engage.cardtaskflow.CardBean;
 import com.sfr.engage.core.AlertsSubscribeCustomerType;
 import com.sfr.engage.core.AlertsSubscribeFrequencyType;
 import com.sfr.engage.core.AlertsSubscribeRequest;
@@ -23,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
 import java.util.Map;
 
 import javax.faces.application.FacesMessage;
@@ -127,7 +130,7 @@ public class Alerts {
     private Map<String, String> mapAccountListValue;
     private Map<String, String> mapCardGroupListValue;
     private Map<String, String> mapCardListValue;
-
+    private ValueListSplit valueList;
     private Boolean isTableVisible;
 
     public Alerts() {
@@ -162,13 +165,13 @@ public class Alerts {
         cardNumberValue2 = new ArrayList<String>();
         suggestedCardNumberList = new ArrayList<String>();
         Conversion conv = new Conversion();
-
+        valueList = new ValueListSplit();
         isTableVisible = false;
-
+        
         if (session.getAttribute(Constants.DISPLAY_PORTAL_LANG) != null) {
             langValue = conv.getCustomerCountryCode((String)session.getAttribute(Constants.DISPLAY_PORTAL_LANG));
         }
-
+    
         defaultTimings();
 
         userEmail = "";
@@ -198,7 +201,7 @@ public class Alerts {
         }
 
         populateDefaultDropdown(true);
-
+        
         if (session != null) {
             if (session.getAttribute("alerts_account_Query") != null) {
                 accountQuery = session.getAttribute("alerts_account_Query").toString().trim();
@@ -219,10 +222,10 @@ public class Alerts {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card " + accountQuery);
             }
         }
-
+        
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside constructor of Alerts");
     }
-
+    
     /**
      * @return bindings Object
      */
@@ -232,7 +235,7 @@ public class Alerts {
         }
         return bindings;
     }
-
+    
     public String getPartnerName(String partnerId) {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside getPartnerName method of Alerts");
         if (partnerInfoList != null && partnerInfoList.size() > 0) {
@@ -471,8 +474,6 @@ public class Alerts {
 
     public void configureBusinessHoursAlert(ActionEvent actionEvent) {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside configureBusinessHoursAlert method of Alerts");
-        //        getBindings().getSearchResultsPanel().setRendered(false);
-        //        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResultsPanel());
         isTableVisible = false;
         defaultTimings();
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + "fueltimings size " + fueltimings.size());
@@ -593,11 +594,8 @@ public class Alerts {
 
     public void configureFuelCapacityAlert(ActionEvent actionEvent) {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside configureFuelCapacityAlert method of Alerts");
-        //        getBindings().getSearchResultsPanel().setRendered(false);
-        //        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResultsPanel());
         isTableVisible = false;
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "cardNumberValue +  cardNumberList" + cardNumberValue.size() + " " +
-                     cardNumberList.size());
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "cardNumberValue +  cardNumberList" + cardNumberValue.size() + " " + cardNumberList.size());
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + "cardGroupValue +  cardGroupList" + cardGroupValue.size() + " " + cardGroupList.size());
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + "accountIdValue +  accountIdList" + accountIdValue.size() + " " + accountIdList.size());
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + "partnerIdValue +  partnerIdList" + partnerIdValue.size() + " " + partnerIdList.size());
@@ -809,7 +807,7 @@ public class Alerts {
                     checkFuelTimings.getToMm().toString().trim() != null) {
                     String regex = "\\d+";
                     if (checkFuelTimings.getFromHh().toString().trim().matches(regex) && checkFuelTimings.getFromMm().toString().trim().matches(regex) &&
-                        checkFuelTimings.getToHh().toString().trim().matches(regex) && checkFuelTimings.getToMm().toString().trim().matches(regex)) {
+                        checkFuelTimings.getToHh().toString().trim().matches(regex) && checkFuelTimings.getToMm().toString().trim().matches(regex)){
                         fromHh = Integer.parseInt(checkFuelTimings.getFromHh().toString().trim());
                         fromMm = Integer.parseInt(checkFuelTimings.getFromMm().toString().trim());
                         toHh = Integer.parseInt(checkFuelTimings.getToHh().toString().trim());
@@ -864,14 +862,14 @@ public class Alerts {
     };
 
     public String[] StringConversion(String passedVal) {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside StringConversion method of Alerts");
+         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside StringConversion method of Alerts");
         String[] val = passedVal.split(",");
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting StringConversion method of Alerts");
+          _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting StringConversion method of Alerts");
         return val;
     }
 
     public void partnerValueChangeListener(ValueChangeEvent valueChangeEvent) {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside partnerValueChangeListener method of Alerts");
+         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside partnerValueChangeListener method of Alerts");
         if (valueChangeEvent.getNewValue() != null) {
             accountIdList = new ArrayList<SelectItem>();
             accountIdValue = new ArrayList<String>();
@@ -936,10 +934,8 @@ public class Alerts {
                 initailAccountIdVAlue = accountIdValue;
                 initialCardGroupValue = cardGroupValue;
                 initialCardValue = cardNumberValue;
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Account id value length partnerValueChangeListener" +
-                             initailAccountIdVAlue.size());
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Cardgroup id value length partnerValueChangeListener" +
-                             initialCardGroupValue.size());
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Account id value length partnerValueChangeListener" + initailAccountIdVAlue.size());
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Cardgroup id value length partnerValueChangeListener" + initialCardGroupValue.size());
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Card id value length partnerValueChangeListener" + initialCardValue.size());
                 Collections.sort(accountIdList, comparator);
                 Collections.sort(cardGroupList, comparator);
@@ -963,8 +959,8 @@ public class Alerts {
     }
 
     public void partner2ValueChangeListener(ValueChangeEvent valueChangeEvent) {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside partner2ValueChangeListener method of Alerts");
-        isTableVisible = false;
+         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside partner2ValueChangeListener method of Alerts");
+         isTableVisible = false;
         if (valueChangeEvent.getNewValue() != null) {
             accountIdList2 = new ArrayList<SelectItem>();
             accountIdValue2 = new ArrayList<String>();
@@ -1036,8 +1032,6 @@ public class Alerts {
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertsAccountDropdown());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertCardGroupDropdown());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertDropdown());
-        //        getBindings().getSearchResultsPanel().setRendered(false);
-        //        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResultsPanel());
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside partner2ValueChangeListener method of Alerts");
     }
 
@@ -1059,11 +1053,11 @@ public class Alerts {
                     for (int i = 0; i < partnerInfoList.get(z).getAccountList().size(); i++) {
                         _logger.info(accessDC.getDisplayRecord() + this.getClass() + "i " + i);
                         for (int j = 0; j < accountString.length; j++) {
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "accc frmo partnerlist " +
-                                         partnerInfoList.get(z).getAccountList().get(i).getAccountNumber());
+                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "accc frmo partnerlist " + partnerInfoList.get(z).getAccountList().get(i).getAccountNumber());
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() + "acc comparing " + accountString[j].substring(8, 18).trim());
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() + "checking bopolean " +
-                                         partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().equals(accountString[j].substring(8, 18).trim()));
+                                               partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().equals(accountString[j].substring(8,
+                                                                                                                                                   18).trim()));
                             if (partnerInfoList.get(z).getAccountList().get(i).getAccountNumber() != null &&
                                 partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().equals(accountString[j].substring(8, 18).trim())) {
                                 if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup() != null &&
@@ -1081,11 +1075,10 @@ public class Alerts {
                                             cardGroupValue2.add(partnerInfoList.get(z).getPartnerValue().toString().trim() +
                                                                 partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString() +
                                                                 partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
-                                            _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                         partnerInfoList.get(z).getPartnerValue().toString().trim() +
-                                                         partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString() +
-                                                         partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString() +
-                                                         "added in cardGroupValue");
+                                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + partnerInfoList.get(z).getPartnerValue().toString().trim() +
+                                                               partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString() +
+                                                               partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString() +
+                                                               "added in cardGroupValue");
                                         }
 
                                         for (int cc = 0; cc < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().size(); cc++) {
@@ -1103,12 +1096,11 @@ public class Alerts {
                                                                      partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString() +
                                                                      partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString() +
                                                                      partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
-                                                _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                             partnerInfoList.get(z).getPartnerValue().toString().trim() +
-                                                             partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString() +
-                                                             partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString() +
-                                                             partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getCardID().toString() +
-                                                             "added in cardNumberValue");
+                                                _logger.info(accessDC.getDisplayRecord() + this.getClass() + partnerInfoList.get(z).getPartnerValue().toString().trim() +
+                                                                   partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString() +
+                                                                   partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString() +
+                                                                   partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getCardID().toString() +
+                                                                   "added in cardNumberValue");
                                             }
                                         }
                                     }
@@ -1128,8 +1120,6 @@ public class Alerts {
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertsAccountDropdown());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertCardGroupDropdown());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertDropdown());
-        //        getBindings().getSearchResultsPanel().setRendered(false);
-        //        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResultsPanel());
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside account2ValueChangeListener method of Alerts");
     }
 
@@ -1149,11 +1139,11 @@ public class Alerts {
                     for (int i = 0; i < partnerInfoList.get(z).getAccountList().size(); i++) {
 
                         for (int j = 0; j < accountString.length; j++) {
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "accc frmo partnerlist " +
-                                         partnerInfoList.get(z).getAccountList().get(i).getAccountNumber());
+                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "accc frmo partnerlist " + partnerInfoList.get(z).getAccountList().get(i).getAccountNumber());
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() + "acc comparing " + accountString[j].substring(8, 18).trim());
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() + "checking bopolean " +
-                                         partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().equals(accountString[j].substring(8, 18).trim()));
+                                               partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().equals(accountString[j].substring(8,
+                                                                                                                                                   18).trim()));
                             if (partnerInfoList.get(z).getAccountList().get(i).getAccountNumber() != null &&
                                 partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().equals(accountString[j].substring(8, 18).trim())) {
                                 if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup() != null &&
@@ -1170,11 +1160,10 @@ public class Alerts {
                                             cardGroupValue.add(partnerInfoList.get(z).getPartnerValue().toString().trim() +
                                                                partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString() +
                                                                partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
-                                            _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                         partnerInfoList.get(z).getPartnerValue().toString().trim() +
-                                                         partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString() +
-                                                         partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString() +
-                                                         "added in cardGroupValue");
+                                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + partnerInfoList.get(z).getPartnerValue().toString().trim() +
+                                                               partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString() +
+                                                               partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString() +
+                                                               "added in cardGroupValue");
                                         }
                                         for (int cc = 0; cc < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().size(); cc++) {
                                             if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getCardID() != null &&
@@ -1191,12 +1180,11 @@ public class Alerts {
                                                                     partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString() +
                                                                     partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString() +
                                                                     partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
-                                                _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                             partnerInfoList.get(z).getPartnerValue().toString().trim() +
-                                                             partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString() +
-                                                             partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString() +
-                                                             partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getCardID().toString() +
-                                                             "added in cardNumberValue");
+                                                _logger.info(accessDC.getDisplayRecord() + this.getClass() + partnerInfoList.get(z).getPartnerValue().toString().trim() +
+                                                                   partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString() +
+                                                                   partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString() +
+                                                                   partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getCardID().toString() +
+                                                                   "added in cardNumberValue");
                                             }
                                         }
                                     }
@@ -1241,13 +1229,11 @@ public class Alerts {
                             for (int cg = 0; cg < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size(); cg++) {
                                 for (int cgs = 0; cgs < cardgroupString.length; cgs++) {
                                     _logger.info(accessDC.getDisplayRecord() + this.getClass() + "cardgrp from partnerlist  " +
-                                                 partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCardGroupID().toString().trim());
-                                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + "comparing cardgrp " +
-                                                 cardgroupString[cgs].substring(18, 29).trim());
+                                                       partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCardGroupID().toString().trim());
+                                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + "comparing cardgrp " + cardgroupString[cgs].substring(18, 29).trim());
                                     _logger.info(accessDC.getDisplayRecord() + this.getClass() + "checkin boolean " +
-                                                 (partnerInfoList.get(z).getPartnerValue().toString().trim() +
-                                                  partnerInfoList.get(z).getAccountList().get(i).getAccountNumber() +
-                                                  partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCardGroupID().toString().trim()).equals(cardgroupString[cgs].trim()));
+                                                       (partnerInfoList.get(z).getPartnerValue().toString().trim() + partnerInfoList.get(z).getAccountList().get(i).getAccountNumber() +
+                                                        partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCardGroupID().toString().trim()).equals(cardgroupString[cgs].trim()));
                                     if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup() != null &&
                                         ((partnerInfoList.get(z).getPartnerValue().toString().trim() +
                                           partnerInfoList.get(z).getAccountList().get(i).getAccountNumber() +
@@ -1279,15 +1265,14 @@ public class Alerts {
                     Collections.sort(cardNumberList2, comparator);
                 }
             }
-        } else {
+        }
+        else {
             getBindings().getCardDropdownAlert2().setValue(null);
             this.cardNumberValue = null;
         }
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertsAccountDropdown());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertCardGroupDropdown());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertDropdown());
-        //        getBindings().getSearchResultsPanel().setRendered(false);
-        //        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResultsPanel());
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside cardgroup2ValueChangeListener method of Alerts");
     }
 
@@ -1308,13 +1293,11 @@ public class Alerts {
                             for (int cg = 0; cg < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size(); cg++) {
                                 for (int cgs = 0; cgs < cardgroupString.length; cgs++) {
                                     _logger.info(accessDC.getDisplayRecord() + this.getClass() + "cardgrp from partnerlist  " +
-                                                 partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCardGroupID().toString().trim());
-                                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + "comparing cardgrp " +
-                                                 cardgroupString[cgs].substring(18, 29).trim());
+                                                       partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCardGroupID().toString().trim());
+                                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + "comparing cardgrp " + cardgroupString[cgs].substring(18, 29).trim());
                                     _logger.info(accessDC.getDisplayRecord() + this.getClass() + "checkin boolean " +
-                                                 (partnerInfoList.get(z).getPartnerValue().toString().trim() +
-                                                  partnerInfoList.get(z).getAccountList().get(i).getAccountNumber() +
-                                                  partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCardGroupID().toString().trim()).equals(cardgroupString[cgs].trim()));
+                                                       (partnerInfoList.get(z).getPartnerValue().toString().trim() + partnerInfoList.get(z).getAccountList().get(i).getAccountNumber() +
+                                                        partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCardGroupID().toString().trim()).equals(cardgroupString[cgs].trim()));
                                     if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup() != null &&
                                         ((partnerInfoList.get(z).getPartnerValue().toString().trim() +
                                           partnerInfoList.get(z).getAccountList().get(i).getAccountNumber() +
@@ -1431,15 +1414,12 @@ public class Alerts {
             cardListString = cardListString.substring(0, cardListString.length() - 1);
 
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + "converted cardListString arraylist " + cardListString);
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "converted cardListString arraylist " +
-                         populateStringValues(getBindings().getCardDropdownAlert2().getValue().toString().trim()));
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "converted cardListString arraylist " + populateStringValues(getBindings().getCardDropdownAlert2().getValue().toString().trim()));
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + "length1 " + cardListString.length());
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "lenght2 " +
-                         (populateStringValues(getBindings().getCardDropdownAlert2().getValue().toString().trim()).replaceAll(" ", "")).length());
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "lenght2 " + (populateStringValues(getBindings().getCardDropdownAlert2().getValue().toString().trim()).replaceAll(" ", "")).length());
 
 
-            if (cardListString.length() ==
-                (populateStringValues(getBindings().getCardDropdownAlert2().getValue().toString().trim()).replaceAll(" ", "")).length()) {
+            if (cardListString.length() == (populateStringValues(getBindings().getCardDropdownAlert2().getValue().toString().trim()).replaceAll(" ", "")).length()) {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + "card dropdown is unchanged");
                 readCardGroup();
             } else {
@@ -1459,26 +1439,20 @@ public class Alerts {
     public boolean validateinput2() {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside validateinput2 method of Alerts");
         boolean validinput2 = true;
-        if (getBindings().getPartnerDropdownAlert2().getValue() != null &&
-            getBindings().getPartnerDropdownAlert2().getValue().toString().trim().replaceAll(" ", "") != null &&
-            getBindings().getPartnerDropdownAlert2().getValue().toString().trim().replaceAll(" ", "") != "" &&
-            getBindings().getAccountDropdwonAlert2().getValue() != null &&
+        if (getBindings().getPartnerDropdownAlert2().getValue() != null && getBindings().getPartnerDropdownAlert2().getValue().toString().trim().replaceAll(" ", "") != null &&
+            getBindings().getPartnerDropdownAlert2().getValue().toString().trim().replaceAll(" ", "") != "" && getBindings().getAccountDropdwonAlert2().getValue() != null &&
             getBindings().getAccountDropdwonAlert2().getValue().toString().trim().replaceAll(" ", "") != null &&
-            getBindings().getAccountDropdwonAlert2().getValue().toString().trim().replaceAll(" ", "") != "" &&
-            getBindings().getCardGroupDowndownAlert2().getValue() != null &&
+            getBindings().getAccountDropdwonAlert2().getValue().toString().trim().replaceAll(" ", "") != "" && getBindings().getCardGroupDowndownAlert2().getValue() != null &&
             getBindings().getCardGroupDowndownAlert2().getValue().toString().trim().replaceAll(" ", "") != null &&
-            getBindings().getCardGroupDowndownAlert2().getValue().toString().trim().replaceAll(" ", "") != "" &&
-            getBindings().getCardDropdownAlert2().getValue() != null &&
+            getBindings().getCardGroupDowndownAlert2().getValue().toString().trim().replaceAll(" ", "") != "" && getBindings().getCardDropdownAlert2().getValue() != null &&
             getBindings().getCardDropdownAlert2().getValue().toString().trim().replaceAll(" ", "") != null &&
-            getBindings().getCardDropdownAlert2().getValue().toString().trim().replaceAll(" ", "") != "" &&
-            getBindings().getFuelCapacityAlert2().getValue() != null && getBindings().getFuelCapacityAlert2().getValue().toString().trim() != null) {
+            getBindings().getCardDropdownAlert2().getValue().toString().trim().replaceAll(" ", "") != "" && getBindings().getFuelCapacityAlert2().getValue() != null &&
+            getBindings().getFuelCapacityAlert2().getValue().toString().trim() != null) {
             String regex = "\\d+";
             if (getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", "").matches(regex)) {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + "fuelCapacityAlert2 " +
-                             getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + "fuelCapacityAlert2 " + getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
             } else {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + "fuelCapacityAlert22 " +
-                             getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + "fuelCapacityAlert22 " + getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
                 validinput2 = false;
             }
         } else {
@@ -1499,14 +1473,11 @@ public class Alerts {
         }
         cardGroupListString = cardGroupListString.substring(0, cardGroupListString.length() - 1);
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + "converted cardGroupListString arraylist " + cardGroupListString);
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "converted cardGroupListString arraylist " +
-                     populateStringValues(getBindings().getCardGroupDowndownAlert2().getValue().toString().trim()));
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "converted cardGroupListString arraylist " + populateStringValues(getBindings().getCardGroupDowndownAlert2().getValue().toString().trim()));
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + "length1 " + cardGroupListString.length());
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "lenght2 " +
-                     (populateStringValues(getBindings().getCardGroupDowndownAlert2().getValue().toString().trim()).replaceAll(" ", "")).length());
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "lenght2 " + (populateStringValues(getBindings().getCardGroupDowndownAlert2().getValue().toString().trim()).replaceAll(" ", "")).length());
 
-        if (cardGroupListString.length() ==
-            (populateStringValues(getBindings().getCardGroupDowndownAlert2().getValue().toString().trim()).replaceAll(" ", "")).length()) {
+        if (cardGroupListString.length() == (populateStringValues(getBindings().getCardGroupDowndownAlert2().getValue().toString().trim()).replaceAll(" ", "")).length()) {
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + "cardGroup dropdown is unchanged");
             readAccount();
         } else {
@@ -1541,8 +1512,7 @@ public class Alerts {
                     ViewObject prtCardFuelCapacity = PrtCardFuelCapacityIter.getViewObject();
 
                     if (CardRuleSubscriptionIter != null && PrtCardFuelCapacityIter != null) {
-                        String cardgroup[] =
-                            (populateStringValues(getBindings().getCardGroupDowndownAlert2().getValue().toString().trim()).replaceAll(" ", "")).split(",");
+                        String cardgroup[] = (populateStringValues(getBindings().getCardGroupDowndownAlert2().getValue().toString().trim()).replaceAll(" ", "")).split(",");
                         String accountId = "";
                         String partnerId = "";
                         String cardgroupId = "";
@@ -1576,23 +1546,14 @@ public class Alerts {
                                 prtCardFuelCapacityRow.setAttribute("SubscrId", response.getSubscriptionID().toString().trim());
                                 prtCardFuelCapacityRow.setAttribute("RuleId", "2");
 
-                                if (getBindings().getLtrPerDayRadio().getValue() != null &&
-                                    getBindings().getLtrPerDayRadio().getValue().toString().equalsIgnoreCase("true"))
-                                    prtCardFuelCapacityRow.setAttribute("FuelPerDay",
-                                                                        getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ",
-                                                                                                                                                      ""));
+                                if (getBindings().getLtrPerDayRadio().getValue() != null && getBindings().getLtrPerDayRadio().getValue().toString().equalsIgnoreCase("true"))
+                                    prtCardFuelCapacityRow.setAttribute("FuelPerDay", getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
 
-                                if (getBindings().getLtrPerWeekRadio().getValue() != null &&
-                                    getBindings().getLtrPerWeekRadio().getValue().toString().equalsIgnoreCase("true"))
-                                    prtCardFuelCapacityRow.setAttribute("FuelPerWeek",
-                                                                        getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ",
-                                                                                                                                                      ""));
+                                if (getBindings().getLtrPerWeekRadio().getValue() != null && getBindings().getLtrPerWeekRadio().getValue().toString().equalsIgnoreCase("true"))
+                                    prtCardFuelCapacityRow.setAttribute("FuelPerWeek", getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
 
-                                if (getBindings().getLtrPerMonthRadio().getValue() != null &&
-                                    getBindings().getLtrPerMonthRadio().getValue().toString().equalsIgnoreCase("true"))
-                                    prtCardFuelCapacityRow.setAttribute("FuelPerMonth",
-                                                                        getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ",
-                                                                                                                                                      ""));
+                                if (getBindings().getLtrPerMonthRadio().getValue() != null && getBindings().getLtrPerMonthRadio().getValue().toString().equalsIgnoreCase("true"))
+                                    prtCardFuelCapacityRow.setAttribute("FuelPerMonth", getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
 
                                 prtCardFuelCapacityRow.setAttribute("ModifiedBy", userEmail);
                             }
@@ -1682,7 +1643,7 @@ public class Alerts {
                         response = (AlertsSubscribeResponse)operationBinding.execute();
                         _logger.info(accessDC.getDisplayRecord() + this.getClass() + "response = " + response.getSubscriptionID());
 
-                        if (response.getSubscriptionID() != null) {
+                        if (response.getSubscriptionID() != null){
                             Row cardRuleSubscriptionRow = cardRuleSubscription.createRow();
                             cardRuleSubscriptionRow.setAttribute("CountryCode", CountryCode);
                             cardRuleSubscriptionRow.setAttribute("UserId", userEmail);
@@ -1705,18 +1666,12 @@ public class Alerts {
                             prtCardFuelCapacityRow.setAttribute("CountryCode", CountryCode);
                             prtCardFuelCapacityRow.setAttribute("SubscrId", response.getSubscriptionID().toString().trim());
                             prtCardFuelCapacityRow.setAttribute("RuleId", "2");
-                            if (getBindings().getLtrPerDayRadio().getValue() != null &&
-                                getBindings().getLtrPerDayRadio().getValue().toString().equalsIgnoreCase("true"))
-                                prtCardFuelCapacityRow.setAttribute("FuelPerDay",
-                                                                    getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
-                            if (getBindings().getLtrPerWeekRadio().getValue() != null &&
-                                getBindings().getLtrPerWeekRadio().getValue().toString().equalsIgnoreCase("true"))
-                                prtCardFuelCapacityRow.setAttribute("FuelPerWeek",
-                                                                    getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
-                            if (getBindings().getLtrPerMonthRadio().getValue() != null &&
-                                getBindings().getLtrPerMonthRadio().getValue().toString().equalsIgnoreCase("true"))
-                                prtCardFuelCapacityRow.setAttribute("FuelPerMonth",
-                                                                    getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
+                            if (getBindings().getLtrPerDayRadio().getValue() != null && getBindings().getLtrPerDayRadio().getValue().toString().equalsIgnoreCase("true"))
+                                prtCardFuelCapacityRow.setAttribute("FuelPerDay", getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
+                            if (getBindings().getLtrPerWeekRadio().getValue() != null && getBindings().getLtrPerWeekRadio().getValue().toString().equalsIgnoreCase("true"))
+                                prtCardFuelCapacityRow.setAttribute("FuelPerWeek", getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
+                            if (getBindings().getLtrPerMonthRadio().getValue() != null && getBindings().getLtrPerMonthRadio().getValue().toString().equalsIgnoreCase("true"))
+                                prtCardFuelCapacityRow.setAttribute("FuelPerMonth", getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
                             prtCardFuelCapacityRow.setAttribute("ModifiedBy", userEmail);
                         }
                     }
@@ -1767,14 +1722,12 @@ public class Alerts {
 
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + "converted accListString arraylist " + accountListString);
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + "converted accListString arraylist " +
-                     (populateStringValues(getBindings().getAccountDropdwonAlert2().getValue().toString().trim()).replaceAll(" ", "")));
+                           (populateStringValues(getBindings().getAccountDropdwonAlert2().getValue().toString().trim()).replaceAll(" ", "")));
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + "length1 " + accountListString.length());
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "lenght2 " +
-                     (populateStringValues(getBindings().getAccountDropdwonAlert2().getValue().toString().trim()).replaceAll(" ", "")).length());
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "lenght2 " + (populateStringValues(getBindings().getAccountDropdwonAlert2().getValue().toString().trim()).replaceAll(" ", "")).length());
 
 
-        if (accountListString.length() ==
-            (populateStringValues(getBindings().getAccountDropdwonAlert2().getValue().toString().trim()).replaceAll(" ", "")).length()) {
+        if (accountListString.length() == (populateStringValues(getBindings().getAccountDropdwonAlert2().getValue().toString().trim()).replaceAll(" ", "")).length()) {
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + "account dropdown is unchanged");
             readPartner();
         } else {
@@ -1814,8 +1767,7 @@ public class Alerts {
                     ViewObject prtCardFuelCapacity = PrtCardFuelCapacityIter.getViewObject();
 
                     if (CardRuleSubscriptionIter != null && PrtCardFuelCapacityIter != null) {
-                        String account[] =
-                            (populateStringValues(getBindings().getAccountDropdwonAlert2().getValue().toString().trim()).replaceAll(" ", "")).split(",");
+                        String account[] = (populateStringValues(getBindings().getAccountDropdwonAlert2().getValue().toString().trim()).replaceAll(" ", "")).split(",");
                         String accountId = "";
                         String partnerId = "";
                         for (int acc = 0; acc < account.length; acc++) {
@@ -1823,7 +1775,7 @@ public class Alerts {
                             response = (AlertsSubscribeResponse)operationBinding.execute();
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() + "response = " + response.getSubscriptionID());
 
-                            if (response.getSubscriptionID() != null) {
+                            if (response.getSubscriptionID() != null){
                                 Row cardRuleSubscriptionRow = cardRuleSubscription.createRow();
                                 cardRuleSubscriptionRow.setAttribute("CountryCode", CountryCode);
                                 cardRuleSubscriptionRow.setAttribute("UserId", userEmail);
@@ -1844,21 +1796,12 @@ public class Alerts {
                                 prtCardFuelCapacityRow.setAttribute("CountryCode", CountryCode);
                                 prtCardFuelCapacityRow.setAttribute("SubscrId", response.getSubscriptionID().toString().trim());
                                 prtCardFuelCapacityRow.setAttribute("RuleId", "2");
-                                if (getBindings().getLtrPerDayRadio().getValue() != null &&
-                                    getBindings().getLtrPerDayRadio().getValue().toString().equalsIgnoreCase("true"))
-                                    prtCardFuelCapacityRow.setAttribute("FuelPerDay",
-                                                                        getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ",
-                                                                                                                                                      ""));
-                                if (getBindings().getLtrPerWeekRadio().getValue() != null &&
-                                    getBindings().getLtrPerWeekRadio().getValue().toString().equalsIgnoreCase("true"))
-                                    prtCardFuelCapacityRow.setAttribute("FuelPerWeek",
-                                                                        getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ",
-                                                                                                                                                      ""));
-                                if (getBindings().getLtrPerMonthRadio().getValue() != null &&
-                                    getBindings().getLtrPerMonthRadio().getValue().toString().equalsIgnoreCase("true"))
-                                    prtCardFuelCapacityRow.setAttribute("FuelPerMonth",
-                                                                        getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ",
-                                                                                                                                                      ""));
+                                if (getBindings().getLtrPerDayRadio().getValue() != null && getBindings().getLtrPerDayRadio().getValue().toString().equalsIgnoreCase("true"))
+                                    prtCardFuelCapacityRow.setAttribute("FuelPerDay", getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
+                                if (getBindings().getLtrPerWeekRadio().getValue() != null && getBindings().getLtrPerWeekRadio().getValue().toString().equalsIgnoreCase("true"))
+                                    prtCardFuelCapacityRow.setAttribute("FuelPerWeek", getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
+                                if (getBindings().getLtrPerMonthRadio().getValue() != null && getBindings().getLtrPerMonthRadio().getValue().toString().equalsIgnoreCase("true"))
+                                    prtCardFuelCapacityRow.setAttribute("FuelPerMonth", getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
                                 prtCardFuelCapacityRow.setAttribute("ModifiedBy", userEmail);
                             }
                         }
@@ -1904,13 +1847,10 @@ public class Alerts {
         }
         partnerListString = partnerListString.substring(0, partnerListString.length() - 1);
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + "converted partnerListString arraylist " + partnerListString);
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "converted partnerListString arraylist " +
-                     populateStringValues(getBindings().getPartnerDropdownAlert2().getValue().toString().trim()));
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "converted partnerListString arraylist " + populateStringValues(getBindings().getPartnerDropdownAlert2().getValue().toString().trim()));
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + "length1 " + partnerListString.length());
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "lenght2 " +
-                     (populateStringValues(getBindings().getPartnerDropdownAlert2().getValue().toString().trim()).replaceAll(" ", "")).length());
-        if (partnerListString.length() ==
-            (populateStringValues(getBindings().getPartnerDropdownAlert2().getValue().toString().trim()).replaceAll(" ", "")).length()) {
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "lenght2 " + (populateStringValues(getBindings().getPartnerDropdownAlert2().getValue().toString().trim()).replaceAll(" ", "")).length());
+        if (partnerListString.length() == (populateStringValues(getBindings().getPartnerDropdownAlert2().getValue().toString().trim()).replaceAll(" ", "")).length()){
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + "partner dropdown is unchanged");
         }
         //logic to store in db at partner level
@@ -1938,13 +1878,12 @@ public class Alerts {
                 ViewObject cardRuleSubscription = CardRuleSubscriptionIter.getViewObject();
                 ViewObject prtCardFuelCapacity = PrtCardFuelCapacityIter.getViewObject();
                 if (CardRuleSubscriptionIter != null && PrtCardFuelCapacityIter != null) {
-                    String partner[] =
-                        (populateStringValues(getBindings().getPartnerDropdownAlert2().getValue().toString().trim()).replaceAll(" ", "")).split(",");
+                    String partner[] = (populateStringValues(getBindings().getPartnerDropdownAlert2().getValue().toString().trim()).replaceAll(" ", "")).split(",");
                     for (int part = 0; part < partner.length; part++) {
                         operationBinding.getParamsMap().put("subscribeRequest", req);
                         response = (AlertsSubscribeResponse)operationBinding.execute();
                         _logger.info(accessDC.getDisplayRecord() + this.getClass() + "response = " + response.getSubscriptionID());
-                        if (response.getSubscriptionID() != null) {
+                        if (response.getSubscriptionID() != null){
                             Row cardRuleSubscriptionRow = cardRuleSubscription.createRow();
                             cardRuleSubscriptionRow.setAttribute("CountryCode", CountryCode);
                             cardRuleSubscriptionRow.setAttribute("UserId", userEmail);
@@ -1963,20 +1902,14 @@ public class Alerts {
                             prtCardFuelCapacityRow.setAttribute("CountryCode", CountryCode);
                             prtCardFuelCapacityRow.setAttribute("SubscrId", response.getSubscriptionID().toString().trim());
                             prtCardFuelCapacityRow.setAttribute("RuleId", "2");
-                            if (getBindings().getLtrPerDayRadio().getValue() != null &&
-                                getBindings().getLtrPerDayRadio().getValue().toString().equalsIgnoreCase("true"))
-                                prtCardFuelCapacityRow.setAttribute("FuelPerDay",
-                                                                    getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
+                            if (getBindings().getLtrPerDayRadio().getValue() != null && getBindings().getLtrPerDayRadio().getValue().toString().equalsIgnoreCase("true"))
+                                prtCardFuelCapacityRow.setAttribute("FuelPerDay", getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
 
-                            if (getBindings().getLtrPerWeekRadio().getValue() != null &&
-                                getBindings().getLtrPerWeekRadio().getValue().toString().equalsIgnoreCase("true"))
-                                prtCardFuelCapacityRow.setAttribute("FuelPerWeek",
-                                                                    getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
+                            if (getBindings().getLtrPerWeekRadio().getValue() != null && getBindings().getLtrPerWeekRadio().getValue().toString().equalsIgnoreCase("true"))
+                                prtCardFuelCapacityRow.setAttribute("FuelPerWeek", getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
 
-                            if (getBindings().getLtrPerMonthRadio().getValue() != null &&
-                                getBindings().getLtrPerMonthRadio().getValue().toString().equalsIgnoreCase("true"))
-                                prtCardFuelCapacityRow.setAttribute("FuelPerMonth",
-                                                                    getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
+                            if (getBindings().getLtrPerMonthRadio().getValue() != null && getBindings().getLtrPerMonthRadio().getValue().toString().equalsIgnoreCase("true"))
+                                prtCardFuelCapacityRow.setAttribute("FuelPerMonth", getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
 
                             prtCardFuelCapacityRow.setAttribute("ModifiedBy", userEmail);
                         }
@@ -2071,7 +2004,7 @@ public class Alerts {
         return initialCardValue;
     }
 
-    public void viewSubscribedAlerts(ActionEvent actionEvent) {
+    public void viewSubscribedAlerts(ActionEvent actionEvent) {  
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside viewSubscribedAlerts method of Alerts");
         ViewObject prtCardRuleSubscriptionVO = ADFUtils.getViewObject("PrtCardRuleSubscriptionRVO1Iterator");
         if (SelectionPanel) {
@@ -2081,26 +2014,23 @@ public class Alerts {
                     cardListString += s + ",";
                 }
                 cardListString = cardListString.substring(0, cardListString.length() - 1);
-                if (getBindings().getViewAlertDropdown().getValue() != null) {
+                if(getBindings().getViewAlertDropdown().getValue() != null){
                     _logger.info(accessDC.getDisplayRecord() + this.getClass() + "converted cardListString arraylist " + cardListString);
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + "converted cardListString arraylist " +
-                                 populateStringValues(getBindings().getViewAlertDropdown().getValue().toString().trim()));
+                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + "converted cardListString arraylist " + populateStringValues(getBindings().getViewAlertDropdown().getValue().toString().trim()));
                     _logger.info(accessDC.getDisplayRecord() + this.getClass() + "length1 " + cardListString.length());
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + "lenght2 " +
-                                 (populateStringValues(getBindings().getViewAlertDropdown().getValue().toString().trim()).replaceAll(" ", "")).length());
-                    if (cardListString.length() ==
-                        (populateStringValues(getBindings().getViewAlertDropdown().getValue().toString().trim()).replaceAll(" ", "")).length()) {
+                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + "lenght2 " + (populateStringValues(getBindings().getViewAlertDropdown().getValue().toString().trim()).replaceAll(" ", "")).length());
+                    if (cardListString.length() == (populateStringValues(getBindings().getViewAlertDropdown().getValue().toString().trim()).replaceAll(" ", "")).length()) {
                         _logger.info(accessDC.getDisplayRecord() + this.getClass() + "card dropdown is unchanged");
                         readCardGroupLevel();
                     } else {
                         readCardlevel();
-                    }
-                } else {
+                    } 
+                }else{
                     showErrorMessage("ENGAGE_NO_CARD");
                 }
             }
         } else if (cardsSelectionPanel) {
-            if (getBindings().getSearchStringInputtext().getValue() != null) {
+            if(getBindings().getSearchStringInputtext().getValue() != null){
                 if (suggestedCardNumberList.contains(getBindings().getSearchStringInputtext().getValue().toString().trim())) {
                     searchCorrespondingDetalis();
                     if (!prtCardRuleSubscriptionVO.equals(null)) {
@@ -2116,8 +2046,7 @@ public class Alerts {
                         String accountValueList = passingPartner + passingAccount;
                         _logger.info(accessDC.getDisplayRecord() + this.getClass() + "accountValueList " + accountValueList);
                         prtCardRuleSubscriptionVO.defineNamedWhereClauseParam("account", accountValueList, null);
-                        cardGroupQuery =
-                                "(INSTR(:cardGroup,PARTNER_ID||ACCOUNT_ID||CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ)<>0 OR ((CARDGROUP_MAIN = 'ALL') AND (CARDGROUP_SUB = 'ALL') AND (CARDGROUP_SEQ = 'ALL'))) ";
+                        cardGroupQuery = "(INSTR(:cardGroup,PARTNER_ID||ACCOUNT_ID||CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ)<>0 OR ((CARDGROUP_MAIN = 'ALL') AND (CARDGROUP_SUB = 'ALL') AND (CARDGROUP_SEQ = 'ALL'))) ";
                         String cardgrpValueList = passingPartner + passingAccount + passingCardgrpMain + passingCardgrpSub + passingCardgrpSeq;
                         _logger.info(accessDC.getDisplayRecord() + this.getClass() + "cardgrpValueList " + cardgrpValueList);
                         prtCardRuleSubscriptionVO.defineNamedWhereClauseParam("cardGroup", cardgrpValueList, null);
@@ -2127,15 +2056,12 @@ public class Alerts {
                         session.setAttribute("alerts_account_Query", accountQuery);
                         session.setAttribute("alerts_cardGroup_Query", cardGroupQuery);
                         session.setAttribute("alerts_card_Query", cardQuery);
-                        _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                     "Estimated row count for Card Rule Subscription Query in case of card selection :" +
-                                     prtCardRuleSubscriptionVO.getEstimatedRowCount());
+                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Estimated row count for Card Rule Subscription Query in case of card selection :" +
+                                           prtCardRuleSubscriptionVO.getEstimatedRowCount());
                         isTableVisible = true;
-                        //                        getBindings().getSearchResultsPanel().setRendered(true);
-                        //                        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResultsPanel());
                     }
                 }
-            } else {
+            }else{
                 showErrorMessage("ENGAGE_NO_CARD");
             }
         }
@@ -2176,7 +2102,7 @@ public class Alerts {
         for (int j = 0; j < card.length; j++) {
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + card[j]);
         }
-
+            
         prtCardRuleSubscriptionVO.setNamedWhereClauseParam("pId", mergeArraytoCommaSeperatedSting(partner));
         prtCardRuleSubscriptionVO.setNamedWhereClauseParam("userId", userEmail);
         prtCardRuleSubscriptionVO.setNamedWhereClauseParam("countryCode", CountryCode);
@@ -2191,7 +2117,7 @@ public class Alerts {
         addAccountQuery(prtCardRuleSubscriptionVO, accountPassingValue);
         addCardGroupQuery(prtCardRuleSubscriptionVO, cardGroupPassingValue);
         addCardQuery(prtCardRuleSubscriptionVO, cardPassingValue);
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Query: " + prtCardRuleSubscriptionVO.getQuery());
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Query: "+prtCardRuleSubscriptionVO.getQuery());
         prtCardRuleSubscriptionVO.executeQuery();
         session.setAttribute("alerts_account_Query", accountQuery);
         session.setAttribute("alerts_map_Account_List", mapAccountListValue);
@@ -2200,10 +2126,7 @@ public class Alerts {
         session.setAttribute("alerts_card_Query", cardQuery);
         session.setAttribute("alerts_map_Card_List", mapCardListValue);
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Queries are saved in session");
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Estimated row count for Card Rule Subscription Query:" +
-                     prtCardRuleSubscriptionVO.getEstimatedRowCount());
-        //        getBindings().getSearchResultsPanel().setRendered(true);
-        //        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResultsPanel());
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Estimated row count for Card Rule Subscription Query:" + prtCardRuleSubscriptionVO.getEstimatedRowCount()); 
         isTableVisible = true;
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside readCardlevel method of Alerts");
     }
@@ -2211,23 +2134,20 @@ public class Alerts {
     public void readCardGroupLevel() {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside readCardGroupLevel method of Alerts");
         String cardGroupListString = "";
-        //        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Account id value length readCardGroup" + cardGroupValue2.size());
-        //        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Account id value length readCardGroup" + initialCardGroup2Value.size());
+//        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Account id value length readCardGroup" + cardGroupValue2.size());
+//        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Account id value length readCardGroup" + initialCardGroup2Value.size());
 
         for (String s : initialCardGroup2Value) {
             cardGroupListString += s + ",";
         }
         cardGroupListString = cardGroupListString.substring(0, cardGroupListString.length() - 1);
-        if (getBindings().getViewAlertCardGroupDropdown().getValue() != null) {
+        if(getBindings().getViewAlertCardGroupDropdown().getValue() != null){
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + "converted cardGroupListString arraylist " + cardGroupListString);
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "converted cardGroupListString arraylist " +
-                         populateStringValues(getBindings().getViewAlertCardGroupDropdown().getValue().toString().trim()));
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "converted cardGroupListString arraylist " + populateStringValues(getBindings().getViewAlertCardGroupDropdown().getValue().toString().trim()));
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + "length1 " + cardGroupListString.length());
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "lenght2 " +
-                         (populateStringValues(getBindings().getViewAlertCardGroupDropdown().getValue().toString().trim()).replaceAll(" ", "")).length());
-
-            if (cardGroupListString.length() ==
-                (populateStringValues(getBindings().getViewAlertCardGroupDropdown().getValue().toString().trim()).replaceAll(" ", "")).length()) {
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "lenght2 " + (populateStringValues(getBindings().getViewAlertCardGroupDropdown().getValue().toString().trim()).replaceAll(" ", "")).length());
+            
+            if (cardGroupListString.length() == (populateStringValues(getBindings().getViewAlertCardGroupDropdown().getValue().toString().trim()).replaceAll(" ", "")).length()) {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + "cardGroup dropdown is unchanged");
                 readAccountlevel();
             } else {
@@ -2275,13 +2195,10 @@ public class Alerts {
                 session.setAttribute("alerts_map_Account_List", mapAccountListValue);
                 session.setAttribute("alerts_cardGroup_Query", cardGroupQuery);
                 session.setAttribute("alerts_map_CardGroup_List", mapCardGroupListValue);
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Estimated row count for Card Group Rule Subscription Query:" +
-                             prtCardRuleSubscriptionVO.getEstimatedRowCount());
-                //                getBindings().getSearchResultsPanel().setRendered(true);
-                //                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResultsPanel());
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Estimated row count for Card Group Rule Subscription Query:" + prtCardRuleSubscriptionVO.getEstimatedRowCount());
                 isTableVisible = true;
             }
-        } else {
+        }else{
             showErrorMessage("ENGAGE_NO_CARD_GROUP");
         }
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside readCardGroupLevel method of Alerts");
@@ -2289,23 +2206,19 @@ public class Alerts {
 
     public void readAccountlevel() {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside readAccountlevel method of Alerts");
-        //        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Account id value length readAccount" + accountIdValue2.size());
-        //        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Account id value length readAccount" + initailAccountId2VAlue.size());
         String accountListString = "";
         for (String s : initailAccountId2VAlue) {
             accountListString += s + ",";
         }
         accountListString = accountListString.substring(0, accountListString.length() - 1);
-        if (getBindings().getViewAlertsAccountDropdown().getValue() != null) {
+        if(getBindings().getViewAlertsAccountDropdown().getValue() != null){
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + "converted accListString arraylist " + accountListString);
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + "converted accListString arraylist " +
-                         (populateStringValues(getBindings().getViewAlertsAccountDropdown().getValue().toString().trim()).replaceAll(" ", "")));
+                               (populateStringValues(getBindings().getViewAlertsAccountDropdown().getValue().toString().trim()).replaceAll(" ", "")));
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + "length1 " + accountListString.length());
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "lenght2 " +
-                         (populateStringValues(getBindings().getViewAlertsAccountDropdown().getValue().toString().trim()).replaceAll(" ", "")).length());
-
-            if (accountListString.length() ==
-                (populateStringValues(getBindings().getViewAlertsAccountDropdown().getValue().toString().trim()).replaceAll(" ", "")).length()) {
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "lenght2 " + (populateStringValues(getBindings().getViewAlertsAccountDropdown().getValue().toString().trim()).replaceAll(" ", "")).length());
+            
+            if (accountListString.length() == (populateStringValues(getBindings().getViewAlertsAccountDropdown().getValue().toString().trim()).replaceAll(" ", "")).length()) {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + "account dropdown is unchanged");
                 readPartnerLevel();
             } else {
@@ -2339,14 +2252,11 @@ public class Alerts {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Query: " + prtCardRuleSubscriptionVO.getQuery());
                 prtCardRuleSubscriptionVO.executeQuery();
                 session.setAttribute("alerts_account_Query", accountQuery);
-                session.setAttribute("alerts_map_Account_List", mapAccountListValue);
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Estimated row count for Account Subscription Query:" +
-                             prtCardRuleSubscriptionVO.getEstimatedRowCount());
-                //                getBindings().getSearchResultsPanel().setRendered(true);
-                //                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResultsPanel());
+                session.setAttribute("alerts_map_Account_List", mapAccountListValue);                
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Estimated row count for Account Subscription Query:" + prtCardRuleSubscriptionVO.getEstimatedRowCount());
                 isTableVisible = true;
             }
-        } else {
+        }else{
             showErrorMessage("ENGAGE_NO_ACCOUNT");
         }
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside readAccountlevel method of Alerts");
@@ -2357,11 +2267,11 @@ public class Alerts {
         String commaSeperatedString = "";
         for (int i = 0; i < data.length; i++) {
             commaSeperatedString = data[i];
-            if (i < (data.length - 1)) {
+            if (i < (data.length-1)) {
                 commaSeperatedString = commaSeperatedString + ",";
             }
         }
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "List of Data:" + commaSeperatedString);
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "List of Data:"+commaSeperatedString);
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside mergeArraytoCommaSeperatedSting method of Alerts");
         return commaSeperatedString;
     }
@@ -2369,7 +2279,7 @@ public class Alerts {
     public void readPartnerLevel() {
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Inside readPartnerLevel method of Alerts");
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + "reading at partner level");
-        if (getBindings().getViewAlertsPartnerDropdown().getValue() != null) {
+        if(getBindings().getViewAlertsPartnerDropdown().getValue() != null){
             String[] values = populateStringValues(getBindings().getViewAlertsPartnerDropdown().getValue().toString()).split(",");
             String[] partner = new String[values.length];
             for (int i = 0; i < values.length; i++) {
@@ -2381,18 +2291,14 @@ public class Alerts {
             }
             ViewObject prtCardRuleSubscriptionVO = ADFUtils.getViewObject("PrtCardRuleSubscriptionRVO1Iterator");
             removeWhereClause(prtCardRuleSubscriptionVO);
-            prtCardRuleSubscriptionVO.setNamedWhereClauseParam("pId",
-                                                               populateStringValues(getBindings().getViewAlertsPartnerDropdown().getValue().toString()));
+            prtCardRuleSubscriptionVO.setNamedWhereClauseParam("pId", populateStringValues(getBindings().getViewAlertsPartnerDropdown().getValue().toString()));
             prtCardRuleSubscriptionVO.setNamedWhereClauseParam("userId", userEmail);
             prtCardRuleSubscriptionVO.setNamedWhereClauseParam("countryCode", CountryCode);
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Query: " + prtCardRuleSubscriptionVO.getQuery());
             prtCardRuleSubscriptionVO.executeQuery();
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Estimated row count for Card Rule Subscription Query:" +
-                         prtCardRuleSubscriptionVO.getEstimatedRowCount());
-            //            getBindings().getSearchResultsPanel().setRendered(true);
-            //            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResultsPanel());
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Estimated row count for Card Rule Subscription Query:" + prtCardRuleSubscriptionVO.getEstimatedRowCount());
             isTableVisible = true;
-        } else {
+        }else{
             showErrorMessage("ENGAGE_NO_PARTNER");
         }
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Outside readPartnerLevel method of Alerts");
@@ -2426,12 +2332,10 @@ public class Alerts {
     public void viewConfiguredAlertPopup(ActionEvent actionEvent) {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside viewConfiguredAlertPopup method of Alerts");
         if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("SubscrIdkey") != null) {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                         AdfFacesContext.getCurrentInstance().getPageFlowScope().get("SubscrIdkey").toString().trim());
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + AdfFacesContext.getCurrentInstance().getPageFlowScope().get("SubscrIdkey").toString().trim());
         }
         if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("RuleIdkey") != null) {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                         AdfFacesContext.getCurrentInstance().getPageFlowScope().get("RuleIdkey").toString().trim());
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + AdfFacesContext.getCurrentInstance().getPageFlowScope().get("RuleIdkey").toString().trim());
             if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("RuleIdkey").toString().trim().equalsIgnoreCase("1")) {
                 configuredPartner = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim();
                 configureDefaultTimings(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("SubscrIdkey").toString().trim(), CountryCode);
@@ -2485,20 +2389,16 @@ public class Alerts {
             }
         }
         if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey") != null) {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                         AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim());
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim());
         }
         if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("AccountIdkey") != null) {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                         AdfFacesContext.getCurrentInstance().getPageFlowScope().get("AccountIdkey").toString().trim());
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + AdfFacesContext.getCurrentInstance().getPageFlowScope().get("AccountIdkey").toString().trim());
         }
         if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("CardGroupkey") != null) {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                         AdfFacesContext.getCurrentInstance().getPageFlowScope().get("CardGroupkey").toString().trim());
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + AdfFacesContext.getCurrentInstance().getPageFlowScope().get("CardGroupkey").toString().trim());
         }
         if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("CardKsidkey") != null) {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                         AdfFacesContext.getCurrentInstance().getPageFlowScope().get("CardKsidkey").toString().trim());
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + AdfFacesContext.getCurrentInstance().getPageFlowScope().get("CardKsidkey").toString().trim());
         }
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside viewConfiguredAlertPopup method of Alerts");
     }
@@ -2703,8 +2603,6 @@ public class Alerts {
 
     public void mainSelectionPanelRadioListner(ValueChangeEvent valueChangeEvent) {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside mainSelectionPanelRadioListner method of Alerts");
-        //        getBindings().getSearchResultsPanel().setRendered(false);
-        //        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResultsPanel());
         isTableVisible = false;
         if (valueChangeEvent.getNewValue() != null && valueChangeEvent.getNewValue().equals(true)) {
             getBindings().getViewAlertsPartnerDropdown().setDisabled(false);
@@ -2715,11 +2613,11 @@ public class Alerts {
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertCardGroupDropdown());
             getBindings().getViewAlertDropdown().setDisabled(false);
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertDropdown());
-            getBindings().getSearchStringInputtext().resetValue();
+            searchString = null;
             getBindings().getSearchStringInputtext().setDisabled(true);
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchStringInputtext());
             isTableVisible = false;
-        } else {
+        }else{
             getBindings().getViewAlertsPartnerDropdown().setDisabled(true);
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertsPartnerDropdown());
             getBindings().getViewAlertsAccountDropdown().setDisabled(true);
@@ -2731,8 +2629,7 @@ public class Alerts {
             getBindings().getSearchStringInputtext().setDisabled(false);
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchStringInputtext());
         }
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "valueChangeEvent mainSelectionPanelRadioListner" +
-                     valueChangeEvent.getNewValue().toString());
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "valueChangeEvent mainSelectionPanelRadioListner" + valueChangeEvent.getNewValue().toString());
         if (valueChangeEvent.getNewValue() != null && valueChangeEvent.getNewValue().toString().equals("true")) {
             SelectionPanel = true;
             cardsSelectionPanel = false;
@@ -2745,8 +2642,6 @@ public class Alerts {
     public void cardSelectionPanelRadioListner(ValueChangeEvent valueChangeEvent) {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside cardSelectionPanelRadioListner method of Alerts");
         isTableVisible = false;
-        //        getBindings().getSearchResultsPanel().setRendered(false);
-        //        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResultsPanel());
         if (valueChangeEvent.getNewValue() != null && valueChangeEvent.getNewValue().equals(true)) {
             getBindings().getViewAlertsPartnerDropdown().setDisabled(true);
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertsPartnerDropdown());
@@ -2756,10 +2651,10 @@ public class Alerts {
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertCardGroupDropdown());
             getBindings().getViewAlertDropdown().setDisabled(true);
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertDropdown());
-            getBindings().getSearchStringInputtext().resetValue();
+            searchString = null;
             getBindings().getSearchStringInputtext().setDisabled(false);
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchStringInputtext());
-        } else {
+        }else{
             getBindings().getViewAlertsPartnerDropdown().setDisabled(false);
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getViewAlertsPartnerDropdown());
             getBindings().getViewAlertsAccountDropdown().setDisabled(false);
@@ -2772,8 +2667,7 @@ public class Alerts {
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchStringInputtext());
         }
 
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "valueChangeEvent cardSelectionPanelRadioListner" +
-                     valueChangeEvent.getNewValue().toString());
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "valueChangeEvent cardSelectionPanelRadioListner" + valueChangeEvent.getNewValue().toString());
         if (valueChangeEvent.getNewValue() != null && valueChangeEvent.getNewValue().toString().equals("true")) {
             SelectionPanel = false;
             cardsSelectionPanel = true;
@@ -2946,6 +2840,14 @@ public class Alerts {
     public void clearSearchListener(ActionEvent actionEvent) {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside clearSearchListener method of Alerts");
         isTableVisible = false;
+        searchString = null;
+        getBindings().getViewAlertsPartnerDropdown().setDisabled(false);
+        getBindings().getViewAlertsAccountDropdown().setDisabled(false);
+        getBindings().getViewAlertCardGroupDropdown().setDisabled(false);
+        getBindings().getViewAlertDropdown().setDisabled(false);
+        getBindings().getSearchStringInputtext().setDisabled(true);
+        getBindings().getMainSelectionPanelRadio().setValue(true);
+        getBindings().getCardSelectionPanelRadio().setValue(false);
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside clearSearchListener method of Alerts");
     }
 
@@ -2954,16 +2856,15 @@ public class Alerts {
     }
 
     public String getSelectedPartner() {
-        if (configuredPartner != null) {
+        if(configuredPartner != null){
             selectedPartner = getPartnerName(configuredPartner);
         }
         return selectedPartner;
     }
-
-    public void removeWhereClause(ViewObject vo) {
+    
+    public void removeWhereClause(ViewObject vo){
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside removeWhereClause method of Alerts");
-        if (accountQuery.length() > 1 && accountQuery != null && cardGroupQuery.length() > 1 && cardGroupQuery != null && cardQuery.length() > 1 &&
-            cardQuery != null) {
+        if (accountQuery.length() > 1 && accountQuery != null && cardGroupQuery.length() > 1 && cardGroupQuery != null && cardQuery.length() > 1 && cardQuery != null) {
             if (vo.getWhereClause() != null) {
                 if (((accountQuery + "AND " + cardGroupQuery + "AND " + cardQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim())) ||
                     ((accountQuery + " AND " + cardGroupQuery + " AND " + cardQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim()))) {
@@ -2995,7 +2896,7 @@ public class Alerts {
                     vo.executeQuery();
                 }
             }
-        } else if (accountQuery.length() > 1 && accountQuery != null && cardGroupQuery.length() > 1 && cardGroupQuery != null) {
+        }else if(accountQuery.length() > 1 && accountQuery != null && cardGroupQuery.length() > 1 && cardGroupQuery != null){
             if (vo.getWhereClause() != null) {
                 if (((accountQuery + "AND " + cardGroupQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim())) ||
                     ((accountQuery + " AND " + cardGroupQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim()))) {
@@ -3019,7 +2920,7 @@ public class Alerts {
                     vo.executeQuery();
                 }
             }
-        } else if (accountQuery.length() > 1 && accountQuery != null) {
+        }else if(accountQuery.length() > 1 && accountQuery != null){
             if (vo.getWhereClause() != null) {
                 if ((accountQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim())) {
                     if (mapAccountListValue != null) {
@@ -3040,11 +2941,11 @@ public class Alerts {
         cardQuery = "(";
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside removeWhereClause method of Alerts");
     }
-
-    public void createAccountQuery() {
+    
+    public void createAccountQuery(){
         if (accountIdValue2.size() > 150) {
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 in Alerts");
-            mapAccountListValue = ValueListSplit.callValueList(accountIdValue2.size(), accountIdValue2);
+            mapAccountListValue = valueList.callValueList(accountIdValue2.size(), accountIdValue2);
             accountQuery = accountQuery + "(ACCOUNT_ID = 'ALL') OR ";
             for (int i = 0; i < mapAccountListValue.size(); i++) {
                 String values = "account" + i;
@@ -3059,15 +2960,16 @@ public class Alerts {
             accountQuery = "((ACCOUNT_ID = 'ALL') OR (INSTR(:account,ACCOUNT_ID)<>0)) ";
         }
     }
-
-    public void createCardGroupQuery() {
+    
+    public void createCardGroupQuery(){
         if (cardGroupValue2.size() > 150) {
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 in Alerts");
             cardGroupQuery = cardGroupQuery + "((CARDGROUP_MAIN = 'ALL') AND (CARDGROUP_SUB = 'ALL') AND (CARDGROUP_SEQ = 'ALL')) OR ";
-            mapCardGroupListValue = ValueListSplit.callValueList(cardGroupValue2.size(), cardGroupValue2);
+            mapCardGroupListValue = valueList.callValueList(cardGroupValue2.size(), cardGroupValue2);
             for (int i = 0; i < mapCardGroupListValue.size(); i++) {
                 String values = "cardGroup" + i;
-                cardGroupQuery = cardGroupQuery + "INSTR(:" + values + ",CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ)<>0 OR ";
+                cardGroupQuery =
+                        cardGroupQuery + "INSTR(:" + values + ",CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ)<>0 OR ";
             }
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + "CARDGROUP Query Values =" + cardGroupQuery);
             cardGroupQuery = cardGroupQuery.substring(0, cardGroupQuery.length() - 3);
@@ -3075,19 +2977,19 @@ public class Alerts {
         } else {
             mapCardGroupListValue = null;
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values < 150 in Alerts");
-            cardGroupQuery =
-                    "(((CARDGROUP_MAIN = 'ALL') AND (CARDGROUP_SUB = 'ALL') AND (CARDGROUP_SEQ = 'ALL')) OR (INSTR(:cardGroup,CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ)<>0)) ";
+            cardGroupQuery = "(((CARDGROUP_MAIN = 'ALL') AND (CARDGROUP_SUB = 'ALL') AND (CARDGROUP_SEQ = 'ALL')) OR (INSTR(:cardGroup,CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ)<>0)) ";
         }
     }
-
-    public void createCardQuery() {
+    
+    public void createCardQuery(){
         if (cardNumberValue2.size() > 150) {
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 in Alerts");
             cardQuery = cardQuery + "(CARD_KSID = 'ALL') OR ";
-            mapCardListValue = ValueListSplit.callValueList(cardNumberValue2.size(), cardNumberValue2);
+            mapCardListValue = valueList.callValueList(cardNumberValue2.size(), cardNumberValue2);
             for (int i = 0; i < mapCardListValue.size(); i++) {
                 String values = "card" + i;
-                cardQuery = cardQuery + "INSTR(:" + values + ",CARD_KSID)<>0 OR ";
+                cardQuery =
+                        cardQuery + "INSTR(:" + values + ",CARD_KSID)<>0 OR ";
             }
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
             cardQuery = cardQuery.substring(0, cardQuery.length() - 3);
@@ -3098,11 +3000,11 @@ public class Alerts {
             cardQuery = "((CARD_KSID = 'ALL') OR (INSTR(:card,CARD_KSID)<>0)) ";
         }
     }
-
-    public void addAccountQuery(ViewObject vo, String passingValue) {
+    
+    public void addAccountQuery(ViewObject vo,String passingValue){
         if (accountIdValue2.size() > 150) {
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 in Alerts");
-            mapAccountListValue = ValueListSplit.callValueList(accountIdValue2.size(), accountIdValue2);
+            mapAccountListValue = valueList.callValueList(accountIdValue2.size(), accountIdValue2);
             for (int i = 0; i < mapAccountListValue.size(); i++) {
                 String values = "account" + i;
                 String listName = "listName" + i;
@@ -3113,11 +3015,11 @@ public class Alerts {
             vo.defineNamedWhereClauseParam("account", passingValue, null);
         }
     }
-
-    public void addCardGroupQuery(ViewObject vo, String passingValue) {
+    
+    public void addCardGroupQuery(ViewObject vo,String passingValue){
         if (cardGroupValue2.size() > 150) {
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 in Alerts");
-            mapCardGroupListValue = ValueListSplit.callValueList(cardGroupValue2.size(), cardGroupValue2);
+            mapCardGroupListValue = valueList.callValueList(cardGroupValue2.size(), cardGroupValue2);
             for (int i = 0; i < mapCardGroupListValue.size(); i++) {
                 String values = "cardGroup" + i;
                 String listName = "listName" + i;
@@ -3128,11 +3030,11 @@ public class Alerts {
             vo.defineNamedWhereClauseParam("cardGroup", passingValue, null);
         }
     }
-
-    public void addCardQuery(ViewObject vo, String passingValue) {
+    
+    public void addCardQuery(ViewObject vo,String passingValue){
         if (cardNumberValue2.size() > 150) {
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values > 150 in Alerts");
-            mapCardListValue = ValueListSplit.callValueList(cardNumberValue2.size(), cardNumberValue2);
+            mapCardListValue = valueList.callValueList(cardNumberValue2.size(), cardNumberValue2);
             for (int i = 0; i < mapCardListValue.size(); i++) {
                 String values = "card" + i;
                 String listName = "listName" + i;

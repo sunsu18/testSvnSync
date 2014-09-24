@@ -461,7 +461,7 @@
         <af:spacer width="10" height="10" id="s33"/>
         <af:commandButton text="#{sfr.CLEAR}" id="cb9"
                           actionListener="#{pageFlowScope.AlertsBean.clearSearchListener}"
-                          partialTriggers="smc2 smc5 smc6 smc7 it19"/>
+                          partialTriggers="smc2 smc5 smc6 smc7 it19 sbr42 sbr41"/>
         <af:spacer width="24" height="10" id="s47"/>
       </af:panelGroupLayout>
       <af:spacer width="5" height="10" id="s64"/>

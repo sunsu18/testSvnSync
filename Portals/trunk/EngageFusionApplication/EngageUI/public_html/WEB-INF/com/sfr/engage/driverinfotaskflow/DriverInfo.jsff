@@ -86,7 +86,7 @@
                             action="#{pageFlowScope.DriverInfoBean.searchAction}"
                             partialTriggers="it7"></af:commandButton>
           <af:spacer width="12" height="10" id="s2"/>
-          <af:commandButton id="cb3" text="#{sfr.ADD}"
+          <af:commandButton id="cb3" text="#{sfr.ADD}" rendered="#{pageFlowScope.DriverInfoBean.isEditVisible}"
                             action="#{pageFlowScope.DriverInfoBean.newDriverAddAction}"
                             styleClass="buttonback buttontext"></af:commandButton>
           <af:spacer width="12" height="10" id="s23"/>
@@ -109,6 +109,7 @@
         <af:spacer width="690" height="10" id="s16"/>
         <af:panelGroupLayout id="pgl80" halign="right">
           <af:commandButton text="#{sfr.DELETE}" id="cb4"
+                            rendered="#{pageFlowScope.DriverInfoBean.isEditVisible}"
                             action="#{pageFlowScope.DriverInfoBean.driverDeleteAction}"
                             styleClass="buttonback buttontext"/>
         </af:panelGroupLayout>
@@ -126,6 +127,7 @@
             <af:panelGroupLayout id="pgl15" halign="right"
                                  visible="#{(pageFlowScope.DriverInfoBean.driverN ne null and not empty pageFlowScope.DriverInfoBean.driverN)? false: true}">
               <af:commandButton text="#{sfr.DELETE_ALL_ACCOUNT}" id="cb6"
+                                rendered="#{pageFlowScope.DriverInfoBean.isEditVisible}"
                                 action="#{pageFlowScope.DriverInfoBean.deleteAllRecordsAction}"
                                 styleClass="buttonback buttontext">
                 <af:setPropertyListener from="#{var.accountNumber}"

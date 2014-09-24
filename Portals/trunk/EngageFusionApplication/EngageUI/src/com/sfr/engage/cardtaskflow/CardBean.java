@@ -153,7 +153,8 @@ public class CardBean implements Serializable {
     private Conversion conversionUtility;
     private Locale locale;
     private boolean blockedDateTime;
-
+    private User user = null;
+    private Boolean isEditVisible;
 
     public CardBean() {
         super();
@@ -167,6 +168,19 @@ public class CardBean implements Serializable {
         resourceBundle = new EngageResourceBundle();
         partnerId = null;
         partnerIdValue = new ArrayList<String>();
+        
+        if (user == null) {
+            user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
+        }
+        
+        if (user.getRoleList().get(0).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR)) {
+            if(user.getRoleList().get(0).getIdString().get(0).contains("CG")) {
+                isEditVisible = false;
+            }
+        }else{
+            isEditVisible = true;
+        }
+        
         if (session.getAttribute("Partner_Object_List") != null) {
             partnerInfoList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
             if (partnerInfoList != null && partnerInfoList.size() > 0) {
@@ -3086,6 +3100,14 @@ public class CardBean implements Serializable {
             }
         }
         return blockedDateTime;
+    }
+
+    public void setIsEditVisible(Boolean isEditVisible) {
+        this.isEditVisible = isEditVisible;
+    }
+
+    public Boolean getIsEditVisible() {
+        return isEditVisible;
     }
 
     public class Bindings {

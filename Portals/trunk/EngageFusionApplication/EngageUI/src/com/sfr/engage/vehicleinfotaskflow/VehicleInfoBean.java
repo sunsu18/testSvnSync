@@ -89,7 +89,6 @@ public class VehicleInfoBean implements Serializable {
     private boolean showErrorMsgEditFlag = false;
     private List<String> validateAccountCard;
     private String previousCardId = null;
-
     private String linkedPartnerLOVValues = null;
     private List<SelectItem> linkedPartnerList = null;
     private List<SelectItem> linkedAddAccountList;
@@ -101,7 +100,8 @@ public class VehicleInfoBean implements Serializable {
     private String editPartnerIdVal = null;
     public static final ADFLogger _logger = AccessDataControl.getSFRLogger();
     private AccessDataControl accessDC = new AccessDataControl();
-
+    private User user = null;
+    private Boolean isEditVisible;
 
     /**
      * @return bindings Object
@@ -132,7 +132,19 @@ public class VehicleInfoBean implements Serializable {
         if (session.getAttribute("Partner_Object_List") != null) {
             partnerInfoList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
         }
-
+        
+        if (user == null) {
+            user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
+        }
+        
+        if (user.getRoleList().get(0).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR)) {
+            if(user.getRoleList().get(0).getIdString().get(0).contains("CG")) {
+                isEditVisible = false;
+            }
+        }else{
+            isEditVisible = true;
+        }
+        
         if (partnerInfoList != null && partnerInfoList.size() > 0) {
             for (int pa = 0; pa < partnerInfoList.size(); pa++) {
                 countryParam = partnerInfoList.get(0).getCountry().toString().trim();
@@ -1680,6 +1692,14 @@ public class VehicleInfoBean implements Serializable {
 
     public String getEditPartnerIdVal() {
         return editPartnerIdVal;
+    }
+
+    public void setisEditVisible(Boolean isEditVisible) {
+        this.isEditVisible = isEditVisible;
+    }
+
+    public Boolean getisEditVisible() {
+        return isEditVisible;
     }
 
     public class Bindings {
