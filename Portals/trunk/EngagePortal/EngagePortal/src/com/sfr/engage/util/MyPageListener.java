@@ -392,6 +392,14 @@ public class MyPageListener implements PagePhaseListener {
                                 }
                                 if (!skipOtherRoles) {
                                     for (int i = 0; i < user.getRoleList().size(); i++) {
+                                        log.info("user.getRoleList().size() " + user.getRoleList().size());
+                                        
+                                        if (user.getRoleList().get(i).getIdString() != null) {
+                                            session.setAttribute("partnerLang", user.getRoleList().get(i).getIdString().get(0).toString().substring(0, 2));
+                                            session.setAttribute(Constants.userLang, user.getRoleList().get(i).getIdString().get(0).toString().substring(0, 2));
+                                            log.info(accessDC.getDisplayRecord() + this.getClass() + " partner lang in session setted as " +
+                                                     session.getAttribute("partnerLang"));
+                                        }
 
                                         if (user.getRoleList().get(i).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR)) {
 
@@ -443,6 +451,7 @@ public class MyPageListener implements PagePhaseListener {
                                                         pIdStart = user.getRoleList().get(i).getIdString().get(idlist).indexOf("PP");
 
                                                         pid = user.getRoleList().get(i).getIdString().get(idlist).substring(pIdStart + 2, pIdStart + 10);
+                                                        log.info("Partner id in do while loop idlist " + idlist + " " +pid);
 
                                                     }
                                                     if (partnerId != null && partnerId.equals(pid)) {
@@ -921,6 +930,7 @@ public class MyPageListener implements PagePhaseListener {
                                                             String cardgroupSubType =
                                                                 user.getRoleList().get(i).getIdString().get(idlist).substring(cgIdStart + 5, cgIdStart + 8);
                                                             String cardgroupSeq = user.getRoleList().get(i).getIdString().get(idlist).substring(cgIdStart + 8);
+                                                            
                                                             cardgrp.setCardGroupMainType(cardgroupMainType);
                                                             cardgrp.setCardGroupSubType(cardgroupSubType);
                                                             cardgrp.setCardGroupSeq(cardgroupSeq);
@@ -1129,9 +1139,18 @@ public class MyPageListener implements PagePhaseListener {
                                                                 }
                                                                 if (!addflagaccount && accountlist.size() > 0) {
                                                                     if (createCardGroupList) {
+                                                                    
                                                                         cardgrp.setCard(cardlist);
-                                                                        log.info("unblocked list " + unblockedcardlist.size());
                                                                         cardgrp.setUnblockedCardList(unblockedcardlist);
+                                                                        cardgrp.setPerBlockAndActiveCardList(perBlockAndActiveCardList);
+                                                                        cardgrp.setPerBlockAndTempBlockCardList(perBlockAndTempBlockCardList);
+                                                                        cardgrp.setPerBlockCardList(perBlockCardList);
+                                                                        cardgrp.setTempBlockCardList(tempBlockCardList);
+                                                                        cardgrp.setActiveCardList(activeCardList);
+                                                                        
+                                                                        //cardgrp.setCard(cardlist);
+                                                                        log.info("unblocked list " + unblockedcardlist.size());
+                                                                        //cardgrp.setUnblockedCardList(unblockedcardlist);
                                                                         cardgrp.setCardGroupOverview(true);
                                                                         cardgrouplist = new ArrayList<CardGroupInfo>();
                                                                         cardgrouplist.add(cardgrp);
@@ -1151,7 +1170,15 @@ public class MyPageListener implements PagePhaseListener {
                                                                         //Account exists so take cardgroup list from that account object & before adding just check we have to add or update
                                                                         //the existing one
                                                                         cardgrouplist = accountCheck.getCardGroup();
+                                                                        //cardgrp.setCard(cardlist);
+                                                                        
                                                                         cardgrp.setCard(cardlist);
+                                                                        cardgrp.setUnblockedCardList(unblockedcardlist);
+                                                                        cardgrp.setPerBlockAndActiveCardList(perBlockAndActiveCardList);
+                                                                        cardgrp.setPerBlockAndTempBlockCardList(perBlockAndTempBlockCardList);
+                                                                        cardgrp.setPerBlockCardList(perBlockCardList);
+                                                                        cardgrp.setTempBlockCardList(tempBlockCardList);
+                                                                        cardgrp.setActiveCardList(activeCardList);
                                                                         cardgrp.setCardGroupOverview(true);
 
                                                                         addflagcardgroup = false;
@@ -1214,9 +1241,17 @@ public class MyPageListener implements PagePhaseListener {
                                                                     }
                                                                 }
                                                                 if (accountlist.size() == 0) {
-                                                                    cardgrp.setCard(cardlist);
+                                                                    //cardgrp.setCard(cardlist);
                                                                     log.info("unblocked list " + unblockedcardlist.size());
+                                                                    //cardgrp.setUnblockedCardList(unblockedcardlist);
+                                                                    cardgrp.setCard(cardlist);
                                                                     cardgrp.setUnblockedCardList(unblockedcardlist);
+                                                                    cardgrp.setPerBlockAndActiveCardList(perBlockAndActiveCardList);
+                                                                    cardgrp.setPerBlockAndTempBlockCardList(perBlockAndTempBlockCardList);
+                                                                    cardgrp.setPerBlockCardList(perBlockCardList);
+                                                                    cardgrp.setTempBlockCardList(tempBlockCardList);
+                                                                    cardgrp.setActiveCardList(activeCardList);
+                                                                    
                                                                     cardgrp.setCardGroupOverview(true);
                                                                     cardgrouplist = new ArrayList<CardGroupInfo>();
                                                                     cardgrouplist.add(cardgrp);
