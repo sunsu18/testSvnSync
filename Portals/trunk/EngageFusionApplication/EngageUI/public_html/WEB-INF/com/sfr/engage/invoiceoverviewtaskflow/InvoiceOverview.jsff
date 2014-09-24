@@ -613,7 +613,7 @@
                  filterModel="#{bindings.PrtInvoiceDetailVo1Query.queryDescriptor}" queryListener="#{bindings.PrtInvoiceDetailVo1Query.processQuery}"
                  filterVisible="true" varStatus="vs" id="t2" inlineStyle="height:auto;" disableColumnReordering="true" columnResizing="disabled"
                  autoHeightRows="5" binding="#{pageFlowScope.InvoiceOverviewBean.bindings.invoiceResultsCollection}">
-        <af:column sortProperty="CardEmbossNum" filterable="true" width="250" sortable="true" headerText="#{sfr.INVOICE_CARD}" id="c10">
+        <af:column sortProperty="CardEmbossNum" filterable="true" width="300" sortable="true" headerText="#{sfr.INVOICE_CARD}" id="c10">
          <af:outputText value="#{row.CardEmbossNum} #{row.CardTextline2}" id="ot56"/>
         </af:column>
         <af:column sortProperty="InvTotalVatAmt" filterable="true" width="75" sortable="true" align="right" headerText="#{sfr.ENGAGE_INVOICE_VAT}" id="c29">
@@ -637,13 +637,13 @@
           <af:convertNumber groupingUsed="true" pattern="##.##" locale="#{pageFlowScope.InvoiceOverviewBean.locale}" minFractionDigits="2"/>
          </af:outputText>
         </af:column>
-        <af:column sortProperty="InvGrossTotalamt" filterable="true" width="100" align="right" sortable="true" headerText="#{sfr.ENGAGE_INVOICE_TOTAL_AMOUNT}"
+        <af:column sortProperty="InvGrossTotalamt" filterable="true" width="75" align="right" sortable="true" headerText="#{sfr.ENGAGE_INVOICE_TOTAL_AMOUNT}"
                    id="c7">
          <af:outputText value="#{row.InvGrossTotalamt}" id="ot58">
           <af:convertNumber groupingUsed="true" pattern="##.##" locale="#{pageFlowScope.InvoiceOverviewBean.locale}" minFractionDigits="2"/>
          </af:outputText>
         </af:column>
-        <af:column sortProperty="SumPrdQuantity" filterable="true" width="100" sortable="true" headerText="#{sfr.FUELING_QUANTITY}" id="c17">
+        <af:column sortProperty="SumPrdQuantity" filterable="true" width="75" sortable="true" headerText="#{sfr.FUELING_QUANTITY}" id="c17">
          <af:outputText value="#{row.SumPrdQuantity}" id="ot80">
           <af:convertNumber groupingUsed="true" pattern="##.##" locale="#{pageFlowScope.InvoiceOverviewBean.locale}" minFractionDigits="2"/>
          </af:outputText>
