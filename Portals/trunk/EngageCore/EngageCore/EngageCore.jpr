@@ -70,6 +70,10 @@
          <string v="ADF_OJSP_REGISTRATION"/>
       </list>
    </hash>
+   <hash n="oracle.jdeveloper.compiler.ant.AntConfiguration">
+      <value n="makeTarget" v="all"/>
+      <url n="projectBuildfile" path="engagecore-build.xml"/>
+   </hash>
    <hash n="oracle.jdeveloper.compiler.OjcConfiguration">
       <value n="internalEncoding" v="Cp1252"/>
       <list n="Javac.commandline.optionlist">
