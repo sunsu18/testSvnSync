@@ -43,6 +43,7 @@ import javax.el.ExpressionFactory;
 import javax.el.MethodExpression;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -3193,6 +3194,56 @@ public class TransactionOverviewBean implements Serializable {
     public String getCurrencyCode() {
         return currencyCode;
     }
+
+
+    public void displayErrorComponent(UIComponent component, boolean status) {
+
+            RichSelectManyChoice soc = new RichSelectManyChoice();
+
+             if (component instanceof RichSelectManyChoice) {
+                soc = (RichSelectManyChoice)component;
+                if (status) {
+                    soc.setContentStyle("af_mandatoryfield");
+                    if (component.getId().contains("smc1") ||
+                        component.getId().contains("soc3") ||
+                        component.getId().contains("smc2") ||
+                        component.getId().contains("smc3") ||
+                        component.getId().contains("smc4") ||
+                        component.getId().contains("smc5") ||
+                        component.getId().contains("smc6"))
+                        soc.setContentStyle("af_mandatoryfield");
+
+                } else {
+                    soc.setContentStyle("af_mandatoryfield");
+                    if (component.getId().contains("smc1") ||
+                        component.getId().contains("soc3") ||
+                        component.getId().contains("smc2") ||
+                        component.getId().contains("smc3") ||
+                        component.getId().contains("smc4") ||
+                        component.getId().contains("smc5") ||
+                        component.getId().contains("smc6"))
+                        soc.setContentStyle("af_mandatoryfield");
+                }
+                AdfFacesContext.getCurrentInstance().addPartialTarget(soc);
+            }
+          
+        }
+
+        private Boolean isComponentEmpty(UIComponent rit1) {
+
+            RichSelectManyChoice soc = new RichSelectManyChoice();
+            if (rit1 instanceof RichSelectManyChoice) {
+                soc = (RichSelectManyChoice)rit1;
+                if (soc.getValue() == null || soc.getValue().equals("")) {              
+                    displayErrorComponent(soc, true);
+                    return true;
+                } else {              
+                    displayErrorComponent(soc, false);
+                    return false;
+                }
+            }
+            return true;
+        }
 
     public String odometerEditAction() {
         if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("vnumberkey") != null) {

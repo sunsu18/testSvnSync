@@ -49,6 +49,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -1342,6 +1343,50 @@ public class InvoiceOverviewBean implements Serializable {
     public static String getPropertyValue(String PName) {
         return ConfigurationUtility.getPropertyValue(PName);
     }
+
+    public void displayErrorComponent(UIComponent component, boolean status) {
+
+            RichSelectManyChoice soc = new RichSelectManyChoice();
+
+             if (component instanceof RichSelectManyChoice) {
+                soc = (RichSelectManyChoice)component;
+                if (status) {
+                    soc.setStyleClass("af_mandatoryfield");
+                    if (component.getId().contains("smc45") ||
+                        component.getId().contains("smc4") ||
+                        component.getId().contains("smc3") ||
+                        component.getId().contains("soc3") )
+                        soc.setStyleClass("af_mandatoryfield");
+
+                } else {
+                    soc.setStyleClass("af_mandatoryfield");
+                    if (component.getId().contains("smc45") ||
+                        component.getId().contains("smc4") ||
+                        component.getId().contains("smc3") ||
+                        component.getId().contains("soc3"))
+                        soc.setStyleClass("af_mandatoryfield");
+                }
+                AdfFacesContext.getCurrentInstance().addPartialTarget(soc);
+            }
+          
+        }
+
+        private Boolean isComponentEmpty(UIComponent rit1) {
+
+            RichSelectManyChoice soc = new RichSelectManyChoice();
+            if (rit1 instanceof RichSelectManyChoice) {
+                soc = (RichSelectManyChoice)rit1;
+                if (soc.getValue() == null || soc.getValue().equals("")) {              
+                    displayErrorComponent(soc, true);
+                    return true;
+                } else {               
+                    displayErrorComponent(soc, false);
+                    return false;
+                }
+            }
+            return true;
+        }
+
 
     public void getUCMService(FacesContext facesContext,
                               OutputStream outputStream) throws IOException {
