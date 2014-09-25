@@ -2008,7 +2008,7 @@ public class Alerts {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside viewSubscribedAlerts method of Alerts");
         ViewObject prtCardRuleSubscriptionVO = ADFUtils.getViewObject("PrtCardRuleSubscriptionRVO1Iterator");
         if (SelectionPanel) {
-            if (!prtCardRuleSubscriptionVO.equals(null)) {
+            if (prtCardRuleSubscriptionVO != null) {
                 String cardListString = "";
                 for (String s : initialCard2Value) {
                     cardListString += s + ",";
@@ -2033,7 +2033,7 @@ public class Alerts {
             if(getBindings().getSearchStringInputtext().getValue() != null){
                 if (suggestedCardNumberList.contains(getBindings().getSearchStringInputtext().getValue().toString().trim())) {
                     searchCorrespondingDetalis();
-                    if (!prtCardRuleSubscriptionVO.equals(null)) {
+                    if (prtCardRuleSubscriptionVO != null) {
                         removeWhereClause(prtCardRuleSubscriptionVO);
                         prtCardRuleSubscriptionVO.setNamedWhereClauseParam("pId", passingPartner);
                         prtCardRuleSubscriptionVO.setNamedWhereClauseParam("userId", userEmail);
