@@ -101,7 +101,7 @@ public class VehicleInfoBean implements Serializable {
     public static final ADFLogger _logger = AccessDataControl.getSFRLogger();
     private AccessDataControl accessDC = new AccessDataControl();
     private User user = null;
-    private Boolean isEditVisible;
+    private Boolean isEditVisible = true;
 
     /**
      * @return bindings Object
@@ -141,8 +141,6 @@ public class VehicleInfoBean implements Serializable {
             if(user.getRoleList().get(0).getIdString().get(0).contains("CG")) {
                 isEditVisible = false;
             }
-        }else{
-            isEditVisible = true;
         }
         
         if (partnerInfoList != null && partnerInfoList.size() > 0) {

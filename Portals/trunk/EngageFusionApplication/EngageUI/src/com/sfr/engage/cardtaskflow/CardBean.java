@@ -154,7 +154,7 @@ public class CardBean implements Serializable {
     private Locale locale;
     private boolean blockedDateTime;
     private User user = null;
-    private Boolean isEditVisible;
+    private Boolean isEditVisible = true;
 
     public CardBean() {
         super();
@@ -177,8 +177,6 @@ public class CardBean implements Serializable {
             if(user.getRoleList().get(0).getIdString().get(0).contains("CG")) {
                 isEditVisible = false;
             }
-        }else{
-            isEditVisible = true;
         }
         
         if (session.getAttribute("Partner_Object_List") != null) {
