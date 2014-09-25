@@ -36,7 +36,7 @@
     Kind="where"
     Type="java.lang.String"/>
   <SQLQuery>
-    <![CDATA[SELECT sum(prd.quantity),prh.card_1_id ,pc.card_emboss_num,pc.card_textline_2, pdc.PARTNER_ID,pdc.COUNTRY_CODE,pci.invoice_number, pci.collective_invoice_number,pci.invoice_date,pdc.ACCOUNT_ID, pdc.invoicing_due_date,prd.INVOICED_UNIT_PRICE_REBATED,
+    <![CDATA[SELECT sum(prd.quantity),prh.card_1_id ,pc.card_emboss_num,pc.card_textline_2, pdc.PARTNER_ID,pdc.COUNTRY_CODE,pci.invoice_number, pci.collective_invoice_number,pci.invoice_date,pdc.ACCOUNT_ID, pdc.invoicing_due_date,
 pci.inv_total_gross_amt ,pdc.INVOICING_DATE,pci.inv_total_vat_amt, pci.invoiced_card
 from prt_card_transaction_detail prd, 
      prt_card_transaction_header prh , 
@@ -58,7 +58,7 @@ AND INSTR(:partnerId,pdc.PARTNER_ID)<>0
 AND pci.collective_invoice_number=: invoiceNo
 and prd.PRICE_ELEMENT_CODE IS NULL
 AND ((prh.prelim_status_code IS NOT NULL AND prh.prelim_status_code !='EXP') OR prh.prelim_status_code IS NULL)
-GROUP BY prh.card_1_id, pc.card_emboss_num, pc.card_textline_2, pdc.PARTNER_ID, pdc.COUNTRY_CODE, pci.invoice_number, pci.collective_invoice_number, pci.invoice_date, pdc.ACCOUNT_ID, pdc.invoicing_due_date, pci.inv_total_gross_amt, pdc.INVOICING_DATE, pci.inv_total_vat_amt, pci.invoiced_card,prd.INVOICED_UNIT_PRICE_REBATED]]>
+GROUP BY prh.card_1_id, pc.card_emboss_num, pc.card_textline_2, pdc.PARTNER_ID, pdc.COUNTRY_CODE, pci.invoice_number, pci.collective_invoice_number, pci.invoice_date, pdc.ACCOUNT_ID, pdc.invoicing_due_date, pci.inv_total_gross_amt, pdc.INVOICING_DATE, pci.inv_total_vat_amt, pci.invoiced_card]]>
   </SQLQuery>
   <ViewAttribute
     Name="SumPrdQuantity"
@@ -68,8 +68,8 @@ GROUP BY prh.card_1_id, pc.card_emboss_num, pc.card_textline_2, pdc.PARTNER_ID, 
     Type="oracle.jbo.domain.Number"
     ColumnType="NUMBER"
     AliasName="SUM(PRD.QUANTITY)"
-    Expression="SUM(PRD.QUANTITY)"
-    SQLType="NUMERIC">
+    SQLType="NUMERIC"
+    Expression="SUM(PRD.QUANTITY)">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="39"/>
     </DesignTime>
@@ -226,22 +226,6 @@ GROUP BY prh.card_1_id, pc.card_emboss_num, pc.card_textline_2, pdc.PARTNER_ID, 
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="InvoicedUnitPriceRebated"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="126"
-    Scale="0"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="FLOAT"
-    AliasName="INVOICED_UNIT_PRICE_REBATED"
-    Expression="INVOICED_UNIT_PRICE_REBATED"
-    SQLType="NUMERIC">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="39"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
     Name="InvTotalGrossAmt"
     IsUpdateable="false"
     IsPersistent="false"
@@ -313,15 +297,15 @@ GROUP BY prh.card_1_id, pc.card_emboss_num, pc.card_textline_2, pdc.PARTNER_ID, 
     AliasName="VIEW_ATTR"
     SQLType="NUMERIC"/>
   <ViewAttribute
-    Name="InvGrossTotalamt"
+    Name="FuelingQty"
     IsUpdateable="false"
     IsSelected="false"
     IsPersistent="false"
     PrecisionRule="true"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
+    Type="java.lang.Float"
+    ColumnType="FLOAT"
     AliasName="VIEW_ATTR"
-    SQLType="NUMERIC"/>
+    SQLType="FLOAT"/>
   <ResourceBundle>
     <PropertiesBundle
       PropertiesFile="com.sfr.engage.model.EngageModelBundle"/>

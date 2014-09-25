@@ -66,6 +66,7 @@ WHERE prt_card_payment_doc.COUNTRY_CODE = :countryCode
 AND INSTR(:partnerId,prt_card_payment_doc.PARTNER_ID)<>0
 AND prt_card_payment_doc.INVOICING_DATE >=:fromDateBV 
 AND prt_card_payment_doc.INVOICING_DATE <=:toDateBV
+and prt_card_payment_doc.invoice_level is not null
 group by prt_card_payment_doc.INVOICING_DATE, prt_card_payment_doc.COUNTRY_CODE, prt_card_invoice.invoice_date, prt_card_payment_doc.invoicing_due_date, prt_card_payment_doc.partner_id, prt_card_payment_doc.account_id, prt_card_payment_doc.cardgroup_main_type, prt_card_payment_doc.cardgroup_sub_type, prt_card_payment_doc.cardgroup_seq, prt_card_invoice_details.inv_gross_amt, prt_card_invoice_details.inv_vat_amt, prt_card_payment_doc.invoice_doc_type, prt_card_payment_doc.invoice_level 
 order by prt_card_invoice.invoice_date,finalInvoice desc,prt_card_payment_doc.invoicing_due_date]]>
   </SQLQuery>

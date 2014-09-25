@@ -1,47 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
-                version="11.1.1.61.92" id="InvoiceOverviewPageDef"
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.1.61.92" id="InvoiceOverviewPageDef"
                 Package="com.sfr.engage.invoiceoverviewtaskflow">
   <parameters/>
   <executables>
     <variableIterator id="variables"/>
-    <iterator id="PrtAccountRVO1Iterator" Binds="PrtAccountRVO1"
-              DataControl="EngageAppModuleDataControl" RangeSize="25"/>
-    <iterator Binds="PrtInvoiceVO1" RangeSize="25"
-              DataControl="EngageAppModuleDataControl"
-              id="PrtInvoiceVO1Iterator"/>
-    <iterator Binds="PrtCardTransactionOverviewRVO1" RangeSize="25"
-              DataControl="EngageAppModuleDataControl"
-              id="PrtCardTransactionOverviewRVO1Iterator"/>
-    <iterator Binds="PrtInvoiceVO2" RangeSize="25"
-              DataControl="EngageAppModuleDataControl"
-              id="PrtInvoiceVO2Iterator"/>
-    <iterator Binds="PrtCardTransactionInvoiceRVO1" RangeSize="25"
-              DataControl="EngageAppModuleDataControl"
-              id="PrtCardTransactionInvoiceRVO1Iterator"/>
-    <iterator Binds="PrtNewInvoiceVO1" RangeSize="25"
-              DataControl="EngageAppModuleDataControl"
-              id="PrtNewInvoiceVO1Iterator"/>
-    <iterator Binds="PrtInvoiceDetailVo1" RangeSize="25"
-              DataControl="EngageAppModuleDataControl"
-              id="PrtInvoiceDetailVo1Iterator"/>
-    <searchRegion Binds="PrtNewInvoiceVO1Iterator" Criteria=""
-                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
-                  id="PrtNewInvoiceVO11Query"/>
-    <searchRegion Binds="PrtInvoiceDetailVo1Iterator" Criteria=""
-                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
-                  id="PrtInvoiceDetailVo1Query"/>
-    <searchRegion Binds="PrtCardTransactionInvoiceRVO1Iterator" Criteria=""
-                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+    <iterator id="PrtAccountRVO1Iterator" Binds="PrtAccountRVO1" DataControl="EngageAppModuleDataControl" RangeSize="25"/>
+    <iterator Binds="PrtInvoiceVO1" RangeSize="25" DataControl="EngageAppModuleDataControl" id="PrtInvoiceVO1Iterator"/>
+    <iterator Binds="PrtCardTransactionOverviewRVO1" RangeSize="25" DataControl="EngageAppModuleDataControl" id="PrtCardTransactionOverviewRVO1Iterator"/>
+    <iterator Binds="PrtInvoiceVO2" RangeSize="25" DataControl="EngageAppModuleDataControl" id="PrtInvoiceVO2Iterator"/>
+    <iterator Binds="PrtCardTransactionInvoiceRVO1" RangeSize="25" DataControl="EngageAppModuleDataControl" id="PrtCardTransactionInvoiceRVO1Iterator"/>
+    <iterator Binds="PrtNewInvoiceVO1" RangeSize="25" DataControl="EngageAppModuleDataControl" id="PrtNewInvoiceVO1Iterator"/>
+    <iterator Binds="PrtInvoiceDetailVo1" RangeSize="25" DataControl="EngageAppModuleDataControl" id="PrtInvoiceDetailVo1Iterator"/>
+    <searchRegion Binds="PrtNewInvoiceVO1Iterator" Criteria="" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="PrtNewInvoiceVO11Query"/>
+    <searchRegion Binds="PrtCardTransactionInvoiceRVO1Iterator" Criteria="" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
                   id="PrtCardTransactionInvoiceRVO1Query"/>
-    <iterator id="PrtExportInfoRVO1Iterator" Binds="PrtExportInfoRVO1"
-              DataControl="EngageAppModuleDataControl" RangeSize="25"/>
+    <iterator id="PrtExportInfoRVO1Iterator" Binds="PrtExportInfoRVO1" DataControl="EngageAppModuleDataControl" RangeSize="25"/>
+    <searchRegion Binds="PrtInvoiceDetailVo1Iterator" Criteria="" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="PrtInvoiceDetailVo1Query"/>
   </executables>
   <bindings>
-    <tree IterBinding="PrtCardTransactionOverviewRVO1Iterator"
-          id="PrtCardTransactionOverviewRVO1">
-      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtCardTransactionOverviewRVO"
-                      Name="PrtCardTransactionOverviewRVO10">
+    <tree IterBinding="PrtCardTransactionOverviewRVO1Iterator" id="PrtCardTransactionOverviewRVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtCardTransactionOverviewRVO" Name="PrtCardTransactionOverviewRVO10">
         <AttrNames>
           <Item Value="ProductName"/>
           <Item Value="Quantity"/>
@@ -63,7 +42,6 @@
         <Item Value="InvoiceDate"/>
       </AttrNames>
     </attributeValues>
-   
     <attributeValues IterBinding="PrtNewInvoiceVO1Iterator" id="netAmount">
       <AttrNames>
         <Item Value="netAmount"/>
@@ -101,8 +79,7 @@
       <NamedData NDName="ccCode" NDType="java.lang.String"/>
     </methodAction>
     <tree IterBinding="PrtNewInvoiceVO1Iterator" id="PrtNewInvoiceVO1">
-      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtNewInvoiceVO"
-                      Name="PrtNewInvoiceVO10">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtNewInvoiceVO" Name="PrtNewInvoiceVO10">
         <AttrNames>
           <Item Value="Finalinvoice"/>
           <Item Value="InvoiceDate"/>
@@ -116,10 +93,8 @@
         </AttrNames>
       </nodeDefinition>
     </tree>
-    <tree IterBinding="PrtCardTransactionInvoiceRVO1Iterator"
-          id="PrtCardTransactionInvoiceRVO1">
-      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtCardTransactionInvoiceRVO"
-                      Name="PrtCardTransactionInvoiceRVO10">
+    <tree IterBinding="PrtCardTransactionInvoiceRVO1Iterator" id="PrtCardTransactionInvoiceRVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtCardTransactionInvoiceRVO" Name="PrtCardTransactionInvoiceRVO10">
         <AttrNames>
           <Item Value="UrefTransactionId"/>
           <Item Value="AccountId"/>
@@ -175,17 +150,15 @@
       </nodeDefinition>
     </tree>
     <tree IterBinding="PrtInvoiceDetailVo1Iterator" id="PrtInvoiceDetailVo1">
-      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtInvoiceDetailVo"
-                      Name="PrtInvoiceDetailVo10">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtInvoiceDetailVo" Name="PrtInvoiceDetailVo10">
         <AttrNames>
           <Item Value="CardEmbossNum"/>
           <Item Value="CardTextline2"/>
           <Item Value="InvTotalVatAmt"/>
           <Item Value="InvNetAmount"/>
           <Item Value="InvTotalGrossAmt"/>
-          <Item Value="InvoicedUnitPriceRebated"/>
-          <Item Value="InvGrossTotalamt"/>
           <Item Value="SumPrdQuantity"/>
+          <Item Value="FuelingQty"/>
         </AttrNames>
       </nodeDefinition>
     </tree>

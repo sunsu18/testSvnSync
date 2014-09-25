@@ -582,7 +582,7 @@
                            binding="#{pageFlowScope.InvoiceOverviewBean.bindings.invoiceCollectionPanel}">
        <af:panelGroupLayout id="panelGroupLayout2" layout="horizontal">
         <af:outputText value="#{sfr.PER_CARD_VIEW}" id="outputText1" styleClass="subheading" noWrap="true"/>
-        <af:panelGroupLayout id="pgl46" layout="horizontal" halign="right" inlineStyle="width:715.0px; height:15.0px;">
+        <af:panelGroupLayout id="pgl46" layout="horizontal" halign="right" inlineStyle="width:535.0px; height:15.0px;">
          <af:panelGroupLayout id="pgl53" inlineStyle="width:50.0px;" layout="horizontal">
           <af:panelGroupLayout id="pgl57" styleClass="filter_table" layout="horizontal">
            <af:showPopupBehavior triggerType="mouseOver" popupId="p3"/>
@@ -608,8 +608,8 @@
        </af:panelGroupLayout>
        <af:spacer width="10" height="5" id="s2fil53"/>
        <af:table value="#{bindings.PrtInvoiceDetailVo1.collectionModel}" var="row" rows="#{bindings.PrtInvoiceDetailVo1.rangeSize}"
-                 emptyText="#{bindings.PrtInvoiceDetailVo1.viewable ? 'No data to display.' : 'Access Denied.'}"
-                 fetchSize="#{bindings.PrtInvoiceDetailVo1.rangeSize}" rowBandingInterval="1" width="844px"
+                 emptyText="#{bindings.PrtInvoiceDetailVo1.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED_ENG)}"
+                 fetchSize="#{bindings.PrtInvoiceDetailVo1.rangeSize}" rowBandingInterval="1" width="669px"
                  filterModel="#{bindings.PrtInvoiceDetailVo1Query.queryDescriptor}" queryListener="#{bindings.PrtInvoiceDetailVo1Query.processQuery}"
                  filterVisible="true" varStatus="vs" id="t2" inlineStyle="height:auto;" disableColumnReordering="true" columnResizing="disabled"
                  autoHeightRows="5" binding="#{pageFlowScope.InvoiceOverviewBean.bindings.invoiceResultsCollection}">
@@ -618,34 +618,23 @@
         </af:column>
         <af:column sortProperty="InvTotalVatAmt" filterable="true" width="75" sortable="true" align="right" headerText="#{sfr.ENGAGE_INVOICE_VAT}" id="c29">
          <af:outputText value="#{row.InvTotalVatAmt}" id="ot79">
-          <af:convertNumber groupingUsed="true" pattern="##.##" locale="#{pageFlowScope.InvoiceOverviewBean.locale}" minFractionDigits="2"/>
+          <af:convertNumber locale="#{pageFlowScope.InvoiceOverviewBean.locale}"/>
          </af:outputText>
         </af:column>
         <af:column sortProperty="InvNetAmount" filterable="true" sortable="true" width="75" align="right" headerText="#{sfr.ENGAGE_INVOICE_NET}" id="c11">
          <af:outputText value="#{row.InvNetAmount}" id="ot60">
-          <af:convertNumber groupingUsed="true" pattern="##.##" locale="#{pageFlowScope.InvoiceOverviewBean.locale}" minFractionDigits="2"/>
+          <af:convertNumber locale="#{pageFlowScope.InvoiceOverviewBean.locale}"/>
          </af:outputText>
         </af:column>
-        <af:column sortProperty="InvTotalGrossAmt" filterable="true" width="100" align="right" sortable="true" headerText="#{sfr.AMOUNT}" id="c13">
+        <af:column sortProperty="InvTotalGrossAmt" filterable="true" width="100" align="right" sortable="true" headerText="#{sfr.ENGAGE_INVOICE_TOTAL_AMOUNT}"
+                   id="c13">
          <af:outputText value="#{row.InvTotalGrossAmt}" id="ot59">
-          <af:convertNumber groupingUsed="true" pattern="##.##" locale="#{pageFlowScope.InvoiceOverviewBean.locale}" minFractionDigits="2"/>
+          <af:convertNumber locale="#{pageFlowScope.InvoiceOverviewBean.locale}"/>
          </af:outputText>
         </af:column>
-        <af:column sortProperty="InvoicedUnitPriceRebated" filterable="true" width="100" align="right" sortable="true"
-                   headerText="#{sfr.ENGAGE_DISCOUNTED_PRICE}" id="c23">
-         <af:outputText value="#{row.InvoicedUnitPriceRebated}" id="ot57">
-          <af:convertNumber groupingUsed="true" pattern="##.##" locale="#{pageFlowScope.InvoiceOverviewBean.locale}" minFractionDigits="2"/>
-         </af:outputText>
-        </af:column>
-        <af:column sortProperty="InvGrossTotalamt" filterable="true" width="75" align="right" sortable="true" headerText="#{sfr.ENGAGE_INVOICE_TOTAL_AMOUNT}"
-                   id="c7">
-         <af:outputText value="#{row.InvGrossTotalamt}" id="ot58">
-          <af:convertNumber groupingUsed="true" pattern="##.##" locale="#{pageFlowScope.InvoiceOverviewBean.locale}" minFractionDigits="2"/>
-         </af:outputText>
-        </af:column>
-        <af:column sortProperty="SumPrdQuantity" filterable="true" width="75" sortable="true" headerText="#{sfr.FUELING_QUANTITY}" id="c17">
-         <af:outputText value="#{row.SumPrdQuantity}" id="ot80">
-          <af:convertNumber groupingUsed="true" pattern="##.##" locale="#{pageFlowScope.InvoiceOverviewBean.locale}" minFractionDigits="2"/>
+        <af:column sortProperty="FuelingQty" filterable="true" width="75" sortable="true" headerText="#{sfr.FUELING_QUANTITY}" id="c17">
+         <af:outputText value="#{row.FuelingQty}" id="ot2">
+          <af:convertNumber locale="#{pageFlowScope.TransactionOverviewBean.locale}" minFractionDigits="2" maxFractionDigits="2"/>
          </af:outputText>
         </af:column>
        </af:table>

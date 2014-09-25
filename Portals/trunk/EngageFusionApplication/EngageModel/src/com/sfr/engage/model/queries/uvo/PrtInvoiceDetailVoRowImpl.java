@@ -23,8 +23,7 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
             public void put(PrtInvoiceDetailVoRowImpl obj, Object value) {
                 obj.setSumPrdQuantity((Number)value);
             }
-        }
-        ,
+        },
         Card1Id {
             public Object get(PrtInvoiceDetailVoRowImpl obj) {
                 return obj.getCard1Id();
@@ -33,8 +32,7 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
             public void put(PrtInvoiceDetailVoRowImpl obj, Object value) {
                 obj.setCard1Id((String)value);
             }
-        }
-        ,
+        },
         CardEmbossNum {
             public Object get(PrtInvoiceDetailVoRowImpl obj) {
                 return obj.getCardEmbossNum();
@@ -43,8 +41,7 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
             public void put(PrtInvoiceDetailVoRowImpl obj, Object value) {
                 obj.setCardEmbossNum((String)value);
             }
-        }
-        ,
+        },
         CardTextline2 {
             public Object get(PrtInvoiceDetailVoRowImpl obj) {
                 return obj.getCardTextline2();
@@ -53,8 +50,7 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
             public void put(PrtInvoiceDetailVoRowImpl obj, Object value) {
                 obj.setCardTextline2((String)value);
             }
-        }
-        ,
+        },
         PartnerId {
             public Object get(PrtInvoiceDetailVoRowImpl obj) {
                 return obj.getPartnerId();
@@ -63,8 +59,7 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
             public void put(PrtInvoiceDetailVoRowImpl obj, Object value) {
                 obj.setPartnerId((String)value);
             }
-        }
-        ,
+        },
         CountryCode {
             public Object get(PrtInvoiceDetailVoRowImpl obj) {
                 return obj.getCountryCode();
@@ -73,8 +68,7 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
             public void put(PrtInvoiceDetailVoRowImpl obj, Object value) {
                 obj.setCountryCode((String)value);
             }
-        }
-        ,
+        },
         InvoiceNumber {
             public Object get(PrtInvoiceDetailVoRowImpl obj) {
                 return obj.getInvoiceNumber();
@@ -83,8 +77,7 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
             public void put(PrtInvoiceDetailVoRowImpl obj, Object value) {
                 obj.setInvoiceNumber((String)value);
             }
-        }
-        ,
+        },
         CollectiveInvoiceNumber {
             public Object get(PrtInvoiceDetailVoRowImpl obj) {
                 return obj.getCollectiveInvoiceNumber();
@@ -93,8 +86,7 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
             public void put(PrtInvoiceDetailVoRowImpl obj, Object value) {
                 obj.setCollectiveInvoiceNumber((String)value);
             }
-        }
-        ,
+        },
         InvoiceDate {
             public Object get(PrtInvoiceDetailVoRowImpl obj) {
                 return obj.getInvoiceDate();
@@ -103,8 +95,7 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
             public void put(PrtInvoiceDetailVoRowImpl obj, Object value) {
                 obj.setInvoiceDate((Date)value);
             }
-        }
-        ,
+        },
         AccountId {
             public Object get(PrtInvoiceDetailVoRowImpl obj) {
                 return obj.getAccountId();
@@ -113,8 +104,7 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
             public void put(PrtInvoiceDetailVoRowImpl obj, Object value) {
                 obj.setAccountId((String)value);
             }
-        }
-        ,
+        },
         InvoicingDueDate {
             public Object get(PrtInvoiceDetailVoRowImpl obj) {
                 return obj.getInvoicingDueDate();
@@ -123,18 +113,7 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
             public void put(PrtInvoiceDetailVoRowImpl obj, Object value) {
                 obj.setInvoicingDueDate((Date)value);
             }
-        }
-        ,
-        InvoicedUnitPriceRebated {
-            public Object get(PrtInvoiceDetailVoRowImpl obj) {
-                return obj.getInvoicedUnitPriceRebated();
-            }
-
-            public void put(PrtInvoiceDetailVoRowImpl obj, Object value) {
-                obj.setInvoicedUnitPriceRebated((Number)value);
-            }
-        }
-        ,
+        },
         InvTotalGrossAmt {
             public Object get(PrtInvoiceDetailVoRowImpl obj) {
                 return obj.getInvTotalGrossAmt();
@@ -143,8 +122,7 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
             public void put(PrtInvoiceDetailVoRowImpl obj, Object value) {
                 obj.setInvTotalGrossAmt((Number)value);
             }
-        }
-        ,
+        },
         InvoicingDate {
             public Object get(PrtInvoiceDetailVoRowImpl obj) {
                 return obj.getInvoicingDate();
@@ -153,8 +131,7 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
             public void put(PrtInvoiceDetailVoRowImpl obj, Object value) {
                 obj.setInvoicingDate((Date)value);
             }
-        }
-        ,
+        },
         InvTotalVatAmt {
             public Object get(PrtInvoiceDetailVoRowImpl obj) {
                 return obj.getInvTotalVatAmt();
@@ -163,8 +140,7 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
             public void put(PrtInvoiceDetailVoRowImpl obj, Object value) {
                 obj.setInvTotalVatAmt((Number)value);
             }
-        }
-        ,
+        },
         InvoicedCard {
             public Object get(PrtInvoiceDetailVoRowImpl obj) {
                 return obj.getInvoicedCard();
@@ -173,8 +149,7 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
             public void put(PrtInvoiceDetailVoRowImpl obj, Object value) {
                 obj.setInvoicedCard((String)value);
             }
-        }
-        ,
+        },
         InvNetAmount {
             public Object get(PrtInvoiceDetailVoRowImpl obj) {
                 return obj.getInvNetAmount();
@@ -183,25 +158,22 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
             public void put(PrtInvoiceDetailVoRowImpl obj, Object value) {
                 obj.setInvNetAmount((Number)value);
             }
-        }
-        ,
-        InvGrossTotalamt {
+        },
+        FuelingQty {
             public Object get(PrtInvoiceDetailVoRowImpl obj) {
-                return obj.getInvGrossTotalamt();
+                return obj.getFuelingQty();
             }
 
             public void put(PrtInvoiceDetailVoRowImpl obj, Object value) {
-                obj.setInvGrossTotalamt((Number)value);
+                obj.setFuelingQty((Float)value);
             }
-        }
-        ;
+        };
         private static AttributesEnum[] vals = null;
         private static int firstIndex = 0;
 
         public abstract Object get(PrtInvoiceDetailVoRowImpl object);
 
-        public abstract void put(PrtInvoiceDetailVoRowImpl object,
-                                 Object value);
+        public abstract void put(PrtInvoiceDetailVoRowImpl object, Object value);
 
         public int index() {
             return AttributesEnum.firstIndex() + ordinal();
@@ -235,13 +207,12 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
     public static final int INVOICEDATE = AttributesEnum.InvoiceDate.index();
     public static final int ACCOUNTID = AttributesEnum.AccountId.index();
     public static final int INVOICINGDUEDATE = AttributesEnum.InvoicingDueDate.index();
-    public static final int INVOICEDUNITPRICEREBATED = AttributesEnum.InvoicedUnitPriceRebated.index();
     public static final int INVTOTALGROSSAMT = AttributesEnum.InvTotalGrossAmt.index();
     public static final int INVOICINGDATE = AttributesEnum.InvoicingDate.index();
     public static final int INVTOTALVATAMT = AttributesEnum.InvTotalVatAmt.index();
     public static final int INVOICEDCARD = AttributesEnum.InvoicedCard.index();
     public static final int INVNETAMOUNT = AttributesEnum.InvNetAmount.index();
-    public static final int INVGROSSTOTALAMT = AttributesEnum.InvGrossTotalamt.index();
+    public static final int FUELINGQTY = AttributesEnum.FuelingQty.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -249,12 +220,13 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
     public PrtInvoiceDetailVoRowImpl() {
     }
 
+
     /**
      * Gets the attribute value for the calculated attribute Card1Id.
      * @return the Card1Id
      */
     public String getCard1Id() {
-        return (String) getAttributeInternal(CARD1ID);
+        return (String)getAttributeInternal(CARD1ID);
     }
 
     /**
@@ -270,7 +242,7 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
      * @return the CardEmbossNum
      */
     public String getCardEmbossNum() {
-        return (String) getAttributeInternal(CARDEMBOSSNUM);
+        return (String)getAttributeInternal(CARDEMBOSSNUM);
     }
 
     /**
@@ -286,7 +258,7 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
      * @return the CardTextline2
      */
     public String getCardTextline2() {
-        return (String) getAttributeInternal(CARDTEXTLINE2);
+        return (String)getAttributeInternal(CARDTEXTLINE2);
     }
 
     /**
@@ -302,7 +274,7 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
      * @return the PartnerId
      */
     public String getPartnerId() {
-        return (String) getAttributeInternal(PARTNERID);
+        return (String)getAttributeInternal(PARTNERID);
     }
 
     /**
@@ -318,7 +290,7 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
      * @return the CountryCode
      */
     public String getCountryCode() {
-        return (String) getAttributeInternal(COUNTRYCODE);
+        return (String)getAttributeInternal(COUNTRYCODE);
     }
 
     /**
@@ -334,7 +306,7 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
      * @return the InvoiceNumber
      */
     public String getInvoiceNumber() {
-        return (String) getAttributeInternal(INVOICENUMBER);
+        return (String)getAttributeInternal(INVOICENUMBER);
     }
 
     /**
@@ -350,7 +322,7 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
      * @return the CollectiveInvoiceNumber
      */
     public String getCollectiveInvoiceNumber() {
-        return (String) getAttributeInternal(COLLECTIVEINVOICENUMBER);
+        return (String)getAttributeInternal(COLLECTIVEINVOICENUMBER);
     }
 
     /**
@@ -366,7 +338,7 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
      * @return the InvoiceDate
      */
     public Date getInvoiceDate() {
-        return (Date) getAttributeInternal(INVOICEDATE);
+        return (Date)getAttributeInternal(INVOICEDATE);
     }
 
     /**
@@ -382,7 +354,7 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
      * @return the AccountId
      */
     public String getAccountId() {
-        return (String) getAttributeInternal(ACCOUNTID);
+        return (String)getAttributeInternal(ACCOUNTID);
     }
 
     /**
@@ -398,7 +370,7 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
      * @return the InvoicingDueDate
      */
     public Date getInvoicingDueDate() {
-        return (Date) getAttributeInternal(INVOICINGDUEDATE);
+        return (Date)getAttributeInternal(INVOICINGDUEDATE);
     }
 
     /**
@@ -409,28 +381,13 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
         setAttributeInternal(INVOICINGDUEDATE, value);
     }
 
-    /**
-     * Gets the attribute value for the calculated attribute InvoicedUnitPriceRebated.
-     * @return the InvoicedUnitPriceRebated
-     */
-    public Number getInvoicedUnitPriceRebated() {
-        return (Number) getAttributeInternal(INVOICEDUNITPRICEREBATED);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute InvoicedUnitPriceRebated.
-     * @param value value to set the  InvoicedUnitPriceRebated
-     */
-    public void setInvoicedUnitPriceRebated(Number value) {
-        setAttributeInternal(INVOICEDUNITPRICEREBATED, value);
-    }
 
     /**
      * Gets the attribute value for the calculated attribute InvTotalGrossAmt.
      * @return the InvTotalGrossAmt
      */
     public Number getInvTotalGrossAmt() {
-        return (Number) getAttributeInternal(INVTOTALGROSSAMT);
+        return (Number)getAttributeInternal(INVTOTALGROSSAMT);
     }
 
     /**
@@ -446,7 +403,7 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
      * @return the InvoicingDate
      */
     public Date getInvoicingDate() {
-        return (Date) getAttributeInternal(INVOICINGDATE);
+        return (Date)getAttributeInternal(INVOICINGDATE);
     }
 
     /**
@@ -462,7 +419,7 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
      * @return the InvTotalVatAmt
      */
     public Number getInvTotalVatAmt() {
-        return (Number) getAttributeInternal(INVTOTALVATAMT);
+        return (Number)getAttributeInternal(INVTOTALVATAMT);
     }
 
     /**
@@ -478,7 +435,7 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
      * @return the InvoicedCard
      */
     public String getInvoicedCard() {
-        return (String) getAttributeInternal(INVOICEDCARD);
+        return (String)getAttributeInternal(INVOICEDCARD);
     }
 
     /**
@@ -494,7 +451,7 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
      * @return the SumPrdQuantity
      */
     public Number getSumPrdQuantity() {
-        return (Number) getAttributeInternal(SUMPRDQUANTITY);
+        return (Number)getAttributeInternal(SUMPRDQUANTITY);
     }
 
     /**
@@ -509,8 +466,8 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
      * Gets the attribute value for the calculated attribute InvNetAmount.
      * @return the InvNetAmount
      */
-    public Number getInvNetAmount() {        
-        
+    public Number getInvNetAmount() {
+
         //TODO : To be fetched from PALS
         oracle.jbo.domain.Number num;
         float net = 0.0f;
@@ -518,11 +475,10 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
             net = getInvTotalGrossAmt().floatValue() - getInvTotalVatAmt().floatValue();
             num = new oracle.jbo.domain.Number(net);
         } else {
-            num = (Number) getAttributeInternal(INVNETAMOUNT);
+            num = (Number)getAttributeInternal(INVNETAMOUNT);
         }
         return num;
     }
- 
 
 
     /**
@@ -535,28 +491,24 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
 
 
     /**
-     * Gets the attribute value for the calculated attribute InvGrossTotalamt.
-     * @return the InvGrossTotalamt
+     * Gets the attribute value for the calculated attribute FuelingQty.
+     * @return the FuelingQty
      */
-    public Number getInvGrossTotalamt() {
-        oracle.jbo.domain.Number num;
-        float total = 0.0f;
-        if (getInvTotalGrossAmt() != null && getInvoicedUnitPriceRebated() != null) {
-            total = getInvTotalGrossAmt().floatValue() - getInvoicedUnitPriceRebated().floatValue();
-            num = new oracle.jbo.domain.Number(total);
-        } else {
-            num = (Number) getAttributeInternal(INVNETAMOUNT);
+    public Float getFuelingQty() {
+        Float result = 0.0f;
+        if (getSumPrdQuantity() != null) {
+            result = Float.parseFloat(getSumPrdQuantity().toString().trim());
         }
-        return num;
-       
+        return result;
+
     }
 
     /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute InvGrossTotalamt.
-     * @param value value to set the  InvGrossTotalamt
+     * Sets <code>value</code> as the attribute value for the calculated attribute FuelingQty.
+     * @param value value to set the  FuelingQty
      */
-    public void setInvGrossTotalamt(Number value) {
-        setAttributeInternal(INVGROSSTOTALAMT, value);
+    public void setFuelingQty(Float value) {
+        setAttributeInternal(FUELINGQTY, value);
     }
 
     /**
@@ -567,8 +519,7 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
      * @return the attribute value
      * @throws Exception
      */
-    protected Object getAttrInvokeAccessor(int index,
-                                           AttributeDefImpl attrDef) throws Exception {
+    protected Object getAttrInvokeAccessor(int index, AttributeDefImpl attrDef) throws Exception {
         if ((index >= AttributesEnum.firstIndex()) && (index < AttributesEnum.count())) {
             return AttributesEnum.staticValues()[index - AttributesEnum.firstIndex()].get(this);
         }
@@ -583,8 +534,7 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
 
      * @throws Exception
      */
-    protected void setAttrInvokeAccessor(int index, Object value,
-                                         AttributeDefImpl attrDef) throws Exception {
+    protected void setAttrInvokeAccessor(int index, Object value, AttributeDefImpl attrDef) throws Exception {
         if ((index >= AttributesEnum.firstIndex()) && (index < AttributesEnum.count())) {
             AttributesEnum.staticValues()[index - AttributesEnum.firstIndex()].put(this, value);
             return;
