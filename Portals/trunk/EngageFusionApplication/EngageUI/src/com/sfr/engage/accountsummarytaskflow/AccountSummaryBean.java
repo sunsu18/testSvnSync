@@ -43,6 +43,8 @@ import oracle.adf.share.logging.ADFLogger;
 import oracle.adf.view.rich.component.rich.RichPopup;
 import oracle.adf.view.rich.component.rich.data.RichTree;
 import oracle.adf.view.rich.component.rich.input.RichInputText;
+import oracle.adf.view.rich.component.rich.input.RichSelectManyChoice;
+import oracle.adf.view.rich.component.rich.input.RichSelectOneChoice;
 import oracle.adf.view.rich.component.rich.layout.RichPanelGroupLayout;
 import oracle.adf.view.rich.component.rich.output.RichOutputText;
 import oracle.adf.view.rich.context.AdfFacesContext;
@@ -2118,4 +2120,72 @@ public class AccountSummaryBean implements Serializable {
         }
         log.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting commpanyOverview function");
     }
+    
+    
+    public void displayErrorComponent(UIComponent component, boolean status) {
+
+            RichSelectManyChoice soc = new RichSelectManyChoice();
+            RichSelectOneChoice soc1 = new RichSelectOneChoice();
+
+             if (component instanceof RichSelectManyChoice) {
+                soc = (RichSelectManyChoice)component;
+                if (status) {
+                    soc.setContentStyle("af_mandatoryfield");
+                    if (component.getId().contains("smc1"))
+                        soc.setContentStyle("af_mandatoryfield");
+
+                } else {
+                    soc.setContentStyle("af_nonmandatoryfield");
+                    if (component.getId().contains("smc1"))
+                    soc.setContentStyle("af_nonmandatoryfield");
+                }
+                AdfFacesContext.getCurrentInstance().addPartialTarget(soc);
+            }
+             
+            else if (component instanceof RichSelectOneChoice) {
+                        soc1 = (RichSelectOneChoice)component;
+                        if (status) {
+                            soc1.setContentStyle("af_mandatoryfield");
+                            if (component.getId().contains("sml1"))
+                                soc1.setContentStyle("af_mandatoryfield");
+
+                        } else {
+                            soc1.setContentStyle("af_nonmandatoryfield");
+                            if (component.getId().contains("sml1"))
+                                soc1.setContentStyle("af_nonmandatoryfield");
+                        }
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(soc1);
+                    }
+          
+        }
+
+        private Boolean isComponentEmpty(UIComponent rit1) {
+
+            RichSelectManyChoice soc = new RichSelectManyChoice();
+            RichSelectOneChoice soc1 = new RichSelectOneChoice();
+            if (rit1 instanceof RichSelectManyChoice) {
+                soc = (RichSelectManyChoice)rit1;
+                if (soc.getValue() == null || soc.getValue().equals("")) {                   
+                    displayErrorComponent(soc, true);
+                    return true;
+                } else {                   
+                    displayErrorComponent(soc, false);
+                    return false;
+                }
+            }
+            
+            else if (rit1 instanceof RichSelectOneChoice) {
+                        soc1 = (RichSelectOneChoice)rit1;
+                        if (soc1.getValue() == null || soc1.getValue().equals("")) {                            
+                            displayErrorComponent(soc1, true);
+                            return true;
+                        } else {                            
+                            displayErrorComponent(soc1, false);
+                            return false;
+                        }
+                    }
+            
+            return true;
+        }
+    
 }
