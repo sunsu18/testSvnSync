@@ -56,7 +56,7 @@
     </af:panelGroupLayout>
     <af:spacer width="10" height="10" id="s6"/>
      <af:panelGroupLayout id="pgl32" layout="horizontal">
-     <af:outputText value="Search In : " id="ot4"/>
+     <af:outputText value="#{sfr.SEARCH_IN} : " id="ot4"/>
      <af:selectOneChoice id="sml1" autoSubmit="true"
                                  value="#{pageFlowScope.AccountSummaryBean.searchLevel}"
                                  unselectedLabel="#{sfr.PLEASE_SELECT}" partialTriggers="::cb11"
