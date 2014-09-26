@@ -35,6 +35,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -48,6 +49,8 @@ import oracle.adf.model.BindingContext;
 import oracle.adf.share.logging.ADFLogger;
 import oracle.adf.view.rich.component.rich.RichPopup;
 import oracle.adf.view.rich.component.rich.data.RichTable;
+import oracle.adf.view.rich.component.rich.input.RichInputDate;
+import oracle.adf.view.rich.component.rich.input.RichInputText;
 import oracle.adf.view.rich.component.rich.input.RichSelectManyChoice;
 import oracle.adf.view.rich.component.rich.input.RichSelectManyShuttle;
 import oracle.adf.view.rich.component.rich.input.RichSelectOneChoice;
@@ -263,7 +266,10 @@ public class CardBean implements Serializable {
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Default:currencyCode :" + currencyCode);
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Default:Locale :" + locale);
         }
-
+        displayErrorComponent(getBindings().getPartner(), false);
+        displayErrorComponent(getBindings().getAccount(), false);
+        displayErrorComponent(getBindings().getCardGroup(), false);
+        displayErrorComponent(getBindings().getStatus(), false);
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting Constructor of View Cards");
 
     }
@@ -606,24 +612,29 @@ public class CardBean implements Serializable {
 
         try {
             if (getBindings().getPartner().getValue() != null) {
+                displayErrorComponent(getBindings().getPartner(), false);
                 if (getBindings().getAccount().getValue() != null) {
-
+                    displayErrorComponent(getBindings().getAccount(), false);
                 } else {
                     showErrorMessage("ENGAGE_NO_ACCOUNT");
+                    displayErrorComponent(getBindings().getAccount(), true);
                     return null;
                 }
 
                 if (getBindings().getStatus().getValue() != null) {
                     statusPassingValues = populateStringValues(getBindings().getStatus().getValue().toString());
+                    displayErrorComponent(getBindings().getStatus(), false);
                 } else {
                     showErrorMessage("ENGAGE_NO_STATUS");
+                    displayErrorComponent(getBindings().getStatus(), true);
                     return null;
                 }
 
                 if (getBindings().getCardGroup().getValue() != null) {
-
+                    displayErrorComponent(getBindings().getCardGroup(), false);
                 } else {
                     showErrorMessage("ENGAGE_NO_CARD_GROUP");
+                    displayErrorComponent(getBindings().getCardGroup(), true);
                     return null;
                 }
 
@@ -890,6 +901,7 @@ public class CardBean implements Serializable {
                 }
             } else {
                 showErrorMessage("ENGAGE_NO_PARTNER");
+                displayErrorComponent(getBindings().getPartner(), true);
                 return null;
             }
         } catch (Exception e) {
@@ -2485,6 +2497,50 @@ public class CardBean implements Serializable {
             }
         }
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting specificExportExcelListener method of View Cards");
+    }
+
+
+    public void displayErrorComponent(UIComponent component, boolean status) {
+
+        RichSelectManyChoice soc = new RichSelectManyChoice();
+
+         if (component instanceof RichSelectManyChoice) {
+            soc = (RichSelectManyChoice)component;
+            if (status) {
+                soc.setContentStyle("af_mandatoryfield");
+                if (component.getId().contains("soc3") ||
+                    component.getId().contains("smc2") ||
+                    component.getId().contains("smc7") ||
+                    component.getId().contains("smc8") )
+                    soc.setContentStyle("af_mandatoryfield");
+
+            } else {
+                soc.setContentStyle("af_nonmandatoryfield");
+                if (component.getId().contains("soc3") ||
+                    component.getId().contains("smc2") ||
+                    component.getId().contains("smc7") ||
+                    component.getId().contains("smc8"))
+                    soc.setContentStyle("af_nonmandatoryfield");
+            }
+            AdfFacesContext.getCurrentInstance().addPartialTarget(soc);
+        }
+      
+    }
+
+    private Boolean isComponentEmpty(UIComponent rit1) {
+
+        RichSelectManyChoice soc = new RichSelectManyChoice();
+        if (rit1 instanceof RichSelectManyChoice) {
+            soc = (RichSelectManyChoice)rit1;
+            if (soc.getValue() == null || soc.getValue().equals("")) {               
+                displayErrorComponent(soc, true);
+                return true;
+            } else {               
+                displayErrorComponent(soc, false);
+                return false;
+            }
+        }
+        return true;
     }
 
     public String formatConversion(Float passedValue, Locale countryLocale) {
