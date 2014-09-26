@@ -89,7 +89,7 @@
           <af:commandButton id="cb3" text="#{sfr.ADD}" rendered="#{pageFlowScope.DriverInfoBean.isEditVisible}"
                             action="#{pageFlowScope.DriverInfoBean.newDriverAddAction}"
                             styleClass="buttonback buttontext"></af:commandButton>
-          <af:spacer width="12" height="10" id="s23"/>
+          <af:spacer width="12" height="10" id="s23" rendered="#{pageFlowScope.DriverInfoBean.isEditVisible}"/>
           <af:commandButton text="#{sfr.CLEAR}" id="cb2"
                             actionListener="#{pageFlowScope.DriverInfoBean.searchCancel}"></af:commandButton>
         </af:panelGroupLayout>
@@ -475,6 +475,7 @@
                 <af:panelGroupLayout id="pgl14" halign="right"
                                      layout="horizontal">
                   <af:commandButton text="#{sfr.SAVE}" id="editsave"
+                                    rendered="#{pageFlowScope.DriverInfoBean.isEditVisible}"
                                     action="#{pageFlowScope.DriverInfoBean.editDriverSave}"
                                     styleClass="buttonback buttontext"/>
                   <af:spacer width="10" height="10" id="s9"/>
@@ -500,7 +501,8 @@
                                     valueChangeListener="#{pageFlowScope.DriverInfoBean.EditPartnerNumberLIstener}"
                                     binding="#{pageFlowScope.DriverInfoBean.bindings.editPartnerNumberId}"
                                     value="#{pageFlowScope.DriverInfoBean.editPartnerNumberDisplayValue}"
-                                    unselectedLabel="#{sfr.PLEASE_SELECT_ENG}">
+                                    unselectedLabel="#{sfr.PLEASE_SELECT_ENG}"
+                                    disabled="#{pageFlowScope.DriverInfoBean.isEditDisable}">
                   <af:forEach items="#{pageFlowScope.DriverInfoBean.linkedPartnerList}"
                               var="listItem">
                     <af:selectItem label="#{listItem.label}"
@@ -518,7 +520,8 @@
                                     valueChangeListener="#{pageFlowScope.DriverInfoBean.editAccountNumberChangeListener}"
                                     binding="#{pageFlowScope.DriverInfoBean.bindings.editAccountId}"
                                     value="#{pageFlowScope.DriverInfoBean.editAccountIdDisplayValue}"
-                                    unselectedLabel="#{sfr.PLEASE_SELECT_ENG}">
+                                    unselectedLabel="#{sfr.PLEASE_SELECT_ENG}"
+                                    disabled="#{pageFlowScope.DriverInfoBean.isEditDisable}">
                   <af:forEach items="#{pageFlowScope.DriverInfoBean.linkedEditAccountList}"
                               var="listItem">
                     <af:selectItem label="#{listItem.label}"
@@ -535,7 +538,8 @@
                               shortDesc="#{bindings.DriverNumber.hints.tooltip}"
                               id="it14"
                               contentStyle="width:158px;height:14.0px;padding-top: 4px"
-                              binding="#{pageFlowScope.DriverInfoBean.bindings.editDriverNumber}">
+                              binding="#{pageFlowScope.DriverInfoBean.bindings.editDriverNumber}"
+                              disabled="#{pageFlowScope.DriverInfoBean.isEditDisable}">
                   <f:validator binding="#{bindings.DriverNumber.validator}"/>
                 </af:inputText>
                 <af:spacer width="25" height="10" id="DrivSpac2"/>
@@ -548,7 +552,8 @@
                                     binding="#{pageFlowScope.DriverInfoBean.bindings.editCardId}"
                                     value="#{pageFlowScope.DriverInfoBean.editCardIdDisplayValue}"
                                     unselectedLabel="#{sfr.PLEASE_SELECT_ENG}"
-                                    valueChangeListener="#{pageFlowScope.DriverInfoBean.editCardNumberChangeListener}">
+                                    valueChangeListener="#{pageFlowScope.DriverInfoBean.editCardNumberChangeListener}"
+                                    disabled="#{pageFlowScope.DriverInfoBean.isEditDisable}">
                   <af:forEach items="#{pageFlowScope.DriverInfoBean.editCardNumberList}"
                               var="listItem">
                     <af:selectItem label="#{listItem.label}"
@@ -565,7 +570,8 @@
                               shortDesc="#{bindings.DriverName.hints.tooltip}"
                               id="it15"
                               contentStyle="width:158px;height:14.0px;padding-top: 4px"
-                              binding="#{pageFlowScope.DriverInfoBean.bindings.editDriverName}">
+                              binding="#{pageFlowScope.DriverInfoBean.bindings.editDriverName}"
+                              disabled="#{pageFlowScope.DriverInfoBean.isEditDisable}">
                   <f:validator binding="#{bindings.DriverName.validator}"/>
                 </af:inputText>
                 <af:spacer width="25" height="10" id="DrivSpac3"/>
@@ -579,7 +585,8 @@
                               maximumLength="#{bindings.ReferenceNumber.hints.precision}"
                               shortDesc="#{bindings.ReferenceNumber.hints.tooltip}"
                               id="it4"
-                              binding="#{pageFlowScope.DriverInfoBean.bindings.editReferenceNumber}">
+                              binding="#{pageFlowScope.DriverInfoBean.bindings.editReferenceNumber}"
+                              disabled="#{pageFlowScope.DriverInfoBean.isEditDisable}">
                   <f:validator binding="#{bindings.ReferenceNumber.validator}"/>
                 </af:inputText>
                 <af:outputText value="#{sfr.NATIONALITY}" id="Driv15"/>
@@ -590,7 +597,8 @@
                               maximumLength="#{bindings.Nationality.hints.precision}"
                               shortDesc="#{bindings.Nationality.hints.tooltip}"
                               id="it12"
-                              contentStyle="width:158px;height:14.0px;padding-top: 4px">
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px"
+                              disabled="#{pageFlowScope.DriverInfoBean.isEditDisable}">
                   <f:validator binding="#{bindings.Nationality.validator}"/>
                 </af:inputText>
                 <af:spacer width="25" height="10" id="DrivSpac4"/>
@@ -602,7 +610,8 @@
                               maximumLength="#{bindings.MobileNumber.hints.precision}"
                               shortDesc="#{bindings.MobileNumber.hints.tooltip}"
                               id="it17"
-                              contentStyle="width:158px;height:14.0px;padding-top: 4px">
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px"
+                              disabled="#{pageFlowScope.DriverInfoBean.isEditDisable}">
                   <f:validator binding="#{bindings.MobileNumber.validator}"/>
                   <af:convertNumber groupingUsed="false"
                                     pattern="#{bindings.MobileNumber.format}"/>
@@ -615,7 +624,8 @@
                               maximumLength="#{bindings.PassportNumber.hints.precision}"
                               shortDesc="#{bindings.PassportNumber.hints.tooltip}"
                               id="it13"
-                              contentStyle="width:158px;height:14.0px;padding-top: 4px">
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px"
+                              disabled="#{pageFlowScope.DriverInfoBean.isEditDisable}">
                   <f:validator binding="#{bindings.PassportNumber.validator}"/>
                 </af:inputText>
                 <af:spacer width="25" height="10" id="DrivSpac5"/>
@@ -627,7 +637,8 @@
                               maximumLength="#{bindings.LicenseNumber.hints.precision}"
                               shortDesc="#{bindings.LicenseNumber.hints.tooltip}"
                               contentStyle="width:158px;height:14.0px;padding-top: 4px"
-                              id="it10">
+                              id="it10"
+                              disabled="#{pageFlowScope.DriverInfoBean.isEditDisable}">
                   <f:validator binding="#{bindings.LicenseNumber.validator}"/>
                 </af:inputText>
                 <af:outputText value="#{sfr.PASSPORT_EXPIRY}" id="Driv19"/>
@@ -636,7 +647,8 @@
                 <af:inputDate value="#{bindings.PassportExpiry.inputValue}"
                               shortDesc="#{bindings.PassportExpiry.hints.tooltip}"
                               id="id1"
-                              contentStyle="width:140px;height:16.0px;padding-top: 4px">
+                              contentStyle="width:140px;height:16.0px;padding-top: 4px"
+                              disabled="#{pageFlowScope.DriverInfoBean.isEditDisable}">
                   <f:validator binding="#{bindings.PassportExpiry.validator}"/>
                   <af:convertDateTime pattern="#{bindings.PassportExpiry.format}"/>
                 </af:inputDate>
@@ -647,7 +659,8 @@
                 <af:inputDate value="#{bindings.LicenseExpiry.inputValue}"
                               shortDesc="#{bindings.LicenseExpiry.hints.tooltip}"
                               id="id8"
-                              contentStyle="width:140px;height:14.0px;padding-top: 4px">
+                              contentStyle="width:140px;height:14.0px;padding-top: 4px"
+                              disabled="#{pageFlowScope.DriverInfoBean.isEditDisable}">
                   <f:validator binding="#{bindings.LicenseExpiry.validator}"/>
                   <af:convertDateTime pattern="#{bindings.LicenseExpiry.format}"/>
                 </af:inputDate>
@@ -657,7 +670,8 @@
                 <af:inputDate value="#{bindings.EmployStart.inputValue}"
                               shortDesc="#{bindings.EmployStart.hints.tooltip}"
                               id="id4"
-                              contentStyle="width:140px;height:14.0px;padding-top: 4px">
+                              contentStyle="width:140px;height:14.0px;padding-top: 4px"
+                              disabled="#{pageFlowScope.DriverInfoBean.isEditDisable}">
                   <f:validator binding="#{bindings.EmployStart.validator}"/>
                   <af:convertDateTime pattern="#{bindings.EmployStart.format}"/>
                 </af:inputDate>
@@ -668,7 +682,8 @@
                 <af:inputDate value="#{bindings.EmployEnd.inputValue}"
                               shortDesc="#{bindings.EmployEnd.hints.tooltip}"
                               id="id7"
-                              contentStyle="width:140px;height:14.0px;padding-top: 4px">
+                              contentStyle="width:140px;height:14.0px;padding-top: 4px"
+                              disabled="#{pageFlowScope.DriverInfoBean.isEditDisable}">
                   <f:validator binding="#{bindings.EmployEnd.validator}"/>
                   <af:convertDateTime pattern="#{bindings.EmployEnd.format}"/>
                 </af:inputDate>
@@ -680,7 +695,8 @@
                               maximumLength="#{bindings.Remarks.hints.precision}"
                               shortDesc="#{bindings.Remarks.hints.tooltip}"
                               id="it18"
-                              contentStyle="width:158px;height:14.0px;padding-top: 4px">
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px"
+                              disabled="#{pageFlowScope.DriverInfoBean.isEditDisable}">
                   <f:validator binding="#{bindings.Remarks.validator}"/>
                 </af:inputText>
               </h:panelGrid>

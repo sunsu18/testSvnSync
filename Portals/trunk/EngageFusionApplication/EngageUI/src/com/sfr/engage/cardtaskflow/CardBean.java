@@ -154,7 +154,7 @@ public class CardBean implements Serializable {
     private Locale locale;
     private boolean blockedDateTime;
     private User user = null;
-    private Boolean isEditVisible = true;
+    private Boolean isEditVisible;
 
     public CardBean() {
         super();
@@ -173,11 +173,16 @@ public class CardBean implements Serializable {
             user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
         }
         
+        isEditVisible = true;
+        
         if (user.getRoleList().get(0).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR)) {
             if(user.getRoleList().get(0).getIdString().get(0).contains("CG")) {
                 isEditVisible = false;
+                System.out.println("cg manager-----------------------------------------------------" + isEditVisible);
             }
         }
+        
+        System.out.println("final isEditVisible value-----------------------------------------------------" + isEditVisible);
         
         if (session.getAttribute("Partner_Object_List") != null) {
             partnerInfoList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
@@ -2445,7 +2450,7 @@ public class CardBean implements Serializable {
                                 if (row.getPartnerPostalCode() != null) {
                                     out.print(row.getPartnerPostalCode().toString().trim());
                                 }
-                                if (cellValue != headerDataValues.length - 1) {
+                               if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
                             } else if ("City".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
@@ -2897,7 +2902,7 @@ public class CardBean implements Serializable {
                 } else if (statusPassingValues.contains(Constants.ENGAGE_CARD_PERMANENT_BLOCKED) &&
                            !statusPassingValues.contains(Constants.ENGAGE_CARD_ACTIVE) &&
                            !statusPassingValues.contains(Constants.ENGAGE_CARD_TEMPORARY_BLOCKED)) {
-                    //for expired and permanent blocked status(2E)
+                    //for expire? and permanent blocked status(2E)
                     String status =
                         Constants.ENGAGE_CARD_ACTIVE + "," + Constants.ENGAGE_CARD_TEMPORARY_BLOCKED + "," + Constants.ENGAGE_CARD_PERMANENT_BLOCKED;
                     vo.setNamedWhereClauseParam("status", status);

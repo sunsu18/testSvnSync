@@ -84,10 +84,10 @@
                             partialTriggers="it7"></af:commandButton>
           <af:spacer width="12" height="10" id="s38"/>
           <af:commandButton text="#{sfr.ADD}" id="cb3"
-                            rendered="#{pageFlowScope.DriverInfoBean.isEditVisible}"
+                            rendered="#{pageFlowScope.VehicleInfoBean.isEditVisible}"
                             action="#{pageFlowScope.VehicleInfoBean.newVehicleAddAction}"
                             styleClass="buttonback buttontext"></af:commandButton>
-          <af:spacer width="12" height="10" id="s33"/>
+          <af:spacer width="12" height="10" id="s33" rendered="#{pageFlowScope.VehicleInfoBean.isEditVisible}"/>
           <af:commandButton text="#{sfr.CLEAR}" id="cb2"
                             actionListener="#{pageFlowScope.VehicleInfoBean.searchCancel}"></af:commandButton>
           <af:spacer width="7" height="10" id="s17"/>
@@ -109,7 +109,7 @@
         <af:spacer width="10" height="10" id="s15"/>
         <af:panelGroupLayout id="pgl8" halign="right">
           <af:commandButton text="#{sfr.DELETE}" id="cb6"
-                            rendered="#{pageFlowScope.DriverInfoBean.isEditVisible}"
+                            rendered="#{pageFlowScope.VehicleInfoBean.isEditVisible}"
                             action="#{pageFlowScope.VehicleInfoBean.vehicleDeleteAction}"/>
         </af:panelGroupLayout>
       </af:panelGroupLayout>
@@ -504,7 +504,8 @@
                                      halign="right">
                   <af:commandButton text="#{sfr.SAVE}" id="editsave"
                                     action="#{pageFlowScope.VehicleInfoBean.editVehicleSave}"
-                                    styleClass="buttonback buttontext"/>
+                                    styleClass="buttonback buttontext"
+                                    rendered="#{pageFlowScope.VehicleInfoBean.isEditVisible}"/>
                   <af:spacer width="20" height="50" id="s9"/>
                   <af:commandButton text="#{sfr.CANCEL}" id="cb5"
                                     actionListener="#{bindings.Rollback.execute}"
@@ -528,7 +529,8 @@
                                     valueChangeListener="#{pageFlowScope.VehicleInfoBean.EditPartnerNumberLIstener}"
                                     binding="#{pageFlowScope.VehicleInfoBean.bindings.editPartnerNumberId}"
                                     value="#{pageFlowScope.VehicleInfoBean.editPartnerNumberDisplayValue}"
-                                    unselectedLabel="#{sfr.PLEASE_SELECT_ENG}">
+                                    unselectedLabel="#{sfr.PLEASE_SELECT_ENG}"
+                                    disabled="#{pageFlowScope.VehicleInfoBean.isEditDisable}">
                   <af:forEach items="#{pageFlowScope.VehicleInfoBean.linkedPartnerList}"
                               var="listItem">
                     <af:selectItem label="#{listItem.label}"
@@ -547,7 +549,8 @@
                                     valueChangeListener="#{pageFlowScope.VehicleInfoBean.editAccountNumberChangeListener}"
                                     binding="#{pageFlowScope.VehicleInfoBean.bindings.editAccountId}"
                                     value="#{pageFlowScope.VehicleInfoBean.editAccountIdDisplayValue}"
-                                    unselectedLabel="#{sfr.PLEASE_SELECT_ENG}">
+                                    unselectedLabel="#{sfr.PLEASE_SELECT_ENG}"
+                                    disabled="#{pageFlowScope.VehicleInfoBean.isEditDisable}">
                   <af:forEach items="#{pageFlowScope.VehicleInfoBean.linkedEditAccountList}"
                               var="listItem">
                     <af:selectItem label="#{listItem.label}"
@@ -565,7 +568,8 @@
                               shortDesc="#{bindings.VehicleNumber.hints.tooltip}"
                               id="it13"
                               contentStyle="width:158px;height:14.0px;padding-top: 4px"
-                              binding="#{pageFlowScope.VehicleInfoBean.bindings.editVehicleNumber}">
+                              binding="#{pageFlowScope.VehicleInfoBean.bindings.editVehicleNumber}"
+                              disabled="#{pageFlowScope.VehicleInfoBean.isEditDisable}">
                   <f:validator binding="#{bindings.VehicleNumber.validator}"/>
                 </af:inputText>
                 <af:spacer width="25" height="10" id="colnSpace31"/>
@@ -579,7 +583,8 @@
                                     binding="#{pageFlowScope.VehicleInfoBean.bindings.editCardId}"
                                     value="#{pageFlowScope.VehicleInfoBean.editCardIdDisplayValue}"
                                     unselectedLabel="#{sfr.PLEASE_SELECT_ENG}"
-                                    valueChangeListener="#{pageFlowScope.VehicleInfoBean.editCardNumberChangeListener}">
+                                    valueChangeListener="#{pageFlowScope.VehicleInfoBean.editCardNumberChangeListener}"
+                                    disabled="#{pageFlowScope.VehicleInfoBean.isEditDisable}">
                   <af:forEach items="#{pageFlowScope.VehicleInfoBean.editCardNumberList}"
                               var="listItem">
                     <af:selectItem label="#{listItem.label}"
@@ -597,7 +602,8 @@
                               shortDesc="#{bindings.InternalName.hints.tooltip}"
                               id="it16"
                               contentStyle="width:158px;height:14.0px;padding-top: 4px"
-                              binding="#{pageFlowScope.VehicleInfoBean.bindings.editInternalName}">
+                              binding="#{pageFlowScope.VehicleInfoBean.bindings.editInternalName}"
+                              disabled="#{pageFlowScope.VehicleInfoBean.isEditDisable}">
                   <f:validator binding="#{bindings.InternalName.validator}"/>
                 </af:inputText>
                 <af:spacer width="25" height="10" id="colnSpace41"/>
@@ -611,7 +617,8 @@
                               maximumLength="#{bindings.ReferenceNumber.hints.precision}"
                               shortDesc="#{bindings.ReferenceNumber.hints.tooltip}"
                               id="it12"
-                              binding="#{pageFlowScope.VehicleInfoBean.bindings.editReferenceNumber}">
+                              binding="#{pageFlowScope.VehicleInfoBean.bindings.editReferenceNumber}"
+                              disabled="#{pageFlowScope.VehicleInfoBean.isEditDisable}">
                   <f:validator binding="#{bindings.ReferenceNumber.validator}"/>
                 </af:inputText>
                 <af:outputText value="#{sfr.VEHICLEINFO_REGISTRATIONNUMBER}"
@@ -624,7 +631,8 @@
                               shortDesc="#{bindings.RegistrationNumber.hints.tooltip}"
                               id="it17"
                               contentStyle="width:158px;height:14.0px;padding-top: 4px"
-                              binding="#{pageFlowScope.VehicleInfoBean.bindings.editRegistrationNumber}">
+                              binding="#{pageFlowScope.VehicleInfoBean.bindings.editRegistrationNumber}"
+                              disabled="#{pageFlowScope.VehicleInfoBean.isEditDisable}">
                   <f:validator binding="#{bindings.RegistrationNumber.validator}"/>
                 </af:inputText>
                 <af:spacer width="25" height="10" id="colnSpace51"/>
@@ -636,7 +644,8 @@
                               maximumLength="#{bindings.Brand.hints.precision}"
                               shortDesc="#{bindings.Brand.hints.tooltip}"
                               id="it18"
-                              contentStyle="width:158px;height:14.0px;padding-top: 4px">
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px"
+                              disabled="#{pageFlowScope.VehicleInfoBean.isEditDisable}">
                   <f:validator binding="#{bindings.Brand.validator}"/>
                 </af:inputText>
                 <af:outputText value="#{sfr.VEHICLEINFO_YEAR}" id="Acctid27"/>
@@ -647,7 +656,8 @@
                               maximumLength="#{bindings.Year.hints.precision}"
                               shortDesc="#{bindings.Year.hints.tooltip}"
                               id="it19"
-                              contentStyle="width:158px;height:14.0px;padding-top: 4px">
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px"
+                              disabled="#{pageFlowScope.VehicleInfoBean.isEditDisable}">
                   <f:validator binding="#{bindings.Year.validator}"/>
                   <af:convertNumber groupingUsed="false"
                                     pattern="#{bindings.Year.format}"/>
@@ -660,7 +670,8 @@
                 <af:inputDate value="#{bindings.RegistrationDate.inputValue}"
                               shortDesc="#{bindings.RegistrationDate.hints.tooltip}"
                               id="jkjl"
-                              contentStyle="width:140px;height:14.0px;padding-top: 4px">
+                              contentStyle="width:140px;height:14.0px;padding-top: 4px"
+                              disabled="#{pageFlowScope.VehicleInfoBean.isEditDisable}">
                   <f:validator binding="#{bindings.RegistrationDate.validator}"/>
                   <af:convertDateTime pattern="#{bindings.RegistrationDate.format}"/>
                 </af:inputDate>
@@ -673,7 +684,8 @@
                               maximumLength="#{bindings.FuelType.hints.precision}"
                               shortDesc="#{bindings.FuelType.hints.tooltip}"
                               id="it20"
-                              contentStyle="width:158px;height:14.0px;padding-top: 4px">
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px"
+                              disabled="#{pageFlowScope.VehicleInfoBean.isEditDisable}">
                   <f:validator binding="#{bindings.FuelType.validator}"/>
                 </af:inputText>
                 <af:spacer width="25" height="10" id="colnSpace71"/>
@@ -684,7 +696,8 @@
                 <af:inputDate value="#{bindings.EndDate.inputValue}"
                               shortDesc="#{bindings.EndDate.hints.tooltip}"
                               id="jkl"
-                              contentStyle="width:140px;height:14.0px;padding-top: 4px">
+                              contentStyle="width:140px;height:14.0px;padding-top: 4px"
+                              disabled="#{pageFlowScope.VehicleInfoBean.isEditDisable}">
                   <f:validator binding="#{bindings.EndDate.validator}"/>
                   <af:convertDateTime pattern="#{bindings.EndDate.format}"/>
                 </af:inputDate>
@@ -697,7 +710,8 @@
                               maximumLength="#{bindings.MaxFuel.hints.precision}"
                               shortDesc="#{bindings.MaxFuel.hints.tooltip}"
                               id="it21"
-                              contentStyle="width:158px;height:14.0px;padding-top: 4px">
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px"
+                              disabled="#{pageFlowScope.VehicleInfoBean.isEditDisable}">
                   <f:validator binding="#{bindings.MaxFuel.validator}"/>
                   <af:convertNumber groupingUsed="false"
                                     pattern="#{bindings.MaxFuel.format}"/>
@@ -712,7 +726,8 @@
                               maximumLength="#{bindings.Odometer.hints.precision}"
                               shortDesc="#{bindings.Odometer.hints.tooltip}"
                               id="it22"
-                              contentStyle="width:158px;height:14.0px;padding-top: 4px">
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px"
+                              disabled="#{pageFlowScope.VehicleInfoBean.isEditDisable}">
                   <f:validator binding="#{bindings.Odometer.validator}"/>
                   <af:convertNumber groupingUsed="false"
                                     pattern="#{bindings.Odometer.format}"/>
@@ -726,7 +741,8 @@
                               maximumLength="#{bindings.Remarks.hints.precision}"
                               shortDesc="#{bindings.Remarks.hints.tooltip}"
                               id="it23"
-                              contentStyle="width:158px;height:14.0px;padding-top: 4px">
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px"
+                              disabled="#{pageFlowScope.VehicleInfoBean.isEditDisable}">
                   <f:validator binding="#{bindings.Remarks.validator}"/>
                 </af:inputText>
               </h:panelGrid>

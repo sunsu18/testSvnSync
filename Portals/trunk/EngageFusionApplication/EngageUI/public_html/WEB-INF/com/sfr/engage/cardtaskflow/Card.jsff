@@ -468,7 +468,7 @@
             
             <af:column headerText="#{sfr.MANAGE}" id="c7" align="center"
                        width="70px"
-                       rendered="#{pageFlowScope.CardBean.lang eq 'SE' ? false : true and pageFlowScope.CardBean.isEditVisible}">
+                       rendered="#{((pageFlowScope.CardBean.lang eq 'SE' ? false : true) and (pageFlowScope.CardBean.isEditVisible))}">
               <af:commandImageLink id="cil1" icon="/images/edit.png"
                                    actionListener="#{pageFlowScope.CardBean.editVehicleDriverListener}">
                 <af:setPropertyListener from="#{row.CardType}"
