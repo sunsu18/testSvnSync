@@ -35,4 +35,113 @@
             <xsd:element name="Value" type="xsd:string"/>
         </xsd:sequence>
     </xsd:complexType>
+    <xsd:element name="TransactionData">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="TransactionDataType">
+          <xsd:sequence>
+            <xsd:element name="Transaction" type="TransactionType"
+                         maxOccurs="unbounded"/>
+          </xsd:sequence>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+    <xsd:complexType name="TransactionDataType"/>
+    <xsd:complexType name="TransactionType">
+        <xsd:sequence>
+            <xsd:element name="PALS_COUNTRY_CODE" type="xsd:string"/>
+            <xsd:element name="UREF_TRANSACTION_ID" type="xsd:string"/>
+            <xsd:element name="PURCHASE_COUNTRY_CODE" minOccurs="0"
+                         nillable="true" type="xsd:string"/>
+            <xsd:element name="ORDER_ID" minOccurs="0" nillable="true"
+                         type="xsd:string"/>
+            <xsd:element name="PRELIM_ID" minOccurs="0" nillable="true"
+                         type="xsd:string"/>
+            <xsd:element name="CARD_1_ID" minOccurs="0" nillable="true"
+                         type="xsd:string"/>
+            <xsd:element name="CARD_2_ID" minOccurs="0" nillable="true"
+                         type="xsd:string"/>
+            <xsd:element name="CARD_ID_2_INFO" minOccurs="0" nillable="true"
+                         type="xsd:string"/>
+            <xsd:element name="ODOMETER_PORTAL" minOccurs="0" nillable="true"
+                         type="xsd:string"/>
+            <xsd:element name="ODOMETER" minOccurs="0" nillable="true"
+                         type="xsd:string"/>
+            <xsd:element name="TRANSACTION_DT" type="xsd:dateTime" minOccurs="0"
+                         nillable="true"/>
+            <xsd:element name="TRANSACTION_TIME" type="xsd:dateTime"
+                         minOccurs="0" nillable="true"/>
+            <xsd:element name="STATION_NAME" minOccurs="0" nillable="true"
+                         type="xsd:string"/>
+            <xsd:element name="ICC_INVOICE_NUMBER" minOccurs="0"
+                         nillable="true" type="xsd:string"/>
+            <xsd:element name="INVOICE_NUMBER_NON_COLLECTIVE" minOccurs="0"
+                         nillable="true" type="xsd:string"/>
+            <xsd:element name="INVOICING_DATE" type="xsd:dateTime" minOccurs="0"
+                         nillable="true"/>
+            <xsd:element name="PURCHASE_CURRENCY" minOccurs="0" nillable="true"
+                         type="xsd:string"/>
+            <xsd:element name="EXCHANGE_RATE" type="xsd:double" minOccurs="0"
+                         nillable="true"/>
+            <xsd:element name="ICC_YN" minOccurs="0" nillable="true"
+                         type="xsd:string"/>
+            <xsd:element name="TRANSACTION_TYPE" minOccurs="0" nillable="true"
+                         type="xsd:string"/>
+            <xsd:element name="PRELIM_STATUS_CODE" minOccurs="0"
+                         nillable="true" type="xsd:string"/>
+            <xsd:element name="INVOICE_NUMBER_COLLECTIVE" minOccurs="0"
+                         nillable="true" type="xsd:string"/>
+            <xsd:element name="KSID" minOccurs="0" nillable="true"
+                         type="xsd:string"/>
+            <xsd:element name="PARTNER_ID" minOccurs="0" nillable="true"
+                         type="xsd:string"/>
+            <xsd:element name="ACCOUNT_ID" minOccurs="0" nillable="true"
+                         type="xsd:string"/>
+            <xsd:element name="CARDGROUP_MAIN_TYPE" minOccurs="0"
+                         nillable="true" type="xsd:string"/>
+            <xsd:element name="CARDGROUP_SUB_TYPE" minOccurs="0"
+                         nillable="true" type="xsd:string"/>
+            <xsd:element name="CARDGROUP_SEQ" minOccurs="0" nillable="true"
+                         type="xsd:string"/>
+            <xsd:element name="MODIFIED_BY" minOccurs="0" nillable="true"
+                         type="xsd:string"/>
+            <xsd:element name="PREVIOUS_ODOMETER" minOccurs="0" nillable="true"
+                         type="xsd:string"/>
+            <xsd:element name="PALS_ORDER_MAIN_TYPE" minOccurs="0"
+                         nillable="true" type="xsd:string"/>
+            <xsd:element name="PALS_ORDER_SUB_TYPE" minOccurs="0"
+                         nillable="true" type="xsd:string"/>
+            <xsd:element name="ORDER_BACKWARD_REF" minOccurs="0"
+                         nillable="true" type="xsd:string"/>
+            <xsd:element name="ORDER_FORWARD_REF" minOccurs="0" nillable="true"
+                         type="xsd:string"/>
+            <xsd:element name="ORDER_VALID_CODE" minOccurs="0" nillable="true"
+                         type="xsd:string"/>
+            <xsd:element name="ORDER_CREATE_CODE" minOccurs="0" nillable="true"
+                         type="xsd:string"/>
+            <xsd:element name="SITE_NUMBER" minOccurs="0" nillable="true"
+                         type="xsd:string"/>
+            <xsd:element name="INVOICED_CARD_ID" minOccurs="0" nillable="true"
+                         type="xsd:string"/>
+            <xsd:element name="TERMINAL_ID" minOccurs="0" nillable="true"
+                         type="xsd:string"/>
+            <xsd:element name="TERMINAL_SEQ" minOccurs="0" nillable="true"
+                         type="xsd:string"/>
+            <xsd:element name="INVOICE_FLAG" minOccurs="0" nillable="true"
+                         type="xsd:string"/>
+            <xsd:element name="WM_TRANS_REF_NUMBER" minOccurs="0"
+                         nillable="true" type="xsd:string"/>
+            <xsd:element name="PALS_MODIFIED_DATE" type="xsd:dateTime"
+                         minOccurs="0"/>
+            <xsd:element name="PALS_MODIFIED_BY" minOccurs="0" nillable="true"
+                         type="xsd:string"/>
+            <xsd:element name="PORTAL_MODIFIED_DATE" type="xsd:dateTime"
+                         minOccurs="0" nillable="true"/>
+            <xsd:element name="SOA_MODIFIED_DATE" type="xsd:dateTime"
+                         minOccurs="0"/>
+            <xsd:element name="SOA_MODIFIED_BY" minOccurs="0"
+                         type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
 </xsd:schema>

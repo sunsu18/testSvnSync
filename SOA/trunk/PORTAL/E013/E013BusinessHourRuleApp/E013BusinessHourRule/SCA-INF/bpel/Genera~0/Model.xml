@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <process name="GenerateBusinessHourAlert" targetNamespace="http://www.lntinfotech.com/integration/E013BusinessHourRuleApp/E013BusinessHourRule/GenerateBusinessHourAlert" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:client="http://www.lntinfotech.com/integration/E013BusinessHourRuleApp/E013BusinessHourRule/GenerateBusinessHourAlert" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/jms/E013BusinessHourRuleApp/E013BusinessHourRule/SOARuleEngineServiceJMSConsumerV1" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:aia="http://www.oracle.com/XSL/Transform/java/oracle.apps.aia.core.xpath.AIAFunctions" xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20" xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc" xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath" xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath" xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk" xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions" xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:ns2="http://www.lntinfotech.com/integration/RuleServiceABO" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns3="http://xmlns.oracle.com/pcbpel/adapter/db/E013BusinessHourRuleApp/E013BusinessHourRule/selectTransactionDBAdapterV1" xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/top/selectTransactionDBAdapterV1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns5="http://xmlns.oracle.com/pcbpel/adapter/db/E013BusinessHourRuleApp/E013BusinessHourRule/insertCardNotificationsDBAdpterV1" xmlns:ns6="http://xmlns.oracle.com/pcbpel/adapter/jms/E013BusinessHourRuleApp/E013BusinessHourRule/SOARuleEngineNotificationJMSProducerV1" xmlns:ns7="http://www.lntinfotech.com/integration/SOARuleEngineNotification" id="BpPrc0">
-
   <!-- 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
      ORCHESTRATION LOGIC                                               
@@ -50,6 +49,12 @@
   </faultHandlers>
   <sequence name="main" id="BpSeq1">
     <receive name="ReceiveRuleServiceABO" createInstance="yes" variable="RuleServiceABO_Consume_IV" partnerLink="SOARuleEngineServiceJMSConsumerV1" portType="ns1:Consume_Message_ptt" operation="Consume_Message" id="BpRcv0"/>
+    <assign name="AssignDate" id="BpAss1">
+      <copy>
+        <from expression="'2014-06-17T08:54:51.634+02:00'"/>
+        <to variable="RuleServiceABO_Consume_IV" part="body" query="/ns2:RuleServiceRequest/NotificationDateTime"/>
+      </copy>
+    </assign>
     <scope name="checkSubscriptionScope" variableAccessSerializable="no" id="BpScp0">
       <variables>
         <variable name="iterator" type="xsd:int"/>
@@ -65,7 +70,7 @@
         <variable name="CountryCode" type="xsd:string"/>
       </variables>
       <sequence name="checkSubscriptionSequence" id="BpSeq2">
-        <assign name="AssignInitializeIterator" id="BpAss1">
+        <assign name="AssignInitializeIterator" id="BpAss2">
           <copy>
             <from expression="string(bpws:getVariableData('RuleServiceABO_Consume_IV','body','/ns2:RuleServiceRequest/NotificationDateTime'))"/>
             <to variable="curDate"/>
@@ -83,7 +88,7 @@
             <to variable="preDate"/>
           </copy>
         </assign>
-        <assign name="AssignDay" id="BpAss2">
+        <assign name="AssignDay" id="BpAss3">
           <copy>
             <from expression="xp20:format-dateTime(bpws:getVariableData('preDate'),'[FNn]')"/>
             <to variable="preDay"/>
@@ -93,7 +98,6 @@
             <to variable="curDay"/>
           </copy>
         </assign>
-        
         <while name="WhileCountryCodeCheck" condition="bpws:getVariableData('iterator') &lt;= count(bpws:getVariableData('RuleServiceABO_Consume_IV','body','/ns2:RuleServiceRequest/Parameters/Parameter'))" id="BpWhl0">
           <sequence name="Sequence" id="BpSeq3">
             <switch name="countryCodeSwitch" id="BpSwt0">
@@ -103,7 +107,7 @@
                     <bpelx:property name="userLabel">isCountryCodeGiven</bpelx:property>
                   </bpelx:general>
                 </bpelx:annotation>
-                <assign name="AssignCountryCode" id="BpAss3">
+                <assign name="AssignCountryCode" id="BpAss4">
                   <copy>
                     <from expression="1"/>
                     <to variable="flag"/>
@@ -118,7 +122,7 @@
                 <empty name="Empty" id="BpEmp0"/>
               </otherwise>
             </switch>
-            <assign name="AssignIncrementIterator" id="BpAss4">
+            <assign name="AssignIncrementIterator" id="BpAss5">
               <copy>
                 <from expression="bpws:getVariableData('iterator') + 1"/>
                 <to variable="iterator"/>
@@ -126,7 +130,7 @@
             </assign>
           </sequence>
         </while>
-        <assign name="Assigniterator" id="BpAss5">
+        <assign name="Assigniterator" id="BpAss6">
           <copy>
             <from expression="1"/>
             <to variable="iterator"/>
@@ -141,7 +145,7 @@
                     <bpelx:property name="userLabel">isSubscribedForToday</bpelx:property>
                   </bpelx:general>
                 </bpelx:annotation>
-                <assign name="AssignSetFlag" id="BpAss6">
+                <assign name="AssignSetFlag" id="BpAss7">
                   <copy>
                     <from expression="1"/>
                     <to variable="flag"/>
@@ -160,7 +164,7 @@
                 <empty name="Empty" id="BpEmp1"/>
               </otherwise>
             </switch>
-            <assign name="AssignIncrementIterator" id="BpAss7">
+            <assign name="AssignIncrementIterator" id="BpAss8">
               <copy>
                 <from expression="bpws:getVariableData('iterator') + 1"/>
                 <to variable="iterator"/>
@@ -177,7 +181,7 @@
                 </bpelx:general>
               </bpelx:annotation>
               <sequence name="Sequence1" id="BpSeq6">
-                <assign name="AssignInitializeIterator" id="BpAss8">
+                <assign name="AssignInitializeIterator" id="BpAss9">
                   <copy>
                     <from expression="1"/>
                     <to variable="iterator"/>
@@ -188,16 +192,15 @@
                   </copy>
                 </assign>
                 <while name="WhileSubscriptionCheck" condition="bpws:getVariableData('iterator') &lt;= count(bpws:getVariableData('RuleServiceABO_Consume_IV','body','/ns2:RuleServiceRequest/Parameters/Parameter'))" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" id="BpWhl2">
-      
-   <sequence name="checkPrevDaySubsSequence" id="BpSeq7">
+                  <sequence name="checkPrevDaySubsSequence" id="BpSeq7">
                     <switch name="subscriptionSwitch" id="BpSwt3">
-         <case condition="bpws:getVariableData('RuleServiceABO_Consume_IV','body','/ns2:RuleServiceRequest/Parameters/Parameter[$iterator]/Name') = bpws:getVariableData('preDay')">
-            <bpelx:annotation xmlns:bpelx="http://schemas.oracle.com/bpel/extension">
-               <bpelx:general>
-                  <bpelx:property name="userLabel">isSubscribedForPrevday</bpelx:property>
-               </bpelx:general>
-            </bpelx:annotation>
-            <assign name="AssignSetFlag" id="BpAss9">
+                      <case condition="bpws:getVariableData('RuleServiceABO_Consume_IV','body','/ns2:RuleServiceRequest/Parameters/Parameter[$iterator]/Name') = bpws:getVariableData('preDay')">
+                        <bpelx:annotation xmlns:bpelx="http://schemas.oracle.com/bpel/extension">
+                          <bpelx:general>
+                            <bpelx:property name="userLabel">isSubscribedForPrevday</bpelx:property>
+                          </bpelx:general>
+                        </bpelx:annotation>
+                        <assign name="AssignSetFlag" id="BpAss10">
                           <copy>
                             <from expression="1"/>
                             <to variable="flag"/>
@@ -211,18 +214,19 @@
                             <to variable="preEndTime"/>
                           </copy>
                         </assign>
-         </case>
-         <otherwise>
-            <empty name="Empty" id="BpEmp2"/>
-         </otherwise>
-      </switch>
-                    <assign name="AssignIncrementiterator" id="BpAss10">
+                      </case>
+                      <otherwise>
+                        <empty name="Empty" id="BpEmp2"/>
+                      </otherwise>
+                    </switch>
+                    <assign name="AssignIncrementiterator" id="BpAss11">
                       <copy>
                         <from expression="bpws:getVariableData('iterator') + 1"/>
                         <to variable="iterator"/>
                       </copy>
                     </assign>
-                  </sequence></while>
+                  </sequence>
+                </while>
                 <scope name="Scope1" id="BpScp1">
                   <bpelx:annotation>
                     <bpelx:general>
@@ -251,7 +255,7 @@
                                   <bpelx:property name="userLabel">preStartTimeGreaterthanpreEndTime</bpelx:property>
                                 </bpelx:general>
                               </bpelx:annotation>
-                              <assign name="AssignLeftLabelTimings" id="BpAss11">
+                              <assign name="AssignLeftLabelTimings" id="BpAss12">
                                 <copy>
                                   <from expression="concat(xp20:format-dateTime(bpws:getVariableData('preDate'),'[Y0001]-[M01]-[D01]'),'T',bpws:getVariableData('preEndTime'))"/>
                                   <to variable="leftMin"/>
@@ -263,7 +267,7 @@
                               </assign>
                             </case>
                             <otherwise>
-                              <assign name="AssignReverseLeftLabelTimings" id="BpAss12">
+                              <assign name="AssignReverseLeftLabelTimings" id="BpAss13">
                                 <copy>
                                   <from expression="concat(xp20:format-dateTime(bpws:getVariableData('curDate'),'[Y0001]-[M01]-[D01]'),'T','00:00:00.000000')"/>
                                   <to variable="leftMin"/>
@@ -278,7 +282,7 @@
                         </sequence>
                       </case>
                       <otherwise>
-                        <assign name="AssignLeftTiming" id="BpAss13">
+                        <assign name="AssignLeftTiming" id="BpAss14">
                           <copy>
                             <from expression="concat(xp20:format-dateTime(bpws:getVariableData('curDate'),'[Y0001]-[M01]-[D01]'),'T','00:00:00.000000')"/>
                             <to variable="leftMin"/>
@@ -297,7 +301,7 @@
                             <bpelx:property name="userLabel">ifCurStartTimeGreaterThanCurEndTime</bpelx:property>
                           </bpelx:general>
                         </bpelx:annotation>
-                        <assign name="AssignRightLabelTimings" id="BpAss14">
+                        <assign name="AssignRightLabelTimings" id="BpAss15">
                           <copy>
                             <from variable="leftMin"/>
                             <to variable="rightMin"/>
@@ -309,7 +313,7 @@
                         </assign>
                       </case>
                       <otherwise>
-                        <assign name="AssignReverseRightLabelTimings" id="BpAss15">
+                        <assign name="AssignReverseRightLabelTimings" id="BpAss16">
                           <copy>
                             <from expression="concat(xp20:format-dateTime(bpws:getVariableData('curDate'),'[Y0001]-[M01]-[D01]'),'T',bpws:getVariableData('curEndTime'))"/>
                             <to variable="rightMin"/>
@@ -332,9 +336,10 @@
                         <variable name="InvokeselectTransactionDBAdapterV1_IV" messageType="ns3:selectTransactionDBAdapterV1Select_inputParameters"/>
                         <variable name="InvokeselectTransactionDBAdapterV1_OV" messageType="ns3:PrtCardTransactionHeaderCollection_msg"/>
                         <variable name="insertCardNotificationsDBAdpterV1_IV" messageType="ns5:PrtCardNotificationsCollection_msg"/>
+                        <variable name="TransactionAlerts" element="ns2:TransactionData"/>
                       </variables>
                       <sequence name="cardDataProcessingSequence" id="BpSeq10">
-                        <assign name="AssignIterator" id="BpAss16">
+                        <assign name="AssignIterator" id="BpAss17">
                           <copy>
                             <from expression="1"/>
                             <to variable="iterator"/>
@@ -354,7 +359,7 @@
                                   </bpelx:general>
                                 </bpelx:annotation>
                                 <sequence name="Sequence5" id="BpSeq12">
-                                  <assign name="AssignCARDid" id="BpAss17">
+                                  <assign name="AssignCARDid" id="BpAss18">
                                     <copy>
                                       <from expression="bpws:getVariableData('RuleServiceABO_Consume_IV','body','/ns2:RuleServiceRequest/Parameters/Parameter[$iterator]/Value')"/>
                                       <to variable="cardID"/>
@@ -364,7 +369,7 @@
                                       <to variable="flag"/>
                                     </copy>
                                   </assign>
-    <!--bpelx:exec import="java.lang.String"/>
+                                  <!--bpelx:exec import="java.lang.String"/>
                                   <bpelx:exec name="Java_Embedding"
                                               version="1.5" language="java">
                                     <![CDATA[/*Write your java code below e.g.   
@@ -384,7 +389,7 @@ setVariableData("cardID",cards);]]>
                                 <empty name="Empty" id="BpEmp3"/>
                               </otherwise>
                             </switch>
-                            <assign name="AssignIncrementIterator" id="BpAss18">
+                            <assign name="AssignIncrementIterator" id="BpAss19">
                               <copy>
                                 <from expression="bpws:getVariableData('iterator') + 1"/>
                                 <to variable="iterator"/>
@@ -400,7 +405,7 @@ setVariableData("cardID",cards);]]>
                               </bpelx:general>
                             </bpelx:annotation>
                             <sequence name="fetchTransactionAlertSequence" id="BpSeq13">
-                              <assign name="AssignInvokeselectTransactionDBAdapterV1_IV" id="BpAss19">
+                              <assign name="AssignInvokeselectTransactionDBAdapterV1_IV" id="BpAss20">
                                 <!--copy>
                                   <from expression="concat(&quot;'&quot;,bpws:getVariableData('leftMin'),&quot;'&quot;)"/>
                                   <to variable="InvokeselectTransactionDBAdapterV1_IV"
@@ -449,18 +454,287 @@ setVariableData("cardID",cards);]]>
                                   <from expression="bpws:getVariableData('cardID')"/>
                                   <to variable="InvokeselectTransactionDBAdapterV1_IV" part="selectTransactionDBAdapterV1Select_inputParameters" query="/ns4:selectTransactionDBAdapterV1Select_leftMin_leftMax_rightMin_rightMax_cardID_CountryCodeInputParameters/ns4:cardID"/>
                                 </copy>
+                                <copy>
+                                  <from expression="xp20:format-dateTime(bpws:getVariableData('leftMin'),'[D01]-[MN,*-3]-[Y01] [h01].[m01].[s01].[f001] [PN]')"/>
+                                  <to variable="leftMin"/>
+                                </copy>
+                                <copy>
+                                  <from expression="xp20:format-dateTime(bpws:getVariableData('leftMax'),'[D01]-[MN,*-3]-[Y01] [h01].[m01].[s01].[f001] [PN]')"/>
+                                  <to variable="leftMax"/>
+                                </copy>
+                                <copy>
+                                  <from expression="xp20:format-dateTime(bpws:getVariableData('rightMin'),'[D01]-[MN,*-3]-[Y01] [h01].[m01].[s01].[f001] [PN]')"/>
+                                  <to variable="rightMin"/>
+                                </copy>
+                                <copy>
+                                  <from expression="xp20:format-dateTime(bpws:getVariableData('rightMax'),'[D01]-[MN,*-3]-[Y01] [h01].[m01].[s01].[f001] [PN]')"/>
+                                  <to variable="rightMax"/>
+                                </copy>
                               </assign>
-                              <invoke name="InvokeselectTransactionDBAdapterV1" bpelx:invokeAsDetail="no" inputVariable="InvokeselectTransactionDBAdapterV1_IV" outputVariable="InvokeselectTransactionDBAdapterV1_OV" partnerLink="selectTransactionDBAdapterV1" portType="ns3:selectTransactionDBAdapterV1_ptt" operation="selectTransactionDBAdapterV1Select" id="BpInv1"/>
-                              <assign name="XformTransactionToNotifications" id="BpAss20">
+   <bpelx:exec import="com.TransactionData" id="BxExe0"/>
+    <bpelx:exec import="com.TransactionDataOutput" id="BxExe1"/>
+    <bpelx:exec import="java.util.ArrayList" id="BxExe2"/>
+    <bpelx:exec import="org.w3c.dom.Element" id="BxExe3"/>
+    <bpelx:exec import="org.w3c.dom.Document" id="BxExe4"/>
+    <bpelx:exec import="org.w3c.dom.Text" id="BxExe5"/>
+    <bpelx:exec import="java.lang.String" id="BxExe6"/>
+<bpelx:exec import="javax.xml.parsers.DocumentBuilder" id="BxExe7"/>
+<bpelx:exec import="javax.xml.parsers.DocumentBuilderFactory" id="BxExe8"/>
+<bpelx:exec import="javax.xml.transform.Transformer" id="BxExe9"/>
+<bpelx:exec import="javax.xml.transform.TransformerFactory" id="BxExe10"/>
+<bpelx:exec import="javax.xml.transform.stream.StreamResult" id="BxExe11"/>
+<bpelx:exec import="javax.xml.transform.dom.DOMSource" id="BxExe12"/>
+                              <bpelx:exec name="Java_Embedding" version="1.5" language="java" id="BxExe13">
+                                <![CDATA[/*Write your java code below e.g.            
+	System.out.println("Hello, World");           
+*/           
+          
+try{          
+TransactionDataOutput transaction = new TransactionDataOutput();                                  
+ArrayList transactionArray = new ArrayList<TransactionDataOutput>();                                  
+          
+TransactionData input = new TransactionData();          
+         
+input.setCountryCode(getVariableData("CountryCode").toString());                      
+input.setLeftMin(getVariableData("leftMin").toString());                           
+input.setLeftMax(getVariableData("leftMax").toString());                           
+input.setRightMin(getVariableData("rightMin").toString());                           
+input.setRightMax(getVariableData("rightMax").toString());                           
+          
+String cards = (getVariableData("cardID").toString());          
+cards = cards.replace(",","','");          
+input.setCardID(cards);                           
+  
+//String inputs = input.getRightMax();  
+  
+                    // root elements       
+transactionArray=input.GenerateTransactionData();                          
+  
+Element elementTransactionData;                     
+elementTransactionData = (Element) getVariableData("TransactionAlerts");                     
+Document txndoc = elementTransactionData.getOwnerDocument();          
+       
+       
+Element rootElement = txndoc.getDocumentElement();               
+  
+//String outputs="";  
+for (int i = 0; i < transactionArray.size(); i++){                       
+// to set the transaction type output for each iteration                     
+transaction=(TransactionDataOutput)transactionArray.get(i);                     
+// to create transaction element from Class Array              
+Element txnElement = txndoc.createElement("Transaction");                   
+rootElement.appendChild(txnElement);                     
+//to get data from transaction into element                 
+  
+//outputs = transaction.getPALS_COUNTRY_CODE();  
+  
+Element PALS_COUNTRY_CODE = txndoc.createElement("PALS_COUNTRY_CODE");          
+PALS_COUNTRY_CODE.appendChild(txndoc.createTextNode(transaction.getPALS_COUNTRY_CODE()));          
+txnElement.appendChild(PALS_COUNTRY_CODE);        
+  
+Element UREF_TRANSACTION_ID = txndoc.createElement("UREF_TRANSACTION_ID");          
+UREF_TRANSACTION_ID.appendChild(txndoc.createTextNode(transaction.getUREF_TRANSACTION_ID()));          
+txnElement.appendChild(UREF_TRANSACTION_ID);          
+Element PURCHASE_COUNTRY_CODE = txndoc.createElement("PURCHASE_COUNTRY_CODE");          
+PURCHASE_COUNTRY_CODE.appendChild(txndoc.createTextNode(transaction.getPURCHASE_COUNTRY_CODE()));          
+txnElement.appendChild(PURCHASE_COUNTRY_CODE);          
+Element ORDER_ID = txndoc.createElement("ORDER_ID");          
+ORDER_ID.appendChild(txndoc.createTextNode(transaction.getORDER_ID()));          
+txnElement.appendChild(ORDER_ID);          
+Element PRELIM_ID = txndoc.createElement("PRELIM_ID");          
+PRELIM_ID.appendChild(txndoc.createTextNode(transaction.getPRELIM_ID()));          
+txnElement.appendChild(PRELIM_ID);          
+Element CARD_1_ID = txndoc.createElement("CARD_1_ID");          
+CARD_1_ID.appendChild(txndoc.createTextNode(transaction.getCARD_1_ID()));          
+txnElement.appendChild(CARD_1_ID);          
+Element CARD_2_ID = txndoc.createElement("CARD_2_ID");          
+CARD_2_ID.appendChild(txndoc.createTextNode(transaction.getCARD_2_ID()));          
+txnElement.appendChild(CARD_2_ID);          
+Element CARD_ID_2_INFO = txndoc.createElement("CARD_ID_2_INFO");          
+CARD_ID_2_INFO.appendChild(txndoc.createTextNode(transaction.getCARD_ID_2_INFO()));          
+txnElement.appendChild(CARD_ID_2_INFO);          
+Element ODOMETER_PORTAL = txndoc.createElement("ODOMETER_PORTAL");          
+ODOMETER_PORTAL.appendChild(txndoc.createTextNode(transaction.getODOMETER_PORTAL()));          
+txnElement.appendChild(ODOMETER_PORTAL);          
+Element ODOMETER = txndoc.createElement("ODOMETER");          
+ODOMETER.appendChild(txndoc.createTextNode(transaction.getODOMETER()));          
+txnElement.appendChild(ODOMETER);          
+Element TRANSACTION_DT = txndoc.createElement("TRANSACTION_DT");          
+TRANSACTION_DT.appendChild(txndoc.createTextNode(transaction.getTRANSACTION_DT()));          
+txnElement.appendChild(TRANSACTION_DT);          
+Element TRANSACTION_TIME = txndoc.createElement("TRANSACTION_TIME");          
+TRANSACTION_TIME.appendChild(txndoc.createTextNode(transaction.getTRANSACTION_TIME()));          
+txnElement.appendChild(TRANSACTION_TIME);          
+Element STATION_NAME = txndoc.createElement("STATION_NAME");          
+STATION_NAME.appendChild(txndoc.createTextNode(transaction.getSTATION_NAME()));          
+txnElement.appendChild(STATION_NAME);          
+Element ICC_INVOICE_NUMBER = txndoc.createElement("ICC_INVOICE_NUMBER");          
+ICC_INVOICE_NUMBER.appendChild(txndoc.createTextNode(transaction.getICC_INVOICE_NUMBER()));          
+txnElement.appendChild(ICC_INVOICE_NUMBER);          
+Element INVOICE_NUMBER_NON_COLLECTIVE = txndoc.createElement("INVOICE_NUMBER_NON_COLLECTIVE");          
+INVOICE_NUMBER_NON_COLLECTIVE.appendChild(txndoc.createTextNode(transaction.getINVOICE_NUMBER_NON_COLLECTIVE()));          
+txnElement.appendChild(INVOICE_NUMBER_NON_COLLECTIVE);          
+Element INVOICING_DATE = txndoc.createElement("INVOICING_DATE");          
+INVOICING_DATE.appendChild(txndoc.createTextNode(transaction.getINVOICING_DATE()));          
+txnElement.appendChild(INVOICING_DATE);          
+Element PURCHASE_CURRENCY = txndoc.createElement("PURCHASE_CURRENCY");          
+PURCHASE_CURRENCY.appendChild(txndoc.createTextNode(transaction.getPURCHASE_CURRENCY()));          
+txnElement.appendChild(PURCHASE_CURRENCY);          
+Element EXCHANGE_RATE = txndoc.createElement("EXCHANGE_RATE");          
+EXCHANGE_RATE.appendChild(txndoc.createTextNode(transaction.getEXCHANGE_RATE()));          
+txnElement.appendChild(EXCHANGE_RATE);          
+Element ICC_YN = txndoc.createElement("ICC_YN");          
+ICC_YN.appendChild(txndoc.createTextNode(transaction.getICC_YN()));          
+txnElement.appendChild(ICC_YN);          
+Element TRANSACTION_TYPE = txndoc.createElement("TRANSACTION_TYPE");          
+TRANSACTION_TYPE.appendChild(txndoc.createTextNode(transaction.getTRANSACTION_TYPE()));          
+txnElement.appendChild(TRANSACTION_TYPE);          
+Element PRELIM_STATUS_CODE = txndoc.createElement("PRELIM_STATUS_CODE");          
+PRELIM_STATUS_CODE.appendChild(txndoc.createTextNode(transaction.getPRELIM_STATUS_CODE()));          
+txnElement.appendChild(PRELIM_STATUS_CODE);          
+Element INVOICE_NUMBER_COLLECTIVE = txndoc.createElement("INVOICE_NUMBER_COLLECTIVE");          
+INVOICE_NUMBER_COLLECTIVE.appendChild(txndoc.createTextNode(transaction.getINVOICE_NUMBER_COLLECTIVE()));          
+txnElement.appendChild(INVOICE_NUMBER_COLLECTIVE);          
+Element KSID = txndoc.createElement("KSID");          
+KSID.appendChild(txndoc.createTextNode(transaction.getKSID()));          
+txnElement.appendChild(KSID);          
+Element PARTNER_ID = txndoc.createElement("PARTNER_ID");          
+PARTNER_ID.appendChild(txndoc.createTextNode(transaction.getPARTNER_ID()));          
+txnElement.appendChild(PARTNER_ID);          
+Element ACCOUNT_ID = txndoc.createElement("ACCOUNT_ID");          
+ACCOUNT_ID.appendChild(txndoc.createTextNode(transaction.getACCOUNT_ID()));          
+txnElement.appendChild(ACCOUNT_ID);          
+Element CARDGROUP_MAIN_TYPE = txndoc.createElement("CARDGROUP_MAIN_TYPE");          
+CARDGROUP_MAIN_TYPE.appendChild(txndoc.createTextNode(transaction.getCARDGROUP_MAIN_TYPE()));          
+txnElement.appendChild(CARDGROUP_MAIN_TYPE);          
+Element CARDGROUP_SUB_TYPE = txndoc.createElement("CARDGROUP_SUB_TYPE");          
+CARDGROUP_SUB_TYPE.appendChild(txndoc.createTextNode(transaction.getCARDGROUP_SUB_TYPE()));          
+txnElement.appendChild(CARDGROUP_SUB_TYPE);          
+Element CARDGROUP_SEQ = txndoc.createElement("CARDGROUP_SEQ");          
+CARDGROUP_SEQ.appendChild(txndoc.createTextNode(transaction.getCARDGROUP_SEQ()));          
+txnElement.appendChild(CARDGROUP_SEQ);          
+Element MODIFIED_BY = txndoc.createElement("MODIFIED_BY");          
+MODIFIED_BY.appendChild(txndoc.createTextNode(transaction.getMODIFIED_BY()));          
+txnElement.appendChild(MODIFIED_BY);          
+Element PREVIOUS_ODOMETER = txndoc.createElement("PREVIOUS_ODOMETER");          
+PREVIOUS_ODOMETER.appendChild(txndoc.createTextNode(transaction.getPREVIOUS_ODOMETER()));          
+txnElement.appendChild(PREVIOUS_ODOMETER);          
+Element PALS_ORDER_MAIN_TYPE = txndoc.createElement("PALS_ORDER_MAIN_TYPE");          
+PALS_ORDER_MAIN_TYPE.appendChild(txndoc.createTextNode(transaction.getPALS_ORDER_MAIN_TYPE()));          
+txnElement.appendChild(PALS_ORDER_MAIN_TYPE);          
+Element PALS_ORDER_SUB_TYPE = txndoc.createElement("PALS_ORDER_SUB_TYPE");          
+PALS_ORDER_SUB_TYPE.appendChild(txndoc.createTextNode(transaction.getPALS_ORDER_SUB_TYPE()));          
+txnElement.appendChild(PALS_ORDER_SUB_TYPE);          
+Element ORDER_BACKWARD_REF = txndoc.createElement("ORDER_BACKWARD_REF");          
+ORDER_BACKWARD_REF.appendChild(txndoc.createTextNode(transaction.getORDER_BACKWARD_REF()));          
+txnElement.appendChild(ORDER_BACKWARD_REF);          
+Element ORDER_FORWARD_REF = txndoc.createElement("ORDER_FORWARD_REF");          
+ORDER_FORWARD_REF.appendChild(txndoc.createTextNode(transaction.getORDER_FORWARD_REF()));          
+txnElement.appendChild(ORDER_FORWARD_REF);          
+Element ORDER_VALID_CODE = txndoc.createElement("ORDER_VALID_CODE");          
+ORDER_VALID_CODE.appendChild(txndoc.createTextNode(transaction.getORDER_VALID_CODE()));          
+txnElement.appendChild(ORDER_VALID_CODE);          
+Element ORDER_CREATE_CODE = txndoc.createElement("ORDER_CREATE_CODE");          
+ORDER_CREATE_CODE.appendChild(txndoc.createTextNode(transaction.getORDER_CREATE_CODE()));          
+txnElement.appendChild(ORDER_CREATE_CODE);          
+Element SITE_NUMBER = txndoc.createElement("SITE_NUMBER");          
+SITE_NUMBER.appendChild(txndoc.createTextNode(transaction.getSITE_NUMBER()));          
+txnElement.appendChild(SITE_NUMBER);          
+Element INVOICED_CARD_ID = txndoc.createElement("INVOICED_CARD_ID");          
+INVOICED_CARD_ID.appendChild(txndoc.createTextNode(transaction.getINVOICED_CARD_ID()));          
+txnElement.appendChild(INVOICED_CARD_ID);          
+Element TERMINAL_ID = txndoc.createElement("TERMINAL_ID");          
+TERMINAL_ID.appendChild(txndoc.createTextNode(transaction.getTERMINAL_ID()));          
+txnElement.appendChild(TERMINAL_ID);          
+Element TERMINAL_SEQ = txndoc.createElement("TERMINAL_SEQ");          
+TERMINAL_SEQ.appendChild(txndoc.createTextNode(transaction.getTERMINAL_SEQ()));          
+txnElement.appendChild(TERMINAL_SEQ);          
+Element INVOICE_FLAG = txndoc.createElement("INVOICE_FLAG");          
+INVOICE_FLAG.appendChild(txndoc.createTextNode(transaction.getINVOICE_FLAG()));          
+txnElement.appendChild(INVOICE_FLAG);          
+Element WM_TRANS_REF_NUMBER = txndoc.createElement("WM_TRANS_REF_NUMBER");          
+WM_TRANS_REF_NUMBER.appendChild(txndoc.createTextNode(transaction.getWM_TRANS_REF_NUMBER()));          
+txnElement.appendChild(WM_TRANS_REF_NUMBER);          
+Element PALS_MODIFIED_DATE = txndoc.createElement("PALS_MODIFIED_DATE");          
+PALS_MODIFIED_DATE.appendChild(txndoc.createTextNode(transaction.getPALS_MODIFIED_DATE()));          
+txnElement.appendChild(PALS_MODIFIED_DATE);          
+Element PALS_MODIFIED_BY = txndoc.createElement("PALS_MODIFIED_BY");          
+PALS_MODIFIED_BY.appendChild(txndoc.createTextNode(transaction.getPALS_MODIFIED_BY()));          
+txnElement.appendChild(PALS_MODIFIED_BY);          
+Element PORTAL_MODIFIED_DATE = txndoc.createElement("PORTAL_MODIFIED_DATE");          
+PORTAL_MODIFIED_DATE.appendChild(txndoc.createTextNode(transaction.getPORTAL_MODIFIED_DATE()));          
+txnElement.appendChild(PORTAL_MODIFIED_DATE);          
+Element SOA_MODIFIED_DATE = txndoc.createElement("SOA_MODIFIED_DATE");          
+SOA_MODIFIED_DATE.appendChild(txndoc.createTextNode(transaction.getSOA_MODIFIED_DATE()));          
+txnElement.appendChild(SOA_MODIFIED_DATE);          
+Element SOA_MODIFIED_BY = txndoc.createElement("SOA_MODIFIED_BY");          
+SOA_MODIFIED_BY.appendChild(txndoc.createTextNode(transaction.getSOA_MODIFIED_BY()));          
+txnElement.appendChild(SOA_MODIFIED_BY);    
+  
+}                      
+//to assign transaction report generated to element             
+//setVariableData("outputs",outputs);  
+//setVariableData("inputs",inputs);  
+  
+setVariableData("TransactionAlerts",elementTransactionData);           
+addAuditTrailEntry("XML Created");            
+             
+}                                  
+catch(Exception ex) {                              
+ex.printStackTrace();            
+}]]>
+                              </bpelx:exec>
+                              <!--assign name="Assign1">
+                                <copy>
+                                  <from variable="TransactionAlerts"/>
+                                  <to variable="TransactionAlerts"/>
+                                </copy>
+                                <copy>
+                                  <from variable="inputs"/>
+                                  <to variable="inputs"/>
+                                </copy>
+                                <copy>
+                                  <from variable="outputs"/>
+                                  <to variable="outputs"/>
+                                </copy>
+                              </assign>
+                              <assign name="Assign1">
+                                <copy>
+                                  <from variable="cardID"/>
+                                  <to variable="TransactionAlerts"
+                                      query="/ns2:TransactionData/Transaction/CARD_1_ID"/>
+                                </copy>
+                              </assign>
+-->
+                              <assign name="xformTransactionAlertsToNotification" id="BpAss21">
+                                <bpelx:annotation>
+                                  <bpelx:pattern>transformation</bpelx:pattern>
+                                </bpelx:annotation>
+                                <copy>
+                                  <from expression="ora:doXSLTransformForDoc('xsl/TransactionAlertsToCardNotifications.xsl', $TransactionAlerts, 'RuleServiceABO_Consume_IV.body', $RuleServiceABO_Consume_IV.body)"/>
+                                  <to variable="insertCardNotificationsDBAdpterV1_IV" part="PrtCardNotificationsCollection"/>
+                                </copy>
+                              </assign>
+<!--                              <invoke name="InvokeselectTransactionDBAdapterV1"
+                                      bpelx:invokeAsDetail="no"
+                                      inputVariable="InvokeselectTransactionDBAdapterV1_IV"
+                                      outputVariable="InvokeselectTransactionDBAdapterV1_OV"
+                                      partnerLink="selectTransactionDBAdapterV1"
+                                      portType="ns3:selectTransactionDBAdapterV1_ptt"
+                                      operation="selectTransactionDBAdapterV1Select"/>
+-->
+<!--                              <assign name="XformTransactionToNotifications">
                                 <bpelx:annotation>
                                   <bpelx:pattern>transformation</bpelx:pattern>
                                 </bpelx:annotation>
                                 <copy>
                                   <from expression="ora:doXSLTransformForDoc('xsl/TransactionToCardNotifications.xsl', $InvokeselectTransactionDBAdapterV1_OV.PrtCardTransactionHeaderCollection, 'RuleServiceABO_Consume_IV.body', $RuleServiceABO_Consume_IV.body)"/>
-                                  <to variable="insertCardNotificationsDBAdpterV1_IV" part="PrtCardNotificationsCollection"/>
+                                  <to variable="insertCardNotificationsDBAdpterV1_IV"
+                                      part="PrtCardNotificationsCollection"/>
                                 </copy>
                               </assign>
-                              <invoke name="InvokeInsertCardNotificationsDBAdpterV1" bpelx:invokeAsDetail="no" inputVariable="insertCardNotificationsDBAdpterV1_IV" partnerLink="insertCardNotificationsDBAdpterV1" portType="ns5:insertCardNotificationsDBAdpterV1_ptt" operation="insert" id="BpInv2"/>
+-->
+                              <invoke name="InvokeInsertCardNotificationsDBAdpterV1" bpelx:invokeAsDetail="no" inputVariable="insertCardNotificationsDBAdpterV1_IV" partnerLink="insertCardNotificationsDBAdpterV1" portType="ns5:insertCardNotificationsDBAdpterV1_ptt" operation="insert" id="BpInv1"/>
                             </sequence>
                           </case>
                           <otherwise>

@@ -65,7 +65,7 @@
    <value n="GenerateBusinessHourAlert_Namespace" v="http://www.lntinfotech.com/integration/E013BusinessHourRuleApp/E013BusinessHourRule/GenerateBusinessHourAlert"/>
    <value n="GenerateBusinessHourAlert_ProcessName" v="GenerateBusinessHourAlert"/>
    <value n="GenerateBusinessHourAlert_Template" v="BPEL_EMPTY_PROCESS"/>
-   <value n="GenerateBusinessHourAlert_wsdl" v="GenerateBusinessHourAlert.wsdl"/>
+   <value n="GenerateBusinessHourAlert_wsdl" v="SOARuleEngineServiceJMSConsumerV1.wsdl"/>
    <value n="Namespace" v="http://www.lntinfotech.com/integration/E013BusinessHourRuleApp/E013BusinessHourRule/GenerateBusinessHourAlert"/>
    <hash n="oracle.ide.model.ResourcePaths">
       <hash n="resourcesContentSet">
@@ -75,6 +75,7 @@
    <hash n="oracle.ide.model.TechnologyScopeConfiguration">
       <list n="technologyScope">
          <string v="SOA"/>
+         <string v="Java"/>
       </list>
    </hash>
    <hash n="oracle.jdeveloper.compiler.OjcConfiguration">
@@ -275,20 +276,42 @@
    </hash>
    <hash n="oracle.jdeveloper.model.PathsConfiguration">
       <hash n="javaContentSet">
-         <list n="pattern-filters">
-            <string v="+**"/>
+         <list n="constituent-sets">
+            <hash>
+               <list n="pattern-filters">
+                  <string v="+**"/>
+               </list>
+               <list n="url-path">
+                  <url path="src/"/>
+               </list>
+            </hash>
+            <hash>
+               <list n="pattern-filters">
+                  <string v="+**"/>
+               </list>
+               <list n="url-path">
+                  <url path="SCA-INF/src/"/>
+               </list>
+            </hash>
          </list>
-         <list n="url-path">
-            <url path="src/"/>
-            <url path="SCA-INF/src/"/>
-         </list>
+         <list n="url-path"/>
       </hash>
    </hash>
    <hash n="oracle.jdeveloper.runner.RunConfigurations">
       <hash n="runConfigurationDefinitions">
          <hash n="Default">
+            <value n="connectionName"/>
             <value n="custom" v="false"/>
+            <value n="JavaScriptRunConfigurationEnableDebugStatement" v="true"/>
+            <value n="JavaScriptRunConfigurationStopInChrome" v="true"/>
+            <value n="JavaScriptRunConfigurationStopOnError" v="true"/>
+            <value n="JavaScriptRunConfigurationStopOnException" v="false"/>
+            <value n="JavaScriptRunConfigurationTransferErrors" v="true"/>
             <value n="name" v="Default"/>
+            <hash n="oracle.jdevimpl.runner.debug.DebugConfiguration">
+               <value n="remoteParameter:jpda:jdi_attach_method:" v=""/>
+               <value n="remoteParameter:jpdaListen:localAddress" v=""/>
+            </hash>
          </hash>
       </hash>
       <list n="runConfigurationList">
@@ -321,6 +344,14 @@
             <value n="id" v="BC4J Service Runtime"/>
             <value n="isJDK" v="false"/>
          </hash>
+         <hash>
+            <value n="id" v="Oracle JDBC"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Oracle XML Parser v2"/>
+            <value n="isJDK" v="false"/>
+         </hash>
       </list>
       <list n="libraryReferences">
          <hash>
@@ -347,10 +378,18 @@
             <value n="id" v="BC4J Service Runtime"/>
             <value n="isJDK" v="false"/>
          </hash>
+         <hash>
+            <value n="id" v="Oracle JDBC"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Oracle XML Parser v2"/>
+            <value n="isJDK" v="false"/>
+         </hash>
       </list>
    </hash>
    <hash n="oracle.jdevimpl.config.JProjectPaths">
-      <url n="outputDirectory" path="SCA-INF\classes/"/>
+      <url n="outputDirectory" path="SCA-INF/classes/"/>
    </hash>
    <hash n="oracle.tip.tools.ide.fabric.addin.SCAContentSetProvider">
       <hash n="sca-content">
