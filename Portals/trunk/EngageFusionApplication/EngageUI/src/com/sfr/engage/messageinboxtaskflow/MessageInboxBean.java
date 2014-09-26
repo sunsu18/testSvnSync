@@ -626,22 +626,22 @@ public class MessageInboxBean implements Serializable {
          if (component instanceof RichSelectManyChoice) {
             soc = (RichSelectManyChoice)component;
             if (status) {
-                soc.setContentStyle("border: 1px solid red;height:15px;width: 175px;padding:1px;margin-left:-3px;");
+                soc.setContentStyle("af_mandatoryfield");
                 if (component.getId().contains("selectManyChoice1") ||
                     component.getId().contains("smc1") ||
                     component.getId().contains("selectManyChoice3") ||
                     component.getId().contains("selectManyChoice4") ||
                     component.getId().contains("smc4"))
-                    soc.setContentStyle("border: 1px solid red;height:15px;width: 175px;padding:1px;margin-left:-3px;");
+                    soc.setContentStyle("af_mandatoryfield");
 
             } else {
-                soc.setContentStyle("border: 1px solid #b9b9b4;height:15px;width: 175px;padding:1px;margin-left:-3px;");
+                soc.setContentStyle("af_mandatoryfield");
                 if (component.getId().contains("selectManyChoice1") ||
                     component.getId().contains("smc1") ||
                     component.getId().contains("selectManyChoice3") ||
                     component.getId().contains("selectManyChoice4") ||
                     component.getId().contains("smc4"))
-                    soc.setContentStyle("border: 1px solid #b9b9b4;height:15px;width: 175px;padding:1px;margin-left:-3px;");
+                    soc.setContentStyle("af_mandatoryfield");
             }
             AdfFacesContext.getCurrentInstance().addPartialTarget(soc);
         }
