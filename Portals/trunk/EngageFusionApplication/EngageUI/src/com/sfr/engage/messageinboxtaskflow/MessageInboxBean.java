@@ -635,13 +635,13 @@ public class MessageInboxBean implements Serializable {
                     soc.setContentStyle("af_mandatoryfield");
 
             } else {
-                soc.setContentStyle("af_mandatoryfield");
+                soc.setContentStyle("af_nonmandatoryfield");
                 if (component.getId().contains("selectManyChoice1") ||
                     component.getId().contains("smc1") ||
                     component.getId().contains("selectManyChoice3") ||
                     component.getId().contains("selectManyChoice4") ||
                     component.getId().contains("smc4"))
-                    soc.setContentStyle("af_mandatoryfield");
+                    soc.setContentStyle("af_nonmandatoryfield");
             }
             AdfFacesContext.getCurrentInstance().addPartialTarget(soc);
         }
