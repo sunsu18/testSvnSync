@@ -250,7 +250,7 @@
 
      <af:table value="#{bindings.PrtPcmFeedsRVO1.collectionModel}" var="row"
                rows="#{bindings.PrtPcmFeedsRVO1.rangeSize}" 
-                autoHeightRows="0"  contentDelivery="immediate"
+                autoHeightRows="15"  contentDelivery="immediate"
                 inlineStyle="height:auto;"
                emptyText="#{bindings.PrtPcmFeedsRVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
                fetchSize="#{bindings.PrtPcmFeedsRVO1.rangeSize}"
