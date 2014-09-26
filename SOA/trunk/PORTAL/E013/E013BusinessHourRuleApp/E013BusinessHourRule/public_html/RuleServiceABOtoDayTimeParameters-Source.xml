@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<RuleServiceRequest xmlns="http://www.lntinfotech.com/integration/RuleServiceABO">
+   <RuleID xmlns="">1</RuleID>
+   <RuleSubscriptionID xmlns="">2</RuleSubscriptionID>
+   <NotificationDateTime xmlns="">2014-09-26T18:36:51.680</NotificationDateTime>
+   <NotificationInfo xmlns="">
+      <NotificationMode>NotificationMode3</NotificationMode>
+      <FirstName>FirstName4</FirstName>
+      <LastName>LastName5</LastName>
+      <EmailID>EmailID6</EmailID>
+      <MobileNumber>MobileNumber7</MobileNumber>
+   </NotificationInfo>
+   <Parameters xmlns="">
+      <Parameter>
+         <Name>Monday</Name>
+         <Value>Value1ToValue11</Value>
+      </Parameter>
+      <Parameter>
+         <Name>Tuesday</Name>
+         <Value>Value2ToValue12</Value>
+      </Parameter>
+      <Parameter>
+         <Name>Wednesday</Name>
+         <Value>Value3ToValue13</Value>
+      </Parameter>
+   </Parameters>
+</RuleServiceRequest>

@@ -1,0 +1,14 @@
+<adapter-config name="BusinessHoursSubscriptionDBAdapter" adapter="Database Adapter" wsdlLocation="BusinessHoursSubscriptionDBAdapter.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/DB/WebcenterDB(dev)" UIConnectionName="WebcenterDB(dev)" adapterRef=""/>
+  <endpoint-interaction portType="BusinessHoursSubscriptionDBAdapter_ptt" operation="BusinessHoursSubscriptionDBAdapterSelect">
+    <interaction-spec className="oracle.tip.adapter.db.DBReadInteractionSpec">
+      <property name="DescriptorName" value="BusinessHoursSubscriptionDBAdapter.PrtCardRuleSubscription"/>
+      <property name="QueryName" value="BusinessHoursSubscriptionDBAdapterSelect"/>
+      <property name="MappingsMetaDataURL" value="BusinessHoursSubscriptionDBAdapter-or-mappings.xml"/>
+      <property name="ReturnSingleResultSet" value="true"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

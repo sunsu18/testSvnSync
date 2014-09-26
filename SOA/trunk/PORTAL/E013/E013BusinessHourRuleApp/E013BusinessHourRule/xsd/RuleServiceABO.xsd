@@ -144,4 +144,32 @@
                          type="xsd:string"/>
         </xsd:sequence>
     </xsd:complexType>
+    <xsd:element name="ParameterData" type="Parameters"/>
+    <xsd:complexType name="Parameters">
+    <xsd:sequence minOccurs="0">
+    <xsd:element name="monday" minOccurs="0" type="timeType"/>
+            <xsd:element name="tuesday" minOccurs="0" type="timeType"/>
+            <xsd:element name="wednesday" minOccurs="0" type="timeType"/>
+            <xsd:element name="thursday" minOccurs="0" type="timeType"/>
+            <xsd:element name="friday" minOccurs="0" type="timeType"/>
+            <xsd:element name="saturday" minOccurs="0" type="timeType"/>
+            <xsd:element name="sunday" minOccurs="0" type="timeType">
+                <!--xsd:complexType>
+                    <xsd:sequence minOccurs="0">
+                        <xsd:element name="startTime" minOccurs="0" nillable="true" type="xsd:string"/>
+                        <xsd:element name="endTime" minOccurs="0" nillable="true" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType-->
+            </xsd:element>
+            <xsd:element name="processingDateTime" type="xsd:string"/>
+            <xsd:element name="CardID" type="xsd:string"/>
+            <xsd:element name="CountryCode" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+<xsd:complexType name="timeType">
+<xsd:sequence minOccurs="0">
+                   <xsd:element name="startTime" minOccurs="0" nillable="true" type="xsd:string"/>
+                   <xsd:element name="endTime" minOccurs="0" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
 </xsd:schema>

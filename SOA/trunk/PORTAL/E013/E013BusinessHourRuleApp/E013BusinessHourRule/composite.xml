@@ -19,6 +19,8 @@
   <import namespace="http://xmlns.oracle.com/pcbpel/adapter/jms/E013BusinessHourRuleApp/E013BusinessHourRule/SOARuleEngineNotificationJMSProducerV1"
           location="SOARuleEngineNotificationJMSProducerV1.wsdl"
           importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E013BusinessHourRuleApp/E013BusinessHourRule/BusinessHoursSubscriptionDBAdapter"
+          location="BusinessHoursSubscriptionDBAdapter.wsdl" importType="wsdl"/>
   <service name="SOARuleEngineServiceJMSConsumerV1"
            ui:wsdlLocation="SOARuleEngineServiceJMSConsumerV1.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E013BusinessHourRuleApp/E013BusinessHourRule/SOARuleEngineServiceJMSConsumerV1#wsdl.interface(Consume_Message_ptt)"/>
@@ -67,6 +69,18 @@
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E013BusinessHourRuleApp/E013BusinessHourRule/SOARuleEngineNotificationJMSProducerV1#wsdl.interface(Produce_Message_ptt)"/>
     <binding.jca config="SOARuleEngineNotificationJMSProducerV1_jms.jca"/>
   </reference>
+  <reference name="BusinessHoursSubscriptionDBAdapter"
+             ui:wsdlLocation="BusinessHoursSubscriptionDBAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E013BusinessHourRuleApp/E013BusinessHourRule/BusinessHoursSubscriptionDBAdapter#wsdl.interface(BusinessHoursSubscriptionDBAdapter_ptt)"/>
+    <binding.jca config="BusinessHoursSubscriptionDBAdapter_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">2</property>
+    <property name="jca.retry.interval" type="xs:int" many="false"
+              override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false"
+              override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:string" many="false"
+              override="may">120</property>
+  </reference>
   <wire>
     <source.uri>SOARuleEngineServiceJMSConsumerV1</source.uri>
     <target.uri>GenerateBusinessHourAlert/SOARuleEngineServiceJMSConsumerV1</target.uri>
@@ -86,5 +100,9 @@
   <wire>
     <source.uri>GenerateBusinessHourAlert/SOARuleEngineNotificationJMSProducerV1</source.uri>
     <target.uri>SOARuleEngineNotificationJMSProducerV1</target.uri>
+  </wire>
+  <wire>
+    <source.uri>GenerateBusinessHourAlert/BusinessHoursSubscriptionDBAdapter</source.uri>
+    <target.uri>BusinessHoursSubscriptionDBAdapter</target.uri>
   </wire>
 </composite>

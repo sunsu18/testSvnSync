@@ -20,4 +20,8 @@
              ui:wsdlLocation="SOARuleEngineNotificationJMSProducerV1.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E013BusinessHourRuleApp/E013BusinessHourRule/SOARuleEngineNotificationJMSProducerV1#wsdl.interface(Produce_Message_ptt)"/>
   </reference>
+  <reference name="BusinessHoursSubscriptionDBAdapter"
+             ui:wsdlLocation="BusinessHoursSubscriptionDBAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E013BusinessHourRuleApp/E013BusinessHourRule/BusinessHoursSubscriptionDBAdapter#wsdl.interface(BusinessHoursSubscriptionDBAdapter_ptt)"/>
+  </reference>
 </componentType>

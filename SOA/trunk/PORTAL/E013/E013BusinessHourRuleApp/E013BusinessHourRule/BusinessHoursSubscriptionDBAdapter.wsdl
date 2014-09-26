@@ -1,0 +1,25 @@
+<?binding.jca BusinessHoursSubscriptionDBAdapter_db.jca?>
+<wsdl:definitions name="BusinessHoursSubscriptionDBAdapter" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/E013BusinessHourRuleApp/E013BusinessHourRule/BusinessHoursSubscriptionDBAdapter" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/E013BusinessHourRuleApp/E013BusinessHourRule/BusinessHoursSubscriptionDBAdapter" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/BusinessHoursSubscriptionDBAdapter">
+    <plt:partnerLinkType name="BusinessHoursSubscriptionDBAdapter_plt">
+        <plt:role name="BusinessHoursSubscriptionDBAdapter_role">
+            <plt:portType name="tns:BusinessHoursSubscriptionDBAdapter_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/BusinessHoursSubscriptionDBAdapter" schemaLocation="xsd/BusinessHoursSubscriptionDBAdapter_table.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="BusinessHoursSubscriptionDBAdapterSelect_inputParameters">
+        <wsdl:part name="BusinessHoursSubscriptionDBAdapterSelect_inputParameters" element="top:BusinessHoursSubscriptionDBAdapterSelect_SUBSCR_IDInputParameters"/>
+    </wsdl:message>
+    <wsdl:message name="PrtCardRuleSubscriptionCollection_msg">
+        <wsdl:part name="PrtCardRuleSubscriptionCollection" element="top:PrtCardRuleSubscriptionCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="BusinessHoursSubscriptionDBAdapter_ptt">
+        <wsdl:operation name="BusinessHoursSubscriptionDBAdapterSelect">
+            <wsdl:input message="tns:BusinessHoursSubscriptionDBAdapterSelect_inputParameters"/>
+            <wsdl:output message="tns:PrtCardRuleSubscriptionCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

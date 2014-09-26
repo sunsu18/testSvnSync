@@ -1,0 +1,27 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<imp1:dayTime xmlns:imp1="http://www.lntinfotech.com/integration/RuleServiceABO">
+   <monday>
+      <startTime>1</startTime>
+      <endTime>1</endTime>
+   </monday>
+   <tuesday>
+      <startTime>2</startTime>
+      <endTime>2</endTime>
+   </tuesday>
+   <wednesday>
+      <startTime>3</startTime>
+      <endTime>3</endTime>
+   </wednesday>
+   <thursday>
+      <startTime>186</startTime>
+      <endTime>186</endTime>
+   </thursday>
+   <friday>
+      <startTime>186</startTime>
+      <endTime>186</endTime>
+   </friday>
+   <saturday>
+      <startTime>186</startTime>
+      <endTime>186</endTime>
+   </saturday>
+</imp1:dayTime>

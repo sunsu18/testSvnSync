@@ -1,0 +1,34 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<imp1:ParameterData xmlns:imp1="http://www.lntinfotech.com/integration/RuleServiceABO">
+   <monday>
+      <startTime>10</startTime>
+      <endTime>10</endTime>
+   </monday>
+   <tuesday>
+      <startTime>11</startTime>
+      <endTime>11</endTime>
+   </tuesday>
+   <wednesday>
+      <startTime>12</startTime>
+      <endTime>12</endTime>
+   </wednesday>
+   <thursday>
+      <startTime>13</startTime>
+      <endTime>13</endTime>
+   </thursday>
+   <friday>
+      <startTime>14</startTime>
+      <endTime>14</endTime>
+   </friday>
+   <saturday>
+      <startTime>15</startTime>
+      <endTime>15</endTime>
+   </saturday>
+   <sunday>
+      <startTime>1</startTime>
+      <endTime>1</endTime>
+   </sunday>
+   <CountryCode>DK</CountryCode>
+   <CardID>1111</CardID>
+   <processingDateTime>2014-09-26T23:13:38.177</processingDateTime>
+</imp1:ParameterData>

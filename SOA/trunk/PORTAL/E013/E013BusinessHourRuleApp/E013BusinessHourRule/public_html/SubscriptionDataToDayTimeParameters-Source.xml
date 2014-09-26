@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<PrtCardRuleSubscriptionCollection xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/BusinessHoursSubscriptionDBAdapter">
+   <PrtCardRuleSubscription>
+      <countryCode>st</countryCode>
+      <userId>string166</userId>
+      <subscrId>168</subscrId>
+      <ruleId>169</ruleId>
+      <subscrDate>2014-09-26T18:46:29.469</subscrDate>
+      <subscrStatus>string170</subscrStatus>
+      <partnerId>string17</partnerId>
+      <accountId>string174</accountId>
+      <cardgroupMain>str</cardgroupMain>
+      <cardgroupSub>str</cardgroupSub>
+      <cardgroupSeq>strin</cardgroupSeq>
+      <modifiedBy>string182</modifiedBy>
+      <modifiedDate>2014-09-26T18:46:29.469</modifiedDate>
+      <cardKsid>string184</cardKsid>
+      <prtCardRuleBusinessHoursCollection>
+         <PrtCardRuleBusinessHours>
+            <ruleBusiId>1</ruleBusiId>
+            <day>Monday</day>
+            <busiStartFrom>1</busiStartFrom>
+            <busiStartTo>1</busiStartTo>
+         </PrtCardRuleBusinessHours>
+      </prtCardRuleBusinessHoursCollection>
+
+      <prtCardRuleBusinessHoursCollection>
+         <PrtCardRuleBusinessHours>
+            <ruleBusiId>2</ruleBusiId>
+            <day>Tuesday</day>
+            <busiStartFrom>2</busiStartFrom>
+            <busiStartTo>2</busiStartTo>
+         </PrtCardRuleBusinessHours>
+      </prtCardRuleBusinessHoursCollection>
+
+      <prtCardRuleBusinessHoursCollection>
+         <PrtCardRuleBusinessHours>
+            <ruleBusiId>186</ruleBusiId>
+            <day>Wednesday</day>
+            <busiStartFrom>3</busiStartFrom>
+            <busiStartTo>3</busiStartTo>
+         </PrtCardRuleBusinessHours>
+      </prtCardRuleBusinessHoursCollection>
+
+      <prtCardRuleBusinessHoursCollection>
+         <PrtCardRuleBusinessHours>
+            <ruleBusiId>186</ruleBusiId>
+            <day>Thursday</day>
+            <busiStartFrom>186</busiStartFrom>
+            <busiStartTo>186</busiStartTo>
+         </PrtCardRuleBusinessHours>
+      </prtCardRuleBusinessHoursCollection>
+
+      <prtCardRuleBusinessHoursCollection>
+         <PrtCardRuleBusinessHours>
+            <ruleBusiId>186</ruleBusiId>
+            <day>Friday</day>
+            <busiStartFrom>186</busiStartFrom>
+            <busiStartTo>186</busiStartTo>
+         </PrtCardRuleBusinessHours>
+      </prtCardRuleBusinessHoursCollection>
+      <prtCardRuleBusinessHoursCollection>
+         <PrtCardRuleBusinessHours>
+            <ruleBusiId>186</ruleBusiId>
+            <day>Saturday</day>
+            <busiStartFrom>186</busiStartFrom>
+            <busiStartTo>186</busiStartTo>
+         </PrtCardRuleBusinessHours>
+      </prtCardRuleBusinessHoursCollection>
+
+
+   </PrtCardRuleSubscription>
+</PrtCardRuleSubscriptionCollection>

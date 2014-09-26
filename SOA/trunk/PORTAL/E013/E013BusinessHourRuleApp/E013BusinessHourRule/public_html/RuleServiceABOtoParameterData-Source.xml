@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<RuleServiceRequest xmlns="http://www.lntinfotech.com/integration/RuleServiceABO">
+   <RuleID xmlns="">239</RuleID>
+   <RuleSubscriptionID xmlns="">240</RuleSubscriptionID>
+   <NotificationDateTime xmlns="">2014-09-26T23:13:38.177</NotificationDateTime>
+   <NotificationInfo xmlns="">
+      <NotificationMode>NotificationMode241</NotificationMode>
+      <FirstName>FirstName242</FirstName>
+      <LastName>LastName243</LastName>
+      <EmailID>EmailID244</EmailID>
+      <MobileNumber>MobileNumber245</MobileNumber>
+   </NotificationInfo>
+   <Parameters xmlns="">
+      <Parameter>
+         <Name>Monday</Name>
+         <Value>10to10</Value>
+      </Parameter>
+      <Parameter>
+         <Name>Tuesday</Name>
+         <Value>11to11</Value>
+      </Parameter>
+      <Parameter>
+         <Name>Wednesday</Name>
+         <Value>12to12</Value>
+      </Parameter>
+      <Parameter>
+         <Name>Thursday</Name>
+         <Value>13to13</Value>
+      </Parameter>
+      <Parameter>
+         <Name>Friday</Name>
+         <Value>14to14</Value>
+      </Parameter>
+      <Parameter>
+         <Name>Saturday</Name>
+         <Value>15to15</Value>
+      </Parameter>
+      <Parameter>
+         <Name>Sunday</Name>
+         <Value>1to1</Value>
+      </Parameter>
+      <Parameter>
+         <Name>CountryCode</Name>
+         <Value>DK</Value>
+      </Parameter>
+      <Parameter>
+         <Name>CardID</Name>
+         <Value>1111</Value>
+      </Parameter>
+   </Parameters>
+</RuleServiceRequest>
