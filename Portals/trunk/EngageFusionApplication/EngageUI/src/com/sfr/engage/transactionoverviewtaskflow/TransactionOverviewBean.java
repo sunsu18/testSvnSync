@@ -3214,7 +3214,7 @@ public class TransactionOverviewBean implements Serializable {
                         soc.setContentStyle("af_mandatoryfield");
 
                 } else {
-                    soc.setContentStyle("af_mandatoryfield");
+                    soc.setContentStyle("af_nonmandatoryfield");
                     if (component.getId().contains("smc1") ||
                         component.getId().contains("soc3") ||
                         component.getId().contains("smc2") ||
@@ -3222,7 +3222,7 @@ public class TransactionOverviewBean implements Serializable {
                         component.getId().contains("smc4") ||
                         component.getId().contains("smc5") ||
                         component.getId().contains("smc6"))
-                        soc.setContentStyle("af_mandatoryfield");
+                        soc.setContentStyle("af_nonmandatoryfield");
                 }
                 AdfFacesContext.getCurrentInstance().addPartialTarget(soc);
             }
