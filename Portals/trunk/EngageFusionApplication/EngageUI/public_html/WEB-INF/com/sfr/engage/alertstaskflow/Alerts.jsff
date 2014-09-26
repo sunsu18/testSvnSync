@@ -473,6 +473,37 @@
     <af:spacer width="10" height="10" id="s81"/>
     <af:outputText value="#{sfr.ALERT_DETAILS}" id="ot68"/>
     <af:spacer height="10" id="s82"/>
+    <af:panelGroupLayout id="panelGroupLayout3" layout="horizontal"
+                             inlineStyle="width:940.0px; height:25.0px;"
+                             halign="right">
+          <af:panelGroupLayout id="pgl54" layout="horizontal">
+            <af:panelGroupLayout id="pgl55" layout="horizontal">
+              <af:panelGroupLayout id="pgl92" styleClass="filter_table"
+                                   layout="horizontal"
+                                   inlineStyle="margin-right:25px;">
+                <af:showPopupBehavior triggerType="mouseOver" popupId="p3"/>
+              </af:panelGroupLayout>
+            </af:panelGroupLayout>
+            <af:popup id="p3">
+              <af:noteWindow id="nw2" inlineStyle="width:350.0px;">
+                <af:panelGroupLayout id="pgl56" layout="vertical">
+                  <af:outputText value="#{sfr.ENGAGE_FILTER_MESSAGE}" id="ot70"
+                                 styleClass="outputText3"/>
+                </af:panelGroupLayout>
+              </af:noteWindow>
+            </af:popup>
+          </af:panelGroupLayout>
+        </af:panelGroupLayout>
+        <af:panelGroupLayout id="pgl58" layout="horizontal">
+          <af:commandButton text="#{sfr.ENGAGE_FILTER}" id="cb12"
+                            actionListener="#{pageFlowScope.AlertsBean.filterTable}"/>
+          <af:spacer width="10" id="s73"/>
+          <af:commandButton text="#{sfr.ENGAGE_RESETFILTER}" id="cb13"
+                            actionListener="#{pageFlowScope.AlertsBean.resetFilterTable}"/>
+        </af:panelGroupLayout>
+        <af:spacer width="10" height="10" id="s78"/>
+        <af:panelGroupLayout id="pgl73" layout="scroll"
+                             inlineStyle="width:945px;">
       <af:table value="#{bindings.PrtCardRuleSubscriptionRVO11.collectionModel}"
                 var="row" width="962px" styleClass="AFStretchWidth"
                 rows="#{bindings.PrtCardRuleSubscriptionRVO11.rangeSize}"
@@ -480,6 +511,7 @@
                 fetchSize="#{bindings.PrtCardRuleSubscriptionRVO11.rangeSize}"
                 rowBandingInterval="1" disableColumnReordering="true"
                 columnResizing="disabled" autoHeightRows="10"
+                binding="#{pageFlowScope.AlertsBean.bindings.searchResultsTB}"
                 filterModel="#{bindings.PrtCardRuleSubscriptionRVO1Query.queryDescriptor}"
                 queryListener="#{bindings.PrtCardRuleSubscriptionRVO1Query.processQuery}"
                 filterVisible="true" varStatus="vs"
@@ -543,7 +575,8 @@
           </af:commandImageLink>
           </af:column>
       </af:table>
-
+      <af:spacer id="s62" height="20px" width="10px"/>
+        </af:panelGroupLayout>
         </af:panelGroupLayout>
           <af:popup id="EditFuellingOutsideBusinessHr" contentDelivery="immediate" autoCancel="disabled"
                 animate="false"
@@ -639,7 +672,7 @@
                               
                               binding="#{pageFlowScope.AlertsBean.editButtonConfigureAlert1}"
                               actionListener="#{pageFlowScope.AlertsBean.editAlert1ConfigureTimings}"/>-->
-            <af:spacer width="20" id="s62"/>
+            <af:spacer width="20" id="s85"/>
             <!--<af:commandButton text="#{sfr.OK}" id="cb13"
                               
                               partialSubmit="true"
@@ -694,15 +727,15 @@
               <af:outputText id="ot46" value="#{sfr.INVALID_INPUT_ALERT}"
                              styleClass="infoOutputText" noWrap="true"/>
             </af:panelGroupLayout>
-            <af:panelGroupLayout id="pgl54" styleClass="errorPanel"
+            <af:panelGroupLayout id="pgl37" styleClass="errorPanel"
                                  layout="horizontal" visible="false"
                                  inlineStyle="width:325.0px;" rendered="false">
               <af:outputText id="ot47" value="#{sfr.FAILURE_ALERT}" noWrap="true"
                              styleClass="errorOutputText" rendered="false"/>
             </af:panelGroupLayout>
-            <af:panelGroupLayout id="pgl55" layout="horizontal"
+            <af:panelGroupLayout id="pgl70" layout="horizontal"
                                  inlineStyle="margin-top:10px;">
-              <af:panelGroupLayout id="pgl56" layout="vertical"
+              <af:panelGroupLayout id="pgl71" layout="vertical"
                                    inlineStyle="width:350.0px;" visible="true">
                 <h:panelGrid columns="3" id="pg7" cellpadding="3"
                              cellspacing="2" width="275">
@@ -758,7 +791,7 @@
               <af:separator id="s72" styleClass="vertical_seprator_trans"
                             inlineStyle="height: 150px !important;"/>
               <af:panelGroupLayout id="pgl57" layout="vertical">
-                <af:panelGroupLayout layout="horizontal" id="pgl58">
+                <af:panelGroupLayout layout="horizontal" id="pgl72">
                   <af:selectBooleanRadio id="sbr4" autoSubmit="true" group="g1"
                                          
                                          binding="#{pageFlowScope.AlertsBean.bindings.configureLtrPerDayRadio}"/>
@@ -770,7 +803,7 @@
                                          binding="#{pageFlowScope.AlertsBean.bindings.configureLtrPerMonthRadio}"/>
                   <af:outputText id="ot54" value="#{sfr.LTR_MONTH}"/>
                 </af:panelGroupLayout>
-                <af:spacer width="15" height="15" id="s73"/>
+                <af:spacer width="15" height="15" id="s83"/>
                 <af:panelGroupLayout layout="horizontal" id="pgl59">
                   <af:outputText value="#{sfr.PLEASE_ENTER_QUANTITY}  :  "
                                  id="ot55"/>
@@ -791,7 +824,7 @@
                                styleClass="AFStretchWidth">
             <!--<af:commandButton text="#{sfr.EDIT}" id="cb1"
                         actionListener="#{pageFlowScope.AlertsBean.editAlert1Timings}"/>-->
-            <af:spacer width="20" id="s78"/>
+            <af:spacer width="20" id="s84"/>
             <!--<af:commandButton text="#{sfr.OK}" id="cb16"
                               
                               binding="#{pageFlowScope.AlertsBean.configureOkButtonAlert2}"

@@ -53,6 +53,9 @@ import oracle.adf.view.rich.component.rich.layout.RichPanelGroupLayout;
 import oracle.adf.view.rich.component.rich.nav.RichCommandButton;
 import oracle.adf.view.rich.context.AdfFacesContext;
 
+import oracle.adf.view.rich.event.QueryEvent;
+import oracle.adf.view.rich.model.FilterableQueryDescriptor;
+
 import oracle.binding.BindingContainer;
 import oracle.binding.OperationBinding;
 
@@ -2006,6 +2009,7 @@ public class Alerts {
 
     public void viewSubscribedAlerts(ActionEvent actionEvent) {  
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside viewSubscribedAlerts method of Alerts");
+        resetTableFilter();
         ViewObject prtCardRuleSubscriptionVO = ADFUtils.getViewObject("PrtCardRuleSubscriptionRVO1Iterator");
         if (SelectionPanel) {
             if (prtCardRuleSubscriptionVO != null) {
@@ -3057,6 +3061,28 @@ public class Alerts {
     public void cardNumberValueChangeListener(ValueChangeEvent valueChangeEvent) {
         isTableVisible = false;
     }
+    
+    public void resetTableFilter() {
+        FilterableQueryDescriptor queryDescriptor = (FilterableQueryDescriptor)getBindings().getSearchResultsTB().getFilterModel();
+        if (queryDescriptor != null && queryDescriptor.getFilterCriteria() != null) {
+            queryDescriptor.getFilterCriteria().clear();
+            getBindings().getSearchResultsTB().queueEvent(new QueryEvent(getBindings().getSearchResultsTB(), queryDescriptor));
+        }
+    }
+    
+    public void filterTable(ActionEvent actionEvent) {
+        FilterableQueryDescriptor qd = (FilterableQueryDescriptor)getBindings().getSearchResultsTB().getFilterModel();
+        QueryEvent queryEvent = new QueryEvent(getBindings().getSearchResultsTB(), qd);
+        getBindings().getSearchResultsTB().queueEvent(queryEvent);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResultsTB());
+    }
+
+    public void resetFilterTable(ActionEvent actionEvent) {
+        resetTableFilter();
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResultsTB());
+    }
+
+    
 
     public class Bindings {
         private RichPopup alert1Popup;
@@ -3123,6 +3149,15 @@ public class Alerts {
         private RichSelectBooleanRadio mainSelectionPanelRadio;
         private RichSelectBooleanRadio cardSelectionPanelRadio;
         private RichPanelGroupLayout cardSelectionPanel;
+        private RichTable searchResultsTB;
+        
+        public void setSearchResultsTB(RichTable searchResultsTB) {
+            this.searchResultsTB = searchResultsTB;
+        }
+
+        public RichTable getSearchResultsTB() {
+            return searchResultsTB;
+        }
 
         public void setAlert1Popup(RichPopup alert1Popup) {
             this.alert1Popup = alert1Popup;
