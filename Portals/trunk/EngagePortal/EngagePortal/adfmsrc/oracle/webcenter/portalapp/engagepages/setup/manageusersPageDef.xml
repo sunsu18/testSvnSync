@@ -15,6 +15,10 @@
               taskFlowId="/WEB-INF/com/sfr/engage/userdisplaytaskflow/UserDisplayTaskFlow.xml#UserDisplayTaskFlow"
               activation="deferred"
               xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+    <taskFlow id="UserInfoDisplayTaskFlow1"
+              taskFlowId="/WEB-INF/com/sfr/engage/userdisplaytaskflow/UserInfoDisplayTaskFlow.xml#UserInfoDisplayTaskFlow"
+              activation="deferred"
+              xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
   </executables>
   <bindings/>
   <permission permissionClass="oracle.webcenter.security.auth.HierarchicalResourcePermission"

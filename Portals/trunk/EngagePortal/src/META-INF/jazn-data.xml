@@ -3768,7 +3768,7 @@
                             </permission>
                             <permission>
                                 <class>oracle.adf.controller.security.TaskFlowPermission</class>
-                                <name>/WEB-INF/com/sfr/engage/userdisplaytaskflow/UserDisplayTaskFlow.xml#UserDisplayTaskFlow</name>
+                                <name>/WEB-INF/com/sfr/engage/userdisplaytaskflow/UserInfoDisplayTaskFlow.xml#UserInfoDisplayTaskFlow</name>
                                 <actions>view</actions>
                             </permission>
                         </permissions>
@@ -3986,7 +3986,7 @@
                             </permission>
                             <permission>
                                 <class>oracle.adf.controller.security.TaskFlowPermission</class>
-                                <name>/WEB-INF/com/sfr/engage/userdisplaytaskflow/UserDisplayTaskFlow.xml#UserDisplayTaskFlow</name>
+                                <name>/WEB-INF/com/sfr/engage/userdisplaytaskflow/UserInfoDisplayTaskFlow.xml#UserInfoDisplayTaskFlow</name>
                                 <actions>view</actions>
                             </permission>
                         </permissions>
