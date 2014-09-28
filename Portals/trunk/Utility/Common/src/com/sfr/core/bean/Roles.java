@@ -8,6 +8,7 @@ public class Roles {
     private List<Integer> customerID;
     private List<String> idString;
     private boolean assigned;
+    private String engageRoleTypeAssociation;
 
 
     public Roles() {
@@ -22,6 +23,7 @@ public class Roles {
             this.customerID = new ArrayList<Integer>(newRole.getCustomerID());
         if (newRole.getIdString() != null)
             this.idString = new ArrayList<String>(newRole.getIdString());
+        this.engageRoleTypeAssociation = newRole.getEngageRoleTypeAssociation();
     }
 
     public void setRoleName(String roleName) {
@@ -56,6 +58,7 @@ public class Roles {
         sb.append("--CustomerID=<" + this.getCustomerID() + ">");
         sb.append("--AirportID=<" + this.getIdString() + ">");
         sb.append("--Assigned=<" + this.isAssigned() + ">");
+        sb.append("--engage role=<" + this.getEngageRoleTypeAssociation() + ">");
         sb.append("--RoleEnds");
         return sb.toString();
     }
@@ -66,5 +69,13 @@ public class Roles {
 
     public List<String> getIdString() {
         return idString;
+    }
+
+    public void setEngageRoleTypeAssociation(String engageRoleTypeAssociation) {
+        this.engageRoleTypeAssociation = engageRoleTypeAssociation;
+    }
+
+    public String getEngageRoleTypeAssociation() {
+        return engageRoleTypeAssociation;
     }
 }
