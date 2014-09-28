@@ -5,9 +5,11 @@
   <f:view>
     <af:document id="d1">
       <af:form id="f1">
-        <af:region value="#{bindings.DriverInfoTaskFlow1.regionModel}" id="r1"/>
+        <!--<af:region value="#{bindings.DriverInfoTaskFlow1.regionModel}" id="r1"/>-->
         <!--<af:region value="#{bindings.VehicleInfoTaskFlow1.regionModel}"
-                   id="r1"/>-->        
+                   id="r1"/>-->
+        <af:region value="#{bindings.UserInfoDisplayTaskFlow1.regionModel}"
+                   id="r1"/>
       </af:form>
     </af:document>
   </f:view>
