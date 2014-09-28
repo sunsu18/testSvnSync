@@ -108,7 +108,7 @@
                 <af:inputText value="#{row.associationValue}" id="ot7"/>
               </af:column>
               <af:column sortable="false" headerText="#{sfr.MANAGE_USER}" id="c4" width="45px">
-                <af:commandLink id="cl1" text="Edit" action="#{pageFlowScope.UserInfoDisplayManagedBean.manageUserCommandLinkAction}"/>
+                <af:commandImageLink id="cl1" icon="/images/edit.png" action="#{pageFlowScope.UserInfoDisplayManagedBean.manageUserCommandLinkAction}"/>
               </af:column>
             </af:table>
             <af:spacer width="10" height="30" id="s7"/>

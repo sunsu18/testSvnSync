@@ -10,6 +10,7 @@ public class UserInfoRolesDetails implements Serializable {
     private String associationValue;
     private String partnerId;
     private boolean checkUserRole;
+    private String associationType;
 
     public UserInfoRolesDetails() {
         super();
@@ -45,5 +46,13 @@ public class UserInfoRolesDetails implements Serializable {
 
     public boolean isCheckUserRole() {
         return checkUserRole;
+    }
+
+    public void setAssociationType(String associationType) {
+        this.associationType = associationType;
+    }
+
+    public String getAssociationType() {
+        return associationType;
     }
 }

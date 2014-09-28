@@ -14,6 +14,7 @@ import com.sfr.util.validations.Conversion;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -105,6 +106,19 @@ public class UserInfoDisplayBean {
     private String showPopUpHeading = null;
     private String showPopUpTableheading = null;
 
+    private Map<String, String> partnerIdMap;
+    //private Map<String, String> accountIdMap;
+    private Map<String, String> cardGroupIdMap;
+    private Map<String, String> cardIdMap;
+
+    private Map<String, String> accountToPartnermap;
+    private Map<String, String> cardToPartnerMap;
+    private Map<String, String> cardGroupToPartnerMap;
+
+    private Map<String, String> partnerNameMap;
+    private Map<String, String> cardGroupDescMap;
+    private Map<String, String> cardEmbossMap;
+
 
     public UserInfoDisplayBean() {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside Constructor of User Display");
@@ -131,6 +145,19 @@ public class UserInfoDisplayBean {
         addEditCardValue = new ArrayList<String>();
         userEmail = "";
 
+        partnerIdMap = new HashMap<String, String>();
+        //        accountIdMap = new HashMap<String, String>();
+        cardGroupIdMap = new HashMap<String, String>();
+        cardIdMap = new HashMap<String, String>();
+
+        accountToPartnermap = new HashMap<String, String>();
+        cardToPartnerMap = new HashMap<String, String>();
+        cardGroupToPartnerMap = new HashMap<String, String>();
+
+        partnerNameMap = new HashMap<String, String>();
+        cardGroupDescMap = new HashMap<String, String>();
+        cardEmbossMap = new HashMap<String, String>();
+
         if (session.getAttribute("Partner_Object_List") != null) {
             partnerInfoList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
             if (partnerInfoList != null && partnerInfoList.size() > 0) {
@@ -152,6 +179,9 @@ public class UserInfoDisplayBean {
                         partnerIdValue.add(partnerInfoList.get(i).getPartnerValue().toString());
                         addEditUserPartnerID.add(selectItem);
                         addEditPartnerValue.add(partnerInfoList.get(i).getPartnerValue().toString());
+                        partnerIdMap.put(partnerInfoList.get(i).getPartnerName().toString(), partnerInfoList.get(i).getPartnerValue().toString());
+                        partnerNameMap.put(partnerInfoList.get(i).getPartnerValue().toString(), partnerInfoList.get(i).getPartnerName().toString());
+
                     }
 
                     if (partnerInfoList.get(i).getAccountList() != null && partnerInfoList.get(i).getAccountList().size() > 0) {
@@ -164,6 +194,11 @@ public class UserInfoDisplayBean {
                                 accountIdValue.add(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
                                 addEditUserAccountID.add(selectItem);
                                 addEditAccountValue.add(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+                                //                                accountIdMap.put(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString(),
+                                //                                                 partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+                                accountToPartnermap.put(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString(),
+                                                        partnerInfoList.get(i).getPartnerValue().toString());
+
                             }
                             for (int k = 0; k < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().size(); k++) {
                                 if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID() != null) {
@@ -177,6 +212,14 @@ public class UserInfoDisplayBean {
                                     addEditUserCardGroupID.add(selectItem);
                                     addEditCardGroupValue.add(partnerInfoList.get(i).getPartnerValue().toString().trim() +
                                                               partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
+                                    cardGroupIdMap.put(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getDisplayCardGroupIdName().toString(),
+                                                       partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
+                                    cardGroupDescMap.put(partnerInfoList.get(i).getPartnerValue().toString().trim() +
+                                                         partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString(),
+                                                         partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getDisplayCardGroupIdName().toString());
+                                    cardGroupToPartnerMap.put(partnerInfoList.get(i).getPartnerValue().toString().trim() +
+                                                              partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString(),
+                                                              partnerInfoList.get(i).getPartnerValue().toString());
                                 }
 
                                 for (int cc = 0; cc < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().size(); cc++) {
@@ -190,6 +233,12 @@ public class UserInfoDisplayBean {
                                         cardNumberValue.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
                                         addEditCardID.add(selectItem);
                                         addEditCardValue.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
+                                        cardIdMap.put(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString(),
+                                                      partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
+                                        cardToPartnerMap.put(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString(),
+                                                             partnerInfoList.get(i).getPartnerValue().toString());
+                                        cardEmbossMap.put(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString(),
+                                                          partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString());
                                     }
                                 }
                             }
@@ -1079,32 +1128,90 @@ public class UserInfoDisplayBean {
     }
 
     public String addEditUserPopUpSaveAction() {
+        String selectedValues = null;
         RichTable userTable = getBindings().getUserRoleInfoTable();
         UserInfoRolesDetails selectedRow = (UserInfoRolesDetails)userTable.getSelectedRowData();
 
         if (selectedRow != null) {
-            System.out.println("value of role name on command link====>" + selectedRow.getRoleName());
-            if (selectedRow.getRoleName().equals("WCP_CARD_B2B_ADMIN")) {
-                if (getBindings().addEditPartnerId.getValue() != null && getBindings().addEditPartnerId.getValue().toString().length() > 0) {
-                    selectedRow.setAssociationValue(populateStringValues(getBindings().addEditPartnerId.getValue().toString().trim().replaceAll(" ", "")));
+
+            if (selectedRow.getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_ADMIN)) {
+                System.out.println("value of role name on command link====>" + selectedRow.getRoleName());
+                if (getBindings().getAddEditPartnerId().getValue() != null && getBindings().getAddEditPartnerId().getValue().toString().length() > 0) {
+                    selectedValues =
+                            getBindings().getAddEditPartnerId().getValue().toString().substring(1, getBindings().getAddEditPartnerId().getValue().toString().length() -
+                                                                                                1);
+                    selectedRow.setAssociationValue(populateSelectManyChoiceValues(selectedValues.trim().replaceAll(" ", ""), selectedRow.getRoleName()));
                 }
-            } else if (selectedRow.getRoleName().equals("WCP_CARD_B2B_MGR_AC")) {
-                if (getBindings().addEditAccountId.getValue() != null && getBindings().addEditAccountId.getValue().toString().length() > 0) {
-                    selectedRow.setAssociationValue(populateStringValues(getBindings().addEditAccountId.getValue().toString().trim().replaceAll(" ", "")));
+            } else if (selectedRow.getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR_AC)) {
+                System.out.println("value of role name on command link====>" + selectedRow.getRoleName());
+                if (getBindings().getAddEditAccountId().getValue() != null && getBindings().getAddEditAccountId().getValue().toString().length() > 0) {
+                    selectedRow.setAssociationValue(populateStringValues(getBindings().getAddEditAccountId().getValue().toString().trim().replaceAll(" ",
+                                                                                                                                                     "")));
                 }
-            } else if (selectedRow.getRoleName().equals("WCP_CARD_B2B_MGR_CG")) {
-                if (getBindings().addEditCardGroupId.getValue() != null && getBindings().addEditCardGroupId.getValue().toString().length() > 0) {
-                    selectedRow.setAssociationValue(populateStringValues(getBindings().addEditCardGroupId.getValue().toString().trim().replaceAll(" ", "")));
+            } else if (selectedRow.getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR_CG)) {
+                System.out.println("value of role name on command link====>" + selectedRow.getRoleName());
+                if (getBindings().getAddEditCardGroupId().getValue() != null && getBindings().getAddEditCardGroupId().getValue().toString().length() > 0) {
+                    selectedValues =
+                            getBindings().getAddEditCardGroupId().getValue().toString().substring(1, getBindings().getAddEditCardGroupId().getValue().toString().length() -
+                                                                                                  1);
+                    selectedRow.setAssociationValue(populateSelectManyChoiceValues(selectedValues.trim().replaceAll(" ", ""), selectedRow.getRoleName()));
                 }
             } else {
-                if (getBindings().addEditCardId.getValue() != null && getBindings().addEditCardId.getValue().toString().length() > 0) {
-                    selectedRow.setAssociationValue(populateStringValues(getBindings().addEditCardId.getValue().toString().trim().replaceAll(" ", "")));
+                System.out.println("value of role name on command link====>" + selectedRow.getRoleName());
+                if (getBindings().getAddEditCardId().getValue() != null && getBindings().getAddEditCardId().getValue().toString().length() > 0) {
+                    selectedValues =
+                            getBindings().getAddEditCardId().getValue().toString().substring(1, getBindings().getAddEditCardId().getValue().toString().length() -
+                                                                                             1);
+                    selectedRow.setAssociationValue(populateSelectManyChoiceValues(selectedValues.trim().replaceAll(" ", ""), selectedRow.getRoleName()));
                 }
             }
 
         }
         getBindings().getAddEditUserPopUp().hide();
         return null;
+    }
+
+    public String populateSelectManyChoiceValues(String var, String role) {
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside populateSelectManyChoiceValues method of User Display");
+        String passingValues = "";
+        String returnStringParam = "";
+        if (var != null && role != null && role.equals(Constants.ROLE_WCP_CARD_B2B_ADMIN)) {
+            System.out.println("value of var=======>" + var);
+            String[] convertedString = StringConversion(var.trim());
+            if (convertedString.length > 0) {
+                System.out.println("count of converted string====> " + convertedString.length);
+                for (int count = 0; count < convertedString.length; count++) {
+                    System.out.println("value of partner id" + convertedString[count]);
+                    passingValues = partnerNameMap.get(convertedString[count].trim());
+                    returnStringParam = returnStringParam + passingValues + ",";
+
+
+                }
+            }
+        } else if (role.equals(Constants.ROLE_WCP_CARD_B2B_MGR_CG)) {
+            System.out.println("value of var=======>" + var);
+            String[] convertedString = StringConversion(var);
+            if (convertedString.length > 0) {
+                for (int count = 0; count < convertedString.length; count++) {
+                    System.out.println("value of card group id" + convertedString[count]);
+                    passingValues = cardGroupDescMap.get(convertedString[count].trim());
+                    returnStringParam = returnStringParam + passingValues + ",";
+                }
+            }
+        } else {
+            System.out.println("value of var=======>" + var);
+            String[] convertedString = StringConversion(var);
+            if (convertedString.length > 0) {
+                for (int count = 0; count < convertedString.length; count++) {
+                    System.out.println("value of card id" + convertedString[count]);
+                    passingValues = cardEmbossMap.get(convertedString[count].trim());
+                    returnStringParam = returnStringParam + passingValues + ",";
+                }
+            }
+        }
+        //        returnStringParam = passingValues;
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting populateSelectManyChoiceValues method of User Display");
+        return returnStringParam.substring(0, returnStringParam.length() - 1);
     }
 
     public String addEditUserPopUpCloseAction() {
@@ -1121,22 +1228,34 @@ public class UserInfoDisplayBean {
         RichTable userTable = getBindings().getUserRoleInfoTable();
         UserInfoRolesDetails selectedRow = (UserInfoRolesDetails)userTable.getSelectedRowData();
         if (selectedRow != null) {
-            if (selectedRow.getRoleName().equals("WCP_CARD_B2B_ADMIN")) {
+            if (selectedRow.getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_ADMIN)) {
                 isCreateAdmin = true;
+                isCreateACMgr = false;
+                isCreateCGMgr = false;
+                isCreateEmployee = false;
                 showSelectManyChoiceOnRole(selectedRow.getRoleName());
                 showPopUpHeading = fetchAddEditPopUpHeading(selectedRow.getRoleName());
                 showPopUpTableheading = fetchAddEditPopUpTableHeading(selectedRow.getRoleName());
-            } else if (selectedRow.getRoleName().equals("WCP_CARD_B2B_MGR_AC")) {
+            } else if (selectedRow.getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR_AC)) {
+                isCreateAdmin = false;
                 isCreateACMgr = true;
+                isCreateCGMgr = false;
+                isCreateEmployee = false;
                 showSelectManyChoiceOnRole(selectedRow.getRoleName());
                 showPopUpHeading = fetchAddEditPopUpHeading(selectedRow.getRoleName());
                 showPopUpTableheading = fetchAddEditPopUpTableHeading(selectedRow.getRoleName());
-            } else if (selectedRow.getRoleName().equals("WCP_CARD_B2B_MGR_CG")) {
+            } else if (selectedRow.getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR_CG)) {
+                isCreateAdmin = false;
+                isCreateACMgr = false;
                 isCreateCGMgr = true;
+                isCreateEmployee = false;
                 showSelectManyChoiceOnRole(selectedRow.getRoleName());
                 showPopUpHeading = fetchAddEditPopUpHeading(selectedRow.getRoleName());
                 showPopUpTableheading = fetchAddEditPopUpTableHeading(selectedRow.getRoleName());
             } else {
+                isCreateAdmin = false;
+                isCreateACMgr = false;
+                isCreateCGMgr = false;
                 isCreateEmployee = true;
                 showSelectManyChoiceOnRole(selectedRow.getRoleName());
                 showPopUpHeading = fetchAddEditPopUpHeading(selectedRow.getRoleName());
@@ -1326,8 +1445,6 @@ public class UserInfoDisplayBean {
             userInfoRow.setAttribute("ModifiedBy", userEmail);
 
             userInfoRow.setAttribute("UserStatus", "ACTIVE");
-            //            userInfoRow.setAttribute("", arg1);
-            //            userInfoRow.setAttribute("", arg1);
             cardUserInfoVO.insertRow(userInfoRow);
             RichTable userInfoTable = getBindings().getUserRoleInfoTable();
             Object userInfoObject;
@@ -1337,27 +1454,77 @@ public class UserInfoDisplayBean {
             for (int count = 0; count < userRoleDeatils.size(); count++) {
                 userInfoObject = userInfoTable.getRowData(count);
                 allSelectedRows = (UserInfoRolesDetails)userInfoObject;
-                UserInfoRolesDetails roleInfo = new UserInfoRolesDetails();
 
-                if (allSelectedRows.getRoleName().equals("WCP_CARD_B2B_ADMIN") && isCreateAdmin) {
-                    roleInfo = populateUserInfoDetails(allSelectedRows, isCreateAdmin);
-                } else if (allSelectedRows.getRoleName().equals("WCP_CARD_B2B_MGR_AC") && isCreateACMgr) {
-                    roleInfo = populateUserInfoDetails(allSelectedRows, isCreateACMgr);
-                } else if (allSelectedRows.getRoleName().equals("WCP_CARD_B2B_MGR_CG") && isCreateCGMgr) {
-                    roleInfo = populateUserInfoDetails(allSelectedRows, isCreateCGMgr);
+                if (allSelectedRows.getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_ADMIN)) {
+                    String[] paramString = StringConversion(allSelectedRows.getAssociationValue());
+                    System.out.println("value of size======>" + paramString.length);
+                    System.out.println("value of role======>" + allSelectedRows.getRoleName());
+                    for (int pCount = 0; pCount < paramString.length; pCount++) {
+                        if (paramString[pCount].trim() != null && paramString[pCount].length() > 0) {
+                            UserInfoRolesDetails roleInfo = new UserInfoRolesDetails();
+                            roleInfo.setRoleName(allSelectedRows.getRoleName());
+                            System.out.println("value of paramString=====>" + paramString[pCount].trim());
+                            System.out.println("value of map paramString=====>" + partnerIdMap.get(paramString[pCount].trim()));
+                            roleInfo.setAssociationValue(partnerIdMap.get(paramString[pCount].trim()));
+                            roleInfo.setAssociationType(Constants.ENGAGE_B2B_ADMIN_ASSOC);
+                            roleInfo.setPartnerId(partnerIdMap.get(paramString[pCount].trim()));
+                            roleList.add(roleInfo);
+                        }
+                    }
+
+                } else if (allSelectedRows.getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR_AC)) {
+                    String[] paramString = StringConversion(allSelectedRows.getAssociationValue());
+                    System.out.println("value of size======>" + paramString.length);
+                    System.out.println("value of role======>" + allSelectedRows.getRoleName());
+                    for (int pCount = 0; pCount < paramString.length; pCount++) {
+                        if (paramString[pCount].trim() != null && paramString[pCount].length() > 0) {
+                            UserInfoRolesDetails roleInfo = new UserInfoRolesDetails();
+                            roleInfo.setRoleName(allSelectedRows.getRoleName());
+                            roleInfo.setAssociationValue(paramString[pCount].trim());
+                            roleInfo.setAssociationType(Constants.ENGAGE_B2B_MGR_AC_ASSOC);
+                            roleInfo.setPartnerId(accountToPartnermap.get(paramString[pCount].trim()));
+                            roleList.add(roleInfo);
+                        }
+                    }
+                } else if (allSelectedRows.getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR_CG)) {
+                    String[] paramString = StringConversion(allSelectedRows.getAssociationValue());
+                    System.out.println("value of size======>" + paramString.length);
+                    System.out.println("value of role======>" + allSelectedRows.getRoleName());
+                    for (int pCount = 0; pCount < paramString.length; pCount++) {
+                        if (paramString[pCount].trim() != null && paramString[pCount].length() > 0) {
+                            UserInfoRolesDetails roleInfo = new UserInfoRolesDetails();
+                            roleInfo.setRoleName(allSelectedRows.getRoleName());
+                            roleInfo.setAssociationValue(cardGroupIdMap.get(paramString[pCount].trim()));
+                            roleInfo.setAssociationType(Constants.ENGAGE_B2B_MGR_CG_ASSOC);
+                            roleInfo.setPartnerId(cardGroupToPartnerMap.get(paramString[pCount].trim()));
+                            roleList.add(roleInfo);
+                        }
+                    }
                 } else {
-                    roleInfo = populateUserInfoDetails(allSelectedRows, isCreateEmployee);
+                    String[] paramString = StringConversion(allSelectedRows.getAssociationValue());
+                    System.out.println("value of size======>" + paramString.length);
+                    System.out.println("value of role======>" + allSelectedRows.getRoleName());
+                    for (int pCount = 0; pCount < paramString.length; pCount++) {
+                        if (paramString[pCount].trim() != null && paramString[pCount].length() > 0) {
+                            UserInfoRolesDetails roleInfo = new UserInfoRolesDetails();
+                            roleInfo.setRoleName(allSelectedRows.getRoleName());
+                            roleInfo.setAssociationValue(cardIdMap.get(paramString[pCount].trim()));
+                            roleInfo.setAssociationType(Constants.ENGAGE_B2B_EMP_ASSOC);
+                            roleInfo.setPartnerId(cardToPartnerMap.get(paramString[pCount].trim()));
+                            roleList.add(roleInfo);
+                        }
+                    }
                 }
-                roleList.add(roleInfo);
+
             }
 
             for (int roleCount = 0; roleCount < roleList.size(); roleCount++) {
                 Row userRoleMapRow = userRoleMapVO.createRow();
-                //                userRoleMapRow.setAttribute(arg0, arg1);
+                System.out.println("valur od association value================>" + roleList.get(roleCount).getAssociationValue());
                 userRoleMapRow.setAttribute("CountryCode", lang);
                 userRoleMapRow.setAttribute("UserEmail", getBindings().getUserEmailId().getValue().toString().trim());
                 userRoleMapRow.setAttribute("UserRole", roleList.get(roleCount).getRoleName());
-                userRoleMapRow.setAttribute("AssociationType", "PP");
+                userRoleMapRow.setAttribute("AssociationType", roleList.get(roleCount).getAssociationType());
                 userRoleMapRow.setAttribute("UserAssociation", roleList.get(roleCount).getAssociationValue());
                 userRoleMapRow.setAttribute("PartnerId", roleList.get(roleCount).getPartnerId());
                 userRoleMapRow.setAttribute("ModifiedBy", userEmail);
@@ -1370,20 +1537,22 @@ public class UserInfoDisplayBean {
         return "addEditToSearch";
     }
 
-    public UserInfoRolesDetails populateUserInfoDetails(UserInfoRolesDetails userRoleDetails, boolean flag) {
-        UserInfoRolesDetails roleInfo = new UserInfoRolesDetails();
-        if (flag && userRoleDetails != null) {
-            String[] paramString = StringConversion(userRoleDetails.getAssociationValue());
-            System.out.println("value of size======>" + paramString.length);
-            System.out.println("value of role======>" + userRoleDetails.getRoleName());
-            for (int count = 0; count < paramString.length; count++) {
-                roleInfo.setRoleName(userRoleDetails.getRoleName());
-                roleInfo.setAssociationValue(paramString[count]);
-                roleInfo.setPartnerId("123456");
-            }
-        }
-        return roleInfo;
-    }
+    //    public List<UserInfoRolesDetails> populateUserInfoDetails(UserInfoRolesDetails userRoleDetails, boolean flag) {
+    //        List<UserInfoRolesDetails> roleList = new ArrayList<UserInfoRolesDetails>();
+    //        UserInfoRolesDetails roleInfo = new UserInfoRolesDetails();
+    //        if (flag && userRoleDetails != null) {
+    //            String[] paramString = StringConversion(userRoleDetails.getAssociationValue());
+    //            System.out.println("value of size======>" + paramString.length);
+    //            System.out.println("value of role======>" + userRoleDetails.getRoleName());
+    //            for (int count = 0; count < paramString.length; count++) {
+    //                roleInfo.setRoleName(userRoleDetails.getRoleName());
+    //                roleInfo.setAssociationValue(paramString[count]);
+    //                roleInfo.setPartnerId("123456");
+    //                roleList.add(roleInfo);
+    //            }
+    //        }
+    //        return roleList;
+    //    }
 
 
     public void setPartnerIdList(List<SelectItem> partnerIdList) {
@@ -1684,6 +1853,86 @@ public class UserInfoDisplayBean {
 
     public String getShowPopUpTableheading() {
         return showPopUpTableheading;
+    }
+
+    public void setPartnerIdMap(Map<String, String> partnerIdMap) {
+        this.partnerIdMap = partnerIdMap;
+    }
+
+    public Map<String, String> getPartnerIdMap() {
+        return partnerIdMap;
+    }
+
+    //    public void setAccountIdMap(Map<String, String> accountIdMap) {
+    //        this.accountIdMap = accountIdMap;
+    //    }
+    //
+    //    public Map<String, String> getAccountIdMap() {
+    //        return accountIdMap;
+    //    }
+
+    public void setCardGroupIdMap(Map<String, String> cardGroupIdMap) {
+        this.cardGroupIdMap = cardGroupIdMap;
+    }
+
+    public Map<String, String> getCardGroupIdMap() {
+        return cardGroupIdMap;
+    }
+
+    public void setCardIdMap(Map<String, String> cardIdMap) {
+        this.cardIdMap = cardIdMap;
+    }
+
+    public Map<String, String> getCardIdMap() {
+        return cardIdMap;
+    }
+
+    public void setAccountToPartnermap(Map<String, String> accountToPartnermap) {
+        this.accountToPartnermap = accountToPartnermap;
+    }
+
+    public Map<String, String> getAccountToPartnermap() {
+        return accountToPartnermap;
+    }
+
+    public void setCardToPartnerMap(Map<String, String> cardToPartnerMap) {
+        this.cardToPartnerMap = cardToPartnerMap;
+    }
+
+    public Map<String, String> getCardToPartnerMap() {
+        return cardToPartnerMap;
+    }
+
+    public void setPartnerNameMap(Map<String, String> partnerNameMap) {
+        this.partnerNameMap = partnerNameMap;
+    }
+
+    public Map<String, String> getPartnerNameMap() {
+        return partnerNameMap;
+    }
+
+    public void setCardGroupDescMap(Map<String, String> cardGroupDescMap) {
+        this.cardGroupDescMap = cardGroupDescMap;
+    }
+
+    public Map<String, String> getCardGroupDescMap() {
+        return cardGroupDescMap;
+    }
+
+    public void setCardEmbossMap(Map<String, String> cardEmbossMap) {
+        this.cardEmbossMap = cardEmbossMap;
+    }
+
+    public Map<String, String> getCardEmbossMap() {
+        return cardEmbossMap;
+    }
+
+    public void setCardGroupToPartnerMap(Map<String, String> cardGroupToPartnerMap) {
+        this.cardGroupToPartnerMap = cardGroupToPartnerMap;
+    }
+
+    public Map<String, String> getCardGroupToPartnerMap() {
+        return cardGroupToPartnerMap;
     }
 
 
