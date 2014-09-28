@@ -161,6 +161,15 @@
   <ViewUsage
     Name="PrtHomeTransactionsRVO1"
     ViewObjectName="com.sfr.engage.model.queries.rvo.PrtHomeTransactionsRVO"/>
+  <ViewUsage
+    Name="PrtCardUserInformationVO1"
+    ViewObjectName="com.sfr.engage.model.queries.uvo.PrtCardUserInformationVO"/>
+  <ViewUsage
+    Name="PrtCardUserRoleMappingVO1"
+    ViewObjectName="com.sfr.engage.model.queries.uvo.PrtCardUserRoleMappingVO"/>
+  <ViewUsage
+    Name="PrtCardUserRoleMappingVO2"
+    ViewObjectName="com.sfr.engage.model.queries.uvo.PrtCardUserRoleMappingVO"/>
   <ViewLinkUsage
     Name="PrtCardRuleBusinessHoFk1Link1"
     ViewLinkObjectName="com.sfr.engage.model.fklinks.PrtCardRuleBusinessHoFk1Link"
@@ -173,6 +182,116 @@
     SrcViewUsageName="com.sfr.engage.model.module.EngageAppModule.PrtCardRuleSubscriptionVO1"
     DstViewUsageName="com.sfr.engage.model.module.EngageAppModule.PrtCardFuelCapacityVO2"
     Reversed="false"/>
+  <ViewLinkUsage
+    Name="PrtCardUserRoleMappinFk1Link1"
+    ViewLinkObjectName="com.sfr.engage.model.fklinks.PrtCardUserRoleMappinFk1Link"
+    SrcViewUsageName="com.sfr.engage.model.module.EngageAppModule.PrtCardUserInformationVO1"
+    DstViewUsageName="com.sfr.engage.model.module.EngageAppModule.PrtCardUserRoleMappingVO2"
+    Reversed="false"/>
+  <ClientInterface>
+    <Method
+      Name="deleteAllForAccount">
+      <Return
+        Type="void"/>
+      <Parameter
+        Name="accountId"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="type"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="countryCd"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="regDriverValue"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="getWebServiceErrorMessage">
+      <Return
+        Type="java.lang.String"/>
+      <Parameter
+        Name="errorMessage"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="countryCode"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="updateOdometerPortal">
+      <Return
+        Type="void"/>
+      <Parameter
+        Name="urefTransactionId"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="palsCountryCode"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="odoMeterPortalValue"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="modifiedBy"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="getTranslation">
+      <Return
+        Type="java.lang.String"/>
+      <Parameter
+        Name="translationkey"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="ccCode"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="updatePreviousOdometer">
+      <Return
+        Type="void"/>
+      <Parameter
+        Name="cardNumber"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="accountId"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="countryCd"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="partnerId"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="transactionId"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="previousOdometer"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="updateVehicleDriver">
+      <Return
+        Type="void"/>
+      <Parameter
+        Name="cardNumber"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="type"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="countryCd"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="vehicleDriverValue"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="associatedAccount"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="modifiedBy"
+        Type="java.lang.String"/>
+    </Method>
+  </ClientInterface>
   <ClientInterface>
     <Method
       Name="deleteAllForAccount">

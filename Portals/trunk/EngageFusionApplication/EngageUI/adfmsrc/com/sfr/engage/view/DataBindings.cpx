@@ -42,6 +42,10 @@
           usageId="com_sfr_engage_view_AlertsPageDef"/>
     <page path="/WEB-INF/com/sfr/engage/userdisplaytaskflow/UserDisplay.jsff"
           usageId="com_sfr_engage_view_UserDisplayPageDef"/>
+    <page path="/WEB-INF/com/sfr/engage/userdisplaytaskflow/AddEditUserInfo.jsff"
+          usageId="com_sfr_engage_view_AddEditUserInfoPageDef"/>
+    <page path="/WEB-INF/com/sfr/engage/userdisplaytaskflow/UserDisplayInfo.jsff"
+          usageId="com_sfr_engage_view_UserDisplayInfoPageDef"/>
   </pageMap>
   <pageDefinitionUsages>
     <page id="com_sfr_engage_view_CardPageDef"
@@ -76,6 +80,10 @@
           path="com.sfr.engage.alertstaskflow.AlertsPageDef"/>
     <page id="com_sfr_engage_view_UserDisplayPageDef"
           path="com.sfr.engage.userdisplaytaskflow.UserDisplayPageDef"/>
+    <page id="com_sfr_engage_view_AddEditUserInfoPageDef"
+          path="com.sfr.engage.userdisplaytaskflow.AddEditUserInfoPageDef"/>
+    <page id="com_sfr_engage_view_UserDisplayInfoPageDef"
+          path="com.sfr.engage.userdisplaytaskflow.UserDisplayInfoPageDef"/>
   </pageDefinitionUsages>
 
   <dataControlUsages>

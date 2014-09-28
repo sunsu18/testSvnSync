@@ -3,9 +3,9 @@
   <task-flow-definition id="UserDisplayTaskFlow">
     <default-activity id="__5">UserDisplay</default-activity>
     <managed-bean id="__2">
-      <managed-bean-name id="__1">UserDisplayBean</managed-bean-name>
-      <managed-bean-class id="__3">com.sfr.engage.userdisplaytaskflow.UserDisplayBean</managed-bean-class>
-      <managed-bean-scope id="__4">pageFlow</managed-bean-scope>
+      <managed-bean-name id="__3">UserDisplayBean</managed-bean-name>
+      <managed-bean-class id="__4">com.sfr.engage.userdisplaytaskflow.UserDisplayBean</managed-bean-class>
+      <managed-bean-scope id="__1">pageFlow</managed-bean-scope>
     </managed-bean>
     <view id="UserDisplay">
       <page>/WEB-INF/com/sfr/engage/userdisplaytaskflow/UserDisplay.jsff</page>

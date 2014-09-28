@@ -717,4 +717,36 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
     public PrtHomeTransactionsRVOImpl getPrtHomeTransactionsRVO1() {
         return (PrtHomeTransactionsRVOImpl)findViewObject("PrtHomeTransactionsRVO1");
     }
+
+    /**
+     * Container's getter for PrtCardUserInformationVO1.
+     * @return PrtCardUserInformationVO1
+     */
+    public ViewObjectImpl getPrtCardUserInformationVO1() {
+        return (ViewObjectImpl)findViewObject("PrtCardUserInformationVO1");
+    }
+
+    /**
+     * Container's getter for PrtCardUserRoleMappingVO1.
+     * @return PrtCardUserRoleMappingVO1
+     */
+    public ViewObjectImpl getPrtCardUserRoleMappingVO1() {
+        return (ViewObjectImpl)findViewObject("PrtCardUserRoleMappingVO1");
+    }
+
+    /**
+     * Container's getter for PrtCardUserRoleMappingVO2.
+     * @return PrtCardUserRoleMappingVO2
+     */
+    public ViewObjectImpl getPrtCardUserRoleMappingVO2() {
+        return (ViewObjectImpl)findViewObject("PrtCardUserRoleMappingVO2");
+    }
+
+    /**
+     * Container's getter for PrtCardUserRoleMappinFk1Link1.
+     * @return PrtCardUserRoleMappinFk1Link1
+     */
+    public ViewLinkImpl getPrtCardUserRoleMappinFk1Link1() {
+        return (ViewLinkImpl)findViewLink("PrtCardUserRoleMappinFk1Link1");
+    }
 }

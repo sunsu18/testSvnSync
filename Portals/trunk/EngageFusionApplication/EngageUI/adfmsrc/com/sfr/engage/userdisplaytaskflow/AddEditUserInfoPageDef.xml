@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.61.92" id="AddEditUserInfoPageDef"
+                Package="com.sfr.engage.userdisplaytaskflow">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator id="PrtCardUserInformationVO1Iterator" Binds="PrtCardUserInformationVO1" DataControl="EngageAppModuleDataControl" RangeSize="25"/>
+    <iterator id="PrtCardUserRoleMappingVO1Iterator" Binds="PrtCardUserRoleMappingVO1" DataControl="EngageAppModuleDataControl" RangeSize="25"/>
+  </executables>
+  <bindings>
+    <action id="Commit" DataControl="EngageAppModuleDataControl" RequiresUpdateModel="true" Action="commitTransaction"/>
+    <action id="Rollback" DataControl="EngageAppModuleDataControl" RequiresUpdateModel="false" Action="rollbackTransaction"/>
+  </bindings>
+</pageDefinition>

@@ -164,6 +164,8 @@
         </af:inputText>
       </af:panelGroupLayout>
       <af:panelGroupLayout id="pgal1" halign="right" layout="horizontal" inlineStyle="width:962px;">
+      <af:commandButton text="#{sfr.ADD}" id="cb21" action="goToAddEdit"/>
+        <af:spacer width="10" height="10" id="s151"/>
         <af:commandButton text="#{sfr.SEARCH}" id="cb2" actionListener="#{pageFlowScope.UserDisplayBean.searchResult}"/>
         <af:spacer width="10" height="10" id="s15"/>
         <af:commandButton text="#{sfr.CLEAR}" id="cb3"

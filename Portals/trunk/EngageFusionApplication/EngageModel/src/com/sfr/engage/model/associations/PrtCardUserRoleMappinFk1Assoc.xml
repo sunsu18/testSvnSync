@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Association SYSTEM "jbo_03_01.dtd">
+<!---->
+<Association
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="PrtCardUserRoleMappinFk1Assoc"
+  Version="11.1.1.61.92"
+  InheritPersonalization="true">
+  <DesignTime>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <AssociationEnd
+    Name="PrtCardUserInformationEO"
+    Cardinality="1"
+    Source="true"
+    Owner="com.sfr.engage.model.entities.PrtCardUserInformationEO">
+    <DesignTime>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="PrtCardUserInformationEO"/>
+      <Attr Name="_foreignKey" Value="com.sfr.engage.model.entities.PrtCardUserInformationEO.PrtCardUserInformationPk"/>
+      <Attr Name="_isUpdateable" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtCardUserInformationEO.UserEmail"/>
+      <Item Value="com.sfr.engage.model.entities.PrtCardUserInformationEO.CountryCode"/>
+    </AttrArray>
+  </AssociationEnd>
+  <AssociationEnd
+    Name="PrtCardUserRoleMappingEO"
+    Cardinality="-1"
+    Owner="com.sfr.engage.model.entities.PrtCardUserRoleMappingEO">
+    <DesignTime>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="PrtCardUserRoleMappingEO"/>
+      <Attr Name="_foreignKey" Value="com.sfr.engage.model.entities.PrtCardUserRoleMappingEO.PrtCardUserRoleMappinFk1"/>
+      <Attr Name="_isUpdateable" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtCardUserRoleMappingEO.UserEmail"/>
+      <Item Value="com.sfr.engage.model.entities.PrtCardUserRoleMappingEO.CountryCode"/>
+    </AttrArray>
+  </AssociationEnd>
+</Association>

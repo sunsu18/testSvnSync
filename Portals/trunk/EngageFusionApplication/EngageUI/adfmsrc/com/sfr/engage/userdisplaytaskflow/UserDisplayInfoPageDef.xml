@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.61.92" id="UserDisplayInfoPageDef"
+                Package="com.sfr.engage.userdisplaytaskflow">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+     <iterator Binds="PrtUserDisplayForAdminRVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtUserDisplayForAdminRVO1Iterator"/>
+    <searchRegion Binds="PrtUserDisplayForAdminRVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="PrtUserDisplayForAdminRVO1Query"/>
+    <iterator Binds="PrtUserDisplayForAccMgrRVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtUserDisplayForAccMgrRVO1Iterator"/>
+    <searchRegion Binds="PrtUserDisplayForAccMgrRVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="PrtUserDisplayForAccMgrRVO1Query"/>
+    <iterator Binds="PrtUserDisplayForCgMgrRVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtUserDisplayForCgMgrRVO1Iterator"/>
+    <searchRegion Binds="PrtUserDisplayForCgMgrRVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="PrtUserDisplayForCgMgrRVO1Query"/>
+    <iterator Binds="PrtUserDisplayForEmpRVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtUserDisplayForEmpRVO1Iterator"/>
+    <searchRegion Binds="PrtUserDisplayForEmpRVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="PrtUserDisplayForEmpRVO1Query"/>
+  </executables>
+  <bindings>
+  <tree IterBinding="PrtUserDisplayForAdminRVO1Iterator"
+          id="PrtUserDisplayForAdminRVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtUserDisplayForAdminRVO"
+                      Name="PrtUserDisplayForAdminRVO10">
+        <AttrNames>
+          <Item Value="UserEmail"/>
+          <Item Value="UserFirstName"/>
+          <Item Value="UserMiddleName"/>
+          <Item Value="UserLastName"/>
+          <Item Value="UserPhoneNo"/>
+          <Item Value="PartnerId"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="PrtUserDisplayForAccMgrRVO1Iterator"
+          id="PrtUserDisplayForAccMgrRVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtUserDisplayForAccMgrRVO"
+                      Name="PrtUserDisplayForAccMgrRVO10">
+        <AttrNames>
+          <Item Value="UserEmail"/>
+          <Item Value="UserFirstName"/>
+          <Item Value="UserMiddleName"/>
+          <Item Value="UserLastName"/>
+          <Item Value="UserPhoneNo"/>
+          <Item Value="UserRole"/>
+          <Item Value="PartnerId"/>
+          <Item Value="AccountId"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="PrtUserDisplayForCgMgrRVO1Iterator"
+          id="PrtUserDisplayForCgMgrRVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtUserDisplayForCgMgrRVO"
+                      Name="PrtUserDisplayForCgMgrRVO10">
+        <AttrNames>
+          <Item Value="UserEmail"/>
+          <Item Value="UserFirstName"/>
+          <Item Value="UserMiddleName"/>
+          <Item Value="UserLastName"/>
+          <Item Value="UserPhoneNo"/>
+          <Item Value="UserRole"/>
+          <Item Value="PartnerId"/>
+          <Item Value="AccountId"/>
+          <Item Value="CardGroup"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="PrtUserDisplayForEmpRVO1Iterator"
+          id="PrtUserDisplayForEmpRVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtUserDisplayForEmpRVO"
+                      Name="PrtUserDisplayForEmpRVO10">
+        <AttrNames>
+          <Item Value="UserEmail"/>
+          <Item Value="UserFirstName"/>
+          <Item Value="UserMiddleName"/>
+          <Item Value="UserLastName"/>
+          <Item Value="UserPhoneNo"/>
+          <Item Value="UserRole"/>
+          <Item Value="PartnerId"/>
+          <Item Value="AccountId"/>
+          <Item Value="CardGroup"/>
+          <Item Value="Card"/>
+          <Item Value="Cardembossno"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>
