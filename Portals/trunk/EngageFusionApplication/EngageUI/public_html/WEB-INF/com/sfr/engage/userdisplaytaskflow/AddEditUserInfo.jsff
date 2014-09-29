@@ -95,13 +95,13 @@
         </af:panelGroupLayout>
         <af:separator id="s3" inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
         <af:spacer width="10" height="20" id="s38"/>
-        <af:panelGroupLayout id="pgl6">
+        <af:panelGroupLayout id="pgl6" inlineStyle="width:972px; margin:-15px;">
           <af:spacer width="10" height="15" id="s12"/>
-          <af:panelGroupLayout id="pgl8">
-            <af:table var="row" rowBandingInterval="1" id="t1" width="745px" value="#{pageFlowScope.UserInfoDisplayManagedBean.userRoleDeatils}"
+            <af:table var="row" rowBandingInterval="1" id="t1" width="962px" value="#{pageFlowScope.UserInfoDisplayManagedBean.userRoleDeatils}"
                       emptyText="#{not empty var.userRoleDeatils ? (sfr.ACCESS_DENIED_ENG) : (sfr.NO_DATA)}" fetchSize="-1" columnResizing="disabled"
-                      disableColumnReordering="true" autoHeightRows="10" rowSelection="single"
-                      binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.userRoleInfoTable}">
+                      disableColumnReordering="true" autoHeightRows="10" rowSelection="single" 
+                      binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.userRoleInfoTable}"
+                      inlineStyle="width:940px; margin:-15px;">
               <af:column sortable="false" headerText="#{sfr.ROLE}" id="c3" width="200px">
                 <!--<af:outputText value="#{row.roleName}" id="ot2"/>-->
                 <af:selectOneChoice id="soc1" readOnly="true" contentStyle="width: 155px;" showRequired="false" value="#{row.roleName}">
@@ -110,39 +110,43 @@
                   </af:forEach>
                 </af:selectOneChoice>
               </af:column>
-              <af:column sortable="false" headerText="#{sfr.USER_ASSOCIATION}" id="c1" width="500px">
+              <af:column sortable="false" headerText="#{sfr.USER_ASSOCIATION}" id="c1" width="640px">
                 <af:inputText value="#{row.associationValue}" id="ot7"/>
               </af:column>
-              <af:column sortable="false" headerText="#{sfr.MANAGE_USER}" id="c4" width="45px">
+              <af:column sortable="false" headerText="#{sfr.MANAGE_USER}" id="c4"
+                         width="100px"
+                         align="center">
                 <af:commandImageLink id="cl1" icon="/images/edit.png" action="#{pageFlowScope.UserInfoDisplayManagedBean.manageUserCommandLinkAction}"/>
               </af:column>
             </af:table>
             <af:spacer width="10" height="30" id="s7"/>
+            <af:panelGroupLayout id="pgl15" halign="right">
+            <af:spacer width="880" id="s46" height="50px"/>
+            <af:commandButton text="#{sfr.SAVE}" id="cb6" styleClass="buttonback buttontext"
+                              action="#{pageFlowScope.UserInfoDisplayManagedBean.SaveUserInfoAction}"></af:commandButton>
           </af:panelGroupLayout>
         </af:panelGroupLayout>
         <af:spacer width="10" height="30" id="s39"/>
         <af:panelGroupLayout id="pgl7" layout="horizontal" inlineStyle="width:948.0px;">
           <af:spacer width="220" height="10" id="s40"/>
-          <af:panelGroupLayout id="pgl15" halign="right">
-            <af:commandButton text="#{sfr.SAVE}" id="cb6" styleClass="buttonback buttontext"
-                              action="#{pageFlowScope.UserInfoDisplayManagedBean.SaveUserInfoAction}"></af:commandButton>
-          </af:panelGroupLayout>
+          
         </af:panelGroupLayout>
       </af:panelGroupLayout>
     </af:panelGroupLayout>
     <af:popup id="add_edit_user" contentDelivery="immediate" binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.addEditUserPopUp}"
               autoCancel="disabled">
-      <af:dialog id="newDriver" type="none" contentWidth="715" closeIconVisible="false">
-        <af:panelGroupLayout id="pgl90" layout="horizontal" inlineStyle="font-size:15.0px;">
-          <af:outputText value="#{pageFlowScope.UserInfoDisplayManagedBean.showPopUpHeading}" id="ot31" styleClass="subheading"/>
-        </af:panelGroupLayout>
-        <af:separator id="s14" inlineStyle="width:auto; height:1px; background-color:Scrollbar;margin-left: 0 !important;"/>
+      <af:dialog id="newDriver" type="none" closeIconVisible="false"
+                 title="#{pageFlowScope.UserInfoDisplayManagedBean.showPopUpHeading}">
+        <!--<af:panelGroupLayout id="pgl90" layout="horizontal" inlineStyle="font-size:15.0px;">
+          <af:outputText id="ot31" styleClass="subheading"/>
+        </af:panelGroupLayout>-->
+        
         <af:panelStretchLayout id="psl6" dimensionsFrom="children">
           <f:facet name="bottom">
             <af:toolbar id="new_driver_panel_toolbar" styleClass="WCPanelColor">
-              <af:panelGroupLayout id="new_footer_panel" layout="vertical" halign="right" inlineStyle="width:705.0px;">
-                <af:spacer width="479" height="10" id="s5"/>
-                <af:panelGroupLayout id="pgl11" halign="right">
+              <af:panelGroupLayout id="new_footer_panel" layout="vertical" halign="right">
+                <af:spacer width="100" height="10" id="s5"/>
+                <af:panelGroupLayout id="pgl11" halign="right" layout="horizontal">
                   <af:commandButton text="#{sfr.SAVE}" id="save" action="#{pageFlowScope.UserInfoDisplayManagedBean.addEditUserPopUpSaveAction}"
                                     styleClass="buttonback buttontext"/>
                   <af:spacer width="10" height="10" id="s28"/>
@@ -153,7 +157,8 @@
             </af:toolbar>
           </f:facet>
           <f:facet name="center">
-            <af:panelGroupLayout id="pgl17">
+            <af:panelGroupLayout id="pgl17" styleClass="WCPanelMargin">
+            <af:separator id="s14" inlineStyle="width:auto; height:1px; background-color:Scrollbar;margin-left: 0 !important;"/>
               <af:panelGroupLayout id="addEditUser_scroll" layout="vertical">
                 <af:panelGroupLayout id="pgl18" layout="vertical">
                   <h:panelGrid columns="4" id="popupGrid">
@@ -204,13 +209,13 @@
                 </af:panelGroupLayout>
               </af:panelGroupLayout>
               <af:spacer width="12" height="10" id="s35"/>
-              <af:panelGroupLayout id="pgl26" layout="horizontal" inlineStyle="width:948.0px;">
+              <af:panelGroupLayout id="pgl26" layout="horizontal">
                 <af:outputText value="#{pageFlowScope.UserInfoDisplayManagedBean.showPopUpTableheading}:" id="ot22" styleClass="subheading"/>
                 <af:spacer width="10" height="10" id="s42"/>
               </af:panelGroupLayout>
               <af:separator id="s43" inlineStyle="width:auto; height:1px; background-color:Scrollbar;margin-left: 0 !important;"/>
               <af:panelGroupLayout id="pgl27">
-                <af:table var="row" rowBandingInterval="1" id="t2" width="745px"
+                <af:table var="row" rowBandingInterval="1" id="t2" 
                           emptyText="#{not empty var.driverInfoList ? (sfr.ACCESS_DENIED_ENG) : (sfr.NO_DATA)}" fetchSize="-1" columnResizing="disabled"
                           disableColumnReordering="true" autoHeightRows="10">
                   <af:column sortable="false" headerText="col2" id="c5">
