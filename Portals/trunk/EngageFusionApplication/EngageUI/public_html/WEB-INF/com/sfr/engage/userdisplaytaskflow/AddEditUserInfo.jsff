@@ -25,7 +25,8 @@
               <af:spacer width="20" height="20" id="s21"/>
             </af:panelGroupLayout>
             <af:panelGroupLayout id="pgl13" inlineStyle="height:auto; text-align:justify; width:200.0px;" layout="vertical">
-              <af:inputText id="it7" contentStyle="width: 265px;" binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.userEmailId}"/>
+              <af:inputText id="it7" contentStyle="width: 265px;" binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.userEmailId}"
+                            valueChangeListener="#{pageFlowScope.UserInfoDisplayManagedBean.emailIdValueChangeListener}" autoSubmit="true"/>
               <af:spacer width="20" height="20" id="s41"/>
             </af:panelGroupLayout>
           </h:panelGrid>
@@ -34,7 +35,8 @@
       </af:panelGroupLayout>
     </af:panelGroupLayout>
     <af:spacer width="10" height="10" id="s10"/>
-    <af:panelGroupLayout id="pgl4" binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.searchResults}" visible="true">
+    <af:panelGroupLayout id="pgl4" binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.searchResults}"
+                         visible="#{pageFlowScope.UserInfoDisplayManagedBean.showEmailpanel}">
       <af:spacer width="10" height="10" id="s13"/>
       <af:panelGroupLayout id="pgl16" layout="vertical">
         <af:panelGroupLayout id="pgl14">
@@ -53,7 +55,7 @@
               <af:spacer width="20" height="25" id="s17"/>
               <af:outputText value="*#{sfr.ENAGE_USER_PHONE_NO}" id="ot18"/>
               <af:spacer width="20" height="25" id="s20"/>
-              <af:outputText value="#{sfr.ENAGE_USER_COUNTRY}" id="ot14"/>
+              <af:outputText value="#{sfr.DATE_OF_BIRTH}" id="ot14"/>
               <af:spacer width="20" height="25" id="s19"/>
             </af:panelGroupLayout>
             <af:panelGroupLayout id="pgl21" inlineStyle="height:auto; text-align:justify; width:10.0px;" layout="vertical">
@@ -77,7 +79,11 @@
               <af:spacer width="20" height="20" id="s25"/>
               <af:inputText id="it4" contentStyle="width: 165px;" binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.userPhoneNumber}"/>
               <af:spacer width="20" height="20" id="s26"/>
-              <af:inputText id="it5" contentStyle="width: 165px;"/>
+              <!--<af:inputText id="it5" contentStyle="width: 165px;"/>-->
+              <af:inputDate id="id1" contentStyle="width:150px;height:14.0px;padding-top: 4px"
+                            binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.dateOfBirth}">
+                <af:convertDateTime pattern="dd.MM.yyyy"/>
+              </af:inputDate>
               <af:spacer width="20" height="20" id="s27"/>
             </af:panelGroupLayout>
           </h:panelGrid>
@@ -159,7 +165,8 @@
                                binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.popUpPartnerSpacer}"/>
                     <af:selectManyChoice id="smc1" contentStyle="width: 175px;" autoSubmit="true" rendered="false"
                                          value="#{pageFlowScope.UserInfoDisplayManagedBean.addEditPartnerValue}"
-                                         binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.addEditPartnerId}">
+                                         binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.addEditPartnerId}"
+                                         valueChangeListener="#{pageFlowScope.UserInfoDisplayManagedBean.popUpPartnerValueChangeListener}">
                       <f:selectItems value="#{pageFlowScope.UserInfoDisplayManagedBean.addEditUserPartnerID}" id="si1"/>
                     </af:selectManyChoice>
                     <af:outputText value="#{sfr.ACCOUNT_ID}" rendered="false" id="Acctid"
@@ -169,7 +176,9 @@
                                binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.popUpAccountSpacer}"/>
                     <af:selectManyChoice id="smc4" autoSubmit="true" contentStyle="width: 175px;" rendered="false"
                                          value="#{pageFlowScope.UserInfoDisplayManagedBean.addEditAccountValue}"
-                                         binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.addEditAccountId}">
+                                         binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.addEditAccountId}"
+                                         valueChangeListener="#{pageFlowScope.UserInfoDisplayManagedBean.popUpAccountValueChangeListener}"
+                                         partialTriggers="smc1">
                       <f:selectItems value="#{pageFlowScope.UserInfoDisplayManagedBean.addEditUserAccountID}" id="si4"/>
                     </af:selectManyChoice>
                     <af:outputText value="#{sfr.CARDGROUP}" rendered="false" id="ot8"
@@ -178,14 +187,17 @@
                     <af:spacer width="15" height="10" id="s33" rendered="false"
                                binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.popUpCardGroupSpacer}"/>
                     <af:selectManyChoice id="smc3" contentStyle="width: 175px;" value="#{pageFlowScope.UserInfoDisplayManagedBean.addEditCardGroupValue}"
-                                         autoSubmit="true" rendered="false" binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.addEditCardGroupId}">
+                                         autoSubmit="true" rendered="false" binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.addEditCardGroupId}"
+                                         valueChangeListener="#{pageFlowScope.UserInfoDisplayManagedBean.popUpCardgroupValueChangeListener}"
+                                         partialTriggers="smc1 smc4">
                       <f:selectItems value="#{pageFlowScope.UserInfoDisplayManagedBean.addEditUserCardGroupID}" id="si5"/>
                     </af:selectManyChoice>
                     <af:outputText value="#{sfr.CARD}" id="ot19" rendered="false" binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.popUpCardId}"/>
                     <af:outputText value=":" id="ot21" rendered="false" binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.popUpCardColon}"/>
                     <af:spacer width="15" height="10" id="s34" rendered="false" binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.popUpCardSpacer}"/>
                     <af:selectManyChoice id="soc3" contentStyle="width: 175px;" value="#{pageFlowScope.UserInfoDisplayManagedBean.addEditCardValue}"
-                                         autoSubmit="true" rendered="false" binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.addEditCardId}">
+                                         autoSubmit="true" rendered="false" binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.addEditCardId}"
+                                         partialTriggers="smc1 smc4 smc3">
                       <f:selectItems value="#{pageFlowScope.UserInfoDisplayManagedBean.addEditCardID}" id="si3"/>
                     </af:selectManyChoice>
                   </h:panelGrid>

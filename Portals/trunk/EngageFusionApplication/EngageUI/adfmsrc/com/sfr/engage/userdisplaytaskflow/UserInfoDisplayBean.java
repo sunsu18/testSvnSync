@@ -1,6 +1,8 @@
 package com.sfr.engage.userdisplaytaskflow;
 
 
+import com.sfr.core.bean.BaseBean;
+import com.sfr.core.bean.Roles;
 import com.sfr.core.bean.User;
 import com.sfr.engage.core.PartnerInfo;
 import com.sfr.engage.core.UserInfoRolesDetails;
@@ -14,6 +16,7 @@ import com.sfr.util.validations.Conversion;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +38,7 @@ import oracle.adf.model.binding.DCIteratorBinding;
 import oracle.adf.share.logging.ADFLogger;
 import oracle.adf.view.rich.component.rich.RichPopup;
 import oracle.adf.view.rich.component.rich.data.RichTable;
+import oracle.adf.view.rich.component.rich.input.RichInputDate;
 import oracle.adf.view.rich.component.rich.input.RichInputText;
 import oracle.adf.view.rich.component.rich.input.RichSelectBooleanRadio;
 import oracle.adf.view.rich.component.rich.input.RichSelectManyChoice;
@@ -118,6 +122,9 @@ public class UserInfoDisplayBean {
     private Map<String, String> partnerNameMap;
     private Map<String, String> cardGroupDescMap;
     private Map<String, String> cardEmbossMap;
+    private boolean showEmailpanel = false;
+    private Integer roleCount = 0;
+    private String rolesToCreate = "";
 
 
     public UserInfoDisplayBean() {
@@ -126,7 +133,7 @@ public class UserInfoDisplayBean {
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
-        partnerIdValue = new ArrayList<String>();
+        //        partnerIdValue = new ArrayList<String>();
         roleValue = new ArrayList<String>();
         valueList = new ValueListSplit();
         roleValue.add("WCP_CARD_B2B_ADMIN");
@@ -134,15 +141,6 @@ public class UserInfoDisplayBean {
         roleValue.add("WCP_CARD_B2B_MGR_CG");
         roleValue.add("WCP_CARD_B2B_EMP");
 
-        addEditUserPartnerID = new ArrayList<SelectItem>();
-        addEditUserAccountID = new ArrayList<SelectItem>();
-        addEditUserCardGroupID = new ArrayList<SelectItem>();
-        addEditCardID = new ArrayList<SelectItem>();
-
-        addEditPartnerValue = new ArrayList<String>();
-        addEditAccountValue = new ArrayList<String>();
-        addEditCardGroupValue = new ArrayList<String>();
-        addEditCardValue = new ArrayList<String>();
         userEmail = "";
 
         partnerIdMap = new HashMap<String, String>();
@@ -158,103 +156,106 @@ public class UserInfoDisplayBean {
         cardGroupDescMap = new HashMap<String, String>();
         cardEmbossMap = new HashMap<String, String>();
 
-        if (session.getAttribute("Partner_Object_List") != null) {
-            partnerInfoList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
-            if (partnerInfoList != null && partnerInfoList.size() > 0) {
-                partnerIdList = new ArrayList<SelectItem>();
-                accountIdList = new ArrayList<SelectItem>();
-                accountIdValue = new ArrayList<String>();
-                cardGroupList = new ArrayList<SelectItem>();
-                cardGroupValue = new ArrayList<String>();
-                cardNumberList = new ArrayList<SelectItem>();
-                cardNumberValue = new ArrayList<String>();
-                suggestedCardNumberList = new ArrayList<String>();
-                for (int i = 0; i < partnerInfoList.size(); i++) {
-                    lang = partnerInfoList.get(0).getCountry().toString().trim();
-                    if (partnerInfoList.get(i).getPartnerName() != null && partnerInfoList.get(i).getPartnerValue() != null) {
-                        SelectItem selectItem = new SelectItem();
-                        selectItem.setLabel(partnerInfoList.get(i).getPartnerName().toString());
-                        selectItem.setValue(partnerInfoList.get(i).getPartnerValue().toString());
-                        partnerIdList.add(selectItem);
-                        partnerIdValue.add(partnerInfoList.get(i).getPartnerValue().toString());
-                        addEditUserPartnerID.add(selectItem);
-                        addEditPartnerValue.add(partnerInfoList.get(i).getPartnerValue().toString());
-                        partnerIdMap.put(partnerInfoList.get(i).getPartnerName().toString(), partnerInfoList.get(i).getPartnerValue().toString());
-                        partnerNameMap.put(partnerInfoList.get(i).getPartnerValue().toString(), partnerInfoList.get(i).getPartnerName().toString());
+        populateCustomerData("Default");
 
-                    }
-
-                    if (partnerInfoList.get(i).getAccountList() != null && partnerInfoList.get(i).getAccountList().size() > 0) {
-                        for (int j = 0; j < partnerInfoList.get(i).getAccountList().size(); j++) {
-                            if (partnerInfoList.get(i).getAccountList().get(j).getAccountNumber() != null) {
-                                SelectItem selectItem = new SelectItem();
-                                selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
-                                selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
-                                accountIdList.add(selectItem);
-                                accountIdValue.add(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
-                                addEditUserAccountID.add(selectItem);
-                                addEditAccountValue.add(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
-                                //                                accountIdMap.put(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString(),
-                                //                                                 partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
-                                accountToPartnermap.put(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString(),
-                                                        partnerInfoList.get(i).getPartnerValue().toString());
-
-                            }
-                            for (int k = 0; k < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().size(); k++) {
-                                if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID() != null) {
-                                    SelectItem selectItem = new SelectItem();
-                                    selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getDisplayCardGroupIdName().toString());
-                                    selectItem.setValue(partnerInfoList.get(i).getPartnerValue().toString().trim() +
-                                                        partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
-                                    cardGroupList.add(selectItem);
-                                    cardGroupValue.add(partnerInfoList.get(i).getPartnerValue().toString().trim() +
-                                                       partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
-                                    addEditUserCardGroupID.add(selectItem);
-                                    addEditCardGroupValue.add(partnerInfoList.get(i).getPartnerValue().toString().trim() +
-                                                              partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
-                                    cardGroupIdMap.put(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getDisplayCardGroupIdName().toString(),
-                                                       partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
-                                    cardGroupDescMap.put(partnerInfoList.get(i).getPartnerValue().toString().trim() +
-                                                         partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString(),
-                                                         partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getDisplayCardGroupIdName().toString());
-                                    cardGroupToPartnerMap.put(partnerInfoList.get(i).getPartnerValue().toString().trim() +
-                                                              partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString(),
-                                                              partnerInfoList.get(i).getPartnerValue().toString());
-                                }
-
-                                for (int cc = 0; cc < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().size(); cc++) {
-                                    if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID() != null &&
-                                        partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID() != null) {
-                                        SelectItem selectItem = new SelectItem();
-                                        selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString());
-                                        selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
-                                        cardNumberList.add(selectItem);
-                                        suggestedCardNumberList.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString());
-                                        cardNumberValue.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
-                                        addEditCardID.add(selectItem);
-                                        addEditCardValue.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
-                                        cardIdMap.put(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString(),
-                                                      partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
-                                        cardToPartnerMap.put(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString(),
-                                                             partnerInfoList.get(i).getPartnerValue().toString());
-                                        cardEmbossMap.put(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString(),
-                                                          partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString());
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-
-                Collections.sort(accountIdList, comparator);
-                Collections.sort(cardGroupList, comparator);
-                Collections.sort(cardNumberList, comparator);
-
-                Collections.sort(addEditUserAccountID, comparator);
-                Collections.sort(addEditUserCardGroupID, comparator);
-                Collections.sort(addEditCardID, comparator);
-            }
-        }
+        //        if (session.getAttribute("Partner_Object_List") != null) {
+        //            partnerInfoList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
+        //            if (partnerInfoList != null && partnerInfoList.size() > 0) {
+        //                partnerIdList = new ArrayList<SelectItem>();
+        //                partnerIdValue = new ArrayList<String>();
+        //                accountIdList = new ArrayList<SelectItem>();
+        //                accountIdValue = new ArrayList<String>();
+        //                cardGroupList = new ArrayList<SelectItem>();
+        //                cardGroupValue = new ArrayList<String>();
+        //                cardNumberList = new ArrayList<SelectItem>();
+        //                cardNumberValue = new ArrayList<String>();
+        //                suggestedCardNumberList = new ArrayList<String>();
+        //                for (int i = 0; i < partnerInfoList.size(); i++) {
+        //                    lang = partnerInfoList.get(0).getCountry().toString().trim();
+        //                    if (partnerInfoList.get(i).getPartnerName() != null && partnerInfoList.get(i).getPartnerValue() != null) {
+        //                        SelectItem selectItem = new SelectItem();
+        //                        selectItem.setLabel(partnerInfoList.get(i).getPartnerName().toString());
+        //                        selectItem.setValue(partnerInfoList.get(i).getPartnerValue().toString());
+        //                        partnerIdList.add(selectItem);
+        //                        partnerIdValue.add(partnerInfoList.get(i).getPartnerValue().toString());
+        //                        addEditUserPartnerID.add(selectItem);
+        //                        addEditPartnerValue.add(partnerInfoList.get(i).getPartnerValue().toString());
+        //                        partnerIdMap.put(partnerInfoList.get(i).getPartnerName().toString(), partnerInfoList.get(i).getPartnerValue().toString());
+        //                        partnerNameMap.put(partnerInfoList.get(i).getPartnerValue().toString(), partnerInfoList.get(i).getPartnerName().toString());
+        //
+        //                    }
+        //
+        //                    if (partnerInfoList.get(i).getAccountList() != null && partnerInfoList.get(i).getAccountList().size() > 0) {
+        //                        for (int j = 0; j < partnerInfoList.get(i).getAccountList().size(); j++) {
+        //                            if (partnerInfoList.get(i).getAccountList().get(j).getAccountNumber() != null) {
+        //                                SelectItem selectItem = new SelectItem();
+        //                                selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+        //                                selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+        //                                accountIdList.add(selectItem);
+        //                                accountIdValue.add(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+        //                                addEditUserAccountID.add(selectItem);
+        //                                addEditAccountValue.add(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+        //                                //                                accountIdMap.put(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString(),
+        //                                //                                                 partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+        //                                accountToPartnermap.put(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString(),
+        //                                                        partnerInfoList.get(i).getPartnerValue().toString());
+        //
+        //                            }
+        //                            for (int k = 0; k < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().size(); k++) {
+        //                                if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID() != null) {
+        //                                    SelectItem selectItem = new SelectItem();
+        //                                    selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getDisplayCardGroupIdName().toString());
+        //                                    selectItem.setValue(partnerInfoList.get(i).getPartnerValue().toString().trim() +
+        //                                                        partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
+        //                                    cardGroupList.add(selectItem);
+        //                                    cardGroupValue.add(partnerInfoList.get(i).getPartnerValue().toString().trim() +
+        //                                                       partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
+        //                                    addEditUserCardGroupID.add(selectItem);
+        //                                    addEditCardGroupValue.add(partnerInfoList.get(i).getPartnerValue().toString().trim() +
+        //                                                              partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
+        //                                    cardGroupIdMap.put(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getDisplayCardGroupIdName().toString(),
+        //                                                       partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
+        //                                    cardGroupDescMap.put(partnerInfoList.get(i).getPartnerValue().toString().trim() +
+        //                                                         partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString(),
+        //                                                         partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getDisplayCardGroupIdName().toString());
+        //                                    cardGroupToPartnerMap.put(partnerInfoList.get(i).getPartnerValue().toString().trim() +
+        //                                                              partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString(),
+        //                                                              partnerInfoList.get(i).getPartnerValue().toString());
+        //                                }
+        //
+        //                                for (int cc = 0; cc < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().size(); cc++) {
+        //                                    if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID() != null &&
+        //                                        partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID() != null) {
+        //                                        SelectItem selectItem = new SelectItem();
+        //                                        selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString());
+        //                                        selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
+        //                                        cardNumberList.add(selectItem);
+        //                                        suggestedCardNumberList.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString());
+        //                                        cardNumberValue.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
+        //                                        addEditCardID.add(selectItem);
+        //                                        addEditCardValue.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
+        //                                        cardIdMap.put(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString(),
+        //                                                      partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
+        //                                        cardToPartnerMap.put(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString(),
+        //                                                             partnerInfoList.get(i).getPartnerValue().toString());
+        //                                        cardEmbossMap.put(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString(),
+        //                                                          partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString());
+        //                                    }
+        //                                }
+        //                            }
+        //                        }
+        //                    }
+        //                }
+        //
+        //                Collections.sort(accountIdList, comparator);
+        //                Collections.sort(cardGroupList, comparator);
+        //                Collections.sort(cardNumberList, comparator);
+        //
+        //                Collections.sort(addEditUserAccountID, comparator);
+        //                Collections.sort(addEditUserCardGroupID, comparator);
+        //                Collections.sort(addEditCardID, comparator);
+        //            }
+        //        }
 
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting Constructor of User Display");
     }
@@ -274,6 +275,139 @@ public class UserInfoDisplayBean {
             bindings = new Bindings();
         }
         return bindings;
+    }
+
+    public void populateCustomerData(String changeValues) {
+
+        if (session.getAttribute("Partner_Object_List") != null) {
+            partnerInfoList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
+            if (partnerInfoList != null && partnerInfoList.size() > 0) {
+                if (changeValues.equals("Default")) {
+                    partnerIdList = new ArrayList<SelectItem>();
+                    partnerIdValue = new ArrayList<String>();
+                    accountIdList = new ArrayList<SelectItem>();
+                    accountIdValue = new ArrayList<String>();
+                    cardGroupList = new ArrayList<SelectItem>();
+                    cardGroupValue = new ArrayList<String>();
+                    cardNumberList = new ArrayList<SelectItem>();
+                    cardNumberValue = new ArrayList<String>();
+                    suggestedCardNumberList = new ArrayList<String>();
+                } else {
+
+                    addEditUserPartnerID = new ArrayList<SelectItem>();
+                    addEditUserAccountID = new ArrayList<SelectItem>();
+                    addEditUserCardGroupID = new ArrayList<SelectItem>();
+                    addEditCardID = new ArrayList<SelectItem>();
+
+                    addEditPartnerValue = new ArrayList<String>();
+                    addEditAccountValue = new ArrayList<String>();
+                    addEditCardGroupValue = new ArrayList<String>();
+                    addEditCardValue = new ArrayList<String>();
+                }
+
+
+                for (int i = 0; i < partnerInfoList.size(); i++) {
+                    lang = partnerInfoList.get(0).getCountry().toString().trim();
+                    if (partnerInfoList.get(i).getPartnerName() != null && partnerInfoList.get(i).getPartnerValue() != null) {
+                        SelectItem selectItem = new SelectItem();
+                        selectItem.setLabel(partnerInfoList.get(i).getPartnerName().toString());
+                        selectItem.setValue(partnerInfoList.get(i).getPartnerValue().toString());
+                        if (changeValues.equals("Default")) {
+                            partnerIdList.add(selectItem);
+                            partnerIdValue.add(partnerInfoList.get(i).getPartnerValue().toString());
+                            partnerIdMap.put(partnerInfoList.get(i).getPartnerName().toString(), partnerInfoList.get(i).getPartnerValue().toString());
+                            partnerNameMap.put(partnerInfoList.get(i).getPartnerValue().toString(), partnerInfoList.get(i).getPartnerName().toString());
+                        } else {
+                            addEditUserPartnerID.add(selectItem);
+                            addEditPartnerValue.add(partnerInfoList.get(i).getPartnerValue().toString());
+                        }
+
+                    }
+
+                    if (partnerInfoList.get(i).getAccountList() != null && partnerInfoList.get(i).getAccountList().size() > 0) {
+                        for (int j = 0; j < partnerInfoList.get(i).getAccountList().size(); j++) {
+                            if (partnerInfoList.get(i).getAccountList().get(j).getAccountNumber() != null) {
+                                SelectItem selectItem = new SelectItem();
+                                selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+                                selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+                                if (changeValues.equals("Default")) {
+                                    accountIdList.add(selectItem);
+                                    accountIdValue.add(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+                                    accountToPartnermap.put(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString(),
+                                                            partnerInfoList.get(i).getPartnerValue().toString());
+
+                                    //                                accountIdMap.put(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString(),
+                                    //                                                 partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+                                } else {
+                                    addEditUserAccountID.add(selectItem);
+                                    addEditAccountValue.add(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+
+                                }
+
+                            }
+                            for (int k = 0; k < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().size(); k++) {
+                                if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID() != null) {
+                                    SelectItem selectItem = new SelectItem();
+                                    selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getDisplayCardGroupIdName().toString());
+                                    selectItem.setValue(partnerInfoList.get(i).getPartnerValue().toString().trim() +
+                                                        partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
+                                    if (changeValues.equals("Default")) {
+                                        cardGroupList.add(selectItem);
+                                        cardGroupValue.add(partnerInfoList.get(i).getPartnerValue().toString().trim() +
+                                                           partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
+                                        cardGroupIdMap.put(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getDisplayCardGroupIdName().toString(),
+                                                           partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
+                                        cardGroupDescMap.put(partnerInfoList.get(i).getPartnerValue().toString().trim() +
+                                                             partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString(),
+                                                             partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getDisplayCardGroupIdName().toString());
+                                        cardGroupToPartnerMap.put(partnerInfoList.get(i).getPartnerValue().toString().trim() +
+                                                                  partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString(),
+                                                                  partnerInfoList.get(i).getPartnerValue().toString());
+                                    } else {
+                                        addEditUserCardGroupID.add(selectItem);
+                                        addEditCardGroupValue.add(partnerInfoList.get(i).getPartnerValue().toString().trim() +
+                                                                  partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
+                                    }
+                                }
+
+                                for (int cc = 0; cc < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().size(); cc++) {
+                                    if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID() != null &&
+                                        partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID() != null) {
+                                        SelectItem selectItem = new SelectItem();
+                                        selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString());
+                                        selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
+                                        if (changeValues.equals("Default")) {
+                                            cardNumberList.add(selectItem);
+                                            suggestedCardNumberList.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString());
+                                            cardNumberValue.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
+                                            cardIdMap.put(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString(),
+                                                          partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
+                                            cardToPartnerMap.put(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString(),
+                                                                 partnerInfoList.get(i).getPartnerValue().toString());
+                                            cardEmbossMap.put(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString(),
+                                                              partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString());
+                                        } else {
+                                            addEditCardID.add(selectItem);
+                                            addEditCardValue.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                if (changeValues.equals("Default")) {
+                    Collections.sort(accountIdList, comparator);
+                    Collections.sort(cardGroupList, comparator);
+                    Collections.sort(cardNumberList, comparator);
+                } else {
+
+                    Collections.sort(addEditUserAccountID, comparator);
+                    Collections.sort(addEditUserCardGroupID, comparator);
+                    Collections.sort(addEditCardID, comparator);
+                }
+            }
+        }
     }
 
     public String populateStringValues(String var) {
@@ -373,6 +507,84 @@ public class UserInfoDisplayBean {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside partnerValueChangeListener method of User Display");
     }
 
+    public void popUpPartnerValueChangeListener(ValueChangeEvent valueChangeEvent) {
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside popup partnerValueChangeListener method of User Display");
+        isTableVisible = false;
+        if (valueChangeEvent.getNewValue() != null) {
+            addEditUserAccountID = new ArrayList<SelectItem>();
+            addEditUserCardGroupID = new ArrayList<SelectItem>();
+            addEditCardID = new ArrayList<SelectItem>();
+            addEditAccountValue = new ArrayList<String>();
+            addEditCardGroupValue = new ArrayList<String>();
+            addEditCardValue = new ArrayList<String>();
+
+            String[] partnerString = StringConversion(populateStringValues(valueChangeEvent.getNewValue().toString()));
+
+            if (partnerString.length > 0) {
+                for (int i = 0; i < partnerInfoList.size(); i++) {
+                    for (int p = 0; p < partnerString.length; p++) {
+                        if (partnerInfoList.get(i).getPartnerValue().toString() != null &&
+                            partnerInfoList.get(i).getPartnerValue().toString().equals(partnerString[p].trim())) {
+                            if (partnerInfoList.get(i).getAccountList() != null && partnerInfoList.get(i).getAccountList().size() > 0) {
+
+                                for (int j = 0; j < partnerInfoList.get(i).getAccountList().size(); j++) {
+
+                                    if (partnerInfoList.get(i).getAccountList().get(j).getAccountNumber() != null) {
+                                        SelectItem selectItem = new SelectItem();
+                                        selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+                                        selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+                                        addEditUserAccountID.add(selectItem);
+                                        addEditAccountValue.add(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+                                    }
+
+
+                                    for (int k = 0; k < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().size(); k++) {
+                                        if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID() != null) {
+                                            SelectItem selectItem = new SelectItem();
+                                            selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getDisplayCardGroupIdName().toString());
+                                            selectItem.setValue(partnerInfoList.get(i).getPartnerValue().toString().trim() +
+                                                                partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
+                                            addEditUserCardGroupID.add(selectItem);
+                                            addEditCardGroupValue.add(partnerInfoList.get(i).getPartnerValue().toString().trim() +
+                                                                      partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
+                                        }
+
+                                        for (int cc = 0; cc < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().size(); cc++) {
+                                            if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID() != null &&
+                                                partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID() !=
+                                                null) {
+                                                SelectItem selectItem = new SelectItem();
+                                                selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString());
+                                                selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
+                                                addEditCardID.add(selectItem);
+                                                addEditCardValue.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                }
+                Collections.sort(addEditUserAccountID, comparator);
+                Collections.sort(addEditUserCardGroupID, comparator);
+                Collections.sort(addEditCardID, comparator);
+            }
+        } else {
+            getBindings().getAddEditAccountId().setValue(null);
+            getBindings().getAddEditCardGroupId().setValue(null);
+            getBindings().getAddEditCardId().setValue(null);
+            this.addEditAccountValue = null;
+            this.addEditUserAccountID = null;
+            this.addEditCardGroupValue = null;
+            this.addEditUserCardGroupID = null;
+            this.addEditCardID = null;
+            this.addEditCardValue = null;
+        }
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside pop up partnerValueChangeListener method of User Display");
+    }
+
     public void accountValueChangeListener(ValueChangeEvent valueChangeEvent) {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside accountValueChangeListener method of User Display");
         isTableVisible = false;
@@ -433,6 +645,66 @@ public class UserInfoDisplayBean {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside accountValueChangeListener method of User Display");
     }
 
+    public void popUpAccountValueChangeListener(ValueChangeEvent valueChangeEvent) {
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside popup accountValueChangeListener method of User Display");
+        isTableVisible = false;
+        if (valueChangeEvent.getNewValue() != null) {
+            String[] accountString = StringConversion(populateStringValues(valueChangeEvent.getNewValue().toString()));
+            addEditUserCardGroupID = new ArrayList<SelectItem>();
+            addEditCardID = new ArrayList<SelectItem>();
+            addEditCardGroupValue = new ArrayList<String>();
+            addEditCardValue = new ArrayList<String>();
+
+            for (int z = 0; z < partnerInfoList.size(); z++) {
+                if (partnerInfoList.get(z).getAccountList() != null && partnerInfoList.get(z).getAccountList().size() > 0) {
+                    for (int i = 0; i < partnerInfoList.get(z).getAccountList().size(); i++) {
+                        for (int j = 0; j < accountString.length; j++) {
+                            if (partnerInfoList.get(z).getAccountList().get(i).getAccountNumber() != null &&
+                                partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().equals(accountString[j].trim())) {
+                                if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup() != null &&
+                                    partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size() > 0) {
+                                    for (int k = 0; k < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size(); k++) {
+                                        if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID() != null) {
+                                            SelectItem selectItem = new SelectItem();
+                                            selectItem.setLabel(partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getDisplayCardGroupIdName().toString());
+                                            selectItem.setValue(partnerInfoList.get(z).getPartnerValue().toString().trim() +
+                                                                partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
+                                            addEditUserCardGroupID.add(selectItem);
+                                            addEditCardGroupValue.add(partnerInfoList.get(z).getPartnerValue().toString().trim() +
+                                                                      partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
+                                        }
+
+                                        for (int cc = 0; cc < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().size(); cc++) {
+                                            if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getCardID() != null &&
+                                                partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getExternalCardID() !=
+                                                null) {
+                                                SelectItem selectItem = new SelectItem();
+                                                selectItem.setLabel(partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString());
+                                                selectItem.setValue(partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
+                                                addEditCardID.add(selectItem);
+                                                addEditCardValue.add(partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    Collections.sort(addEditUserAccountID, comparator);
+                    Collections.sort(addEditUserCardGroupID, comparator);
+                    Collections.sort(addEditCardID, comparator);
+                }
+            }
+
+        } else {
+            getBindings().getAddEditCardGroupId().setValue(null);
+            getBindings().getAddEditCardId().setValue(null);
+            this.addEditCardGroupValue = null;
+            this.addEditCardValue = null;
+        }
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside popup accountValueChangeListener method of User Display");
+    }
+
     public void cardgroupValueChangeListener(ValueChangeEvent valueChangeEvent) {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside cardgroupValueChangeListener method of User Display");
         isTableVisible = false;
@@ -476,6 +748,51 @@ public class UserInfoDisplayBean {
             this.cardNumberValue = null;
         }
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside cardgroupValueChangeListener method of User Display");
+    }
+
+    public void popUpCardgroupValueChangeListener(ValueChangeEvent valueChangeEvent) {
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside pop up cardgroupValueChangeListener method of User Display");
+        isTableVisible = false;
+        if (valueChangeEvent.getNewValue() != null) {
+            String[] cardgroupString = StringConversion(populateStringValues(valueChangeEvent.getNewValue().toString()));
+            addEditCardID = new ArrayList<SelectItem>();
+            addEditCardValue = new ArrayList<String>();
+
+            for (int z = 0; z < partnerInfoList.size(); z++) {
+                if (partnerInfoList.get(z).getAccountList() != null && partnerInfoList.get(z).getAccountList().size() > 0) {
+                    for (int i = 0; i < partnerInfoList.get(z).getAccountList().size(); i++) {
+                        if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup() != null &&
+                            partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size() > 0) {
+                            for (int cg = 0; cg < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size(); cg++) {
+                                for (int cgs = 0; cgs < cardgroupString.length; cgs++) {
+                                    if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup() != null &&
+                                        (partnerInfoList.get(z).getPartnerValue().toString().trim() +
+                                         partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCardGroupID().toString().trim()).equals(cardgroupString[cgs].trim())) {
+                                        for (int cc = 0; cc < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCard().size(); cc++) {
+                                            if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCard().get(cc).getCardID() != null &&
+                                                partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCard().get(cc).getExternalCardID() !=
+                                                null) {
+                                                SelectItem selectItem = new SelectItem();
+                                                selectItem.setLabel(partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCard().get(cc).getExternalCardID().toString());
+                                                selectItem.setValue(partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCard().get(cc).getCardID().toString());
+                                                addEditCardID.add(selectItem);
+                                                addEditCardValue.add(partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCard().get(cc).getCardID().toString());
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    Collections.sort(addEditUserCardGroupID, comparator);
+                    Collections.sort(addEditCardID, comparator);
+                }
+            }
+        } else {
+            getBindings().getAddEditCardId().setValue(null);
+            this.addEditCardValue = null;
+        }
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside pop up cardgroupValueChangeListener method of User Display");
     }
 
     public void multicardRadioValueChangeListener(ValueChangeEvent valueChangeEvent) {
@@ -1061,6 +1378,7 @@ public class UserInfoDisplayBean {
         User userInfo = new User();
         userRoleDeatils = new ArrayList<UserInfoRolesDetails>();
         userEmail = "";
+        showEmailpanel = false;
         if (session != null && null != session.getAttribute(Constants.SESSION_USER_INFO)) {
             userInfo = (User)session.getAttribute(Constants.SESSION_USER_INFO);
             if (null != userInfo) {
@@ -1078,34 +1396,41 @@ public class UserInfoDisplayBean {
                         userRoleDeatils.add(userInfoDetails);
                     }
                 } else if (userInfo.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR)) {
+                    System.out.println("Is it coming inside B2B mgr========>");
                     if (userInfo.getRoleList() != null && userInfo.getRoleList().size() > 0) {
+                        System.out.println("Is it coming inside B2B mgr========>1111111111");
                         for (int check = 0; check < userInfo.getRoleList().size(); check++) {
-                            if (userInfo.getRoleList().get(check).getIdString().contains(Constants.ENGAGE_B2B_MGR_AC_ASSOC)) {
-                                associatesRoleName = StringConversion(Constants.ENGAGE_B2B_MGR_AC_USER);
-                                for (int count = 0; count < associatesRoleName.length; count++) {
-                                    UserInfoRolesDetails userInfoDetails = new UserInfoRolesDetails();
+                            System.out.println("Is it coming inside B2B mgr========>2222222222" + userInfo.getRoleList().get(check).getIdString());
+                            for (int i = 0; i < userInfo.getRoleList().get(check).getIdString().size(); i++) {
+                                if (userInfo.getRoleList().get(check).getIdString().get(i).contains("AC")) {
+                                    System.out.println("Is it coming inside B2B mgr========>333333333333");
+                                    associatesRoleName = StringConversion(Constants.ENGAGE_B2B_MGR_AC_USER);
+                                    for (int count = 0; count < associatesRoleName.length; count++) {
+                                        UserInfoRolesDetails userInfoDetails = new UserInfoRolesDetails();
 
-                                    userInfoDetails.setRoleName(associatesRoleName[count]);
-                                    userInfoDetails.setCheckUserRole(false);
-                                    userInfoDetails.setAssociationValue("");
-                                    userInfoDetails.setPartnerId("");
-                                    userRoleDeatils.add(userInfoDetails);
+                                        userInfoDetails.setRoleName(associatesRoleName[count]);
+                                        userInfoDetails.setCheckUserRole(false);
+                                        userInfoDetails.setAssociationValue("");
+                                        userInfoDetails.setPartnerId("");
+                                        userRoleDeatils.add(userInfoDetails);
+                                    }
+                                    break;
                                 }
-                                break;
-                            }
 
-                            if (userInfo.getRoleList().get(check).getIdString().contains(Constants.ENGAGE_B2B_MGR_CG_ASSOC)) {
-                                associatesRoleName = StringConversion(Constants.ENGAGE_B2B_MGR_CG_USER);
-                                for (int count = 0; count < associatesRoleName.length; count++) {
-                                    UserInfoRolesDetails userInfoDetails = new UserInfoRolesDetails();
+                                if (userInfo.getRoleList().get(check).getIdString().get(i).contains("CG")) {
+                                    System.out.println("Is it coming inside B2B mgr========>444444444444444");
+                                    associatesRoleName = StringConversion(Constants.ENGAGE_B2B_MGR_CG_USER);
+                                    for (int count = 0; count < associatesRoleName.length; count++) {
+                                        UserInfoRolesDetails userInfoDetails = new UserInfoRolesDetails();
 
-                                    userInfoDetails.setRoleName(associatesRoleName[count]);
-                                    userInfoDetails.setCheckUserRole(false);
-                                    userInfoDetails.setAssociationValue("");
-                                    userInfoDetails.setPartnerId("");
-                                    userRoleDeatils.add(userInfoDetails);
+                                        userInfoDetails.setRoleName(associatesRoleName[count]);
+                                        userInfoDetails.setCheckUserRole(false);
+                                        userInfoDetails.setAssociationValue("");
+                                        userInfoDetails.setPartnerId("");
+                                        userRoleDeatils.add(userInfoDetails);
+                                    }
+                                    break;
                                 }
-                                break;
                             }
                         }
                     }
@@ -1127,6 +1452,25 @@ public class UserInfoDisplayBean {
         return "goToAddEdit";
     }
 
+    public void emailIdValueChangeListener(ValueChangeEvent valueChangeEvent) {
+        if (valueChangeEvent.getNewValue() != null && valueChangeEvent.getNewValue().toString().length() > 0) {
+            showEmailpanel = true;
+            getBindings().getUserFirstName().setSubmittedValue("");
+            getBindings().getUserFirstName().setValue("");
+            getBindings().getUserMiddleName().setSubmittedValue("");
+            getBindings().getUserMiddleName().setValue("");
+            getBindings().getUserLastName().setSubmittedValue("");
+            getBindings().getUserLastName().setValue("");
+
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getUserFirstName());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getUserMiddleName());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getUserLastName());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
+
+        }
+    }
+
+
     public String addEditUserPopUpSaveAction() {
         String selectedValues = null;
         RichTable userTable = getBindings().getUserRoleInfoTable();
@@ -1135,7 +1479,9 @@ public class UserInfoDisplayBean {
         if (selectedRow != null) {
 
             if (selectedRow.getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_ADMIN)) {
-                System.out.println("value of role name on command link====>" + selectedRow.getRoleName());
+                roleCount = roleCount + 1;
+                rolesToCreate = rolesToCreate + selectedRow.getRoleName().trim() + ",";
+
                 if (getBindings().getAddEditPartnerId().getValue() != null && getBindings().getAddEditPartnerId().getValue().toString().length() > 0) {
                     selectedValues =
                             getBindings().getAddEditPartnerId().getValue().toString().substring(1, getBindings().getAddEditPartnerId().getValue().toString().length() -
@@ -1143,13 +1489,15 @@ public class UserInfoDisplayBean {
                     selectedRow.setAssociationValue(populateSelectManyChoiceValues(selectedValues.trim().replaceAll(" ", ""), selectedRow.getRoleName()));
                 }
             } else if (selectedRow.getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR_AC)) {
-                System.out.println("value of role name on command link====>" + selectedRow.getRoleName());
+                roleCount = roleCount + 1;
+                rolesToCreate = rolesToCreate + selectedRow.getRoleName().trim() + ",";
                 if (getBindings().getAddEditAccountId().getValue() != null && getBindings().getAddEditAccountId().getValue().toString().length() > 0) {
                     selectedRow.setAssociationValue(populateStringValues(getBindings().getAddEditAccountId().getValue().toString().trim().replaceAll(" ",
                                                                                                                                                      "")));
                 }
             } else if (selectedRow.getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR_CG)) {
-                System.out.println("value of role name on command link====>" + selectedRow.getRoleName());
+                roleCount = roleCount + 1;
+                rolesToCreate = rolesToCreate + selectedRow.getRoleName().trim() + ",";
                 if (getBindings().getAddEditCardGroupId().getValue() != null && getBindings().getAddEditCardGroupId().getValue().toString().length() > 0) {
                     selectedValues =
                             getBindings().getAddEditCardGroupId().getValue().toString().substring(1, getBindings().getAddEditCardGroupId().getValue().toString().length() -
@@ -1157,7 +1505,8 @@ public class UserInfoDisplayBean {
                     selectedRow.setAssociationValue(populateSelectManyChoiceValues(selectedValues.trim().replaceAll(" ", ""), selectedRow.getRoleName()));
                 }
             } else {
-                System.out.println("value of role name on command link====>" + selectedRow.getRoleName());
+                roleCount = roleCount + 1;
+                rolesToCreate = rolesToCreate + selectedRow.getRoleName().trim() + ",";
                 if (getBindings().getAddEditCardId().getValue() != null && getBindings().getAddEditCardId().getValue().toString().length() > 0) {
                     selectedValues =
                             getBindings().getAddEditCardId().getValue().toString().substring(1, getBindings().getAddEditCardId().getValue().toString().length() -
@@ -1176,12 +1525,9 @@ public class UserInfoDisplayBean {
         String passingValues = "";
         String returnStringParam = "";
         if (var != null && role != null && role.equals(Constants.ROLE_WCP_CARD_B2B_ADMIN)) {
-            System.out.println("value of var=======>" + var);
             String[] convertedString = StringConversion(var.trim());
             if (convertedString.length > 0) {
-                System.out.println("count of converted string====> " + convertedString.length);
                 for (int count = 0; count < convertedString.length; count++) {
-                    System.out.println("value of partner id" + convertedString[count]);
                     passingValues = partnerNameMap.get(convertedString[count].trim());
                     returnStringParam = returnStringParam + passingValues + ",";
 
@@ -1189,21 +1535,17 @@ public class UserInfoDisplayBean {
                 }
             }
         } else if (role.equals(Constants.ROLE_WCP_CARD_B2B_MGR_CG)) {
-            System.out.println("value of var=======>" + var);
             String[] convertedString = StringConversion(var);
             if (convertedString.length > 0) {
                 for (int count = 0; count < convertedString.length; count++) {
-                    System.out.println("value of card group id" + convertedString[count]);
                     passingValues = cardGroupDescMap.get(convertedString[count].trim());
                     returnStringParam = returnStringParam + passingValues + ",";
                 }
             }
         } else {
-            System.out.println("value of var=======>" + var);
             String[] convertedString = StringConversion(var);
             if (convertedString.length > 0) {
                 for (int count = 0; count < convertedString.length; count++) {
-                    System.out.println("value of card id" + convertedString[count]);
                     passingValues = cardEmbossMap.get(convertedString[count].trim());
                     returnStringParam = returnStringParam + passingValues + ",";
                 }
@@ -1225,37 +1567,38 @@ public class UserInfoDisplayBean {
 
     public String manageUserCommandLinkAction() {
         showPopUpHeading = null;
+        populateCustomerData("Add");
         RichTable userTable = getBindings().getUserRoleInfoTable();
         UserInfoRolesDetails selectedRow = (UserInfoRolesDetails)userTable.getSelectedRowData();
         if (selectedRow != null) {
             if (selectedRow.getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_ADMIN)) {
                 isCreateAdmin = true;
-                isCreateACMgr = false;
-                isCreateCGMgr = false;
-                isCreateEmployee = false;
+                //                isCreateACMgr = false;
+                //                isCreateCGMgr = false;
+                //                isCreateEmployee = false;
                 showSelectManyChoiceOnRole(selectedRow.getRoleName());
                 showPopUpHeading = fetchAddEditPopUpHeading(selectedRow.getRoleName());
                 showPopUpTableheading = fetchAddEditPopUpTableHeading(selectedRow.getRoleName());
             } else if (selectedRow.getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR_AC)) {
-                isCreateAdmin = false;
+                //                isCreateAdmin = false;
                 isCreateACMgr = true;
-                isCreateCGMgr = false;
-                isCreateEmployee = false;
+                //                isCreateCGMgr = false;
+                //                isCreateEmployee = false;
                 showSelectManyChoiceOnRole(selectedRow.getRoleName());
                 showPopUpHeading = fetchAddEditPopUpHeading(selectedRow.getRoleName());
                 showPopUpTableheading = fetchAddEditPopUpTableHeading(selectedRow.getRoleName());
             } else if (selectedRow.getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR_CG)) {
-                isCreateAdmin = false;
-                isCreateACMgr = false;
+                //                isCreateAdmin = false;
+                //                isCreateACMgr = false;
                 isCreateCGMgr = true;
-                isCreateEmployee = false;
+                //                isCreateEmployee = false;
                 showSelectManyChoiceOnRole(selectedRow.getRoleName());
                 showPopUpHeading = fetchAddEditPopUpHeading(selectedRow.getRoleName());
                 showPopUpTableheading = fetchAddEditPopUpTableHeading(selectedRow.getRoleName());
             } else {
-                isCreateAdmin = false;
-                isCreateACMgr = false;
-                isCreateCGMgr = false;
+                //                isCreateAdmin = false;
+                //                isCreateACMgr = false;
+                //                isCreateCGMgr = false;
                 isCreateEmployee = true;
                 showSelectManyChoiceOnRole(selectedRow.getRoleName());
                 showPopUpHeading = fetchAddEditPopUpHeading(selectedRow.getRoleName());
@@ -1268,7 +1611,6 @@ public class UserInfoDisplayBean {
 
     public void showSelectManyChoiceOnRole(String roleName) {
         if (roleName != null && roleName.equals(Constants.ROLE_WCP_CARD_B2B_ADMIN)) {
-            System.out.println("Is it coming inside this method =======to check b2b admin");
             getBindings().getPopUpPartnerId().setRendered(true);
             getBindings().getPopUpPartnerColun().setRendered(true);
             getBindings().getPopUpPartnerSpacer().setRendered(true);
@@ -1406,154 +1748,179 @@ public class UserInfoDisplayBean {
 
     public String SaveUserInfoAction() {
 
-        User user = new User();
+        User userInfo = new User();
         Conversion conv = new Conversion();
-
+        DCBindingContainer bc = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
         if (getBindings().getUserEmailId() != null && getBindings().getUserFirstName() != null && getBindings().getUserLastName() != null &&
-            getBindings().getUserPhoneNumber() != null) {
-            user.setEmailID(getBindings().getUserEmailId().toString().trim());
-            user.setFirstName(getBindings().getUserFirstName().toString().trim());
-            user.setLastName(getBindings().getUserLastName().toString().trim());
-            user.setPhoneNumber(getBindings().getUserPhoneNumber().toString().trim());
-            user.setCountry(lang);
+            getBindings().getUserPhoneNumber() != null && getBindings().getDateOfBirth() != null) {
+            System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            userInfo.setEmailID(getBindings().getUserEmailId().getValue().toString().trim());
+            userInfo.setFirstName(getBindings().getUserFirstName().getValue().toString().trim());
+            userInfo.setLastName(getBindings().getUserLastName().getValue().toString().trim());
+            userInfo.setPhoneNumber(getBindings().getUserPhoneNumber().getValue().toString().trim());
+            userInfo.setDob((Date)getBindings().getDateOfBirth().getValue());
+            userInfo.setCountry(lang);
         } else {
 
         }
 
         if (getBindings().getUserMiddleName() != null) {
-            user.setMiddleName(getBindings().getUserMiddleName().toString().trim());
+            userInfo.setMiddleName(getBindings().getUserMiddleName().getValue().toString().trim());
         }
 
-        DCBindingContainer bc = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
-        DCIteratorBinding prtCardUserInfoItr = bc.findIteratorBinding("PrtCardUserInformationVO1Iterator");
-        DCIteratorBinding prtCardUserRoleMapItr = bc.findIteratorBinding("PrtCardUserRoleMappingVO1Iterator");
-
-        if (prtCardUserInfoItr != null && prtCardUserRoleMapItr != null) {
-            ViewObject cardUserInfoVO = ADFUtils.getViewObject("PrtCardUserInformationVO1Iterator");
-            ViewObject userRoleMapVO = ADFUtils.getViewObject("PrtCardUserRoleMappingVO1Iterator");
-
-            Row userInfoRow = cardUserInfoVO.createRow();
-            userInfoRow.setAttribute("CountryCode", lang);
-            userInfoRow.setAttribute("UserEmail", getBindings().getUserEmailId().getValue().toString().trim());
-            userInfoRow.setAttribute("UserFirstName", getBindings().getUserFirstName().getValue().toString().trim());
-            userInfoRow.setAttribute("UserMiddleName", getBindings().getUserMiddleName().getValue().toString().trim());
-            userInfoRow.setAttribute("UserLastName", getBindings().getUserLastName().getValue().toString().trim());
-            //            userInfoRow.setAttribute("UserDob", "26-Jan-1987");
-            //            userInfoRow.setAttribute("UserPhoneNo", getBindings().getUserPhoneNumber().toString().trim());
-            userInfoRow.setAttribute("UserPhoneNo", 12345);
-            userInfoRow.setAttribute("UserLang", conv.getCustomerCountryCode(lang));
-            userInfoRow.setAttribute("ModifiedBy", userEmail);
-
-            userInfoRow.setAttribute("UserStatus", "ACTIVE");
-            cardUserInfoVO.insertRow(userInfoRow);
-            RichTable userInfoTable = getBindings().getUserRoleInfoTable();
-            Object userInfoObject;
-            UserInfoRolesDetails allSelectedRows;
-
-            List<UserInfoRolesDetails> roleList = new ArrayList<UserInfoRolesDetails>();
-            for (int count = 0; count < userRoleDeatils.size(); count++) {
-                userInfoObject = userInfoTable.getRowData(count);
-                allSelectedRows = (UserInfoRolesDetails)userInfoObject;
-
-                if (allSelectedRows.getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_ADMIN)) {
-                    String[] paramString = StringConversion(allSelectedRows.getAssociationValue());
-                    System.out.println("value of size======>" + paramString.length);
-                    System.out.println("value of role======>" + allSelectedRows.getRoleName());
-                    for (int pCount = 0; pCount < paramString.length; pCount++) {
-                        if (paramString[pCount].trim() != null && paramString[pCount].length() > 0) {
-                            UserInfoRolesDetails roleInfo = new UserInfoRolesDetails();
-                            roleInfo.setRoleName(allSelectedRows.getRoleName());
-                            System.out.println("value of paramString=====>" + paramString[pCount].trim());
-                            System.out.println("value of map paramString=====>" + partnerIdMap.get(paramString[pCount].trim()));
-                            roleInfo.setAssociationValue(partnerIdMap.get(paramString[pCount].trim()));
-                            roleInfo.setAssociationType(Constants.ENGAGE_B2B_ADMIN_ASSOC);
-                            roleInfo.setPartnerId(partnerIdMap.get(paramString[pCount].trim()));
-                            roleList.add(roleInfo);
-                        }
+        if (roleCount > 0 && rolesToCreate != null && rolesToCreate.length() > 0) {
+            List<Roles> passingRoleList = new ArrayList<Roles>();
+            String checkB2bMgr = "No";
+            String rolesToPass = rolesToCreate.substring(0, rolesToCreate.length() - 1);
+            String[] passedRoles = rolesToPass.split(",");
+            for (int i = 0; i < passedRoles.length; i++) {
+                Roles rolesInfo = new Roles();
+                if (passedRoles[i].trim().equals(Constants.ROLE_WCP_CARD_B2B_ADMIN)) {
+                    rolesInfo.setRoleName(Constants.ROLE_WCP_CARD_B2B_ADMIN);
+                    rolesInfo.setAssigned(true);
+                    passingRoleList.add(rolesInfo);
+                } else if (passedRoles[i].trim().equals(Constants.ROLE_WCP_CARD_B2B_MGR_AC)) {
+                    checkB2bMgr = "Yes";
+                    rolesInfo.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
+                    rolesInfo.setAssigned(true);
+                    passingRoleList.add(rolesInfo);
+                } else if (passedRoles[i].trim().equals(Constants.ROLE_WCP_CARD_B2B_MGR_CG)) {
+                    if (checkB2bMgr.equals("Yes")) {
+                        break;
+                    } else {
+                        rolesInfo.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
+                        rolesInfo.setAssigned(true);
+                        passingRoleList.add(rolesInfo);
                     }
 
-                } else if (allSelectedRows.getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR_AC)) {
-                    String[] paramString = StringConversion(allSelectedRows.getAssociationValue());
-                    System.out.println("value of size======>" + paramString.length);
-                    System.out.println("value of role======>" + allSelectedRows.getRoleName());
-                    for (int pCount = 0; pCount < paramString.length; pCount++) {
-                        if (paramString[pCount].trim() != null && paramString[pCount].length() > 0) {
-                            UserInfoRolesDetails roleInfo = new UserInfoRolesDetails();
-                            roleInfo.setRoleName(allSelectedRows.getRoleName());
-                            roleInfo.setAssociationValue(paramString[pCount].trim());
-                            roleInfo.setAssociationType(Constants.ENGAGE_B2B_MGR_AC_ASSOC);
-                            roleInfo.setPartnerId(accountToPartnermap.get(paramString[pCount].trim()));
-                            roleList.add(roleInfo);
-                        }
-                    }
-                } else if (allSelectedRows.getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR_CG)) {
-                    String[] paramString = StringConversion(allSelectedRows.getAssociationValue());
-                    System.out.println("value of size======>" + paramString.length);
-                    System.out.println("value of role======>" + allSelectedRows.getRoleName());
-                    for (int pCount = 0; pCount < paramString.length; pCount++) {
-                        if (paramString[pCount].trim() != null && paramString[pCount].length() > 0) {
-                            UserInfoRolesDetails roleInfo = new UserInfoRolesDetails();
-                            roleInfo.setRoleName(allSelectedRows.getRoleName());
-                            roleInfo.setAssociationValue(cardGroupIdMap.get(paramString[pCount].trim()));
-                            roleInfo.setAssociationType(Constants.ENGAGE_B2B_MGR_CG_ASSOC);
-                            roleInfo.setPartnerId(cardGroupToPartnerMap.get(paramString[pCount].trim()));
-                            roleList.add(roleInfo);
-                        }
-                    }
                 } else {
-                    String[] paramString = StringConversion(allSelectedRows.getAssociationValue());
-                    System.out.println("value of size======>" + paramString.length);
-                    System.out.println("value of role======>" + allSelectedRows.getRoleName());
-                    for (int pCount = 0; pCount < paramString.length; pCount++) {
-                        if (paramString[pCount].trim() != null && paramString[pCount].length() > 0) {
-                            UserInfoRolesDetails roleInfo = new UserInfoRolesDetails();
-                            roleInfo.setRoleName(allSelectedRows.getRoleName());
-                            roleInfo.setAssociationValue(cardIdMap.get(paramString[pCount].trim()));
-                            roleInfo.setAssociationType(Constants.ENGAGE_B2B_EMP_ASSOC);
-                            roleInfo.setPartnerId(cardToPartnerMap.get(paramString[pCount].trim()));
-                            roleList.add(roleInfo);
+                    rolesInfo.setRoleName(Constants.ROLE_WCP_CARD_B2B_EMP);
+                    rolesInfo.setAssigned(true);
+                    passingRoleList.add(rolesInfo);
+                }
+            }
+            userInfo.setRoleList(passingRoleList);
+        }
+
+        if (userInfo != null) {
+            System.out.println("User first name=====>" + userInfo.getFirstName());
+            System.out.println("User dob=====>" + userInfo.getDob());
+            System.out.println("User phone number=====>" + userInfo.getPhoneNumber());
+            for (int i = 0; i < userInfo.getRoleList().size(); i++) {
+                System.out.println("value in role list====>" + userInfo.getRoleList().get(i).getRoleName());
+            }
+            BaseBean result = new BaseBean();
+            OperationBinding userCreateOpn = bc.getOperationBinding("createUser");
+            result = (BaseBean)userCreateOpn.getParamsMap().put("user", userInfo);
+            //        }
+            if (result != null) {
+                System.out.println("--------------------------------" + result);
+            } else {
+                System.out.println("AAAAAAAAA--------------------------------");
+            }
+
+
+            DCIteratorBinding prtCardUserInfoItr = bc.findIteratorBinding("PrtCardUserInformationVO1Iterator");
+            DCIteratorBinding prtCardUserRoleMapItr = bc.findIteratorBinding("PrtCardUserRoleMappingVO1Iterator");
+
+            if (prtCardUserInfoItr != null && prtCardUserRoleMapItr != null) {
+                ViewObject cardUserInfoVO = ADFUtils.getViewObject("PrtCardUserInformationVO1Iterator");
+                ViewObject userRoleMapVO = ADFUtils.getViewObject("PrtCardUserRoleMappingVO1Iterator");
+
+                Row userInfoRow = cardUserInfoVO.createRow();
+                userInfoRow.setAttribute("CountryCode", lang);
+                userInfoRow.setAttribute("UserEmail", getBindings().getUserEmailId().getValue().toString().trim());
+                userInfoRow.setAttribute("UserFirstName", getBindings().getUserFirstName().getValue().toString().trim());
+                userInfoRow.setAttribute("UserMiddleName", getBindings().getUserMiddleName().getValue().toString().trim());
+                userInfoRow.setAttribute("UserLastName", getBindings().getUserLastName().getValue().toString().trim());
+                //            userInfoRow.setAttribute("UserDob", "26-Jan-1987");
+                //            userInfoRow.setAttribute("UserPhoneNo", getBindings().getUserPhoneNumber().toString().trim());
+                userInfoRow.setAttribute("UserPhoneNo", 12345);
+                userInfoRow.setAttribute("UserLang", conv.getCustomerCountryCode(lang));
+                userInfoRow.setAttribute("ModifiedBy", userEmail);
+
+                userInfoRow.setAttribute("UserStatus", "ACTIVE");
+                cardUserInfoVO.insertRow(userInfoRow);
+                RichTable userInfoTable = getBindings().getUserRoleInfoTable();
+                Object userInfoObject;
+                UserInfoRolesDetails allSelectedRows;
+
+                List<UserInfoRolesDetails> roleList = new ArrayList<UserInfoRolesDetails>();
+                for (int count = 0; count < userRoleDeatils.size(); count++) {
+                    userInfoObject = userInfoTable.getRowData(count);
+                    allSelectedRows = (UserInfoRolesDetails)userInfoObject;
+
+                    if (allSelectedRows.getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_ADMIN)) {
+                        String[] paramString = StringConversion(allSelectedRows.getAssociationValue());
+                        for (int pCount = 0; pCount < paramString.length; pCount++) {
+                            if (paramString[pCount].trim() != null && paramString[pCount].length() > 0) {
+                                UserInfoRolesDetails roleInfo = new UserInfoRolesDetails();
+                                roleInfo.setRoleName(allSelectedRows.getRoleName());
+                                roleInfo.setAssociationValue(partnerIdMap.get(paramString[pCount].trim()));
+                                roleInfo.setAssociationType(Constants.ENGAGE_B2B_ADMIN_ASSOC);
+                                roleInfo.setPartnerId(partnerIdMap.get(paramString[pCount].trim()));
+                                roleList.add(roleInfo);
+                            }
+                        }
+
+                    } else if (allSelectedRows.getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR_AC)) {
+                        String[] paramString = StringConversion(allSelectedRows.getAssociationValue());
+                        for (int pCount = 0; pCount < paramString.length; pCount++) {
+                            if (paramString[pCount].trim() != null && paramString[pCount].length() > 0) {
+                                UserInfoRolesDetails roleInfo = new UserInfoRolesDetails();
+                                roleInfo.setRoleName(allSelectedRows.getRoleName());
+                                roleInfo.setAssociationValue(paramString[pCount].trim());
+                                roleInfo.setAssociationType(Constants.ENGAGE_B2B_MGR_AC_ASSOC);
+                                roleInfo.setPartnerId(accountToPartnermap.get(paramString[pCount].trim()));
+                                roleList.add(roleInfo);
+                            }
+                        }
+                    } else if (allSelectedRows.getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR_CG)) {
+                        String[] paramString = StringConversion(allSelectedRows.getAssociationValue());
+                        for (int pCount = 0; pCount < paramString.length; pCount++) {
+                            if (paramString[pCount].trim() != null && paramString[pCount].length() > 0) {
+                                UserInfoRolesDetails roleInfo = new UserInfoRolesDetails();
+                                roleInfo.setRoleName(allSelectedRows.getRoleName());
+                                roleInfo.setAssociationValue(cardGroupIdMap.get(paramString[pCount].trim()));
+                                roleInfo.setAssociationType(Constants.ENGAGE_B2B_MGR_CG_ASSOC);
+                                roleInfo.setPartnerId(cardGroupToPartnerMap.get(paramString[pCount].trim()));
+                                roleList.add(roleInfo);
+                            }
+                        }
+                    } else {
+                        String[] paramString = StringConversion(allSelectedRows.getAssociationValue());
+                        for (int pCount = 0; pCount < paramString.length; pCount++) {
+                            if (paramString[pCount].trim() != null && paramString[pCount].length() > 0) {
+                                UserInfoRolesDetails roleInfo = new UserInfoRolesDetails();
+                                roleInfo.setRoleName(allSelectedRows.getRoleName());
+                                roleInfo.setAssociationValue(cardIdMap.get(paramString[pCount].trim()));
+                                roleInfo.setAssociationType(Constants.ENGAGE_B2B_EMP_ASSOC);
+                                roleInfo.setPartnerId(cardToPartnerMap.get(paramString[pCount].trim()));
+                                roleList.add(roleInfo);
+                            }
                         }
                     }
+
                 }
 
-            }
+                for (int roleCount = 0; roleCount < roleList.size(); roleCount++) {
+                    Row userRoleMapRow = userRoleMapVO.createRow();
+                    userRoleMapRow.setAttribute("CountryCode", lang);
+                    userRoleMapRow.setAttribute("UserEmail", getBindings().getUserEmailId().getValue().toString().trim());
+                    userRoleMapRow.setAttribute("UserRole", roleList.get(roleCount).getRoleName());
+                    userRoleMapRow.setAttribute("AssociationType", roleList.get(roleCount).getAssociationType());
+                    userRoleMapRow.setAttribute("UserAssociation", roleList.get(roleCount).getAssociationValue());
+                    userRoleMapRow.setAttribute("PartnerId", roleList.get(roleCount).getPartnerId());
+                    userRoleMapRow.setAttribute("ModifiedBy", userEmail);
 
-            for (int roleCount = 0; roleCount < roleList.size(); roleCount++) {
-                Row userRoleMapRow = userRoleMapVO.createRow();
-                System.out.println("valur od association value================>" + roleList.get(roleCount).getAssociationValue());
-                userRoleMapRow.setAttribute("CountryCode", lang);
-                userRoleMapRow.setAttribute("UserEmail", getBindings().getUserEmailId().getValue().toString().trim());
-                userRoleMapRow.setAttribute("UserRole", roleList.get(roleCount).getRoleName());
-                userRoleMapRow.setAttribute("AssociationType", roleList.get(roleCount).getAssociationType());
-                userRoleMapRow.setAttribute("UserAssociation", roleList.get(roleCount).getAssociationValue());
-                userRoleMapRow.setAttribute("PartnerId", roleList.get(roleCount).getPartnerId());
-                userRoleMapRow.setAttribute("ModifiedBy", userEmail);
-
-                userRoleMapVO.insertRow(userRoleMapRow);
+                    userRoleMapVO.insertRow(userRoleMapRow);
+                }
+                OperationBinding operationBinding = bc.getOperationBinding("Commit");
+                operationBinding.execute();
             }
-            OperationBinding operationBinding = bc.getOperationBinding("Commit");
-            operationBinding.execute();
         }
         return "addEditToSearch";
     }
-
-    //    public List<UserInfoRolesDetails> populateUserInfoDetails(UserInfoRolesDetails userRoleDetails, boolean flag) {
-    //        List<UserInfoRolesDetails> roleList = new ArrayList<UserInfoRolesDetails>();
-    //        UserInfoRolesDetails roleInfo = new UserInfoRolesDetails();
-    //        if (flag && userRoleDetails != null) {
-    //            String[] paramString = StringConversion(userRoleDetails.getAssociationValue());
-    //            System.out.println("value of size======>" + paramString.length);
-    //            System.out.println("value of role======>" + userRoleDetails.getRoleName());
-    //            for (int count = 0; count < paramString.length; count++) {
-    //                roleInfo.setRoleName(userRoleDetails.getRoleName());
-    //                roleInfo.setAssociationValue(paramString[count]);
-    //                roleInfo.setPartnerId("123456");
-    //                roleList.add(roleInfo);
-    //            }
-    //        }
-    //        return roleList;
-    //    }
-
 
     public void setPartnerIdList(List<SelectItem> partnerIdList) {
         this.partnerIdList = partnerIdList;
@@ -1935,6 +2302,30 @@ public class UserInfoDisplayBean {
         return cardGroupToPartnerMap;
     }
 
+    public void setShowEmailpanel(boolean showEmailpanel) {
+        this.showEmailpanel = showEmailpanel;
+    }
+
+    public boolean isShowEmailpanel() {
+        return showEmailpanel;
+    }
+
+    public void setRoleCount(Integer roleCount) {
+        this.roleCount = roleCount;
+    }
+
+    public Integer getRoleCount() {
+        return roleCount;
+    }
+
+    public void setRolesToCreate(String rolesToCreate) {
+        this.rolesToCreate = rolesToCreate;
+    }
+
+    public String getRolesToCreate() {
+        return rolesToCreate;
+    }
+
 
     public class Bindings {
 
@@ -1970,6 +2361,7 @@ public class UserInfoDisplayBean {
         private RichOutputText popUpCardId;
         private RichOutputText popUpCardColon;
         private RichSpacer popUpCardSpacer;
+        private RichInputDate dateOfBirth;
 
 
         public void setPartner(RichSelectManyChoice partner) {
@@ -2228,6 +2620,14 @@ public class UserInfoDisplayBean {
 
         public RichSpacer getPopUpCardSpacer() {
             return popUpCardSpacer;
+        }
+
+        public void setDateOfBirth(RichInputDate dateOfBirth) {
+            this.dateOfBirth = dateOfBirth;
+        }
+
+        public RichInputDate getDateOfBirth() {
+            return dateOfBirth;
         }
     }
 }
