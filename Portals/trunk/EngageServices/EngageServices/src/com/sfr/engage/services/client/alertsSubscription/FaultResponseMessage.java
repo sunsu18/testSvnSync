@@ -2,25 +2,25 @@ package com.sfr.engage.services.client.alertsSubscription;
 
 import javax.xml.ws.WebFault;
 
-@WebFault(faultBean = "alertsSubType.FaultType", targetNamespace = "http://www.lntinfotech.com/integration/SOARuleEngineSubscription", name = "Fault")
+@WebFault(faultBean = "alertsTrialType.FaultType", targetNamespace = "http://www.lntinfotech.com/integration/SOARuleEngineSubscription", name = "Fault")
 public class FaultResponseMessage extends Exception {
-    private alertsSubType.FaultType faultInfo;
+    private com.sfr.engage.services.client.alertsSubscription.type.FaultType faultInfo;
 
-    public FaultResponseMessage(String message, alertsSubType.FaultType faultInfo) {
+    public FaultResponseMessage(String message, com.sfr.engage.services.client.alertsSubscription.type.FaultType faultInfo) {
         super(message);
         this.faultInfo = faultInfo;
     }
 
-    public FaultResponseMessage(String message, alertsSubType.FaultType faultInfo, Throwable t) {
+    public FaultResponseMessage(String message, com.sfr.engage.services.client.alertsSubscription.type.FaultType faultInfo, Throwable t) {
         super(message, t);
         this.faultInfo = faultInfo;
     }
 
-    public alertsSubType.FaultType getFaultInfo() {
+    public com.sfr.engage.services.client.alertsSubscription.type.FaultType getFaultInfo() {
         return faultInfo;
     }
 
-    public void setFaultInfo(alertsSubType.FaultType faultInfo) {
+    public void setFaultInfo(com.sfr.engage.services.client.alertsSubscription.type.FaultType faultInfo) {
         this.faultInfo = faultInfo;
     }
 }
