@@ -1139,7 +1139,7 @@ public class MyPageListener implements PagePhaseListener {
                                                                 }
                                                                 if (!addflagaccount && accountlist.size() > 0) {
                                                                     if (createCardGroupList) {
-                                                                    
+                                                                        Collections.sort(cardlist, new CardStatusComparator());
                                                                         cardgrp.setCard(cardlist);
                                                                         cardgrp.setUnblockedCardList(unblockedcardlist);
                                                                         cardgrp.setPerBlockAndActiveCardList(perBlockAndActiveCardList);
@@ -1171,7 +1171,7 @@ public class MyPageListener implements PagePhaseListener {
                                                                         //the existing one
                                                                         cardgrouplist = accountCheck.getCardGroup();
                                                                         //cardgrp.setCard(cardlist);
-                                                                        
+                                                                        Collections.sort(cardlist, new CardStatusComparator());
                                                                         cardgrp.setCard(cardlist);
                                                                         cardgrp.setUnblockedCardList(unblockedcardlist);
                                                                         cardgrp.setPerBlockAndActiveCardList(perBlockAndActiveCardList);
@@ -1244,6 +1244,7 @@ public class MyPageListener implements PagePhaseListener {
                                                                     //cardgrp.setCard(cardlist);
                                                                     log.info("unblocked list " + unblockedcardlist.size());
                                                                     //cardgrp.setUnblockedCardList(unblockedcardlist);
+                                                                    Collections.sort(cardlist, new CardStatusComparator());
                                                                     cardgrp.setCard(cardlist);
                                                                     cardgrp.setUnblockedCardList(unblockedcardlist);
                                                                     cardgrp.setPerBlockAndActiveCardList(perBlockAndActiveCardList);
