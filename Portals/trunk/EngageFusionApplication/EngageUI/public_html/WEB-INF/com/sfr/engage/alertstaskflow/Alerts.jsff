@@ -355,7 +355,7 @@
         <af:commandButton text="#{sfr.ENGAGE_RESETFILTER}" id="cb13" actionListener="#{pageFlowScope.AlertsBean.resetFilterTable}"/>
       </af:panelGroupLayout>
       <af:spacer width="10" height="10" id="s78"/>
-      <af:panelGroupLayout id="pgl73" layout="scroll">
+      <af:panelGroupLayout id="pgl73" layout="scroll" inlineStyle="width:945px;">
         <af:table value="#{bindings.PrtCardRuleSubscriptionRVO11.collectionModel}" var="row" width="962px" styleClass="AFStretchWidth"
                   rows="#{bindings.PrtCardRuleSubscriptionRVO11.rangeSize}"
                   emptyText="#{bindings.PrtCardRuleSubscriptionRVO11.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED_ENG)}"
@@ -364,7 +364,7 @@
                   filterModel="#{bindings.PrtCardRuleSubscriptionRVO1Query.queryDescriptor}"
                   queryListener="#{bindings.PrtCardRuleSubscriptionRVO1Query.processQuery}" filterVisible="true" varStatus="vs"
                   selectionListener="#{bindings.PrtCardRuleSubscriptionRVO11.collectionModel.makeCurrent}" rowSelection="multiple" id="t2">
-          <af:column sortProperty="RuleId" filterable="false" sortable="true" headerText="#{sfr.RULE}" id="c9" width="325">
+          <af:column sortProperty="RuleId" filterable="false" sortable="true" headerText="#{sfr.RULE}" id="c9" width="305" noWrap="false">
             <af:outputText value="#{row.RuleId eq '1' ? (sfr.FUELING_OUTSIDE_BUSINESS_HOURS) : (sfr.FUELING_OVER_CERTAIN_QUANTITY_IN_GIVEN_PERIOD)}" id="ot36"></af:outputText>
           </af:column>
           <af:column sortProperty="PartnerId" filterable="true" sortable="true" headerText="#{sfr.PARTNER_ENG}" filterFeatures="caseInsensitive" id="c5"
@@ -393,7 +393,7 @@
               <af:convertDateTime pattern="#{bindings.PrtCardRuleSubscriptionRVO11.hints.SubscrDate.format}"/>
             </af:outputText>
           </af:column>
-          <af:column id="c6" width="50" headerText="#{sfr.MANAGE}" align="center">
+          <af:column id="c6" width="40" headerText="#{sfr.MANAGE}" align="center">
             <af:commandImageLink id="cil1" icon="/images/edit.png" actionListener="#{pageFlowScope.AlertsBean.viewConfiguredAlertPopup}">
               <af:setPropertyListener from="#{row.SubscrId}" type="action" to="#{pageFlowScope.SubscrIdkey}"/>
               <af:setPropertyListener from="#{row.RuleId}" type="action" to="#{pageFlowScope.RuleIdkey}"/>
@@ -403,7 +403,7 @@
               <af:setPropertyListener from="#{row.CardEmbossNumber}" type="action" to="#{pageFlowScope.CardKsidkey}"/>
             </af:commandImageLink>
           </af:column>
-          <af:column id="c14" width="50" headerText="#{sfr.MANAGE}" align="center">
+          <af:column id="c14" width="40" headerText="#{sfr.MANAGE}" align="center">
             <af:commandImageLink id="cil2" icon="/images/Delete.png" actionListener="#{pageFlowScope.AlertsBean.confirmDeleteAlert}">
               <af:setPropertyListener from="#{row.SubscrId}" type="action" to="#{pageFlowScope.SubscrIdkey}"/>
               <af:setPropertyListener from="#{row.RuleId}" type="action" to="#{pageFlowScope.RuleIdkey}"/>
