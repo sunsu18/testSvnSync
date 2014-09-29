@@ -3172,8 +3172,26 @@ public class Alerts {
     public void displayErrorComponent(UIComponent component, boolean status) {
 
         RichSelectManyChoice soc = new RichSelectManyChoice();
+        RichInputText rit = new RichInputText();
 
-        if (component instanceof RichSelectManyChoice) {
+        if (component instanceof RichInputText) {
+            rit = (RichInputText)component;
+            if (status) {
+                rit.setContentStyle("af_mandatoryfield");
+                if (component.getId().contains("it19"))
+                    rit.setContentStyle("af_mandatoryfield");
+
+
+            } else {
+                rit.setContentStyle("af_nonmandatoryfield");
+                if (component.getId().contains("it19"))
+                    rit.setContentStyle("af_nonmandatoryfield");
+
+            }
+            AdfFacesContext.getCurrentInstance().addPartialTarget(rit);
+
+        }  
+        else if (component instanceof RichSelectManyChoice) {
             soc = (RichSelectManyChoice)component;
             if (status) {
                 soc.setStyleClass("af_mandatoryfield");
@@ -3199,7 +3217,19 @@ public class Alerts {
     private Boolean isComponentEmpty(UIComponent rit1) {
 
         RichSelectManyChoice soc = new RichSelectManyChoice();
-        if (rit1 instanceof RichSelectManyChoice) {
+        RichInputText rit = new RichInputText();
+        if (rit1 instanceof RichInputText) {
+            rit = (RichInputText)rit1;
+            if (rit.getValue() == null || rit.getValue().equals("")) {               
+                displayErrorComponent(rit, true);
+                return true;
+            } else {               
+                displayErrorComponent(rit, false);
+                return false;
+            }
+        }
+        
+        else if (rit1 instanceof RichSelectManyChoice) {
             soc = (RichSelectManyChoice)rit1;
             if (soc.getValue() == null || soc.getValue().equals("")) {
                 displayErrorComponent(soc, true);
