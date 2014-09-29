@@ -149,16 +149,16 @@ public class EngageResourceBundle extends ListResourceBundle {
       { "PLEASE_ENTER_QUANTITY", "" }, { "USER_DISPLAY", "" }, { "B2B_ADMIN", "" }, { "B2B_MANAGER_AC", "" }, { "B2B_EMPLOYEE", "" },
       { "SEARCH_BY_INPUT", "" }, { "ROLE", "" }, { "ENGAGE_NO_ROLE", "" }, { "B2B_MANAGER_CG", "" }, { "PHONE_NO", "" }, { "LAST_NAME", "" },
       { "MIDDLE_NAME", "" }, { "FIRST_NAME", "" }, { "USER_EMAIL", "" }, { "ALERT_NOTE", "" }, { "SUCCESS_ALERT", "" }, { "INVALID_INPUT_ALERT", "" },
-      { "FAILURE_ALERT", "" }, { "BUSINESS_HOURS_ALERT_NOTE", "" }, { "FUEL_CAPACITY_ALERT_NOTE", "" }, { "LTR_DAY", "" }, { "LTR_WEEK", "" },
-      { "LTR_MONTH", "" }, { "LTRS", "" }, { "SEARCH_TEXT", "" }, { "PLEASE_WAIT", "" }, { "ENGAGE_USER_DETAILS", "" }, { "ENGAGE_ENTER_CARD", "" },
-      { "CARD_STATUS_SELECTOR", "" }, { "ENGAGE_CARD_2_ID", "" }, { "RULE", "" }, { "SUBSCRIPTION_DATE", "" }, { "ALERT_DETAILS", "" },
-      { "ENGAGE_USER_DETAILS", "" }, { "ENGAGE_ENTER_CARD", "" }, { "CARD_STATUS_SELECTOR", "" }, { "ENGAGE_CARD_2_ID", "" }, { "PER_CARD_VIEW", "" },
-      { "FUELING_QUANTITY", "" }, { "AMOUNT", "" }, { "ENG_NO_READ_MSGS", "" }, { "ENG_NO_UNREAD_MSGS", "" }, { "ENGAGE_ADD_USER_INFO", "" },
-      { "ENTER_EMAIL_ID", "" }, { "USER_DISP_MESSAGE", "" }, { "ENAGE_USER_FIRST_NAME", "" }, { "ENAGE_USER_MIDDLE_NAME", "" }, { "ENAGE_USER_LAST_NAME", "" },
-      { "ENAGE_USER_PHONE_NO", "" }, { "ENAGE_USER_COUNTRY", "" }, { "ADD_EDIT_USER_INFO", "" }, { "ROLE_ASSOCIATION", "" }, { "ADD_EDIT_USER_ADMIN", "" },
-      { "ADD_EDIT_USER_MGR_AC", "" }, { "ADD_EDIT_USER_MGR_CG", "" }, { "ADD_EDIT_USER_EMP", "" }, { "ALREADY_ASSOCIATED_PARTNERS", "" },
-      { "ALREADY_ASSOCIATED_ACCOUNTS", "" }, { "ALREADY_ASSOCIATED_CARDGROUP", "" }, { "ALREADY_ASSOCIATED_CARDS", "" }, { "USER_ASSOCIATION", "" },
-      { "MANAGE_USER", "" }, { "ALREADY_ASSOCIATED_CARDS", "" } };
+      { "FAILURE_ALERT", "" }, { "BUSINESS_HOURS_ALERT_NOTE", "" }, { "BUSINESS_HOURS_ALERT_NOTE2", "" }, { "FUEL_CAPACITY_ALERT_NOTE", "" },
+      { "LTR_DAY", "" }, { "LTR_WEEK", "" }, { "LTR_MONTH", "" }, { "LTRS", "" }, { "SEARCH_TEXT", "" }, { "PLEASE_WAIT", "" }, { "ENGAGE_USER_DETAILS", "" },
+      { "ENGAGE_ENTER_CARD", "" }, { "CARD_STATUS_SELECTOR", "" }, { "ENGAGE_CARD_2_ID", "" }, { "RULE", "" }, { "SUBSCRIPTION_DATE", "" },
+      { "ALERT_DETAILS", "" }, { "ENGAGE_USER_DETAILS", "" }, { "ENGAGE_ENTER_CARD", "" }, { "CARD_STATUS_SELECTOR", "" }, { "ENGAGE_CARD_2_ID", "" },
+      { "PER_CARD_VIEW", "" }, { "FUELING_QUANTITY", "" }, { "AMOUNT", "" }, { "ENG_NO_READ_MSGS", "" }, { "ENG_NO_UNREAD_MSGS", "" },
+      { "ENGAGE_ADD_USER_INFO", "" }, { "ENTER_EMAIL_ID", "" }, { "USER_DISP_MESSAGE", "" }, { "ENAGE_USER_FIRST_NAME", "" }, { "ENAGE_USER_MIDDLE_NAME", "" },
+      { "ENAGE_USER_LAST_NAME", "" }, { "ENAGE_USER_PHONE_NO", "" }, { "ENAGE_USER_COUNTRY", "" }, { "ADD_EDIT_USER_INFO", "" }, { "ROLE_ASSOCIATION", "" },
+      { "ADD_EDIT_USER_ADMIN", "" }, { "ADD_EDIT_USER_MGR_AC", "" }, { "ADD_EDIT_USER_MGR_CG", "" }, { "ADD_EDIT_USER_EMP", "" },
+      { "ALREADY_ASSOCIATED_PARTNERS", "" }, { "ALREADY_ASSOCIATED_ACCOUNTS", "" }, { "ALREADY_ASSOCIATED_CARDGROUP", "" }, { "ALREADY_ASSOCIATED_CARDS", "" },
+      { "USER_ASSOCIATION", "" }, { "MANAGE_USER", "" }, { "ALREADY_ASSOCIATED_CARDS", "" } };
 
     /**
      * This method populates the values of all resource keys from database through PrtGenTranslationVO based on lang parameter.

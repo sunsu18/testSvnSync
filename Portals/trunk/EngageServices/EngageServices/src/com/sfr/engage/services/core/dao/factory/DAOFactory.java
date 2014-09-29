@@ -1,10 +1,9 @@
 package com.sfr.engage.services.core.dao.factory;
 
 
-import com.sfr.engage.services.client.alerts.SubscriberRegistration;
+import com.sfr.engage.services.client.alertsSubscription.Subscription;
 import com.sfr.engage.services.client.ucm.UCMCustomWeb;
 import com.sfr.services.core.dao.factory.WebServiceProxy;
-import com.sfr.util.AccessDataControl;
 import com.sfr.util.ConfigurationUtility;
 import com.sfr.util.constants.Constants;
 
@@ -23,14 +22,12 @@ import javax.sql.DataSource;
 
 import javax.xml.ws.BindingProvider;
 
-import oracle.adf.share.logging.ADFLogger;
-
 import weblogic.wsee.jws.jaxws.owsm.SecurityPoliciesFeature;
 
 
 public class DAOFactory {
 
-    public static final ADFLogger log = AccessDataControl.getSFRLogger();
+    //public static final ADFLogger log = AccessDataControl.getSFRLogger();
 
     public DAOFactory() {
         super();
@@ -65,7 +62,7 @@ public class DAOFactory {
             ((BindingProvider)uCMCustomWeb).getRequestContext().put(BindingProvider.PASSWORD_PROPERTY, ucmPassword);
 
         } catch (Exception e) {
-            log.severe(AccessDataControl.getDisplayRecord() + this.getClass() + ".getUCMService : " + "Exception");
+            //  log.severe(AccessDataControl.getDisplayRecord() + this.getClass() + ".getUCMService : " + "Exception");
         }
         return uCMCustomWeb;
     }
@@ -94,39 +91,40 @@ public class DAOFactory {
                 connection = datasource.getConnection();
 
             } else {
-                log.severe(AccessDataControl.getDisplayRecord() + "getJNDIConnection : No data source");
+                // log.severe(AccessDataControl.getDisplayRecord() + "getJNDIConnection : No data source");
             }
 
         } catch (SQLException e) {
-            log.severe(e);
+            //log.severe(e);
         } catch (NamingException e) {
-            log.severe(e);
+            //log.severe(e);
         } finally {
             try {
                 if (objinitialContext != null) {
                     objinitialContext.close();
                 }
             } catch (NamingException ne) {
-                log.severe(ne);
+                // log.severe(ne);
             }
         }
         return connection;
     }
 
 
-    public SubscriberRegistration getAlertSubscriptionService() {
-        String wsdlUrl = new com.sfr.services.core.dao.factory.DAOFactory().getPropertyValue(Constants.ENGAGE_SUBSCRIBE_ALERT);
-        String targetNamespace = "http://xmlns.oracle.com/SubscriberRegistrationApp/SubscriberRegistration/SubscriberRegistration";
-        String serviceName = "subscriberregistration_client_ep";
-        String portName = "SubscriberRegistration_pt";
+    public Subscription getAlertSubscriptionService() {
+        //String wsdlUrl = new com.sfr.services.core.dao.factory.DAOFactory().getPropertyValue(Constants.ENGAGE_SUBSCRIBE_ALERT);
+        String wsdlUrl = "http://10.24.240.15:7021/soa-infra/services/CommonUtilities/SOARuleEngineSubscription/subscription_client_ep?WSDL";
+        String targetNamespace = "http://www.lntinfotech.com/integration/SOARuleEngineSubscription/Subscription";
+        String serviceName = "subscription_client_ep";
+        String portName = "Subscription_pt";
 
-        SubscriberRegistration subscriberRegistration = null;
-        Class<SubscriberRegistration> serviceEndPoint = SubscriberRegistration.class;
+        Subscription subscriberRegistration = null;
+        Class<Subscription> serviceEndPoint = Subscription.class;
         try {
             WebServiceProxy client = new WebServiceProxy(wsdlUrl, serviceName, targetNamespace);
             subscriberRegistration = client.getServicePort(portName, serviceEndPoint);
         } catch (MalformedURLException e) {
-            log.severe(e);
+            //log.severe(e);
         }
         return subscriberRegistration;
     }

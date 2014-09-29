@@ -1,45 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
-                version="11.1.1.61.92" id="AlertsPageDef"
-                Package="com.sfr.engage.alertstaskflow">
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.1.61.92" id="AlertsPageDef" Package="com.sfr.engage.alertstaskflow">
   <parameters/>
   <executables>
     <variableIterator id="variables"/>
-    <iterator Binds="PrtCardRuleSubscriptionVO1" RangeSize="25"
-              DataControl="EngageAppModuleDataControl"
-              id="PrtCardRuleSubscriptionVO1Iterator"/>
-    <iterator Binds="PrtCardRuleBusinessHoursVO1" RangeSize="25"
-              DataControl="EngageAppModuleDataControl"
-              id="PrtCardRuleBusinessHoursVO1Iterator"/>
-    <iterator Binds="PrtCardFuelCapacityVO1" RangeSize="25"
-              DataControl="EngageAppModuleDataControl"
-              id="PrtCardFuelCapacityVO1Iterator"/>
-    <iterator Binds="PrtCardRuleSubscriptionRVO1" RangeSize="25"
-              DataControl="EngageAppModuleDataControl"
-              id="PrtCardRuleSubscriptionRVO1Iterator"/>
-    <searchRegion Binds="PrtCardRuleSubscriptionRVO1Iterator" Criteria=""
-                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+    <iterator Binds="PrtCardRuleSubscriptionVO1" RangeSize="25" DataControl="EngageAppModuleDataControl" id="PrtCardRuleSubscriptionVO1Iterator"/>
+    <iterator Binds="PrtCardRuleBusinessHoursVO1" RangeSize="25" DataControl="EngageAppModuleDataControl" id="PrtCardRuleBusinessHoursVO1Iterator"/>
+    <iterator Binds="PrtCardFuelCapacityVO1" RangeSize="25" DataControl="EngageAppModuleDataControl" id="PrtCardFuelCapacityVO1Iterator"/>
+    <iterator Binds="PrtCardRuleSubscriptionRVO1" RangeSize="25" DataControl="EngageAppModuleDataControl" id="PrtCardRuleSubscriptionRVO1Iterator"/>
+    <searchRegion Binds="PrtCardRuleSubscriptionRVO1Iterator" Criteria="" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
                   id="PrtCardRuleSubscriptionRVO1Query"/>
-    <iterator id="PrtCardFuelCapacityRVO1Iterator"
-              Binds="PrtCardFuelCapacityRVO1"
-              DataControl="EngageAppModuleDataControl" RangeSize="25"/>
-    <iterator id="PrtCardRuleBusinessHoursRVO1Iterator"
-              Binds="PrtCardRuleBusinessHoursRVO1"
-              DataControl="EngageAppModuleDataControl" RangeSize="25"/>
+    <iterator id="PrtCardFuelCapacityRVO1Iterator" Binds="PrtCardFuelCapacityRVO1" DataControl="EngageAppModuleDataControl" RangeSize="25"/>
+    <iterator id="PrtCardRuleBusinessHoursRVO1Iterator" Binds="PrtCardRuleBusinessHoursRVO1" DataControl="EngageAppModuleDataControl" RangeSize="25"/>
   </executables>
   <bindings>
-    <methodAction id="subscribeAlerts" InstanceName="Alerts.dataProvider"
-                  DataControl="Alerts" RequiresUpdateModel="true"
-                  Action="invokeMethod" MethodName="subscribeAlerts"
-                  IsViewObjectMethod="false"
+    <methodAction id="subscribeAlerts" InstanceName="Alerts.dataProvider" DataControl="Alerts" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="subscribeAlerts" IsViewObjectMethod="false"
                   ReturnName="data.Alerts.methodResults.subscribeAlerts_Alerts_dataProvider_subscribeAlerts_result">
-      <NamedData NDName="subscribeRequest"
-                 NDType="com.sfr.engage.core.AlertsSubscribeRequest"/>
+      <NamedData NDName="subscribeRequest" NDType="com.sfr.engage.core.AlertsSubscribeRequest"/>
     </methodAction>
-    <tree IterBinding="PrtCardRuleSubscriptionVO1Iterator"
-          id="PrtCardRuleSubscriptionVO1">
-      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtCardRuleSubscriptionVO"
-                      Name="PrtCardRuleSubscriptionVO10">
+    <tree IterBinding="PrtCardRuleSubscriptionVO1Iterator" id="PrtCardRuleSubscriptionVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtCardRuleSubscriptionVO" Name="PrtCardRuleSubscriptionVO10">
         <AttrNames>
           <Item Value="CountryCode"/>
           <Item Value="UserId"/>
@@ -58,10 +38,8 @@
         </AttrNames>
       </nodeDefinition>
     </tree>
-    <tree IterBinding="PrtCardRuleBusinessHoursVO1Iterator"
-          id="PrtCardRuleBusinessHoursVO1">
-      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtCardRuleBusinessHoursVO"
-                      Name="PrtCardRuleBusinessHoursVO10">
+    <tree IterBinding="PrtCardRuleBusinessHoursVO1Iterator" id="PrtCardRuleBusinessHoursVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtCardRuleBusinessHoursVO" Name="PrtCardRuleBusinessHoursVO10">
         <AttrNames>
           <Item Value="RuleBusiId"/>
           <Item Value="CountryCode"/>
@@ -75,10 +53,8 @@
         </AttrNames>
       </nodeDefinition>
     </tree>
-    <tree IterBinding="PrtCardFuelCapacityVO1Iterator"
-          id="PrtCardFuelCapacityVO1">
-      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtCardFuelCapacityVO"
-                      Name="PrtCardFuelCapacityVO10">
+    <tree IterBinding="PrtCardFuelCapacityVO1Iterator" id="PrtCardFuelCapacityVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtCardFuelCapacityVO" Name="PrtCardFuelCapacityVO10">
         <AttrNames>
           <Item Value="CountryCode"/>
           <Item Value="SubscrId"/>
@@ -92,9 +68,8 @@
         </AttrNames>
       </nodeDefinition>
     </tree>
-    <action id="Commit" DataControl="EngageAppModuleDataControl"
-            RequiresUpdateModel="true" Action="commitTransaction"/>
-   <!-- <tree IterBinding="PrtCardRuleSubscriptionRVO1Iterator"
+    <action id="Commit" DataControl="EngageAppModuleDataControl" RequiresUpdateModel="true" Action="commitTransaction"/>
+    <!-- <tree IterBinding="PrtCardRuleSubscriptionRVO1Iterator"
           id="PrtCardRuleSubscriptionRVO1">
       <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtCardRuleSubscriptionRVO"
                       Name="PrtCardRuleSubscriptionRVO10">
@@ -108,10 +83,8 @@
         </AttrNames>
       </nodeDefinition>
      </tree> -->
-    <tree IterBinding="PrtCardRuleSubscriptionRVO1Iterator"
-          id="PrtCardRuleSubscriptionRVO11">
-      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtCardRuleSubscriptionRVO"
-                      Name="PrtCardRuleSubscriptionRVO110">
+    <tree IterBinding="PrtCardRuleSubscriptionRVO1Iterator" id="PrtCardRuleSubscriptionRVO11">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtCardRuleSubscriptionRVO" Name="PrtCardRuleSubscriptionRVO110">
         <AttrNames>
           <Item Value="SubscrId"/>
           <Item Value="RuleId"/>
@@ -127,5 +100,17 @@
         </AttrNames>
       </nodeDefinition>
     </tree>
+    <methodAction id="deleteAlert" InstanceName="EngageAppModuleDataControl.dataProvider" DataControl="EngageAppModuleDataControl" RequiresUpdateModel="true"
+                  Action="invokeMethod" MethodName="deleteAlert" IsViewObjectMethod="false">
+      <NamedData NDName="subsId" NDType="java.lang.String"/>
+      <NamedData NDName="UserId" NDType="java.lang.String"/>
+      <NamedData NDName="countryCd" NDType="java.lang.String"/>
+      <NamedData NDName="RuleId" NDType="java.lang.String"/>
+    </methodAction>
+    <methodAction id="unsubscribeAlerts" InstanceName="Alerts.dataProvider" DataControl="Alerts" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="unsubscribeAlerts" IsViewObjectMethod="false"
+                  ReturnName="data.Alerts.methodResults.unsubscribeAlerts_Alerts_dataProvider_unsubscribeAlerts_result">
+      <NamedData NDName="unsubscribeRequest" NDType="com.sfr.engage.core.AlertsUnsubscribeRequest"/>
+    </methodAction>
   </bindings>
 </pageDefinition>

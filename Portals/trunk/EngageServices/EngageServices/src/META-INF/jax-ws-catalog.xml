@@ -3,4 +3,6 @@
           uri="http://sfre007t.statoilfuelretail.com:11518/ucm-ws/UCMCustomWebPort?WSDL"/>
   <system systemId="http://10.24.240.15:7021/soa-infra/services/POC/SubscriberRegistration/subscriberregistration_client_ep?WSDL"
           uri="../com/sfr/engage/services/client/alerts/subscriberregistration_client_ep.wsdl"/>
+  <system systemId="http://10.24.240.15:7021/soa-infra/services/CommonUtilities/SOARuleEngineSubscription/subscription_client_ep?WSDL"
+          uri="../alertsSub/subscription_client_ep.wsdl"/>
 </catalog>

@@ -75,6 +75,8 @@
       <TypeInfo FullName="com.sfr.engage.core.AlertsSubscribeFrequencyType"/>
       <TypeInfo FullName="com.sfr.engage.core.AlertsSubscribeRequest"/>
       <TypeInfo FullName="com.sfr.engage.model.datacontrol.Alerts"/>
+      <TypeInfo FullName="com.sfr.engage.core.AlertsUnsubscribeResponse"/>
+      <TypeInfo FullName="com.sfr.engage.core.AlertsUnsubscribeRequest"/>
     </CreatableTypes>
     <Source>
       <bean-definition BeanClass="com.sfr.engage.model.datacontrol.Alerts" xmlns="http://xmlns.oracle.com/adfm/adapter/bean"/>

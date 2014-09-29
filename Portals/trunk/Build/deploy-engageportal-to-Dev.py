@@ -19,7 +19,6 @@ stageModeValue='stage'
 artifactLocation=r'C:\Users\10607024\.jenkins\jobs\Engage Build and Deployment\workspace\EngagePortal\deploy\EngagePortal_application1.ear'
 
 print ("Hello, Python!")
-print "Hello, Python!"
 connect(adminUser,adminPassword,adminUrl)
 edit()
 startEdit()

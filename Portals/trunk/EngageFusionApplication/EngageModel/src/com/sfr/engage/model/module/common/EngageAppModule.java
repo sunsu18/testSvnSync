@@ -24,4 +24,6 @@ public interface EngageAppModule extends ApplicationModule {
     void updateVehicleDriver(String cardNumber, String type, String countryCd,
                              String vehicleDriverValue,
                              String associatedAccount, String modifiedBy);
+
+    void deleteAlert(String subsId, String UserId, String countryCd, String RuleId);
 }

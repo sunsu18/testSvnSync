@@ -38,14 +38,13 @@
           usageId="com_sfr_engage_view_AssociationPageDef"/>
     <page path="/WEB-INF/com/sfr/engage/messageinboxtaskflow/messageInbox.jsff"
           usageId="com_sfr_engage_view_messageInboxPageDef"/>
-    <page path="/WEB-INF/com/sfr/engage/alertstaskflow/Alerts.jsff"
-          usageId="com_sfr_engage_view_AlertsPageDef"/>
     <page path="/WEB-INF/com/sfr/engage/userdisplaytaskflow/UserDisplay.jsff"
           usageId="com_sfr_engage_view_UserDisplayPageDef"/>
     <page path="/WEB-INF/com/sfr/engage/userdisplaytaskflow/AddEditUserInfo.jsff"
           usageId="com_sfr_engage_view_AddEditUserInfoPageDef"/>
     <page path="/WEB-INF/com/sfr/engage/userdisplaytaskflow/UserDisplayInfo.jsff"
           usageId="com_sfr_engage_view_UserDisplayInfoPageDef"/>
+    <page path="/WEB-INF/com/sfr/engage/alertstaskflow/Alerts.jsff" usageId="com_sfr_engage_view_AlertsPageDef"/>
   </pageMap>
   <pageDefinitionUsages>
     <page id="com_sfr_engage_view_CardPageDef"
@@ -76,14 +75,13 @@
           path="com.sfr.engage.associationselectiontaskflow.AssociationPageDef"/>
     <page id="com_sfr_engage_view_messageInboxPageDef"
           path="com.sfr.engage.messageinboxtaskflow.messageInboxPageDef"/>
-    <page id="com_sfr_engage_view_AlertsPageDef"
-          path="com.sfr.engage.alertstaskflow.AlertsPageDef"/>
     <page id="com_sfr_engage_view_UserDisplayPageDef"
           path="com.sfr.engage.userdisplaytaskflow.UserDisplayPageDef"/>
     <page id="com_sfr_engage_view_AddEditUserInfoPageDef"
           path="com.sfr.engage.userdisplaytaskflow.AddEditUserInfoPageDef"/>
     <page id="com_sfr_engage_view_UserDisplayInfoPageDef"
           path="com.sfr.engage.userdisplaytaskflow.UserDisplayInfoPageDef"/>
+    <page id="com_sfr_engage_view_AlertsPageDef" path="com.sfr.engage.alertstaskflow.AlertsPageDef"/>
   </pageDefinitionUsages>
 
   <dataControlUsages>

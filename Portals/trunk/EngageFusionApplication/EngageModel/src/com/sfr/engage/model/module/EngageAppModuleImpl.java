@@ -8,35 +8,35 @@ import com.sfr.engage.model.queries.rvo.PrtCardTransactionHeaderUrefIdUpdateOdom
 import com.sfr.engage.model.queries.rvo.PrtCardTransactionInvoiceRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtCardTransactionOverviewRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtCardTransactionVehicleInfoRVOImpl;
-import com.sfr.engage.model.queries.rvo.PrtCardTypeNameMapVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtCustomerCardMapRVO1Impl;
 import com.sfr.engage.model.queries.rvo.PrtExportInfoRVOImpl;
-import com.sfr.engage.model.queries.rvo.PrtGenHelpRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtGenStringRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtHomeTransactionsRVOImpl;
-import com.sfr.engage.model.queries.rvo.PrtPcmFeedsRVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtAccountVOImpl;
-import com.sfr.engage.model.queries.uvo.PrtCardTransactionHeaderVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtCardTransactionHeaderVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtCardVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtCardgroupVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtDriverInformationVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtInvoiceDetailVoImpl;
-import com.sfr.engage.model.queries.uvo.PrtInvoiceVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtNewInvoiceVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtPartnerVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtTruckInformationVOImpl;
-import com.sfr.engage.model.queries.uvo.PrtUserPreferredLangVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtViewCardsVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtViewVehicleDriverVOImpl;
 import com.sfr.util.AccessDataControl;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+
 import java.util.GregorianCalendar;
+
+import oracle.adf.share.logging.ADFLogger;
+
 import oracle.jbo.JboException;
 import oracle.jbo.Row;
 import oracle.jbo.ViewCriteria;
@@ -44,8 +44,6 @@ import oracle.jbo.ViewCriteriaRow;
 import oracle.jbo.ViewObject;
 import oracle.jbo.domain.Date;
 import oracle.jbo.server.ApplicationModuleImpl;
-import oracle.adf.share.logging.ADFLogger;
-
 import oracle.jbo.server.ViewLinkImpl;
 import oracle.jbo.server.ViewObjectImpl;
 
@@ -60,6 +58,7 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
     public static final ADFLogger _logger = AccessDataControl.getSFRLogger();
     AccessDataControl accessDC = new AccessDataControl();
     private Date sysDate;
+
     /**
      * This is the default constructor (do not remove).
      */
@@ -107,7 +106,8 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
     public PrtTruckInformationVOImpl getPrtTruckInformationVO2() {
         return (PrtTruckInformationVOImpl)findViewObject("PrtTruckInformationVO2");
     }
-/**
+
+    /**
      * Container's getter for PrtDriverInformationVO1.
      * @return PrtDriverInformationVO1
      */
@@ -131,7 +131,8 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
     public ViewObjectImpl getPriceListNewRVO1() {
         return (ViewObjectImpl)findViewObject("PriceListNewRVO1");
     }
-/**
+
+    /**
      * Container's getter for PrtGenHelpVO1.
      * @return PrtGenHelpVO1
      */
@@ -148,130 +149,213 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
     }
 
     /**
-         * @param accountId
-         * @param type
-         * @param countryCd
-         * @param regDriverValue
-         * This method is used to delete Driver/Truck details for the Account.
-         */
-            public void deleteAllForAccount(String accountId, String type, String countryCd, String regDriverValue ){
-            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Account Number in Application module" + accountId);
+     * @param accountId
+     * @param type
+     * @param countryCd
+     * @param regDriverValue
+     * This method is used to delete Driver/Truck details for the Account.
+     */
+    public void deleteAllForAccount(String accountId, String type, String countryCd, String regDriverValue) {
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Account Number in Application module" + accountId);
 
-            Connection con=null;
-            PreparedStatement pStmt = null;
-            String statement = null;
-                    try {
-                        Statement stmt = getDBTransaction().createStatement(0);
-                        con = stmt.getConnection();
-                        if(type.equals("driver")){
-                            if(regDriverValue!= null){
-                                _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside this block of driver in application moule");
-                                statement = "DELETE PRT_DRIVER_INFORMATION where ACCOUNT_NUMBER = '"+accountId+"' and COUNTRY_CODE ='"+countryCd+"' and DRIVER_NAME ='"+regDriverValue+"'";
-                            }else{
-                                _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside else block of driver in application moule");
-                                statement = "DELETE PRT_DRIVER_INFORMATION where ACCOUNT_NUMBER = '"+accountId+"' and COUNTRY_CODE ='"+countryCd+"'";
-                            }
-                        }else{
-                            if(regDriverValue!= null){
-                                _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside this block of vehicle in application moule");
-                                statement = "DELETE PRT_TRUCK_INFORMATION where ACCOUNT_NUMBER = '"+accountId+"' and REGISTRATION_NUMBER ='"+regDriverValue+"'";
-                            }else{
-                                _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside else block of vehilce in application moule");
-                                statement = "DELETE PRT_TRUCK_INFORMATION where ACCOUNT_NUMBER = '"+accountId+"'";
-                            }
-                        }
-    
-                        pStmt = con.prepareStatement(statement);
-                        pStmt.executeUpdate();
-                        con.commit();
-                    } catch (SQLException sqle) {
-                        sqle.getMessage();
-                    } finally {
-                        try {
-                            pStmt.close();
-                        } catch (SQLException sqle) {
-                            sqle.getMessage();
-                        }
-                    }
+        Connection con = null;
+        PreparedStatement pStmt = null;
+        String statement = null;
+        try {
+            Statement stmt = getDBTransaction().createStatement(0);
+            con = stmt.getConnection();
+            if (type.equals("driver")) {
+                if (regDriverValue != null) {
+                    _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside this block of driver in application moule");
+                    statement =
+                            "DELETE PRT_DRIVER_INFORMATION where ACCOUNT_NUMBER = '" + accountId + "' and COUNTRY_CODE ='" + countryCd + "' and DRIVER_NAME ='" +
+                            regDriverValue + "'";
+                } else {
+                    _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside else block of driver in application moule");
+                    statement = "DELETE PRT_DRIVER_INFORMATION where ACCOUNT_NUMBER = '" + accountId + "' and COUNTRY_CODE ='" + countryCd + "'";
+                }
+            } else {
+                if (regDriverValue != null) {
+                    _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside this block of vehicle in application moule");
+                    statement = "DELETE PRT_TRUCK_INFORMATION where ACCOUNT_NUMBER = '" + accountId + "' and REGISTRATION_NUMBER ='" + regDriverValue + "'";
+                } else {
+                    _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside else block of vehilce in application moule");
+                    statement = "DELETE PRT_TRUCK_INFORMATION where ACCOUNT_NUMBER = '" + accountId + "'";
+                }
             }
 
-        public void updateVehicleDriver(String cardNumber, String type, String countryCd, String vehicleDriverValue,String associatedAccount,String modifiedBy ) {
-            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside update vehicle driver method in AM");
-            Connection con=null;
-            PreparedStatement pStmt = null;
-            String statement = null;
-            
-
+            pStmt = con.prepareStatement(statement);
+            pStmt.executeUpdate();
+            con.commit();
+        } catch (SQLException sqle) {
+            sqle.getMessage();
+        } finally {
             try {
-               String modifiedDate = null;
-                DateFormat sdf = new SimpleDateFormat("dd-MMM-yy");
-                java.util.Date effectiveFromDate =GregorianCalendar.getInstance().getTime();;
-                modifiedDate = sdf.format(effectiveFromDate);
-                
-                Statement stmt = getDBTransaction().createStatement(0);
-                con = stmt.getConnection();
-                
-                if(cardNumber == null) {
-                    cardNumber=""; 
-                }
-                if(type.equals("Driver")){
-                    if(vehicleDriverValue!= null){
-                        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside this block of driver in application moule");
-                        statement = "UPDATE PRT_DRIVER_INFORMATION SET CARD_NUMBER = '"+cardNumber+"', MODIFIED_BY = '"+modifiedBy+"',MODIFIED_DATE = '"+modifiedDate+"' where COUNTRY_CODE ='"+countryCd+"' and DRIVER_NUMBER ='"+vehicleDriverValue+"' and ACCOUNT_NUMBER ='"+associatedAccount+"'";
-                    }
-                 
-                }else if(type.equals("Vehicle")){
-                        if(vehicleDriverValue!= null ){
-                            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside this block of vehicle in application moule");
-                            statement = "UPDATE PRT_TRUCK_INFORMATION SET CARD_NUMBER = '"+cardNumber+"', MODIFIED_BY = '"+modifiedBy+"',MODIFIED_DATE = '"+modifiedDate+"' where COUNTRY_CODE ='"+countryCd+"' and VEHICLE_NUMBER ='"+vehicleDriverValue+"' and ACCOUNT_NUMBER ='"+associatedAccount+"'";
-                        }
-                    }
-                
-                pStmt = con.prepareStatement(statement);
-                pStmt.executeUpdate();
-                con.commit();
+                pStmt.close();
             } catch (SQLException sqle) {
                 sqle.getMessage();
-                } finally {
-                try {
-                        pStmt.close();
-                } catch (SQLException sqle) {
-                    sqle.getMessage();
-                }
             }
         }
+    }
 
-        public void updatePreviousOdometer(String cardNumber, String accountId, String countryCd, String partnerId, String transactionId, String previousOdometer ) {
-            _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                         "Inside update previous odometer");
-            Connection con=null;
-            PreparedStatement pStmt = null;
-            String statement = null;
-    
+    public void deleteAlert(String subsId, String UserId, String countryCd, String RuleId) {
+        System.out.println((accessDC.getDisplayRecord() + this.getClass() + "Subscription Id in Application module" + subsId));
+        System.out.println((accessDC.getDisplayRecord() + this.getClass() + "User Id in Application module" + UserId));
+        System.out.println((accessDC.getDisplayRecord() + this.getClass() + "Country Id in Application module" + countryCd));
+        System.out.println((accessDC.getDisplayRecord() + this.getClass() + "Rule Id in Application module" + RuleId));
+
+        Connection con = null;
+        PreparedStatement pStmt = null;
+        //PreparedStatement pStmt2 = null;
+        String statement = null;
+        String statement2 = null;
+        try {
+            Statement stmt = getDBTransaction().createStatement(0);
+            //Statement stmt2 = getDBTransaction().createStatement(0);
+            con = stmt.getConnection();
+
+            if (RuleId.equalsIgnoreCase("1") && subsId != null && UserId != null && countryCd != null) {
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Values passed are not null");
+                statement = "DELETE FROM PRT_CARD_RULE_BUSINESS_HOURS where SUBSCR_ID = '" + subsId + "' and COUNTRY_CODE ='" + countryCd + "'";
+
+                System.out.println("Statment " + statement);
+                pStmt = con.prepareStatement(statement);
+                System.out.println("prepare  " + pStmt.toString());
+                pStmt.executeUpdate();
+
+
+                System.out.println("rule id is 1");
+                statement2 =
+                        "DELETE FROM PRT_CARD_RULE_SUBSCRIPTION where SUBSCR_ID = '" + subsId + "' and COUNTRY_CODE ='" + countryCd + "' and USER_ID ='" + UserId +
+                        "'";
+
+                pStmt = con.prepareStatement(statement2);
+                pStmt.executeUpdate();
+
+
+                con.commit();
+            } else if (RuleId.equalsIgnoreCase("2") && subsId != null && UserId != null && countryCd != null) {
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Values passed are not null");
+                statement = "DELETE FROM PRT_CARD_FUEL_CAPACITY where SUBSCR_ID = '" + subsId + "' and COUNTRY_CODE ='" + countryCd + "'";
+
+                System.out.println("Statment " + statement);
+                pStmt = con.prepareStatement(statement);
+                System.out.println("prepare  " + pStmt.toString());
+                pStmt.executeUpdate();
+
+
+                System.out.println("rule id is 2");
+                statement2 =
+                        "DELETE FROM PRT_CARD_RULE_SUBSCRIPTION where SUBSCR_ID = '" + subsId + "' and COUNTRY_CODE ='" + countryCd + "' and USER_ID ='" + UserId +
+                        "'";
+
+                pStmt = con.prepareStatement(statement2);
+                pStmt.executeUpdate();
+
+
+                con.commit();
+
+            }
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+        } finally {
             try {
-                Statement stmt = getDBTransaction().createStatement(0);
-                con = stmt.getConnection();
-                
-                if(cardNumber != null && accountId != null && countryCd != null && partnerId != null && transactionId != null){
+                pStmt.close();
+
+                //pStmt2.close();
+            } catch (SQLException sqle) {
+                sqle.getMessage();
+            }
+        }
+    }
+
+    public void updateVehicleDriver(String cardNumber, String type, String countryCd, String vehicleDriverValue, String associatedAccount, String modifiedBy) {
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside update vehicle driver method in AM");
+        Connection con = null;
+        PreparedStatement pStmt = null;
+        String statement = null;
+
+
+        try {
+            String modifiedDate = null;
+            DateFormat sdf = new SimpleDateFormat("dd-MMM-yy");
+            java.util.Date effectiveFromDate = GregorianCalendar.getInstance().getTime();
+            ;
+            modifiedDate = sdf.format(effectiveFromDate);
+
+            Statement stmt = getDBTransaction().createStatement(0);
+            con = stmt.getConnection();
+
+            if (cardNumber == null) {
+                cardNumber = "";
+            }
+            if (type.equals("Driver")) {
+                if (vehicleDriverValue != null) {
+                    _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside this block of driver in application moule");
+                    statement =
+                            "UPDATE PRT_DRIVER_INFORMATION SET CARD_NUMBER = '" + cardNumber + "', MODIFIED_BY = '" + modifiedBy + "',MODIFIED_DATE = '" + modifiedDate +
+                            "' where COUNTRY_CODE ='" + countryCd + "' and DRIVER_NUMBER ='" + vehicleDriverValue + "' and ACCOUNT_NUMBER ='" +
+                            associatedAccount + "'";
+                }
+
+            } else if (type.equals("Vehicle")) {
+                if (vehicleDriverValue != null) {
+                    _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside this block of vehicle in application moule");
+                    statement =
+                            "UPDATE PRT_TRUCK_INFORMATION SET CARD_NUMBER = '" + cardNumber + "', MODIFIED_BY = '" + modifiedBy + "',MODIFIED_DATE = '" + modifiedDate +
+                            "' where COUNTRY_CODE ='" + countryCd + "' and VEHICLE_NUMBER ='" + vehicleDriverValue + "' and ACCOUNT_NUMBER ='" +
+                            associatedAccount + "'";
+                }
+            }
+
+            pStmt = con.prepareStatement(statement);
+            pStmt.executeUpdate();
+            con.commit();
+        } catch (SQLException sqle) {
+            sqle.getMessage();
+        } finally {
+            try {
+                pStmt.close();
+            } catch (SQLException sqle) {
+                sqle.getMessage();
+            }
+        }
+    }
+
+    public void updatePreviousOdometer(String cardNumber, String accountId, String countryCd, String partnerId, String transactionId,
+                                       String previousOdometer) {
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside update previous odometer");
+        Connection con = null;
+        PreparedStatement pStmt = null;
+        String statement = null;
+
+        try {
+            Statement stmt = getDBTransaction().createStatement(0);
+            con = stmt.getConnection();
+
+            if (cardNumber != null && accountId != null && countryCd != null && partnerId != null && transactionId != null) {
                 _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside this block of update previous odometer in application moule");
-                statement = "UPDATE PRT_CARD_TRANSACTION_HEADER SET PREVIOUS_ODOMETER = '"+previousOdometer+"' where PALS_COUNTRY_CODE ='"+countryCd+"' and KSID ='"+cardNumber+"' and ACCOUNT_ID ='"+accountId+"' and PARTNER_ID ='"+partnerId+"' and UREF_TRANSACTION_ID ='"+transactionId+"'";
-                }
-                pStmt = con.prepareStatement(statement);
-                pStmt.executeUpdate();
-                con.commit();
+                statement =
+                        "UPDATE PRT_CARD_TRANSACTION_HEADER SET PREVIOUS_ODOMETER = '" + previousOdometer + "' where PALS_COUNTRY_CODE ='" + countryCd + "' and KSID ='" +
+                        cardNumber + "' and ACCOUNT_ID ='" + accountId + "' and PARTNER_ID ='" + partnerId + "' and UREF_TRANSACTION_ID ='" + transactionId +
+                        "'";
+            }
+            pStmt = con.prepareStatement(statement);
+            pStmt.executeUpdate();
+            con.commit();
+        } catch (SQLException sqle) {
+
+            sqle.getMessage();
+        } finally {
+            try {
+                pStmt.close();
             } catch (SQLException sqle) {
-                
                 sqle.getMessage();
-            } finally {
-                try {
-                    pStmt.close();
-                } catch (SQLException sqle) {
-                    sqle.getMessage();
-                }
             }
         }
+    }
 
-        public void updateOdometerPortal(String urefTransactionId, String palsCountryCode, String odoMeterPortalValue, String modifiedBy){
+    public void updateOdometerPortal(String urefTransactionId, String palsCountryCode, String odoMeterPortalValue, String modifiedBy) {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside UpdateOdometerPortal mehthod in application module");
         try {
             ViewObject rvo = getPrtCardTransactionHeaderVO1();
@@ -284,19 +368,17 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
             rvo.executeQuery();
 
             while (rvo.hasNext()) {
-                PrtCardTransactionHeaderVORowImpl currRow =
-                    (PrtCardTransactionHeaderVORowImpl)rvo.next();
+                PrtCardTransactionHeaderVORowImpl currRow = (PrtCardTransactionHeaderVORowImpl)rvo.next();
                 if (currRow != null) {
-                    currRow.setAttribute("OdometerPortal",odoMeterPortalValue);
+                    currRow.setAttribute("OdometerPortal", odoMeterPortalValue);
                     currRow.setAttribute("ModifiedBy", modifiedBy);
-                    currRow.setAttribute("PortalModifiedDate",getSysDate());
+                    currRow.setAttribute("PortalModifiedDate", getSysDate());
                 }
             }
             getDBTransaction().commit();
-        }catch (JboException jbe) {
+        } catch (JboException jbe) {
             jbe.getMessage();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.getMessage();
         }
     }
@@ -334,20 +416,19 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
         vc.add(vcr);
         vo.applyViewCriteria(vc);
         vo.executeQuery();
-        if(vo!=null && vo.getRowCount()!=1){
-            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + ".getTranslation : vo=<" + vo.getRowCount()+"> key=<" +translationkey+"> and lang=<"+ccCode+">"+"vo.hasNext<"+vo.hasNext()+">");
+        if (vo != null && vo.getRowCount() != 1) {
+            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + ".getTranslation : vo=<" + vo.getRowCount() + "> key=<" + translationkey +
+                         "> and lang=<" + ccCode + ">" + "vo.hasNext<" + vo.hasNext() + ">");
         }
         while (vo.hasNext()) {
             Row tran = vo.next();
-            if(tran.getAttribute("KeyValue") != null){
+            if (tran.getAttribute("KeyValue") != null) {
                 translatedValue = (String)tran.getAttribute("KeyValue");
             }
             break;
         }
         return translatedValue;
     }
-
-
 
 
     /**
@@ -420,15 +501,15 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
     }
 
     public Date getSysDate() {
-        java.util.Date currDate=GregorianCalendar.getInstance().getTime();
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-        String sqlDateString=sdf.format(currDate);
-        java.sql.Date sqlDate=java.sql.Date.valueOf(sqlDateString);
-        Date newJboDate=new Date(sqlDate);
+        java.util.Date currDate = GregorianCalendar.getInstance().getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String sqlDateString = sdf.format(currDate);
+        java.sql.Date sqlDate = java.sql.Date.valueOf(sqlDateString);
+        Date newJboDate = new Date(sqlDate);
         this.setSysDate(newJboDate);
         return newJboDate;
     }
-    
+
 
     /**
      * Container's getter for PrtLatestCardTransactionsRVO1.
@@ -479,7 +560,8 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
     public PrtTruckInformationVOImpl getPrtTruckInformationVO3() {
         return (PrtTruckInformationVOImpl)findViewObject("PrtTruckInformationVO3");
     }
- /**
+
+    /**
      * Container's getter for PrtExportInfoRVO1.
      * @return PrtExportInfoRVO1
      */

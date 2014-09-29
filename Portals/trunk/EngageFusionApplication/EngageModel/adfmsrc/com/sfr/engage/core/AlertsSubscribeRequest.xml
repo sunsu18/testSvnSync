@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.61.92"
-          id="AlertsSubscribeRequest" Package="com.sfr.engage.core"
-          BeanClass="com.sfr.engage.core.AlertsSubscribeRequest"
-          isJavaBased="true">
+<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.61.92" id="AlertsSubscribeRequest" Package="com.sfr.engage.core"
+          BeanClass="com.sfr.engage.core.AlertsSubscribeRequest" isJavaBased="true">
   <Attribute Name="ruleID" Type="java.math.BigInteger"/>
   <Attribute Name="notificationChannel" Type="java.lang.String"/>
   <Attribute Name="notificationFormat" Type="java.lang.String"/>
-  <AccessorAttribute id="customer" IsCollection="false"
-                     BeanClass="com.sfr.engage.core.AlertsSubscribeCustomerType"
+  <AccessorAttribute id="customer" IsCollection="false" BeanClass="com.sfr.engage.core.AlertsSubscribeCustomerType"
                      CollectionBeanClass="UpdateableSingleValue"/>
-  <AccessorAttribute id="subscribeFrequency" IsCollection="false"
-                     BeanClass="com.sfr.engage.core.AlertsSubscribeFrequencyType"
+  <AccessorAttribute id="subscribeFrequency" IsCollection="false" BeanClass="com.sfr.engage.core.AlertsSubscribeFrequencyType"
                      CollectionBeanClass="UpdateableSingleValue"/>
-  <ConstructorMethod IsCollection="true"
-                     Type="com.sfr.engage.core.AlertsSubscribeRequest"
-                     BeanClass="com.sfr.engage.core.AlertsSubscribeRequest"
+  <ConstructorMethod IsCollection="true" Type="com.sfr.engage.core.AlertsSubscribeRequest" BeanClass="com.sfr.engage.core.AlertsSubscribeRequest"
                      id="AlertsSubscribeRequest"/>
 </JavaBean>
