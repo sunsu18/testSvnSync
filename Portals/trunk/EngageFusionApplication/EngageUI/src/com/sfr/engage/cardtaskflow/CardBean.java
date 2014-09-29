@@ -2507,20 +2507,20 @@ public class CardBean implements Serializable {
          if (component instanceof RichSelectManyChoice) {
             soc = (RichSelectManyChoice)component;
             if (status) {
-                soc.setContentStyle("af_mandatoryfield");
+                soc.setStyleClass("af_mandatoryfield");
                 if (component.getId().contains("soc3") ||
                     component.getId().contains("smc2") ||
                     component.getId().contains("smc7") ||
                     component.getId().contains("smc8") )
-                    soc.setContentStyle("af_mandatoryfield");
+                    soc.setStyleClass("af_mandatoryfield");
 
             } else {
-                soc.setContentStyle("af_nonmandatoryfield");
+                soc.setStyleClass("af_nonmandatoryfield");
                 if (component.getId().contains("soc3") ||
                     component.getId().contains("smc2") ||
                     component.getId().contains("smc7") ||
                     component.getId().contains("smc8"))
-                    soc.setContentStyle("af_nonmandatoryfield");
+                    soc.setStyleClass("af_nonmandatoryfield");
             }
             AdfFacesContext.getCurrentInstance().addPartialTarget(soc);
         }
