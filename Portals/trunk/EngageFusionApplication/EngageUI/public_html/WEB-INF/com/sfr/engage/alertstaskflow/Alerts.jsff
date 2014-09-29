@@ -355,7 +355,7 @@
         <af:commandButton text="#{sfr.ENGAGE_RESETFILTER}" id="cb13" actionListener="#{pageFlowScope.AlertsBean.resetFilterTable}"/>
       </af:panelGroupLayout>
       <af:spacer width="10" height="10" id="s78"/>
-      <af:panelGroupLayout id="pgl73" layout="scroll" inlineStyle="width:945px;">
+      <af:panelGroupLayout id="pgl73" layout="scroll">
         <af:table value="#{bindings.PrtCardRuleSubscriptionRVO11.collectionModel}" var="row" width="962px" styleClass="AFStretchWidth"
                   rows="#{bindings.PrtCardRuleSubscriptionRVO11.rangeSize}"
                   emptyText="#{bindings.PrtCardRuleSubscriptionRVO11.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED_ENG)}"
@@ -404,7 +404,7 @@
             </af:commandImageLink>
           </af:column>
           <af:column id="c14" width="50" headerText="#{sfr.MANAGE}" align="center">
-            <af:commandImageLink id="cil2" icon="/images/edit.png" actionListener="#{pageFlowScope.AlertsBean.confirmDeleteAlert}">
+            <af:commandImageLink id="cil2" icon="/images/Delete.png" actionListener="#{pageFlowScope.AlertsBean.confirmDeleteAlert}">
               <af:setPropertyListener from="#{row.SubscrId}" type="action" to="#{pageFlowScope.SubscrIdkey}"/>
               <af:setPropertyListener from="#{row.RuleId}" type="action" to="#{pageFlowScope.RuleIdkey}"/>
             </af:commandImageLink>
@@ -416,9 +416,12 @@
     <af:popup id="confirmationPopup" binding="#{pageFlowScope.AlertsBean.bindings.confirmationPopup}">
       <af:dialog id="d5" type="none">
         <af:panelGroupLayout id="pgl74" layout="vertical">
-          <af:outputText id="ot69" value="Are you sure u want to delete"/>
-          <af:commandButton id="cb15" text="OK" actionListener="#{pageFlowScope.AlertsBean.unsubscribeAlert}"/>
-          <af:commandButton id="cb16" text="CANCEL"/>
+          <af:outputText id="ot69" value="#{sfr.UNSUBSCRIBE_ALERT}"/>
+          <af:panelGroupLayout layout="horizontal" halign="end">
+            <af:commandButton id="cb15" text="OK" actionListener="#{pageFlowScope.AlertsBean.unsubscribeAlert}"/>
+            <af:spacer id="s87" width="10"/>
+            <af:commandButton id="cb16" text="CANCEL" actionListener="#{pageFlowScope.AlertsBean.closeRemoveAlertPopup}"/>
+          </af:panelGroupLayout>
         </af:panelGroupLayout>
       </af:dialog>
     </af:popup>

@@ -3278,6 +3278,11 @@ public class Alerts {
         getBindings().getConfirmationPopup().show(ps);
     }
 
+    public void closeRemoveAlertPopup(ActionEvent actionEvent) {
+        // Add event code here...
+        getBindings().getConfirmationPopup().hide();
+    }
+
     public class Bindings {
         private RichPopup alert1Popup;
         private RichPopup alert2Popup;
