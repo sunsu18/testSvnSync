@@ -626,22 +626,22 @@ public class MessageInboxBean implements Serializable {
          if (component instanceof RichSelectManyChoice) {
             soc = (RichSelectManyChoice)component;
             if (status) {
-                soc.setContentStyle("af_mandatoryfield");
+                soc.setStyleClass("af_mandatoryfield");
                 if (component.getId().contains("selectManyChoice1") ||
                     component.getId().contains("smc1") ||
                     component.getId().contains("selectManyChoice3") ||
                     component.getId().contains("selectManyChoice4") ||
                     component.getId().contains("smc4"))
-                    soc.setContentStyle("af_mandatoryfield");
+                    soc.setStyleClass("af_mandatoryfield");
 
             } else {
-                soc.setContentStyle("af_nonmandatoryfield");
+                soc.setStyleClass("af_nonmandatoryfield");
                 if (component.getId().contains("selectManyChoice1") ||
                     component.getId().contains("smc1") ||
                     component.getId().contains("selectManyChoice3") ||
                     component.getId().contains("selectManyChoice4") ||
                     component.getId().contains("smc4"))
-                    soc.setContentStyle("af_nonmandatoryfield");
+                    soc.setStyleClass("af_nonmandatoryfield");
             }
             AdfFacesContext.getCurrentInstance().addPartialTarget(soc);
         }
