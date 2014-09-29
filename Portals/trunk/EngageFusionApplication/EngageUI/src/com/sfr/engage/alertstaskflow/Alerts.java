@@ -3178,14 +3178,14 @@ public class Alerts {
             rit = (RichInputText)component;
             if (status) {
                 rit.setContentStyle("af_mandatoryfield");
-                if (component.getId().contains("it19"))
-                    rit.setContentStyle("af_mandatoryfield");
+                if (component.getId().contains("it19") || component.getId().contains("it3"))
+                    rit.setStyleClass("af_mandatoryfield");
 
 
             } else {
                 rit.setContentStyle("af_nonmandatoryfield");
-                if (component.getId().contains("it19"))
-                    rit.setContentStyle("af_nonmandatoryfield");
+                if (component.getId().contains("it19") || component.getId().contains("it3"))
+                    rit.setStyleClass("af_nonmandatoryfield");
 
             }
             AdfFacesContext.getCurrentInstance().addPartialTarget(rit);
