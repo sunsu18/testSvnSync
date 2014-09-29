@@ -795,6 +795,7 @@ public class Alerts {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside validateinput method of Alerts");
         boolean validinput = true;
         if (getBindings().getAlert1PartnerValues().getValue() != null && getBindings().getAlert1PartnerValues().getValue().toString() != null) {
+            displayErrorComponent(getBindings().getAlert1PartnerValues(), false);
             RichTable rt = getBindings().getAlert1Table();
             Object o;
             FuelTimings checkFuelTimings;
@@ -832,6 +833,7 @@ public class Alerts {
             }
         } else {
             validinput = false;
+            displayErrorComponent(getBindings().getAlert1PartnerValues(), true);
         }
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside validateinput method of Alerts");
         return validinput;
@@ -1468,6 +1470,11 @@ public class Alerts {
             getBindings().getCardDropdownAlert2().getValue().toString().trim().replaceAll(" ", "") != null &&
             getBindings().getCardDropdownAlert2().getValue().toString().trim().replaceAll(" ", "") != "" &&
             getBindings().getFuelCapacityAlert2().getValue() != null && getBindings().getFuelCapacityAlert2().getValue().toString().trim() != null) {
+//            displayErrorComponent(getBindings().getPartnerDropdownAlert2(), true);
+//            displayErrorComponent(getBindings().getAccountDropdwonAlert2(), true);
+//            displayErrorComponent(getBindings().getCardGroupDowndownAlert2(), true);
+//            displayErrorComponent(getBindings().getCardDropdownAlert2(), true);
+//            displayErrorComponent(getBindings().getFuelCapacityAlert2(), true);
             String regex = "\\d+";
             if (getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", "").matches(regex)) {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + "fuelCapacityAlert2 " +
@@ -1479,6 +1486,27 @@ public class Alerts {
             }
         } else {
             validinput2 = false;
+//            if(getBindings().getPartnerDropdownAlert2().getValue() != null){
+//                displayErrorComponent(getBindings().getPartnerDropdownAlert2(), false);
+//            }else{
+//                displayErrorComponent(getBindings().getPartnerDropdownAlert2(), true);
+//            }
+//            if(getBindings().getAccountDropdwonAlert2().getValue() != null){
+//                displayErrorComponent(getBindings().getAccountDropdwonAlert2(), false);
+//            }else{
+//                displayErrorComponent(getBindings().getAccountDropdwonAlert2(), true);
+//            }
+//            if(getBindings().getCardGroupDowndownAlert2().getValue() != null){
+//                displayErrorComponent(getBindings().getCardGroupDowndownAlert2(), false);
+//            }else{
+//                displayErrorComponent(getBindings().getCardGroupDowndownAlert2(), true);
+//            }
+//            if(getBindings().getCardDropdownAlert2().getValue() != null ){
+//                displayErrorComponent(getBindings().getCardDropdownAlert2(), false);
+//            }else{
+//                displayErrorComponent(getBindings().getCardDropdownAlert2(), true);
+//            }
+            
         }
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside validateinput2 method of Alerts");
         return validinput2;
@@ -2083,6 +2111,7 @@ public class Alerts {
                 }
                 cardListString = cardListString.substring(0, cardListString.length() - 1);
                 if (getBindings().getViewAlertDropdown().getValue() != null) {
+                    displayErrorComponent(getBindings().getViewAlertDropdown(), false);
                     _logger.info(accessDC.getDisplayRecord() + this.getClass() + "converted cardListString arraylist " + cardListString);
                     _logger.info(accessDC.getDisplayRecord() + this.getClass() + "converted cardListString arraylist " +
                                  populateStringValues(getBindings().getViewAlertDropdown().getValue().toString().trim()));
@@ -2097,11 +2126,13 @@ public class Alerts {
                         readCardlevel();
                     }
                 } else {
-                    showErrorMessage("ENGAGE_NO_CARD");
+                    showErrorMessage("ENGAGE_NO_PARTNER");
+                    displayErrorComponent(getBindings().getViewAlertDropdown(), true);
                 }
             }
         } else if (cardsSelectionPanel) {
             if (getBindings().getSearchStringInputtext().getValue() != null) {
+                displayErrorComponent(getBindings().getSearchStringInputtext(), false);
                 if (suggestedCardNumberList.contains(getBindings().getSearchStringInputtext().getValue().toString().trim())) {
                     searchCorrespondingDetalis();
                     if (prtCardRuleSubscriptionVO != null) {
@@ -2135,7 +2166,8 @@ public class Alerts {
                     }
                 }
             } else {
-                showErrorMessage("ENGAGE_NO_CARD");
+                showErrorMessage("ENGAGE_NO_PARTNER");
+                displayErrorComponent(getBindings().getSearchStringInputtext(), true);
             }
         }
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside viewSubscribedAlerts method of Alerts");
@@ -2216,6 +2248,7 @@ public class Alerts {
         }
         cardGroupListString = cardGroupListString.substring(0, cardGroupListString.length() - 1);
         if (getBindings().getViewAlertCardGroupDropdown().getValue() != null) {
+            displayErrorComponent(getBindings().getViewAlertCardGroupDropdown(), false);
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + "converted cardGroupListString arraylist " + cardGroupListString);
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + "converted cardGroupListString arraylist " +
                          populateStringValues(getBindings().getViewAlertCardGroupDropdown().getValue().toString().trim()));
@@ -2277,7 +2310,8 @@ public class Alerts {
                 isTableVisible = true;
             }
         } else {
-            showErrorMessage("ENGAGE_NO_CARD_GROUP");
+            showErrorMessage("ENGAGE_NO_PARTNER");
+            displayErrorComponent(getBindings().getViewAlertCardGroupDropdown(), true);
         }
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside readCardGroupLevel method of Alerts");
     }
@@ -2290,6 +2324,7 @@ public class Alerts {
         }
         accountListString = accountListString.substring(0, accountListString.length() - 1);
         if (getBindings().getViewAlertsAccountDropdown().getValue() != null) {
+            displayErrorComponent(getBindings().getViewAlertsAccountDropdown(), false);
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + "converted accListString arraylist " + accountListString);
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + "converted accListString arraylist " +
                          (populateStringValues(getBindings().getViewAlertsAccountDropdown().getValue().toString().trim()).replaceAll(" ", "")));
@@ -2339,6 +2374,7 @@ public class Alerts {
             }
         } else {
             showErrorMessage("ENGAGE_NO_ACCOUNT");
+            displayErrorComponent(getBindings().getViewAlertsAccountDropdown(), true);
         }
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside readAccountlevel method of Alerts");
     }
@@ -2361,6 +2397,7 @@ public class Alerts {
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Inside readPartnerLevel method of Alerts");
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + "reading at partner level");
         if (getBindings().getViewAlertsPartnerDropdown().getValue() != null) {
+            displayErrorComponent(getBindings().getViewAlertsPartnerDropdown(), false);
             String[] values = populateStringValues(getBindings().getViewAlertsPartnerDropdown().getValue().toString()).split(",");
             String[] partner = new String[values.length];
             for (int i = 0; i < values.length; i++) {
@@ -2383,6 +2420,7 @@ public class Alerts {
             isTableVisible = true;
         } else {
             showErrorMessage("ENGAGE_NO_PARTNER");
+            displayErrorComponent(getBindings().getViewAlertsPartnerDropdown(), true);
         }
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Outside readPartnerLevel method of Alerts");
     }
