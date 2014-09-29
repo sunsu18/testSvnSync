@@ -2072,7 +2072,7 @@ public class Alerts {
     }
 
     public void viewSubscribedAlertsUI() {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside viewSubscribedAlerts method of Alerts");
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside viewSubscribedAlerts method of Alerts");
         resetTableFilter();
         ViewObject prtCardRuleSubscriptionVO = ADFUtils.getViewObject("PrtCardRuleSubscriptionRVO1Iterator");
         if (SelectionPanel) {
@@ -3259,8 +3259,8 @@ public class Alerts {
                     }
 
 
-                    operationBinding.getParamsMap().put("UserId", "B2BMgr1@test.com");
-                    operationBinding.getParamsMap().put("countryCd", "DK");
+                    operationBinding.getParamsMap().put("UserId", userEmail);
+                    operationBinding.getParamsMap().put("countryCd", CountryCode);
 
                     operationBinding.execute();
 
