@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -3082,7 +3083,48 @@ public class Alerts {
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResultsTB());
     }
 
-    
+    public void displayErrorComponent(UIComponent component, boolean status) {
+
+        RichSelectManyChoice soc = new RichSelectManyChoice();
+
+        if (component instanceof RichSelectManyChoice) {
+            soc = (RichSelectManyChoice)component;
+            if (status) {
+                soc.setStyleClass("af_mandatoryfield");
+                if (component.getId().contains("smc1") || component.getId().contains("smc4") || component.getId().contains("smc3") ||
+                    component.getId().contains("soc3") || component.getId().contains("smc2") || component.getId().contains("smc5") ||
+                    component.getId().contains("smc6") || component.getId().contains("smc7") || component.getId().contains("smc8") ||
+                    component.getId().contains("smc9") || component.getId().contains("smc10") || component.getId().contains("smc11"))
+                    soc.setStyleClass("af_mandatoryfield");
+
+            } else {
+                soc.setStyleClass("af_nonmandatoryfield");
+                if (component.getId().contains("smc1") || component.getId().contains("smc4") || component.getId().contains("smc3") ||
+                    component.getId().contains("soc3") || component.getId().contains("smc2") || component.getId().contains("smc5") ||
+                    component.getId().contains("smc6") || component.getId().contains("smc7") || component.getId().contains("smc8") ||
+                    component.getId().contains("smc9") || component.getId().contains("smc10") || component.getId().contains("smc11"))
+                    soc.setStyleClass("af_nonmandatoryfield");
+            }
+            AdfFacesContext.getCurrentInstance().addPartialTarget(soc);
+        }
+
+    }
+
+    private Boolean isComponentEmpty(UIComponent rit1) {
+
+        RichSelectManyChoice soc = new RichSelectManyChoice();
+        if (rit1 instanceof RichSelectManyChoice) {
+            soc = (RichSelectManyChoice)rit1;
+            if (soc.getValue() == null || soc.getValue().equals("")) {
+                displayErrorComponent(soc, true);
+                return true;
+            } else {
+                displayErrorComponent(soc, false);
+                return false;
+            }
+        }
+        return true;
+    }
 
     public class Bindings {
         private RichPopup alert1Popup;
