@@ -12,6 +12,9 @@ import com.sfr.util.ADFUtils;
 import com.sfr.util.AccessDataControl;
 import com.sfr.util.constants.Constants;
 import com.sfr.util.validations.Conversion;
+import com.sfr.util.validations.Validations;
+
+import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -125,6 +128,8 @@ public class UserInfoDisplayBean {
     private boolean showEmailpanel = false;
     private Integer roleCount = 0;
     private String rolesToCreate = "";
+    private String warningMsg = "";
+    private String emailValue = null;
 
 
     public UserInfoDisplayBean() {
@@ -133,6 +138,8 @@ public class UserInfoDisplayBean {
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
+
+
         //        partnerIdValue = new ArrayList<String>();
         roleValue = new ArrayList<String>();
         valueList = new ValueListSplit();
@@ -360,8 +367,7 @@ public class UserInfoDisplayBean {
                                         cardGroupDescMap.put(partnerInfoList.get(i).getPartnerValue().toString().trim() +
                                                              partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString(),
                                                              partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getDisplayCardGroupIdName().toString());
-                                        cardGroupToPartnerMap.put(partnerInfoList.get(i).getPartnerValue().toString().trim() +
-                                                                  partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString(),
+                                        cardGroupToPartnerMap.put(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getDisplayCardGroupIdName().toString(),
                                                                   partnerInfoList.get(i).getPartnerValue().toString());
                                     } else {
                                         addEditUserCardGroupID.add(selectItem);
@@ -571,6 +577,8 @@ public class UserInfoDisplayBean {
                 Collections.sort(addEditUserCardGroupID, comparator);
                 Collections.sort(addEditCardID, comparator);
             }
+            getBindings().getShowErrorMsg().setVisible(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowErrorMsg());
         } else {
             getBindings().getAddEditAccountId().setValue(null);
             getBindings().getAddEditCardGroupId().setValue(null);
@@ -695,6 +703,8 @@ public class UserInfoDisplayBean {
                     Collections.sort(addEditCardID, comparator);
                 }
             }
+            getBindings().getShowErrorMsg().setVisible(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowErrorMsg());
 
         } else {
             getBindings().getAddEditCardGroupId().setValue(null);
@@ -788,6 +798,8 @@ public class UserInfoDisplayBean {
                     Collections.sort(addEditCardID, comparator);
                 }
             }
+            getBindings().getShowErrorMsg().setVisible(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowErrorMsg());
         } else {
             getBindings().getAddEditCardId().setValue(null);
             this.addEditCardValue = null;
@@ -915,6 +927,19 @@ public class UserInfoDisplayBean {
         return null;
     }
 
+    public String showErrorMessagePopup(String errorVar) {
+        String errorMsg = "";
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside showErrorMessage method of User Dispaly");
+        if (errorVar != null) {
+
+            if (resourceBundle.containsKey(errorVar)) {
+                errorMsg = resourceBundle.getObject(errorVar).toString();
+            }
+        }
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting showErrorMessage method of User Dispaly");
+        return errorMsg;
+    }
+
     public List suggestedSearchString(String string) {
         ArrayList<SelectItem> selectItems = new ArrayList<SelectItem>();
         for (int i = 0; i < suggestedCardNumberList.size(); i++) {
@@ -930,6 +955,426 @@ public class UserInfoDisplayBean {
 
     public void searchResult(ActionEvent actionEvent) {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside searchResult method of User Display");
+        showSearchResults();
+        //        isTableVisible = true;
+        //        isCgMgrVisible = false;
+        //        isEmpVisible = false;
+        //        isAccMgrVisible = false;
+        //        isAdminVisible = false;
+        //        boolean resultDisplay = false;
+        //
+        //        try {
+        //            if (getBindings().getMultipleCardRadio().getValue().equals(true) && getBindings().getSingleCardRadio().getValue().equals(false)) {
+        //                if (getBindings().getPartner().getValue() != null) {
+        //                    if (getBindings().getAccount().getValue() != null) {
+        //                    } else {
+        //                        showErrorMessage("ENGAGE_NO_ACCOUNT");
+        //                    }
+        //
+        //                    if (getBindings().getCardGroup().getValue() != null) {
+        //                    } else {
+        //                        showErrorMessage("ENGAGE_NO_CARD_GROUP");
+        //                    }
+        //
+        //                    if (getBindings().getCard().getValue() != null) {
+        //                    } else {
+        //                        showErrorMessage("ENGAGE_NO_CARD");
+        //                    }
+        //
+        //                    if (getBindings().getRole().getValue() != null) {
+        //                    } else {
+        //                        showErrorMessage("ENGAGE_NO_ROLE");
+        //                    }
+        //
+        //                    if (getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_ADMIN")) {
+        //                        ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForAdminRVO1Iterator");
+        //                        vo.setNamedWhereClauseParam("cc", lang);
+        //                        vo.setNamedWhereClauseParam("roleName", Constants.ROLE_WCP_CARD_B2B_ADMIN);
+        //                        vo.setNamedWhereClauseParam("PID", populateStringValues(getBindings().getPartner().getValue().toString().trim()));
+        //                        vo.executeQuery();
+        //                        isTableVisible = true;
+        //                        resultDisplay = true;
+        //                    }
+        //                    if (getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_MGR_AC")) {
+        //                        ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForAccMgrRVO1Iterator");
+        //                        if (accountQuery.length() > 1 && accountQuery != null) {
+        //                            if (vo.getWhereClause() != null) {
+        //                                if (accountQuery.trim().equalsIgnoreCase(vo.getWhereClause().trim())) {
+        //                                    if (mapAccountListValue != null) {
+        //                                        for (int i = 0; i < mapAccountListValue.size(); i++) {
+        //                                            String values = "account" + i;
+        //                                            vo.removeNamedWhereClauseParam(values);
+        //                                        }
+        //                                    } else {
+        //                                        vo.removeNamedWhereClauseParam("account");
+        //                                    }
+        //                                    vo.setWhereClause("");
+        //                                    vo.executeQuery();
+        //                                }
+        //                            }
+        //                        }
+        //                        accountQuery = "(";
+        //                        vo.setNamedWhereClauseParam("cc", lang);
+        //                        vo.setNamedWhereClauseParam("roleName", Constants.ROLE_WCP_CARD_B2B_MGR);
+        //                        vo.setNamedWhereClauseParam("PID", populateStringValues(getBindings().getPartner().getValue().toString()));
+        //                        if (accountIdValue.size() > 150) {
+        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
+        //                            mapAccountListValue = valueList.callValueList(accountIdValue.size(), accountIdValue);
+        //                            for (int i = 0; i < mapAccountListValue.size(); i++) {
+        //                                String values = "account" + i;
+        //                                accountQuery = accountQuery + "INSTR(:" + values + ",ACCOUNT_ID)<>0 OR ";
+        //                            }
+        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Account Query Values =" + accountQuery);
+        //                            accountQuery = accountQuery.substring(0, accountQuery.length() - 3);
+        //                            accountQuery = accountQuery + ")";
+        //                        } else {
+        //                            mapAccountListValue = null;
+        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
+        //                            accountQuery = "INSTR(:account,ACCOUNT_ID)<>0  ";
+        //                        }
+        //                        vo.setWhereClause(accountQuery);
+        //                        String passingRole = "WCP_CARD_B2B_MGR";
+        //
+        //                        if (accountIdValue.size() > 150) {
+        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
+        //                            mapAccountListValue = valueList.callValueList(accountIdValue.size(), accountIdValue);
+        //                            for (int i = 0; i < mapAccountListValue.size(); i++) {
+        //                                String values = "account" + i;
+        //                                String listName = "listName" + i;
+        //                                vo.defineNamedWhereClauseParam(values, mapAccountListValue.get(listName), null);
+        //                            }
+        //                        } else {
+        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
+        //                            vo.defineNamedWhereClauseParam("account", populateStringValues(getBindings().getAccount().getValue().toString()), null);
+        //                        }
+        //
+        //                        vo.executeQuery();
+        //                        session.setAttribute("user_display_account_Query", accountQuery);
+        //                        session.setAttribute("user_display_map_Account_List", mapAccountListValue);
+        //                        isTableVisible = true;
+        //                        resultDisplay = true;
+        //                    }
+        //                    if (getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_MGR_CG")) {
+        //
+        //                        ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForCgMgrRVO1Iterator");
+        //                        if (cardGroupQuery.length() > 1 && cardGroupQuery != null) {
+        //                            if (vo.getWhereClause() != null) {
+        //                                if (cardGroupQuery.trim().equalsIgnoreCase(vo.getWhereClause().trim())) {
+        //                                    if (mapCardGroupListValue != null) {
+        //                                        for (int i = 0; i < mapCardGroupListValue.size(); i++) {
+        //                                            String values = "cardGroup" + i;
+        //                                            vo.removeNamedWhereClauseParam(values);
+        //                                        }
+        //                                    } else {
+        //                                        vo.removeNamedWhereClauseParam("cardGroup");
+        //                                    }
+        //                                    vo.setWhereClause("");
+        //                                    vo.executeQuery();
+        //                                }
+        //                            }
+        //                        }
+        //                        cardGroupQuery = "(";
+        //
+        //                        if (cardGroupValue.size() > 150) {
+        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
+        //                            mapCardGroupListValue = valueList.callValueList(cardGroupValue.size(), cardGroupValue);
+        //                            for (int i = 0; i < mapCardGroupListValue.size(); i++) {
+        //                                String values = "cardGroup" + i;
+        //                                cardGroupQuery = cardGroupQuery + "INSTR(:" + values + ",PARTNER_ID||CARD_GROUP)<>0 OR ";
+        //                            }
+        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "CARDGROUP Query Values =" + cardGroupQuery);
+        //                            cardGroupQuery = cardGroupQuery.substring(0, cardGroupQuery.length() - 3);
+        //                            cardGroupQuery = cardGroupQuery + ")";
+        //                        } else {
+        //                            mapCardGroupListValue = null;
+        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values < 150 ");
+        //                            cardGroupQuery = "INSTR(:cardGroup,PARTNER_ID||CARD_GROUP)<>0 ";
+        //                        }
+        //
+        //                        vo.setWhereClause(cardGroupQuery);
+        //                        vo.setNamedWhereClauseParam("cc", lang);
+        //                        vo.setNamedWhereClauseParam("roleName", Constants.ROLE_WCP_CARD_B2B_MGR);
+        //                        vo.setNamedWhereClauseParam("PID", populateStringValues(getBindings().getPartner().getValue().toString()));
+        //                        if (cardGroupValue.size() > 150) {
+        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
+        //                            mapCardGroupListValue = valueList.callValueList(cardGroupValue.size(), cardGroupValue);
+        //                            for (int i = 0; i < mapCardGroupListValue.size(); i++) {
+        //                                String values = "cardGroup" + i;
+        //                                String listName = "listName" + i;
+        //                                vo.defineNamedWhereClauseParam(values, mapCardGroupListValue.get(listName), null);
+        //                            }
+        //                        } else {
+        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values < 150 ");
+        //                            vo.defineNamedWhereClauseParam("cardGroup", populateStringValues(getBindings().getCardGroup().getValue().toString()), null);
+        //                        }
+        //
+        //                        vo.executeQuery();
+        //                        session.setAttribute("user_display_cardGroup_Query", cardGroupQuery);
+        //                        session.setAttribute("user_display_map_CardGroup_List", mapCardGroupListValue);
+        //                        isTableVisible = true;
+        //                        resultDisplay = true;
+        //                    }
+        //                    if (getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_EMP")) {
+        //
+        //                        ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForEmpRVO1Iterator");
+        //                        if (cardQuery.length() > 1 && cardQuery != null) {
+        //                            if (vo.getWhereClause() != null) {
+        //                                if (cardQuery.trim().equalsIgnoreCase(vo.getWhereClause().trim())) {
+        //                                    if (mapCardListValue != null) {
+        //                                        for (int i = 0; i < mapCardListValue.size(); i++) {
+        //                                            String values = "card" + i;
+        //                                            vo.removeNamedWhereClauseParam(values);
+        //                                        }
+        //                                    } else {
+        //                                        vo.removeNamedWhereClauseParam("card");
+        //                                    }
+        //                                    vo.setWhereClause("");
+        //                                    vo.executeQuery();
+        //                                }
+        //                            }
+        //                        }
+        //                        cardQuery = "(";
+        //
+        //                        if (cardNumberValue.size() > 150) {
+        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values > 150 ");
+        //                            mapCardListValue = valueList.callValueList(cardNumberValue.size(), cardNumberValue);
+        //                            for (int i = 0; i < mapCardListValue.size(); i++) {
+        //                                String values = "card" + i;
+        //                                cardQuery = cardQuery + "INSTR(:" + values + ",CARD)<>0 OR ";
+        //                            }
+        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
+        //                            cardQuery = cardQuery.substring(0, cardQuery.length() - 3);
+        //                            cardQuery = cardQuery + ")";
+        //                        } else {
+        //                            mapCardListValue = null;
+        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values < 150 ");
+        //                            cardQuery = "INSTR(:card,CARD)<>0 ";
+        //                        }
+        //                        vo.setWhereClause(cardQuery);
+        //                        vo.setNamedWhereClauseParam("cc", lang);
+        //                        vo.setNamedWhereClauseParam("roleName", Constants.ROLE_WCP_CARD_B2B_EMP);
+        //                        vo.setNamedWhereClauseParam("PID", populateStringValues(getBindings().getPartner().getValue().toString()));
+        //                        if (cardNumberValue.size() > 150) {
+        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values > 150 ");
+        //                            mapCardListValue = valueList.callValueList(cardNumberValue.size(), cardNumberValue);
+        //                            for (int i = 0; i < mapCardListValue.size(); i++) {
+        //                                String values = "card" + i;
+        //                                String listName = "listName" + i;
+        //                                vo.defineNamedWhereClauseParam(values, mapCardListValue.get(listName), null);
+        //                            }
+        //                        } else {
+        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values < 150 ");
+        //                            vo.defineNamedWhereClauseParam("card", populateStringValues(getBindings().getCard().getValue().toString()), null);
+        //                        }
+        //
+        //                        vo.executeQuery();
+        //                        session.setAttribute("user_display_card_Query", cardQuery);
+        //                        session.setAttribute("user_display_map_Card_List", mapCardListValue);
+        //                        isTableVisible = true;
+        //                        resultDisplay = true;
+        //                    }
+        //
+        //                } else {
+        //                    showErrorMessage("ENGAGE_NO_PARTNER");
+        //                }
+        //            } else if (getBindings().getSingleCardRadio().getValue().equals(true) && getBindings().getMultipleCardRadio().getValue().equals(false)) {
+        //                if (getBindings().getSearchStringInputtext().getValue() != null) {
+        //                    String enteredCard = getBindings().getSearchStringInputtext().getValue().toString();
+        //                    String passingPartner = "", passingAccount = "", passingCardgroup = "", passingCard = "", passingRole =
+        //                        "WCP_CARD_B2B_ADMIN,WCP_CARD_B2B_MGR_AC,WCP_CARD_B2B_MGR_CG,WCP_CARD_B2B_EMP";
+        //                    for (int i = 0; i < partnerInfoList.size(); i++) {
+        //                        if (partnerInfoList.get(i).getAccountList() != null && partnerInfoList.get(i).getAccountList().size() > 0) {
+        //                            for (int j = 0; j < partnerInfoList.get(i).getAccountList().size(); j++) {
+        //                                for (int k = 0; k < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().size(); k++) {
+        //                                    for (int cc = 0; cc < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().size(); cc++) {
+        //                                        if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID() != null &&
+        //                                            partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID() !=
+        //                                            null &&
+        //                                            partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().equalsIgnoreCase(enteredCard)) {
+        //                                            passingCard = partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID();
+        //                                            passingCardgroup =
+        //                                                    partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString();
+        //                                            passingAccount = partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString();
+        //                                            passingPartner = partnerInfoList.get(i).getPartnerValue().toString();
+        //                                        }
+        //                                    }
+        //                                }
+        //                            }
+        //                        }
+        //                    }
+        //
+        //                    //execute query
+        //                    if (session != null) {
+        //                        if (session.getAttribute("user_display_account_Query") != null) {
+        //                            accountQuery = session.getAttribute("user_display_account_Query").toString().trim();
+        //                            mapAccountListValue = (Map<String, String>)session.getAttribute("user_display_map_Account_List");
+        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "account Query & mapAccountList is found");
+        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "account " + accountQuery);
+        //                        }
+        //                        if (session.getAttribute("user_display_cardGroup_Query") != null) {
+        //                            cardGroupQuery = session.getAttribute("user_display_cardGroup_Query").toString().trim();
+        //                            mapCardGroupListValue = (Map<String, String>)session.getAttribute("user_display_map_CardGroup_List");
+        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Query & mapCardGroupList is found");
+        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup " + cardGroupQuery);
+        //                        }
+        //                        if (session.getAttribute("user_display_card_Query") != null) {
+        //                            cardQuery = session.getAttribute("user_display_card_Query").toString().trim();
+        //                            mapCardListValue = (Map<String, String>)session.getAttribute("user_display_map_Card_List");
+        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Query & mapCardList is found");
+        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card " + cardQuery);
+        //                        }
+        //                    }
+        //
+        //                    if (getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_ADMIN")) {
+        //                        ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForAdminRVO1Iterator");
+        //                        vo.setNamedWhereClauseParam("cc", lang);
+        //                        vo.setNamedWhereClauseParam("roleName", Constants.ROLE_WCP_CARD_B2B_ADMIN);
+        //                        vo.setNamedWhereClauseParam("PID", passingPartner);
+        //                        vo.executeQuery();
+        //                        isTableVisible = true;
+        //                        resultDisplay = true;
+        //                    }
+        //                    if (getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_MGR_AC")) {
+        //                        ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForAccMgrRVO1Iterator");
+        //                        if (accountQuery.length() > 1 && accountQuery != null) {
+        //                            if (vo.getWhereClause() != null) {
+        //                                if (accountQuery.trim().equalsIgnoreCase(vo.getWhereClause().trim())) {
+        //                                    if (mapAccountListValue != null) {
+        //                                        for (int i = 0; i < mapAccountListValue.size(); i++) {
+        //                                            String values = "account" + i;
+        //                                            vo.removeNamedWhereClauseParam(values);
+        //                                        }
+        //                                    } else {
+        //                                        vo.removeNamedWhereClauseParam("account");
+        //                                    }
+        //                                    vo.setWhereClause("");
+        //                                    vo.executeQuery();
+        //                                }
+        //                            }
+        //                        }
+        //                        accountQuery = "(";
+        //
+        //                        mapAccountListValue = null;
+        //                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
+        //                        accountQuery = "INSTR(:account,ACCOUNT_ID)<>0 ";
+        //                        vo.setWhereClause(accountQuery);
+        //                        vo.setNamedWhereClauseParam("cc", lang);
+        //                        vo.setNamedWhereClauseParam("roleName", Constants.ROLE_WCP_CARD_B2B_MGR);
+        //                        vo.setNamedWhereClauseParam("PID", passingPartner);
+        //                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
+        //                        vo.defineNamedWhereClauseParam("account", passingAccount, null);
+        //                        vo.executeQuery();
+        //                        session.setAttribute("user_display_account_Query", accountQuery);
+        //                        isAccMgrVisible = true;
+        //                    }
+        //                    if (getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_MGR_CG")) {
+        //
+        //                        ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForCgMgrRVO1Iterator");
+        //                        if (cardGroupQuery.length() > 1 && cardGroupQuery != null) {
+        //                            if (vo.getWhereClause() != null) {
+        //                                if (cardGroupQuery.trim().equalsIgnoreCase(vo.getWhereClause().trim())) {
+        //                                    if (mapCardGroupListValue != null) {
+        //                                        for (int i = 0; i < mapCardGroupListValue.size(); i++) {
+        //                                            String values = "cardGroup" + i;
+        //                                            vo.removeNamedWhereClauseParam(values);
+        //                                        }
+        //                                    } else {
+        //                                        vo.removeNamedWhereClauseParam("cardGroup");
+        //                                    }
+        //                                    vo.setWhereClause("");
+        //                                    vo.executeQuery();
+        //                                }
+        //                            }
+        //                        }
+        //                        cardGroupQuery = "(";
+        //
+        //                        mapCardGroupListValue = null;
+        //                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values < 150 ");
+        //                        cardGroupQuery = "INSTR(:cardGroup,PARTNER_ID||CARD_GROUP)<>0 ";
+        //
+        //                        vo.setWhereClause(cardGroupQuery);
+        //                        vo.setNamedWhereClauseParam("cc", lang);
+        //                        vo.setNamedWhereClauseParam("roleName", Constants.ROLE_WCP_CARD_B2B_MGR);
+        //                        vo.setNamedWhereClauseParam("PID", passingPartner);
+        //                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values < 150 ");
+        //                        vo.defineNamedWhereClauseParam("cardGroup", passingPartner + passingCardgroup, null);
+        //
+        //                        vo.executeQuery();
+        //                        session.setAttribute("user_display_cardGroup_Query", cardGroupQuery);
+        //                        session.setAttribute("user_display_map_CardGroup_List", mapCardGroupListValue);
+        //                        isTableVisible = true;
+        //                        resultDisplay = true;
+        //                    }
+        //                    if (getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_EMP")) {
+        //
+        //                        ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForEmpRVO1Iterator");
+        //                        if (cardQuery.length() > 1 && cardQuery != null) {
+        //                            if (vo.getWhereClause() != null) {
+        //                                if (cardQuery.trim().equalsIgnoreCase(vo.getWhereClause().trim())) {
+        //                                    if (mapCardListValue != null) {
+        //                                        for (int i = 0; i < mapCardListValue.size(); i++) {
+        //                                            String values = "card" + i;
+        //                                            vo.removeNamedWhereClauseParam(values);
+        //                                        }
+        //                                    } else {
+        //                                        vo.removeNamedWhereClauseParam("card");
+        //                                    }
+        //                                    vo.setWhereClause("");
+        //                                    vo.executeQuery();
+        //                                }
+        //                            }
+        //                        }
+        //                        cardQuery = "(";
+        //
+        //                        mapCardListValue = null;
+        //                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values < 150 ");
+        //                        cardQuery = "INSTR(:card,CARD)<>0 ";
+        //                        vo.setWhereClause(cardQuery);
+        //                        vo.setNamedWhereClauseParam("cc", lang);
+        //                        vo.setNamedWhereClauseParam("roleName", Constants.ROLE_WCP_CARD_B2B_EMP);
+        //                        vo.setNamedWhereClauseParam("PID", passingPartner);
+        //                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values < 150 ");
+        //                        vo.defineNamedWhereClauseParam("card", passingCard, null);
+        //
+        //                        vo.executeQuery();
+        //                        session.setAttribute("user_display_card_Query", cardQuery);
+        //                        session.setAttribute("user_display_map_Card_List", mapCardListValue);
+        //                        isTableVisible = true;
+        //                        resultDisplay = true;
+        //                    }
+        //                } else {
+        //                    showErrorMessage("ENGAGE_NO_CARD");
+        //                }
+        //            }
+        //            if (resultDisplay) {
+        //                if (getBindings().getSearchStringInputtext().getValue() != null && getBindings().getSearchStringInputtext().getValue().equals(true)) {
+        //                    isCgMgrVisible = true;
+        //                    isEmpVisible = true;
+        //                    isAccMgrVisible = true;
+        //                    isAdminVisible = true;
+        //                } else {
+        //                    if (getBindings().getRole().getValue().toString().contains("WCP_CARD_B2B_ADMIN")) {
+        //                        isAdminVisible = true;
+        //                    }
+        //                    if (getBindings().getRole().getValue().toString().contains("WCP_CARD_B2B_MGR_AC")) {
+        //                        isAccMgrVisible = true;
+        //                    }
+        //                    if (getBindings().getRole().getValue().toString().contains("WCP_CARD_B2B_MGR_CG")) {
+        //                        isCgMgrVisible = true;
+        //                    }
+        //                    if (getBindings().getRole().getValue().toString().contains("WCP_CARD_B2B_EMP")) {
+        //                        isEmpVisible = true;
+        //                    }
+        //                }
+        //            }
+        //        } catch (Exception e) {
+        //            e.printStackTrace();
+        //        }
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside searchResult method of User Display");
+    }
+
+    public void showSearchResults() {
+
         isTableVisible = true;
         isCgMgrVisible = false;
         isEmpVisible = false;
@@ -1344,7 +1789,7 @@ public class UserInfoDisplayBean {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside searchResult method of User Display");
+
     }
 
     public void clearSearchListener(ActionEvent actionEvent) {
@@ -1372,6 +1817,7 @@ public class UserInfoDisplayBean {
     }
 
     public String goToAddEditButtonAction() {
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside goToAddEditButtonAction method of User Display");
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
@@ -1382,9 +1828,11 @@ public class UserInfoDisplayBean {
         if (session != null && null != session.getAttribute(Constants.SESSION_USER_INFO)) {
             userInfo = (User)session.getAttribute(Constants.SESSION_USER_INFO);
             if (null != userInfo) {
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " checking user info is not null");
                 userEmail = userInfo.getEmailID();
                 String[] associatesRoleName = null;
                 if (userInfo.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN)) {
+                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside B2b Admin");
                     associatesRoleName = StringConversion(Constants.ENGAGE_B2B_ADMIN_USER);
                     for (int count = 0; count < associatesRoleName.length; count++) {
                         UserInfoRolesDetails userInfoDetails = new UserInfoRolesDetails();
@@ -1396,14 +1844,12 @@ public class UserInfoDisplayBean {
                         userRoleDeatils.add(userInfoDetails);
                     }
                 } else if (userInfo.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR)) {
-                    System.out.println("Is it coming inside B2B mgr========>");
+
                     if (userInfo.getRoleList() != null && userInfo.getRoleList().size() > 0) {
-                        System.out.println("Is it coming inside B2B mgr========>1111111111");
                         for (int check = 0; check < userInfo.getRoleList().size(); check++) {
-                            System.out.println("Is it coming inside B2B mgr========>2222222222" + userInfo.getRoleList().get(check).getIdString());
                             for (int i = 0; i < userInfo.getRoleList().get(check).getIdString().size(); i++) {
                                 if (userInfo.getRoleList().get(check).getIdString().get(i).contains("AC")) {
-                                    System.out.println("Is it coming inside B2B mgr========>333333333333");
+                                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside B2b Mgr Ac");
                                     associatesRoleName = StringConversion(Constants.ENGAGE_B2B_MGR_AC_USER);
                                     for (int count = 0; count < associatesRoleName.length; count++) {
                                         UserInfoRolesDetails userInfoDetails = new UserInfoRolesDetails();
@@ -1418,7 +1864,7 @@ public class UserInfoDisplayBean {
                                 }
 
                                 if (userInfo.getRoleList().get(check).getIdString().get(i).contains("CG")) {
-                                    System.out.println("Is it coming inside B2B mgr========>444444444444444");
+                                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside B2b Mgr CG");
                                     associatesRoleName = StringConversion(Constants.ENGAGE_B2B_MGR_CG_USER);
                                     for (int count = 0; count < associatesRoleName.length; count++) {
                                         UserInfoRolesDetails userInfoDetails = new UserInfoRolesDetails();
@@ -1435,6 +1881,7 @@ public class UserInfoDisplayBean {
                         }
                     }
                 } else {
+                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside B2b card employee");
                     associatesRoleName = StringConversion(Constants.ENGAGE_B2B_EMP_USER);
                     for (int count = 0; count < associatesRoleName.length; count++) {
                         UserInfoRolesDetails userInfoDetails = new UserInfoRolesDetails();
@@ -1447,75 +1894,175 @@ public class UserInfoDisplayBean {
                     }
                 }
             }
-            //            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getUserRoleInfoTable());
+            emailValue = null;
         }
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting goToAddEditButtonAction method of User Display");
         return "goToAddEdit";
     }
 
     public void emailIdValueChangeListener(ValueChangeEvent valueChangeEvent) {
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside emailIdValueChangeListener method of User Display");
         if (valueChangeEvent.getNewValue() != null && valueChangeEvent.getNewValue().toString().length() > 0) {
-            showEmailpanel = true;
-            getBindings().getUserFirstName().setSubmittedValue("");
-            getBindings().getUserFirstName().setValue("");
-            getBindings().getUserMiddleName().setSubmittedValue("");
-            getBindings().getUserMiddleName().setValue("");
-            getBindings().getUserLastName().setSubmittedValue("");
-            getBindings().getUserLastName().setValue("");
+            boolean validEmail = false;
+            Validations emailCheck = new Validations();
+            validEmail = emailCheck.validateEmail(valueChangeEvent.getNewValue().toString().trim());
+            if (validEmail) {
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " email id validated");
+                showEmailpanel = true;
+                getBindings().getUserFirstName().setSubmittedValue("");
+                getBindings().getUserFirstName().setValue("");
+                getBindings().getUserMiddleName().setSubmittedValue("");
+                getBindings().getUserMiddleName().setValue("");
+                getBindings().getUserLastName().setSubmittedValue("");
+                getBindings().getUserLastName().setValue("");
+                getBindings().getUserPhoneNumber().setSubmittedValue("");
+                getBindings().getUserPhoneNumber().setValue("");
+                getBindings().getDateOfBirth().setSubmittedValue("");
+                getBindings().getDateOfBirth().setValue("");
 
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getUserFirstName());
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getUserMiddleName());
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getUserLastName());
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getUserFirstName());
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getUserMiddleName());
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getUserLastName());
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getUserPhoneNumber());
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDateOfBirth());
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
+            } else {
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " invalid email id entered");
+                showErrorMessage("ENTER_VALID_EMAIL");
+            }
 
         }
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting emailIdValueChangeListener method of User Display");
     }
 
 
     public String addEditUserPopUpSaveAction() {
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside addEditUserPopUpSaveAction method of User Display");
         String selectedValues = null;
         RichTable userTable = getBindings().getUserRoleInfoTable();
         UserInfoRolesDetails selectedRow = (UserInfoRolesDetails)userTable.getSelectedRowData();
-
+        warningMsg = "";
         if (selectedRow != null) {
 
             if (selectedRow.getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_ADMIN)) {
-                roleCount = roleCount + 1;
-                rolesToCreate = rolesToCreate + selectedRow.getRoleName().trim() + ",";
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " inside save action for B2B admin");
+                if (getBindings().getAddEditPartnerId().getValue() != null) {
+                    roleCount = roleCount + 1;
+                    rolesToCreate = rolesToCreate + selectedRow.getRoleName().trim() + ",";
 
-                if (getBindings().getAddEditPartnerId().getValue() != null && getBindings().getAddEditPartnerId().getValue().toString().length() > 0) {
-                    selectedValues =
-                            getBindings().getAddEditPartnerId().getValue().toString().substring(1, getBindings().getAddEditPartnerId().getValue().toString().length() -
-                                                                                                1);
-                    selectedRow.setAssociationValue(populateSelectManyChoiceValues(selectedValues.trim().replaceAll(" ", ""), selectedRow.getRoleName()));
+                    if (getBindings().getAddEditPartnerId().getValue() != null && getBindings().getAddEditPartnerId().getValue().toString().length() > 0) {
+                        selectedValues =
+                                getBindings().getAddEditPartnerId().getValue().toString().substring(1, getBindings().getAddEditPartnerId().getValue().toString().length() -
+                                                                                                    1);
+                        selectedRow.setAssociationValue(populateSelectManyChoiceValues(selectedValues.trim().replaceAll(" ", ""), selectedRow.getRoleName()));
+
+                    }
+                } else {
+                    warningMsg = showErrorMessagePopup("ENGAGE_NO_PARTNER");
+                    getBindings().getShowErrorMsg().setVisible(true);
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowErrorMsg());
+                    return null;
+
                 }
             } else if (selectedRow.getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR_AC)) {
-                roleCount = roleCount + 1;
-                rolesToCreate = rolesToCreate + selectedRow.getRoleName().trim() + ",";
-                if (getBindings().getAddEditAccountId().getValue() != null && getBindings().getAddEditAccountId().getValue().toString().length() > 0) {
-                    selectedRow.setAssociationValue(populateStringValues(getBindings().getAddEditAccountId().getValue().toString().trim().replaceAll(" ",
-                                                                                                                                                     "")));
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " inside save action for B2B mgr AC");
+                if (getBindings().getAddEditPartnerId().getValue() != null) {
+                } else {
+                    warningMsg = showErrorMessagePopup("ENGAGE_NO_PARTNER");
+                    getBindings().getShowErrorMsg().setVisible(true);
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowErrorMsg());
+                    return null;
                 }
+
+                if (getBindings().getAddEditAccountId().getValue() != null) {
+                    roleCount = roleCount + 1;
+                    rolesToCreate = rolesToCreate + selectedRow.getRoleName().trim() + ",";
+                    if (getBindings().getAddEditAccountId().getValue() != null && getBindings().getAddEditAccountId().getValue().toString().length() > 0) {
+                        selectedRow.setAssociationValue(populateStringValues(getBindings().getAddEditAccountId().getValue().toString().trim().replaceAll(" ",
+                                                                                                                                                         "")));
+                    }
+                } else {
+                    warningMsg = showErrorMessagePopup("ENGAGE_NO_ACCOUNT");
+                    getBindings().getShowErrorMsg().setVisible(true);
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowErrorMsg());
+                    return null;
+                }
+
             } else if (selectedRow.getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR_CG)) {
-                roleCount = roleCount + 1;
-                rolesToCreate = rolesToCreate + selectedRow.getRoleName().trim() + ",";
-                if (getBindings().getAddEditCardGroupId().getValue() != null && getBindings().getAddEditCardGroupId().getValue().toString().length() > 0) {
-                    selectedValues =
-                            getBindings().getAddEditCardGroupId().getValue().toString().substring(1, getBindings().getAddEditCardGroupId().getValue().toString().length() -
-                                                                                                  1);
-                    selectedRow.setAssociationValue(populateSelectManyChoiceValues(selectedValues.trim().replaceAll(" ", ""), selectedRow.getRoleName()));
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " inside save action for B2B mgr CG");
+                if (getBindings().getAddEditPartnerId().getValue() != null) {
+                } else {
+                    warningMsg = showErrorMessagePopup("ENGAGE_NO_PARTNER");
+                    getBindings().getShowErrorMsg().setVisible(true);
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowErrorMsg());
+                    return null;
+                }
+                if (getBindings().getAddEditAccountId().getValue() != null) {
+                } else {
+                    warningMsg = showErrorMessagePopup("ENGAGE_NO_ACCOUNT");
+                    getBindings().getShowErrorMsg().setVisible(true);
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowErrorMsg());
+                    return null;
+                }
+
+                if (getBindings().getAddEditCardGroupId().getValue() != null) {
+                    roleCount = roleCount + 1;
+                    rolesToCreate = rolesToCreate + selectedRow.getRoleName().trim() + ",";
+                    if (getBindings().getAddEditCardGroupId().getValue() != null && getBindings().getAddEditCardGroupId().getValue().toString().length() > 0) {
+                        selectedValues =
+                                getBindings().getAddEditCardGroupId().getValue().toString().substring(1, getBindings().getAddEditCardGroupId().getValue().toString().length() -
+                                                                                                      1);
+                        selectedRow.setAssociationValue(populateSelectManyChoiceValues(selectedValues.trim().replaceAll(" ", ""), selectedRow.getRoleName()));
+                    }
+                } else {
+                    warningMsg = showErrorMessagePopup("ENGAGE_NO_CARD_GROUP");
+                    getBindings().getShowErrorMsg().setVisible(true);
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowErrorMsg());
+                    return null;
                 }
             } else {
-                roleCount = roleCount + 1;
-                rolesToCreate = rolesToCreate + selectedRow.getRoleName().trim() + ",";
-                if (getBindings().getAddEditCardId().getValue() != null && getBindings().getAddEditCardId().getValue().toString().length() > 0) {
-                    selectedValues =
-                            getBindings().getAddEditCardId().getValue().toString().substring(1, getBindings().getAddEditCardId().getValue().toString().length() -
-                                                                                             1);
-                    selectedRow.setAssociationValue(populateSelectManyChoiceValues(selectedValues.trim().replaceAll(" ", ""), selectedRow.getRoleName()));
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " inside save action for B2B card admin ");
+                if (getBindings().getAddEditPartnerId().getValue() != null) {
+                } else {
+                    warningMsg = showErrorMessagePopup("ENGAGE_NO_PARTNER");
+                    getBindings().getShowErrorMsg().setVisible(true);
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowErrorMsg());
+                    return null;
+                }
+                if (getBindings().getAddEditAccountId().getValue() != null) {
+                } else {
+                    warningMsg = showErrorMessagePopup("ENGAGE_NO_ACCOUNT");
+                    getBindings().getShowErrorMsg().setVisible(true);
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowErrorMsg());
+                    return null;
+                }
+
+                if (getBindings().getAddEditCardGroupId().getValue() != null) {
+                } else {
+                    warningMsg = showErrorMessagePopup("ENGAGE_NO_CARD_GROUP");
+                    getBindings().getShowErrorMsg().setVisible(true);
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowErrorMsg());
+                    return null;
+                }
+
+                if (getBindings().getAddEditCardId().getValue() != null) {
+                    roleCount = roleCount + 1;
+                    rolesToCreate = rolesToCreate + selectedRow.getRoleName().trim() + ",";
+                    if (getBindings().getAddEditCardId().getValue() != null && getBindings().getAddEditCardId().getValue().toString().length() > 0) {
+                        selectedValues =
+                                getBindings().getAddEditCardId().getValue().toString().substring(1, getBindings().getAddEditCardId().getValue().toString().length() -
+                                                                                                 1);
+                        selectedRow.setAssociationValue(populateSelectManyChoiceValues(selectedValues.trim().replaceAll(" ", ""), selectedRow.getRoleName()));
+                    }
+                } else {
+                    warningMsg = showErrorMessagePopup("ENGAGE_NO_CARD");
+                    getBindings().getShowErrorMsg().setVisible(true);
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowErrorMsg());
+                    return null;
                 }
             }
-
         }
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting addEditUserPopUpSaveAction method of User Display");
         getBindings().getAddEditUserPopUp().hide();
         return null;
     }
@@ -1525,6 +2072,7 @@ public class UserInfoDisplayBean {
         String passingValues = "";
         String returnStringParam = "";
         if (var != null && role != null && role.equals(Constants.ROLE_WCP_CARD_B2B_ADMIN)) {
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside populateSelectManyChoiceValues for b2b admin");
             String[] convertedString = StringConversion(var.trim());
             if (convertedString.length > 0) {
                 for (int count = 0; count < convertedString.length; count++) {
@@ -1535,6 +2083,7 @@ public class UserInfoDisplayBean {
                 }
             }
         } else if (role.equals(Constants.ROLE_WCP_CARD_B2B_MGR_CG)) {
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside populateSelectManyChoiceValues for b2b mgr cg");
             String[] convertedString = StringConversion(var);
             if (convertedString.length > 0) {
                 for (int count = 0; count < convertedString.length; count++) {
@@ -1543,6 +2092,7 @@ public class UserInfoDisplayBean {
                 }
             }
         } else {
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside populateSelectManyChoiceValues for b2b card employee");
             String[] convertedString = StringConversion(var);
             if (convertedString.length > 0) {
                 for (int count = 0; count < convertedString.length; count++) {
@@ -1551,27 +2101,30 @@ public class UserInfoDisplayBean {
                 }
             }
         }
-        //        returnStringParam = passingValues;
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting populateSelectManyChoiceValues method of User Display");
         return returnStringParam.substring(0, returnStringParam.length() - 1);
     }
 
     public String addEditUserPopUpCloseAction() {
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside addEditUserPopUpCloseAction method of User Display");
         isCreateAdmin = false;
         isCreateACMgr = false;
         isCreateCGMgr = false;
         isCreateEmployee = false;
         getBindings().getAddEditUserPopUp().hide();
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting addEditUserPopUpCloseAction method of User Display");
         return null;
     }
 
     public String manageUserCommandLinkAction() {
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside manageUserCommandLinkAction method of User Display");
         showPopUpHeading = null;
         populateCustomerData("Add");
         RichTable userTable = getBindings().getUserRoleInfoTable();
         UserInfoRolesDetails selectedRow = (UserInfoRolesDetails)userTable.getSelectedRowData();
         if (selectedRow != null) {
             if (selectedRow.getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_ADMIN)) {
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside manageUserCommandLinkAction for B2B admin");
                 isCreateAdmin = true;
                 //                isCreateACMgr = false;
                 //                isCreateCGMgr = false;
@@ -1580,6 +2133,7 @@ public class UserInfoDisplayBean {
                 showPopUpHeading = fetchAddEditPopUpHeading(selectedRow.getRoleName());
                 showPopUpTableheading = fetchAddEditPopUpTableHeading(selectedRow.getRoleName());
             } else if (selectedRow.getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR_AC)) {
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside manageUserCommandLinkAction for B2B mgr AC");
                 //                isCreateAdmin = false;
                 isCreateACMgr = true;
                 //                isCreateCGMgr = false;
@@ -1588,6 +2142,7 @@ public class UserInfoDisplayBean {
                 showPopUpHeading = fetchAddEditPopUpHeading(selectedRow.getRoleName());
                 showPopUpTableheading = fetchAddEditPopUpTableHeading(selectedRow.getRoleName());
             } else if (selectedRow.getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR_CG)) {
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside manageUserCommandLinkAction for B2B mgr CG");
                 //                isCreateAdmin = false;
                 //                isCreateACMgr = false;
                 isCreateCGMgr = true;
@@ -1596,6 +2151,7 @@ public class UserInfoDisplayBean {
                 showPopUpHeading = fetchAddEditPopUpHeading(selectedRow.getRoleName());
                 showPopUpTableheading = fetchAddEditPopUpTableHeading(selectedRow.getRoleName());
             } else {
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside manageUserCommandLinkAction for B2B card employee");
                 //                isCreateAdmin = false;
                 //                isCreateACMgr = false;
                 //                isCreateCGMgr = false;
@@ -1605,12 +2161,15 @@ public class UserInfoDisplayBean {
                 showPopUpTableheading = fetchAddEditPopUpTableHeading(selectedRow.getRoleName());
             }
         }
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting manageUserCommandLinkAction method of User Display");
         getBindings().getAddEditUserPopUp().show(new RichPopup.PopupHints());
         return null;
     }
 
     public void showSelectManyChoiceOnRole(String roleName) {
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside showSelectManyChoiceOnRole method of User Display");
         if (roleName != null && roleName.equals(Constants.ROLE_WCP_CARD_B2B_ADMIN)) {
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside showSelectManyChoiceOnRole for B2B admin");
             getBindings().getPopUpPartnerId().setRendered(true);
             getBindings().getPopUpPartnerColun().setRendered(true);
             getBindings().getPopUpPartnerSpacer().setRendered(true);
@@ -1629,6 +2188,7 @@ public class UserInfoDisplayBean {
             getBindings().getPopUpCardSpacer().setRendered(false);
             getBindings().getAddEditCardId().setRendered(false);
         } else if (roleName.equals(Constants.ROLE_WCP_CARD_B2B_MGR_AC)) {
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside showSelectManyChoiceOnRole for B2B mgr AC");
             getBindings().getPopUpPartnerId().setRendered(true);
             getBindings().getPopUpPartnerColun().setRendered(true);
             getBindings().getPopUpPartnerSpacer().setRendered(true);
@@ -1647,6 +2207,7 @@ public class UserInfoDisplayBean {
             getBindings().getAddEditCardId().setRendered(false);
 
         } else if (roleName.equals(Constants.ROLE_WCP_CARD_B2B_MGR_CG)) {
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside showSelectManyChoiceOnRole for B2B mgr CG");
             getBindings().getPopUpPartnerId().setRendered(true);
             getBindings().getPopUpPartnerColun().setRendered(true);
             getBindings().getPopUpPartnerSpacer().setRendered(true);
@@ -1664,6 +2225,7 @@ public class UserInfoDisplayBean {
             getBindings().getPopUpCardSpacer().setRendered(false);
             getBindings().getAddEditCardId().setRendered(false);
         } else {
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside showSelectManyChoiceOnRole for B2B card employee");
             getBindings().getPopUpPartnerId().setRendered(true);
             getBindings().getPopUpPartnerColun().setRendered(true);
             getBindings().getPopUpPartnerSpacer().setRendered(true);
@@ -1697,9 +2259,11 @@ public class UserInfoDisplayBean {
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getPopUpCardColon());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getPopUpCardSpacer());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAddEditCardId());
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting showSelectManyChoiceOnRole method of User Display");
     }
 
     public String fetchAddEditPopUpHeading(String roleName) {
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting fetchAddEditPopUpHeading method of User Display");
         String transalatedString = null;
 
         if (roleName != null && roleName.equals(Constants.ROLE_WCP_CARD_B2B_ADMIN)) {
@@ -1710,20 +2274,21 @@ public class UserInfoDisplayBean {
             if (resourceBundle.containsKey("ADD_EDIT_USER_MGR_AC")) {
                 transalatedString = resourceBundle.getObject("ADD_EDIT_USER_MGR_AC").toString();
             }
-        } else if (roleName.equals(Constants.ROLE_WCP_CARD_B2B_MGR_AC)) {
+        } else if (roleName.equals(Constants.ROLE_WCP_CARD_B2B_MGR_CG)) {
             if (resourceBundle.containsKey("ADD_EDIT_USER_MGR_CG")) {
                 transalatedString = resourceBundle.getObject("ADD_EDIT_USER_MGR_CG").toString();
             }
         } else {
-            if (resourceBundle.containsKey("ADD_EDIT_USER_MGR_CG")) {
+            if (resourceBundle.containsKey("ADD_EDIT_USER_EMP")) {
                 transalatedString = resourceBundle.getObject("ADD_EDIT_USER_EMP").toString();
             }
         }
-
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting fetchAddEditPopUpHeading method of User Display");
         return transalatedString;
     }
 
     public String fetchAddEditPopUpTableHeading(String roleName) {
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside fetchAddEditPopUpTableHeading method of User Display");
         String transalatedString = null;
 
         if (roleName != null && roleName.equals(Constants.ROLE_WCP_CARD_B2B_ADMIN)) {
@@ -1734,7 +2299,7 @@ public class UserInfoDisplayBean {
             if (resourceBundle.containsKey("ALREADY_ASSOCIATED_ACCOUNTS")) {
                 transalatedString = resourceBundle.getObject("ALREADY_ASSOCIATED_ACCOUNTS").toString();
             }
-        } else if (roleName.equals(Constants.ROLE_WCP_CARD_B2B_MGR_AC)) {
+        } else if (roleName.equals(Constants.ROLE_WCP_CARD_B2B_MGR_CG)) {
             if (resourceBundle.containsKey("ALREADY_ASSOCIATED_CARDGROUP")) {
                 transalatedString = resourceBundle.getObject("ALREADY_ASSOCIATED_CARDGROUP").toString();
             }
@@ -1743,26 +2308,56 @@ public class UserInfoDisplayBean {
                 transalatedString = resourceBundle.getObject("ALREADY_ASSOCIATED_CARDS").toString();
             }
         }
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting fetchAddEditPopUpTableHeading method of User Display");
         return transalatedString;
     }
 
     public String SaveUserInfoAction() {
-
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside SaveUserInfoAction method of User Display");
         User userInfo = new User();
         Conversion conv = new Conversion();
+        Integer phoneNumber = 0;
+        Date dateOfBirth;
+        oracle.jbo.domain.Date newJboDOBDate = new oracle.jbo.domain.Date();
         DCBindingContainer bc = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
-        if (getBindings().getUserEmailId() != null && getBindings().getUserFirstName() != null && getBindings().getUserLastName() != null &&
-            getBindings().getUserPhoneNumber() != null && getBindings().getDateOfBirth() != null) {
-            System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        if (getBindings().getUserEmailId().getValue() != null && getBindings().getUserEmailId().getValue().toString().length() > 0) {
             userInfo.setEmailID(getBindings().getUserEmailId().getValue().toString().trim());
-            userInfo.setFirstName(getBindings().getUserFirstName().getValue().toString().trim());
-            userInfo.setLastName(getBindings().getUserLastName().getValue().toString().trim());
-            userInfo.setPhoneNumber(getBindings().getUserPhoneNumber().getValue().toString().trim());
-            userInfo.setDob((Date)getBindings().getDateOfBirth().getValue());
             userInfo.setCountry(lang);
         } else {
-
+            showErrorMessage("ENTER_VALID_EMAIL_ID");
         }
+
+        if (getBindings().getUserFirstName().getValue() != null && getBindings().getUserFirstName().getValue().toString().length() > 0) {
+            userInfo.setFirstName(getBindings().getUserFirstName().getValue().toString().trim());
+        } else {
+            showErrorMessage("ENTER_FIRST_NAME");
+        }
+
+        if (getBindings().getUserLastName().getValue() != null && getBindings().getUserLastName().getValue().toString().length() > 0) {
+            userInfo.setLastName(getBindings().getUserLastName().getValue().toString().trim());
+        } else {
+            showErrorMessage("ENTER_LAST_NAME");
+        }
+
+        if (getBindings().getUserPhoneNumber().getValue() != null && getBindings().getUserPhoneNumber().getValue().toString().length() > 0) {
+            userInfo.setPhoneNumber(getBindings().getUserPhoneNumber().getValue().toString().trim());
+            int i = Integer.parseInt(getBindings().getUserPhoneNumber().getValue().toString().trim());
+            phoneNumber = i;
+        } else {
+            showErrorMessage("ENTER_PHONE_NUMBER");
+        }
+
+        if (getBindings().getDateOfBirth().getValue() != null) {
+            dateOfBirth = (Date)getBindings().getDateOfBirth().getValue();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String sqlDateString = sdf.format(dateOfBirth);
+            java.sql.Date sqlDate = java.sql.Date.valueOf(sqlDateString);
+            newJboDOBDate = new oracle.jbo.domain.Date(sqlDate);
+            userInfo.setDob(dateOfBirth);
+        } else {
+            showErrorMessage("ENTER_DATE_OF_BIRTH");
+        }
+
 
         if (getBindings().getUserMiddleName() != null) {
             userInfo.setMiddleName(getBindings().getUserMiddleName().getValue().toString().trim());
@@ -1820,105 +2415,110 @@ public class UserInfoDisplayBean {
             }
 
 
-            DCIteratorBinding prtCardUserInfoItr = bc.findIteratorBinding("PrtCardUserInformationVO1Iterator");
-            DCIteratorBinding prtCardUserRoleMapItr = bc.findIteratorBinding("PrtCardUserRoleMappingVO1Iterator");
+            try {
+                DCIteratorBinding prtCardUserInfoItr = bc.findIteratorBinding("PrtCardUserInformationVO1Iterator");
+                DCIteratorBinding prtCardUserRoleMapItr = bc.findIteratorBinding("PrtCardUserRoleMappingVO1Iterator");
 
-            if (prtCardUserInfoItr != null && prtCardUserRoleMapItr != null) {
-                ViewObject cardUserInfoVO = ADFUtils.getViewObject("PrtCardUserInformationVO1Iterator");
-                ViewObject userRoleMapVO = ADFUtils.getViewObject("PrtCardUserRoleMappingVO1Iterator");
+                if (prtCardUserInfoItr != null && prtCardUserRoleMapItr != null) {
+                    ViewObject cardUserInfoVO = ADFUtils.getViewObject("PrtCardUserInformationVO1Iterator");
+                    ViewObject userRoleMapVO = ADFUtils.getViewObject("PrtCardUserRoleMappingVO1Iterator");
 
-                Row userInfoRow = cardUserInfoVO.createRow();
-                userInfoRow.setAttribute("CountryCode", lang);
-                userInfoRow.setAttribute("UserEmail", getBindings().getUserEmailId().getValue().toString().trim());
-                userInfoRow.setAttribute("UserFirstName", getBindings().getUserFirstName().getValue().toString().trim());
-                userInfoRow.setAttribute("UserMiddleName", getBindings().getUserMiddleName().getValue().toString().trim());
-                userInfoRow.setAttribute("UserLastName", getBindings().getUserLastName().getValue().toString().trim());
-                //            userInfoRow.setAttribute("UserDob", "26-Jan-1987");
-                //            userInfoRow.setAttribute("UserPhoneNo", getBindings().getUserPhoneNumber().toString().trim());
-                userInfoRow.setAttribute("UserPhoneNo", 12345);
-                userInfoRow.setAttribute("UserLang", conv.getCustomerCountryCode(lang));
-                userInfoRow.setAttribute("ModifiedBy", userEmail);
+                    Row userInfoRow = cardUserInfoVO.createRow();
+                    userInfoRow.setAttribute("CountryCode", lang);
+                    userInfoRow.setAttribute("UserEmail", getBindings().getUserEmailId().getValue().toString().trim());
+                    userInfoRow.setAttribute("UserFirstName", getBindings().getUserFirstName().getValue().toString().trim());
+                    userInfoRow.setAttribute("UserMiddleName", getBindings().getUserMiddleName().getValue().toString().trim());
+                    userInfoRow.setAttribute("UserLastName", getBindings().getUserLastName().getValue().toString().trim());
+                    userInfoRow.setAttribute("UserDob", newJboDOBDate);
+                    userInfoRow.setAttribute("UserPhoneNo", (Number)phoneNumber);
+                    userInfoRow.setAttribute("UserLang", conv.getCustomerCountryCode(lang));
+                    userInfoRow.setAttribute("ModifiedBy", userEmail);
 
-                userInfoRow.setAttribute("UserStatus", "ACTIVE");
-                cardUserInfoVO.insertRow(userInfoRow);
-                RichTable userInfoTable = getBindings().getUserRoleInfoTable();
-                Object userInfoObject;
-                UserInfoRolesDetails allSelectedRows;
+                    userInfoRow.setAttribute("UserStatus", "ACTIVE");
+                    cardUserInfoVO.insertRow(userInfoRow);
+                    RichTable userInfoTable = getBindings().getUserRoleInfoTable();
+                    Object userInfoObject;
+                    UserInfoRolesDetails allSelectedRows;
 
-                List<UserInfoRolesDetails> roleList = new ArrayList<UserInfoRolesDetails>();
-                for (int count = 0; count < userRoleDeatils.size(); count++) {
-                    userInfoObject = userInfoTable.getRowData(count);
-                    allSelectedRows = (UserInfoRolesDetails)userInfoObject;
+                    List<UserInfoRolesDetails> roleList = new ArrayList<UserInfoRolesDetails>();
+                    for (int count = 0; count < userRoleDeatils.size(); count++) {
+                        userInfoObject = userInfoTable.getRowData(count);
+                        allSelectedRows = (UserInfoRolesDetails)userInfoObject;
 
-                    if (allSelectedRows.getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_ADMIN)) {
-                        String[] paramString = StringConversion(allSelectedRows.getAssociationValue());
-                        for (int pCount = 0; pCount < paramString.length; pCount++) {
-                            if (paramString[pCount].trim() != null && paramString[pCount].length() > 0) {
-                                UserInfoRolesDetails roleInfo = new UserInfoRolesDetails();
-                                roleInfo.setRoleName(allSelectedRows.getRoleName());
-                                roleInfo.setAssociationValue(partnerIdMap.get(paramString[pCount].trim()));
-                                roleInfo.setAssociationType(Constants.ENGAGE_B2B_ADMIN_ASSOC);
-                                roleInfo.setPartnerId(partnerIdMap.get(paramString[pCount].trim()));
-                                roleList.add(roleInfo);
+                        if (allSelectedRows.getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_ADMIN)) {
+                            String[] paramString = StringConversion(allSelectedRows.getAssociationValue());
+                            for (int pCount = 0; pCount < paramString.length; pCount++) {
+                                if (paramString[pCount].trim() != null && paramString[pCount].length() > 0) {
+                                    UserInfoRolesDetails roleInfo = new UserInfoRolesDetails();
+                                    roleInfo.setRoleName(allSelectedRows.getRoleName());
+                                    roleInfo.setAssociationValue(partnerIdMap.get(paramString[pCount].trim()));
+                                    roleInfo.setAssociationType(Constants.ENGAGE_B2B_ADMIN_ASSOC);
+                                    roleInfo.setPartnerId(partnerIdMap.get(paramString[pCount].trim()));
+                                    roleList.add(roleInfo);
+                                }
                             }
-                        }
 
-                    } else if (allSelectedRows.getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR_AC)) {
-                        String[] paramString = StringConversion(allSelectedRows.getAssociationValue());
-                        for (int pCount = 0; pCount < paramString.length; pCount++) {
-                            if (paramString[pCount].trim() != null && paramString[pCount].length() > 0) {
-                                UserInfoRolesDetails roleInfo = new UserInfoRolesDetails();
-                                roleInfo.setRoleName(allSelectedRows.getRoleName());
-                                roleInfo.setAssociationValue(paramString[pCount].trim());
-                                roleInfo.setAssociationType(Constants.ENGAGE_B2B_MGR_AC_ASSOC);
-                                roleInfo.setPartnerId(accountToPartnermap.get(paramString[pCount].trim()));
-                                roleList.add(roleInfo);
+                        } else if (allSelectedRows.getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR_AC)) {
+                            String[] paramString = StringConversion(allSelectedRows.getAssociationValue());
+                            for (int pCount = 0; pCount < paramString.length; pCount++) {
+                                if (paramString[pCount].trim() != null && paramString[pCount].length() > 0) {
+                                    UserInfoRolesDetails roleInfo = new UserInfoRolesDetails();
+                                    roleInfo.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
+                                    roleInfo.setAssociationValue(paramString[pCount].trim());
+                                    roleInfo.setAssociationType(Constants.ENGAGE_B2B_MGR_AC_ASSOC);
+                                    roleInfo.setPartnerId(accountToPartnermap.get(paramString[pCount].trim()));
+                                    roleList.add(roleInfo);
+                                }
                             }
-                        }
-                    } else if (allSelectedRows.getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR_CG)) {
-                        String[] paramString = StringConversion(allSelectedRows.getAssociationValue());
-                        for (int pCount = 0; pCount < paramString.length; pCount++) {
-                            if (paramString[pCount].trim() != null && paramString[pCount].length() > 0) {
-                                UserInfoRolesDetails roleInfo = new UserInfoRolesDetails();
-                                roleInfo.setRoleName(allSelectedRows.getRoleName());
-                                roleInfo.setAssociationValue(cardGroupIdMap.get(paramString[pCount].trim()));
-                                roleInfo.setAssociationType(Constants.ENGAGE_B2B_MGR_CG_ASSOC);
-                                roleInfo.setPartnerId(cardGroupToPartnerMap.get(paramString[pCount].trim()));
-                                roleList.add(roleInfo);
+                        } else if (allSelectedRows.getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR_CG)) {
+                            String[] paramString = StringConversion(allSelectedRows.getAssociationValue());
+                            for (int pCount = 0; pCount < paramString.length; pCount++) {
+                                if (paramString[pCount].trim() != null && paramString[pCount].length() > 0) {
+                                    UserInfoRolesDetails roleInfo = new UserInfoRolesDetails();
+                                    roleInfo.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
+                                    roleInfo.setAssociationValue(cardGroupIdMap.get(paramString[pCount].trim()));
+                                    roleInfo.setAssociationType(Constants.ENGAGE_B2B_MGR_CG_ASSOC);
+                                    roleInfo.setPartnerId(cardGroupToPartnerMap.get(paramString[pCount].trim()));
+                                    roleList.add(roleInfo);
+                                }
                             }
-                        }
-                    } else {
-                        String[] paramString = StringConversion(allSelectedRows.getAssociationValue());
-                        for (int pCount = 0; pCount < paramString.length; pCount++) {
-                            if (paramString[pCount].trim() != null && paramString[pCount].length() > 0) {
-                                UserInfoRolesDetails roleInfo = new UserInfoRolesDetails();
-                                roleInfo.setRoleName(allSelectedRows.getRoleName());
-                                roleInfo.setAssociationValue(cardIdMap.get(paramString[pCount].trim()));
-                                roleInfo.setAssociationType(Constants.ENGAGE_B2B_EMP_ASSOC);
-                                roleInfo.setPartnerId(cardToPartnerMap.get(paramString[pCount].trim()));
-                                roleList.add(roleInfo);
+                        } else {
+                            String[] paramString = StringConversion(allSelectedRows.getAssociationValue());
+                            for (int pCount = 0; pCount < paramString.length; pCount++) {
+                                if (paramString[pCount].trim() != null && paramString[pCount].length() > 0) {
+                                    UserInfoRolesDetails roleInfo = new UserInfoRolesDetails();
+                                    roleInfo.setRoleName(allSelectedRows.getRoleName());
+                                    roleInfo.setAssociationValue(cardIdMap.get(paramString[pCount].trim()));
+                                    roleInfo.setAssociationType(Constants.ENGAGE_B2B_EMP_ASSOC);
+                                    roleInfo.setPartnerId(cardToPartnerMap.get(paramString[pCount].trim()));
+                                    roleList.add(roleInfo);
+                                }
                             }
                         }
                     }
 
-                }
+                    for (int roleCount = 0; roleCount < roleList.size(); roleCount++) {
+                        Row userRoleMapRow = userRoleMapVO.createRow();
+                        userRoleMapRow.setAttribute("CountryCode", lang);
+                        userRoleMapRow.setAttribute("UserEmail", getBindings().getUserEmailId().getValue().toString().trim());
+                        userRoleMapRow.setAttribute("UserRole", roleList.get(roleCount).getRoleName());
+                        userRoleMapRow.setAttribute("AssociationType", roleList.get(roleCount).getAssociationType());
+                        userRoleMapRow.setAttribute("UserAssociation", roleList.get(roleCount).getAssociationValue());
+                        userRoleMapRow.setAttribute("PartnerId", roleList.get(roleCount).getPartnerId());
+                        userRoleMapRow.setAttribute("ModifiedBy", userEmail);
 
-                for (int roleCount = 0; roleCount < roleList.size(); roleCount++) {
-                    Row userRoleMapRow = userRoleMapVO.createRow();
-                    userRoleMapRow.setAttribute("CountryCode", lang);
-                    userRoleMapRow.setAttribute("UserEmail", getBindings().getUserEmailId().getValue().toString().trim());
-                    userRoleMapRow.setAttribute("UserRole", roleList.get(roleCount).getRoleName());
-                    userRoleMapRow.setAttribute("AssociationType", roleList.get(roleCount).getAssociationType());
-                    userRoleMapRow.setAttribute("UserAssociation", roleList.get(roleCount).getAssociationValue());
-                    userRoleMapRow.setAttribute("PartnerId", roleList.get(roleCount).getPartnerId());
-                    userRoleMapRow.setAttribute("ModifiedBy", userEmail);
-
-                    userRoleMapVO.insertRow(userRoleMapRow);
+                        userRoleMapVO.insertRow(userRoleMapRow);
+                    }
+                    OperationBinding operationBinding = bc.getOperationBinding("Commit");
+                    operationBinding.execute();
                 }
-                OperationBinding operationBinding = bc.getOperationBinding("Commit");
-                operationBinding.execute();
+            } catch (Exception e) {
+                // TODO: Add catch code
+                e.printStackTrace();
             }
         }
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting SaveUserInfoAction method of User Display");
+        showSearchResults();
         return "addEditToSearch";
     }
 
@@ -2326,6 +2926,22 @@ public class UserInfoDisplayBean {
         return rolesToCreate;
     }
 
+    public void setWarningMsg(String warningMsg) {
+        this.warningMsg = warningMsg;
+    }
+
+    public String getWarningMsg() {
+        return warningMsg;
+    }
+
+    public void setEmailValue(String emailValue) {
+        this.emailValue = emailValue;
+    }
+
+    public String getEmailValue() {
+        return emailValue;
+    }
+
 
     public class Bindings {
 
@@ -2362,6 +2978,7 @@ public class UserInfoDisplayBean {
         private RichOutputText popUpCardColon;
         private RichSpacer popUpCardSpacer;
         private RichInputDate dateOfBirth;
+        private RichPanelGroupLayout showErrorMsg;
 
 
         public void setPartner(RichSelectManyChoice partner) {
@@ -2628,6 +3245,14 @@ public class UserInfoDisplayBean {
 
         public RichInputDate getDateOfBirth() {
             return dateOfBirth;
+        }
+
+        public void setShowErrorMsg(RichPanelGroupLayout showErrorMsg) {
+            this.showErrorMsg = showErrorMsg;
+        }
+
+        public RichPanelGroupLayout getShowErrorMsg() {
+            return showErrorMsg;
         }
     }
 }

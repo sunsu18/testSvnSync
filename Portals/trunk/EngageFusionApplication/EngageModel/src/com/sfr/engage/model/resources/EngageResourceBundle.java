@@ -158,7 +158,9 @@ public class EngageResourceBundle extends ListResourceBundle {
       { "ENAGE_USER_LAST_NAME", "" }, { "ENAGE_USER_PHONE_NO", "" }, { "ENAGE_USER_COUNTRY", "" }, { "ADD_EDIT_USER_INFO", "" }, { "ROLE_ASSOCIATION", "" },
       { "ADD_EDIT_USER_ADMIN", "" }, { "ADD_EDIT_USER_MGR_AC", "" }, { "ADD_EDIT_USER_MGR_CG", "" }, { "ADD_EDIT_USER_EMP", "" },
       { "ALREADY_ASSOCIATED_PARTNERS", "" }, { "ALREADY_ASSOCIATED_ACCOUNTS", "" }, { "ALREADY_ASSOCIATED_CARDGROUP", "" }, { "ALREADY_ASSOCIATED_CARDS", "" },
-      { "USER_ASSOCIATION", "" }, { "MANAGE_USER", "" }, { "ALREADY_ASSOCIATED_CARDS", "" }, { "UNSUBSCRIBE_ALERT", "" }, { "DATE_OF_BIRTH", "" } };
+      { "USER_ASSOCIATION", "" }, { "MANAGE_USER", "" }, { "ALREADY_ASSOCIATED_CARDS", "" }, { "UNSUBSCRIBE_ALERT", "" }, { "DATE_OF_BIRTH", "" },
+      { "ENGAGE_ASSOCIATE", "" }, { "ENTER_VALID_EMAIL", "" }, { "ENTER_VALID_EMAIL_ID", "" }, { "ENTER_FIRST_NAME", "" }, { "ENTER_LAST_NAME", "" },
+      { "ENTER_PHONE_NUMBER", "" }, { "ENTER_DATE_OF_BIRTH", "" }, { "ENGAGE_BACK", "" } };
 
     /**
      * This method populates the values of all resource keys from database through PrtGenTranslationVO based on lang parameter.
