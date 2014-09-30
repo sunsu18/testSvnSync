@@ -3,6 +3,8 @@
 <!--Generated May 5, 2014 4:43:49 PM-->
 <project name="Common" default="all" basedir=".">
   <property file="engageutil-build.properties"/>
+  <property name="version" value="0.r2-08-snapshot"/>
+
   <path id="library.ADF.Model.Generic.Runtime">
     <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.share_11.1.1\adf-share-support.jar"/>
     <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.share.ca_11.1.1\adf-share-ca.jar"/>
@@ -215,6 +217,8 @@
            target="1.6">
       <src path="src"/>
     </javac>
+    <checksum file="${utility.deploy.outputfile}" forceOverwrite="yes"/>
+    
   </target>
   <target name="copy" description="Copy files to output directory"
           depends="init">
