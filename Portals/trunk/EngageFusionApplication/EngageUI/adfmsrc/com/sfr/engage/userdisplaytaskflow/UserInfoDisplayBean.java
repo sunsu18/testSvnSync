@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -2941,6 +2942,78 @@ public class UserInfoDisplayBean {
     public String getEmailValue() {
         return emailValue;
     }
+
+    public void displayErrorComponent(UIComponent component, boolean status) {
+
+        RichSelectManyChoice soc = new RichSelectManyChoice();
+        RichInputText rit = new RichInputText();
+
+        if (component instanceof RichInputText) {
+            rit = (RichInputText)component;
+            if (status) {
+                rit.setContentStyle("af_mandatoryfield");
+                if (component.getId().contains("it7") || component.getId().contains("it1") ||
+                    component.getId().contains("it2") || component.getId().contains("it4") || component.getId().contains("id1"))
+                    rit.setStyleClass("af_mandatoryfield");
+
+
+            } else {
+                rit.setContentStyle("af_nonmandatoryfield");
+                if (component.getId().contains("it7") || component.getId().contains("it1") ||
+                    component.getId().contains("it2") || component.getId().contains("it4") || component.getId().contains("id1"))
+                    rit.setStyleClass("af_nonmandatoryfield");
+
+            }
+            AdfFacesContext.getCurrentInstance().addPartialTarget(rit);
+
+        }  
+        else if (component instanceof RichSelectManyChoice) {
+            soc = (RichSelectManyChoice)component;
+            if (status) {
+                soc.setStyleClass("af_mandatoryfield");
+                if (component.getId().contains("smc1") || component.getId().contains("soc3") || component.getId().contains("smc2") ||
+                    component.getId().contains("smc3") || component.getId().contains("smc4"))
+                    soc.setStyleClass("af_mandatoryfield");
+
+            } else {
+                soc.setStyleClass("af_nonmandatoryfield");
+                if (component.getId().contains("smc1") || component.getId().contains("soc3") || component.getId().contains("smc2") ||
+                    component.getId().contains("smc3") || component.getId().contains("smc4"))
+                    soc.setStyleClass("af_nonmandatoryfield");
+            }
+            AdfFacesContext.getCurrentInstance().addPartialTarget(soc);
+        }
+
+    }
+
+    private Boolean isComponentEmpty(UIComponent rit1) {
+
+        RichSelectManyChoice soc = new RichSelectManyChoice();
+        RichInputText rit = new RichInputText();
+        if (rit1 instanceof RichInputText) {
+            rit = (RichInputText)rit1;
+            if (rit.getValue() == null || rit.getValue().equals("")) {               
+                displayErrorComponent(rit, true);
+                return true;
+            } else {               
+                displayErrorComponent(rit, false);
+                return false;
+            }
+        }
+        
+        else if (rit1 instanceof RichSelectManyChoice) {
+            soc = (RichSelectManyChoice)rit1;
+            if (soc.getValue() == null || soc.getValue().equals("")) {
+                displayErrorComponent(soc, true);
+                return true;
+            } else {
+                displayErrorComponent(soc, false);
+                return false;
+            }
+        }
+        return true;
+    }
+
 
 
     public class Bindings {
