@@ -74,9 +74,9 @@
             <af:panelGroupLayout id="pgl22" inlineStyle="height:auto; text-align:justify; width:200.0px;" layout="vertical">
               <af:inputText id="it1" contentStyle="width: 165px;" binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.userFirstName}"/>
               <af:spacer width="20" height="20" id="s9"/>
-              <af:inputText id="it2" contentStyle="width: 165px;" binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.userLastName}"/>
-              <af:spacer width="20" height="20" id="s24"/>
               <af:inputText id="it3" contentStyle="width: 165px;" binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.userMiddleName}"/>
+              <af:spacer width="20" height="20" id="s24"/>
+              <af:inputText id="it2" contentStyle="width: 165px;" binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.userLastName}"/>
               <af:spacer width="20" height="20" id="s25"/>
               <af:inputText id="it4" contentStyle="width: 165px;" binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.userPhoneNumber}"/>
               <af:spacer width="20" height="20" id="s26"/>
