@@ -3,7 +3,7 @@
 <!--Generated May 5, 2014 4:43:49 PM-->
 <project name="Common" default="all" basedir=".">
   <property file="engageutil-build.properties"/>
-  <property name="version" value="0.r2-08-snapshot"/>
+  <property name="version" value="${utility.version}"/>
 
   <path id="library.ADF.Model.Generic.Runtime">
     <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.share_11.1.1\adf-share-support.jar"/>
