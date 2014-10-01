@@ -10,6 +10,7 @@ import com.sfr.engage.core.ValueListSplit;
 import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.util.ADFUtils;
 import com.sfr.util.AccessDataControl;
+import com.sfr.util.DateCalculation;
 import com.sfr.util.constants.Constants;
 import com.sfr.util.validations.Conversion;
 import com.sfr.util.validations.Validations;
@@ -51,6 +52,7 @@ import oracle.adf.view.rich.component.rich.output.RichOutputText;
 import oracle.adf.view.rich.component.rich.output.RichSpacer;
 import oracle.adf.view.rich.context.AdfFacesContext;
 
+import oracle.binding.BindingContainer;
 import oracle.binding.OperationBinding;
 
 import oracle.jbo.Row;
@@ -165,105 +167,6 @@ public class UserInfoDisplayBean {
         cardEmbossMap = new HashMap<String, String>();
 
         populateCustomerData("Default");
-
-        //        if (session.getAttribute("Partner_Object_List") != null) {
-        //            partnerInfoList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
-        //            if (partnerInfoList != null && partnerInfoList.size() > 0) {
-        //                partnerIdList = new ArrayList<SelectItem>();
-        //                partnerIdValue = new ArrayList<String>();
-        //                accountIdList = new ArrayList<SelectItem>();
-        //                accountIdValue = new ArrayList<String>();
-        //                cardGroupList = new ArrayList<SelectItem>();
-        //                cardGroupValue = new ArrayList<String>();
-        //                cardNumberList = new ArrayList<SelectItem>();
-        //                cardNumberValue = new ArrayList<String>();
-        //                suggestedCardNumberList = new ArrayList<String>();
-        //                for (int i = 0; i < partnerInfoList.size(); i++) {
-        //                    lang = partnerInfoList.get(0).getCountry().toString().trim();
-        //                    if (partnerInfoList.get(i).getPartnerName() != null && partnerInfoList.get(i).getPartnerValue() != null) {
-        //                        SelectItem selectItem = new SelectItem();
-        //                        selectItem.setLabel(partnerInfoList.get(i).getPartnerName().toString());
-        //                        selectItem.setValue(partnerInfoList.get(i).getPartnerValue().toString());
-        //                        partnerIdList.add(selectItem);
-        //                        partnerIdValue.add(partnerInfoList.get(i).getPartnerValue().toString());
-        //                        addEditUserPartnerID.add(selectItem);
-        //                        addEditPartnerValue.add(partnerInfoList.get(i).getPartnerValue().toString());
-        //                        partnerIdMap.put(partnerInfoList.get(i).getPartnerName().toString(), partnerInfoList.get(i).getPartnerValue().toString());
-        //                        partnerNameMap.put(partnerInfoList.get(i).getPartnerValue().toString(), partnerInfoList.get(i).getPartnerName().toString());
-        //
-        //                    }
-        //
-        //                    if (partnerInfoList.get(i).getAccountList() != null && partnerInfoList.get(i).getAccountList().size() > 0) {
-        //                        for (int j = 0; j < partnerInfoList.get(i).getAccountList().size(); j++) {
-        //                            if (partnerInfoList.get(i).getAccountList().get(j).getAccountNumber() != null) {
-        //                                SelectItem selectItem = new SelectItem();
-        //                                selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
-        //                                selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
-        //                                accountIdList.add(selectItem);
-        //                                accountIdValue.add(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
-        //                                addEditUserAccountID.add(selectItem);
-        //                                addEditAccountValue.add(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
-        //                                //                                accountIdMap.put(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString(),
-        //                                //                                                 partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
-        //                                accountToPartnermap.put(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString(),
-        //                                                        partnerInfoList.get(i).getPartnerValue().toString());
-        //
-        //                            }
-        //                            for (int k = 0; k < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().size(); k++) {
-        //                                if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID() != null) {
-        //                                    SelectItem selectItem = new SelectItem();
-        //                                    selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getDisplayCardGroupIdName().toString());
-        //                                    selectItem.setValue(partnerInfoList.get(i).getPartnerValue().toString().trim() +
-        //                                                        partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
-        //                                    cardGroupList.add(selectItem);
-        //                                    cardGroupValue.add(partnerInfoList.get(i).getPartnerValue().toString().trim() +
-        //                                                       partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
-        //                                    addEditUserCardGroupID.add(selectItem);
-        //                                    addEditCardGroupValue.add(partnerInfoList.get(i).getPartnerValue().toString().trim() +
-        //                                                              partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
-        //                                    cardGroupIdMap.put(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getDisplayCardGroupIdName().toString(),
-        //                                                       partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
-        //                                    cardGroupDescMap.put(partnerInfoList.get(i).getPartnerValue().toString().trim() +
-        //                                                         partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString(),
-        //                                                         partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getDisplayCardGroupIdName().toString());
-        //                                    cardGroupToPartnerMap.put(partnerInfoList.get(i).getPartnerValue().toString().trim() +
-        //                                                              partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString(),
-        //                                                              partnerInfoList.get(i).getPartnerValue().toString());
-        //                                }
-        //
-        //                                for (int cc = 0; cc < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().size(); cc++) {
-        //                                    if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID() != null &&
-        //                                        partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID() != null) {
-        //                                        SelectItem selectItem = new SelectItem();
-        //                                        selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString());
-        //                                        selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
-        //                                        cardNumberList.add(selectItem);
-        //                                        suggestedCardNumberList.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString());
-        //                                        cardNumberValue.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
-        //                                        addEditCardID.add(selectItem);
-        //                                        addEditCardValue.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
-        //                                        cardIdMap.put(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString(),
-        //                                                      partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
-        //                                        cardToPartnerMap.put(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString(),
-        //                                                             partnerInfoList.get(i).getPartnerValue().toString());
-        //                                        cardEmbossMap.put(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString(),
-        //                                                          partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString());
-        //                                    }
-        //                                }
-        //                            }
-        //                        }
-        //                    }
-        //                }
-        //
-        //                Collections.sort(accountIdList, comparator);
-        //                Collections.sort(cardGroupList, comparator);
-        //                Collections.sort(cardNumberList, comparator);
-        //
-        //                Collections.sort(addEditUserAccountID, comparator);
-        //                Collections.sort(addEditUserCardGroupID, comparator);
-        //                Collections.sort(addEditCardID, comparator);
-        //            }
-        //        }
 
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting Constructor of User Display");
     }
@@ -1386,23 +1289,32 @@ public class UserInfoDisplayBean {
         try {
             if (getBindings().getMultipleCardRadio().getValue().equals(true) && getBindings().getSingleCardRadio().getValue().equals(false)) {
                 if (getBindings().getPartner().getValue() != null) {
+                    displayErrorComponent(getBindings().getPartner(), false);
                     if (getBindings().getAccount().getValue() != null) {
+                        displayErrorComponent(getBindings().getAccount(), false);
                     } else {
+                        displayErrorComponent(getBindings().getAccount(), true);
                         showErrorMessage("ENGAGE_NO_ACCOUNT");
                     }
 
                     if (getBindings().getCardGroup().getValue() != null) {
+                        displayErrorComponent(getBindings().getCardGroup(), false);
                     } else {
+                        displayErrorComponent(getBindings().getCardGroup(), true);
                         showErrorMessage("ENGAGE_NO_CARD_GROUP");
                     }
 
                     if (getBindings().getCard().getValue() != null) {
+                        displayErrorComponent(getBindings().getCard(), false);
                     } else {
+                        displayErrorComponent(getBindings().getCard(), true);
                         showErrorMessage("ENGAGE_NO_CARD");
                     }
 
                     if (getBindings().getRole().getValue() != null) {
+                        displayErrorComponent(getBindings().getRole(), false);
                     } else {
+                        displayErrorComponent(getBindings().getRole(), false);
                         showErrorMessage("ENGAGE_NO_ROLE");
                     }
 
@@ -1595,10 +1507,12 @@ public class UserInfoDisplayBean {
                     }
 
                 } else {
+                    displayErrorComponent(getBindings().getPartner(), true);
                     showErrorMessage("ENGAGE_NO_PARTNER");
                 }
             } else if (getBindings().getSingleCardRadio().getValue().equals(true) && getBindings().getMultipleCardRadio().getValue().equals(false)) {
                 if (getBindings().getSearchStringInputtext().getValue() != null) {
+                    displayErrorComponent(getBindings().getSearchStringInputtext(), false);
                     String enteredCard = getBindings().getSearchStringInputtext().getValue().toString();
                     String passingPartner = "", passingAccount = "", passingCardgroup = "", passingCard = "", passingRole =
                         "WCP_CARD_B2B_ADMIN,WCP_CARD_B2B_MGR_AC,WCP_CARD_B2B_MGR_CG,WCP_CARD_B2B_EMP";
@@ -1763,6 +1677,7 @@ public class UserInfoDisplayBean {
                         resultDisplay = true;
                     }
                 } else {
+                    displayErrorComponent(getBindings().getSearchStringInputtext(), true);
                     showErrorMessage("ENGAGE_NO_CARD");
                 }
             }
@@ -1822,6 +1737,7 @@ public class UserInfoDisplayBean {
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
+
         User userInfo = new User();
         userRoleDeatils = new ArrayList<UserInfoRolesDetails>();
         userEmail = "";
@@ -2313,6 +2229,20 @@ public class UserInfoDisplayBean {
         return transalatedString;
     }
 
+    private String getWSDLErrorMessage(String error) {
+        Conversion conv = new Conversion();
+        BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
+        OperationBinding operationBinding = bindings.getOperationBinding("getWebServiceErrorMessage");
+        operationBinding.getParamsMap().put("errorMessage", error);
+        operationBinding.getParamsMap().put("countryCode", conv.getCustomerCountryCode(lang));
+        String result = (String)operationBinding.execute();
+
+        if (result == null || result.equals("")) {
+            result = error;
+        }
+        return result;
+    }
+
     public String SaveUserInfoAction() {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside SaveUserInfoAction method of User Display");
         User userInfo = new User();
@@ -2322,41 +2252,57 @@ public class UserInfoDisplayBean {
         oracle.jbo.domain.Date newJboDOBDate = new oracle.jbo.domain.Date();
         DCBindingContainer bc = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
         if (getBindings().getUserEmailId().getValue() != null && getBindings().getUserEmailId().getValue().toString().length() > 0) {
+            displayErrorComponent(getBindings().getUserEmailId(), false);
             userInfo.setEmailID(getBindings().getUserEmailId().getValue().toString().trim());
-            userInfo.setCountry(lang);
+            userInfo.setLang(conv.getCustomerCountryCode(lang));
         } else {
+            displayErrorComponent(getBindings().getUserEmailId(), true);
             showErrorMessage("ENTER_VALID_EMAIL_ID");
+            return null;
         }
 
         if (getBindings().getUserFirstName().getValue() != null && getBindings().getUserFirstName().getValue().toString().length() > 0) {
+            displayErrorComponent(getBindings().getUserFirstName(), false);
             userInfo.setFirstName(getBindings().getUserFirstName().getValue().toString().trim());
         } else {
+            displayErrorComponent(getBindings().getUserFirstName(), true);
             showErrorMessage("ENTER_FIRST_NAME");
+            return null;
         }
 
         if (getBindings().getUserLastName().getValue() != null && getBindings().getUserLastName().getValue().toString().length() > 0) {
+            displayErrorComponent(getBindings().getUserLastName(), false);
             userInfo.setLastName(getBindings().getUserLastName().getValue().toString().trim());
         } else {
+            displayErrorComponent(getBindings().getUserLastName(), true);
             showErrorMessage("ENTER_LAST_NAME");
+            return null;
         }
 
         if (getBindings().getUserPhoneNumber().getValue() != null && getBindings().getUserPhoneNumber().getValue().toString().length() > 0) {
+            displayErrorComponent(getBindings().getUserPhoneNumber(), false);
             userInfo.setPhoneNumber(getBindings().getUserPhoneNumber().getValue().toString().trim());
             int i = Integer.parseInt(getBindings().getUserPhoneNumber().getValue().toString().trim());
             phoneNumber = i;
         } else {
+            displayErrorComponent(getBindings().getUserPhoneNumber(), true);
             showErrorMessage("ENTER_PHONE_NUMBER");
+            return null;
         }
 
-        if (getBindings().getDateOfBirth().getValue() != null) {
+        if (getBindings().getDateOfBirth().getValue() != null && !getBindings().getDateOfBirth().getValue().toString().isEmpty()) {
+            displayErrorComponent(getBindings().getDateOfBirth(), false);
+            DateCalculation dateCalculationUtility = new DateCalculation();
+            userInfo.setDob(dateCalculationUtility.convertDateValueToUTCFormat(getBindings().getDateOfBirth().getValue().toString()));
             dateOfBirth = (Date)getBindings().getDateOfBirth().getValue();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String sqlDateString = sdf.format(dateOfBirth);
             java.sql.Date sqlDate = java.sql.Date.valueOf(sqlDateString);
             newJboDOBDate = new oracle.jbo.domain.Date(sqlDate);
-            userInfo.setDob(dateOfBirth);
         } else {
+            displayErrorComponent(getBindings().getDateOfBirth(), true);
             showErrorMessage("ENTER_DATE_OF_BIRTH");
+            return null;
         }
 
 
@@ -2399,22 +2345,29 @@ public class UserInfoDisplayBean {
         }
 
         if (userInfo != null) {
-            System.out.println("User first name=====>" + userInfo.getFirstName());
-            System.out.println("User dob=====>" + userInfo.getDob());
-            System.out.println("User phone number=====>" + userInfo.getPhoneNumber());
-            for (int i = 0; i < userInfo.getRoleList().size(); i++) {
-                System.out.println("value in role list====>" + userInfo.getRoleList().get(i).getRoleName());
-            }
             BaseBean result = new BaseBean();
             OperationBinding userCreateOpn = bc.getOperationBinding("createUser");
-            result = (BaseBean)userCreateOpn.getParamsMap().put("user", userInfo);
-            //        }
-            if (result != null) {
-                System.out.println("--------------------------------" + result);
-            } else {
-                System.out.println("AAAAAAAAA--------------------------------");
-            }
+            userCreateOpn.getParamsMap().put("user", userInfo);
+            result = (BaseBean)userCreateOpn.execute();
+            if (result != null && result.getStatus() != null && result.getStatus().equalsIgnoreCase("error")) {
+                String error = null;
 
+                if (result.getErrorList() != null && result.getErrorList().size() != 0 && result.getErrorList().get(0) != null &&
+                    result.getErrorList().get(0).getErrorCode() != null) {
+
+                    error = result.getErrorList().get(0).getErrorCode();
+                    error = getWSDLErrorMessage(error);
+
+                } else {
+                    error = "ENGAGE_UNKNOWN_ERROR";
+                    error = getWSDLErrorMessage(error);
+                }
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, error, "");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+                return null;
+            } else {
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Success is returned from IDAM " + result.getStatus());
+            }
 
             try {
                 DCIteratorBinding prtCardUserInfoItr = bc.findIteratorBinding("PrtCardUserInformationVO1Iterator");
@@ -2512,6 +2465,12 @@ public class UserInfoDisplayBean {
                     }
                     OperationBinding operationBinding = bc.getOperationBinding("Commit");
                     operationBinding.execute();
+                    if (operationBinding.getErrors().isEmpty()) {
+                        if (resourceBundle.containsKey("USER_CREATION_SUCCESS")) {
+                            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("USER_CREATION_SUCCESS"), "");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }
+                    }
                 }
             } catch (Exception e) {
                 // TODO: Add catch code
@@ -2951,23 +2910,22 @@ public class UserInfoDisplayBean {
         if (component instanceof RichInputText) {
             rit = (RichInputText)component;
             if (status) {
-                rit.setContentStyle("af_mandatoryfield");
-                if (component.getId().contains("it7") || component.getId().contains("it1") ||
-                    component.getId().contains("it2") || component.getId().contains("it4") || component.getId().contains("id1"))
-                    rit.setStyleClass("af_mandatoryfield");
+                rit.setStyleClass("af_mandatoryfield_input");
+                if (component.getId().contains("it7") || component.getId().contains("it1") || component.getId().contains("it2") ||
+                    component.getId().contains("it4") || component.getId().contains("id1"))
+                    rit.setStyleClass("af_mandatoryfield_input");
 
 
             } else {
-                rit.setContentStyle("af_nonmandatoryfield");
-                if (component.getId().contains("it7") || component.getId().contains("it1") ||
-                    component.getId().contains("it2") || component.getId().contains("it4") || component.getId().contains("id1"))
-                    rit.setStyleClass("af_nonmandatoryfield");
+                rit.setStyleClass("af_mandatoryfield_input");
+                if (component.getId().contains("it7") || component.getId().contains("it1") || component.getId().contains("it2") ||
+                    component.getId().contains("it4") || component.getId().contains("id1"))
+                    rit.setStyleClass("af_mandatoryfield_input");
 
             }
             AdfFacesContext.getCurrentInstance().addPartialTarget(rit);
 
-        }  
-        else if (component instanceof RichSelectManyChoice) {
+        } else if (component instanceof RichSelectManyChoice) {
             soc = (RichSelectManyChoice)component;
             if (status) {
                 soc.setStyleClass("af_mandatoryfield");
@@ -2992,15 +2950,15 @@ public class UserInfoDisplayBean {
         RichInputText rit = new RichInputText();
         if (rit1 instanceof RichInputText) {
             rit = (RichInputText)rit1;
-            if (rit.getValue() == null || rit.getValue().equals("")) {               
+            if (rit.getValue() == null || rit.getValue().equals("")) {
                 displayErrorComponent(rit, true);
                 return true;
-            } else {               
+            } else {
                 displayErrorComponent(rit, false);
                 return false;
             }
         }
-        
+
         else if (rit1 instanceof RichSelectManyChoice) {
             soc = (RichSelectManyChoice)rit1;
             if (soc.getValue() == null || soc.getValue().equals("")) {
@@ -3013,7 +2971,6 @@ public class UserInfoDisplayBean {
         }
         return true;
     }
-
 
 
     public class Bindings {

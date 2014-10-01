@@ -83,5 +83,11 @@
                   MethodName="createUser" IsViewObjectMethod="false" ReturnName="UserClient.methodResults.createUser_UserClient_dataProvider_createUser_result">
       <NamedData NDName="user" NDType="com.sfr.core.bean.User"/>
     </methodAction>
+    <methodAction id="getWebServiceErrorMessage" InstanceName="EngageAppModuleDataControl.dataProvider" DataControl="EngageAppModuleDataControl"
+                  RequiresUpdateModel="true" Action="invokeMethod" MethodName="getWebServiceErrorMessage" IsViewObjectMethod="false"
+                  ReturnName="data.EngageAppModuleDataControl.methodResults.getWebServiceErrorMessage_EngageAppModuleDataControl_dataProvider_getWebServiceErrorMessage_result">
+      <NamedData NDName="errorMessage" NDType="java.lang.String"/>
+      <NamedData NDName="countryCode" NDType="java.lang.String"/>
+    </methodAction>
   </bindings>
 </pageDefinition>

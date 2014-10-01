@@ -31,10 +31,8 @@
                   id="PrtUserDisplayForEmpRVO1Query"/>
   </executables>
   <bindings>
-  <tree IterBinding="PrtUserDisplayForAdminRVO1Iterator"
-          id="PrtUserDisplayForAdminRVO1">
-      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtUserDisplayForAdminRVO"
-                      Name="PrtUserDisplayForAdminRVO10">
+    <tree IterBinding="PrtUserDisplayForAdminRVO1Iterator" id="PrtUserDisplayForAdminRVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtUserDisplayForAdminRVO" Name="PrtUserDisplayForAdminRVO10">
         <AttrNames>
           <Item Value="UserEmail"/>
           <Item Value="UserFirstName"/>
@@ -45,10 +43,8 @@
         </AttrNames>
       </nodeDefinition>
     </tree>
-    <tree IterBinding="PrtUserDisplayForAccMgrRVO1Iterator"
-          id="PrtUserDisplayForAccMgrRVO1">
-      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtUserDisplayForAccMgrRVO"
-                      Name="PrtUserDisplayForAccMgrRVO10">
+    <tree IterBinding="PrtUserDisplayForAccMgrRVO1Iterator" id="PrtUserDisplayForAccMgrRVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtUserDisplayForAccMgrRVO" Name="PrtUserDisplayForAccMgrRVO10">
         <AttrNames>
           <Item Value="UserEmail"/>
           <Item Value="UserFirstName"/>
@@ -61,10 +57,8 @@
         </AttrNames>
       </nodeDefinition>
     </tree>
-    <tree IterBinding="PrtUserDisplayForCgMgrRVO1Iterator"
-          id="PrtUserDisplayForCgMgrRVO1">
-      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtUserDisplayForCgMgrRVO"
-                      Name="PrtUserDisplayForCgMgrRVO10">
+    <tree IterBinding="PrtUserDisplayForCgMgrRVO1Iterator" id="PrtUserDisplayForCgMgrRVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtUserDisplayForCgMgrRVO" Name="PrtUserDisplayForCgMgrRVO10">
         <AttrNames>
           <Item Value="UserEmail"/>
           <Item Value="UserFirstName"/>
@@ -78,10 +72,8 @@
         </AttrNames>
       </nodeDefinition>
     </tree>
-    <tree IterBinding="PrtUserDisplayForEmpRVO1Iterator"
-          id="PrtUserDisplayForEmpRVO1">
-      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtUserDisplayForEmpRVO"
-                      Name="PrtUserDisplayForEmpRVO10">
+    <tree IterBinding="PrtUserDisplayForEmpRVO1Iterator" id="PrtUserDisplayForEmpRVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtUserDisplayForEmpRVO" Name="PrtUserDisplayForEmpRVO10">
         <AttrNames>
           <Item Value="UserEmail"/>
           <Item Value="UserFirstName"/>
@@ -97,5 +89,11 @@
         </AttrNames>
       </nodeDefinition>
     </tree>
+    <methodAction id="getWebServiceErrorMessage" InstanceName="EngageAppModuleDataControl.dataProvider" DataControl="EngageAppModuleDataControl"
+                  RequiresUpdateModel="true" Action="invokeMethod" MethodName="getWebServiceErrorMessage" IsViewObjectMethod="false"
+                  ReturnName="data.EngageAppModuleDataControl.methodResults.getWebServiceErrorMessage_EngageAppModuleDataControl_dataProvider_getWebServiceErrorMessage_result">
+      <NamedData NDName="errorMessage" NDType="java.lang.String"/>
+      <NamedData NDName="countryCode" NDType="java.lang.String"/>
+    </methodAction>
   </bindings>
 </pageDefinition>
