@@ -1,0 +1,22 @@
+<adapter-config name="LogDeltaReceiptPalsMQEnqueueDequeueV1" adapter="MQ Series Adapter" wsdlLocation="LogDeltaReceiptPalsMQEnqueueDequeueV1.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/MQ/PalsPilotMQAdapter"/>
+  <endpoint-interaction portType="EnqueueDequeue_ptt" operation="EnqueueDequeue" UITransmissionPrimitive="Request-response">
+    <interaction-spec className="oracle.tip.adapter.mq.outbound.InteractionSpecImpl">
+      <property name="MessageFormat" value="NONE"/>
+      <property name="Persistence" value="AS_Q_DEF"/>
+      <property name="OnDeliveryFailure" value="DeadLetterQueue"/>
+      <property name="ResponseNoMessageAllowed" value="false"/>
+      <property name="Expiry" value="NEVER"/>
+      <property name="Priority" value="AS_Q_DEF"/>
+      <property name="CorrelationId" value="PASS_CORREL_ID"/>
+      <property name="MessageId" value="PASS_MSG_ID"/>
+      <property name="SyncSolicitReqRes" value="true"/>
+      <property name="QueueName" value="TEST.CSSDK.REQ"/>
+      <property name="MessageType" value="REQUEST"/>
+      <property name="SegmentIfRequired" value="false"/>
+      <property name="ReplyToQueueName" value="TEST.CSSDK.REP"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

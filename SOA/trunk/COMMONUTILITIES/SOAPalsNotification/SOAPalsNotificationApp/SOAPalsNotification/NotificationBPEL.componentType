@@ -16,8 +16,12 @@
              ui:wsdlLocation="SOACommomErrorHandlerJMSAdapterV1.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/SOAPalsNotificationApp/SOAPalsNotification/SOACommomErrorHandlerJMSAdapterV1#wsdl.interface(Produce_Message_ptt)"/>
   </reference>
-  <reference name="SelectEngaeSOAErrorStatusDatabaseAdapterV1"
-             ui:wsdlLocation="SelectEngaeSOAErrorStatusDatabaseAdapterV1.wsdl">
-    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/SOAPalsNotificationApp/SOAPalsNotification/SelectEngaeSOAErrorStatusDatabaseAdapterV1#wsdl.interface(SelectEngaeSOAErrorStatusDatabaseAdapterV1_ptt)"/>
+  <reference name="EngageSOADeltaTableDatabaseAdapterV1"
+             ui:wsdlLocation="EngageSOADeltaTableDatabaseAdapterV1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/SOAPalsNotificationApp/SOAPalsNotification/EngageSOADeltaTableDatabaseAdapterV1#wsdl.interface(EngageSOADeltaTableDatabaseAdapterV1_ptt)"/>
+  </reference>
+  <reference name="LogDeltaReceiptPalsMQEnqueueDequeueV1"
+             ui:wsdlLocation="LogDeltaReceiptPalsMQEnqueueDequeueV1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/mq/SOAPalsNotificationApp/SOAPalsNotification/LogDeltaReceiptPalsMQEnqueueDequeueV1#wsdl.interface(EnqueueDequeue_ptt)"/>
   </reference>
 </componentType>

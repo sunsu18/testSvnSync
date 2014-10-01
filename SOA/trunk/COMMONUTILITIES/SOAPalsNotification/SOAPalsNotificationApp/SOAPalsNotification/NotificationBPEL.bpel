@@ -37,7 +37,10 @@
          xmlns:ns6="http://xmlns.oracle.com/pcbpel/adapter/db/SOAPalsNotificationApp/SOAPalsNotification/SelectEngageSOAErrorStausDatabaseAdapterV1"
          xmlns:ns7="http://xmlns.oracle.com/pcbpel/adapter/db/SOAPalsNotificationApp/SOAPalsNotification/SelectEngaeSOAErrorStatusDatabaseAdapterV1"
          xmlns:ns8="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectEngaeSOAErrorStatusDatabaseAdapterV1"
-         xmlns:ns9="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectEngageSOAErrorStausDatabaseAdapterV1">
+         xmlns:ns9="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectEngageSOAErrorStausDatabaseAdapterV1"
+         xmlns:ns10="http://xmlns.oracle.com/pcbpel/adapter/db/SOAPalsNotificationApp/SOAPalsNotification/EngageSOADeltaTableDatabaseAdapterV1"
+         xmlns:ns11="http://xmlns.oracle.com/pcbpel/adapter/db/top/EngageSOADeltaTableDatabaseAdapterV1"
+         xmlns:ns12="http://xmlns.oracle.com/pcbpel/adapter/mq/SOAPalsNotificationApp/SOAPalsNotification/LogDeltaReceiptPalsMQEnqueueDequeueV1">
 
   <!-- 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -60,9 +63,12 @@
     <partnerLink name="SOACommomErrorHandlerJMSAdapterV1"
                  partnerLinkType="ns4:Produce_Message_plt"
                  partnerRole="Produce_Message_role"/>
-    <partnerLink name="SelectEngaeSOAErrorStatusDatabaseAdapterV1"
-                 partnerLinkType="ns7:SelectEngaeSOAErrorStatusDatabaseAdapterV1_plt"
-                 partnerRole="SelectEngaeSOAErrorStatusDatabaseAdapterV1_role"/>
+    <partnerLink name="EngageSOADeltaTableDatabaseAdapterV1"
+                 partnerLinkType="ns10:EngageSOADeltaTableDatabaseAdapterV1_plt"
+                 partnerRole="EngageSOADeltaTableDatabaseAdapterV1_role"/>
+    <partnerLink name="LogDeltaReceiptPalsMQEnqueueDequeueV1"
+                 partnerLinkType="ns12:EnqueueDequeue_plt"
+                 partnerRole="EnqueueDequeue_role"/>
   </partnerLinks>
 
   <!-- 
@@ -79,12 +85,12 @@
     <variable name="emailVar" type="xsd:string"/>
     <variable name="bodyVar" type="xsd:string"/>
     <variable name="subjectVar" type="xsd:string"/>
-    <variable name="InvokeSelectEngageSOAErrorStausDBAdapterV1_IV"
-              messageType="ns7:SelectEngaeSOAErrorStatusDatabaseAdapterV1Select_inputParameters"/>
-    <variable name="InvokeSelectEngageSOAErrorStausDBAdapterV1_OV"
-              messageType="ns7:EngageSoaErrorstatusCollection_msg"/>
     <variable name="InvokeSOACommomErrorHandlerJMSAdapterV1_IV"
               messageType="ns4:Produce_Message_msg"/>
+    <variable name="EngageSOADeltaTableDatabaseAdapterV1_Select_IV"
+              messageType="ns10:selectByPrimaryKey_inputParameters"/>
+    <variable name="EngageSOADeltaTableDatabaseAdapterV1_Select_OV"
+              messageType="ns10:EngageSoaDeltatableCollection_msg"/>
   </variables>
   <faultHandlers>
     <catchAll>
@@ -195,27 +201,26 @@
       <copy>
         <from variable="SOAPalsNotificationJMSConsumerV1_IV" part="body"
               query="/ns3:Notification/ns3:InterfaceID"/>
-        <to variable="InvokeSelectEngageSOAErrorStausDBAdapterV1_IV"
-            part="SelectEngaeSOAErrorStatusDatabaseAdapterV1Select_inputParameters"
-            query="/ns8:SelectEngaeSOAErrorStatusDatabaseAdapterV1Select_interfaceid_countrycodeInputParameters/ns8:interfaceid"/>
+        <to variable="EngageSOADeltaTableDatabaseAdapterV1_Select_IV"
+            part="selectByPrimaryKey_inputParameters"
+            query="/ns11:EngageSoaDeltatablePrimaryKey/ns11:interfaceid"/>
       </copy>
       <copy>
         <from variable="SOAPalsNotificationJMSConsumerV1_IV" part="body"
               query="/ns3:Notification/ns3:CountryCode"/>
-        <to variable="InvokeSelectEngageSOAErrorStausDBAdapterV1_IV"
-            part="SelectEngaeSOAErrorStatusDatabaseAdapterV1Select_inputParameters"
-            query="/ns8:SelectEngaeSOAErrorStatusDatabaseAdapterV1Select_interfaceid_countrycodeInputParameters/ns8:countrycode"/>
+        <to variable="EngageSOADeltaTableDatabaseAdapterV1_Select_IV"
+            part="selectByPrimaryKey_inputParameters"
+            query="/ns11:EngageSoaDeltatablePrimaryKey/ns11:countrycode"/>
       </copy>
     </assign>
-    <invoke name="InvokeSelectEngageSOAErrorStausDBAdapterV1"
-            outputVariable="InvokeSelectEngageSOAErrorStausDBAdapterV1_OV"
-            partnerLink="SelectEngaeSOAErrorStatusDatabaseAdapterV1"
-            portType="ns7:SelectEngaeSOAErrorStatusDatabaseAdapterV1_ptt"
-            operation="SelectEngaeSOAErrorStatusDatabaseAdapterV1Select"
-            inputVariable="InvokeSelectEngageSOAErrorStausDBAdapterV1_IV"
-            bpelx:invokeAsDetail="no"/>
+    <invoke name="InvokeEngageSOADeltaTableDatabaseAdapterV1_Select"
+            inputVariable="EngageSOADeltaTableDatabaseAdapterV1_Select_IV"
+            outputVariable="EngageSOADeltaTableDatabaseAdapterV1_Select_OV"
+            partnerLink="EngageSOADeltaTableDatabaseAdapterV1"
+            portType="ns10:EngageSOADeltaTableDatabaseAdapterV1_ptt"
+            operation="selectByPrimaryKey" bpelx:invokeAsDetail="no"/>
     <switch name="Switch1">
-      <case condition="(bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:ErrorFlag')='Error' ) or (bpws:getVariableData('InvokeSelectEngageSOAErrorStausDBAdapterV1_OV','EngageSoaErrorstatusCollection','/ns8:EngageSoaErrorstatusCollection/ns8:EngageSoaErrorstatus/ns8:errorflag')='E') ">
+      <case condition="(bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:ErrorFlag')='Error' ) or (bpws:getVariableData('EngageSOADeltaTableDatabaseAdapterV1_Select_OV','EngageSoaDeltatableCollection','/ns11:EngageSoaDeltatableCollection/ns11:EngageSoaDeltatable/ns11:errorflag')='E') ">
         <bpelx:annotation>
           <bpelx:general>
             <bpelx:property name="userLabel">if error occured in last invocation or current invocation</bpelx:property>
@@ -235,38 +240,72 @@
             <to variable="subjectVar"/>
           </copy>
           <copy>
+            <from expression="concat('SOA has faulted ins execution for Interface ',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:InterfaceID'),'-',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:CountryCode'),'please check the insance and investigate further. ')"/>
+            <to variable="bodyVar"/>
+          </copy>
+          <copy>
             <from expression="ora:toCDATA(concat('&lt;HTML>&lt;HEAD>&lt;!-- CSS goes in the document HEAD or added to your external stylesheet -->&lt;style type=&quot;text/css&quot;>table.altrowstable { font-family: verdana,arial,sans-serif; font-size:11px; color:#333333; border-width: 1px; border-color: #a9c6c9; border-collapse: collapse;}table.altrowstable th { border-width: 1px; padding: 8px; border-style: solid; border-color: #a9c6c9;}table.altrowstable td { border-width: 1px; padding: 8px; border-style: solid; border-color: #a9c6c9;}.oddrowcolor{ background-color:#d4e3e5;}.evenrowcolor{ background-color:#c3dde0;}&lt;/style>&lt;/HEAD>&lt;BODY>&lt;BR/>SOA has completed its execution for Interface E001 with below details:&lt;BR/>&lt;BR/>&lt;BR/>&lt;table class=&quot;altrowstable&quot; id=&quot;alternatecolor&quot;>&lt;tr> &lt;td>Interface Name:&lt;/td>&lt;td>',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:InterfaceName'),'&lt;/td>&lt;/tr>&lt;tr> &lt;td>Country Code:&lt;/td>&lt;td>',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:CountryCode'),'&lt;/td>&lt;/tr>&lt;/tr>&lt;tr> &lt;td>Source Table Name:&lt;/td>&lt;td>',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:SourceTableName'),'&lt;/td>&lt;/tr>&lt;tr> &lt;td>Last Delta Timestamp read&lt;/td>&lt;td>',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:LastDeltaTimeStamp'),'&lt;/td>&lt;/tr>&lt;/table>&lt;/BODY>&lt;/HTML>'))"/>
             <to variable="bodyVar"/>
           </copy>
           <copy>
-            <from expression="concat('SOA has faulted ins execution for Interface ',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:InterfaceID'),'-',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:CountryCode'),'please check the insance and investigate further. ')"/>
-            <to variable="bodyVar"/>
+            <from expression="'Harneet.kochhar@lntinfotech.com'"/>
+            <to variable="emailVar"/>
           </copy>
         </assign>
       </case>
       <otherwise>
-        <assign name="AssignEmailID">
-          <copy>
-            <from expression="dvm:lookupValue(&quot;SOAPalsNotification.dvm&quot;,&quot;InterfaceID&quot;,bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:InterfaceID'),&quot;EmailCC&quot;,&quot;&quot;,&quot;CountryCode&quot;,bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:CountryCode'))"/>
-            <to variable="emailCCVar"/>
-          </copy>
-          <copy>
-            <from expression="dvm:lookupValue(&quot;SOAPalsNotification.dvm&quot;,&quot;InterfaceID&quot;,bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:InterfaceID'),&quot;Email&quot;,&quot;&quot;,&quot;CountryCode&quot;,bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:CountryCode'))"/>
-            <to variable="emailVar"/>
-          </copy>
-          <copy>
-            <from expression="concat (string('SOA Completion Notification for '),bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:InterfaceID'),'-',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:CountryCode'))"/>
-            <to variable="subjectVar"/>
-          </copy>
-          <copy>
-            <from expression="ora:toCDATA(concat('&lt;HTML>&lt;HEAD>&lt;!-- CSS goes in the document HEAD or added to your external stylesheet -->&lt;style type=&quot;text/css&quot;>table.altrowstable { font-family: verdana,arial,sans-serif; font-size:11px; color:#333333; border-width: 1px; border-color: #a9c6c9; border-collapse: collapse;}table.altrowstable th { border-width: 1px; padding: 8px; border-style: solid; border-color: #a9c6c9;}table.altrowstable td { border-width: 1px; padding: 8px; border-style: solid; border-color: #a9c6c9;}.oddrowcolor{ background-color:#d4e3e5;}.evenrowcolor{ background-color:#c3dde0;}&lt;/style>&lt;/HEAD>&lt;BODY>&lt;BR/>SOA has completed its execution for Interface E001 with below details:&lt;BR/>&lt;BR/>&lt;BR/>&lt;table class=&quot;altrowstable&quot; id=&quot;alternatecolor&quot;>&lt;tr> &lt;td>Interface Name:&lt;/td>&lt;td>',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:InterfaceName'),'&lt;/td>&lt;/tr>&lt;tr> &lt;td>Country Code:&lt;/td>&lt;td>',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:CountryCode'),'&lt;/td>&lt;/tr>&lt;/tr>&lt;tr> &lt;td>Source Table Name:&lt;/td>&lt;td>',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:SourceTableName'),'&lt;/td>&lt;/tr>&lt;tr> &lt;td>Last Delta Timestamp read&lt;/td>&lt;td>',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:LastDeltaTimeStamp'),'&lt;/td>&lt;/tr>&lt;/table>&lt;/BODY>&lt;/HTML>'))"/>
-            <to variable="bodyVar"/>
-          </copy>
-          <copy>
-            <from expression="concat('SOA has completed its execution for Interface ',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:InterfaceID'),'-',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:CountryCode'),' up to Delta Timestamp - ',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:LastDeltaTimeStamp'))"/>
-            <to variable="bodyVar"/>
-          </copy>
-        </assign>
+        <scope name="Scope1">
+          <variables>
+            <variable name="LogDeltaReceiptPalsMQEnqueueDequeueV1_IV"
+                      messageType="ns12:EnqueueDequeue_msg_out"/>
+            <variable name="LogDeltaReceiptPalsMQEnqueueDequeueV1_OV"
+                      messageType="ns12:EnqueueDequeue_msg_in"/>
+          </variables>
+          <sequence name="Sequence2">
+            <assign name="AssignEmailID">
+              <copy>
+                <from expression="dvm:lookupValue(&quot;SOAPalsNotification.dvm&quot;,&quot;InterfaceID&quot;,bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:InterfaceID'),&quot;EmailCC&quot;,&quot;&quot;,&quot;CountryCode&quot;,bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:CountryCode'))"/>
+                <to variable="emailCCVar"/>
+              </copy>
+              <copy>
+                <from expression="dvm:lookupValue(&quot;SOAPalsNotification.dvm&quot;,&quot;InterfaceID&quot;,bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:InterfaceID'),&quot;Email&quot;,&quot;&quot;,&quot;CountryCode&quot;,bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:CountryCode'))"/>
+                <to variable="emailVar"/>
+              </copy>
+              <copy>
+                <from expression="concat (string('SOA Completion Notification for '),bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:InterfaceID'),'-',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:CountryCode'))"/>
+                <to variable="subjectVar"/>
+              </copy>
+              <copy>
+                <from expression="concat('SOA has completed its execution for Interface ',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:InterfaceID'),'-',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:CountryCode'),' up to Delta Timestamp - ',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:LastDeltaTimeStamp'))"/>
+                <to variable="bodyVar"/>
+              </copy>
+              <copy>
+                <from expression="ora:toCDATA(concat('&lt;HTML>&lt;HEAD>&lt;!-- CSS goes in the document HEAD or added to your external stylesheet -->&lt;style type=&quot;text/css&quot;>table.altrowstable { font-family: verdana,arial,sans-serif; font-size:11px; color:#333333; border-width: 1px; border-color: #a9c6c9; border-collapse: collapse;}table.altrowstable th { border-width: 1px; padding: 8px; border-style: solid; border-color: #a9c6c9;}table.altrowstable td { border-width: 1px; padding: 8px; border-style: solid; border-color: #a9c6c9;}.oddrowcolor{ background-color:#d4e3e5;}.evenrowcolor{ background-color:#c3dde0;}&lt;/style>&lt;/HEAD>&lt;BODY>&lt;BR/>SOA has completed its execution for Interface E001 with below details:&lt;BR/>&lt;BR/>&lt;BR/>&lt;table class=&quot;altrowstable&quot; id=&quot;alternatecolor&quot;>&lt;tr> &lt;td>Interface Name:&lt;/td>&lt;td>',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:InterfaceName'),'&lt;/td>&lt;/tr>&lt;tr> &lt;td>Country Code:&lt;/td>&lt;td>',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:CountryCode'),'&lt;/td>&lt;/tr>&lt;/tr>&lt;tr> &lt;td>Source Table Name:&lt;/td>&lt;td>',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:SourceTableName'),'&lt;/td>&lt;/tr>&lt;tr> &lt;td>Last Delta Timestamp read&lt;/td>&lt;td>',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:LastDeltaTimeStamp'),'&lt;/td>&lt;/tr>&lt;/table>&lt;/BODY>&lt;/HTML>'))"/>
+                <to variable="bodyVar"/>
+              </copy>
+              <copy>
+                <from expression="'Harneet.kochhar@lntinfotech.com'"/>
+                <to variable="emailVar"/>
+              </copy>
+            </assign>
+            <assign name="Transform1">
+              <bpelx:annotation>
+                <bpelx:pattern>transformation</bpelx:pattern>
+              </bpelx:annotation>
+              <copy>
+                <from expression="ora:doXSLTransformForDoc('xsl/PalsNotificationInput_to_LogDeltaReceipt.xsl', $SOAPalsNotificationJMSConsumerV1_IV.body)"/>
+                <to variable="LogDeltaReceiptPalsMQEnqueueDequeueV1_IV"
+                    part="PALsMQRequest"/>
+              </copy>
+            </assign>
+            <invoke name="InvokeLogDeltaReceiptPalsMQEnqueueDequeueV1"
+                    inputVariable="LogDeltaReceiptPalsMQEnqueueDequeueV1_IV"
+                    outputVariable="LogDeltaReceiptPalsMQEnqueueDequeueV1_OV"
+                    partnerLink="LogDeltaReceiptPalsMQEnqueueDequeueV1"
+                    portType="ns12:EnqueueDequeue_ptt"
+                    operation="EnqueueDequeue" bpelx:invokeAsDetail="no"/>
+          </sequence>
+        </scope>
       </otherwise>
     </switch>
     <!--assign name="Transform1">

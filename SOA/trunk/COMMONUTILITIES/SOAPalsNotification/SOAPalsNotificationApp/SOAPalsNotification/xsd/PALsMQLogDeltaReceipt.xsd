@@ -1,0 +1,240 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:nxsd="http://xmlns.oracle.com/pcbpel/nxsd"
+            xmlns:tns="http://statoilfuelretail.com/integration/PALsMQLogDeltaReceipt"
+            targetNamespace="http://statoilfuelretail.com/integration/PALsMQLogDeltaReceipt"
+            elementFormDefault="qualified" attributeFormDefault="unqualified"
+            nxsd:version="NXSD" nxsd:stream="chars" nxsd:encoding="US-ASCII">
+    <xsd:element name="PALsMQRequest" nxsd:style="array"
+                 nxsd:cellSeparatedBy="${eol}">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="CommonRequestHeader" nxsd:style="array">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="VersionNo" type="xsd:string"
+                                         nxsd:style="fixedLength"
+                                         nxsd:length="4" nxsd:padStyle="tail"
+                                         nxsd:paddedBy=" "/>
+                            <xsd:element name="Environment" type="xsd:string"
+                                         nxsd:style="fixedLength"
+                                         nxsd:length="4" nxsd:padStyle="tail"
+                                         nxsd:paddedBy=" "/>
+                            <xsd:element name="UserID" type="xsd:string"
+                                         nxsd:style="fixedLength"
+                                         nxsd:length="6" nxsd:padStyle="tail"
+                                         nxsd:paddedBy=" "/>
+                            <xsd:element name="ApplicationID" type="xsd:string"
+                                         nxsd:style="fixedLength"
+                                         nxsd:length="10" nxsd:padStyle="tail"
+                                         nxsd:paddedBy=" "/>
+                            <xsd:element name="ClientType" type="xsd:string"
+                                         nxsd:style="fixedLength"
+                                         nxsd:length="4" nxsd:padStyle="tail"
+                                         nxsd:paddedBy=" "/>
+                            <xsd:element name="SessionID" type="xsd:string"
+                                         nxsd:style="fixedLength"
+                                         nxsd:length="10" nxsd:padStyle="tail"
+                                         nxsd:paddedBy=" " minOccurs="0"/>
+                            <xsd:element name="DebugInfo" type="xsd:string"
+                                         nxsd:style="fixedLength"
+                                         nxsd:length="10" nxsd:padStyle="tail"
+                                         nxsd:paddedBy=" " minOccurs="0"/>
+                            <xsd:element name="Filler" type="xsd:string"
+                                         nxsd:style="fixedLength"
+                                         nxsd:length="152" nxsd:padStyle="tail"
+                                         nxsd:paddedBy=" " minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="ApplicationRequestHeader" nxsd:style="array">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="BusinessObject" type="xsd:string"
+                                         nxsd:style="fixedLength"
+                                         nxsd:length="15" nxsd:padStyle="tail"
+                                         nxsd:paddedBy=" "/>
+                            <xsd:element name="BusinessFunction"
+                                         type="xsd:string"
+                                         nxsd:style="fixedLength"
+                                         nxsd:length="20" nxsd:padStyle="tail"
+                                         nxsd:paddedBy=" "/>
+                            <xsd:element name="BusinessObjectVersionNumber"
+                                         type="xsd:string"
+                                         nxsd:style="fixedLength"
+                                         nxsd:length="4" nxsd:padStyle="tail"
+                                         nxsd:paddedBy=" "/>
+                            <xsd:element name="AgentId" type="xsd:string"
+                                         nxsd:style="fixedLength"
+                                         nxsd:length="6" nxsd:padStyle="tail"
+                                         nxsd:paddedBy=" "/>
+                            <xsd:element name="Filler" type="xsd:string"
+                                         nxsd:style="fixedLength"
+                                         nxsd:length="55" nxsd:padStyle="tail"
+                                         nxsd:paddedBy=" " minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="VariableFunctionData" nxsd:style="array">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="PALsCountryCode"
+                                         type="xsd:string"
+                                         nxsd:style="fixedLength"
+                                         nxsd:length="2" nxsd:padStyle="tail"
+                                         nxsd:paddedBy=" "/>
+                            <xsd:element name="DeltaUserid" type="xsd:string"
+                                         nxsd:style="fixedLength"
+                                         nxsd:length="8" nxsd:padStyle="tail"
+                                         nxsd:paddedBy=" "/>
+                            <xsd:element name="NumberOfEntries"
+                                         type="xsd:string"
+                                         nxsd:style="fixedLength"
+                                         nxsd:length="2" nxsd:padStyle="tail"
+                                         nxsd:paddedBy=" "/>
+                            <xsd:element name="TableData" nxsd:style="array"
+                                         maxOccurs="20">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="DeltaTableObjectId"
+                                                     type="xsd:string"
+                                                     nxsd:style="fixedLength"
+                                                     nxsd:length="5"
+                                                     nxsd:padStyle="tail"
+                                                     nxsd:paddedBy=" "/>
+                                        <xsd:element name="LogTs"
+                                                     type="xsd:string"
+                                                     nxsd:style="fixedLength"
+                                                     nxsd:length="26"
+                                                     nxsd:padStyle="tail"
+                                                     nxsd:paddedBy=" "/>
+                                        <xsd:element name="LastReadDeltaTs"
+                                                     type="xsd:string"
+                                                     nxsd:style="fixedLength"
+                                                     nxsd:length="26"
+                                                     nxsd:padStyle="tail"
+                                                     nxsd:paddedBy=" "/>
+                                        <xsd:element name="filler"
+                                                     type="xsd:string"
+                                                     nxsd:style="fixedLength"
+                                                     nxsd:length="23"
+                                                     nxsd:padStyle="tail"
+                                                     nxsd:paddedBy=" "
+                                                     minOccurs="0"/>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="PALsMQResponse" nxsd:style="array"
+                 nxsd:cellSeparatedBy="${eol}">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="CommonReplyHeader" nxsd:style="array">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="VersionNo" type="xsd:string"
+                                         nxsd:style="fixedLength"
+                                         nxsd:length="4" nxsd:padStyle="tail"
+                                         nxsd:paddedBy=" "/>
+                            <xsd:element name="Environment" type="xsd:string"
+                                         nxsd:style="fixedLength"
+                                         nxsd:length="4" nxsd:padStyle="tail"
+                                         nxsd:paddedBy=" "/>
+                            <xsd:element name="SenderID" type="xsd:string"
+                                         nxsd:style="fixedLength"
+                                         nxsd:length="6" nxsd:padStyle="tail"
+                                         nxsd:paddedBy=" "/>
+                            <xsd:element name="ApplicationID" type="xsd:string"
+                                         nxsd:style="fixedLength"
+                                         nxsd:length="10" nxsd:padStyle="tail"
+                                         nxsd:paddedBy=" "/>
+                            <xsd:element name="SessionID" type="xsd:string"
+                                         nxsd:style="fixedLength"
+                                         nxsd:length="10" nxsd:padStyle="tail"
+                                         nxsd:paddedBy=" "/>
+                            <xsd:element name="ReturnCode" type="xsd:string"
+                                         nxsd:style="fixedLength"
+                                         nxsd:length="7" nxsd:padStyle="tail"
+                                         nxsd:paddedBy=" "/>
+                            <xsd:element name="ReturnCodeDetail"
+                                         type="xsd:string"
+                                         nxsd:style="fixedLength"
+                                         nxsd:length="8" nxsd:padStyle="tail"
+                                         nxsd:paddedBy=" " minOccurs="0"/>
+                            <xsd:element name="Message" type="xsd:string"
+                                         nxsd:style="fixedLength"
+                                         nxsd:length="60" nxsd:padStyle="tail"
+                                         nxsd:paddedBy=" " minOccurs="0"/>
+                            <xsd:element name="Filler" type="xsd:string"
+                                         nxsd:style="fixedLength"
+                                         nxsd:length="91" nxsd:padStyle="tail"
+                                         nxsd:paddedBy=" " minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="ApplicationReplyHeader" nxsd:style="array">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="BusinessObject" type="xsd:string"
+                                         nxsd:style="fixedLength"
+                                         nxsd:length="15" nxsd:padStyle="tail"
+                                         nxsd:paddedBy=" "/>
+                            <xsd:element name="BusinessFunction"
+                                         type="xsd:string"
+                                         nxsd:style="fixedLength"
+                                         nxsd:length="20" nxsd:padStyle="tail"
+                                         nxsd:paddedBy=" "/>
+                            <xsd:element name="BusinessObjectVersionNumber"
+                                         type="xsd:string"
+                                         nxsd:style="fixedLength"
+                                         nxsd:length="4" nxsd:padStyle="tail"
+                                         nxsd:paddedBy=" "/>
+                            <xsd:element name="AgentId" type="xsd:string"
+                                         nxsd:style="fixedLength"
+                                         nxsd:length="6" nxsd:padStyle="tail"
+                                         nxsd:paddedBy=" "/>
+                            <xsd:element name="Filler" type="xsd:string"
+                                         nxsd:style="fixedLength"
+                                         nxsd:length="55" nxsd:padStyle="tail"
+                                         nxsd:paddedBy=" " minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="VariableFunctionData" nxsd:style="array">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="PALsCountryCode"
+                                         type="xsd:string"
+                                         nxsd:style="fixedLength"
+                                         nxsd:length="2" nxsd:padStyle="tail"
+                                         nxsd:paddedBy=" "/>
+                            <xsd:element name="DeltaUserid" type="xsd:string"
+                                         nxsd:style="fixedLength"
+                                         nxsd:length="8" nxsd:padStyle="tail"
+                                         nxsd:paddedBy=" "/>
+                            <xsd:element name="StatusCode" type="xsd:string"
+                                         nxsd:style="fixedLength"
+                                         nxsd:length="3" nxsd:padStyle="tail"
+                                         nxsd:paddedBy=" "/>
+                            <xsd:element name="EntryWithError" type="xsd:string"
+                                         nxsd:style="fixedLength"
+                                         nxsd:length="2" nxsd:padStyle="tail"
+                                         nxsd:paddedBy=" "/>
+                            <xsd:element name="Filler" type="xsd:string"
+                                         nxsd:style="fixedLength"
+                                         nxsd:length="85" nxsd:padStyle="tail"
+                                         nxsd:paddedBy=" " minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>
+<!--NXSDWIZ:C:\Users\10602239\Documents\My Received Files\CSSDKREQ.TXT:-->
+<!--USE-HEADER:false:-->

@@ -4,17 +4,20 @@
    <annotationfile/>
    <iconize/>
    <partnerlink_locations>
-      <partnerlink name="SOAPalsNotificationJMSConsumerV1" x="3" y="90" side="left"/>
-      <partnerlink name="NotificationService1" x="976" y="18" side="right"/>
-      <partnerlink name="SOACommomErrorHandlerJMSAdapterV1" x="976" y="221" side="right"/>
-      <partnerlink name="SelectEngaeSOAErrorStatusDatabaseAdapterV1" x="976" y="278" side="right"/>
+      <partnerlink name="SOAPalsNotificationJMSConsumerV1" x="1" y="90" side="left"/>
+      <partnerlink name="LogDeltaReceiptPalsMQEnqueueDequeueV1" x="1" y="695" side="left"/>
+      <partnerlink name="NotificationService1" x="1259" y="18" side="right"/>
+      <partnerlink name="SOACommomErrorHandlerJMSAdapterV1" x="1259" y="221" side="right"/>
+      <partnerlink name="EngageSOADeltaTableDatabaseAdapterV1" x="1259" y="278" side="right"/>
    </partnerlink_locations>
-   <graph_layout viewport="0,0,494,335" show_swimlanes="true">
+   <graph_layout viewport="348,568,820,487" show_swimlanes="true">
       <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catchAll" type="catchall"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catchAll/sequence" type="sequence"/>
       <layout_item collapsed="false" xpath="/process/sequence" type="sequence"/>
       <layout_item collapsed="false" xpath="/process/sequence/switch" type="switch"/>
+      <layout_item collapsed="false" xpath="/process/sequence/switch/otherwise/scope" type="scope" showhandlers="true"/>
+      <layout_item collapsed="false" xpath="/process/sequence/switch/otherwise/scope/sequence" type="sequence"/>
       <layout_item collapsed="true" xpath="/process/sequence/scope" type="email" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/sequence/scope/sequence" type="sequence"/>
    </graph_layout>

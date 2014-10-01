@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<process name="NotificationBPEL" targetNamespace="http://xmlns.oracle.com/SOAPalsNotificationApp/SOAPalsNotification/NotificationBPEL" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:client="http://xmlns.oracle.com/SOAPalsNotificationApp/SOAPalsNotification/NotificationBPEL" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/jms/SOAPalsNotificationApp/SOAPalsNotification/SOAPalsNotificationJMSConsumerV1" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:ns2="http://xmlns.oracle.com/ias/pcbpel/NotificationService" xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc" xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk" xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue" xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20" xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath" xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions" xmlns:ns3="http://www.statoilfuelretail.com/integration/engage/PalsNotification" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/jms/SOAPalsNotificationApp/SOAPalsNotification/SOACommomErrorHandlerJMSAdapterV1" xmlns:ns5="http://www.statoilfuelretail.com/integration/engage/ErrorHandling.xsd" xmlns:aia="http://www.oracle.com/XSL/Transform/java/oracle.apps.aia.core.xpath.AIAFunctions" xmlns:ns6="http://xmlns.oracle.com/pcbpel/adapter/db/SOAPalsNotificationApp/SOAPalsNotification/SelectEngageSOAErrorStausDatabaseAdapterV1" xmlns:ns7="http://xmlns.oracle.com/pcbpel/adapter/db/SOAPalsNotificationApp/SOAPalsNotification/SelectEngaeSOAErrorStatusDatabaseAdapterV1" xmlns:ns8="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectEngaeSOAErrorStatusDatabaseAdapterV1" xmlns:ns9="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectEngageSOAErrorStausDatabaseAdapterV1" id="BpPrc0">
+<process name="NotificationBPEL" targetNamespace="http://xmlns.oracle.com/SOAPalsNotificationApp/SOAPalsNotification/NotificationBPEL" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:client="http://xmlns.oracle.com/SOAPalsNotificationApp/SOAPalsNotification/NotificationBPEL" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/jms/SOAPalsNotificationApp/SOAPalsNotification/SOAPalsNotificationJMSConsumerV1" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:ns2="http://xmlns.oracle.com/ias/pcbpel/NotificationService" xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc" xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk" xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue" xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20" xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath" xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions" xmlns:ns3="http://www.statoilfuelretail.com/integration/engage/PalsNotification" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/jms/SOAPalsNotificationApp/SOAPalsNotification/SOACommomErrorHandlerJMSAdapterV1" xmlns:ns5="http://www.statoilfuelretail.com/integration/engage/ErrorHandling.xsd" xmlns:aia="http://www.oracle.com/XSL/Transform/java/oracle.apps.aia.core.xpath.AIAFunctions" xmlns:ns6="http://xmlns.oracle.com/pcbpel/adapter/db/SOAPalsNotificationApp/SOAPalsNotification/SelectEngageSOAErrorStausDatabaseAdapterV1" xmlns:ns7="http://xmlns.oracle.com/pcbpel/adapter/db/SOAPalsNotificationApp/SOAPalsNotification/SelectEngaeSOAErrorStatusDatabaseAdapterV1" xmlns:ns8="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectEngaeSOAErrorStatusDatabaseAdapterV1" xmlns:ns9="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectEngageSOAErrorStausDatabaseAdapterV1" xmlns:ns10="http://xmlns.oracle.com/pcbpel/adapter/db/SOAPalsNotificationApp/SOAPalsNotification/EngageSOADeltaTableDatabaseAdapterV1" xmlns:ns11="http://xmlns.oracle.com/pcbpel/adapter/db/top/EngageSOADeltaTableDatabaseAdapterV1" id="BpPrc0">
 
   <!-- 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -16,7 +16,7 @@
     <partnerLink name="SOAPalsNotificationJMSConsumerV1" partnerLinkType="ns1:Consume_Message_plt" myRole="Consume_Message_role"/>
     <partnerLink name="NotificationService1" partnerLinkType="ns2:NotificationServiceLink" partnerRole="NotificationServiceProvider"/>
     <partnerLink name="SOACommomErrorHandlerJMSAdapterV1" partnerLinkType="ns4:Produce_Message_plt" partnerRole="Produce_Message_role"/>
-    <partnerLink name="SelectEngaeSOAErrorStatusDatabaseAdapterV1" partnerLinkType="ns7:SelectEngaeSOAErrorStatusDatabaseAdapterV1_plt" partnerRole="SelectEngaeSOAErrorStatusDatabaseAdapterV1_role"/>
+    <partnerLink name="EngageSOADeltaTableDatabaseAdapterV1" partnerLinkType="ns10:EngageSOADeltaTableDatabaseAdapterV1_plt" partnerRole="EngageSOADeltaTableDatabaseAdapterV1_role"/>
   </partnerLinks>
 
   <!-- 
@@ -32,9 +32,9 @@
     <variable name="emailVar" type="xsd:string"/>
     <variable name="bodyVar" type="xsd:string"/>
     <variable name="subjectVar" type="xsd:string"/>
-    <variable name="InvokeSelectEngageSOAErrorStausDBAdapterV1_IV" messageType="ns7:SelectEngaeSOAErrorStatusDatabaseAdapterV1Select_inputParameters"/>
-    <variable name="InvokeSelectEngageSOAErrorStausDBAdapterV1_OV" messageType="ns7:EngageSoaErrorstatusCollection_msg"/>
     <variable name="InvokeSOACommomErrorHandlerJMSAdapterV1_IV" messageType="ns4:Produce_Message_msg"/>
+    <variable name="EngageSOADeltaTableDatabaseAdapterV1_Select_IV" messageType="ns10:selectByPrimaryKey_inputParameters"/>
+    <variable name="EngageSOADeltaTableDatabaseAdapterV1_Select_OV" messageType="ns10:EngageSoaDeltatableCollection_msg"/>
   </variables>
   <faultHandlers id="BpFhs0">
     <catchAll id="BpCAl0">
@@ -111,16 +111,16 @@
     <assign name="AssignEngageSOAErrorStausDBAdapter" id="BpAss1">
       <copy>
         <from variable="SOAPalsNotificationJMSConsumerV1_IV" part="body" query="/ns3:Notification/ns3:InterfaceID"/>
-        <to variable="InvokeSelectEngageSOAErrorStausDBAdapterV1_IV" part="SelectEngaeSOAErrorStatusDatabaseAdapterV1Select_inputParameters" query="/ns8:SelectEngaeSOAErrorStatusDatabaseAdapterV1Select_interfaceid_countrycodeInputParameters/ns8:interfaceid"/>
+        <to variable="EngageSOADeltaTableDatabaseAdapterV1_Select_IV" part="selectByPrimaryKey_inputParameters" query="/ns11:EngageSoaDeltatablePrimaryKey/ns11:interfaceid"/>
       </copy>
       <copy>
         <from variable="SOAPalsNotificationJMSConsumerV1_IV" part="body" query="/ns3:Notification/ns3:CountryCode"/>
-        <to variable="InvokeSelectEngageSOAErrorStausDBAdapterV1_IV" part="SelectEngaeSOAErrorStatusDatabaseAdapterV1Select_inputParameters" query="/ns8:SelectEngaeSOAErrorStatusDatabaseAdapterV1Select_interfaceid_countrycodeInputParameters/ns8:countrycode"/>
+        <to variable="EngageSOADeltaTableDatabaseAdapterV1_Select_IV" part="selectByPrimaryKey_inputParameters" query="/ns11:EngageSoaDeltatablePrimaryKey/ns11:countrycode"/>
       </copy>
     </assign>
-    <invoke name="InvokeSelectEngageSOAErrorStausDBAdapterV1" outputVariable="InvokeSelectEngageSOAErrorStausDBAdapterV1_OV" partnerLink="SelectEngaeSOAErrorStatusDatabaseAdapterV1" portType="ns7:SelectEngaeSOAErrorStatusDatabaseAdapterV1_ptt" operation="SelectEngaeSOAErrorStatusDatabaseAdapterV1Select" inputVariable="InvokeSelectEngageSOAErrorStausDBAdapterV1_IV" bpelx:invokeAsDetail="no" id="BpInv1"/>
+    <invoke name="InvokeEngageSOADeltaTableDatabaseAdapterV1_Select" inputVariable="EngageSOADeltaTableDatabaseAdapterV1_Select_IV" outputVariable="EngageSOADeltaTableDatabaseAdapterV1_Select_OV" partnerLink="EngageSOADeltaTableDatabaseAdapterV1" portType="ns10:EngageSOADeltaTableDatabaseAdapterV1_ptt" operation="selectByPrimaryKey" bpelx:invokeAsDetail="no" id="BpInv1"/>
     <switch name="Switch1" id="BpSwt0">
-      <case condition="(bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:ErrorFlag')='Error' ) or (bpws:getVariableData('InvokeSelectEngageSOAErrorStausDBAdapterV1_OV','EngageSoaErrorstatusCollection','/ns8:EngageSoaErrorstatusCollection/ns8:EngageSoaErrorstatus/ns8:errorflag')='E') ">
+      <case condition="(bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:ErrorFlag')='Error' ) or (bpws:getVariableData('EngageSOADeltaTableDatabaseAdapterV1_Select_OV','EngageSoaDeltatableCollection','/ns11:EngageSoaDeltatableCollection/ns11:EngageSoaDeltatable/ns11:errorflag')='E') ">
         <bpelx:annotation>
           <bpelx:general>
             <bpelx:property name="userLabel">if error occured in last invocation or current invocation</bpelx:property>
@@ -140,12 +140,16 @@
             <to variable="subjectVar"/>
           </copy>
           <copy>
+            <from expression="concat('SOA has faulted ins execution for Interface ',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:InterfaceID'),'-',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:CountryCode'),'please check the insance and investigate further. ')"/>
+            <to variable="bodyVar"/>
+          </copy>
+          <copy>
             <from expression="ora:toCDATA(concat('&lt;HTML>&lt;HEAD>&lt;!-- CSS goes in the document HEAD or added to your external stylesheet -->&lt;style type=&quot;text/css&quot;>table.altrowstable { font-family: verdana,arial,sans-serif; font-size:11px; color:#333333; border-width: 1px; border-color: #a9c6c9; border-collapse: collapse;}table.altrowstable th { border-width: 1px; padding: 8px; border-style: solid; border-color: #a9c6c9;}table.altrowstable td { border-width: 1px; padding: 8px; border-style: solid; border-color: #a9c6c9;}.oddrowcolor{ background-color:#d4e3e5;}.evenrowcolor{ background-color:#c3dde0;}&lt;/style>&lt;/HEAD>&lt;BODY>&lt;BR/>SOA has completed its execution for Interface E001 with below details:&lt;BR/>&lt;BR/>&lt;BR/>&lt;table class=&quot;altrowstable&quot; id=&quot;alternatecolor&quot;>&lt;tr> &lt;td>Interface Name:&lt;/td>&lt;td>',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:InterfaceName'),'&lt;/td>&lt;/tr>&lt;tr> &lt;td>Country Code:&lt;/td>&lt;td>',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:CountryCode'),'&lt;/td>&lt;/tr>&lt;/tr>&lt;tr> &lt;td>Source Table Name:&lt;/td>&lt;td>',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:SourceTableName'),'&lt;/td>&lt;/tr>&lt;tr> &lt;td>Last Delta Timestamp read&lt;/td>&lt;td>',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:LastDeltaTimeStamp'),'&lt;/td>&lt;/tr>&lt;/table>&lt;/BODY>&lt;/HTML>'))"/>
             <to variable="bodyVar"/>
           </copy>
           <copy>
-            <from expression="concat('SOA has faulted ins execution for Interface ',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:InterfaceID'),'-',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:CountryCode'),'please check the insance and investigate further. ')"/>
-            <to variable="bodyVar"/>
+            <from expression="'Harneet.kochhar@lntinfotech.com'"/>
+            <to variable="emailVar"/>
           </copy>
         </assign>
       </case>
@@ -164,12 +168,16 @@
             <to variable="subjectVar"/>
           </copy>
           <copy>
+            <from expression="concat('SOA has completed its execution for Interface ',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:InterfaceID'),'-',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:CountryCode'),' up to Delta Timestamp - ',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:LastDeltaTimeStamp'))"/>
+            <to variable="bodyVar"/>
+          </copy>
+          <copy>
             <from expression="ora:toCDATA(concat('&lt;HTML>&lt;HEAD>&lt;!-- CSS goes in the document HEAD or added to your external stylesheet -->&lt;style type=&quot;text/css&quot;>table.altrowstable { font-family: verdana,arial,sans-serif; font-size:11px; color:#333333; border-width: 1px; border-color: #a9c6c9; border-collapse: collapse;}table.altrowstable th { border-width: 1px; padding: 8px; border-style: solid; border-color: #a9c6c9;}table.altrowstable td { border-width: 1px; padding: 8px; border-style: solid; border-color: #a9c6c9;}.oddrowcolor{ background-color:#d4e3e5;}.evenrowcolor{ background-color:#c3dde0;}&lt;/style>&lt;/HEAD>&lt;BODY>&lt;BR/>SOA has completed its execution for Interface E001 with below details:&lt;BR/>&lt;BR/>&lt;BR/>&lt;table class=&quot;altrowstable&quot; id=&quot;alternatecolor&quot;>&lt;tr> &lt;td>Interface Name:&lt;/td>&lt;td>',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:InterfaceName'),'&lt;/td>&lt;/tr>&lt;tr> &lt;td>Country Code:&lt;/td>&lt;td>',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:CountryCode'),'&lt;/td>&lt;/tr>&lt;/tr>&lt;tr> &lt;td>Source Table Name:&lt;/td>&lt;td>',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:SourceTableName'),'&lt;/td>&lt;/tr>&lt;tr> &lt;td>Last Delta Timestamp read&lt;/td>&lt;td>',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:LastDeltaTimeStamp'),'&lt;/td>&lt;/tr>&lt;/table>&lt;/BODY>&lt;/HTML>'))"/>
             <to variable="bodyVar"/>
           </copy>
           <copy>
-            <from expression="concat('SOA has completed its execution for Interface ',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:InterfaceID'),'-',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:CountryCode'),' up to Delta Timestamp - ',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:LastDeltaTimeStamp'))"/>
-            <to variable="bodyVar"/>
+            <from expression="'Harneet.kochhar@lntinfotech.com'"/>
+            <to variable="emailVar"/>
           </copy>
         </assign>
       </otherwise>
