@@ -247,19 +247,24 @@ public class VehicleInfoBean implements Serializable {
             if (value == true) {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside Search methof of Vehicle Info for boolean true");
                 if (getBindings().getLinkedPartner().getValue() != null) {
+                    displayErrorComponent(getBindings().getLinkedPartner(), false);
                     if (getBindings().getLinkedAccount().getValue() != null) {
+                        displayErrorComponent(getBindings().getLinkedAccount(), false);
                         searchResultsExecution();
-                    } else {
+                    } else {                      
                         if (resourceBundle.containsKey("VEHICLE_LINKED_ACCOUNT")) {
                             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("VEHICLE_LINKED_ACCOUNT"), "");
                             FacesContext.getCurrentInstance().addMessage(null, msg);
+                            displayErrorComponent(getBindings().getLinkedAccount(), true);
+                            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getLinkedAccount());
                             return null;
                         }
                     }
-                } else {
+                } else {                    
                     if (resourceBundle.containsKey("LINKED_PARTNER")) {
                         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("LINKED_PARTNER"), "");
                         FacesContext.getCurrentInstance().addMessage(null, msg);
+                        displayErrorComponent(getBindings().getLinkedPartner(), true);
                         return null;
                     }
                 }
@@ -269,6 +274,7 @@ public class VehicleInfoBean implements Serializable {
                     addAccountNumberVal != null && addPartnerIdVal != null) {
                     _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                                  " Inside Search method of Vehicle Info for Account and Partner values not selected(null)");
+                    displayErrorComponent(getBindings().getLinkedPartner(), true);
                     if (linkedAccountLOVValues == null) {
                         linkedAccountLOVValues = new ArrayList<String>();
                         linkedAccountList = new ArrayList<SelectItem>();
@@ -285,6 +291,7 @@ public class VehicleInfoBean implements Serializable {
                     if (getBindings().getLinkedPartner().getValue() != null && getBindings().getLinkedAccount().getValue() != null) {
                         _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                                      " Inside Search method of Vehicle Info for Account and Partner values not null");
+                        displayErrorComponent(getBindings().getLinkedPartner(), false);
                         String searchValues = getBindings().getLinkedAccount().getValue().toString().trim();
                         String[] search = StringConversion(searchValues);
                         if (addAccountNumberVal != null && addPartnerIdVal != null) {
@@ -702,7 +709,9 @@ public class VehicleInfoBean implements Serializable {
         addCardIdDisplayValue = null;
         cardNumberList = new ArrayList<SelectItem>();
         if (getBindings().getLinkedPartner().getValue() != null) {
+            displayErrorComponent(getBindings().getLinkedPartner(), false);
             if (getBindings().getLinkedAccount().getValue() != null && linkedAccountLOVValues.size() > 0) {
+                displayErrorComponent(getBindings().getLinkedAccount(), false);
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                              "Inside if block new vehicle add for partner and selected account values :::::::::");
                 if (linkedAccountLOVValues.size() == 1) {
@@ -714,9 +723,13 @@ public class VehicleInfoBean implements Serializable {
                 populateCardNumberList(populateStringValues(getBindings().getLinkedAccount().getValue().toString()), "newVehicleAdd",
                                        getBindings().getLinkedPartner().getValue().toString());
             }
+            else{
+                displayErrorComponent(getBindings().getLinkedAccount(), true);
+            }
         } else {
             _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                          "Inside else block new vehicle add for no partner and selected account values:::::::::");
+            displayErrorComponent(getBindings().getLinkedPartner(), true);
             this.addPartnerNumberDisplayValue = null;
             this.addAccountIdDisplayValue = null;
             this.addCardIdDisplayValue = null;
@@ -751,6 +764,8 @@ public class VehicleInfoBean implements Serializable {
             getBindings().getEditInternalName().getValue() != null && getBindings().getEditVehicleNumber().getValue() != null &&
             getBindings().getEditInternalName().getValue().toString().trim() != null &&
             getBindings().getEditVehicleNumber().getValue().toString().trim() != null) {
+            displayErrorComponent(getBindings().getLinkedPartner(), false);
+            displayErrorComponent(getBindings().getLinkedAccount(), false);
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Inside new vehicle edit save method after null check :::::::::");
             ViewObject driverVo = ADFUtils.getViewObject("PrtDriverInformationVO3Iterator");
             driverVo.setNamedWhereClauseParam("countryCd", countryParam);
@@ -884,6 +899,7 @@ public class VehicleInfoBean implements Serializable {
                 warningMsg = resourceBundle.getObject("ENGAGE_SELECT_TRANSACTION_MANDATORY").toString();
                 showErrorMsgEditFlag = true;
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditErrorMessage());
+                displayErrorComponent(getBindings().getLinkedPartner(), true);
                 return null;
             }
         }
@@ -1722,14 +1738,14 @@ public class VehicleInfoBean implements Serializable {
              if (component instanceof RichSelectManyChoice) {
                 soc = (RichSelectManyChoice)component;
                 if (status) {
-                    soc.setContentStyle("af_mandatoryfield");
+                    soc.setStyleClass("af_mandatoryfield");
                     if (component.getId().contains("smc1"))
-                    soc.setContentStyle("af_mandatoryfield");
+                    soc.setStyleClass("af_mandatoryfield");
 
                 } else {
-                    soc.setContentStyle("af_nonmandatoryfield");
+                    soc.setStyleClass("af_nonmandatoryfield");
                     if (component.getId().contains("smc1"))
-                    soc.setContentStyle("af_nonmandatoryfield");
+                    soc.setStyleClass("af_nonmandatoryfield");
                 }
                 AdfFacesContext.getCurrentInstance().addPartialTarget(soc);
             }
@@ -1737,16 +1753,16 @@ public class VehicleInfoBean implements Serializable {
             else if (component instanceof RichSelectOneChoice) {
                         soc1 = (RichSelectOneChoice)component;
                         if (status) {
-                            soc1.setContentStyle("af_mandatoryfield");
+                            soc1.setStyleClass("af_mandatoryfield");
                             if (component.getId().contains("partnerSOC") || component.getId().contains("soc1") ||
                                 component.getId().contains("soc5") || component.getId().contains("soc6") || component.getId().contains("soc2"))
-                                soc1.setContentStyle("af_mandatoryfield");
+                                soc1.setStyleClass("af_mandatoryfield");
 
                         } else {
-                            soc1.setContentStyle("af_nonmandatoryfield");
+                            soc1.setStyleClass("af_nonmandatoryfield");
                             if (component.getId().contains("partnerSOC") || component.getId().contains("soc1") ||
                                 component.getId().contains("soc5") || component.getId().contains("soc6") || component.getId().contains("soc2"))
-                                soc1.setContentStyle("af_nonmandatoryfield");
+                                soc1.setStyleClass("af_nonmandatoryfield");
                         }
                         AdfFacesContext.getCurrentInstance().addPartialTarget(soc1);
                     }
@@ -2069,3 +2085,4 @@ public class VehicleInfoBean implements Serializable {
         }
     }
 }
+

@@ -2470,9 +2470,9 @@ width: 94%;
 white-space: normal;    
 }
 
-.af_nonmandatoryfield .af_selectManyChoice {
+/*.af_nonmandatoryfield .af_selectManyChoice {
 white-space: normal;    
-}
+}*/
 
 .af_mandatoryfield .af_selectManyChoice_options {
 overflow-x: visible !important;
@@ -2484,39 +2484,39 @@ margin: 0px;
 padding-right:30px;
 }
 
-.af_nonmandatoryfield .af_selectManyChoice_options {
-overflow-x: visible !important;
-list-style-image: none;
+/*.af_nonmandatoryfield .af_selectManyChoice_options {*/
+/*overflow-x: visible !important;*/
+/*list-style-image: none;
 list-style-position: outside;
 list-style-type: none;
 border-width: 0px;
 margin: 0px;
 padding-right:30px;
-}
+}*/
 
 
 .af_mandatoryfield .af_selectManyChoice_item.p_AFSelected {
     background-color: transparent !important;
 }
-.af_nonmandatoryfield .af_selectManyChoice_item.p_AFSelected {
+/*.af_nonmandatoryfield .af_selectManyChoice_item.p_AFSelected {
     background-color: transparent !important;
-}
+}*/
 
 .af_mandatoryfield .af_selectManyChoice_item.p_AFSelected {
 background-color: transparent !important;    
 }
 
-.af_nonmandatoryfield .af_selectManyChoice_item.p_AFSelected {
+/*.af_nonmandatoryfield .af_selectManyChoice_item.p_AFSelected {
 background-color: transparent !important;    
-}
+}*/
 
 .af_mandatoryfield .af_selectManyChoice_dropdown,.af_mandatoryfield .af_inputComboboxListOfValues_dropdown-icon-style,.af_mandatoryfield .af_selectOneChoice_content{
 border:1px solid red !important;
 }
 
-.af_nonmandatoryfield .af_selectManyChoice_dropdown,.af_nonmandatoryfield .af_inputComboboxListOfValues_dropdown-icon-style,.af_nonmandatoryfield .af_selectOneChoice_content{
+/*.af_nonmandatoryfield .af_selectManyChoice_dropdown,.af_nonmandatoryfield .af_inputComboboxListOfValues_dropdown-icon-style,.af_nonmandatoryfield .af_selectOneChoice_content{
 border:1px #b9b9b4 !important;
-}
+}*/
 
 
 
@@ -2529,14 +2529,14 @@ border:1px #b9b9b4 !important;
     /*padding:1px;*/
 }
 
-.af_nonmandatoryfield .af_selectManyChoice_control{
+/*.af_nonmandatoryfield .af_selectManyChoice_control{
     font-family : Lucida Sans,Georgia,Serif !important;
     font-size: 12px !important;
     font-weight: normal !important;
-    border:1px solid red !important;
+    border:1px solid red !important;*/
     /*border: 1px Red !important;*/
     /*padding:1px;*/
-}
+/*}*/
 
 
 .af_mandatoryfield .af_selectManyChoice_content{
@@ -2547,18 +2547,18 @@ border:1px #b9b9b4 !important;
     padding:0px; !important
 }
 
-.af_nonmandatoryfield .af_selectManyChoice_content{
+/*.af_nonmandatoryfield .af_selectManyChoice_content{
     height: 15px; !important
-}
+}*/
 
-.af_nonmandatoryfield .af_selectManyChoice_control{
+/*.af_nonmandatoryfield .af_selectManyChoice_control{
     padding:0px; !important
-}
+}*/
 
 .af_mandatoryfield .af_selectManyChoice_dropdown-icon-style:hover {
     background-image: url("/faces/images/ie_drop.png") !important;
 }
 
-.af_nonmandatoryfield .af_selectManyChoice_dropdown-icon-style:hover {
+/*.af_nonmandatoryfield .af_selectManyChoice_dropdown-icon-style:hover {
     background-image: url("/faces/images/ie_drop.png") !important;
-}
+}*/

@@ -398,17 +398,19 @@ public class InvoiceOverviewBean implements Serializable {
 
     public void searchResultsListener(ActionEvent actionEvent) {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside searchResultsListener for Invoices");
+        displayErrorComponent(getBindings().getPartnerNumber(), false);
+        displayErrorComponent(getBindings().getAccount(), false);
+        displayErrorComponent(getBindings().getCardGroup(), false);
 
         String newFromDate = null;
         String newToDate = null;
         if (getBindings().getPartnerNumber().getValue() != null && getBindings().getAccount().getValue() != null &&
             getBindings().getFromDate().getValue() != null && getBindings().getToDate().getValue() != null &&
             getBindings().getCardGpCardList().getValue() != null &&
-            (getBindings().getCardGroup().getValue() != null || getBindings().getCard().getValue() != null)) {
+            (getBindings().getCardGroup().getValue() != null)) {
+            if(getBindings().getCard().getValue() != null){
         
-            displayErrorComponent(getBindings().getPartnerNumber(), false);
-                        displayErrorComponent(getBindings().getAccount(), false);
-                        displayErrorComponent(getBindings().getCardGroup(), false);
+                        
                         displayErrorComponent(getBindings().getCard(), false);
 
 
@@ -528,7 +530,7 @@ public class InvoiceOverviewBean implements Serializable {
                     if ("Card".equalsIgnoreCase(getBindings().getCardGpCardList().getValue().toString())) {
 
 
-                        if (cardValue.size() > 150) {
+                        if (cardValue != null && cardValue.size() > 150) {
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values > 150 ");
                             mapCardListValue = valueList.callValueList(cardValue.size(), cardValue);
                             for (int i = 0; i < mapCardListValue.size(); i++) {
@@ -557,7 +559,7 @@ public class InvoiceOverviewBean implements Serializable {
                         }
                     } else {
 
-                        if (cardGroupValue.size() > 150) {
+                        if (cardGroupValue != null && cardGroupValue.size() > 150) {
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
                             mapCardGroupListValue = valueList.callValueList(cardGroupValue.size(), cardGroupValue);
                             for (int i = 0; i < mapCardGroupListValue.size(); i++) {
@@ -624,7 +626,12 @@ public class InvoiceOverviewBean implements Serializable {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Where condition:" + invoiceVO.getWhereClause());
 
             }
-
+            }else{
+                if(getBindings().getCard().getValue() == null){
+                    displayErrorComponent(getBindings().getCard(), true);
+                }
+                 
+            }
         } else {
             
             
@@ -641,10 +648,7 @@ public class InvoiceOverviewBean implements Serializable {
                 displayErrorComponent(getBindings().getCardGroup(), true);
             }
             
-            if(getBindings().getCard().getValue() == null){
-                displayErrorComponent(getBindings().getCard(), true);
-            }
-            
+         
             
             searchResults = false;
             if (resourceBundle.containsKey("INVOICE_MANDATORY_CHECK")) {
