@@ -178,7 +178,7 @@
     <mkdir dir="${output.dir}"/>
   </target>
   <target name="all" description="Build the project"
-          depends="clean,deploy,compile,copy"/>
+          depends="clean,deploy,compile,copy,checksum"/>
   <target name="clean" description="Clean the project">
   <echo>${utility.deploy.outputdir}</echo>
     <delete includeemptydirs="true" quiet="true">
@@ -188,7 +188,7 @@
     </delete>
   </target>
   <target name="deploy" description="Deploy JDeveloper profiles"
-          depends="init,compile">
+          depends="init,compile,checksum">
     <taskdef name="ojdeploy"
              classname="oracle.jdeveloper.deploy.ant.OJDeployAntTask"
              uri="oraclelib:OJDeployAntTask"
@@ -217,8 +217,9 @@
            target="1.6">
       <src path="src"/>
     </javac>
-    <checksum file="${oracle.jdeveloper.deploy.outputfile}" forceOverwrite="yes"/>
-    
+  </target>
+  <target name="checksum" depends="compile">
+      <checksum file="${oracle.jdeveloper.deploy.outputfile}" forceOverwrite="yes"/>
   </target>
   <target name="copy" description="Copy files to output directory"
           depends="init">
