@@ -217,7 +217,7 @@
            target="1.6">
       <src path="src"/>
     </javac>
-    <checksum file="${utility.deploy.outputfile}" forceOverwrite="yes"/>
+    <checksum file="${oracle.jdeveloper.deploy.outputfile}" forceOverwrite="yes"/>
     
   </target>
   <target name="copy" description="Copy files to output directory"
