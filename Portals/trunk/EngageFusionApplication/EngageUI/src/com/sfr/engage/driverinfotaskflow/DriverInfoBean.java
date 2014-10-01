@@ -262,10 +262,12 @@ public class DriverInfoBean implements Serializable {
                          " Inside Search method of Driver Info");
             if (value == true) {
                 if (getBindings().getLinkedPartner().getValue() != null) {
+                    displayErrorComponent(getBindings().getLinkedPartner(), false);
                     _logger.info(accessDC.getDisplayRecord() +
                                  this.getClass() +
                                  " Inside Search method of Driver Info for boolean true");
                     if (getBindings().getLinkedAccount().getValue() != null) {
+                        displayErrorComponent(getBindings().getLinkedAccount(), false);
                         searchResultsExecution();
                     } else {
                         if (resourceBundle.containsKey("DRIVER_LINKED_ACCOUNT")) {
@@ -275,6 +277,7 @@ public class DriverInfoBean implements Serializable {
                                                  "");
                             FacesContext.getCurrentInstance().addMessage(null,
                                                                          msg);
+                            displayErrorComponent(getBindings().getLinkedAccount(), true);
                             return null;
                         }
                     }
@@ -286,6 +289,7 @@ public class DriverInfoBean implements Serializable {
                                              "");
                         FacesContext.getCurrentInstance().addMessage(null,
                                                                      msg);
+                        displayErrorComponent(getBindings().getLinkedPartner(), true);
                         return null;
                     }
                 }
@@ -298,6 +302,7 @@ public class DriverInfoBean implements Serializable {
                     _logger.info(accessDC.getDisplayRecord() +
                                  this.getClass() +
                                  " Inside Search method of Driver Info for Account and Partner values not selected(null)");
+                    displayErrorComponent(getBindings().getLinkedPartner(), true);
                     if (linkedAccountLOVValues == null) {
                         linkedAccountLOVValues = new ArrayList<String>();
                         linkedAccountList = new ArrayList<SelectItem>();
@@ -316,6 +321,7 @@ public class DriverInfoBean implements Serializable {
                         _logger.info(accessDC.getDisplayRecord() +
                                      this.getClass() +
                                      " Inside Search method of Driver Info for Account and Partner values not null");
+                        displayErrorComponent(getBindings().getLinkedPartner(), false);
                         String searchValues =
                             getBindings().getLinkedAccount().getValue().toString().trim();
                         String[] search = StringConversion(searchValues);
@@ -826,8 +832,10 @@ public class DriverInfoBean implements Serializable {
         addCardIdDisplayValue = null;
         cardNumberList = new ArrayList<SelectItem>();
         if (getBindings().getLinkedPartner().getValue() != null) {
+            displayErrorComponent(getBindings().getLinkedPartner(), false);
             if (getBindings().getLinkedAccount().getValue() != null &&
                 linkedAccountLOVValues.size() > 0) {
+                displayErrorComponent(getBindings().getLinkedAccount(), false);
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                              "Inside if block new driver add for partner and selected account values :::::::::");
                 if (linkedAccountLOVValues.size() == 1) {
@@ -843,9 +851,13 @@ public class DriverInfoBean implements Serializable {
                                        "newDriverAdd",
                                        getBindings().getLinkedPartner().getValue().toString());
             }
+            else{
+                displayErrorComponent(getBindings().getLinkedAccount(), true);
+            }
         } else {
             _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                          "Inside else block new driver add for no partner and selected account values:::::::::");
+            displayErrorComponent(getBindings().getLinkedPartner(), true);
             this.addPartnerNumberDisplayValue = null;
             this.addAccountIdDisplayValue = null;
             this.addCardIdDisplayValue = null;
@@ -874,7 +886,7 @@ public class DriverInfoBean implements Serializable {
         user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
         if (user != null) {
             modifiedBy =
-                    user.getFirstName().concat(" ").concat(user.getLastName());
+                   user.getFirstName().concat(" ").concat(user.getLastName());
             if (modifiedBy == null) {
                 modifiedBy = user.getUserID();
             }
@@ -910,7 +922,7 @@ public class DriverInfoBean implements Serializable {
                                                          null);
                     if (getBindings().getEditCardId().getValue() != null) {
                         driverVo.defineNamedWhereClauseParam("cardNo",
-                                                             getBindings().getEditCardId().getValue().toString(),
+                                                            getBindings().getEditCardId().getValue().toString(),
                                                              null);
                     } else {
                         driverVo.defineNamedWhereClauseParam("cardNo", "",
@@ -1182,7 +1194,7 @@ public class DriverInfoBean implements Serializable {
                                 false) {
                                 validateCard.add(partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber().toString());
                             }
-                        }
+                       }
                     }
                 }
             }
@@ -1990,7 +2002,7 @@ public class DriverInfoBean implements Serializable {
                      " Exiting PopulateAccountNmber method");
     }
 
-    public void displayErrorComponent(UIComponent component, boolean status) {
+   public void displayErrorComponent(UIComponent component, boolean status) {
 
             RichSelectManyChoice soc = new RichSelectManyChoice();
             RichSelectOneChoice soc1 = new RichSelectOneChoice();
@@ -1998,14 +2010,14 @@ public class DriverInfoBean implements Serializable {
              if (component instanceof RichSelectManyChoice) {
                 soc = (RichSelectManyChoice)component;
                 if (status) {
-                    soc.setContentStyle("af_mandatoryfield");
+                    soc.setStyleClass("af_mandatoryfield");
                     if (component.getId().contains("smc1"))
-                    soc.setContentStyle("af_mandatoryfield");
+                    soc.setStyleClass("af_mandatoryfield");
 
                 } else {
-                    soc.setContentStyle("af_nonmandatoryfield");
+                    soc.setStyleClass("af_nonmandatoryfield");
                     if (component.getId().contains("smc1"))
-                    soc.setContentStyle("af_nonmandatoryfield");
+                    soc.setStyleClass("af_nonmandatoryfield");
                 }
                 AdfFacesContext.getCurrentInstance().addPartialTarget(soc);
             }
@@ -2013,16 +2025,16 @@ public class DriverInfoBean implements Serializable {
             else if (component instanceof RichSelectOneChoice) {
                         soc1 = (RichSelectOneChoice)component;
                         if (status) {
-                            soc1.setContentStyle("af_mandatoryfield");
+                            soc1.setStyleClass("af_mandatoryfield");
                             if (component.getId().contains("partnerSOC") || component.getId().contains("soc1") ||
                                 component.getId().contains("soc5") || component.getId().contains("soc6") || component.getId().contains("soc2"))
-                                soc1.setContentStyle("af_mandatoryfield");
+                                soc1.setStyleClass("af_mandatoryfield");
 
                         } else {
-                            soc1.setContentStyle("af_nonmandatoryfield");
+                            soc1.setStyleClass("af_nonmandatoryfield");
                             if (component.getId().contains("partnerSOC") || component.getId().contains("soc1") ||
                                 component.getId().contains("soc5") || component.getId().contains("soc6") || component.getId().contains("soc2"))
-                                soc1.setContentStyle("af_nonmandatoryfield");
+                                soc1.setStyleClass("af_nonmandatoryfield");
                         }
                         AdfFacesContext.getCurrentInstance().addPartialTarget(soc1);
                     }
@@ -2037,7 +2049,7 @@ public class DriverInfoBean implements Serializable {
                 soc = (RichSelectManyChoice)rit1;
                 if (soc.getValue() == null || soc.getValue().equals("")) {                    
                     displayErrorComponent(soc, true);
-                    return true;
+                   return true;
                 } else {                   
                     displayErrorComponent(soc, false);
                     return false;
