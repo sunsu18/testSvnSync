@@ -99,7 +99,7 @@ public class UserDAO {
         log.info(accessDC.getDisplayRecord() + this.getClass() + " .createUserWS :" + displayIdentity(identity));
 
         long startTime = System.currentTimeMillis();
-        OIMUserManagermentImpl oIMUserManagermentImpl = DAOFactory.getInstance().getOIMUserManagermentImpl();
+        OIMUserManagermentImpl oIMUserManagermentImpl = EngageDAOFactory.getInstance().getEngOIMUserManagermentImpl();
         OimUserManagementResult oimResult = oIMUserManagermentImpl.createOIMUser(identity, "portal");
         long elapsedTime = System.currentTimeMillis() - startTime;
         log.info(accessDC.getDisplayRecord() + this.getClass() + ".createUserWS : " + "  OIM create User  " + "Response Time: [" + elapsedTime +
@@ -167,7 +167,7 @@ public class UserDAO {
     public BaseBean deleteUserWS(String userID) {
         log.info(accessDC.getDisplayRecord() + this.getClass() + ".deleteUserWS : " + "UserDAO.deleteUserWS:   <" + userID + ">");
         long startTime = System.currentTimeMillis();
-        OIMUserManagermentImpl oIMUserManagermentImpl = DAOFactory.getInstance().getOIMUserManagermentImpl();
+        OIMUserManagermentImpl oIMUserManagermentImpl = EngageDAOFactory.getInstance().getEngOIMUserManagermentImpl();
         OimUserManagementResult oimResult = oIMUserManagermentImpl.deleteOIMUser(userID);
         long elapsedTime = System.currentTimeMillis() - startTime;
         log.info(accessDC.getDisplayRecord() + this.getClass() + ".deleteUserWS : " + "  OIM delete User  " + "Response Time: [" + elapsedTime +
@@ -200,7 +200,7 @@ public class UserDAO {
 
         log.info(accessDC.getDisplayRecord() + this.getClass() + ".updateUserWS : " + "Displaying Identity for Update User" + displayIdentity(identity));
         long startTime = System.currentTimeMillis();
-        OIMUserManagermentImpl oIMUserManagermentImpl = DAOFactory.getInstance().getOIMUserManagermentImpl();
+        OIMUserManagermentImpl oIMUserManagermentImpl = EngageDAOFactory.getInstance().getEngOIMUserManagermentImpl();
         OimUserManagementResult oimResult = oIMUserManagermentImpl.updateOIMUser(identity, "portal");
         long elapsedTime = System.currentTimeMillis() - startTime;
         log.info(accessDC.getDisplayRecord() + this.getClass() + ".updateUserWS : " + "  OIM update User  " + "Response Time: [" + elapsedTime +
@@ -220,7 +220,7 @@ public class UserDAO {
         log.info(accessDC.getDisplayRecord() + this.getClass() + ".searchUserWS : " + "userDAO cust id " + customerId);
 
         long startTime = System.currentTimeMillis();
-        OIMUserManagermentImpl oIMUserManagermentImpl = DAOFactory.getInstance().getOIMUserManagermentImpl();
+        OIMUserManagermentImpl oIMUserManagermentImpl = EngageDAOFactory.getInstance().getEngOIMUserManagermentImpl();
         OimUserManagementResult oimResult = oIMUserManagermentImpl.searchOIMUser(customerId);
         long elapsedTime = System.currentTimeMillis() - startTime;
         log.info(accessDC.getDisplayRecord() + this.getClass() + ".searchUserWS : " + "  OIM search User  " + "Response Time: [" + elapsedTime +
@@ -304,7 +304,7 @@ public class UserDAO {
             user = DAOFactory.executeSqlQuery(userId);
         }
 
-        /*List<User> userList = new ArrayList<User>();
+        List<User> userList = new ArrayList<User>();
         userList.add(user);
 
         for(int u =0 ; u<userList.size(); u++){
@@ -320,7 +320,7 @@ public class UserDAO {
                     System.out.println("value of rolename====>"+userList.get(u).getRoleList().get(r).getRoleName()+" role association=====>"+userList.get(u).getRoleList().get(r).getIdString());
                 }
             }
-        }*/
+        }
         return user;
     }
 
