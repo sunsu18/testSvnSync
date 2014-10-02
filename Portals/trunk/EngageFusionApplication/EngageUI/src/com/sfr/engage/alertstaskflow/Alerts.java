@@ -64,6 +64,7 @@ import oracle.jbo.ViewObject;
 
 public class Alerts {
     private List<FuelTimings> fueltimings = new ArrayList<FuelTimings>();
+    private List<String> weekdays = new ArrayList<String>();
     private List<FuelTimings> configureFuelTimings = new ArrayList<FuelTimings>();
     private HttpSession session;
     private transient Bindings bindings;
@@ -138,6 +139,14 @@ public class Alerts {
 
     public Alerts() {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside constructor of Alerts");
+        weekdays.add("MONDAY");
+        weekdays.add("TUESDAY");
+        weekdays.add("WEDNESDAY");
+        weekdays.add("THURSDAY");
+        weekdays.add("FRIDAY");
+        weekdays.add("SATURDAY");
+        weekdays.add("SUNDAY");
+        
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
@@ -729,7 +738,8 @@ public class Alerts {
                                 }
                                 cardRuleBusinessHoursRow.setAttribute("SubscrId", response.getSubscriptionID().toString().trim());
                                 cardRuleBusinessHoursRow.setAttribute("RuleId", "1");
-                                cardRuleBusinessHoursRow.setAttribute("Day", fueltimings.get(i).getWeekday());
+                                
+                                cardRuleBusinessHoursRow.setAttribute("Day", weekdays.get(i));
                                 cardRuleBusinessHoursRow.setAttribute("BusiStartFrom",
                                                                       checkFuelTimings.getFromHh().toString().trim() + ":" + checkFuelTimings.getFromMm().toString().trim());
                                 cardRuleBusinessHoursRow.setAttribute("BusiStartTo",
