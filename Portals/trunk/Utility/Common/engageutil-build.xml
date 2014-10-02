@@ -3,8 +3,6 @@
 <!--Generated May 5, 2014 4:43:49 PM-->
 <project name="Common" default="all" basedir=".">
   <property file="engageutil-build.properties"/>
-  <property name="version" value="${utility.version}"/>
-
   <path id="library.ADF.Model.Generic.Runtime">
     <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.share_11.1.1\adf-share-support.jar"/>
     <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.share.ca_11.1.1\adf-share-ca.jar"/>
@@ -178,7 +176,7 @@
     <mkdir dir="${output.dir}"/>
   </target>
   <target name="all" description="Build the project"
-          depends="clean,deploy,compile,copy,checksum"/>
+          depends="clean,deploy,compile,copy"/>
   <target name="clean" description="Clean the project">
   <echo>${utility.deploy.outputdir}</echo>
     <delete includeemptydirs="true" quiet="true">
@@ -188,7 +186,7 @@
     </delete>
   </target>
   <target name="deploy" description="Deploy JDeveloper profiles"
-          depends="init,compile,checksum">
+          depends="init,compile">
     <taskdef name="ojdeploy"
              classname="oracle.jdeveloper.deploy.ant.OJDeployAntTask"
              uri="oraclelib:OJDeployAntTask"
@@ -217,9 +215,6 @@
            target="1.6">
       <src path="src"/>
     </javac>
-  </target>
-  <target name="checksum" depends="compile">
-      <checksum file="${oracle.jdeveloper.deploy.outputfile}" forceOverwrite="yes"/>
   </target>
   <target name="copy" description="Copy files to output directory"
           depends="init">
