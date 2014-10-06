@@ -543,25 +543,25 @@
         <af:column headerText="#{sfr.INVOICE_LINENO}" id="c114" width="50" sortable="true">
          <af:outputText value="#{vs.index+1}" id="ot42"></af:outputText>
         </af:column>
-        <af:column sortProperty="InvoiceNumberNonCollective" filterable="true" filterFeatures="caseInsensitive" sortable="true"
+        <!--<af:column sortProperty="InvoiceNumberNonCollective" filterable="true" filterFeatures="caseInsensitive" sortable="true"
                    headerText="#{sfr.ENGAGE_INVOICE_INVOICE_NO}" id="c21" width="95">
          <af:outputText value="#{row.InvoiceNumberNonCollective}" id="ot26"/>
-        </af:column>
-        <af:column sortProperty="ProductName" filterable="true" filterFeatures="caseInsensitive" sortable="true" width="85"
+        </af:column>-->
+        <af:column sortProperty="ProductName" filterable="true" filterFeatures="caseInsensitive" sortable="true" width="105"
                    headerText="#{sfr.INVOICE_PRODUCT_NAME}" id="c20">
          <af:outputText value="#{row.ProductName}" id="ot48" truncateAt="20"/>
         </af:column>
-        <af:column sortProperty="Quantity" filterable="true" sortable="true" filterFeatures="caseInsensitive" headerText="#{sfr.INVOICE_QUANTITY}" width="75"
+        <af:column sortProperty="Quantity" filterable="true" sortable="true" filterFeatures="caseInsensitive" headerText="#{sfr.INVOICE_QUANTITY}" width="95"
                    id="c18">
          <af:outputText value="#{row.Quantity} #{row.UnitOfMeasure}" id="ot24">
           <af:convertNumber groupingUsed="true" pattern="##.##" locale="#{pageFlowScope.InvoiceOverviewBean.locale}" minFractionDigits="2"/>
          </af:outputText>
         </af:column>
-        <af:column sortProperty="StationName" filterable="true" filterFeatures="caseInsensitive" sortable="true" width="110" headerText="#{sfr.INVOICE_STATION}"
+        <af:column sortProperty="StationName" filterable="true" filterFeatures="caseInsensitive" sortable="true" width="130" headerText="#{sfr.INVOICE_STATION}"
                    id="c16">
          <af:outputText value="#{row.StationName}" id="ot46" truncateAt="15"/>
         </af:column>
-        <af:column sortProperty="Card1Id" filterable="true" sortable="true" filterFeatures="caseInsensitive" headerText="#{sfr.INVOICE_CARD}" width="147"
+        <af:column sortProperty="Card1Id" filterable="true" sortable="true" filterFeatures="caseInsensitive" headerText="#{sfr.INVOICE_CARD}" width="167"
                    id="c19">
          <af:outputText value="#{row.Card1Id}" id="ot50"/>
         </af:column>
@@ -571,7 +571,7 @@
           <af:convertNumber groupingUsed="true" pattern="##.##" locale="#{pageFlowScope.InvoiceOverviewBean.locale}" minFractionDigits="2"/>
          </af:outputText>
         </af:column>
-        <af:column sortProperty="InvoicedGrossAmount" filterable="true" align="right" filterFeatures="caseInsensitive" sortable="true" width="98"
+        <af:column sortProperty="InvoicedGrossAmount" filterable="true" align="right" filterFeatures="caseInsensitive" sortable="true" width="113"
                    headerText="#{sfr.INVOICE_GROSS_AMOUNT}" id="c14">
          <af:outputText value="#{row.InvoicedGrossAmount}" id="ot47">
           <af:convertNumber groupingUsed="true" pattern="##.##" locale="#{pageFlowScope.InvoiceOverviewBean.locale}" minFractionDigits="2"/>
