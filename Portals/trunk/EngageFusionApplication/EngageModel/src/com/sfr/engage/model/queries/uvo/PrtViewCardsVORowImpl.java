@@ -1735,11 +1735,6 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
             if(("1".equalsIgnoreCase(getBlockAction().toString().trim()) && getCardExpiry() != null  && getCardExpiry().getValue().after(new java.util.Date())) ||
                 "2".equalsIgnoreCase(getBlockAction().toString().trim())){   
                     return (Timestamp) getAttributeInternal(BLOCKTIME);
-            }else if((("0".equalsIgnoreCase(getBlockAction().toString().trim()) || "1".equalsIgnoreCase(getBlockAction().toString().trim())) &&
-                      getCardExpiry() != null  && getCardExpiry().getValue().before(new java.util.Date()))){
-                oracle.jbo.domain.Date date = (Date)getAttributeInternal(CARDEXPIRY);
-                oracle.jbo.domain.Timestamp time = new oracle.jbo.domain.Timestamp(date);
-                return time;
             }
         }
         return null;
@@ -1842,9 +1837,6 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
             if(("1".equalsIgnoreCase(getBlockAction().toString().trim()) && getCardExpiry() != null  && getCardExpiry().getValue().after(new java.util.Date())) ||
                 "2".equalsIgnoreCase(getBlockAction().toString().trim())){  
                 return (Date) getAttributeInternal(BLOCKDATE);
-            }else if((("0".equalsIgnoreCase(getBlockAction().toString().trim()) || "1".equalsIgnoreCase(getBlockAction().toString().trim())) &&
-                getCardExpiry() != null  && getCardExpiry().getValue().before(new java.util.Date()))){
-                return getCardExpiry();
             }
         }
         return null;
