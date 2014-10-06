@@ -194,7 +194,7 @@ public class TransactionOverviewBean implements Serializable {
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
         conversionUtility = new Conversion();
-        resourceBundle = new EngageResourceBundle();
+        //resourceBundle = new EngageResourceBundle();
         accountIdList = new ArrayList<SelectItem>();
         terminalValue = new ArrayList<String>();
         typeValue = new ArrayList<String>();
@@ -654,6 +654,7 @@ public class TransactionOverviewBean implements Serializable {
     };
 
     public List<SelectItem> getTypeList() {
+        resourceBundle = new EngageResourceBundle();
         if (typeList == null) {
             typeList = new ArrayList<SelectItem>();
             SelectItem selectItem = new SelectItem();
@@ -1715,6 +1716,7 @@ public class TransactionOverviewBean implements Serializable {
 
     public String showErrorMessage(String errorVar) {
         if (errorVar != null) {
+            resourceBundle = new EngageResourceBundle();
             if (resourceBundle.containsKey(errorVar)) {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject(errorVar), "");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -3009,6 +3011,7 @@ public class TransactionOverviewBean implements Serializable {
 
     public void exportExcelSpecificAction(ActionEvent actionEvent) {
         shuttleStatus = false;
+        resourceBundle = new EngageResourceBundle();
         String langDB = (String)session.getAttribute("langReport");
         if (langDB.equalsIgnoreCase("en_US")) {
             langDB = "EN";
@@ -3165,7 +3168,7 @@ public class TransactionOverviewBean implements Serializable {
     }
 
     public void getValuesForExcel(ActionEvent actionEvent) {
-
+        resourceBundle = new EngageResourceBundle();
         if (shuttleValue == null && getBindings().getSelectionExportOneRadio().getValue() == null) {
             if (shuttleValue == null) {
                 if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR")) {
@@ -3514,6 +3517,7 @@ public class TransactionOverviewBean implements Serializable {
     }
 
     public List<SelectItem> getReportFormatList() {
+        resourceBundle = new EngageResourceBundle();
         if (reportFormatList == null) {
             reportFormatList = new ArrayList<SelectItem>();
             SelectItem selectItem = new SelectItem();

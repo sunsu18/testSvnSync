@@ -117,7 +117,7 @@ public class Alerts {
     private String userFirstName;
     private String userMobileNo;
     private String CountryCode;
-    EngageResourceBundle resourceBundle = new EngageResourceBundle();
+    EngageResourceBundle resourceBundle;
     private List<String> suggestedCardNumberList;
     private String passingPartner = "";
     private String passingAccount = "";
@@ -184,7 +184,7 @@ public class Alerts {
             langValue = conv.getCustomerCountryCode((String)session.getAttribute(Constants.DISPLAY_PORTAL_LANG));
         }
 
-        defaultTimings();
+        //defaultTimings();
 
         userEmail = "";
         userFirstName = "";
@@ -368,6 +368,7 @@ public class Alerts {
     }
 
     public void defaultTimings() {
+        resourceBundle = new EngageResourceBundle();
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside defaultTimings method of Alerts");
         fueltimings = new ArrayList<FuelTimings>();
         fueltimings.clear();
@@ -444,6 +445,7 @@ public class Alerts {
     }
 
     public void configureDefaultTimings(String subscriptionId, String country) {
+        resourceBundle = new EngageResourceBundle();
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside configureDefaultTimings method of Alerts");
         configureFuelTimings = new ArrayList<FuelTimings>();
         configureFuelTimings.clear();
@@ -788,6 +790,7 @@ public class Alerts {
     }
 
     public String showErrorMessage(String errorVar) {
+        resourceBundle = new EngageResourceBundle();
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside showErrorMessage method of Alerts");
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + "throwing error message");
         if (errorVar != null) {

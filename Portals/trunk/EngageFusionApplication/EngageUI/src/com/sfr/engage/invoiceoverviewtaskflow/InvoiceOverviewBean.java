@@ -193,7 +193,7 @@ public class InvoiceOverviewBean implements Serializable {
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
-        resourceBundle = new EngageResourceBundle();
+        //resourceBundle = new EngageResourceBundle();
         partnerList = new ArrayList<SelectItem>();
         partnerValue = new ArrayList<String>();
         accountList = new ArrayList<SelectItem>();
@@ -397,6 +397,7 @@ public class InvoiceOverviewBean implements Serializable {
     }
 
     public void searchResultsListener(ActionEvent actionEvent) {
+        resourceBundle = new EngageResourceBundle();
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside searchResultsListener for Invoices");
         displayErrorComponent(getBindings().getPartnerNumber(), false);
         displayErrorComponent(getBindings().getAccount(), false);
@@ -805,7 +806,7 @@ public class InvoiceOverviewBean implements Serializable {
     }
 
     public void exportExcelSpecificActionTransactions(ActionEvent actionEvent) {
-
+        resourceBundle = new EngageResourceBundle();
 
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Entering exportExcelSpecificActionTransactions");
         defaultSelection = "Transactions";
@@ -865,7 +866,7 @@ public class InvoiceOverviewBean implements Serializable {
 
 
     public void cgValueChangeListener(ValueChangeEvent valueChangeEvent) {
-        
+        resourceBundle = new EngageResourceBundle();
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside cgValueChangeListener for Invoices");
         
         
@@ -2122,7 +2123,7 @@ public class InvoiceOverviewBean implements Serializable {
     }
 
     public void exportExcelSpecificActionInvoices(ActionEvent actionEvent) {
-
+        resourceBundle = new EngageResourceBundle();
         shuttleStatus = false;
         String langDB = (String)session.getAttribute("langReport");
         if (langDB.equalsIgnoreCase("en_US")) {
@@ -2171,6 +2172,7 @@ public class InvoiceOverviewBean implements Serializable {
     }
 
     public void getValuesForExcel(ActionEvent actionEvent) {
+        resourceBundle = new EngageResourceBundle();
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside getValuesForExcel method of Invoices");
         if (shuttleValue == null && getBindings().getSelectionExportOneRadio().getValue() == null) {
             if (shuttleValue == null) {
@@ -2219,6 +2221,7 @@ public class InvoiceOverviewBean implements Serializable {
     }
 
     public String checkALL(String selectedValues, String type) {
+        resourceBundle = new EngageResourceBundle();
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside checkALL method of Invoices");
         String val = "";
         String[] listValues = selectedValues.split(",");
@@ -2260,7 +2263,7 @@ public class InvoiceOverviewBean implements Serializable {
 
     public void specificTransactionExportExcelListener(FacesContext facesContext, OutputStream outputStream) throws IOException, SQLException, Exception {
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Entering specificTransactionExportExcelListener");
-
+        resourceBundle = new EngageResourceBundle();
 
         //////////////////////////////
         defaultSelection = "Transactions";
@@ -3173,6 +3176,7 @@ public class InvoiceOverviewBean implements Serializable {
     }
 
     public void specificExportExcelListener(FacesContext facesContext, OutputStream outputStream) throws IOException, SQLException, Exception {
+        resourceBundle = new EngageResourceBundle();
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside specificExportExcelListener method of Invoices");
 
         String selectedValues = "";
