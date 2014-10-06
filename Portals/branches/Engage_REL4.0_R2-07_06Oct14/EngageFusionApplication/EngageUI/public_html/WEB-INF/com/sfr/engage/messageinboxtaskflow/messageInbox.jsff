@@ -1,0 +1,318 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html">
+ <af:panelGroupLayout id="pgl2">
+  <af:panelGroupLayout id="pgl1" layout="vertical" styleClass="spacerStyle">
+ 
+   <af:spacer width="10" height="20" id="s10"/>
+   <af:panelGroupLayout id="pgl4" layout="horizontal">
+    <af:outputText value="#{sfr.ENGAGE_MESSAGE_INBOX}" id="ot1"
+                   styleClass="heading"/>
+   </af:panelGroupLayout>
+   <af:spacer width="10" height="10" id="s1"/>
+   <af:panelGroupLayout id="pgl03" layout="horizontal">
+    <af:separator id="s2"
+                  inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
+   </af:panelGroupLayout>
+   <af:spacer width="10" height="15" id="s17"/>
+   
+   <!--For the header-->
+   <af:panelGroupLayout id="pgl6" layout="horizontal"
+                        inlineStyle="width:960.0px;">
+    <af:panelGroupLayout id="pgl9" layout="vertical"
+                         inlineStyle="width:380px; height:150.0px;"
+                         valign="top">
+     <h:panelGrid columns="4" id="pg2" cellpadding="3" cellspacing="2"
+                  style="text-align:left; vertical-align:top;">
+      <af:panelGroupLayout id="pgl12"
+                           inlineStyle="height:auto; text-align:justify; width:8.0px;"
+                           layout="vertical">
+       <!--<af:outputText value="*" id="col"/>-->
+       <!--<af:spacer width="20" height="20" id="s21"/>-->
+       <!--<af:outputText value="*" id="ot14"/>-->
+       <!--<af:spacer width="20" height="20" id="s18"/>-->
+       <!--<af:outputText value="*" id="ot18"/>-->
+       <!--<af:spacer width="20" height="20" id="spacer7"/>-->
+       <!--<af:outputText value="*" id="outputText5"/>-->
+      </af:panelGroupLayout>
+      <af:panelGroupLayout id="pgl36"
+                           inlineStyle="height:auto; text-align:justify; width:130.0px;overflow:hidden;"
+                           layout="vertical">
+       <af:outputText value="#{sfr.ENGAGE_CATEGORY}" id="ot53"/>
+       <af:spacer width="20" height="20" id="s45"/>
+       <af:outputText value="#{sfr.PLEASE_SELECT_ENG}" id="ot54"/>
+       <af:spacer width="20" height="20" id="s20"/>
+       <af:outputText value="#{sfr.ENGAGE_FROM}" id="ot4"/>
+       <af:spacer width="20" height="20" id="spacer2"/>
+       <af:outputText value="#{sfr.ENGAGE_TO}" id="ot6"/>
+      </af:panelGroupLayout>
+      <af:panelGroupLayout id="pgl34"
+                           inlineStyle="height:auto; text-align:justify; width:10.0px;"
+                           layout="vertical">
+       <af:outputText value=":" id="ot12"/>
+       <af:spacer width="20" height="20" id="s36"/>
+       <af:outputText value=":" id="ot33"/>
+       <af:spacer width="20" height="20" id="s43"/>
+       <af:outputText value=":" id="ot41"/>
+        <af:spacer width="20" height="20" id="s5"/>
+       <af:outputText value=":" id="ot20"/>
+      </af:panelGroupLayout>
+      <af:panelGroupLayout id="pgl18"
+                           inlineStyle="height:auto; text-align:justify; width:200.0px;"
+                           layout="vertical">
+       <!--<af:selectManyChoice id="smc45" autoSubmit="true"
+                            binding="#{pageFlowScope.MessageInboxBean.bindings.category}"
+                            value="#{pageFlowScope.MessageInboxBean.categoryValue}"
+                            contentStyle="width: 175px;"
+                            valueChangeListener="#{pageFlowScope.MessageInboxBean.categoryVCE}">
+        <af:forEach items="#{pageFlowScope.MessageInboxBean.categoryList}"
+                    var="listItem">
+         <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
+                        id="select_item_account1"/>
+        </af:forEach>
+       </af:selectManyChoice>-->
+       <af:selectOneChoice value="#{pageFlowScope.MessageInboxBean.categoryValue}"
+       binding="#{pageFlowScope.MessageInboxBean.bindings.category}" contentStyle="width: 200px;"
+                              autoSubmit="true" partialTriggers="cb2"
+                            id="smc2"
+                           valueChangeListener="#{pageFlowScope.MessageInboxBean.categoryValueChangeEvent}">
+                             <af:forEach items="#{pageFlowScope.MessageInboxBean.categoryList}"
+                    var="listItem">
+        <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
+                       id="si2"/>
+                       </af:forEach>
+       </af:selectOneChoice>
+       <af:spacer width="20" height="15" id="s41"/>
+       <af:selectManyChoice id="smc4" autoSubmit="true" partialTriggers="cb2"
+                            binding="#{pageFlowScope.MessageInboxBean.bindings.messageType}"
+                            value="#{pageFlowScope.MessageInboxBean.messageTypeValue}"
+                            contentStyle="width: 175px;"
+                            valueChangeListener="#{pageFlowScope.MessageInboxBean.messageTypeValueChangeEvent}">
+        <af:forEach items="#{pageFlowScope.MessageInboxBean.messageTypeList}"
+                    var="listItem">
+         <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
+                        id="select_item_account"/>
+        </af:forEach>
+       </af:selectManyChoice>
+       <af:spacer width="20" height="15" id="s42"/>
+       <af:inputDate id="fromId" partialTriggers="cb2"
+                     binding="#{pageFlowScope.MessageInboxBean.bindings.fromDate}"
+                     contentStyle="width: 169px;">
+        <af:convertDateTime pattern="dd.MM.yyyy"/>
+       </af:inputDate>
+       <af:spacer width="20" height="15" id="spacer3"/>
+       <af:inputDate id="id1" partialTriggers="cb2"
+                     binding="#{pageFlowScope.MessageInboxBean.bindings.toDate}"
+                     contentStyle="width: 169px;">
+        <af:convertDateTime pattern="dd.MM.yyyy"/>
+       </af:inputDate>
+     
+      </af:panelGroupLayout>
+     </h:panelGrid>
+     <af:spacer width="10" height="50" id="spacer8"/>
+    </af:panelGroupLayout>
+    <af:panelGroupLayout id="pgl5">
+     <af:separator id="s4" styleClass="vertical_seprator_trans"
+                   inlineStyle="height: 150px !important;"/>
+    </af:panelGroupLayout>
+    <af:spacer width="30" height="10" id="s40"/>
+    <af:panelGroupLayout id="pgl7" layout="vertical" valign="top"
+                         inlineStyle="width:400px; height:150.0px;">
+     <h:panelGrid columns="4" id="pg4" cellpadding="3" cellspacing="2"
+                  style="text-align:left; vertical-align:top;">
+      <af:panelGroupLayout id="pgl42"
+                           inlineStyle="height:auto; text-align:justify; width:8.0px;"
+                           layout="vertical" visible="false">
+       <af:outputText value=" " id="ot15"/>
+       <af:spacer width="20" height="35" id="s44"/>
+       <af:outputText value="*" id="ot67"/>
+       <af:spacer width="20" height="20" id="s46"/>
+       <af:outputText value="*" id="ot68"/>
+      </af:panelGroupLayout>
+      <af:panelGroupLayout id="pgl31"
+                           inlineStyle="height:auto; text-align:justify; width:125.0px;overflow:hidden;"
+                           layout="vertical">
+       <af:outputText value="#{sfr.PARTNER_ENG}" id="ot2"/>
+       <af:spacer width="20" height="20" id="s27"/>
+       <af:outputText value="#{sfr.ENGAGE_ACCOUNT}" id="outputText1"/>
+       <af:spacer width="20" height="20" id="s28"/>
+       <af:outputText value="#{sfr.ENGAGE_CARD_GROUP}" id="outputText2"/>
+       <af:spacer width="20" height="20" id="spacer4"/>
+       <af:outputText value="#{sfr.ENGAGE_CARD}" id="outputText3"/>
+      </af:panelGroupLayout>
+      <af:panelGroupLayout id="pgl32"
+                           inlineStyle="height:auto; text-align:justify; width:10.0px;"
+                           layout="vertical">
+       <af:outputText value=":" id="outputText4"/>
+       <af:spacer width="20" height="24" id="spacer5"/>
+       <af:outputText value=":" id="ot5"/>
+       <af:spacer width="20" height="20" id="s29"/>
+       <af:outputText value=":" id="ot7"/>
+       <af:spacer width="20" height="20" id="s30"/>
+       <af:outputText value=":" id="ot9"/>
+      </af:panelGroupLayout>
+      <af:panelGroupLayout id="pgl33"
+                           inlineStyle="height:auto; text-align:justify; width:200.0px;"
+                           layout="vertical">
+       <af:selectManyChoice id="selectManyChoice1" autoSubmit="true" partialTriggers="smc2 cb2"
+       disabled="#{pageFlowScope.MessageInboxBean.isMessageAdmin}"
+                            binding="#{pageFlowScope.MessageInboxBean.bindings.partnerNumber}"
+                            value="#{pageFlowScope.MessageInboxBean.partnerValue}"
+                            valueChangeListener="#{pageFlowScope.MessageInboxBean.partnerValueChangeListener}"
+                            contentStyle="width: 175px;">
+        <af:forEach items="#{pageFlowScope.MessageInboxBean.partnerList}"
+                    var="listItem">
+         <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
+                        id="selectItem4"/>
+        </af:forEach>
+       </af:selectManyChoice>
+       <af:spacer width="20" height="15" id="s31"/>
+        <af:selectManyChoice id="smc1" autoSubmit="true" disabled="#{pageFlowScope.MessageInboxBean.isMessageAdmin}"
+                            binding="#{pageFlowScope.MessageInboxBean.bindings.account}" partialTriggers="smc2 cb2"
+                            value="#{pageFlowScope.MessageInboxBean.accountValue}"
+                            valueChangeListener="#{pageFlowScope.MessageInboxBean.accountValueChangeListener}"
+                            contentStyle="width: 175px;">
+        <af:forEach items="#{pageFlowScope.MessageInboxBean.accountList}"
+                    var="listItem">
+         <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
+                        id="si1"/>
+        </af:forEach>
+       </af:selectManyChoice>
+       <af:spacer width="20" height="15" id="s32"/>
+       <af:selectManyChoice id="selectManyChoice3"
+                            disabled="#{pageFlowScope.MessageInboxBean.isMessageAdmin}" partialTriggers="smc2 cb2"
+                            binding="#{pageFlowScope.MessageInboxBean.bindings.cardGroup}"
+                            value="#{pageFlowScope.MessageInboxBean.cardGroupValue}"
+                            valueChangeListener="#{pageFlowScope.MessageInboxBean.cgValueChangeListener}"
+                            contentStyle="width: 175px;">
+        <af:forEach items="#{pageFlowScope.MessageInboxBean.cardGroupList}"
+                    var="listItem">
+         <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
+                        id="selectItem2"/>
+        </af:forEach>
+       </af:selectManyChoice>
+       <af:spacer width="20" height="15" id="spacer6"/>
+       <af:selectManyChoice id="selectManyChoice4" partialTriggers="smc2 cb2"
+       disabled="#{pageFlowScope.MessageInboxBean.isMessageAdmin}"
+                            binding="#{pageFlowScope.MessageInboxBean.bindings.card}"
+                            value="#{pageFlowScope.MessageInboxBean.cardValue}"
+                            contentStyle="width: 175px;">
+        <af:forEach items="#{pageFlowScope.MessageInboxBean.cardList}"
+                    var="listItem">
+         <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
+                        id="selectItem3"/>
+        </af:forEach>
+       </af:selectManyChoice>
+      </af:panelGroupLayout>
+     </h:panelGrid>
+     <af:spacer width="10" height="30" id="s3"/>
+     <af:panelGroupLayout id="pgal1" halign="right" layout="horizontal">
+      <af:commandButton text="#{sfr.SEARCH}" id="cb1"
+                        
+      actionListener="#{pageFlowScope.MessageInboxBean.searchResultsListener}"/>
+      <af:spacer width="10" height="10" id="s11"/>
+      <af:commandButton text="#{sfr.CLEAR}" id="cb2" actionListener="#{pageFlowScope.MessageInboxBean.clearSearchListener}"/>
+                       
+      <af:spacer width="28" height="10" id="s33"/>
+     </af:panelGroupLayout>
+    </af:panelGroupLayout>
+   </af:panelGroupLayout>
+   <!--For the header end-->
+   <af:spacer width="5" height="80" id="spacer1"/>
+   <af:panelGroupLayout id="pgl23">
+    <af:separator id="s8"
+                  inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
+   </af:panelGroupLayout>
+   <af:spacer width="10" height="10" id="s58"/>
+   <af:panelGroupLayout id="pgl20" visible="#{pageFlowScope.MessageInboxBean.isSearchTableVisible}" partialTriggers="smc2"
+                       binding="#{pageFlowScope.MessageInboxBean.bindings.searchTablePanel}">
+    <af:panelGroupLayout id="pgl15" layout="vertical">
+     <af:panelGroupLayout id="pgl14" layout="horizontal"
+                          inlineStyle="width:948.0px;">
+      <af:outputText value="#{sfr.ENGAGE_MESSAGE_DETAILS} :" id="ot8"
+                     styleClass="subheading" noWrap="true"/>
+      <af:spacer width="10" height="10" id="spreport"/>
+      
+     </af:panelGroupLayout>
+     <af:spacer width="10" height="10" id="s56ht"/>
+     <af:panelGroupLayout id="pgl17">
+      <af:spacer width="500" height="2" id="s56"/>
+     </af:panelGroupLayout>
+    </af:panelGroupLayout>
+  
+    
+    <af:panelGroupLayout id="pgl13" inlineStyle="width:962.0px;">
+     <af:spacer width="10" height="5" id="s7"/>
+     <!--Space for table
+     -->
+
+     <af:table value="#{bindings.PrtPcmFeedsRVO1.collectionModel}" var="row"
+               rows="#{bindings.PrtPcmFeedsRVO1.rangeSize}" 
+                autoHeightRows="15"  contentDelivery="immediate"
+                inlineStyle="height:auto;"
+               emptyText="#{bindings.PrtPcmFeedsRVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+               fetchSize="#{bindings.PrtPcmFeedsRVO1.rangeSize}"
+               rowBandingInterval="1" width="900" columnResizing="disabled"
+               filterModel="#{bindings.PrtPcmFeedsRVO11Query.queryDescriptor}"
+               queryListener="#{bindings.PrtPcmFeedsRVO11Query.processQuery}"
+               filterVisible="true" varStatus="vs"
+               selectedRowKeys="#{bindings.PrtPcmFeedsRVO1.collectionModel.selectedRow}"
+               selectionListener="#{bindings.PrtPcmFeedsRVO1.collectionModel.makeCurrent}"
+               rowSelection="single" id="t1">
+      <af:column sortProperty="readFlag" width="50" align="center"
+                 
+                 id="c2">
+       <af:selectBooleanCheckbox value="#{row.readFlag}"   id="sbc1"/>
+       <!--<af:outputText value="#{row.readFlag}" id="ot11"/>-->
+         <!--<af:selectBooleanCheckbox value="#{row.readFlag}"
+                                    />-->
+      </af:column>
+      <af:column sortProperty="EffectiveDate" filterable="true" sortable="true" width="150" 
+                 headerText="#{sfr.ENGAGE_DATE}"
+                 id="c6">
+       <f:facet name="filter">
+        <af:inputDate value="#{vs.filterCriteria.EffectiveDate}" id="id2">
+          <af:convertDateTime pattern="dd.MM.yyyy"/>
+          </af:inputDate>
+       </f:facet>
+       <af:outputText value="#{row.EffectiveDate}" id="ot16">
+        <af:convertDateTime pattern="dd.MM.yyyy"/>
+       </af:outputText>
+      </af:column>
+      
+      <af:column sortProperty="Title" filterable="true" sortable="true" width="200"
+                headerText="#{sfr.ENGAGE_TITLE}"
+                 id="c5">
+       <af:outputText value="#{row.Title}" id="ot17" escape="false"/>
+      </af:column>
+      <af:column sortProperty="MessageEnglish" filterable="true" sortable="true" width="550"
+                 headerText="#{sfr.ENGAGE_MESSAGE}"
+                 id="c1" noWrap="false">
+      
+  <af:outputText value="#{row.MessageLang eq null? row.MessageEnglish : row.MessageLang}" id="ot3"
+         escape="false" styleClass="contenttext"
+         />
+      
+  <!--<af:panelGroupLayout id="pgl19"
+                                   inlineStyle="width:350px;" layout="horizontal"
+                                   >
+          <af:outputText value="#{row.MessageLang eq null? row.MessageEnglish : row.MessageLang}" escape="false"  inlineStyle="white-space: -moz-pre-wrap"
+                        id="it1">
+            
+          </af:outputText>
+          </af:panelGroupLayout>-->
+        
+
+      </af:column>
+     
+     </af:table>
+     <af:spacer width="10" height="20" id="s59"/>
+    </af:panelGroupLayout>
+   </af:panelGroupLayout>
+
+ 
+  </af:panelGroupLayout>
+ </af:panelGroupLayout>
+</jsp:root>

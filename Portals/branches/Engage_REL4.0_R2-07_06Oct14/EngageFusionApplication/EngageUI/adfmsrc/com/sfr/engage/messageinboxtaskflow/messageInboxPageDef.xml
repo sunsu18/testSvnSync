@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.61.92" id="messageInboxPageDef"
+                Package="com.sfr.engage.messageinboxtaskflow">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="PrtPcmFeedsRVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtPcmFeedsRVO1Iterator"/>
+    <iterator Binds="PrtCustomerCardMapRVO1_1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtCustomerCardMapRVO1_1Iterator"/>
+    <searchRegion Binds="PrtPcmFeedsRVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="PrtPcmFeedsRVO11Query"/>
+  </executables>
+  <bindings>
+    <list IterBinding="PrtCustomerCardMapRVO1_1Iterator"
+          ListOperMode="navigation" ListIter="PrtCustomerCardMapRVO1_1Iterator"
+          id="PrtCustomerCardMapRVO1_1" DTSupportsMRU="true">
+      <AttrNames>
+        <Item Value="CustomerType"/>
+      </AttrNames>
+    </list>
+    <tree IterBinding="PrtPcmFeedsRVO1Iterator" id="PrtPcmFeedsRVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtPcmFeedsRVO"
+                      Name="PrtPcmFeedsRVO10">
+        <AttrNames>
+          <Item Value="readFlag" Binds="readFlag"/>
+          <Item Value="EffectiveDate"/>
+          <Item Value="InformationType"/>
+          <Item Value="Title"/>
+          <Item Value="MessageEnglish"/>
+          <Item Value="MessageLang"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <button IterBinding="PrtPcmFeedsRVO1Iterator" id="readFlag"
+            DTSupportsMRU="false" StaticList="true">
+      <AttrNames>
+        <Item Value="readFlag"/>
+      </AttrNames>
+      <ValueList>
+        <Item Value="YES"/>
+        <Item Value="NO"/>
+      </ValueList>
+    </button>
+  </bindings>
+</pageDefinition>

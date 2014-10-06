@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+            xmlns:af="http://xmlns.oracle.com/adf/faces/rich" >
+<!--<c:set var="sfr" value="#{adfBundle['com.sfr.engage.model.resources.EngageResourceBundle']}"/>-->
+    <af:panelGroupLayout id="MainPanel" layout="scroll" styleClass="spacerStyle">
+   <af:spacer width="10" height="20" id="s9"/>
+    <af:panelGroupLayout id="Panel1" layout="horizontal">
+
+     <af:panelGroupLayout id="SelectAssociation" layout="horizontal"
+                          visible="true"
+                        >
+      <af:outputText value="#{sfr.SELECT_ASSOCIATION}" id="ot28" styleClass="heading"/>
+     </af:panelGroupLayout>
+    </af:panelGroupLayout>
+
+    <af:spacer width="5" height="10" id="s31"/>
+
+    <af:panelGroupLayout id="pgl2" layout="horizontal">
+      <af:separator id="s4"/>
+    </af:panelGroupLayout>
+    <af:spacer width="10" height="10" id="s6"/>
+    <af:subform defaultCommand="cb1" id="f1">
+  <af:panelGroupLayout id="pgl1" layout="horizontal">
+   <af:outputText value="#{sfr.SEARCH_USER} :" id="ot1"/>
+   <af:inputText  id="it1"
+                 binding="#{pageFlowScope.AssociationSelectionBean.searchText}"/>
+                 <af:spacer width="30" id="s1"/>
+    <af:commandButton text="#{sfr.SEARCH}" id="cb1"
+                     actionListener="#{pageFlowScope.AssociationSelectionBean.SearchIDMUsers}"/>
+  </af:panelGroupLayout>
+  </af:subform>
+  
+  <af:panelGroupLayout id="pgl3"
+                       
+                       partialTriggers="f1:cb1" visible="false"
+                       binding="#{pageFlowScope.AssociationSelectionBean.searchResultsIdm}"
+                       >
+                       <af:spacer height="25" id="s2"/>
+                       <af:outputText value="#{sfr.SEARCH_RESULTS_ENG}" id="ot2"/>
+
+
+<af:table var="row" rowBandingInterval="1" id="t1"
+          
+                           emptyText="#{sfr.NO_DATA}"
+                          fetchSize="-1" columnResizing="disabled" disableColumnReordering="true"
+                            autoHeightRows="10" 
+          
+          rowSelection="single"
+          value="#{pageFlowScope.AssociationSelectionBean.userdetailslist}"
+          binding="#{pageFlowScope.AssociationSelectionBean.searchUsersTable}"
+          styleClass="AFStretchWidth">
+                  <af:column sortable="false" id="c13" width="28" align="center">
+     <af:selectBooleanRadio  
+                            id="sbr1" group="g1" autoSubmit="true"
+                            >
+         <!--<af:setPropertyListener from="#{row.emailID}"
+                                          to="#{pageFlowScope.userEmail}"
+                                          type="valueChange"/>-->                   
+                            </af:selectBooleanRadio>
+     <!--<af:selectBooleanCheckbox id="sbc1"
+                                          
+                                          autoSubmit="true">
+                </af:selectBooleanCheckbox>-->
+                  </af:column>
+                  <af:column sortable="false" headerText="#{sfr.USERS}" id="c1"
+                             width="300">
+                    <af:panelGroupLayout layout="vertical" id="pgl4">
+                    <af:outputText value="#{row.firstname}  #{row.lastname}"
+                                   id="ot5"
+                                   />
+                    <af:outputText value="#{row.useremail}" id="ot4"
+                                   noWrap="false"/>
+                    <af:outputText value="#{row.partnerids}" 
+                    id="ot3" truncateAt="43"/>
+                    <!--<af:outputText value="#{row.roleList}" 
+                    id="ot5"/>-->
+                    </af:panelGroupLayout>
+                    
+                  </af:column>
+
+                </af:table>
+                <af:spacer height="20" id="s3"/>
+   <af:commandButton text="#{sfr.CONFIRM}" id="cb2"
+                    
+                     actionListener="#{pageFlowScope.AssociationSelectionBean.userconfirmed}"
+                     binding="#{pageFlowScope.AssociationSelectionBean.confirmButton}"/>
+  </af:panelGroupLayout>
+ </af:panelGroupLayout>
+</jsp:root>
