@@ -366,6 +366,61 @@ public class DAOFactory {
         }
         return connection;
     }
+    
+    public static Connection getEngageJNDIConnection() throws SQLException, NamingException {
+
+        // initially no connection
+        Connection connection = null;
+        InitialContext objinitialContext = null;
+        DataSource datasource = null;
+
+        //              The WLInitialContextFactory creates initial contexts for accessing
+        //              the WebLogic naming service. It can also be used to
+        //              create a multitier connection to another naming service
+        //              through a WebLogic Server.
+        //
+        //               use hashtable to map specific keys into table
+
+        try {
+            Hashtable env = new Hashtable();
+            env.put(Context.INITIAL_CONTEXT_FACTORY, "weblogic.jndi.WLInitialContextFactory");
+
+            // env.put(Context.PROVIDER_URL, "t3://10.101.53.66:8001");
+            // Below property is required only if you are running as stand-alone app
+            // env.put(Context.PROVIDER_URL, getPropertyValue("JNDI_URI"));
+
+
+            //to obtain the initial context that contains
+            //the resource (a Java object).
+            objinitialContext = new InitialContext(env);
+
+            // use datasource for connection to physical data source.
+            // Give JNDI name under lookup.
+            datasource = (DataSource)objinitialContext.lookup(getPropertyValue("ENGAGE_JNDI_NAME").toString());
+
+            if (datasource != null) {
+                connection = datasource.getConnection();
+            }
+
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+            throw sqle;
+        } catch (NamingException ne) {
+            ne.printStackTrace();
+            throw ne;
+        } finally {
+            try {
+
+                if (objinitialContext != null) {
+                    objinitialContext.close();
+                }
+            } catch (NamingException ne) {
+                ne.printStackTrace();
+                throw ne;
+            }
+        }
+        return connection;
+    }
 
     /**
      * @param sqlQuery
@@ -844,7 +899,7 @@ public class DAOFactory {
         String rolesString = "";
 
         try {
-            connection = getJNDIConnection();
+            connection = getEngageJNDIConnection();
             if (null != connection) {
                 List<String> params = new ArrayList<String>();
                 List<String> params1 = new ArrayList<String>();
