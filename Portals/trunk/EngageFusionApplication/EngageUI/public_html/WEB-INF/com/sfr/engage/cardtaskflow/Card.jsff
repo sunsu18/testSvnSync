@@ -273,6 +273,12 @@
                 <f:validator binding="#{row.bindings.CardEmbossNum.validator}"/>
               </af:inputText>
             </af:column>
+              <af:column headerText="#{sfr.CARD_TEXTLINE_2}" filterable="true"
+                       sortProperty="CardTextline2" sortable="true" id="c10"
+                       width="175px" filterFeatures="caseInsensitive">
+              <af:outputText value="#{row.CardTextline2}" id="ot35"
+                             truncateAt="22"/>
+            </af:column>            
             <af:column sortProperty="CardType" filterable="true" width="90px"
                        sortable="true" headerText="#{sfr.CARD_TYPE}"
                        filterFeatures="caseInsensitive" id="c12">
@@ -298,12 +304,7 @@
                 <f:validator binding="#{row.bindings.TypeName.validator}"/>
               </af:inputText>
             </af:column>
-            <af:column headerText="#{sfr.CARD_TEXTLINE_2}" filterable="true"
-                       sortProperty="CardTextline2" sortable="true" id="c10"
-                       width="175px" filterFeatures="caseInsensitive">
-              <af:outputText value="#{row.CardTextline2}" id="ot35"
-                             truncateAt="22"/>
-            </af:column>
+          
             <af:column headerText="#{sfr.STATUS}" sortProperty="Status"
                        filterable="true" sortable="true"
                        filterFeatures="caseInsensitive" id="c18" align="center"
@@ -1038,7 +1039,7 @@
                                                method="#{pageFlowScope.CardBean.specificExportExcelListener}"/>
               </af:commandButton>
               <af:spacer width="10" height="10" id="s43"/>
-              <af:commandButton text="#{sfr.NO}" id="cb7"
+              <af:commandButton text="#{sfr.NO_ACTION}" id="cb7"
                                 action="#{pageFlowScope.CardBean.confirmationCancelAction}"/>
             </af:panelGroupLayout>
           </af:toolbar>

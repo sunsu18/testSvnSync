@@ -281,7 +281,7 @@
                                           method="#{pageFlowScope.InvoiceOverviewBean.specificExportExcelListener}"/>
           </af:commandButton>
           <af:spacer width="10" height="10" id="s43inv"/>
-          <af:commandButton text="#{sfr.NO}" id="cb7" action="#{pageFlowScope.InvoiceOverviewBean.confirmationCancelAction}"/>
+          <af:commandButton text="#{sfr.NO_ACTION}" id="cb7" action="#{pageFlowScope.InvoiceOverviewBean.confirmationCancelAction}"/>
          </af:panelGroupLayout>
         </af:toolbar>
        </f:facet>

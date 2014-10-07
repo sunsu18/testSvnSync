@@ -719,7 +719,7 @@
                                   action="#{pageFlowScope.DriverInfoBean.deleteDriverSave}"
                                   styleClass="buttonback buttontext"/>
                 <af:spacer width="10" height="10" id="s10"/>
-                <af:commandButton text="#{sfr.NO}" id="cb9"
+                <af:commandButton text="#{sfr.NO_ACTION}" id="cb9"
                                   actionListener="#{bindings.Rollback.execute}"
                                   immediate="true"
                                   action="#{pageFlowScope.DriverInfoBean.deleteDriverCancel}"
@@ -762,7 +762,7 @@
                                   action="#{pageFlowScope.DriverInfoBean.delteAllForAccount}"
                                   styleClass="buttonback buttontext"/>
                 <af:spacer width="10" height="10" id="s33"/>
-                <af:commandButton text="#{sfr.NO}" id="cb7"
+                <af:commandButton text="#{sfr.NO_ACTION}" id="cb7"
                                   actionListener="#{bindings.Rollback.execute}"
                                   immediate="true"
                                   action="#{pageFlowScope.DriverInfoBean.deleteAllForAccountCancel}"

@@ -32,13 +32,13 @@
           <af:panelGroupLayout id="pgl7" layout="vertical" valign="top" inlineStyle="width:390px; height:100.0px;">
             <h:panelGrid columns="4" id="pg2" cellpadding="3" cellspacing="2" style="text-align:left; vertical-align:top;">
               <af:panelGroupLayout id="pgl36" inlineStyle="height:auto; text-align:justify; width:6.0px;overflow:hidden;" layout="vertical">
-                <af:outputText value="*" id="op51"/>
-                <af:spacer width="20" height="84" id="s45"/>
-                <af:outputText value=" " id="ot7"/>
-                <af:spacer width="20" height="5" id="s20"/>
-                <af:outputText value=" " id="ot41"/>
-                <af:spacer width="20" height="20" id="s6"/>
-                <af:outputText value=" " id="ot2"/>
+                <!--<af:outputText value="*" id="op51"/>-->
+                <!--<af:spacer width="20" height="84" id="s45"/>-->
+                <!--<af:outputText value=" " id="ot7"/>-->
+                <!--<af:spacer width="20" height="5" id="s20"/>-->
+                <!--<af:outputText value=" " id="ot41"/>-->
+                <!--<af:spacer width="20" height="20" id="s6"/>-->
+                <!--<af:outputText value=" " id="ot2"/>-->
               </af:panelGroupLayout>
               <af:panelGroupLayout id="pgl4" inlineStyle="height:auto; text-align:justify; width:110.0px;overflow:hidden;" layout="vertical">
                 <af:outputText value="#{sfr.PARTNER_ENG}" id="ot3"/>

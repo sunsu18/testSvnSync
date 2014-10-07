@@ -1041,7 +1041,7 @@
                                         method="#{pageFlowScope.TransactionOverviewBean.specificExportExcelListener}"/>
                 </af:commandButton>
                  <af:spacer width="10" height="10" id="s58"/>
-                <af:commandButton text="#{sfr.NO}" id="cb7"
+                <af:commandButton text="#{sfr.NO_ACTION}" id="cb7"
                                  action="#{pageFlowScope.TransactionOverviewBean.confirmationCancelAction}"/>
                 </af:panelGroupLayout>
             </af:toolbar>

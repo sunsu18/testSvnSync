@@ -1687,7 +1687,7 @@
   </af:panelGroupLayout>
  </af:panelGroupLayout>
  <af:popup contentDelivery="immediate" autoCancel="disabled" id="p2" binding="#{pageFlowScope.AccountSummaryBean.bindings.showAllPopUp}">
-  <af:noteWindow inlineStyle="width:350.0px;">
+  <af:noteWindow inlineStyle="width:370.0px;">
    <af:panelGroupLayout id="pgl27" layout="horizontal">
     <af:outputText value="#{sfr.SHOW_ALL_MSG}:" inlineStyle="font-weight:bold"/>
    </af:panelGroupLayout>

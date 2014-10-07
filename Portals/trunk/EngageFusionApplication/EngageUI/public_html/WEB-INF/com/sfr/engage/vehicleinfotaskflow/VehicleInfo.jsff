@@ -810,7 +810,7 @@
                                   action="#{pageFlowScope.VehicleInfoBean.deleteAllForAccount}"
                                   styleClass="buttonback buttontext"/>
                 <af:spacer width="10" height="10" id="s36"/>
-                <af:commandButton text="#{sfr.NO}" id="cb9"
+                <af:commandButton text="#{sfr.NO_ACTION}" id="cb9"
                                   actionListener="#{bindings.Rollback.execute}"
                                   immediate="true"
                                   action="#{pageFlowScope.VehicleInfoBean.deleteAllForAccountCancel}"
