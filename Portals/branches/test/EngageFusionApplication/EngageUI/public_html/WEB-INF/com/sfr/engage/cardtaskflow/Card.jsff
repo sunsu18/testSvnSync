@@ -1,0 +1,1051 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:f="http://java.sun.com/jsf/core" version="2.1"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:c="http://java.sun.com/jsp/jstl/core">
+  <af:panelGroupLayout id="pgl1" styleClass="spacerStyle" layout="vertical">
+    <af:panelGroupLayout id="pgl2">
+      <af:spacer width="10" height="20" id="s1"/>
+      <af:panelGroupLayout id="printPanel1" layout="horizontal">
+        <af:outputText value="#{sfr.VIEW_CARDS}" id="ot1" styleClass="heading"/>
+        <af:spacer width="20" height="1" id="s4"/>
+      </af:panelGroupLayout>
+      <af:spacer width="5" height="10" id="s11"/>
+      <af:panelGroupLayout id="pgl9" layout="horizontal">
+        <af:separator id="s3"
+                      inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
+      </af:panelGroupLayout>
+      <af:spacer width="10" height="15" id="s17"/>
+      <af:panelGroupLayout id="pgl6" layout="horizontal"
+                           inlineStyle="width:960.0px;">
+        <af:panelGroupLayout id="pgl3" layout="vertical"
+                             inlineStyle="width:380px; height:150.0px;"
+                             valign="top">
+          <h:panelGrid columns="4" id="pg2" cellpadding="3" cellspacing="2"
+                       style="text-align:left; vertical-align:top;">
+            <af:panelGroupLayout id="pgl12"
+                                 inlineStyle="height:auto; text-align:justify; width:4.0px;"
+                                 layout="vertical">
+              <!--<af:outputText value="*" id="col"/>-->
+              <af:spacer width="20" height="15" id="s21"/>
+              <af:outputText value=" " id="ot14"/>
+              <af:spacer width="20" height="25" id="s18"/>
+            </af:panelGroupLayout>
+            <af:panelGroupLayout id="pgl36"
+                                 inlineStyle="height:60px; text-align:justify; width:130.0px;overflow:hidden;"
+                                 layout="vertical">
+              <af:outputText value="#{sfr.PARTNER_ENG}" id="ot2"/>
+              <af:spacer width="20" height="20" id="s45"/>
+              <af:outputText value="#{sfr.ACCOUNT}" id="ot3"/>
+            </af:panelGroupLayout>
+            <af:panelGroupLayout id="pgl34"
+                                 inlineStyle="height:auto; text-align:justify; width:10.0px;"
+                                 layout="vertical">
+              <af:outputText value=":" id="ot12"/>
+              <af:spacer width="20" height="20" id="s36"/>
+              <af:outputText value=":" id="ot33"/>
+            </af:panelGroupLayout>
+            <af:panelGroupLayout id="pgl18"
+                                 inlineStyle="height:auto; text-align:justify; width:200.0px;"
+                                 layout="vertical">
+              <af:selectManyChoice id="soc3" showRequired="false"
+                                   contentStyle="width: 175px;"
+                                   value="#{pageFlowScope.CardBean.partnerIdValue}"
+                                   autoSubmit="true" partialTriggers="cb3"
+                                   valueChangeListener="#{pageFlowScope.CardBean.partnerValueChangeListener}"
+                                   binding="#{pageFlowScope.CardBean.bindings.partner}">
+                <af:forEach var="listItem"
+                            items="#{pageFlowScope.CardBean.partnerIdList}">
+                  <af:selectItem label="#{listItem.label}"
+                                 value="#{listItem.value}"
+                                 id="select_item_account"/>
+                </af:forEach>
+              </af:selectManyChoice>
+              <af:spacer width="20" height="17" id="s41"/>
+              <af:selectManyChoice id="smc2" contentStyle="width: 175px;"
+                                   value="#{pageFlowScope.CardBean.accountIdValue}"
+                                   partialTriggers="soc3 cb3"
+                                   valueChangeListener="#{pageFlowScope.CardBean.accountValueChangeListener}"
+                                   autoSubmit="true"
+                                   binding="#{pageFlowScope.CardBean.bindings.account}">
+                <af:forEach items="#{pageFlowScope.CardBean.accountIdList}"
+                            var="listItem">
+                  <af:selectItem id="si1" value="#{listItem.value}"
+                                 label="#{listItem.label}"></af:selectItem>
+                </af:forEach>
+              </af:selectManyChoice>
+            </af:panelGroupLayout>
+          </h:panelGrid>
+        </af:panelGroupLayout>
+        <af:panelGroupLayout id="pgl5">
+          <af:separator id="s2" styleClass="vertical_seprator_trans"
+                        inlineStyle="height: 150px !important;"/>
+        </af:panelGroupLayout>
+        <af:spacer width="30" height="10" id="s40"/>
+        <af:panelGroupLayout id="pgl7" layout="vertical" valign="top"
+                             inlineStyle="width:400px; height:150.0px;">
+          <h:panelGrid columns="4" id="pg4" cellpadding="3" cellspacing="2"
+                       style="text-align:left; vertical-align:top;">
+            <af:panelGroupLayout id="pgl42"
+                                 inlineStyle="height:auto; text-align:justify; width:8.0px;"
+                                 layout="vertical">
+              <af:spacer width="20" height="35" id="s44"/>
+            </af:panelGroupLayout>
+            <af:panelGroupLayout id="pgl31"
+                                 inlineStyle="height:auto; text-align:justify; width:125.0px;overflow:hidden;"
+                                 layout="vertical">
+              <af:outputText value="#{sfr.CARDGROUP}" id="ot7"/>
+              <af:spacer width="20" height="20" id="s27"/>
+              <af:outputText value="#{sfr.STATUS}" id="ot8"/>
+            </af:panelGroupLayout>
+            <af:panelGroupLayout id="pgl32"
+                                 inlineStyle="height:auto; text-align:justify; width:10.0px;"
+                                 layout="vertical">
+              <af:outputText value=":" id="ot5"/>
+              <af:spacer width="20" height="23" id="s29"/>
+              <af:outputText value=":" id="ot11"/>
+            </af:panelGroupLayout>
+            <af:panelGroupLayout id="pgl33"
+                                 inlineStyle="height:60px; text-align:justify; width:200.0px;"
+                                 layout="vertical">
+              <af:selectManyChoice id="smc7" contentStyle="width:175px;"
+                                   value="#{pageFlowScope.CardBean.cardGroupValue}"
+                                   partialTriggers="soc3 smc2 cb3"
+                                   binding="#{pageFlowScope.CardBean.bindings.cardGroup}"
+                                   valueChangeListener="#{pageFlowScope.CardBean.cardGroupValueChangeListener}"
+                                   autoSubmit="true">
+                <af:forEach items="#{pageFlowScope.CardBean.cardGroupList}"
+                            var="listItem">
+                  <af:selectItem id="si2" value="#{listItem.value}"
+                                 label="#{listItem.label}"></af:selectItem>
+                </af:forEach>
+              </af:selectManyChoice>
+              <af:spacer width="20" height="13" id="s31"/>
+              <af:selectManyChoice id="smc8" contentStyle="width: 175px;"
+                                   value="#{pageFlowScope.CardBean.statusValue}"
+                                   binding="#{pageFlowScope.CardBean.bindings.status}"
+                                   partialTriggers="cb3" autoSubmit="true"
+                                   valueChangeListener="#{pageFlowScope.CardBean.statusValueChangeListener}">
+                <af:forEach items="#{pageFlowScope.CardBean.statusList}"
+                            var="listItem">
+                  <af:selectItem value="#{listItem.value}"
+                                 label="#{listItem.label}"
+                                 id="select_item_type"/>
+                </af:forEach>
+              </af:selectManyChoice>
+            </af:panelGroupLayout>
+          </h:panelGrid>
+          <af:spacer width="10" height="30" id="s6"/>
+          <af:panelGroupLayout id="pgal1" halign="right" layout="horizontal">
+            <af:commandButton text="#{sfr.SEARCH}" id="cb2"
+                              actionListener="#{pageFlowScope.CardBean.searchViewCardAction_event}"></af:commandButton>
+            <af:spacer width="10" height="10" id="s7"/>
+            <af:commandButton text="#{sfr.CLEAR}" id="cb3"
+                              actionListener="#{pageFlowScope.CardBean.clearSearchListener}"/>
+            <af:spacer width="24" height="10" id="s33"/>
+          </af:panelGroupLayout>
+        </af:panelGroupLayout>
+      </af:panelGroupLayout>
+    </af:panelGroupLayout>
+    <af:spacer width="5" height="10" id="spacer1"/>
+    <af:panelGroupLayout id="panelGroupLayout1" layout="horizontal">
+      <af:separator id="separator1"
+                    inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
+    </af:panelGroupLayout>
+    <af:spacer width="10" height="10" id="s16"/>
+    <af:panelGroupLayout id="pgl0" layout="vertical"
+                         visible="#{pageFlowScope.CardBean.isTableVisible}"
+                         partialTriggers="soc3 smc2 smc7 smc8">
+      <af:panelGroupLayout id="panelGroupLayout2" layout="vertical">
+        <af:spacer height="10" id="spacer18" width="0"/>
+        <af:panelGroupLayout id="pgl73" inlineStyle="width:948px;"
+                             layout="horizontal">
+          <af:outputText value="#{sfr.ENGAGE_CARD_DETAILS}:" id="outputText8"
+                         styleClass="subheading"/>
+          <af:spacer width="690" height="10" id="s28"/>
+          <af:spacer width="10" height="10" id="s15"/>
+          <af:panelGroupLayout id="pgl11" halign="right">
+            <af:commandButton text="#{sfr.TRANSACTION_EXPORT_EXCEL}"
+                              actionListener="#{pageFlowScope.CardBean.exportExcelSpecificAction}"
+                              id="cb1"/>
+          </af:panelGroupLayout>
+        </af:panelGroupLayout>
+        <af:spacer width="10" height="15" id="spacer2"/>
+        <af:panelGroupLayout id="panelGroupLayout3" layout="horizontal"
+                             inlineStyle="width:940.0px; height:25.0px;"
+                             halign="right">
+          <af:panelGroupLayout id="pgl54" layout="horizontal">
+            <af:panelGroupLayout id="pgl55" layout="horizontal">
+              <af:panelGroupLayout id="pgl92" styleClass="filter_table"
+                                   layout="horizontal"
+                                   inlineStyle="margin-right:25px;">
+                <af:showPopupBehavior triggerType="mouseOver" popupId="p3"/>
+              </af:panelGroupLayout>
+              <af:separator id="s79" styleClass="vertical_seprator_trans"
+                            inlineStyle="height:20.0px !important;"/>
+              <af:outputText value="* #{sfr.ENG_VIEW_CARD_NOTE}" id="ot59"
+                             styleClass="popupoutputText" noWrap="true"/>
+            </af:panelGroupLayout>
+            <af:popup id="p3">
+              <af:noteWindow id="nw2" inlineStyle="width:350.0px;">
+                <af:panelGroupLayout id="pgl56" layout="vertical">
+                  <af:outputText value="#{sfr.ENGAGE_FILTER_MESSAGE}" id="ot17"
+                                 styleClass="outputText3"/>
+                </af:panelGroupLayout>
+              </af:noteWindow>
+            </af:popup>
+          </af:panelGroupLayout>
+        </af:panelGroupLayout>
+        <af:panelGroupLayout id="pgl58" layout="horizontal">
+          <af:commandButton text="#{sfr.ENGAGE_FILTER}" id="cb8"
+                            actionListener="#{pageFlowScope.CardBean.filterTable}"/>
+          <af:spacer width="10" id="s73"/>
+          <af:commandButton text="#{sfr.ENGAGE_RESETFILTER}" id="cb5"
+                            actionListener="#{pageFlowScope.CardBean.resetFilterTable}"/>
+        </af:panelGroupLayout>
+        <af:spacer width="10" height="10" id="s78"/>
+        <af:panelGroupLayout id="pgl4" layout="scroll"
+                             inlineStyle="width:945px;">
+          <af:table value="#{bindings.PrtViewCardsVO11.collectionModel}"
+                    var="row" width="940px"
+                    rows="#{bindings.PrtViewCardsVO11.rangeSize}"
+                    emptyText="#{bindings.PrtViewCardsVO11.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED_ENG)}"
+                    fetchSize="#{bindings.PrtViewCardsVO11.rangeSize}"
+                    rowBandingInterval="1"
+                    filterModel="#{bindings.PrtViewCardsVO11Query.queryDescriptor}"
+                    queryListener="#{bindings.PrtViewCardsVO11Query.processQuery}"
+                    filterVisible="true" varStatus="vs"
+                    selectedRowKeys="#{bindings.PrtViewCardsVO11.collectionModel.selectedRow}"
+                    selectionListener="#{bindings.PrtViewCardsVO11.collectionModel.makeCurrent}"
+                    rowSelection="single" id="t1" disableColumnReordering="true"
+                    columnResizing="disabled" autoHeightRows="15"
+                    contentDelivery="immediate"
+                    binding="#{pageFlowScope.CardBean.bindings.searchResultsTB}">
+            <af:column sortProperty="PartnerId" headerText="#{sfr.PARTNER_ENG}"
+                       id="c14" filterFeatures="caseInsensitive"
+                       filterable="true" sortable="true">
+              <af:outputText value="#{row.PartnerId}" id="ot37"/>
+            </af:column>
+            <af:column sortProperty="AccountId" filterable="true"
+                       sortable="true" filterFeatures="caseInsensitive"
+                       headerText="#{sfr.ACCOUNT}" width="100px" id="c1">
+              <af:inputText value="#{row.bindings.AccountId.inputValue}"
+                            label="#{bindings.PrtViewCardsVO11.hints.AccountId.label}"
+                            required="#{bindings.PrtViewCardsVO11.hints.AccountId.mandatory}"
+                            columns="#{bindings.PrtViewCardsVO11.hints.AccountId.displayWidth}"
+                            maximumLength="#{bindings.PrtViewCardsVO11.hints.AccountId.precision}"
+                            shortDesc="#{bindings.PrtViewCardsVO11.hints.AccountId.tooltip}"
+                            id="it3">
+                <f:validator binding="#{row.bindings.AccountId.validator}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="CardgroupId" filterable="true"
+                       sortable="true" align="left" width="110"
+                       filterFeatures="caseInsensitive"
+                       headerText="#{sfr.CARDGROUP_ID}" id="c11">
+              <af:outputText value="#{row.CardgroupId}" id="ot100"/>
+            </af:column>
+            <af:column headerText="#{sfr.CARDGROUP_DESCRIPTION}"
+                       sortProperty="CardgroupDescription" filterable="true"
+                       sortable="true" id="c9" width="150px"
+                       filterFeatures="caseInsensitive">
+              <af:inputText value="#{row.bindings.CardgroupDescription.inputValue}"
+                            label="#{bindings.PrtViewCardsVO11.hints.CardgroupDescription.label}"
+                            required="#{bindings.PrtViewCardsVO11.hints.CardgroupDescription.mandatory}"
+                            columns="#{bindings.PrtViewCardsVO11.hints.CardgroupDescription.displayWidth}"
+                            maximumLength="#{bindings.PrtViewCardsVO11.hints.CardgroupDescription.precision}"
+                            shortDesc="#{bindings.PrtViewCardsVO11.hints.CardgroupDescription.tooltip}"
+                            id="it2">
+                <f:validator binding="#{row.bindings.CardgroupDescription.validator}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="CardEmbossNum" filterable="true"
+                       headerText="#{sfr.CARD}" sortable="true" id="c3"
+                       width="155px" filterFeatures="caseInsensitive">
+              <af:inputText value="#{row.bindings.CardEmbossNum.inputValue}"
+                            label="#{bindings.PrtViewCardsVO11.hints.CardEmbossNum.label}"
+                            required="#{bindings.PrtViewCardsVO11.hints.CardEmbossNum.mandatory}"
+                            columns="#{bindings.PrtViewCardsVO11.hints.CardEmbossNum.displayWidth}"
+                            maximumLength="#{bindings.PrtViewCardsVO11.hints.CardEmbossNum.precision}"
+                            shortDesc="#{bindings.PrtViewCardsVO11.hints.CardEmbossNum.tooltip}"
+                            id="it1">
+                <f:validator binding="#{row.bindings.CardEmbossNum.validator}"/>
+              </af:inputText>
+            </af:column>
+              <af:column headerText="#{sfr.CARD_TEXTLINE_2}" filterable="true"
+                       sortProperty="CardTextline2" sortable="true" id="c10"
+                       width="175px" filterFeatures="caseInsensitive">
+              <af:outputText value="#{row.CardTextline2}" id="ot35"
+                             truncateAt="22"/>
+            </af:column>            
+            <af:column sortProperty="CardType" filterable="true" width="90px"
+                       sortable="true" headerText="#{sfr.CARD_TYPE}"
+                       filterFeatures="caseInsensitive" id="c12">
+              <af:inputText value="#{row.bindings.CardType.inputValue}"
+                            label="#{bindings.PrtViewCardsVO11.hints.CardType.label}"
+                            required="#{bindings.PrtViewCardsVO11.hints.CardType.mandatory}"
+                            columns="#{bindings.PrtViewCardsVO11.hints.CardType.displayWidth}"
+                            maximumLength="#{bindings.PrtViewCardsVO11.hints.CardType.precision}"
+                            shortDesc="#{bindings.PrtViewCardsVO11.hints.CardType.tooltip}"
+                            id="it9">
+                <f:validator binding="#{row.bindings.CardType.validator}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="TypeName" filterable="true" width="250px"
+                       sortable="true" headerText="#{sfr.CARD_TYPE_DESCRIPTION}"
+                       filterFeatures="caseInsensitive" id="c6">
+              <af:inputText value="#{row.bindings.TypeName.inputValue}"
+                            required="#{bindings.PrtViewCardsVO11.hints.TypeName.mandatory}"
+                            columns="#{bindings.PrtViewCardsVO11.hints.TypeName.displayWidth}"
+                            maximumLength="#{bindings.PrtViewCardsVO11.hints.TypeName.precision}"
+                            shortDesc="#{bindings.PrtViewCardsVO11.hints.TypeName.tooltip}"
+                            id="it6">
+                <f:validator binding="#{row.bindings.TypeName.validator}"/>
+              </af:inputText>
+            </af:column>
+          
+            <af:column headerText="#{sfr.STATUS}" sortProperty="Status"
+                       filterable="true" sortable="true"
+                       filterFeatures="caseInsensitive" id="c18" align="center"
+                       width="150px">
+              <af:inputText value="#{row.bindings.Status.inputValue}"
+                            label="#{bindings.PrtViewCardsVO11.hints.Status.label}"
+                            required="#{bindings.PrtViewCardsVO11.hints.Status.mandatory}"
+                            columns="#{bindings.PrtViewCardsVO11.hints.Status.displayWidth}"
+                            maximumLength="#{bindings.PrtViewCardsVO11.hints.Status.precision}"
+                            shortDesc="#{bindings.PrtViewCardsVO11.hints.Status.tooltip}"
+                            id="it4">
+                <f:validator binding="#{row.bindings.Status.validator}"/>
+              </af:inputText>
+            </af:column>
+            <af:column headerText="#{sfr.ENGAGE_PRODUCED_DATE}" filterable="true"
+                       sortProperty="ManufacturedDate" width="110px"
+                       sortable="true" align="center" id="c4"
+                       filterFeatures="caseInsensitive">
+              <f:facet name="filter">
+                <af:inputDate value="#{vs.filterCriteria.ManufacturedDate}"
+                              id="id1">
+                  <af:convertDateTime pattern="dd.MM.yyyy"/>
+                </af:inputDate>
+              </f:facet>
+              <af:inputDate value="#{row.bindings.ManufacturedDate.inputValue}"
+                            label="#{bindings.PrtViewCardsVO11.hints.ManufacturedDate.label}"
+                            required="#{bindings.PrtViewCardsVO11.hints.ManufacturedDate.mandatory}"
+                            shortDesc="#{bindings.PrtViewCardsVO11.hints.ManufacturedDate.tooltip}"
+                            id="id3">
+                <f:validator binding="#{row.bindings.ManufacturedDate.validator}"/>
+                <af:convertDateTime pattern="dd.MM.yyyy"/>
+              </af:inputDate>
+            </af:column>
+                <af:column headerText="#{sfr.BLOCKED_DATE_TIME}"
+                       sortProperty="BlockDate" filterable="true" id="c17"
+                       align="center" filterFeatures="caseInsensitive"
+                       width="125px" visible="#{pageFlowScope.CardBean.blockedDateTime}">
+              <f:facet name="filter">
+                <af:inputDate value="#{vs.filterCriteria.BlockDate}" id="id7">
+                  <af:convertDateTime pattern="dd.MM.yyyy"/>
+                </af:inputDate>
+              </f:facet>
+              <af:panelGroupLayout layout="horizontal" id="pgl93">
+                <af:inputText value="#{row.bindings.BlockDate.inputValue}"
+                              required="#{bindings.PrtViewCardsVO11.hints.BlockDate.mandatory}"
+                              columns="#{bindings.PrtViewCardsVO11.hints.BlockDate.displayWidth}"
+                              maximumLength="#{bindings.PrtViewCardsVO11.hints.BlockDate.precision}"
+                              shortDesc="#{bindings.PrtViewCardsVO11.hints.BlockDate.tooltip}"
+                              id="it10">
+                  <f:validator binding="#{row.bindings.BlockDate.validator}"/>
+                  <af:convertDateTime pattern="dd.MM.yyyy"/>
+                </af:inputText>
+                <af:spacer height="5" width="5" id="s80"/>
+                <af:inputDate value="#{row.bindings.BlockTime.inputValue}"
+                              label="#{bindings.PrtViewCardsVO11.hints.BlockTime.label}"
+                              required="#{bindings.PrtViewCardsVO11.hints.BlockTime.mandatory}"
+                              shortDesc="#{bindings.PrtViewCardsVO11.hints.BlockTime.tooltip}"
+                              id="id4">
+                  <f:validator binding="#{row.bindings.BlockTime.validator}"/>
+                  <af:convertDateTime pattern="HH:mm"/>
+                </af:inputDate>
+              </af:panelGroupLayout>
+            </af:column>
+            <af:column headerText="#{sfr.CARD_EXPIRY}" width="125px"
+                       sortProperty="CardExpiryDate" filterable="true" id="c2"
+                       align="center" filterFeatures="caseInsensitive">
+              <f:facet name="filter">
+                <af:inputDate value="#{vs.filterCriteria.CardExpiryDate}"
+                              id="id5">
+                  <af:convertDateTime pattern="dd.MM.yyyy"/>
+                </af:inputDate>
+              </f:facet>
+              <af:inputDate value="#{row.bindings.CardExpiryDate.inputValue}"
+                            label="#{bindings.PrtViewCardsVO11.hints.CardExpiryDate.label}"
+                            required="#{bindings.PrtViewCardsVO11.hints.CardExpiryDate.mandatory}"
+                            shortDesc="#{bindings.PrtViewCardsVO11.hints.CardExpiryDate.tooltip}"
+                            id="id6">
+                <f:validator binding="#{row.bindings.CardExpiryDate.validator}"/>
+                <af:convertDateTime pattern="dd.MM.yyyy"/>
+              </af:inputDate>
+            </af:column>
+            <af:column headerText="#{sfr.ENG_LAST_USED}" sortable="true"
+                       sortProperty="LastUsedDate" width="150px"
+                       filterable="true" id="c13">
+              <f:facet name="filter">
+                <af:inputDate value="#{vs.filterCriteria.LastUsedDate}"
+                              id="id2">
+                  <af:convertDateTime pattern="dd.MM.yyyy"/>
+                </af:inputDate>
+              </f:facet>
+              <af:panelGroupLayout layout="horizontal" id="pgl94">
+                <af:inputDate value="#{row.bindings.LastUsedDate.inputValue}"
+                              required="#{bindings.PrtViewCardsVO11.hints.LastUsedDate.mandatory}"
+                              shortDesc="#{bindings.PrtViewCardsVO11.hints.LastUsedDate.tooltip}"
+                              id="id8">
+                  <f:validator binding="#{row.bindings.LastUsedDate.validator}"/>
+                  <af:convertDateTime pattern="dd.MM.yyyy"/>
+                </af:inputDate>
+                <af:spacer height="5" width="5" id="s81"/>
+                <af:inputDate value="#{row.bindings.LastUsed.inputValue}"
+                              required="#{bindings.PrtViewCardsVO11.hints.LastUsed.mandatory}"
+                              shortDesc="#{bindings.PrtViewCardsVO11.hints.LastUsed.tooltip}"
+                              id="id9">
+                  <f:validator binding="#{row.bindings.LastUsed.validator}"/>
+                  <af:convertDateTime pattern="HH:mm"/>
+                </af:inputDate>
+              </af:panelGroupLayout>
+            </af:column>
+            <af:column headerText="#{sfr.AVG_MONTHLY_USE} #{pageFlowScope.CardBean.currencyCode}"
+                       sortProperty="QuaterlyTxReport" filterable="true"
+                       sortable="true" filterFeatures="caseInsensitive" id="c15"
+                       align="right">
+              <af:outputText value="#{row.QuaterlyTxReport}" id="ot39">
+                <!--<af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.PrtViewCardsVO11.hints.QuaterlyTxReport.format}"/>-->
+                                   <af:convertNumber locale="#{pageFlowScope.CardBean.locale}"
+                                    minFractionDigits="2"
+                                    maxFractionDigits="2"/>
+              </af:outputText>
+            </af:column>
+            <af:column headerText="#{sfr.AVG_MONTHLY_FEULINGS}"
+                       sortProperty="QuaterlyFuelReportFuelThreeMonths3"
+                       filterable="true" sortable="true"
+                       filterFeatures="caseInsensitive" id="c16" align="right">
+              <af:outputText value="#{row.QuaterlyFuelReportFuelThreeMonths3}"
+                             id="ot40">
+                <!--<af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.PrtViewCardsVO11.hints.QuaterlyFuelReportFuelThreeMonths3.format}"/>-->
+                                   <af:convertNumber locale="#{pageFlowScope.CardBean.locale}"
+                                    minFractionDigits="2"
+                                    maxFractionDigits="2"/>
+              </af:outputText>
+            </af:column>
+            <af:column sortProperty="VehicleNumber" filterable="true"
+                       headerText="#{sfr.VEHICLE}" sortable="true" id="c8"
+                       width="80px" filterFeatures="caseInsensitive"
+                       rendered="#{pageFlowScope.CardBean.lang eq 'SE' ? false : true}">
+              <af:inputText value="#{row.bindings.VehicleNumber.inputValue}"
+                            label="#{bindings.PrtViewCardsVO11.hints.VehicleNumber.label}"
+                            required="#{bindings.PrtViewCardsVO11.hints.VehicleNumber.mandatory}"
+                            columns="#{bindings.PrtViewCardsVO11.hints.VehicleNumber.displayWidth}"
+                            maximumLength="#{bindings.PrtViewCardsVO11.hints.VehicleNumber.precision}"
+                            shortDesc="#{bindings.PrtViewCardsVO11.hints.VehicleNumber.tooltip}"
+                            id="it5">
+                <f:validator binding="#{row.bindings.VehicleNumber.validator}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="DriverName" filterable="true"
+                       headerText="#{sfr.DRIVER}" sortable="true" id="c5"
+                       width="80px" filterFeatures="caseInsensitive"
+                       rendered="#{pageFlowScope.CardBean.lang eq 'SE' ? false : true}">
+              <af:inputText value="#{row.bindings.DriverName.inputValue}"
+                            label="#{bindings.PrtViewCardsVO11.hints.DriverName.label}"
+                            required="#{bindings.PrtViewCardsVO11.hints.DriverName.mandatory}"
+                            columns="#{bindings.PrtViewCardsVO11.hints.DriverName.displayWidth}"
+                            maximumLength="#{bindings.PrtViewCardsVO11.hints.DriverName.precision}"
+                            shortDesc="#{bindings.PrtViewCardsVO11.hints.DriverName.tooltip}"
+                            id="it7">
+                <f:validator binding="#{row.bindings.DriverName.validator}"/>
+              </af:inputText>
+            </af:column>
+            
+            <af:column headerText="#{sfr.MANAGE}" id="c7" align="center"
+                       width="70px"
+                       rendered="#{((pageFlowScope.CardBean.lang eq 'SE' ? false : true) and (pageFlowScope.CardBean.isEditVisible))}">
+              <af:commandImageLink id="cil1" icon="/images/edit.png"
+                                   actionListener="#{pageFlowScope.CardBean.editVehicleDriverListener}">
+                <af:setPropertyListener from="#{row.CardType}"
+                                        to="#{pageFlowScope.cardAssociation}"
+                                        type="action"/>
+                <af:setPropertyListener from="#{row.PrtCardPk}"
+                                        to="#{pageFlowScope.internalCardNumber}"
+                                        type="action"/>
+                <af:setPropertyListener from="#{row.AccountId}"
+                                        to="#{pageFlowScope.associatedAccount}"
+                                        type="action"/>
+                <af:setPropertyListener from="#{row.VehicleNumber}"
+                                        to="#{pageFlowScope.VehicleNumber}"
+                                        type="action"/>
+                <af:setPropertyListener from="#{row.DriverName}"
+                                        to="#{pageFlowScope.DriverName}"
+                                        type="action"/>
+                <af:setPropertyListener from="#{row.CardEmbossNum}"
+                                        to="#{pageFlowScope.cardEmbossNum}"
+                                        type="action"/>
+                <af:setPropertyListener from="#{row.InternalName}"
+                                        to="#{pageFlowScope.InternalName}"
+                                        type="action"/>
+                <af:setPropertyListener from="#{row.DriverNumber}"
+                                        to="#{pageFlowScope.DriverNumber}"
+                                        type="action"/>
+                <af:setPropertyListener from="#{row.VehicleModifiedBy}"
+                                        to="#{pageFlowScope.vehicleModifiedBy}"
+                                        type="action"/>
+                <af:setPropertyListener from="#{row.VehicleModifiedDate}"
+                                        to="#{pageFlowScope.vehicleModifiedDate}"
+                                        type="action"/>
+                <af:setPropertyListener from="#{row.ModifiedBy}"
+                                        to="#{pageFlowScope.driverModifiedBy}"
+                                        type="action"/>
+                <af:setPropertyListener from="#{row.ModifiedDate}"
+                                        to="#{pageFlowScope.driverModifiedDate}"
+                                        type="action"/>
+              </af:commandImageLink>
+            </af:column>
+          </af:table>
+          <af:popup id="p1" contentDelivery="immediate"
+                    binding="#{pageFlowScope.CardBean.bindings.truckdriverDetails}"
+                    autoCancel="disabled">
+            <!--partialTriggers="t1:cil1"-->
+            <af:dialog id="d1" type="none" closeIconVisible="false"
+                       contentWidth="406">
+              <af:panelGroupLayout id="pgl90" layout="horizontal"
+                                   inlineStyle="font-size:15.0px;">
+                <af:outputText value=" #{sfr.CARD_ASSOCIATION}  : #{pageFlowScope.CardBean.cardEmbossNum}"
+                               id="ot31" styleClass="subheading"/>
+              </af:panelGroupLayout>
+              <af:separator id="s26"
+                            inlineStyle="width:auto; height:1px; background-color:Scrollbar;margin-left: 0 !important;"/>
+              <af:outputText value="#{pageFlowScope.CardBean.warningMsg}"
+                             id="ot10" partialTriggers="sor1 save t1:cil1"
+                             binding="#{pageFlowScope.CardBean.bindings.showEditErrorMessage}"
+                             rendered="#{pageFlowScope.CardBean.showErrorMsgEditFlag}"
+                             styleClass="errorOutputText"/>
+              <af:panelGroupLayout layout="horizontal" id="pgl78"
+                                   rendered="#{pageFlowScope.CardBean.showEditInfoMessage}"
+                                   styleClass="infoPanel"
+                                   inlineStyle="width:406.0px;">
+                <af:panelGroupLayout layout="vertical" id="pgl83">
+                  <af:outputText value="#{pageFlowScope.CardBean.infoMsgAssociated}"
+                                 id="ot25"
+                                 binding="#{pageFlowScope.CardBean.bindings.showEditInfoMessage}"
+                                 styleClass="infoOutputText"
+                                 partialTriggers="sor1 save t1:cil1"
+                                 noWrap="true"/>
+                  <af:outputText value="#{pageFlowScope.CardBean.infoMsgModifiedBy}"
+                                 id="ot6" partialTriggers="sor1 save t1:cil1"
+                                 styleClass="infoOutputText" noWrap="true"/>
+                  <af:outputText value="#{pageFlowScope.CardBean.infoMsgModifiedDate}"
+                                 id="ot9" partialTriggers="sor1 save t1:cil1"
+                                 styleClass="infoOutputText" noWrap="true"/>
+                </af:panelGroupLayout>
+              </af:panelGroupLayout>
+              <af:panelStretchLayout id="psl6" dimensionsFrom="children">
+                <f:facet name="bottom">
+                  <af:toolbar id="new_vehicle_panel_toolbar"
+                              styleClass="WCPanelColor">
+                    <af:panelGroupLayout id="new_footer_panel" layout="vertical"
+                                         inlineStyle="width:382.0px;"
+                                         halign="right">
+                      <af:spacer width="300" height="10" id="s5"/>
+                      <af:panelGroupLayout id="pgl10" halign="right"
+                                           layout="horizontal">
+                        <af:commandButton text="#{sfr.SAVE}" id="save"
+                                          action="#{pageFlowScope.CardBean.saveVehicleDriver}"
+                                          visible="#{pageFlowScope.CardBean.driverPGL eq 'true' ? true : pageFlowScope.CardBean.vehiclePGL eq true ? true : false}"
+                                          partialTriggers="sor1"/>
+                        <af:spacer width="10" height="10" id="s13"/>
+                        <af:commandButton text="#{sfr.CANCEL}" id="ccb11"
+                                          immediate="true"
+                                          actionListener="#{pageFlowScope.CardBean.closePopUpListener}"/>
+                        <af:spacer width="10" height="10" id="s74"/>
+                        <af:commandButton text="#{sfr.RESET}" id="cb4"
+                                          immediate="true"
+                                          actionListener="#{pageFlowScope.CardBean.disassociateVehicleDriver}"/>
+                        <af:spacer width="18" height="10" id="s38"/>
+                      </af:panelGroupLayout>
+                    </af:panelGroupLayout>
+                  </af:toolbar>
+                </f:facet>
+                <f:facet name="center">
+                  <af:panelGroupLayout id="newVehicle_scroll"
+                                       styleClass="WCPanelMargin">
+                    <af:spacer width="10" height="10" id="s10"/>
+                    <h:panelGrid columns="5" id="pg3">
+                      <af:panelGroupLayout layout="vertical" id="pgl8"
+                                           inlineStyle="width:120px; height:180px;"
+                                           valign="top">
+                        <af:outputText value="#{sfr.PLEASE_SELECT_ENG}"
+                                       id="ot38"/>
+                        <af:spacer width="10" height="20" id="s52"/>
+                        <af:panelGroupLayout layout="horizontal" id="both">
+                          <af:panelGroupLayout id="driver"
+                                               visible="#{pageFlowScope.CardBean.driverPGL}"
+                                               binding="#{pageFlowScope.CardBean.bindings.driverPgl}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:outputText value="#{sfr.DRIVER_NUMBER}"
+                                           id="aot2"/>
+                          </af:panelGroupLayout>
+                          <af:panelGroupLayout id="vehicle"
+                                               visible="#{pageFlowScope.CardBean.vehiclePGL}"
+                                               binding="#{pageFlowScope.CardBean.bindings.vehiclePgl}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:outputText value="#{sfr.VEHICLE_NUMBER}"
+                                           id="ot13"/>
+                          </af:panelGroupLayout>
+                        </af:panelGroupLayout>
+                        <af:spacer width="10" height="20" id="s20"/>
+                        <af:panelGroupLayout layout="horizontal" id="pgl71">
+                          <af:panelGroupLayout id="pgl72"
+                                               visible="#{pageFlowScope.CardBean.driverPGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:outputText value="#{sfr.DRIVER_NAME_ENG}"
+                                           id="ot18"/>
+                          </af:panelGroupLayout>
+                          <af:panelGroupLayout id="pgl74"
+                                               visible="#{pageFlowScope.CardBean.vehiclePGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:outputText value="#{sfr.INTERNAL_NAME}"
+                                           id="ot19" noWrap="true"/>
+                          </af:panelGroupLayout>
+                        </af:panelGroupLayout>
+                        <af:spacer width="10" height="20" id="s19"/>
+                        <af:panelGroupLayout layout="horizontal" id="pgl45">
+                          <af:panelGroupLayout id="pgl44"
+                                               visible="#{pageFlowScope.CardBean.driverPGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:outputText value="#{sfr.MODIFIED_DATE}"
+                                           id="ot20" noWrap="true"
+                                           visible="#{pageFlowScope.CardBean.driverModifiedDateVisible}"/>
+                          </af:panelGroupLayout>
+                          <af:panelGroupLayout id="pgl43"
+                                               visible="#{pageFlowScope.CardBean.vehiclePGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:outputText value="#{sfr.MODIFIED_DATE}"
+                                           id="ot2811" noWrap="true"
+                                           visible="#{pageFlowScope.CardBean.vehicleModifiedDateVisible}"/>
+                          </af:panelGroupLayout>
+                        </af:panelGroupLayout>
+                        <af:spacer width="10" height="20" id="s14"/>
+                        <af:panelGroupLayout layout="horizontal" id="pgl29">
+                          <af:panelGroupLayout id="pgl27"
+                                               visible="#{pageFlowScope.CardBean.driverPGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:outputText value="#{sfr.MODIFIED_BY}" id="ot22"
+                                           noWrap="true"
+                                           visible="#{pageFlowScope.CardBean.driverModifiedByVisible}"/>
+                          </af:panelGroupLayout>
+                          <af:panelGroupLayout id="pgl26"
+                                               visible="#{pageFlowScope.CardBean.vehiclePGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:outputText value="#{sfr.MODIFIED_BY}" id="ot29"
+                                           noWrap="true"
+                                           visible="#{pageFlowScope.CardBean.vehicleModifiedByVisible}"/>
+                          </af:panelGroupLayout>
+                        </af:panelGroupLayout>
+                      </af:panelGroupLayout>
+                      <af:panelGroupLayout layout="vertical" id="pgl79"
+                                           inlineStyle="width:20px; height:180px;"
+                                           valign="top">
+                        <af:spacer height="20" width="10" id="s61"/>
+                        <af:panelGroupLayout layout="horizontal" id="pgl59">
+                          <af:panelGroupLayout id="pgl60"
+                                               visible="#{pageFlowScope.CardBean.driverPGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:spacer width="10" height="20" id="s9"/>
+                          </af:panelGroupLayout>
+                          <af:panelGroupLayout id="pgl61"
+                                               visible="#{pageFlowScope.CardBean.vehiclePGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:spacer width="10" height="20" id="s56"/>
+                          </af:panelGroupLayout>
+                        </af:panelGroupLayout>
+                        <af:spacer height="20" width="10" id="s60"/>
+                        <af:panelGroupLayout layout="horizontal" id="pgl75">
+                          <af:panelGroupLayout id="pgl76"
+                                               visible="#{pageFlowScope.CardBean.driverPGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:spacer width="10" height="20" id="s54"/>
+                          </af:panelGroupLayout>
+                          <af:panelGroupLayout id="pgl81"
+                                               visible="#{pageFlowScope.CardBean.vehiclePGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:spacer width="10" height="20" id="s53"/>
+                          </af:panelGroupLayout>
+                        </af:panelGroupLayout>
+                        <af:spacer height="20" width="10" id="s39"/>
+                        <af:panelGroupLayout layout="horizontal" id="pgl82">
+                          <af:panelGroupLayout id="pgl41"
+                                               visible="#{pageFlowScope.CardBean.driverPGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:spacer width="10" height="20" id="s50"
+                                       visible="#{pageFlowScope.CardBean.driverModifiedDateVisible}"/>
+                          </af:panelGroupLayout>
+                          <af:panelGroupLayout id="pgl40"
+                                               visible="#{pageFlowScope.CardBean.vehiclePGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:spacer width="10" height="20" id="s49"
+                                       visible="#{pageFlowScope.CardBean.vehicleModifiedDateVisible}"/>
+                          </af:panelGroupLayout>
+                        </af:panelGroupLayout>
+                        <af:spacer height="20" width="10" id="s12"/>
+                        <af:panelGroupLayout layout="horizontal" id="pgl25">
+                          <af:panelGroupLayout id="pgl24"
+                                               visible="#{pageFlowScope.CardBean.driverPGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:spacer width="10" height="20" id="s46"
+                                       visible="#{pageFlowScope.CardBean.driverModifiedByVisible}"/>
+                          </af:panelGroupLayout>
+                          <af:panelGroupLayout id="pgl23"
+                                               visible="#{pageFlowScope.CardBean.vehiclePGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:spacer width="10" height="20" id="s23"/>
+                          </af:panelGroupLayout>
+                        </af:panelGroupLayout>
+                      </af:panelGroupLayout>
+                      <af:panelGroupLayout layout="vertical" id="pgl57"
+                                           inlineStyle="width:10px; height:180px;"
+                                           valign="top">
+                        <af:outputText value=":" id="ot42"/>
+                        <af:spacer width="10" height="20" id="s24"/>
+                        <af:panelGroupLayout layout="horizontal" id="pgl62">
+                          <af:panelGroupLayout id="pgl63"
+                                               visible="#{pageFlowScope.CardBean.driverPGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:outputText value=":" id="ot4"/>
+                          </af:panelGroupLayout>
+                          <af:panelGroupLayout id="pgl64"
+                                               visible="#{pageFlowScope.CardBean.vehiclePGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:outputText value=":" id="ot47"/>
+                          </af:panelGroupLayout>
+                        </af:panelGroupLayout>
+                        <af:spacer width="10" height="20" id="s22"/>
+                        <af:panelGroupLayout layout="horizontal" id="pgl80">
+                          <af:panelGroupLayout id="pgl53"
+                                               visible="#{pageFlowScope.CardBean.driverPGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:outputText value=":" id="ot23"/>
+                          </af:panelGroupLayout>
+                          <af:panelGroupLayout id="pgl52"
+                                               visible="#{pageFlowScope.CardBean.vehiclePGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:outputText value=":" id="ot32"/>
+                          </af:panelGroupLayout>
+                        </af:panelGroupLayout>
+                        <af:spacer width="10" height="20" id="s32"/>
+                        <af:panelGroupLayout layout="horizontal" id="pgl39">
+                          <af:panelGroupLayout id="pgl38"
+                                               visible="#{pageFlowScope.CardBean.driverPGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:outputText value=":" id="ot28"
+                                           visible="#{pageFlowScope.CardBean.driverModifiedDateVisible}"/>
+                          </af:panelGroupLayout>
+                          <af:panelGroupLayout id="pgl37"
+                                               visible="#{pageFlowScope.CardBean.vehiclePGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:outputText value=":" id="ot27"
+                                           visible="#{pageFlowScope.CardBean.vehicleModifiedDateVisible}"/>
+                          </af:panelGroupLayout>
+                        </af:panelGroupLayout>
+                        <af:spacer width="10" height="20" id="s34"/>
+                        <af:panelGroupLayout layout="horizontal" id="pgl22">
+                          <af:panelGroupLayout id="pgl21"
+                                               visible="#{pageFlowScope.CardBean.driverPGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:outputText value=":" id="ot34"
+                                           visible="#{pageFlowScope.CardBean.driverModifiedByVisible}"/>
+                          </af:panelGroupLayout>
+                          <af:panelGroupLayout id="pgl20"
+                                               visible="#{pageFlowScope.CardBean.vehiclePGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:outputText value=":" id="ot26"
+                                           visible="#{pageFlowScope.CardBean.vehicleModifiedByVisible}"/>
+                          </af:panelGroupLayout>
+                        </af:panelGroupLayout>
+                      </af:panelGroupLayout>
+                      <af:panelGroupLayout layout="vertical" id="pgl91"
+                                           inlineStyle="width:20px; height:180px;"
+                                           valign="top">
+                        <af:spacer height="20" width="10" id="s63"/>
+                        <af:panelGroupLayout layout="horizontal" id="pgl65">
+                          <af:panelGroupLayout id="pgl66"
+                                               visible="#{pageFlowScope.CardBean.driverPGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:spacer width="10" height="20" id="s57"/>
+                          </af:panelGroupLayout>
+                          <af:panelGroupLayout id="pgl67"
+                                               visible="#{pageFlowScope.CardBean.vehiclePGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:spacer width="10" height="20" id="s58"/>
+                          </af:panelGroupLayout>
+                        </af:panelGroupLayout>
+                        <af:spacer height="20" width="10" id="s64"/>
+                        <af:panelGroupLayout layout="horizontal" id="pgl51">
+                          <af:panelGroupLayout id="pgl50"
+                                               visible="#{pageFlowScope.CardBean.driverPGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:spacer width="10" height="20" id="s35"/>
+                          </af:panelGroupLayout>
+                          <af:panelGroupLayout id="pgl49"
+                                               visible="#{pageFlowScope.CardBean.vehiclePGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:spacer width="10" height="20" id="s51"/>
+                          </af:panelGroupLayout>
+                        </af:panelGroupLayout>
+                        <af:spacer height="20" width="10" id="s65"/>
+                        <af:panelGroupLayout layout="horizontal" id="pgl84">
+                          <af:panelGroupLayout id="pgl85"
+                                               visible="#{pageFlowScope.CardBean.driverPGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:spacer width="10" height="20" id="s47"
+                                       visible="#{pageFlowScope.CardBean.driverModifiedDateVisible}"/>
+                          </af:panelGroupLayout>
+                          <af:panelGroupLayout id="pgl35"
+                                               visible="#{pageFlowScope.CardBean.vehiclePGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:spacer width="10" height="20" id="s48"
+                                       visible="#{pageFlowScope.CardBean.vehicleModifiedDateVisible}"/>
+                          </af:panelGroupLayout>
+                        </af:panelGroupLayout>
+                        <af:spacer height="20" width="10" id="s66"/>
+                        <af:panelGroupLayout layout="horizontal" id="pgl19">
+                          <af:panelGroupLayout id="pgl86"
+                                               visible="#{pageFlowScope.CardBean.driverPGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:spacer width="10" height="20" id="s30"
+                                       visible="#{pageFlowScope.CardBean.driverModifiedByVisible}"/>
+                          </af:panelGroupLayout>
+                          <af:panelGroupLayout id="pgl17"
+                                               visible="#{pageFlowScope.CardBean.vehiclePGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:spacer width="10" height="20" id="s8"/>
+                          </af:panelGroupLayout>
+                        </af:panelGroupLayout>
+                      </af:panelGroupLayout>
+                      <af:panelGroupLayout layout="vertical" id="pgl77"
+                                           valign="top"
+                                           inlineStyle="height:180px;">
+                        <af:selectOneRadio id="sor1" autoSubmit="true"
+                                           layout="horizontal"
+                                           valueChangeListener="#{pageFlowScope.CardBean.radioButtonValueChangeListener}"
+                                           binding="#{pageFlowScope.CardBean.bindings.vehicleDriverRadio}"
+                                           inlineStyle="margin-left: -20px !important;"
+                                           partialTriggers="t1:cil1">
+                          <af:selectItem label="#{sfr.VEHICLE}" value="Vehicle"
+                                         id="si10"/>
+                          <af:selectItem label="#{sfr.DRIVER}" value="Driver"
+                                         id="si13"/>
+                        </af:selectOneRadio>
+                        <af:spacer width="10" height="19" id="s25"/>
+                        <af:panelGroupLayout layout="horizontal" id="pgl68">
+                          <af:panelGroupLayout id="pgl69"
+                                               visible="#{pageFlowScope.CardBean.driverPGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:selectOneChoice id="soc1" showRequired="false"
+                                                value="#{pageFlowScope.CardBean.driverNameValue}"
+                                                contentStyle="width: 175px;"
+                                                valueChangeListener="#{pageFlowScope.CardBean.driverValueChangeListener}"
+                                                autoSubmit="true"
+                                                binding="#{pageFlowScope.CardBean.bindings.driverNumber}"
+                                                unselectedLabel="#{sfr.PLEASE_SELECT_ENG}"
+                                                inlineStyle="margin-left: -5px !important;"
+                                                partialTriggers="sor1 t1:cil1">
+                              <af:forEach items="#{pageFlowScope.CardBean.driverNameList}"
+                                          var="listItem">
+                                <af:selectItem label="#{listItem.label}"
+                                               value="#{listItem.value}"
+                                               id="select_item_vehicle"/>
+                              </af:forEach>
+                            </af:selectOneChoice>
+                          </af:panelGroupLayout>
+                          <af:panelGroupLayout id="pgl70"
+                                               visible="#{pageFlowScope.CardBean.vehiclePGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:selectOneChoice id="soc2" showRequired="false"
+                                                inlineStyle="margin-left: -5px !important;"
+                                                value="#{pageFlowScope.CardBean.vehicleNumberValue}"
+                                                contentStyle="width: 175px;"
+                                                autoSubmit="true"
+                                                valueChangeListener="#{pageFlowScope.CardBean.vehicleValueChangeListener}"
+                                                binding="#{pageFlowScope.CardBean.bindings.vehicleNumber}"
+                                                unselectedLabel="#{sfr.PLEASE_SELECT_ENG}"
+                                                partialTriggers="sor1 t1:cil1">
+                              <af:forEach items="#{pageFlowScope.CardBean.vehicleNumberList}"
+                                          var="listItem">
+                                <af:selectItem label="#{listItem.label}"
+                                               value="#{listItem.value}"
+                                               id="si3"/>
+                              </af:forEach>
+                            </af:selectOneChoice>
+                          </af:panelGroupLayout>
+                        </af:panelGroupLayout>
+                        <af:spacer width="10" height="20" id="s37"/>
+                        <af:panelGroupLayout layout="horizontal" id="pgl47">
+                          <af:panelGroupLayout id="pgl48"
+                                               visible="#{pageFlowScope.CardBean.driverPGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:outputText value="#{pageFlowScope.CardBean.displayDriverName}"
+                                           id="ot16" partialTriggers="soc1"/>
+                          </af:panelGroupLayout>
+                          <af:panelGroupLayout id="pgl46"
+                                               visible="#{pageFlowScope.CardBean.vehiclePGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:outputText value="#{pageFlowScope.CardBean.displayVehicleName}"
+                                           id="ot15" partialTriggers="soc2"/>
+                          </af:panelGroupLayout>
+                          <af:spacer height="13px" id="s70"/>
+                        </af:panelGroupLayout>
+                        <af:spacer width="10" height="20" id="s55"/>
+                        <af:panelGroupLayout layout="horizontal" id="pgl87">
+                          <af:panelGroupLayout id="pgl88"
+                                               visible="#{pageFlowScope.CardBean.driverPGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:outputText value="#{pageFlowScope.CardBean.driverModifiedDate}"
+                                           visible="#{pageFlowScope.CardBean.driverModifiedDateVisible}"
+                                           id="ot21" partialTriggers="soc1"/>
+                          </af:panelGroupLayout>
+                          <af:panelGroupLayout id="pgl30"
+                                               visible="#{pageFlowScope.CardBean.vehiclePGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:outputText value="#{pageFlowScope.CardBean.vehicleModifiedDate}"
+                                           id="ot30" partialTriggers="soc2"
+                                           visible="#{pageFlowScope.CardBean.vehicleModifiedDateVisible}"/>
+                          </af:panelGroupLayout>
+                          <af:spacer height="13px" id="s67"/>
+                        </af:panelGroupLayout>
+                        <af:spacer width="10" height="20" id="s59"/>
+                        <af:panelGroupLayout layout="horizontal" id="pgl16">
+                          <af:panelGroupLayout id="pgl15"
+                                               visible="#{pageFlowScope.CardBean.driverPGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:outputText value="#{pageFlowScope.CardBean.driverModifiedBy}"
+                                           id="ot24"
+                                           visible="#{pageFlowScope.CardBean.driverModifiedByVisible}"
+                                           partialTriggers="soc1"/>
+                          </af:panelGroupLayout>
+                          <af:panelGroupLayout id="pgl14"
+                                               visible="#{pageFlowScope.CardBean.vehiclePGL}"
+                                               partialTriggers="sor1 t1:cil1">
+                            <af:outputText value="#{pageFlowScope.CardBean.vehicleModifiedBy}"
+                                           id="ot271" partialTriggers="soc2"
+                                           visible="#{pageFlowScope.CardBean.vehicleModifiedByVisible}"/>
+                          </af:panelGroupLayout>
+                          <af:spacer height="13px" id="s68"/>
+                        </af:panelGroupLayout>
+                      </af:panelGroupLayout>
+                    </h:panelGrid>
+                  </af:panelGroupLayout>
+                </f:facet>
+              </af:panelStretchLayout>
+            </af:dialog>
+          </af:popup>
+        </af:panelGroupLayout>
+        <af:spacer id="s62" height="20px" width="10px"/>
+      </af:panelGroupLayout>
+    </af:panelGroupLayout>
+  </af:panelGroupLayout>
+  <af:popup id="show_columns" contentDelivery="immediate"
+            binding="#{pageFlowScope.CardBean.bindings.specificColumns}"
+            autoCancel="disabled">
+    <af:dialog id="specificColumns" title="#{sfr.TRANSACTION_SPECIFIC}"
+               type="none" closeIconVisible="true">
+      <af:panelStretchLayout id="psl1" dimensionsFrom="children">
+        <f:facet name="center">
+          <af:panelGroupLayout id="deleteAllDriver_scroll"
+                               styleClass="WCPanelMargin">
+            <af:separator id="s75"
+                          inlineStyle="width:auto; height:1px; background-color:Scrollbar;"/>
+            <af:selectManyShuttle id="sms1"
+                                  binding="#{pageFlowScope.CardBean.bindings.shuttleExcel}"
+                                  value="#{pageFlowScope.CardBean.shuttleValue}"
+                                  partialTriggers="cb1"
+                                  leadingHeader="#{sfr.REPORT_AVAILABLE_VALUES}"
+                                  trailingHeader="#{sfr.REPORT_SELECTED_VALUES}">
+              <af:forEach items="#{pageFlowScope.CardBean.shuttleList}"
+                          var="listItem">
+                <af:selectItem label="#{listItem.label}"
+                               value="#{listItem.value}" id="sms2"/>
+              </af:forEach>
+            </af:selectManyShuttle>
+            <af:spacer width="4" height="10" id="s77"/>
+            <h:panelGrid columns="6">
+              <af:outputText value="*" id="ot68"/>
+              <af:outputText value="#{sfr.EXPORT_TO_SPECIFIC}" id="ot69"/>
+              <af:spacer width="10" height="15" id="s72"/>
+              <af:outputText value=":" id="ot67"/>
+              <af:spacer width="10" height="15" id="s71"/>
+              <af:selectOneRadio id="sor2" autoSubmit="true"
+                                 binding="#{pageFlowScope.CardBean.bindings.selectionExportOneRadio}"
+                                 layout="horizontal">
+                <af:selectItem label="xls" value="xls" id="si4"/>
+                <af:selectItem label="csv" value="csv" id="si6"/>
+                <af:selectItem label="csv2" value="csv2" id="si5"/>
+              </af:selectOneRadio>
+            </h:panelGrid>
+            <af:spacer width="10" height="15" id="s69"/>
+          </af:panelGroupLayout>
+        </f:facet>
+        <f:facet name="bottom">
+          <af:toolbar id="specific_columns_panel_toolbar"
+                      styleClass="WCPanelColor">
+            <af:panelGroupLayout layout="vertical" id="pgl13">
+              <af:spacer width="4" height="10" id="s1sf6"/>
+              <af:panelGroupLayout id="specific_columns_footer_panel"
+                                   layout="horizontal">
+                <af:spacer width="4" height="10" id="s1sdf6"/>
+                <af:commandButton text="#{sfr.TRANSACTION_EXPORT_EXCEL_TEXT}"
+                                  id="exportall"
+                                  actionListener="#{pageFlowScope.CardBean.getValuesForExcel}">
+                  <af:clientListener method="exitFromPopup" type="action"/>
+                </af:commandButton>
+              </af:panelGroupLayout>
+            </af:panelGroupLayout>
+          </af:toolbar>
+        </f:facet>
+      </af:panelStretchLayout>
+    </af:dialog>
+  </af:popup>
+  <af:popup id="confirmation_columns" contentDelivery="immediate"
+            binding="#{pageFlowScope.CardBean.bindings.confirmationExcel}"
+            autoCancel="disabled">
+    <af:dialog id="confirmationColumns" type="none" closeIconVisible="false">
+      <af:panelStretchLayout id="psl2" dimensionsFrom="children">
+        <f:facet name="center">
+          <af:panelGroupLayout id="pgl28" layout="vertical">
+            <af:outputText value="#{sfr.TRANSACTION_SPECIFIC_CONFIRMATION}?"
+                           id="ot43"/>
+            <af:spacer width="10" height="10" id="s76"/>
+          </af:panelGroupLayout>
+        </f:facet>
+        <f:facet name="bottom">
+          <af:toolbar id="t3" styleClass="WCPanelColor">
+            <af:panelGroupLayout id="pgl89" layout="horizontal">
+              <af:spacer width="4" height="10" id="s42"/>
+              <af:commandButton text="#{sfr.YES}" id="cb6"
+                                action="#{pageFlowScope.CardBean.excelDownLoad}">
+                <af:clientListener method="exitFromPopupConfirmation"
+                                   type="action"/>
+                <af:fileDownloadActionListener contentType="#{pageFlowScope.CardBean.contentType}"
+                                               filename="#{pageFlowScope.CardBean.fileName}"
+                                               method="#{pageFlowScope.CardBean.specificExportExcelListener}"/>
+              </af:commandButton>
+              <af:spacer width="10" height="10" id="s43"/>
+              <af:commandButton text="#{sfr.NO_ACTION}" id="cb7"
+                                action="#{pageFlowScope.CardBean.confirmationCancelAction}"/>
+            </af:panelGroupLayout>
+          </af:toolbar>
+        </f:facet>
+      </af:panelStretchLayout>
+    </af:dialog>
+  </af:popup>
+</jsp:root>
+

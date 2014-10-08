@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<DataControlConfigs xmlns="http://xmlns.oracle.com/adfm/configuration"
+                    version="11.1.1.61.92" id="DataControls"
+                    Package="com.sfr.engage.model">
+  <AdapterDataControl id="UserClient"
+                      FactoryClass="oracle.adf.model.adapter.DataControlFactoryImpl"
+                      ImplDef="oracle.adf.model.adapter.bean.BeanDefinition"
+                      SupportsTransactions="false" SupportsSortCollection="true"
+                      SupportsResetState="false" SupportsRangesize="false"
+                      SupportsFindMode="false" SupportsUpdates="true"
+                      Definition="com.sfr.engage.model.datacontrol.UserClient"
+                      BeanClass="com.sfr.engage.model.datacontrol.UserClient"
+                      xmlns="http://xmlns.oracle.com/adfm/datacontrol">
+    <CreatableTypes>
+      <TypeInfo FullName="com.sfr.core.bean.BusinessError"/>
+      <TypeInfo FullName="com.sfr.core.bean.BaseBean"/>
+      <TypeInfo FullName="com.sfr.core.bean.Roles"/>
+      <TypeInfo FullName="com.sfr.core.bean.User"/>
+      <TypeInfo FullName="com.sfr.engage.model.datacontrol.UserClient"/>
+    </CreatableTypes>
+    <Source>
+      <bean-definition BeanClass="com.sfr.engage.model.datacontrol.UserClient" xmlns="http://xmlns.oracle.com/adfm/adapter/bean"/>
+    </Source>
+  </AdapterDataControl>
+  <AdapterDataControl id="PartnerInfoListClient"
+                      FactoryClass="oracle.adf.model.adapter.DataControlFactoryImpl"
+                      ImplDef="oracle.adf.model.adapter.bean.BeanDefinition"
+                      SupportsTransactions="false" SupportsSortCollection="true"
+                      SupportsResetState="false" SupportsRangesize="false"
+                      SupportsFindMode="false" SupportsUpdates="true"
+                      Definition="com.sfr.engage.model.datacontrol.PartnerInfoListClient"
+                      BeanClass="com.sfr.engage.model.datacontrol.PartnerInfoListClient"
+                      xmlns="http://xmlns.oracle.com/adfm/datacontrol">
+    <CreatableTypes>
+      <TypeInfo FullName="com.sfr.engage.core.CardInfo"/>
+      <TypeInfo FullName="com.sfr.engage.core.CardGroupInfo"/>
+      <TypeInfo FullName="com.sfr.engage.core.AccountInfo"/>
+      <TypeInfo FullName="com.sfr.engage.core.PartnerInfo"/>
+      <TypeInfo FullName="javax.servlet.http.Cookie"/>
+      <TypeInfo FullName="java.net.URI"/>
+      <TypeInfo FullName="java.security.PermissionCollection"/>
+      <TypeInfo FullName="java.security.Permission"/>
+      <TypeInfo FullName="java.io.InputStream"/>
+      <TypeInfo FullName="java.io.OutputStream"/>
+      <TypeInfo FullName="java.net.ContentHandler"/>
+      <TypeInfo FullName="java.net.SocketAddress"/>
+      <TypeInfo FullName="java.net.Proxy"/>
+      <TypeInfo FullName="java.net.URLStreamHandler"/>
+      <TypeInfo FullName="java.net.URL"/>
+      <TypeInfo FullName="java.io.BufferedReader"/>
+      <TypeInfo FullName="java.io.PrintWriter"/>
+      <TypeInfo FullName="java.io.File"/>
+      <TypeInfo FullName="javax.faces.context.ExternalContext"/>
+      <TypeInfo FullName="com.sfr.engage.model.datacontrol.PartnerInfoListClient"/>
+      <TypeInfo FullName="com.sfr.core.bean.Roles"/>
+      <TypeInfo FullName="com.sfr.core.bean.BusinessError"/>
+      <TypeInfo FullName="com.sfr.core.bean.User"/>
+    </CreatableTypes>
+    <Source>
+      <bean-definition BeanClass="com.sfr.engage.model.datacontrol.PartnerInfoListClient" xmlns="http://xmlns.oracle.com/adfm/adapter/bean"/>
+    </Source>
+  </AdapterDataControl>
+  <AdapterDataControl id="Alerts"
+                      FactoryClass="oracle.adf.model.adapter.DataControlFactoryImpl"
+                      ImplDef="oracle.adf.model.adapter.bean.BeanDefinition"
+                      SupportsTransactions="false" SupportsSortCollection="true"
+                      SupportsResetState="false" SupportsRangesize="false"
+                      SupportsFindMode="false" SupportsUpdates="true"
+                      Definition="com.sfr.engage.model.datacontrol.Alerts"
+                      BeanClass="com.sfr.engage.model.datacontrol.Alerts"
+                      xmlns="http://xmlns.oracle.com/adfm/datacontrol">
+    <CreatableTypes>
+      <TypeInfo FullName="com.sfr.engage.core.AlertsSubscribeResponse"/>
+      <TypeInfo FullName="com.sfr.engage.core.AlertsSubscribeCustomerType"/>
+      <TypeInfo FullName="com.sfr.engage.core.AlertsSubscribeFrequencyType"/>
+      <TypeInfo FullName="com.sfr.engage.core.AlertsSubscribeRequest"/>
+      <TypeInfo FullName="com.sfr.engage.model.datacontrol.Alerts"/>
+      <TypeInfo FullName="com.sfr.engage.core.AlertsUnsubscribeResponse"/>
+      <TypeInfo FullName="com.sfr.engage.core.AlertsUnsubscribeRequest"/>
+    </CreatableTypes>
+    <Source>
+      <bean-definition BeanClass="com.sfr.engage.model.datacontrol.Alerts" xmlns="http://xmlns.oracle.com/adfm/adapter/bean"/>
+    </Source>
+  </AdapterDataControl>
+</DataControlConfigs>

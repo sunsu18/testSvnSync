@@ -1,0 +1,61 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<SDM>
+   <OverallProperties
+      id="OverallProperties1"/>
+   <View
+      id="View2">
+      <property
+         name="activityId">UserDisplayInfo</property>
+      <property
+         name="page">/WEB-INF/com/sfr/engage/userdisplaytaskflow/UserDisplayInfo.jsff</property>
+      <property
+         name="start">true</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>UserDisplayInfo&lt;/b> (Default Activity)&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
+      <property
+         name="exceptionHandler">false</property>
+      <property
+         name="y">160.59766</property>
+      <property
+         name="pageFragment">true</property>
+      <property
+         name="x">233.0</property>
+   </View>
+   <View
+      id="View3">
+      <property
+         name="activityId">AddEditUserInfo</property>
+      <property
+         name="page">/WEB-INF/com/sfr/engage/userdisplaytaskflow/AddEditUserInfo.jsff</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>AddEditUserInfo&lt;/b>&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
+      <property
+         name="exceptionHandler">false</property>
+      <property
+         name="y">157.09766</property>
+      <property
+         name="x">503.69824</property>
+      <property
+         name="pageFragment">true</property>
+   </View>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase4"
+      from="View2"
+      to="View3">
+      <property
+         name="fromOutcome">goToAddEdit</property>
+      <property
+         name="sdm:polyPoints">R46,274.0,156.74707,462.63333,153.24707,L46</property>
+   </ControlFlowCase>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase5"
+      from="View3"
+      to="View2">
+      <property
+         name="fromOutcome">addEditToSearch</property>
+      <property
+         name="sdm:polyPoints">L54,462.69824,160.24707,274.0649,163.74707,R54</property>
+   </ControlFlowCase>
+</SDM>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="PrtCardgroupPrtPartnerFk1Link"
+  Version="11.1.1.61.92"
+  InheritPersonalization="true"
+  EntityAssociation="com.sfr.engage.model.associations.PrtCardgroupPrtPartnerFk1Assoc">
+  <DesignTime>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <ViewLinkDefEnd
+    Name="PrtPartnerVO"
+    Cardinality="1"
+    Owner="com.sfr.engage.model.queries.uvo.PrtPartnerVO"
+    Source="true">
+    <DesignTime>
+      <Attr Name="_finderName" Value="PrtPartnerVO"/>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_minCardinality" Value="1"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.queries.uvo.PrtPartnerVO.CountryCode"/>
+      <Item Value="com.sfr.engage.model.queries.uvo.PrtPartnerVO.PartnerId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ViewLinkDefEnd
+    Name="PrtCardgroupVO"
+    Cardinality="-1"
+    Owner="com.sfr.engage.model.queries.uvo.PrtCardgroupVO">
+    <DesignTime>
+      <Attr Name="_finderName" Value="PrtCardgroupVO"/>
+      <Attr Name="_isUpdateable" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="com.sfr.engage.model.queries.uvo.PrtCardgroupVO.CountryCode"/>
+      <Item Value="com.sfr.engage.model.queries.uvo.PrtCardgroupVO.PartnerId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+</ViewLink>

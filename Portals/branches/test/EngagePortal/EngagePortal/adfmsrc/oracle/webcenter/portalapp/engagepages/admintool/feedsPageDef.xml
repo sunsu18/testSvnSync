@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.1.61.92" id="feedsPageDef"
+                Package="oracle.webcenter.portalapp.engagepages.admintool">
+  <parameters>
+    <parameter id="page_info"
+               value="title=feeds;desc=;keywords=;createdBy=weblogic;createDate=2014-03-11T15:46:04;lastUpdatedBy=weblogic;lastUpdateDate=2014-03-11T15:46:04;permissionClass=oracle.webcenter.security.auth.HierarchicalResourcePermission;target=serviceID=oracle.webcenter.page,scopeID=s8bba98ff_4cbb_40b8_beee_296c916a23ed,resourceID=/oracle/webcenter/portalapp/engagepages/admintool/feeds.jspx;excluded=false;style="/>
+    <parameter id="page_title" value="feeds"/>
+  </parameters>
+  <executables>
+    <variableIterator id="variables"/>
+    <page viewId="${preferenceBean.defaultPageTemplate}" id="pageTemplateBinding" Refresh="ifNeeded"/>
+    <taskFlow id="pageeditorpanel" taskFlowId="#{pageEditorBean.pageEditorPanel}" xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+  </executables>
+  <bindings/>
+</pageDefinition>

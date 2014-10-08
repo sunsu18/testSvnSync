@@ -1,0 +1,335 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich" xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelGroupLayout id="pgl1" styleClass="spacerStyle" layout="vertical">
+    <af:panelGroupLayout id="pgl2">
+      <af:spacer width="10" height="20" id="s1"/>
+      <af:panelGroupLayout id="printPanel1" layout="horizontal">
+        <af:outputText value="#{sfr.USER_DISPLAY}" id="ot1" styleClass="heading"/>
+        <af:spacer width="20" height="1" id="s4"/>
+      </af:panelGroupLayout>
+      <af:spacer width="5" height="10" id="s11"/>
+      <af:panelGroupLayout id="pgl9" layout="horizontal">
+        <af:separator id="s3" inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
+      </af:panelGroupLayout>
+      <af:spacer height="15" width="10" id="s13"/>
+      <af:panelGroupLayout id="pgl17" valign="top" layout="horizontal" halign="start">
+        <af:selectBooleanRadio text="" id="multiplecard" group="A" selected="true" autoSubmit="true"
+                               binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.multipleCardRadio}"
+                               valueChangeListener="#{pageFlowScope.UserInfoDisplayManagedBean.multicardRadioValueChangeListener}"/>
+        <af:spacer height="18" width="10" id="s24"/>
+        <af:outputText value="#{sfr.SEARCH_TEXT}" id="ot29"/>
+      </af:panelGroupLayout>
+      <af:panelGroupLayout id="pgl3" valign="top" layout="horizontal">
+        <af:panelGroupLayout id="pgl16" layout="vertical">
+          <af:spacer height="18" width="10" id="s12"/>
+          <!--<af:selectBooleanRadio text="" label="" id="multiplecard" group="A" selected="true"
+                                   valueChangeListener="#{pageFlowScope.UserInfoDisplayManagedBean.multicardRadioValueChangeListener}"
+                                   autoSubmit="true"
+                                   binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.multipleCardRadio}"/>-->
+        </af:panelGroupLayout>
+        <af:panelGroupLayout id="pgl6" layout="horizontal" inlineStyle="width:960.0px; height:125px;">
+          <af:panelGroupLayout id="pgl7" layout="vertical" valign="top" inlineStyle="width:390px; height:100.0px;">
+            <h:panelGrid columns="4" id="pg2" cellpadding="3" cellspacing="2" style="text-align:left; vertical-align:top;">
+              <af:panelGroupLayout id="pgl36" inlineStyle="height:auto; text-align:justify; width:6.0px;overflow:hidden;" layout="vertical">
+                <!--<af:outputText value="*" id="op51"/>-->
+                <!--<af:spacer width="20" height="84" id="s45"/>-->
+                <!--<af:outputText value=" " id="ot7"/>-->
+                <!--<af:spacer width="20" height="5" id="s20"/>-->
+                <!--<af:outputText value=" " id="ot41"/>-->
+                <!--<af:spacer width="20" height="20" id="s6"/>-->
+                <!--<af:outputText value=" " id="ot2"/>-->
+              </af:panelGroupLayout>
+              <af:panelGroupLayout id="pgl4" inlineStyle="height:auto; text-align:justify; width:110.0px;overflow:hidden;" layout="vertical">
+                <af:outputText value="#{sfr.PARTNER_ENG}" id="ot3"/>
+                <af:spacer width="20" height="25" id="s7"/>
+                <af:outputText value="#{sfr.ACCOUNT}" id="ot4"/>
+                <af:spacer width="20" height="25" id="s8"/>
+                <af:outputText value="#{sfr.CARDGROUP}" id="ot10"/>
+                <af:spacer width="20" height="25" id="s26"/>
+              </af:panelGroupLayout>
+              <af:panelGroupLayout id="pgl12" inlineStyle="height:auto; text-align:justify; width:10.0px;" layout="vertical">
+                <af:outputText value=":" id="col"/>
+                <af:spacer width="20" height="25" id="s37"/>
+                <af:outputText value=":" id="ot11"/>
+                <af:spacer width="20" height="25" id="s33"/>
+                <af:outputText value=":" id="ot60"/>
+                <af:spacer width="20" height="25" id="s27"/>
+              </af:panelGroupLayout>
+              <af:panelGroupLayout id="pgl18" inlineStyle="height:auto; text-align:justify; width:200.0px;" layout="vertical">
+                <af:selectManyChoice id="smc1" autoSubmit="true" contentStyle="width: 175px;" value="#{pageFlowScope.UserInfoDisplayManagedBean.partnerIdValue}"
+                                     binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.partner}"
+                                     valueChangeListener="#{pageFlowScope.UserInfoDisplayManagedBean.partnerValueChangeListener}"
+                                     partialTriggers="multiplecard singlecard">
+                  <af:forEach items="#{pageFlowScope.UserInfoDisplayManagedBean.partnerIdList}" var="listItem">
+                    <af:selectItem label="#{listItem.label}" value="#{listItem.value}" id="select_item_terminal"/>
+                  </af:forEach>
+                </af:selectManyChoice>
+                <af:spacer width="20" height="20" id="s43"/>
+                <af:selectManyChoice id="soc3" contentStyle="width: 175px; height:14px;" showRequired="false"
+                                     value="#{pageFlowScope.UserInfoDisplayManagedBean.accountIdValue}"
+                                     binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.account}" autoSubmit="true"
+                                     partialTriggers="smc1 multiplecard singlecard"
+                                     valueChangeListener="#{pageFlowScope.UserInfoDisplayManagedBean.accountValueChangeListener}">
+                  <af:forEach items="#{pageFlowScope.UserInfoDisplayManagedBean.accountIdList}" var="listItem">
+                    <af:selectItem label="#{listItem.label}" value="#{listItem.value}" id="select_item_account"/>
+                  </af:forEach>
+                </af:selectManyChoice>
+                <af:spacer width="20" height="20" id="s54"/>
+                <af:selectManyChoice id="smc2" contentStyle="width:175px; height:14px;" value="#{pageFlowScope.UserInfoDisplayManagedBean.cardGroupValue}"
+                                     binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.cardGroup}"
+                                     partialTriggers="smc1 soc3 multiplecard singlecard" autoSubmit="true"
+                                     valueChangeListener="#{pageFlowScope.UserInfoDisplayManagedBean.cardgroupValueChangeListener}">
+                  <af:forEach items="#{pageFlowScope.UserInfoDisplayManagedBean.cardGroupList}" var="listItem">
+                    <af:selectItem label="#{listItem.label}" value="#{listItem.value}" id="select_item_type"/>
+                  </af:forEach>
+                </af:selectManyChoice>
+                <af:spacer width="20" height="25" id="s55"/>
+              </af:panelGroupLayout>
+            </h:panelGrid>
+          </af:panelGroupLayout>
+          <af:panelGroupLayout id="pgl14">
+            <af:separator id="s2" styleClass="vertical_seprator_user_display"/>
+          </af:panelGroupLayout>
+          <af:spacer width="20" height="10" id="s40"/>
+          <af:panelGroupLayout id="pgl10" layout="vertical" valign="top" inlineStyle="width:390px; height:100.0px;">
+            <h:panelGrid columns="4" id="pg1" cellpadding="3" cellspacing="2" style="text-align:left; vertical-align:top;">
+              <af:panelGroupLayout id="pgl5" inlineStyle="height:auto; text-align:justify; width:6.0px;overflow:hidden;" layout="vertical">
+                <af:outputText value=" " id="ot5"/>
+                <af:spacer width="20" height="84" id="s5"/>
+                <af:outputText value=" " id="ot17"/>
+                <af:outputText value=" " id="ot18"/>
+                <af:outputText value=" " id="ot19"/>
+              </af:panelGroupLayout>
+              <af:panelGroupLayout id="pgl13" inlineStyle="height:auto; text-align:justify; width:110.0px;overflow:hidden;" layout="vertical">
+                <af:outputText value="#{sfr.CARD}" id="ot16"/>
+                <af:spacer width="20" height="25" id="s9"/>
+                <af:outputText value="#{sfr.ROLE}" id="ot12"/>
+                <af:spacer width="20" height="25" id="s19"/>
+              </af:panelGroupLayout>
+              <af:panelGroupLayout id="pgl11" inlineStyle="height:auto; text-align:justify; width:10.0px;" layout="vertical">
+                <af:outputText value=":" id="ot15"/>
+                <af:spacer width="20" height="25" id="s22"/>
+                <af:outputText value=":" id="ot14"/>
+                <af:spacer width="20" height="25" id="s21"/>
+              </af:panelGroupLayout>
+              <af:panelGroupLayout id="pgl8" inlineStyle="height:auto; text-align:justify; width:200.0px;" layout="vertical">
+                <af:selectManyChoice id="smc3" partialTriggers="smc1 soc3 smc2 multiplecard singlecard" autoSubmit="true" contentStyle="width: 175px;"
+                                     value="#{pageFlowScope.UserInfoDisplayManagedBean.cardNumberValue}"
+                                     binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.card}">
+                  <af:forEach items="#{pageFlowScope.UserInfoDisplayManagedBean.cardNumberList}" var="listItem">
+                    <af:selectItem label="#{listItem.label}" value="#{listItem.value}" id="si1"/>
+                  </af:forEach>
+                </af:selectManyChoice>
+                <af:spacer width="20" height="20" id="s18"/>
+                <af:selectManyChoice id="smc4" contentStyle="width: 175px; height:14px;" showRequired="false"
+                                     value="#{pageFlowScope.UserInfoDisplayManagedBean.roleValue}"
+                                     binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.role}" partialTriggers="multiplecard singlecard"
+                                     autoSubmit="true" valueChangeListener="#{pageFlowScope.UserInfoDisplayManagedBean.roleValueChangeListener}">
+                  <af:forEach items="#{pageFlowScope.UserInfoDisplayManagedBean.roleList}" var="listItem">
+                    <af:selectItem label="#{listItem.label}" value="#{listItem.value}" id="si2"/>
+                  </af:forEach>
+                </af:selectManyChoice>
+                <af:spacer width="20" height="25" id="s16"/>
+              </af:panelGroupLayout>
+            </h:panelGrid>
+          </af:panelGroupLayout>
+        </af:panelGroupLayout>
+      </af:panelGroupLayout>
+      <af:spacer height="50" width="20" id="s10"/>
+      <af:panelGroupLayout id="pgl15" valign="top" layout="horizontal" halign="start">
+        <af:selectBooleanRadio text="" label="" group="A" id="singlecard"
+                               valueChangeListener="#{pageFlowScope.UserInfoDisplayManagedBean.singlecardRadioValueChangeListener}"
+                               binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.singleCardRadio}" autoSubmit="true"/>
+        <af:spacer height="18" width="10" id="s17"/>
+        <af:outputText id="ot6" value="#{sfr.SEARCH_BY_INPUT}"/>
+        <af:outputText value=":" id="ot8"/>
+        <af:inputText id="it1" value="#{pageFlowScope.UserInfoDisplayManagedBean.searchString}"
+                      binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.searchStringInputtext}" disabled="true">
+          <af:autoSuggestBehavior suggestedItems="#{pageFlowScope.UserInfoDisplayManagedBean.suggestedSearchString}"/>
+        </af:inputText>
+      </af:panelGroupLayout>
+      <af:panelGroupLayout id="pgal1" halign="right" layout="horizontal" inlineStyle="width:962px;">
+        <af:commandButton text="#{sfr.ADD}" id="cb21" action="#{pageFlowScope.UserInfoDisplayManagedBean.goToAddEditButtonAction}"/>
+        <af:spacer width="10" height="10" id="s151"/>
+        <af:commandButton text="#{sfr.SEARCH}" id="cb2" actionListener="#{pageFlowScope.UserInfoDisplayManagedBean.searchResult}"/>
+        <af:spacer width="10" height="10" id="s15"/>
+        <af:commandButton text="#{sfr.CLEAR}" id="cb3" actionListener="#{pageFlowScope.UserInfoDisplayManagedBean.clearSearchListener}"/>
+        <af:spacer width="24" height="10" id="s23"/>
+      </af:panelGroupLayout>
+    </af:panelGroupLayout>
+    <af:spacer width="5" height="10" id="spacer1"/>
+    <af:panelGroupLayout id="panelGroupLayout1" layout="horizontal">
+      <af:separator id="separator1" inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
+    </af:panelGroupLayout>
+    <af:spacer width="10" height="10" id="s14"/>
+    <af:panelGroupLayout id="pgl0" layout="vertical" visible="#{pageFlowScope.UserInfoDisplayManagedBean.isTableVisible}" inlineStyle="width:962px;"
+                         partialTriggers="cb2 cb3 smc1 soc3 smc2 smc3 smc4 multiplecard singlecard">
+      <af:panelGroupLayout id="pgl73" inlineStyle="width:948px;" layout="horizontal">
+        <af:outputText value="#{sfr.ENGAGE_USER_DETAILS}:" id="outputText8" styleClass="subheading"/>
+      </af:panelGroupLayout>
+      <af:spacer width="10" height="15" id="spacer2"/>
+      <af:panelAccordion id="pa1" discloseNone="true" discloseMany="true" dimensionsFrom="children">
+        <af:showDetailItem text="#{sfr.B2B_ADMIN}" id="sdi1" stretchChildren="none" inlineStyle="height:auto !important;"
+                           rendered="#{pageFlowScope.UserInfoDisplayManagedBean.isAdminVisible}">
+          <af:table value="#{bindings.PrtUserDisplayForAdminRVO1.collectionModel}" var="row" styleClass="AFStretchWidth"
+                    rows="#{bindings.PrtUserDisplayForAdminRVO1.rangeSize}"
+                    emptyText="#{bindings.PrtUserDisplayForAdminRVO1.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED_ENG)}"
+                    fetchSize="#{bindings.PrtUserDisplayForAdminRVO1.rangeSize}" rowBandingInterval="1" width="962px" disableColumnReordering="true"
+                    columnResizing="disabled" autoHeightRows="10" filterModel="#{bindings.PrtUserDisplayForAdminRVO1Query.queryDescriptor}"
+                    queryListener="#{bindings.PrtUserDisplayForAdminRVO1Query.processQuery}" filterVisible="true" varStatus="vs" id="t1"
+                    inlineStyle="margin-left:-35px;">
+            <af:column sortProperty="UserEmail" filterable="true" sortable="true" headerText="#{sfr.USER_EMAIL}" id="c2">
+              <af:outputText value="#{row.UserEmail}" id="ot20"/>
+            </af:column>
+            <af:column sortProperty="UserFirstName" filterable="true" sortable="true" headerText="#{sfr.FIRST_NAME}" id="c5">
+              <af:outputText value="#{row.UserFirstName}" id="ot21"/>
+            </af:column>
+            <af:column sortProperty="UserMiddleName" filterable="true" sortable="true" headerText="#{sfr.MIDDLE_NAME}" id="c4">
+              <af:outputText value="#{row.UserMiddleName}" id="ot13"/>
+            </af:column>
+            <af:column sortProperty="UserLastName" filterable="true" sortable="true" headerText="#{sfr.LAST_NAME}" id="c1">
+              <af:outputText value="#{row.UserLastName}" id="ot23"/>
+            </af:column>
+            <af:column sortProperty="UserPhoneNo" filterable="true" sortable="true" headerText="#{sfr.PHONE_NO}" id="c6">
+              <af:outputText value="#{row.UserPhoneNo}" id="ot9">
+                <af:convertNumber groupingUsed="false" pattern="#{bindings.PrtUserDisplayForAdminRVO1.hints.UserPhoneNo.format}"/>
+              </af:outputText>
+            </af:column>
+            <af:column sortProperty="PartnerId" filterable="true" sortable="true" headerText="#{sfr.PARTNER_ENG}" id="c3">
+              <af:outputText value="#{row.PartnerId}" id="ot22"/>
+            </af:column>
+            <af:column sortable="true" headerText="#{sfr.ACCOUNT}" id="c113">
+              <af:outputText value="#{sfr.ENG_ALL}" id="ot31"/>
+            </af:column>
+            <af:column sortable="true" headerText="#{sfr.CARDGROUP}" id="c13">
+              <af:outputText value="#{sfr.ENG_ALL}" id="ot33"/>
+            </af:column>
+            <af:column sortable="true" headerText="#{sfr.CARD}" id="c16">
+              <af:outputText value="#{sfr.ENG_ALL}" id="ot34"/>
+            </af:column>
+          </af:table>
+        </af:showDetailItem>
+        <af:showDetailItem text="#{sfr.B2B_MANAGER_AC}" id="sdi2" stretchChildren="none" inlineStyle="height:auto !important;"
+                           rendered="#{pageFlowScope.UserInfoDisplayManagedBean.isAccMgrVisible}">
+          <af:table value="#{bindings.PrtUserDisplayForAccMgrRVO1.collectionModel}" var="row" width="962px" inlineStyle="margin-left:-35px;"
+                    rows="#{bindings.PrtUserDisplayForAccMgrRVO1.rangeSize}"
+                    emptyText="#{bindings.PrtUserDisplayForAccMgrRVO1.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED_ENG)}"
+                    fetchSize="#{bindings.PrtUserDisplayForAccMgrRVO1.rangeSize}" rowBandingInterval="1" disableColumnReordering="true"
+                    columnResizing="disabled" autoHeightRows="10" filterModel="#{bindings.PrtUserDisplayForAccMgrRVO1Query.queryDescriptor}"
+                    queryListener="#{bindings.PrtUserDisplayForAccMgrRVO1Query.processQuery}" filterVisible="true" varStatus="vs" id="t2">
+            <af:column sortProperty="UserEmail" filterable="true" sortable="true" headerText="#{sfr.USER_EMAIL}" id="c10">
+              <af:outputText value="#{row.UserEmail}" id="ot26"/>
+            </af:column>
+            <af:column sortProperty="UserFirstName" filterable="true" sortable="true" headerText="#{sfr.FIRST_NAME}" id="c11">
+              <af:outputText value="#{row.UserFirstName}" id="ot24"/>
+            </af:column>
+            <af:column sortProperty="UserMiddleName" filterable="true" sortable="true" headerText="#{sfr.MIDDLE_NAME}" id="c14">
+              <af:outputText value="#{row.UserMiddleName}" id="ot28"/>
+            </af:column>
+            <af:column headerText="#{sfr.LAST_NAME}" sortProperty="UserLastName" filterable="true" sortable="true" id="c12">
+              <af:outputText value="#{row.UserLastName}" id="ot30"/>
+            </af:column>
+            <af:column headerText="#{sfr.PHONE_NO}" sortProperty="UserPhoneNo" filterable="true" sortable="true" id="c34">
+              <af:outputText value="#{row.UserPhoneNo}" id="ot47">
+                <af:convertNumber groupingUsed="false" pattern="#{bindings.PrtUserDisplayForAccMgrRVO1.hints.UserPhoneNo.format}"/>
+              </af:outputText>
+            </af:column>
+            <af:column sortProperty="PartnerId" filterable="true" sortable="true" headerText="#{sfr.PARTNER_ENG}" id="c7">
+              <af:outputText value="#{row.PartnerId}" id="ot25"/>
+            </af:column>
+            <af:column sortProperty="AccountId" filterable="true" sortable="true" headerText="#{sfr.ACCOUNT}" id="c8">
+              <af:outputText value="#{row.AccountId}" id="ot27"/>
+            </af:column>
+            <af:column sortable="true" headerText="#{sfr.CARDGROUP}" id="c19">
+              <af:outputText value="#{sfr.ENG_ALL}" id="ot37"/>
+            </af:column>
+            <af:column sortable="true" headerText="#{sfr.CARD}" id="c29">
+              <af:outputText value="#{sfr.ENG_ALL}" id="ot43"/>
+            </af:column>
+          </af:table>
+        </af:showDetailItem>
+        <af:showDetailItem text="#{sfr.B2B_MANAGER_CG}" id="sdi3" stretchChildren="none" inlineStyle="height:auto !important;"
+                           rendered="#{pageFlowScope.UserInfoDisplayManagedBean.isCgMgrVisible}">
+          <af:table value="#{bindings.PrtUserDisplayForCgMgrRVO1.collectionModel}" var="row" width="962px" inlineStyle="margin-left:-35px;"
+                    rows="#{bindings.PrtUserDisplayForCgMgrRVO1.rangeSize}"
+                    emptyText="#{bindings.PrtUserDisplayForCgMgrRVO1.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED_ENG)}"
+                    fetchSize="#{bindings.PrtUserDisplayForCgMgrRVO1.rangeSize}" rowBandingInterval="1" disableColumnReordering="true" columnResizing="disabled"
+                    autoHeightRows="10" filterModel="#{bindings.PrtUserDisplayForCgMgrRVO1Query.queryDescriptor}"
+                    queryListener="#{bindings.PrtUserDisplayForCgMgrRVO1Query.processQuery}" filterVisible="true" varStatus="vs" id="t3">
+            <af:column sortProperty="UserEmail" filterable="true" sortable="true" headerText="#{sfr.USER_EMAIL}" id="c22">
+              <af:outputText value="#{row.UserEmail}" id="ot32"/>
+            </af:column>
+            <af:column sortProperty="UserFirstName" filterable="true" sortable="true" headerText="#{sfr.FIRST_NAME}" id="c17">
+              <af:outputText value="#{row.UserFirstName}" id="ot38"/>
+            </af:column>
+            <af:column sortProperty="UserMiddleName" filterable="true" sortable="true" headerText="#{sfr.MIDDLE_NAME}" id="c21">
+              <af:outputText value="#{row.UserMiddleName}" id="ot36"/>
+            </af:column>
+            <af:column sortProperty="UserLastName" filterable="true" sortable="true" headerText="#{sfr.LAST_NAME}" id="c23">
+              <af:outputText value="#{row.UserLastName}" id="ot35"/>
+            </af:column>
+            <af:column sortProperty="UserPhoneNo" filterable="true" sortable="true" headerText="#{sfr.PHONE_NO}" id="c20">
+              <af:outputText value="#{row.UserPhoneNo}" id="ot39">
+                <af:convertNumber groupingUsed="false" pattern="#{bindings.PrtUserDisplayForCgMgrRVO1.hints.UserPhoneNo.format}"/>
+              </af:outputText>
+            </af:column>
+            <af:column sortProperty="PartnerId" filterable="true" sortable="true" headerText="#{sfr.PARTNER_ENG}" id="c15">
+              <af:outputText value="#{row.PartnerId}" id="ot40"/>
+            </af:column>
+            <af:column headerText="#{sfr.ACCOUNT}" filterable="true" sortable="true" sortProperty="AccountId" id="c18">
+              <af:outputText value="#{row.AccountId}" id="ot52"/>
+            </af:column>
+            <af:column headerText="#{sfr.CARDGROUP}" filterable="true" sortable="true" sortProperty="CardGroup" id="c35">
+              <af:outputText value="#{row.CardGroup}" id="ot53"/>
+            </af:column>
+            <af:column sortable="true" headerText="#{sfr.CARD}" id="c32">
+              <af:outputText value="#{sfr.ENG_ALL}" id="oat22"/>
+            </af:column>
+          </af:table>
+        </af:showDetailItem>
+        <af:showDetailItem text="#{sfr.B2B_EMPLOYEE}" id="sdi4" stretchChildren="none" inlineStyle="height:auto !important;"
+                           rendered="#{pageFlowScope.UserInfoDisplayManagedBean.isEmpVisible}">
+          <af:table value="#{bindings.PrtUserDisplayForEmpRVO1.collectionModel}" var="row" width="962px" inlineStyle="margin-left:-35px;"
+                    rows="#{bindings.PrtUserDisplayForEmpRVO1.rangeSize}"
+                    emptyText="#{bindings.PrtUserDisplayForEmpRVO1.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED_ENG)}"
+                    fetchSize="#{bindings.PrtUserDisplayForEmpRVO1.rangeSize}" rowBandingInterval="1" disableColumnReordering="true" columnResizing="disabled"
+                    autoHeightRows="10" filterModel="#{bindings.PrtUserDisplayForEmpRVO1Query.queryDescriptor}"
+                    queryListener="#{bindings.PrtUserDisplayForEmpRVO1Query.processQuery}" filterVisible="true" varStatus="vs" id="t4">
+            <af:column sortProperty="UserEmail" filterable="true" sortable="true" headerText="#{sfr.USER_EMAIL}" id="c25">
+              <af:outputText value="#{row.UserEmail}" id="ot50"/>
+            </af:column>
+            <af:column sortProperty="UserFirstName" filterable="true" sortable="true" headerText="#{sfr.FIRST_NAME}" id="c31">
+              <af:outputText value="#{row.UserFirstName}" id="ot49"/>
+            </af:column>
+            <af:column sortProperty="UserMiddleName" filterable="true" sortable="true" headerText="#{sfr.MIDDLE_NAME}" id="c33">
+              <af:outputText value="#{row.UserMiddleName}" id="ot51"/>
+            </af:column>
+            <af:column sortProperty="UserLastName" filterable="true" sortable="true" headerText="#{sfr.LAST_NAME}" id="c28">
+              <af:outputText value="#{row.UserLastName}" id="ot46"/>
+            </af:column>
+            <af:column sortProperty="UserPhoneNo" filterable="true" sortable="true" headerText="#{sfr.PHONE_NO}" id="c30">
+              <af:outputText value="#{row.UserPhoneNo}" id="ot48">
+                <af:convertNumber groupingUsed="false" pattern="#{bindings.PrtUserDisplayForEmpRVO1.hints.UserPhoneNo.format}"/>
+              </af:outputText>
+            </af:column>
+            <af:column sortProperty="PartnerId" filterable="true" sortable="true" headerText="#{sfr.PARTNER_ENG}" id="c26">
+              <af:outputText value="#{row.PartnerId}" id="ot44"/>
+            </af:column>
+            <af:column sortProperty="AccountId" filterable="true" sortable="true" headerText="#{sfr.ACCOUNT}" id="c24">
+              <af:outputText value="#{row.AccountId}" id="ot45"/>
+            </af:column>
+            <af:column sortProperty="CardGroup" filterable="true" sortable="true" headerText="#{sfr.CARDGROUP}" id="c27">
+              <af:outputText value="#{row.CardGroup}" id="ot42"/>
+            </af:column>
+            <af:column headerText="#{sfr.CARD}" sortProperty="Cardembossno" filterable="true" sortable="true" id="c36">
+              <af:outputText value="#{row.Cardembossno}" id="ot54"/>
+            </af:column>
+          </af:table>
+        </af:showDetailItem>
+      </af:panelAccordion>
+      <af:spacer id="s62" height="20px" width="10px"/>
+    </af:panelGroupLayout>
+  </af:panelGroupLayout>
+  <!--oracle-jdev-comment:preferred-managed-bean-name:UserInfoDisplayManagedBean-->
+</jsp:root>
