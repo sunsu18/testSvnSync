@@ -93,12 +93,13 @@
   <Attribute
     Name="UserPhoneNo"
     ColumnName="USER_PHONE_NO"
-    SQLType="NUMERIC"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
-    TableName="PRT_CARD_USER_INFORMATION">
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD_USER_INFORMATION"
+    Precision="20">
     <DesignTime>
-      <Attr Name="_DisplaySize" Value="39"/>
+      <Attr Name="_DisplaySize" Value="20"/>
     </DesignTime>
   </Attribute>
   <Attribute

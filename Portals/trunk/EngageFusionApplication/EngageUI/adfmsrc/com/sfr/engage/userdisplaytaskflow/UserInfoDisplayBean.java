@@ -2231,10 +2231,17 @@ public class UserInfoDisplayBean {
 
     private String getWSDLErrorMessage(String error) {
         Conversion conv = new Conversion();
+        String displayLang = "";
+        if (null != session.getAttribute("langReport")) {
+            displayLang = (String)session.getAttribute("langReport");
+        } else {
+            displayLang = "se_SE";
+        }
+
         BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
         OperationBinding operationBinding = bindings.getOperationBinding("getWebServiceErrorMessage");
         operationBinding.getParamsMap().put("errorMessage", error);
-        operationBinding.getParamsMap().put("countryCode", conv.getCustomerCountryCode(lang));
+        operationBinding.getParamsMap().put("countryCode", displayLang);
         String result = (String)operationBinding.execute();
 
         if (result == null || result.equals("")) {
@@ -2247,7 +2254,6 @@ public class UserInfoDisplayBean {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside SaveUserInfoAction method of User Display");
         User userInfo = new User();
         Conversion conv = new Conversion();
-        Integer phoneNumber = 0;
         Date dateOfBirth;
         oracle.jbo.domain.Date newJboDOBDate = new oracle.jbo.domain.Date();
         DCBindingContainer bc = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
@@ -2282,8 +2288,6 @@ public class UserInfoDisplayBean {
         if (getBindings().getUserPhoneNumber().getValue() != null && getBindings().getUserPhoneNumber().getValue().toString().length() > 0) {
             displayErrorComponent(getBindings().getUserPhoneNumber(), false);
             userInfo.setPhoneNumber(getBindings().getUserPhoneNumber().getValue().toString().trim());
-            int i = Integer.parseInt(getBindings().getUserPhoneNumber().getValue().toString().trim());
-            phoneNumber = i;
         } else {
             displayErrorComponent(getBindings().getUserPhoneNumber(), true);
             showErrorMessage("ENTER_PHONE_NUMBER");
@@ -2342,6 +2346,12 @@ public class UserInfoDisplayBean {
                 }
             }
             userInfo.setRoleList(passingRoleList);
+        } else {
+            if (resourceBundle.containsKey("ENGAGE_NO_ASSOCIATION_FOUND")) {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("ENGAGE_NO_ASSOCIATION_FOUND"), "");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+                return null;
+            }
         }
 
         if (userInfo != null) {
@@ -2349,24 +2359,31 @@ public class UserInfoDisplayBean {
             OperationBinding userCreateOpn = bc.getOperationBinding("createUser");
             userCreateOpn.getParamsMap().put("user", userInfo);
             result = (BaseBean)userCreateOpn.execute();
-            if (result != null && result.getStatus() != null && result.getStatus().equalsIgnoreCase("error")) {
+            if (result != null) {
                 String error = null;
+                if (result.getStatus() != null && result.getStatus().equalsIgnoreCase("error")) {
+                    if (result.getErrorList() != null && result.getErrorList().size() != 0 && result.getErrorList().get(0) != null &&
+                        result.getErrorList().get(0).getErrorCode() != null) {
 
-                if (result.getErrorList() != null && result.getErrorList().size() != 0 && result.getErrorList().get(0) != null &&
-                    result.getErrorList().get(0).getErrorCode() != null) {
+                        error = result.getErrorList().get(0).getErrorCode();
+                        error = getWSDLErrorMessage(error);
 
-                    error = result.getErrorList().get(0).getErrorCode();
-                    error = getWSDLErrorMessage(error);
-
+                    } else {
+                        error = "ENGAGE_UNKNOWN_ERROR";
+                        error = getWSDLErrorMessage(error);
+                    }
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, error, "");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                    return null;
                 } else {
-                    error = "ENGAGE_UNKNOWN_ERROR";
-                    error = getWSDLErrorMessage(error);
+                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Success is returned from IDAM " + result.getStatus());
                 }
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, error, "");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-                return null;
             } else {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Success is returned from IDAM " + result.getStatus());
+                if (resourceBundle.containsKey("ENGAGE_IDAM_FAILURE")) {
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("ENGAGE_IDAM_FAILURE"), "");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                    return null;
+                }
             }
 
             try {
@@ -2384,7 +2401,7 @@ public class UserInfoDisplayBean {
                     userInfoRow.setAttribute("UserMiddleName", getBindings().getUserMiddleName().getValue().toString().trim());
                     userInfoRow.setAttribute("UserLastName", getBindings().getUserLastName().getValue().toString().trim());
                     userInfoRow.setAttribute("UserDob", newJboDOBDate);
-                    userInfoRow.setAttribute("UserPhoneNo", (Number)phoneNumber);
+                    userInfoRow.setAttribute("UserPhoneNo", getBindings().getUserPhoneNumber().getValue().toString().trim());
                     userInfoRow.setAttribute("UserLang", conv.getCustomerCountryCode(lang));
                     userInfoRow.setAttribute("ModifiedBy", userEmail);
 
