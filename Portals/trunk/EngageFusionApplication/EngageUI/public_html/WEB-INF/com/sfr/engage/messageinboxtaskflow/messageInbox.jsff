@@ -73,7 +73,7 @@
                         id="select_item_account1"/>
         </af:forEach>
        </af:selectManyChoice>-->
-       <af:selectOneChoice value="#{pageFlowScope.MessageInboxBean.categoryValue}"
+       <af:selectManyChoice value="#{pageFlowScope.MessageInboxBean.categoryValue}"
        binding="#{pageFlowScope.MessageInboxBean.bindings.category}" contentStyle="width: 200px;"
                               autoSubmit="true" partialTriggers="cb2"
                             id="smc2"
@@ -83,7 +83,7 @@
         <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
                        id="si2"/>
                        </af:forEach>
-       </af:selectOneChoice>
+       </af:selectManyChoice>
        <af:spacer width="20" height="15" id="s41"/>
        <af:selectManyChoice id="smc4" autoSubmit="true" partialTriggers="cb2"
                             binding="#{pageFlowScope.MessageInboxBean.bindings.messageType}"
@@ -181,7 +181,7 @@
         </af:forEach>
        </af:selectManyChoice>
        <af:spacer width="20" height="15" id="s32"/>
-       <af:selectManyChoice id="selectManyChoice3"
+       <af:selectManyChoice id="selectManyChoice3" autoSubmit="true"
                             disabled="#{pageFlowScope.MessageInboxBean.isMessageAdmin}" partialTriggers="smc2 cb2"
                             binding="#{pageFlowScope.MessageInboxBean.bindings.cardGroup}"
                             value="#{pageFlowScope.MessageInboxBean.cardGroupValue}"
@@ -194,7 +194,7 @@
         </af:forEach>
        </af:selectManyChoice>
        <af:spacer width="20" height="15" id="spacer6"/>
-       <af:selectManyChoice id="selectManyChoice4" partialTriggers="smc2 cb2"
+       <af:selectManyChoice id="selectManyChoice4" partialTriggers="smc2 cb2" autoSubmit="true"
        disabled="#{pageFlowScope.MessageInboxBean.isMessageAdmin}"
                             binding="#{pageFlowScope.MessageInboxBean.bindings.card}"
                             value="#{pageFlowScope.MessageInboxBean.cardValue}"
@@ -270,7 +270,7 @@
                                     />-->
       </af:column>
       <af:column sortProperty="EffectiveDate" filterable="true" sortable="true" width="150" 
-                 headerText="#{sfr.ENGAGE_DATE}"
+                 headerText="#{sfr.ENGAGE_DATE}" inlineStyle="#{(row.readFlag)=='false' ? 'font-weight:bold;' : 'font-weight:normal;'}"
                  id="c6">
        <f:facet name="filter">
         <af:inputDate value="#{vs.filterCriteria.EffectiveDate}" id="id2">
@@ -283,12 +283,12 @@
       </af:column>
       
       <af:column sortProperty="Title" filterable="true" sortable="true" width="200"
-                headerText="#{sfr.ENGAGE_TITLE}"
+                headerText="#{sfr.ENGAGE_TITLE}" inlineStyle="#{(row.readFlag)=='false' ? 'font-weight:bold;' : 'font-weight:normal;'}"
                  id="c5">
        <af:outputText value="#{row.Title}" id="ot17" escape="false"/>
       </af:column>
       <af:column sortProperty="MessageEnglish" filterable="true" sortable="true" width="550"
-                 headerText="#{sfr.ENGAGE_MESSAGE}"
+                 headerText="#{sfr.ENGAGE_MESSAGE}" inlineStyle="#{(row.readFlag)=='false' ? 'font-weight:bold;' : 'font-weight:normal;'}"
                  id="c1" noWrap="false">
       
   <af:outputText value="#{row.MessageLang eq null? row.MessageEnglish : row.MessageLang}" id="ot3"

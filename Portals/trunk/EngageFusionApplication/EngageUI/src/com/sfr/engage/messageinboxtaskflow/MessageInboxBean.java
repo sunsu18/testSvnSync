@@ -38,7 +38,6 @@ import javax.servlet.http.HttpSession;
 import oracle.adf.share.logging.ADFLogger;
 import oracle.adf.view.rich.component.rich.input.RichInputDate;
 import oracle.adf.view.rich.component.rich.input.RichSelectManyChoice;
-import oracle.adf.view.rich.component.rich.input.RichSelectOneChoice;
 import oracle.adf.view.rich.component.rich.layout.RichPanelGroupLayout;
 import oracle.adf.view.rich.context.AdfFacesContext;
 
@@ -51,9 +50,9 @@ public class MessageInboxBean implements Serializable {
     private transient Bindings bindings;
     private HttpSession session;
     private HttpServletRequest request;
-    private boolean isMessageAdmin = true;
+    private boolean isMessageAdmin = false;
     private List<SelectItem> categoryList;
-    private String categoryValue = null;
+    private List<String> categoryValue = null;
     private List<SelectItem> messageTypeList;
     private List<String> messageTypeValue = null;
     private ResourceBundle resourceBundle;
@@ -92,12 +91,15 @@ public class MessageInboxBean implements Serializable {
         cardValue = new ArrayList<String>();
         cardList = new ArrayList<SelectItem>();
         messageTypeValue = new ArrayList<String>();
+        categoryValue= new ArrayList<String>();
 
-        if (resourceBundle.containsKey(Constants.ENGAGE_CATEGORY_ADMIN_LITERAL)) {
-            categoryValue = resourceBundle.getObject(Constants.ENGAGE_CATEGORY_ADMIN_LITERAL).toString();
-        } else {
-            categoryValue = "";
-        }
+//        if (resourceBundle.containsKey(Constants.ENGAGE_CATEGORY_ADMIN_LITERAL)) {
+//            categoryValue = resourceBundle.getObject(Constants.ENGAGE_CATEGORY_ADMIN_LITERAL).toString();
+//        } else {
+//            categoryValue = "";
+//        }
+                categoryValue.add(resourceBundle.getObject("ENGAGE_CATEGORY_ADMIN").toString());
+        categoryValue.add(resourceBundle.getObject("ENGAGE_CATEGORY_NON_ADMIN").toString());
         messageTypeValue.add("NO");
         messageTypeValue.add("YES");
         if (session != null) {
@@ -303,18 +305,259 @@ public class MessageInboxBean implements Serializable {
 
         return passedVal.split(",");
     }
+    
+    public String[] StringConversion(String passedVal) {
 
+        List<String> container;
+
+        String[] val = passedVal.split(",");
+
+        return val;
+    }
+    
     public void partnerValueChangeListener(ValueChangeEvent valueChangeEvent) {
+    
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside partnerValueChangeListener method of Message Inbox");
+        if (valueChangeEvent.getNewValue() != null) {
+            accountList = new ArrayList<SelectItem>();
+            accountValue = new ArrayList<String>();
+            cardGroupList = new ArrayList<SelectItem>();
+            cardGroupValue = new ArrayList<String>();
+            cardList = new ArrayList<SelectItem>();
+            cardValue = new ArrayList<String>();
+            String[] partnerString = StringConversion(populateStringValues(valueChangeEvent.getNewValue().toString()));
+            if (partnerString.length > 0) {
+                for (int i = 0; i < partnerInfoList.size(); i++) {
+                    for (int p = 0; p < partnerString.length; p++) {
+                        if (partnerInfoList.get(i).getPartnerValue().toString() != null &&
+                            partnerInfoList.get(i).getPartnerValue().toString().equals(partnerString[p].trim())) {
+                            if (partnerInfoList.get(i).getAccountList() != null && partnerInfoList.get(i).getAccountList().size() > 0) {
+                                for (int j = 0; j < partnerInfoList.get(i).getAccountList().size(); j++) {
+                                    if (partnerInfoList.get(i).getAccountList().get(j).getAccountNumber() != null) {
+                                        SelectItem selectItem = new SelectItem();
+                                        selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+                                        selectItem.setValue(partnerInfoList.get(i).getPartnerValue().toString() +
+                                                            partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+                                        accountList.add(selectItem);
+                                        accountValue.add(partnerInfoList.get(i).getPartnerValue().toString() +
+                                                           partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+                                    }
 
+                                    for (int k = 0; k < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().size(); k++) {
+                                        if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID() != null) {
+                                            SelectItem selectItem = new SelectItem();
+                                            selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getDisplayCardGroupIdName().toString());
+                                            selectItem.setValue(partnerInfoList.get(i).getPartnerValue().toString().trim() +
+                                                                partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString() +
+                                                                partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
+                                            cardGroupList.add(selectItem);
+                                            cardGroupValue.add(partnerInfoList.get(i).getPartnerValue().toString().trim() +
+                                                               partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString() +
+                                                               partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
+                                        }
+
+                                        for (int cc = 0; cc < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().size(); cc++) {
+                                            if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID() != null &&
+                                                partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID() !=
+                                                null) {
+                                                SelectItem selectItem = new SelectItem();
+                                                selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString());
+                                                selectItem.setValue(partnerInfoList.get(i).getPartnerValue().toString().trim() +
+                                                                    partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString() +
+                                                                    partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString() +
+                                                                    partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
+                                                cardList.add(selectItem);
+                                                cardValue.add(partnerInfoList.get(i).getPartnerValue().toString().trim() +
+                                                                    partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString() +
+                                                                    partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString() +
+                                                                    partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                Collections.sort(accountList, comparator);
+                Collections.sort(cardGroupList, comparator);
+                Collections.sort(cardList, comparator);
+            }
+        } else {
+            getBindings().getAccount().setValue(null);
+            getBindings().getCardGroup().setValue(null);
+            getBindings().getCard().setValue(null);
+            this.accountValue = null;
+            this.accountList = null;
+            this.cardGroupValue = null;
+            this.cardGroupList = null;
+            this.cardList = null;
+            this.cardValue = null;
+        }
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccount());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCard());
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside partnerValueChangeListener method of Message Inbox");
+    
     }
 
     public void accountValueChangeListener(ValueChangeEvent valueChangeEvent) {
+        
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside accountValueChangeListener method of Message Inbox");
+        if (valueChangeEvent.getNewValue() != null) {
+            String[] accountString = StringConversion(populateStringValues(valueChangeEvent.getNewValue().toString()).replaceAll(" ", ""));
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "accountlist");
+            for (int y = 0; y < accountString.length; y++)
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + accountString[y]);
+            cardGroupList = new ArrayList<SelectItem>();
+            cardGroupValue = new ArrayList<String>();
+            cardList = new ArrayList<SelectItem>();
+            cardValue = new ArrayList<String>();
+            for (int z = 0; z < partnerInfoList.size(); z++) {
+                if (partnerInfoList.get(z).getAccountList() != null && partnerInfoList.get(z).getAccountList().size() > 0) {
+                    for (int i = 0; i < partnerInfoList.get(z).getAccountList().size(); i++) {
 
+                        for (int j = 0; j < accountString.length; j++) {
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "accc frmo partnerlist " +
+                                         partnerInfoList.get(z).getAccountList().get(i).getAccountNumber());
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "acc comparing " + accountString[j].substring(8, 18).trim());
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "checking bopolean " +
+                                         partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().equals(accountString[j].substring(8, 18).trim()));
+                            if (partnerInfoList.get(z).getAccountList().get(i).getAccountNumber() != null &&
+                                partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().equals(accountString[j].substring(8, 18).trim())) {
+                                if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup() != null &&
+                                    partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size() > 0) {
+                                    for (int k = 0; k < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size(); k++) {
+
+                                        if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID() != null) {
+                                            SelectItem selectItem = new SelectItem();
+                                            selectItem.setLabel(partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getDisplayCardGroupIdName().toString());
+                                            selectItem.setValue(partnerInfoList.get(z).getPartnerValue().toString().trim() +
+                                                                partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString() +
+                                                                partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
+                                            cardGroupList.add(selectItem);
+                                            cardGroupValue.add(partnerInfoList.get(z).getPartnerValue().toString().trim() +
+                                                               partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString() +
+                                                               partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
+                                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() +
+                                                         partnerInfoList.get(z).getPartnerValue().toString().trim() +
+                                                         partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString() +
+                                                         partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString() +
+                                                         "added in cardGroupValue");
+                                        }
+                                        for (int cc = 0; cc < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().size(); cc++) {
+                                            if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getCardID() != null &&
+                                                partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getExternalCardID() !=
+                                                null) {
+                                                SelectItem selectItem = new SelectItem();
+                                                selectItem.setLabel(partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString());
+                                                selectItem.setValue(partnerInfoList.get(z).getPartnerValue().toString().trim() +
+                                                                    partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString() +
+                                                                    partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString() +
+                                                                    partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
+                                                cardList.add(selectItem);
+                                                cardValue.add(partnerInfoList.get(z).getPartnerValue().toString().trim() +
+                                                                    partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString() +
+                                                                    partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString() +
+                                                                    partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
+                                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() +
+                                                             partnerInfoList.get(z).getPartnerValue().toString().trim() +
+                                                             partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString() +
+                                                             partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString() +
+                                                             partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getCardID().toString() +
+                                                             "added in cardNumberValue");
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+            Collections.sort(accountList, comparator);
+            Collections.sort(cardGroupList, comparator);
+            Collections.sort(cardList, comparator);
+        } else {
+            getBindings().getCardGroup().setValue(null);
+            getBindings().getCard().setValue(null);
+            this.cardGroupValue = null;
+            this.cardValue = null;
+        }
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccount());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCard());
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside accountValueChangeListener method of Message Inbox");
+        
     }
 
     public void cgValueChangeListener(ValueChangeEvent valueChangeEvent) {
-
+    
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside cardgroupValueChangeListener method of Message Inbox");
+        if (valueChangeEvent.getNewValue() != null) {
+            String[] cardgroupString = StringConversion(populateStringValues(valueChangeEvent.getNewValue().toString()).replaceAll(" ", ""));
+            for (int y = 0; y < cardgroupString.length; y++)
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + cardgroupString[y]);
+            cardList = new ArrayList<SelectItem>();
+            cardValue = new ArrayList<String>();
+            for (int z = 0; z < partnerInfoList.size(); z++) {
+                if (partnerInfoList.get(z).getAccountList() != null && partnerInfoList.get(z).getAccountList().size() > 0) {
+                    for (int i = 0; i < partnerInfoList.get(z).getAccountList().size(); i++) {
+                        if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup() != null &&
+                            partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size() > 0) {
+                            for (int cg = 0; cg < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size(); cg++) {
+                                for (int cgs = 0; cgs < cardgroupString.length; cgs++) {
+                                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "cardgrp from partnerlist  " +
+                                                 partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCardGroupID().toString().trim());
+                                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "comparing cardgrp " +
+                                                 cardgroupString[cgs].substring(18, 29).trim());
+                                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "checkin boolean " +
+                                                 (partnerInfoList.get(z).getPartnerValue().toString().trim() +
+                                                  partnerInfoList.get(z).getAccountList().get(i).getAccountNumber() +
+                                                  partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCardGroupID().toString().trim()).equals(cardgroupString[cgs].trim()));
+                                    if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup() != null &&
+                                        ((partnerInfoList.get(z).getPartnerValue().toString().trim() +
+                                          partnerInfoList.get(z).getAccountList().get(i).getAccountNumber() +
+                                          partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCardGroupID().toString().trim()).equals(cardgroupString[cgs].trim()))) {
+                                        for (int cc = 0; cc < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCard().size(); cc++) {
+                                            if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCard().get(cc).getCardID() != null &&
+                                                partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCard().get(cc).getExternalCardID() !=
+                                                null) {
+                                                SelectItem selectItem = new SelectItem();
+                                                selectItem.setLabel(partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCard().get(cc).getExternalCardID().toString());
+                                                selectItem.setValue(partnerInfoList.get(z).getPartnerValue().toString().trim() +
+                                                                    partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString() +
+                                                                    partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCardGroupID().toString() +
+                                                                    partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCard().get(cc).getCardID().toString());
+                                                cardList.add(selectItem);
+                                                cardValue.add(partnerInfoList.get(z).getPartnerValue().toString().trim() +
+                                                                    partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString() +
+                                                                    partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCardGroupID().toString() +
+                                                                    partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCard().get(cc).getCardID().toString());
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                   
+                    Collections.sort(cardGroupList, comparator);
+                    Collections.sort(cardList, comparator);
+                }
+            }
+        } else {
+            getBindings().getCard().setValue(null);
+            this.cardValue = null;
+        }
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccount());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCard());
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside cardgroupValueChangeListener method of Message Inbox");
     }
+
 
     public void clearSearchListener(ActionEvent actionEvent) {
 
@@ -363,116 +606,259 @@ public class MessageInboxBean implements Serializable {
         String newToDate = null;
         String messageValue = null;
         isSearchTableVisible = false;
+        displayErrorComponent(getBindings().getMessageType(), false); 
+        displayErrorComponent(getBindings().getCategory(), false); 
+        
+        displayErrorComponent(getBindings().getPartnerNumber(), false); 
+        displayErrorComponent(getBindings().getAccount(), false); 
+        displayErrorComponent(getBindings().getCardGroup(), false); 
+        displayErrorComponent(getBindings().getCard(), false); 
+        
+        if(getBindings().getMessageType().getValue() != null) {           
+           
+        //        if (isMessageAdmin) {
+            if (getBindings().getCategory().getValue() != null &&
+                getBindings().getMessageType().getValue() != null &&
+                getBindings().getFromDate().getValue() != null &&
+                getBindings().getToDate().getValue() != null) {
 
-        if (getBindings().getMessageType().getValue() != null) {
-            displayErrorComponent(getBindings().getMessageType(), false);
-            if (isMessageAdmin) {
-                if (getBindings().getCategory().getValue() != null && getBindings().getMessageType().getValue() != null &&
-                    getBindings().getFromDate().getValue() != null && getBindings().getToDate().getValue() != null) {
+                
+                if (getBindings().getFromDate().getValue() != null &&
+                    getBindings().getToDate().getValue() != null) {
+                    DateFormat sdf = new SimpleDateFormat("dd-MMM-yy");
+                    Date effectiveFromDate =
+                        (java.util.Date)getBindings().getFromDate().getValue();
+                    Date effectiveToDate1 =
+                        (java.util.Date)getBindings().getToDate().getValue();
+                    newFromDate = sdf.format(effectiveFromDate);
+                    newToDate = sdf.format(effectiveToDate1);
 
-                    if (getBindings().getFromDate().getValue() != null && getBindings().getToDate().getValue() != null) {
-                        DateFormat sdf = new SimpleDateFormat("dd-MMM-yy");
-                        Date effectiveFromDate = (java.util.Date)getBindings().getFromDate().getValue();
-                        Date effectiveToDate1 = (java.util.Date)getBindings().getToDate().getValue();
-                        newFromDate = sdf.format(effectiveFromDate);
-                        newToDate = sdf.format(effectiveToDate1);
-
-                        if (effectiveToDate1.before(effectiveFromDate)) {
-                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "value of new from date ================>" + newFromDate);
-                            showErrorMessage("ENGAGE_VALID_FROM_TO_DATE");
-                            return;
-                        }
+                    if (effectiveToDate1.before(effectiveFromDate)) {
+                        LOGGER.info(accessDC.getDisplayRecord() +
+                                 this.getClass() + " " +
+                                 "value of new from date ================>" +
+                                 newFromDate);
+                        showErrorMessage("ENGAGE_VALID_FROM_TO_DATE");
+                        return;
                     }
-
+                }
+                
+                
+                String selectedCategory = "";
+                if(getBindings().getCategory().getValue() != null){
+                selectedCategory = populateStringValues(getBindings().getCategory().getValue().toString());
+                }
+                
+                if(selectedCategory.trim().equalsIgnoreCase(resourceBundle.getObject("ENGAGE_CATEGORY_ADMIN").toString())){
+                    
+                    // add code for only fetching messages
+                    
                     if (getBindings().getMessageType().getValue() != null) {
-                        messageValue = populateStringValues(getBindings().getMessageType().getValue().toString());
+                        messageValue =
+                                populateStringValues(getBindings().getMessageType().getValue().toString());
                     }
 
                     Date date = new Date();
+                    java.sql.Date passedDate = new java.sql.Date(date.getTime());
                     Set<String> cardTypeSet = new HashSet<String>();
                     List<String> customerTypeList = new ArrayList<String>();
-                    if (session.getAttribute(Constants.CARDTYPELIST_LITERAL) != null) {
+                    if (session.getAttribute("cardTypeList") != null) {
 
-                        cardTypeSet = (Set<String>)session.getAttribute(Constants.CARDTYPELIST_LITERAL);
+                        cardTypeSet =
+                                (Set<String>)session.getAttribute("cardTypeList");
                     }
 
-                    List<String> cardTypeListTemp = new ArrayList<String>(cardTypeSet);
-                    String cardTypeList = cardTypeListTemp.toString().substring(1, cardTypeListTemp.toString().length() - 1).replace("", "");
-                    ViewObject prtCustomerCardMapVO = ADFUtils.getViewObject("PrtCustomerCardMapRVO1_1Iterator");
-                    prtCustomerCardMapVO.setNamedWhereClauseParam("cardType", cardTypeList);
+                    List<String> cardTypeListTemp =
+                        new ArrayList<String>(cardTypeSet);
+                    String cardTypeList =
+                        cardTypeListTemp.toString().substring(1, cardTypeListTemp.toString().length() -
+                                                              1).replace("", "");
+
+                    ViewObject prtCustomerCardMapVO =
+                        ADFUtils.getViewObject("PrtCustomerCardMapRVO1_1Iterator");
+                    prtCustomerCardMapVO.setNamedWhereClauseParam("cardType",
+                                                                  cardTypeList);
                     prtCustomerCardMapVO.executeQuery();
                     if (prtCustomerCardMapVO.getEstimatedRowCount() != 0) {
                         while (prtCustomerCardMapVO.hasNext()) {
-                            PrtCustomerCardMapRVO1RowImpl currRow = (PrtCustomerCardMapRVO1RowImpl)prtCustomerCardMapVO.next();
+                            PrtCustomerCardMapRVO1RowImpl currRow =
+                                (PrtCustomerCardMapRVO1RowImpl)prtCustomerCardMapVO.next();
                             if (currRow != null) {
                                 customerTypeList.add(currRow.getCustomerType());
-                                customerTypeValue = customerTypeList.toString().substring(1, customerTypeList.toString().length() - 1).replace("", "");
+                                customerTypeValue =
+                                        customerTypeList.toString().substring(1,
+                                                                              customerTypeList.toString().length() -
+                                                                              1).replace("",
+                                                                                         "");
                             }
                         }
                         customerTypeValue = customerTypeValue + ",ALL";
                     }
                     if (customerTypeValue != null) {
-                        ViewObject prtPCMFeedsVO = ADFUtils.getViewObject("PrtPcmFeedsRVO1Iterator");
+                        ViewObject prtPCMFeedsVO =
+                            ADFUtils.getViewObject("PrtPcmFeedsRVO1Iterator");
+
 
                         if (prtPCMFeedsVO.getWhereClause() != null &&
                             "INSTR(:customerType,CUSTOMER_TYPE)<>0  AND INFORMATION_TYPE =:infoType AND COUNTRY_CODE=:countryCode AND EFFECTIVE_DATE <=:fromDate AND END_DATE >=:toDate".equalsIgnoreCase(prtPCMFeedsVO.getWhereClause())) {
-                            prtPCMFeedsVO.removeNamedWhereClauseParam(Constants.CUSTOMER_TYPE_LITERAL);
-                            prtPCMFeedsVO.removeNamedWhereClauseParam(Constants.INFO_TYPE_LITERAL);
-                            prtPCMFeedsVO.removeNamedWhereClauseParam(Constants.COUNTRYCODE_LITERAL);
-                            prtPCMFeedsVO.removeNamedWhereClauseParam(Constants.FROM_DATE_LITERAL);
-                            prtPCMFeedsVO.removeNamedWhereClauseParam(Constants.TO_DATE_LITERAL);
+                            prtPCMFeedsVO.removeNamedWhereClauseParam("customerType");
+                            prtPCMFeedsVO.removeNamedWhereClauseParam("infoType");
+                            prtPCMFeedsVO.removeNamedWhereClauseParam("countryCode");
+                            prtPCMFeedsVO.removeNamedWhereClauseParam("fromDate");
+                            prtPCMFeedsVO.removeNamedWhereClauseParam("toDate");
                             prtPCMFeedsVO.setWhereClause("");
                             prtPCMFeedsVO.executeQuery();
                         }
 
+
                         prtPCMFeedsVO.setWhereClause("INSTR(:customerType,CUSTOMER_TYPE)<>0  AND INFORMATION_TYPE =:infoType AND COUNTRY_CODE=:countryCode AND EFFECTIVE_DATE >=:fromDate AND EFFECTIVE_DATE <=:toDate AND INSTR(:showFlag,trim(SHOW_FLAG))<>0");
-                        prtPCMFeedsVO.defineNamedWhereClauseParam(Constants.CUSTOMER_TYPE_LITERAL, customerTypeValue, null);
-                        prtPCMFeedsVO.defineNamedWhereClauseParam(Constants.INFO_TYPE_LITERAL, "MESSAGES", null);
-                        prtPCMFeedsVO.defineNamedWhereClauseParam(Constants.COUNTRYCODE_LITERAL, conversionUtility.getCustomerCountryCode(langSession), null);
-                        prtPCMFeedsVO.defineNamedWhereClauseParam(Constants.FROM_DATE_LITERAL, newFromDate, null);
-                        prtPCMFeedsVO.defineNamedWhereClauseParam(Constants.TO_DATE_LITERAL, newToDate, null);
-                        prtPCMFeedsVO.defineNamedWhereClauseParam("showFlag", messageValue, null);
+
+
+                        prtPCMFeedsVO.defineNamedWhereClauseParam("customerType",
+                                                                  customerTypeValue,
+                                                                  null);
+                        prtPCMFeedsVO.defineNamedWhereClauseParam("infoType",
+                                                                  "MESSAGES",
+                                                                  null);
+                        prtPCMFeedsVO.defineNamedWhereClauseParam("countryCode",
+                                                                  conversionUtility.getCustomerCountryCode(langSession),
+                                                                  null);
+                        prtPCMFeedsVO.defineNamedWhereClauseParam("fromDate",
+                                                                  newFromDate,
+                                                                  null);
+                        prtPCMFeedsVO.defineNamedWhereClauseParam("toDate",
+                                                                  newToDate, null);
+                        prtPCMFeedsVO.defineNamedWhereClauseParam("showFlag",
+                                                                  messageValue,
+                                                                  null);
                         prtPCMFeedsVO.executeQuery();
-                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Messages Row Count " + prtPCMFeedsVO.getEstimatedRowCount());
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() +
+                                 " " + "Messages Row Count " +
+                                 prtPCMFeedsVO.getEstimatedRowCount());
                         if (prtPCMFeedsVO.getEstimatedRowCount() > 0) {
                             isSearchTableVisible = true;
                         } else {
                             isSearchTableVisible = false;
-                            if (messageValue.equalsIgnoreCase("NO")) {
-                                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("ENG_NO_READ_MSGS"), "");
-                                FacesContext.getCurrentInstance().addMessage(null, msg);
+                            if(messageValue.equalsIgnoreCase("NO")) {
+                                FacesMessage msg =
+                                    new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                                     (String)resourceBundle.getObject("ENG_NO_READ_MSGS"),
+                                                     "");
+                                FacesContext.getCurrentInstance().addMessage(null,
+                                                                             msg);                            
                             }
-
-                            else if (messageValue.equalsIgnoreCase("YES")) {
-                                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("ENG_NO_UNREAD_MSGS"), "");
-                                FacesContext.getCurrentInstance().addMessage(null, msg);
+                            
+                            else  if(messageValue.equalsIgnoreCase("YES")) {
+                                FacesMessage msg =
+                                    new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                                     (String)resourceBundle.getObject("ENG_NO_UNREAD_MSGS"),
+                                                     "");
+                                FacesContext.getCurrentInstance().addMessage(null,
+                                                                             msg);                            
                             }
-
-                            else {
-                                if (resourceBundle.containsKey("ENG_NO_ADMIN_MSGS")) {
-                                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("ENG_NO_ADMIN_MSGS"), "");
-                                    FacesContext.getCurrentInstance().addMessage(null, msg);
-                                }
+                            
+                            else { 
+                            if (resourceBundle.containsKey("ENG_NO_ADMIN_MSGS")) {
+                                FacesMessage msg =
+                                    new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                                     (String)resourceBundle.getObject("ENG_NO_ADMIN_MSGS"),
+                                                     "");
+                                FacesContext.getCurrentInstance().addMessage(null,
+                                                                             msg);
+                            }
                             }
                         }
+                    }   
+                }
+                
+                else if(selectedCategory.trim().equalsIgnoreCase(resourceBundle.getObject("ENGAGE_CATEGORY_NON_ADMIN").toString())){
+                
+                    if (getBindings().getPartnerNumber().getValue() != null &&
+                        getBindings().getAccount().getValue() != null &&
+                        getBindings().getCardGroup().getValue() != null &&
+                        getBindings().getCard().getValue() != null) {
+                        
+                        // add code for only fetching alerts
+                        
+                        }
+                    else{
+                        if(getBindings().getPartnerNumber().getValue() == null){
+                        displayErrorComponent(getBindings().getPartnerNumber(), true);    
+                        }
+                        if(getBindings().getAccount().getValue() == null){
+                        displayErrorComponent(getBindings().getAccount(), true);    
+                        }
+                        if(getBindings().getCardGroup().getValue() == null){
+                        displayErrorComponent(getBindings().getCardGroup(), true);    
+                        }
+                        if(getBindings().getCard().getValue() == null){
+                        displayErrorComponent(getBindings().getCard(), true);    
+                        }
+                        
+                        showErrorMessage("ENGAGE_SELECT_TRANSACTION_MANDATORY");
+                        return; 
                     }
+                
+                    
+                }
+                
+                else{
+                    
+                    // add code for only fetching alerts and messages
+                    
+                    if (getBindings().getPartnerNumber().getValue() != null &&
+                        getBindings().getAccount().getValue() != null &&
+                        getBindings().getCardGroup().getValue() != null &&
+                        getBindings().getCard().getValue() != null) {
+                    
+                }
+                    else {
+                        if(getBindings().getPartnerNumber().getValue() == null){
+                        displayErrorComponent(getBindings().getPartnerNumber(), true);    
+                        }
+                        if(getBindings().getAccount().getValue() == null){
+                        displayErrorComponent(getBindings().getAccount(), true);    
+                        }
+                        if(getBindings().getCardGroup().getValue() == null){
+                        displayErrorComponent(getBindings().getCardGroup(), true);    
+                        }
+                        if(getBindings().getCard().getValue() == null){
+                        displayErrorComponent(getBindings().getCard(), true);    
+                        }
+                        
+                        showErrorMessage("ENGAGE_SELECT_TRANSACTION_MANDATORY");
+                        return;   
+                    }
+                
+                }
 
-                } else {
-                    showErrorMessage("ENGAGE_SELECT_TRANSACTION_MANDATORY");
-                    return;
-                }
             } else {
-                isSearchTableVisible = false;
-                if (resourceBundle.containsKey("ENG_NO_ADMIN_MSGS")) {
-                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("NO_DATA"), "");
-                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                
+                if(getBindings().getCategory().getValue() == null){
+                displayErrorComponent(getBindings().getCategory(), true);    
                 }
+               
+                
+                showErrorMessage("ENGAGE_SELECT_TRANSACTION_MANDATORY");
                 return;
             }
-
-        } else {
-            displayErrorComponent(getBindings().getMessageType(), true);
-            showErrorMessage("ENGAGE_SELECT_TRANSACTION_MANDATORY");
+        //        } else {
+        //            isSearchTableVisible = false;
+        //            if (resourceBundle.containsKey("ENG_NO_ADMIN_MSGS")) {
+        //                FacesMessage msg =
+        //                    new FacesMessage(FacesMessage.SEVERITY_INFO,
+        //                                     (String)resourceBundle.getObject("NO_DATA"),
+        //                                     "");
+        //                FacesContext.getCurrentInstance().addMessage(null,
+        //                                                             msg);
+        //            }
+        //            return;
+        //        }
+        
+        }
+        else {
+        displayErrorComponent(getBindings().getMessageType(), true);    
+        showErrorMessage("ENGAGE_SELECT_TRANSACTION_MANDATORY");          
         }
     }
 
@@ -482,20 +868,25 @@ public class MessageInboxBean implements Serializable {
 
         RichSelectManyChoice soc = new RichSelectManyChoice();
 
-        if (component instanceof RichSelectManyChoice) {
+         if (component instanceof RichSelectManyChoice) {
             soc = (RichSelectManyChoice)component;
             if (status) {
                 soc.setStyleClass("af_mandatoryfield");
-                if (component.getId().contains("selectManyChoice1") || component.getId().contains("smc1") || component.getId().contains("selectManyChoice3") ||
-                    component.getId().contains("selectManyChoice4") || component.getId().contains("smc4")) {
+                if (component.getId().contains("selectManyChoice1") ||
+                    component.getId().contains("smc1") ||
+                    component.getId().contains("selectManyChoice3") ||
+                    component.getId().contains("selectManyChoice4") ||
+                    component.getId().contains("smc4") || component.getId().contains("smc2"))
                     soc.setStyleClass("af_mandatoryfield");
-                }
+
             } else {
                 soc.setStyleClass("af_nonmandatoryfield");
-                if (component.getId().contains("selectManyChoice1") || component.getId().contains("smc1") || component.getId().contains("selectManyChoice3") ||
-                    component.getId().contains("selectManyChoice4") || component.getId().contains("smc4")) {
+                if (component.getId().contains("selectManyChoice1") ||
+                    component.getId().contains("smc1") ||
+                    component.getId().contains("selectManyChoice3") ||
+                    component.getId().contains("selectManyChoice4") ||
+                    component.getId().contains("smc4") || component.getId().contains("smc2"))
                     soc.setStyleClass("af_nonmandatoryfield");
-                }
             }
             AdfFacesContext.getCurrentInstance().addPartialTarget(soc);
         }
@@ -593,11 +984,11 @@ public class MessageInboxBean implements Serializable {
     }
 
 
-    public void setCategoryValue(String categoryValue) {
+    public void setCategoryValue(List<String>  categoryValue) {
         this.categoryValue = categoryValue;
     }
 
-    public String getCategoryValue() {
+    public List<String>  getCategoryValue() {
         return categoryValue;
     }
 
@@ -612,16 +1003,24 @@ public class MessageInboxBean implements Serializable {
     public void categoryValueChangeEvent(ValueChangeEvent valueChangeEvent) {
         isSearchTableVisible = false;
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().searchTablePanel);
-        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "inside category VCE");
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                 "inside category VCE");
+        
+        String categoryValue = "";
+        if(valueChangeEvent.getNewValue() != null){
+        categoryValue = populateStringValues(valueChangeEvent.getNewValue().toString());
+        }
+        
+        
 
-
-        if (valueChangeEvent.getNewValue() != null &&
-            valueChangeEvent.getNewValue().equals(resourceBundle.getObject(Constants.ENGAGE_CATEGORY_ADMIN_LITERAL).toString())) {
-            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "inside category VCE for Admin ");
+        if (categoryValue.trim().equals(resourceBundle.getObject("ENGAGE_CATEGORY_ADMIN").toString())) {
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() +
+                               " " + "inside category VCE for Admin ");
             isMessageAdmin = true;
 
-        } else {
-            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "inside category VCE for non-Admin ");
+        } else if(categoryValue.trim().equals(resourceBundle.getObject("ENGAGE_CATEGORY_NON_ADMIN").toString())) {
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                     "inside category VCE for non-Admin ");
             isMessageAdmin = false;
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getPartnerNumber());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccount());
@@ -629,6 +1028,14 @@ public class MessageInboxBean implements Serializable {
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCard());
 
         }
+        else{
+            isMessageAdmin = false;
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getPartnerNumber());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccount());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCard());
+        }
+        
     }
 
     public void setIsSearchTableVisible(boolean isSearchTableVisible) {
@@ -671,7 +1078,7 @@ public class MessageInboxBean implements Serializable {
         private RichSelectManyChoice card;
         private RichInputDate fromDate;
         private RichInputDate toDate;
-        private RichSelectOneChoice category;
+        private RichSelectManyChoice category;
         private RichSelectManyChoice messageType;
         private RichPanelGroupLayout searchTablePanel;
 
@@ -747,11 +1154,11 @@ public class MessageInboxBean implements Serializable {
             return toDate;
         }
 
-        public void setCategory(RichSelectOneChoice category) {
+        public void setCategory(RichSelectManyChoice category) {
             this.category = category;
         }
 
-        public RichSelectOneChoice getCategory() {
+        public RichSelectManyChoice getCategory() {
             return category;
         }
 
