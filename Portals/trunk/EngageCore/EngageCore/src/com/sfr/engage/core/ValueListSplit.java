@@ -7,11 +7,6 @@ import java.util.Map;
 
 
 public class ValueListSplit {
-
-    public ValueListSplit() {
-        super();
-    }
-
     public static Map<String, String> callValueList(int size, List<String> passedList) {
         int dividedValue;
         int loopValue;

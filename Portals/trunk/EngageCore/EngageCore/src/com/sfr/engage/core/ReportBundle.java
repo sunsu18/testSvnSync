@@ -24,7 +24,7 @@ import oracle.jdbc.OracleTypes;
 public class ReportBundle {
 
     private AccessDataControl accessDC = new AccessDataControl();
-    public static final ADFLogger log = AccessDataControl.getSFRLogger();
+    public static final ADFLogger LOGGER = AccessDataControl.getSFRLogger();
 
     public ReportBundle() {
         super();
@@ -86,7 +86,7 @@ public class ReportBundle {
                 conn.close();
                 reportRS.close();
             } catch (SQLException e) {
-                log.severe(e);
+                LOGGER.severe(e);
             }
         }
         return reportColumns;
