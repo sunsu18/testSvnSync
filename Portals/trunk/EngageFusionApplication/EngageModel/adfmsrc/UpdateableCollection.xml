@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.61.92"
-          id="UpdateableCollection" BeanClass="UpdateableCollection"
-          isJavaBased="false">
+<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.61.92" id="UpdateableCollection" BeanClass="UpdateableCollection" isJavaBased="false">
   <BuiltinOperation id="Create"/>
   <BuiltinOperation id="Delete"/>
   <BuiltinOperation id="IteratorExecute"/>

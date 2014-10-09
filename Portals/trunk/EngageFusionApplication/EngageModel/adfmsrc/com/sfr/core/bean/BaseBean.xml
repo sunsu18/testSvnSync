@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.61.92"
-          id="BaseBean" Package="com.sfr.core.bean"
-          BeanClass="com.sfr.core.bean.BaseBean" isJavaBased="true">
+<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.61.92" id="BaseBean" Package="com.sfr.core.bean" BeanClass="com.sfr.core.bean.BaseBean"
+          isJavaBased="true">
   <Attribute Name="status" Type="java.lang.String"/>
-  <AccessorAttribute id="errorList" IsCollection="true"
-                     BeanClass="com.sfr.core.bean.BusinessError"
-                     CollectionBeanClass="UpdateableCollection"/>
-  <ConstructorMethod IsCollection="true" Type="com.sfr.core.bean.BaseBean"
-                     BeanClass="com.sfr.core.bean.BaseBean" id="BaseBean"/>
+  <AccessorAttribute id="errorList" IsCollection="true" BeanClass="com.sfr.core.bean.BusinessError" CollectionBeanClass="UpdateableCollection"/>
+  <ConstructorMethod IsCollection="true" Type="com.sfr.core.bean.BaseBean" BeanClass="com.sfr.core.bean.BaseBean" id="BaseBean"/>
 </JavaBean>

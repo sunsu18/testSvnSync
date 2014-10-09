@@ -49,8 +49,6 @@ import oracle.adf.model.BindingContext;
 import oracle.adf.share.logging.ADFLogger;
 import oracle.adf.view.rich.component.rich.RichPopup;
 import oracle.adf.view.rich.component.rich.data.RichTable;
-import oracle.adf.view.rich.component.rich.input.RichInputDate;
-import oracle.adf.view.rich.component.rich.input.RichInputText;
 import oracle.adf.view.rich.component.rich.input.RichSelectManyChoice;
 import oracle.adf.view.rich.component.rich.input.RichSelectManyShuttle;
 import oracle.adf.view.rich.component.rich.input.RichSelectOneChoice;
@@ -80,18 +78,13 @@ public class CardBean implements Serializable {
     private static final long serialVersionUID = 1L;
     private transient Bindings bindings;
     private HttpSession session;
-    private ExternalContext ectx;
-    private HttpServletRequest request;
     private Boolean isTableVisible = false;
-    private PartnerInfo partnerInfo;
     private List<PartnerInfo> partnerInfoList;
     private String cardGroupSubtypePassValues;
     private String cardGroupMaintypePassValue;
     private String cardGroupSeqPassValues;
-    private String partnerId;
-    private String partnerCountry;
     private String lang;
-    public static final ADFLogger _logger = AccessDataControl.getSFRLogger();
+    public static final ADFLogger LOGGER = AccessDataControl.getSFRLogger();
     private AccessDataControl accessDC = new AccessDataControl();
     private List<SelectItem> accountIdList;
     private List<String> accountIdValue;
@@ -131,7 +124,7 @@ public class CardBean implements Serializable {
     private String cardEmbossNum = null;
     private String InternalName = null;
     private String DriverNumber = null;
-    private String DriverName = null;
+    private String driverName = null;
     private String VehicleNumber = null;
     private String vehicleModifiedBy = null;
     private String vehicleModifiedDate = null;
@@ -142,7 +135,6 @@ public class CardBean implements Serializable {
     private boolean driverModifiedByVisible = false;
     private boolean driverModifiedDateVisible = false;
     private boolean showEditInfoMessage = false;
-
     private String accountQuery = "(";
     private String cardGroupQuery = "(";
     private String expiryQuery = "";
@@ -158,35 +150,37 @@ public class CardBean implements Serializable {
     private boolean blockedDateTime;
     private User user = null;
     private Boolean isEditVisible;
+    private static final String VIEW_CARD_ACCOUNT_QUERY_LITERAL = "view_card_account_Query";
+    private static final String VIEW_CARD_CARDGROUP_QUERY_LITRERAL = "view_card_cardGroup_Query";
+    private static final String VIEW_CARD_EXPIRY_QUERY_LITRERAL = "view_card_expiry_Query";
+    private static final String PRTVIEWCARDSVO1ITERATOR_LITRERAL = "PrtViewCardsVO1Iterator";
+
 
     public CardBean() {
         super();
+
         conversionUtility = new Conversion();
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside Constructor of View Cards");
-        ectx = FacesContext.getCurrentInstance().getExternalContext();
-        request = (HttpServletRequest)ectx.getRequest();
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside Constructor of View Cards");
+        ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
+        HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
         statusValue = new ArrayList<String>();
-
         resourceBundle = new EngageResourceBundle();
-        partnerId = null;
+        String partnerId = null;
         partnerIdValue = new ArrayList<String>();
-        
         if (user == null) {
             user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
         }
-        
+
         isEditVisible = true;
-        
         if (user.getRoleList().get(0).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR)) {
-            if(user.getRoleList().get(0).getIdString().get(0).contains("CG")) {
+            if (user.getRoleList().get(0).getIdString().get(0).contains("CG")) {
                 isEditVisible = false;
                 System.out.println("cg manager-----------------------------------------------------" + isEditVisible);
             }
         }
-        
+
         System.out.println("final isEditVisible value-----------------------------------------------------" + isEditVisible);
-        
         if (session.getAttribute("Partner_Object_List") != null) {
             partnerInfoList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
             if (partnerInfoList != null && partnerInfoList.size() > 0) {
@@ -236,20 +230,20 @@ public class CardBean implements Serializable {
 
 
         if (session != null) {
-            if (session.getAttribute("view_card_account_Query") != null) {
-                accountQuery = session.getAttribute("view_card_account_Query").toString().trim();
+            if (session.getAttribute(VIEW_CARD_ACCOUNT_QUERY_LITERAL) != null) {
+                accountQuery = session.getAttribute(VIEW_CARD_ACCOUNT_QUERY_LITERAL).toString().trim();
                 mapAccountListValue = (Map<String, String>)session.getAttribute("map_Account_List");
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "account Query & mapAccountList is found");
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "account " + accountQuery);
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "account Query & mapAccountList is found");
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "account " + accountQuery);
             }
-            if (session.getAttribute("view_card_cardGroup_Query") != null) {
-                cardGroupQuery = session.getAttribute("view_card_cardGroup_Query").toString().trim();
+            if (session.getAttribute(VIEW_CARD_CARDGROUP_QUERY_LITRERAL) != null) {
+                cardGroupQuery = session.getAttribute(VIEW_CARD_CARDGROUP_QUERY_LITRERAL).toString().trim();
                 mapCardGroupListValue = (Map<String, String>)session.getAttribute("map_CardGroup_List");
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Query & mapCardGroupList is found");
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup " + cardGroupQuery);
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Query & mapCardGroupList is found");
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup " + cardGroupQuery);
             }
-            if (session.getAttribute("view_card_expiry_Query") != null) {
-                expiryQuery = session.getAttribute("view_card_expiry_Query").toString().trim();
+            if (session.getAttribute(VIEW_CARD_EXPIRY_QUERY_LITRERAL) != null) {
+                expiryQuery = session.getAttribute(VIEW_CARD_EXPIRY_QUERY_LITRERAL).toString().trim();
             }
         }
 
@@ -258,24 +252,24 @@ public class CardBean implements Serializable {
         if (lang != null) {
             currencyCode = conversionUtility.getCurrencyCode(lang);
             locale = conversionUtility.getLocaleFromCountryCode(lang);
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "currencyCode :" + currencyCode);
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Locale :" + locale);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "currencyCode :" + currencyCode);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Locale :" + locale);
         } else {
             currencyCode = conversionUtility.getCurrencyCode("SE");
             locale = conversionUtility.getLocaleFromCountryCode("SE");
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Default:currencyCode :" + currencyCode);
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Default:Locale :" + locale);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Default:currencyCode :" + currencyCode);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Default:Locale :" + locale);
         }
         displayErrorComponent(getBindings().getPartner(), false);
         displayErrorComponent(getBindings().getAccount(), false);
         displayErrorComponent(getBindings().getCardGroup(), false);
         displayErrorComponent(getBindings().getStatus(), false);
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting Constructor of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting Constructor of View Cards");
 
     }
 
 
-    Comparator<SelectItem> comparator = new Comparator<SelectItem>() {
+    private Comparator<SelectItem> comparator = new Comparator<SelectItem>() {
         @Override
         public int compare(SelectItem s1, SelectItem s2) {
             return s1.getLabel().compareTo(s2.getLabel());
@@ -304,7 +298,7 @@ public class CardBean implements Serializable {
         return accountIdValue;
     }
 
-    public void setCardGroupList(ArrayList<SelectItem> cardGroupList) {
+    public void setCardGroupList(List<SelectItem> cardGroupList) {
         this.cardGroupList = cardGroupList;
     }
 
@@ -321,60 +315,55 @@ public class CardBean implements Serializable {
     }
 
     public String populateStringValues(String var) {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside populateStringValues method of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside populateStringValues method of View Cards");
         String passingValues = null;
         if (var != null) {
             String lovValues = var.trim();
             String selectedValues = lovValues.substring(1, lovValues.length() - 1);
             passingValues = selectedValues.trim();
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting populateStringValues method of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting populateStringValues method of View Cards");
         return passingValues;
     }
 
     public String[] StringConversion(String passedVal) {
-
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside StringConversion method of View Cards");
-        List<String> container;
-
-        String[] val = passedVal.split(",");
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting StringConversion method of View Cards");
-        return val;
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside StringConversion method of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting StringConversion method of View Cards");
+        return passedVal.split(",");
     }
 
     /**
      * @param valueChangeEvent
      */
     public void accountValueChangeListener(ValueChangeEvent valueChangeEvent) {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside accountValueChangeListener method of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside accountValueChangeListener method of View Cards");
         isTableVisible = false;
         if (valueChangeEvent.getNewValue() != null) {
-
             String[] accountString = StringConversion(populateStringValues(valueChangeEvent.getNewValue().toString()));
             cardGroupList = new ArrayList<SelectItem>();
             cardGroupValue = new ArrayList<String>();
-
             for (int z = 0; z < partnerInfoList.size(); z++) {
 
                 if (partnerInfoList.get(z).getAccountList() != null && partnerInfoList.get(z).getAccountList().size() > 0) {
                     for (int i = 0; i < partnerInfoList.get(z).getAccountList().size(); i++) {
                         for (int j = 0; j < accountString.length; j++) {
                             if (partnerInfoList.get(z).getAccountList().get(i).getAccountNumber() != null &&
-                                partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().equals(accountString[j].trim())) {
-                                if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup() != null &&
-                                    partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size() > 0) {
-                                    for (int k = 0; k < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size(); k++) {
-                                        if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID() != null) {
-                                            SelectItem selectItem = new SelectItem();
-                                            selectItem.setLabel(partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getDisplayCardGroupIdName().toString());
-                                            selectItem.setValue(partnerInfoList.get(z).getPartnerValue().toString().trim() +
-                                                                partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
-                                            cardGroupList.add(selectItem);
-                                            cardGroupValue.add(partnerInfoList.get(z).getPartnerValue().toString().trim() +
-                                                               partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
-                                        }
+                                partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().equals(accountString[j].trim()) &&
+                                (partnerInfoList.get(z).getAccountList().get(i).getCardGroup() != null &&
+                                 partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size() > 0)) {
+
+                                for (int k = 0; k < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size(); k++) {
+                                    if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID() != null) {
+                                        SelectItem selectItem = new SelectItem();
+                                        selectItem.setLabel(partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getDisplayCardGroupIdName().toString());
+                                        selectItem.setValue(partnerInfoList.get(z).getPartnerValue().toString().trim() +
+                                                            partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
+                                        cardGroupList.add(selectItem);
+                                        cardGroupValue.add(partnerInfoList.get(z).getPartnerValue().toString().trim() +
+                                                           partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
                                     }
                                 }
+
                             }
                         }
                     }
@@ -389,12 +378,12 @@ public class CardBean implements Serializable {
             this.cardGroupValue = null;
             this.statusValue = null;
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting accountValueChangeListener method of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting accountValueChangeListener method of View Cards");
 
     }
 
 
-    public void setStatusList(ArrayList<SelectItem> statusList) {
+    public void setStatusList(List<SelectItem> statusList) {
         this.statusList = statusList;
     }
 
@@ -403,15 +392,15 @@ public class CardBean implements Serializable {
      * @return
      */
     public String showErrorMessage(String errorVar) {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside showErrorMessage method of View Cards");
-        if (errorVar != null) {
-            if (resourceBundle.containsKey(errorVar)) {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject(errorVar), "");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-                return null;
-            }
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside showErrorMessage method of View Cards");
+        if (errorVar != null && resourceBundle.containsKey(errorVar)) {
+
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject(errorVar), "");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            return null;
+
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting showErrorMessage method of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting showErrorMessage method of View Cards");
         return null;
     }
 
@@ -421,26 +410,26 @@ public class CardBean implements Serializable {
             statusList = new ArrayList<SelectItem>();
             SelectItem selectItem = new SelectItem();
 
-            if (resourceBundle.containsKey("UNBLOCKED_PLURAL")) {
-                selectItem.setLabel(resourceBundle.getObject("UNBLOCKED_PLURAL").toString());
+            if (resourceBundle.containsKey(Constants.UNBLOCKED_PLURAL_LITERAL)) {
+                selectItem.setLabel(resourceBundle.getObject(Constants.UNBLOCKED_PLURAL_LITERAL).toString());
                 selectItem.setValue(Constants.ENGAGE_CARD_ACTIVE);
                 statusList.add(selectItem);
             }
             SelectItem selectItem1 = new SelectItem();
-            if (resourceBundle.containsKey("TEMPORARY_BLOCKED")) {
-                selectItem1.setLabel(resourceBundle.getObject("TEMPORARY_BLOCKED").toString());
+            if (resourceBundle.containsKey(Constants.TEMPORARY_BLOCKED_LITERAL)) {
+                selectItem1.setLabel(resourceBundle.getObject(Constants.TEMPORARY_BLOCKED_LITERAL).toString());
                 selectItem1.setValue(Constants.ENGAGE_CARD_TEMPORARY_BLOCKED);
                 statusList.add(selectItem1);
             }
             SelectItem selectItem2 = new SelectItem();
-            if (resourceBundle.containsKey("PERMANENT_BLOCKED")) {
-                selectItem2.setLabel(resourceBundle.getObject("PERMANENT_BLOCKED").toString());
+            if (resourceBundle.containsKey(Constants.PERMANENT_BLOCKED_LITERAL)) {
+                selectItem2.setLabel(resourceBundle.getObject(Constants.PERMANENT_BLOCKED_LITERAL).toString());
                 selectItem2.setValue(Constants.ENGAGE_CARD_PERMANENT_BLOCKED);
                 statusList.add(selectItem2);
             }
             SelectItem selectItem3 = new SelectItem();
-            if (resourceBundle.containsKey("EXPIRED")) {
-                selectItem3.setLabel(resourceBundle.getObject("EXPIRED").toString());
+            if (resourceBundle.containsKey(Constants.EXPIRED_LITERAL)) {
+                selectItem3.setLabel(resourceBundle.getObject(Constants.EXPIRED_LITERAL).toString());
                 selectItem3.setValue("E");
                 statusList.add(selectItem3);
             }
@@ -456,11 +445,11 @@ public class CardBean implements Serializable {
         return statusValue;
     }
 
-    public void setAccountIdList(ArrayList<SelectItem> accountIdList) {
+    public void setAccountIdList(List<SelectItem> accountIdList) {
         this.accountIdList = accountIdList;
     }
 
-    public void setPartnerIdList(ArrayList<SelectItem> partnerIdList) {
+    public void setPartnerIdList(List<SelectItem> partnerIdList) {
         this.partnerIdList = partnerIdList;
     }
 
@@ -477,7 +466,7 @@ public class CardBean implements Serializable {
     }
 
     public void partnerValueChangeListener(ValueChangeEvent valueChangeEvent) {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside partnerValueChangeListener method of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside partnerValueChangeListener method of View Cards");
         isTableVisible = false;
         if (valueChangeEvent.getNewValue() != null) {
             accountIdList = new ArrayList<SelectItem>();
@@ -485,42 +474,39 @@ public class CardBean implements Serializable {
             cardGroupList = new ArrayList<SelectItem>();
             cardGroupValue = new ArrayList<String>();
             statusValue = new ArrayList<String>();
-
             String[] partnerString = StringConversion(populateStringValues(valueChangeEvent.getNewValue().toString()));
-
             if (partnerString.length > 0) {
                 for (int i = 0; i < partnerInfoList.size(); i++) {
                     for (int p = 0; p < partnerString.length; p++) {
                         if (partnerInfoList.get(i).getPartnerValue().toString() != null &&
-                            partnerInfoList.get(i).getPartnerValue().toString().equals(partnerString[p].trim())) {
-                            if (partnerInfoList.get(i).getAccountList() != null && partnerInfoList.get(i).getAccountList().size() > 0) {
+                            partnerInfoList.get(i).getPartnerValue().toString().equals(partnerString[p].trim()) &&
+                            (partnerInfoList.get(i).getAccountList() != null && partnerInfoList.get(i).getAccountList().size() > 0)) {
 
-                                for (int j = 0; j < partnerInfoList.get(i).getAccountList().size(); j++) {
+                            for (int j = 0; j < partnerInfoList.get(i).getAccountList().size(); j++) {
 
-                                    if (partnerInfoList.get(i).getAccountList().get(j).getAccountNumber() != null) {
+                                if (partnerInfoList.get(i).getAccountList().get(j).getAccountNumber() != null) {
 
+                                    SelectItem selectItem = new SelectItem();
+                                    selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+                                    selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+                                    accountIdList.add(selectItem);
+                                    accountIdValue.add(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+
+                                }
+
+                                for (int k = 0; k < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().size(); k++) {
+                                    if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID() != null) {
                                         SelectItem selectItem = new SelectItem();
-                                        selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
-                                        selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
-                                        accountIdList.add(selectItem);
-                                        accountIdValue.add(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
-
-                                    }
-
-
-                                    for (int k = 0; k < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().size(); k++) {
-                                        if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID() != null) {
-                                            SelectItem selectItem = new SelectItem();
-                                            selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getDisplayCardGroupIdName().toString());
-                                            selectItem.setValue(partnerInfoList.get(i).getPartnerValue().toString().trim() +
-                                                                partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
-                                            cardGroupList.add(selectItem);
-                                            cardGroupValue.add(partnerInfoList.get(i).getPartnerValue().toString().trim() +
-                                                               partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
-                                        }
+                                        selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getDisplayCardGroupIdName().toString());
+                                        selectItem.setValue(partnerInfoList.get(i).getPartnerValue().toString().trim() +
+                                                            partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
+                                        cardGroupList.add(selectItem);
+                                        cardGroupValue.add(partnerInfoList.get(i).getPartnerValue().toString().trim() +
+                                                           partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
                                     }
                                 }
                             }
+
                         }
                     }
 
@@ -541,13 +527,12 @@ public class CardBean implements Serializable {
             this.accountIdValue = null;
             this.accountIdList = null;
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting partnerValueChangeListener method of View Cards");
-
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting partnerValueChangeListener method of View Cards");
 
     }
 
     public void populateCardGroupValues(String cardGrpVar) {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside populateCardGroupValues method of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside populateCardGroupValues method of View Cards");
         String[] cardGroupvalues;
         int cardGroupCount = 0;
 
@@ -570,13 +555,13 @@ public class CardBean implements Serializable {
             }
 
             for (int cGrp = 0; cGrp < cardGroupCount; cGrp++) {
-                cardGroupMaintype = cardGroupMaintype + cardGroupvalues[cGrp].trim().substring(0, 3);
+                cardGroupMaintype = cardGroupMaintype + cardGroupvalues[cGrp].trim().substring(0, Constants.THREE);
                 cardGroupMaintype = cardGroupMaintype + ",";
 
-                cardGroupSubtype = cardGroupSubtype + cardGroupvalues[cGrp].trim().substring(3, 6);
+                cardGroupSubtype = cardGroupSubtype + cardGroupvalues[cGrp].trim().substring(Constants.THREE, Constants.SIX);
                 cardGroupSubtype = cardGroupSubtype + ",";
 
-                cardGroupSeq = cardGroupSeq + cardGroupvalues[cGrp].trim().substring(6);
+                cardGroupSeq = cardGroupSeq + cardGroupvalues[cGrp].trim().substring(Constants.SIX);
                 cardGroupSeq = cardGroupSeq + ",";
             }
 
@@ -584,11 +569,11 @@ public class CardBean implements Serializable {
             cardGroupSubtypePassValues = cardGroupSubtype.trim().substring(0, cardGroupSubtype.length() - 1);
             cardGroupSeqPassValues = cardGroupSeq.trim().substring(0, cardGroupSeq.length() - 1);
 
-            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " " + "card group main type======>" + cardGroupMaintypePassValue);
-            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " " + "card group sub type===>" + cardGroupSubtypePassValues);
-            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " " + "card group sequence value====>" + cardGroupSeqPassValues);
+            LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " " + "card group main type======>" + cardGroupMaintypePassValue);
+            LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " " + "card group sub type===>" + cardGroupSubtypePassValues);
+            LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " " + "card group sequence value====>" + cardGroupSeqPassValues);
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting populateCardGroupValues method of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting populateCardGroupValues method of View Cards");
     }
 
     public void setIsTableVisible(Boolean isTableVisible) {
@@ -605,7 +590,7 @@ public class CardBean implements Serializable {
     }
 
     public String searchResults() {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside searchResults method of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside searchResults method of View Cards");
         isTableVisible = false;
         String statusPassingValues = null;
         String currentDate = "";
@@ -639,19 +624,43 @@ public class CardBean implements Serializable {
                 }
 
                 if (getBindings().getPartner().getValue() != null) {
-                    ViewObject vo = ADFUtils.getViewObject("PrtViewCardsVO1Iterator");
+                    ViewObject vo = ADFUtils.getViewObject(PRTVIEWCARDSVO1ITERATOR_LITRERAL);
 
-                    if (accountQuery.length() > 1 && accountQuery != null && cardGroupQuery.length() > 1 && expiryQuery != null) {
-                        if (vo.getWhereClause() != null) {
-                            if (((accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim())) ||
-                                ((accountQuery + " AND " + cardGroupQuery + " AND " + expiryQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim()))) {
+                    if (accountQuery.length() > 1 && accountQuery != null && cardGroupQuery.length() > 1 && expiryQuery != null &&
+                        vo.getWhereClause() != null) {
+
+                        if (((accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim())) ||
+                            ((accountQuery + " AND " + cardGroupQuery + " AND " + expiryQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim()))) {
+                            if (mapAccountListValue != null) {
+                                for (int i = 0; i < mapAccountListValue.size(); i++) {
+                                    vo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i);
+                                }
+                            } else {
+                                vo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL);
+                            }
+                            if (mapCardGroupListValue != null) {
+                                for (int i = 0; i < mapCardGroupListValue.size(); i++) {
+                                    String values = "cardGroup" + i;
+                                    vo.removeNamedWhereClauseParam(values);
+                                }
+                            } else {
+                                vo.removeNamedWhereClauseParam("cardGroup");
+                            }
+                            if (expiryQuery.contains(Constants.CURRENT_DATE_LITERAL)) {
+                                vo.removeNamedWhereClauseParam(Constants.CURRENT_DATE_LITERAL);
+                            }
+                            vo.setWhereClause("");
+                            vo.executeQuery();
+                        } else {
+                            if (((accountQuery + "AND " + cardGroupQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim())) ||
+                                ((accountQuery + " AND " + cardGroupQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim()))) {
                                 if (mapAccountListValue != null) {
                                     for (int i = 0; i < mapAccountListValue.size(); i++) {
-                                        String values = "account" + i;
-                                        vo.removeNamedWhereClauseParam(values);
+
+                                        vo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i);
                                     }
                                 } else {
-                                    vo.removeNamedWhereClauseParam("account");
+                                    vo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL);
                                 }
                                 if (mapCardGroupListValue != null) {
                                     for (int i = 0; i < mapCardGroupListValue.size(); i++) {
@@ -661,92 +670,65 @@ public class CardBean implements Serializable {
                                 } else {
                                     vo.removeNamedWhereClauseParam("cardGroup");
                                 }
-                                if (expiryQuery.contains("currentDate")) {
-                                    vo.removeNamedWhereClauseParam("currentDate");
-                                }
                                 vo.setWhereClause("");
                                 vo.executeQuery();
-                            } else {
-                                if (((accountQuery + "AND " + cardGroupQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim())) ||
-                                    ((accountQuery + " AND " + cardGroupQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim()))) {
-                                    if (mapAccountListValue != null) {
-                                        for (int i = 0; i < mapAccountListValue.size(); i++) {
-                                            String values = "account" + i;
-                                            vo.removeNamedWhereClauseParam(values);
-                                        }
-                                    } else {
-                                        vo.removeNamedWhereClauseParam("account");
-                                    }
-                                    if (mapCardGroupListValue != null) {
-                                        for (int i = 0; i < mapCardGroupListValue.size(); i++) {
-                                            String values = "cardGroup" + i;
-                                            vo.removeNamedWhereClauseParam(values);
-                                        }
-                                    } else {
-                                        vo.removeNamedWhereClauseParam("cardGroup");
-                                    }
-                                    vo.setWhereClause("");
-                                    vo.executeQuery();
-                                }
                             }
                         }
+
                     }
                     resetTableFilter();
                     accountQuery = "(";
                     cardGroupQuery = "(";
                     expiryQuery = "";
 
-                    if (accountIdValue.size() > 150) {
-                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
+                    if (accountIdValue.size() > Constants.ONEFIFTY) {
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
                         mapAccountListValue = ValueListSplit.callValueList(accountIdValue.size(), accountIdValue);
                         for (int i = 0; i < mapAccountListValue.size(); i++) {
-                            String values = "account" + i;
+                            String values = Constants.ACCOUNT_LITERAL + i;
                             accountQuery = accountQuery + "INSTR(:" + values + ",ACCOUNT_ID)<>0 OR ";
                         }
-                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Account Query Values =" + accountQuery);
-                        accountQuery = accountQuery.substring(0, accountQuery.length() - 3);
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "Account Query Values =" + accountQuery);
+                        accountQuery = accountQuery.substring(0, accountQuery.length() - Constants.THREE);
                         accountQuery = accountQuery + ") ";
                     } else {
                         mapAccountListValue = null;
-                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
                         accountQuery = "(INSTR(:account,ACCOUNT_ID)<>0 ) ";
                     }
 
-
-                    if (cardGroupValue.size() > 150) {
-                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
+                    if (cardGroupValue.size() > Constants.ONEFIFTY) {
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
                         mapCardGroupListValue = ValueListSplit.callValueList(cardGroupValue.size(), cardGroupValue);
                         for (int i = 0; i < mapCardGroupListValue.size(); i++) {
                             String values = "cardGroup" + i;
                             cardGroupQuery =
                                     cardGroupQuery + "INSTR(:" + values + ",PARTNER_ID||CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 OR ";
                         }
-                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "CARDGROUP Query Values =" + cardGroupQuery);
-                        cardGroupQuery = cardGroupQuery.substring(0, cardGroupQuery.length() - 3);
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARDGROUP Query Values =" + cardGroupQuery);
+                        cardGroupQuery = cardGroupQuery.substring(0, cardGroupQuery.length() - Constants.THREE);
                         cardGroupQuery = cardGroupQuery + ") ";
                     } else {
                         mapCardGroupListValue = null;
-                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values < 150 ");
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values < 150 ");
                         cardGroupQuery = "(INSTR(:cardGroup,PARTNER_ID||CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0) ";
                     }
 
-
                     vo.setNamedWhereClauseParam("partnerId", getBindings().getPartner().getValue().toString().trim());
 
-                    vo.setNamedWhereClauseParam("countryCd", lang);
-
+                    vo.setNamedWhereClauseParam(Constants.COUNTRY_CD_LITERAL, lang);
 
                     //for active,temporary blocked status or only active or only temporary blocked status(01, 0, 1)
                     if (!statusPassingValues.contains(Constants.ENGAGE_CARD_PERMANENT_BLOCKED) && !statusPassingValues.contains("E")) {
                         expiryQuery = "(CARD_EXPIRY > =: currentDate)";
-                        vo.setNamedWhereClauseParam("status", statusPassingValues);
+                        vo.setNamedWhereClauseParam(Constants.STATUS_LITERAL, statusPassingValues);
                         vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
                     } else {
                         if (!statusPassingValues.contains("E")) {
                             if (statusPassingValues.contains(Constants.ENGAGE_CARD_ACTIVE) &&
                                 !statusPassingValues.contains(Constants.ENGAGE_CARD_TEMPORARY_BLOCKED)) {
                                 //for active & permanent blocked status(02)
-                                vo.setNamedWhereClauseParam("status", statusPassingValues);
+                                vo.setNamedWhereClauseParam(Constants.STATUS_LITERAL, statusPassingValues);
                                 expiryQuery =
                                         "((BLOCK_ACTION = '" + Constants.ENGAGE_CARD_ACTIVE + "' AND CARD_EXPIRY > =: currentDate) OR (BLOCK_ACTION = '" +
                                         Constants.ENGAGE_CARD_PERMANENT_BLOCKED + "'))";
@@ -754,20 +736,20 @@ public class CardBean implements Serializable {
                             } else if (!statusPassingValues.contains(Constants.ENGAGE_CARD_ACTIVE) &&
                                        statusPassingValues.contains(Constants.ENGAGE_CARD_TEMPORARY_BLOCKED)) {
                                 //for active temporary blocked status(01)
-                                vo.setNamedWhereClauseParam("status", statusPassingValues);
+                                vo.setNamedWhereClauseParam(Constants.STATUS_LITERAL, statusPassingValues);
                                 expiryQuery =
                                         "((BLOCK_ACTION = '" + Constants.ENGAGE_CARD_TEMPORARY_BLOCKED + "' AND CARD_EXPIRY > =: currentDate) OR (BLOCK_ACTION = '" +
                                         Constants.ENGAGE_CARD_PERMANENT_BLOCKED + "'))";
                                 vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
                             } else if (statusPassingValues.equalsIgnoreCase(Constants.ENGAGE_CARD_PERMANENT_BLOCKED)) {
                                 //for permanent blocked status(2)
-                                vo.setNamedWhereClauseParam("status", statusPassingValues);
+                                vo.setNamedWhereClauseParam(Constants.STATUS_LITERAL, statusPassingValues);
                                 vo.setWhereClause(accountQuery + "AND " + cardGroupQuery);
                             } else {
                                 //for active,permanent and temporary blocked status(012)
                                 String status =
                                     Constants.ENGAGE_CARD_ACTIVE + "," + Constants.ENGAGE_CARD_TEMPORARY_BLOCKED + "," + Constants.ENGAGE_CARD_PERMANENT_BLOCKED;
-                                vo.setNamedWhereClauseParam("status", status);
+                                vo.setNamedWhereClauseParam(Constants.STATUS_LITERAL, status);
                                 expiryQuery =
                                         "((BLOCK_ACTION IN ('" + Constants.ENGAGE_CARD_ACTIVE + "','" + Constants.ENGAGE_CARD_TEMPORARY_BLOCKED + "') AND CARD_EXPIRY > =: currentDate) OR (BLOCK_ACTION = '" +
                                         Constants.ENGAGE_CARD_PERMANENT_BLOCKED + "'))";
@@ -780,14 +762,14 @@ public class CardBean implements Serializable {
                                     //for active, expired and permanent blocked status(02E)
                                     String status =
                                         Constants.ENGAGE_CARD_ACTIVE + "," + Constants.ENGAGE_CARD_TEMPORARY_BLOCKED + "," + Constants.ENGAGE_CARD_PERMANENT_BLOCKED;
-                                    vo.setNamedWhereClauseParam("status", status);
+                                    vo.setNamedWhereClauseParam(Constants.STATUS_LITERAL, status);
                                     expiryQuery =
                                             "((BLOCK_ACTION = '" + Constants.ENGAGE_CARD_TEMPORARY_BLOCKED + "' AND CARD_EXPIRY < =: currentDate) OR BLOCK_ACTION IN ('" +
                                             Constants.ENGAGE_CARD_ACTIVE + "','" + Constants.ENGAGE_CARD_PERMANENT_BLOCKED + "'))";
                                 } else {
                                     //for expired and active status(0E)
                                     String status = Constants.ENGAGE_CARD_ACTIVE + "," + Constants.ENGAGE_CARD_TEMPORARY_BLOCKED;
-                                    vo.setNamedWhereClauseParam("status", status);
+                                    vo.setNamedWhereClauseParam(Constants.STATUS_LITERAL, status);
                                     expiryQuery =
                                             "((BLOCK_ACTION = '" + Constants.ENGAGE_CARD_TEMPORARY_BLOCKED + "' AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION = '" +
                                             Constants.ENGAGE_CARD_ACTIVE + "'))";
@@ -800,14 +782,14 @@ public class CardBean implements Serializable {
                                     //for expired ,permanent & temporary blocked status(12E)
                                     String status =
                                         Constants.ENGAGE_CARD_ACTIVE + "," + Constants.ENGAGE_CARD_TEMPORARY_BLOCKED + "," + Constants.ENGAGE_CARD_PERMANENT_BLOCKED;
-                                    vo.setNamedWhereClauseParam("status", status);
+                                    vo.setNamedWhereClauseParam(Constants.STATUS_LITERAL, status);
                                     expiryQuery =
                                             "((BLOCK_ACTION = '" + Constants.ENGAGE_CARD_ACTIVE + "' AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION IN ('" +
                                             Constants.ENGAGE_CARD_TEMPORARY_BLOCKED + "','" + Constants.ENGAGE_CARD_PERMANENT_BLOCKED + "')))";
                                 } else {
                                     //for expired and temporary blocked status(1E)
                                     String status = Constants.ENGAGE_CARD_ACTIVE + "," + Constants.ENGAGE_CARD_TEMPORARY_BLOCKED;
-                                    vo.setNamedWhereClauseParam("status", status);
+                                    vo.setNamedWhereClauseParam(Constants.STATUS_LITERAL, status);
                                     expiryQuery =
                                             "((BLOCK_ACTION = '" + Constants.ENGAGE_CARD_ACTIVE + "' AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION = '" +
                                             Constants.ENGAGE_CARD_TEMPORARY_BLOCKED + "'))";
@@ -819,7 +801,7 @@ public class CardBean implements Serializable {
                                 //for expired and permanent blocked status(2E)
                                 String status =
                                     Constants.ENGAGE_CARD_ACTIVE + "," + Constants.ENGAGE_CARD_TEMPORARY_BLOCKED + "," + Constants.ENGAGE_CARD_PERMANENT_BLOCKED;
-                                vo.setNamedWhereClauseParam("status", status);
+                                vo.setNamedWhereClauseParam(Constants.STATUS_LITERAL, status);
                                 expiryQuery =
                                         "((BLOCK_ACTION IN ('" + Constants.ENGAGE_CARD_ACTIVE + "','" + Constants.ENGAGE_CARD_TEMPORARY_BLOCKED + "') AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION = '" +
                                         Constants.ENGAGE_CARD_PERMANENT_BLOCKED + "'))";
@@ -827,7 +809,7 @@ public class CardBean implements Serializable {
                             } else if (statusPassingValues.equalsIgnoreCase("E")) {
                                 //for expired status(E)
                                 String status = Constants.ENGAGE_CARD_ACTIVE + "," + Constants.ENGAGE_CARD_TEMPORARY_BLOCKED;
-                                vo.setNamedWhereClauseParam("status", status);
+                                vo.setNamedWhereClauseParam(Constants.STATUS_LITERAL, status);
                                 expiryQuery =
                                         "(BLOCK_ACTION IN ('" + Constants.ENGAGE_CARD_ACTIVE + "','" + Constants.ENGAGE_CARD_TEMPORARY_BLOCKED + "') AND CARD_EXPIRY < =: currentDate)";
                                 vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
@@ -836,43 +818,43 @@ public class CardBean implements Serializable {
                                        !statusPassingValues.contains(Constants.ENGAGE_CARD_PERMANENT_BLOCKED)) {
                                 //for active, expired and temporary blocked status(01E)
                                 String status = Constants.ENGAGE_CARD_ACTIVE + "," + Constants.ENGAGE_CARD_TEMPORARY_BLOCKED;
-                                vo.setNamedWhereClauseParam("status", status);
+                                vo.setNamedWhereClauseParam(Constants.STATUS_LITERAL, status);
                                 expiryQuery = "BLOCK_ACTION IN ('" + Constants.ENGAGE_CARD_ACTIVE + "','" + Constants.ENGAGE_CARD_TEMPORARY_BLOCKED + "')";
                                 vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
                             } else {
                                 //for All combination - 012E
                                 String status =
                                     Constants.ENGAGE_CARD_ACTIVE + "," + Constants.ENGAGE_CARD_TEMPORARY_BLOCKED + "," + Constants.ENGAGE_CARD_PERMANENT_BLOCKED;
-                                vo.setNamedWhereClauseParam("status", status);
+                                vo.setNamedWhereClauseParam(Constants.STATUS_LITERAL, status);
                                 vo.setWhereClause(accountQuery + "AND " + cardGroupQuery);
                             }
                         }
                     }
 
-                    if (accountIdValue.size() > 150) {
-                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
+                    if (accountIdValue.size() > Constants.ONEFIFTY) {
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
                         mapAccountListValue = ValueListSplit.callValueList(accountIdValue.size(), accountIdValue);
                         for (int i = 0; i < mapAccountListValue.size(); i++) {
-                            String values = "account" + i;
-                            String listName = "listName" + i;
-                            vo.defineNamedWhereClauseParam(values, mapAccountListValue.get(listName), null);
+
+
+                            vo.defineNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i, mapAccountListValue.get(Constants.LISTNAME_LITERAL + i), null);
                         }
                     } else {
-                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
-                        vo.defineNamedWhereClauseParam("account", populateStringValues(getBindings().getAccount().getValue().toString()), null);
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
+                        vo.defineNamedWhereClauseParam(Constants.ACCOUNT_LITERAL, populateStringValues(getBindings().getAccount().getValue().toString()),
+                                                       null);
                     }
 
-
-                    if (cardGroupValue.size() > 150) {
-                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
+                    if (cardGroupValue.size() > Constants.ONEFIFTY) {
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
                         mapCardGroupListValue = ValueListSplit.callValueList(cardGroupValue.size(), cardGroupValue);
                         for (int i = 0; i < mapCardGroupListValue.size(); i++) {
                             String values = "cardGroup" + i;
-                            String listName = "listName" + i;
-                            vo.defineNamedWhereClauseParam(values, mapCardGroupListValue.get(listName), null);
+
+                            vo.defineNamedWhereClauseParam(values, mapCardGroupListValue.get(Constants.LISTNAME_LITERAL + i), null);
                         }
                     } else {
-                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values < 150 ");
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values < 150 ");
                         vo.defineNamedWhereClauseParam("cardGroup", populateStringValues(getBindings().getCardGroup().getValue().toString()), null);
                     }
 
@@ -885,18 +867,17 @@ public class CardBean implements Serializable {
                         Date dateNow = new java.util.Date();
                         SimpleDateFormat dateformat = new SimpleDateFormat("dd-MMM-yy");
                         currentDate = dateformat.format(dateNow);
-                        vo.defineNamedWhereClauseParam("currentDate", currentDate, null);
+                        vo.defineNamedWhereClauseParam(Constants.CURRENT_DATE_LITERAL, currentDate, null);
                     }
 
                     vo.executeQuery();
 
-                    session.setAttribute("view_card_account_Query", accountQuery);
+                    session.setAttribute(VIEW_CARD_ACCOUNT_QUERY_LITERAL, accountQuery);
                     session.setAttribute("view_card_map_Account_List", mapAccountListValue);
-                    session.setAttribute("view_card_cardGroup_Query", cardGroupQuery);
+                    session.setAttribute(VIEW_CARD_CARDGROUP_QUERY_LITRERAL, cardGroupQuery);
                     session.setAttribute("view_card_map_CardGroup_List", mapCardGroupListValue);
-                    session.setAttribute("view_card_expiry_Query", expiryQuery);
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Queries are saved in session");
-
+                    session.setAttribute(VIEW_CARD_EXPIRY_QUERY_LITRERAL, expiryQuery);
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Queries are saved in session");
                     isTableVisible = true;
                 }
             } else {
@@ -905,9 +886,9 @@ public class CardBean implements Serializable {
                 return null;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.severe(e);
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting searchResults method of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting searchResults method of View Cards");
         return null;
     }
 
@@ -936,7 +917,7 @@ public class CardBean implements Serializable {
     }
 
     public void clearSearchListener(ActionEvent actionEvent) {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside clearSearchListener method of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside clearSearchListener method of View Cards");
         getBindings().getPartner().setValue(null);
         getBindings().getStatus().setValue(null);
         this.partnerIdValue = null;
@@ -947,13 +928,13 @@ public class CardBean implements Serializable {
         statusValue = new ArrayList<String>();
         statusValue.add(Constants.ENGAGE_CARD_ACTIVE);
         isTableVisible = false;
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting clearSearchListener method of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting clearSearchListener method of View Cards");
     }
 
     public void radioButtonValueChangeListener(ValueChangeEvent valueChangeEvent) {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside radioButtonValueChangeListener method of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside radioButtonValueChangeListener method of View Cards");
         if (valueChangeEvent.getNewValue() != null) {
-            if (valueChangeEvent.getNewValue().equals("Driver")) {
+            if (valueChangeEvent.getNewValue().equals(Constants.DRIVER_LITERAL)) {
                 this.getBindings().getVehicleNumber().setValue(null);
                 this.displayVehicleName = null;
                 showErrorMsgEditFlag = false;
@@ -965,53 +946,55 @@ public class CardBean implements Serializable {
                 driverModifiedDateVisible = false;
                 populateValue(valueChangeEvent.getNewValue().toString());
 
-                if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") != null) {
-                    driverNameValue = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber").toString().trim();
-                    if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("driverModifiedBy") != null &&
+                if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.DRIVER_NUMBER_LITERAL) != null) {
+                    driverNameValue = AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.DRIVER_NUMBER_LITERAL).toString().trim();
+                    if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.DRIVER_MODIFIED_BY_LITERAL) != null &&
                         AdfFacesContext.getCurrentInstance().getPageFlowScope().get("driverModifiedDate") != null) {
                         vehicleModifiedByVisible = false;
                         vehicleModifiedDateVisible = false;
                         driverModifiedByVisible = true;
                         driverModifiedDateVisible = true;
-                        driverModifiedBy = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("driverModifiedBy").toString().trim();
+                        driverModifiedBy = AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.DRIVER_MODIFIED_BY_LITERAL).toString().trim();
                         driverModifiedDate = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("driverModifiedDate").toString().trim();
                     }
                 }
 
-                if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverName") != null) {
-                    displayDriverName = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverName").toString().trim();
+                if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.DRIVER_NAME_LITERAL) != null) {
+                    displayDriverName = AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.DRIVER_NAME_LITERAL).toString().trim();
                 }
 
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDriverNumber());
-            } else if (valueChangeEvent.getNewValue().equals("Vehicle")) {
+            } else if (valueChangeEvent.getNewValue().equals(Constants.VEHICLE_LITERAL)) {
                 this.getBindings().getDriverNumber().setValue(null);
                 showErrorMsgEditFlag = false;
                 this.displayDriverName = null;
                 driverPGL = false;
                 vehiclePGL = true;
                 populateValue(valueChangeEvent.getNewValue().toString());
-                if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") != null) {
-                    vehicleNumberValue = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber").toString().trim();
-                    if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("vehicleModifiedBy") != null &&
-                        AdfFacesContext.getCurrentInstance().getPageFlowScope().get("vehicleModifiedDate") != null) {
+                if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.VEHICLE_NUMBER_LITERAL) != null) {
+                    vehicleNumberValue = AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.VEHICLE_NUMBER_LITERAL).toString().trim();
+                    if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.VEHICLE_MODIFIED_BY_LITERAL) != null &&
+                        AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.VEHICLE_MODIFIED_DATE_LITERAL) != null) {
                         driverModifiedByVisible = false;
                         driverModifiedDateVisible = false;
                         vehicleModifiedByVisible = true;
                         vehicleModifiedDateVisible = true;
-                        vehicleModifiedBy = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("vehicleModifiedBy").toString().trim();
-                        vehicleModifiedDate = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("vehicleModifiedDate").toString().trim();
+                        vehicleModifiedBy =
+                                AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.VEHICLE_MODIFIED_BY_LITERAL).toString().trim();
+                        vehicleModifiedDate =
+                                AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.VEHICLE_MODIFIED_DATE_LITERAL).toString().trim();
                     }
                 }
 
-                if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("InternalName") != null) {
-                    displayVehicleName = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("InternalName").toString().trim();
+                if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.INTERNAL_NAME_LITERAL) != null) {
+                    displayVehicleName = AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.INTERNAL_NAME_LITERAL).toString().trim();
                 }
 
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVehicleNumber());
 
             }
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting radioButtonValueChangeListener method of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting radioButtonValueChangeListener method of View Cards");
     }
 
     public void setDriverPGL(boolean driverPGL) {
@@ -1048,10 +1031,10 @@ public class CardBean implements Serializable {
 
 
     public void populateValue(String paramType) {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside populateValue method of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside populateValue method of View Cards");
         if (paramType != null) {
-            associatedAccount = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("associatedAccount").toString().trim();
-            if (paramType.equals("Vehicle") || paramType.equals("Driver")) {
+            associatedAccount = AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.ASSOCIATED_ACOUNT_LITERAL).toString().trim();
+            if (paramType.equals(Constants.VEHICLE_LITERAL) || paramType.equals(Constants.DRIVER_LITERAL)) {
                 if (vehiclePGL) {
                     vehicleNumberList = new ArrayList<SelectItem>();
                 }
@@ -1062,9 +1045,9 @@ public class CardBean implements Serializable {
                 if (associatedAccount != null) {
                     vo.setNamedWhereClauseParam("accountValue", associatedAccount);
                 }
-                vo.setNamedWhereClauseParam("countryCd", lang);
+                vo.setNamedWhereClauseParam(Constants.COUNTRY_CD_LITERAL, lang);
                 vo.setNamedWhereClauseParam("paramValue", paramType);
-                if (paramType.equals("Driver")) {
+                if (paramType.equals(Constants.DRIVER_LITERAL)) {
                     vo.setNamedWhereClauseParam("driverNumber", null);
                 } else {
                     vo.setNamedWhereClauseParam("vehicleNumber", null);
@@ -1076,9 +1059,9 @@ public class CardBean implements Serializable {
                         while (vo.hasNext()) {
                             PrtViewVehicleDriverVORowImpl currRow = (PrtViewVehicleDriverVORowImpl)vo.next();
                             if (currRow != null) {
-                                if (paramType.equals("Vehicle")) {
+                                if (paramType.equals(Constants.VEHICLE_LITERAL)) {
                                     SelectItem selectItem = new SelectItem();
-                                    if (currRow.getAttribute("VehicleNumber") != null) {
+                                    if (currRow.getAttribute(Constants.VEHICLE_NUMBER_LITERAL) != null) {
                                         selectItem.setLabel(currRow.getVehicleNumber().toString().trim());
                                         selectItem.setValue(currRow.getVehicleNumber().toString().trim());
                                         truckDriverList.put(currRow.getVehicleNumber().toString(), currRow.getInternalName());
@@ -1086,7 +1069,7 @@ public class CardBean implements Serializable {
                                     vehicleNumberList.add(selectItem);
                                 } else {
                                     SelectItem selectItem = new SelectItem();
-                                    if (currRow.getAttribute("DriverNumber") != null) {
+                                    if (currRow.getAttribute(Constants.DRIVER_NUMBER_LITERAL) != null) {
                                         selectItem.setLabel(currRow.getDriverNumber().toString().trim());
                                         selectItem.setValue(currRow.getDriverNumber().toString().trim());
                                         truckDriverList.put(currRow.getDriverNumber().toString(), currRow.getDriverName());
@@ -1099,7 +1082,7 @@ public class CardBean implements Serializable {
                 }
             }
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting populateValue method of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting populateValue method of View Cards");
     }
 
     public void setAssociatedAccount(String associatedAccount) {
@@ -1110,7 +1093,7 @@ public class CardBean implements Serializable {
         return associatedAccount;
     }
 
-    public void setVehicleNumberList(ArrayList<SelectItem> vehicleNumberList) {
+    public void setVehicleNumberList(List<SelectItem> vehicleNumberList) {
         this.vehicleNumberList = vehicleNumberList;
     }
 
@@ -1126,7 +1109,7 @@ public class CardBean implements Serializable {
         return vehicleNumberValue;
     }
 
-    public void setDriverNameList(ArrayList<SelectItem> driverNameList) {
+    public void setDriverNameList(List<SelectItem> driverNameList) {
         this.driverNameList = driverNameList;
     }
 
@@ -1179,19 +1162,17 @@ public class CardBean implements Serializable {
     }
 
     public void checkVehicleAssociation() {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside checkVehicleAssociation method of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside checkVehicleAssociation method of View Cards");
         ViewObject vehicleVo = ADFUtils.getViewObject("PrtViewVehicleDriverVO1Iterator");
-        vehicleVo.setNamedWhereClauseParam("countryCd", lang);
-        vehicleVo.setNamedWhereClauseParam("paramValue", "Vehicle");
-        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("associatedAccount") != null) {
-
+        vehicleVo.setNamedWhereClauseParam(Constants.COUNTRY_CD_LITERAL, lang);
+        vehicleVo.setNamedWhereClauseParam("paramValue", Constants.VEHICLE_LITERAL);
+        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.ASSOCIATED_ACOUNT_LITERAL) != null) {
 
             vehicleVo.setNamedWhereClauseParam("accountValue",
-                                               AdfFacesContext.getCurrentInstance().getPageFlowScope().get("associatedAccount").toString().trim());
+                                               AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.ASSOCIATED_ACOUNT_LITERAL).toString().trim());
         }
 
         if (getBindings().getVehicleNumber().getValue() != null) {
-
 
             vehicleVo.setNamedWhereClauseParam("vehicleNumber", getBindings().getVehicleNumber().getValue());
         }
@@ -1199,14 +1180,12 @@ public class CardBean implements Serializable {
 
         if (vehicleVo.getEstimatedRowCount() > 0) {
 
-
             while (vehicleVo.hasNext()) {
                 String currentDate = "";
                 PrtViewVehicleDriverVORowImpl currRow = (PrtViewVehicleDriverVORowImpl)vehicleVo.next();
                 if (currRow != null) {
 
                     if (currRow.getCardNumber() != null) {
-
 
                         if (resourceBundle.containsKey("TRUCK_CARD_ALREADY_EXIST")) {
 
@@ -1219,27 +1198,25 @@ public class CardBean implements Serializable {
                         if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("internalCardNumber") != null) {
                             internalCardNumber = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("internalCardNumber").toString().trim();
                         }
-                        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("associatedAccount") != null) {
-                            associatedAccount = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("associatedAccount").toString().trim();
+                        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.ASSOCIATED_ACOUNT_LITERAL) != null) {
+                            associatedAccount =
+                                    AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.ASSOCIATED_ACOUNT_LITERAL).toString().trim();
                         }
 
                         resetVehicleDriver();
-                        User user = null;
+                        User userLocal = null;
                         String modifiedBy = null;
-                        user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
-                        modifiedBy = user.getFirstName().concat(" ").concat(user.getLastName());
-                        BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
-                        OperationBinding operationBinding = bindings.getOperationBinding("updateVehicleDriver");
-                        operationBinding.getParamsMap().put("cardNumber", internalCardNumber);
-                        operationBinding.getParamsMap().put("type", "Vehicle");
-                        operationBinding.getParamsMap().put("countryCd", lang);
-                        operationBinding.getParamsMap().put("vehicleDriverValue", getBindings().getVehicleNumber().getValue());
-                        operationBinding.getParamsMap().put("associatedAccount", associatedAccount);
-
-                        operationBinding.getParamsMap().put("modifiedBy", modifiedBy);
-
-
-                        Object result = operationBinding.execute();
+                        userLocal = (User)session.getAttribute(Constants.SESSION_USER_INFO);
+                        modifiedBy = userLocal.getFirstName().concat(" ").concat(userLocal.getLastName());
+                        BindingContainer localBinding = BindingContext.getCurrent().getCurrentBindingsEntry();
+                        OperationBinding operationBinding = localBinding.getOperationBinding(Constants.UPDATE_VEHICLE_DRIVER_LITERAL);
+                        operationBinding.getParamsMap().put(Constants.CARD_NUMBER_LITERAL, internalCardNumber);
+                        operationBinding.getParamsMap().put(Constants.TYPE_LITERAL, Constants.VEHICLE_LITERAL);
+                        operationBinding.getParamsMap().put(Constants.COUNTRY_CD_LITERAL, lang);
+                        operationBinding.getParamsMap().put(Constants.VEHICLE_DIRVER_VALUE_LITERAL, getBindings().getVehicleNumber().getValue());
+                        operationBinding.getParamsMap().put(Constants.ASSOCIATED_ACOUNT_LITERAL, associatedAccount);
+                        operationBinding.getParamsMap().put(Constants.MODIFIED_BY_LITERAL, modifiedBy);
+                        operationBinding.execute();
                         String accountPassingValues = null;
                         String statusPassingValues = null;
                         String cardGroupPassingValues = null;
@@ -1268,32 +1245,30 @@ public class CardBean implements Serializable {
                             }
                         }
 
-
                         if (resourceBundle.containsKey("VEHICLE_ASSOCIATED")) {
                             getBindings().getTruckdriverDetails().hide();
                             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("VEHICLE_ASSOCIATED"), "");
                             FacesContext.getCurrentInstance().addMessage(null, msg);
                         }
                     }
-
                 }
             }
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting checkVehicleAssociation method of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting checkVehicleAssociation method of View Cards");
     }
 
     public void checkDriverAssociation() {
         String currentDate = "";
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside checkDriverAssociation method of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside checkDriverAssociation method of View Cards");
         ViewObject driverVo = ADFUtils.getViewObject("PrtViewVehicleDriverVO1Iterator");
-        driverVo.setNamedWhereClauseParam("countryCd", lang);
-        driverVo.setNamedWhereClauseParam("paramValue", "Driver");
+        driverVo.setNamedWhereClauseParam(Constants.COUNTRY_CD_LITERAL, lang);
+        driverVo.setNamedWhereClauseParam("paramValue", Constants.DRIVER_LITERAL);
         if (getBindings().getDriverNumber().getValue() != null) {
             driverVo.setNamedWhereClauseParam("driverNumber", getBindings().getDriverNumber().getValue());
         }
-        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("associatedAccount") != null) {
+        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.ASSOCIATED_ACOUNT_LITERAL) != null) {
             driverVo.setNamedWhereClauseParam("accountValue",
-                                              AdfFacesContext.getCurrentInstance().getPageFlowScope().get("associatedAccount").toString().trim());
+                                              AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.ASSOCIATED_ACOUNT_LITERAL).toString().trim());
         }
         driverVo.executeQuery();
         if (driverVo.getEstimatedRowCount() > 0) {
@@ -1312,12 +1287,12 @@ public class CardBean implements Serializable {
 
                     else {
 
-
                         if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("internalCardNumber") != null) {
                             internalCardNumber = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("internalCardNumber").toString().trim();
                         }
-                        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("associatedAccount") != null) {
-                            associatedAccount = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("associatedAccount").toString().trim();
+                        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.ASSOCIATED_ACOUNT_LITERAL) != null) {
+                            associatedAccount =
+                                    AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.ASSOCIATED_ACOUNT_LITERAL).toString().trim();
                         }
 
                         resetVehicleDriver();
@@ -1326,23 +1301,15 @@ public class CardBean implements Serializable {
                         user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
                         modifiedBy = user.getFirstName().concat(" ").concat(user.getLastName());
 
-
-                        BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
-                        OperationBinding operationBinding = bindings.getOperationBinding("updateVehicleDriver");
-                        operationBinding.getParamsMap().put("cardNumber", internalCardNumber);
-
-                        operationBinding.getParamsMap().put("type", "Driver");
-                        operationBinding.getParamsMap().put("countryCd", lang);
-
-                        operationBinding.getParamsMap().put("vehicleDriverValue", getBindings().getDriverNumber().getValue());
-
-                        operationBinding.getParamsMap().put("associatedAccount", associatedAccount);
-
-                        operationBinding.getParamsMap().put("modifiedBy", modifiedBy);
-
-
-                        Object result = operationBinding.execute();
-
+                        BindingContainer loccalBinding = BindingContext.getCurrent().getCurrentBindingsEntry();
+                        OperationBinding operationBinding = loccalBinding.getOperationBinding(Constants.UPDATE_VEHICLE_DRIVER_LITERAL);
+                        operationBinding.getParamsMap().put(Constants.CARD_NUMBER_LITERAL, internalCardNumber);
+                        operationBinding.getParamsMap().put(Constants.TYPE_LITERAL, Constants.DRIVER_LITERAL);
+                        operationBinding.getParamsMap().put(Constants.COUNTRY_CD_LITERAL, lang);
+                        operationBinding.getParamsMap().put(Constants.VEHICLE_DIRVER_VALUE_LITERAL, getBindings().getDriverNumber().getValue());
+                        operationBinding.getParamsMap().put(Constants.ASSOCIATED_ACOUNT_LITERAL, associatedAccount);
+                        operationBinding.getParamsMap().put(Constants.MODIFIED_BY_LITERAL, modifiedBy);
+                        operationBinding.execute();
 
                         String accountPassingValues = null;
                         String statusPassingValues = null;
@@ -1390,32 +1357,32 @@ public class CardBean implements Serializable {
                 }
             }
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting checkDriverAssociation method of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting checkDriverAssociation method of View Cards");
     }
 
 
     public void exportExcelSpecificAction(ActionEvent actionEvent) {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside exportExcelSpecificAction method of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside exportExcelSpecificAction method of View Cards");
         shuttleStatus = false;
         String langDB = (String)session.getAttribute("langReport");
-        if (langDB.equalsIgnoreCase("en_US")) {
+        if (langDB.equalsIgnoreCase(Constants.LANGUAGE_ENGLISH)) {
             langDB = "EN";
         } else {
             langDB = langDB.substring(langDB.length() - 2, langDB.length());
             langDB = langDB.toUpperCase();
         }
-        String selectCriteria = "Default";
+        String selectCriteria = Constants.DEFAULT_LITERAL;
         if (!blockedDateTime) {
             selectCriteria = "Active";
         }
         ViewObject prtExportInfoRVO = ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
         prtExportInfoRVO.setNamedWhereClauseParam("country_Code", langDB);
         prtExportInfoRVO.setNamedWhereClauseParam("report_Page", "VIEWCARDS");
-        prtExportInfoRVO.setNamedWhereClauseParam("report_Type", "Default");
+        prtExportInfoRVO.setNamedWhereClauseParam("report_Type", Constants.DEFAULT_LITERAL);
         prtExportInfoRVO.setNamedWhereClauseParam("select_Criteria", selectCriteria);
         prtExportInfoRVO.executeQuery();
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count in CardGroup:" +
-                     prtExportInfoRVO.getEstimatedRowCount());
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count in CardGroup:" +
+                    prtExportInfoRVO.getEstimatedRowCount());
         if (prtExportInfoRVO.getEstimatedRowCount() > 0) {
             while (prtExportInfoRVO.hasNext()) {
                 PrtExportInfoRVORowImpl prtExportRow = (PrtExportInfoRVORowImpl)prtExportInfoRVO.next();
@@ -1433,7 +1400,7 @@ public class CardBean implements Serializable {
                 shuttleList.add(selectItem);
             }
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShuttleExcel());
-            getBindings().getSelectionExportOneRadio().setValue("xls");
+            getBindings().getSelectionExportOneRadio().setValue(Constants.XLS_LITERAL);
             getBindings().getSpecificColumns().show(new RichPopup.PopupHints());
         } else {
             if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR_DB")) {
@@ -1441,27 +1408,27 @@ public class CardBean implements Serializable {
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting exportExcelSpecificAction method of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting exportExcelSpecificAction method of View Cards");
     }
 
     public String saveVehicleDriver() {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside saveVehicleDriver method of View Cards");
-        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") != null ||
-            AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") != null) {
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside saveVehicleDriver method of View Cards");
+        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.DRIVER_NUMBER_LITERAL) != null ||
+            AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.VEHICLE_NUMBER_LITERAL) != null) {
             if (vehiclePGL) {
                 if (getBindings().getVehicleNumber().getValue() == null) {
                     showErrorMsgEditFlag = true;
                     warningMsg = resourceBundle.getObject("VEHICLE_EMPTY").toString();
                 }
-                if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") != null) {
+                if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.DRIVER_NUMBER_LITERAL) != null) {
                     if (resourceBundle.containsKey("DRIVER_CARD_EXIST")) {
                         showErrorMsgEditFlag = true;
                         warningMsg =
-                                resourceBundle.getObject("DRIVER_CARD_EXIST").toString().concat(" ").concat(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverName").toString());
+                                resourceBundle.getObject("DRIVER_CARD_EXIST").toString().concat(" ").concat(AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.DRIVER_NAME_LITERAL).toString());
                     }
                 }
-                if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") != null &&
-                    getBindings().getVehicleNumber().getValue().equals(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber"))) {
+                if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.VEHICLE_NUMBER_LITERAL) != null &&
+                    getBindings().getVehicleNumber().getValue().equals(AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.VEHICLE_NUMBER_LITERAL))) {
 
                     getBindings().getTruckdriverDetails().hide();
                 }
@@ -1476,15 +1443,16 @@ public class CardBean implements Serializable {
                         showErrorMsgEditFlag = true;
                         warningMsg = resourceBundle.getObject("DRIVER_EMPTY").toString();
                     }
-                    if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") != null) {
-                        if (resourceBundle.containsKey("TRUCK_CARD_EXIST")) {
-                            showErrorMsgEditFlag = true;
-                            warningMsg =
-                                    resourceBundle.getObject("TRUCK_CARD_EXIST").toString().concat(" ").concat(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber").toString());
-                        }
+                    if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.VEHICLE_NUMBER_LITERAL) != null &&
+                        resourceBundle.containsKey("TRUCK_CARD_EXIST")) {
+
+                        showErrorMsgEditFlag = true;
+                        warningMsg =
+                                resourceBundle.getObject("TRUCK_CARD_EXIST").toString().concat(" ").concat(AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.VEHICLE_NUMBER_LITERAL).toString());
+
                     }
-                    if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") != null &&
-                        getBindings().getDriverNumber().getValue().equals(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber"))) {
+                    if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.DRIVER_NUMBER_LITERAL) != null &&
+                        getBindings().getDriverNumber().getValue().equals(AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.DRIVER_NUMBER_LITERAL))) {
                         getBindings().getTruckdriverDetails().hide();
                     } else {
 
@@ -1495,8 +1463,8 @@ public class CardBean implements Serializable {
                 }
             }
         } else {
-            if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") == null &&
-                AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") == null) {
+            if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.DRIVER_NUMBER_LITERAL) == null &&
+                AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.VEHICLE_NUMBER_LITERAL) == null) {
                 if (vehiclePGL) {
                     if (getBindings().getVehicleNumber().getValue() == null) {
                         showErrorMsgEditFlag = true;
@@ -1521,7 +1489,7 @@ public class CardBean implements Serializable {
         getBindings().getVehicleDriverRadio().setSubmittedValue(null);
         getBindings().getVehicleDriverRadio().setValue(null);
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVehicleDriverRadio());
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting saveVehicleDriver method of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting saveVehicleDriver method of View Cards");
         return null;
     }
 
@@ -1591,7 +1559,7 @@ public class CardBean implements Serializable {
     public List getShuttleValue() {
         if (!shuttleStatus) {
             String langDB = (String)session.getAttribute("langReport");
-            if (langDB.equalsIgnoreCase("en_US")) {
+            if (langDB.equalsIgnoreCase(Constants.LANGUAGE_ENGLISH)) {
                 langDB = "EN";
             } else {
                 langDB = langDB.substring(langDB.length() - 2, langDB.length());
@@ -1601,11 +1569,11 @@ public class CardBean implements Serializable {
             ViewObject prtExportInfoRVO = ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
             prtExportInfoRVO.setNamedWhereClauseParam("country_Code", langDB);
             prtExportInfoRVO.setNamedWhereClauseParam("report_Page", "VIEWCARDS");
-            prtExportInfoRVO.setNamedWhereClauseParam("report_Type", "Default");
-            prtExportInfoRVO.setNamedWhereClauseParam("select_Criteria", "Default");
+            prtExportInfoRVO.setNamedWhereClauseParam("report_Type", Constants.DEFAULT_LITERAL);
+            prtExportInfoRVO.setNamedWhereClauseParam("select_Criteria", Constants.DEFAULT_LITERAL);
             prtExportInfoRVO.executeQuery();
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count in CardGroup shuttle:" +
-                         prtExportInfoRVO.getEstimatedRowCount());
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count in CardGroup shuttle:" +
+                        prtExportInfoRVO.getEstimatedRowCount());
             if (prtExportInfoRVO.getEstimatedRowCount() > 0) {
                 while (prtExportInfoRVO.hasNext()) {
                     PrtExportInfoRVORowImpl prtExportRow = (PrtExportInfoRVORowImpl)prtExportInfoRVO.next();
@@ -1623,25 +1591,28 @@ public class CardBean implements Serializable {
     }
 
     public void getValuesForExcel(ActionEvent actionEvent) {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside getValuesForExcel method of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside getValuesForExcel method of View Cards");
         if (shuttleValue == null && getBindings().getSelectionExportOneRadio().getValue() == null) {
             if (shuttleValue == null) {
-                if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR")) {
-                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR"), "");
+                if (resourceBundle.containsKey(Constants.TRANSACTION_SPECIFIC_ERROR_LITERAL)) {
+                    FacesMessage msg =
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject(Constants.TRANSACTION_SPECIFIC_ERROR_LITERAL), "");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                 }
             } else {
-                if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR_SELECTION")) {
+                if (resourceBundle.containsKey(Constants.TRANSACTION_SPECIFIC_ERROR_SELECTION_LITERAL)) {
                     FacesMessage msg =
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR_SELECTION"), "");
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject(Constants.TRANSACTION_SPECIFIC_ERROR_SELECTION_LITERAL),
+                                         "");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                 }
             }
         } else {
             if (getBindings().getSelectionExportOneRadio().getValue() != null) {
                 if (shuttleValue == null) {
-                    if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR")) {
-                        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR"), "");
+                    if (resourceBundle.containsKey(Constants.TRANSACTION_SPECIFIC_ERROR_LITERAL)) {
+                        FacesMessage msg =
+                            new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject(Constants.TRANSACTION_SPECIFIC_ERROR_LITERAL), "");
                         FacesContext.getCurrentInstance().addMessage(null, msg);
                     }
                 } else {
@@ -1651,14 +1622,15 @@ public class CardBean implements Serializable {
                     }
                 }
             } else {
-                if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR_SELECTION")) {
+                if (resourceBundle.containsKey(Constants.TRANSACTION_SPECIFIC_ERROR_SELECTION_LITERAL)) {
                     FacesMessage msg =
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR_SELECTION"), "");
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject(Constants.TRANSACTION_SPECIFIC_ERROR_SELECTION_LITERAL),
+                                         "");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                 }
             }
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting getValuesForExcel method of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting getValuesForExcel method of View Cards");
     }
 
     public String excelDownLoad() {
@@ -1671,38 +1643,38 @@ public class CardBean implements Serializable {
     }
 
     public String checkALL(String selectedValues, String type) {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside checkALL method of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside checkALL method of View Cards");
         String val = "";
         String[] listValues = selectedValues.split(",");
         if (listValues.length > 1) {
-            if ("Partner".equalsIgnoreCase(type)) {
+            if (Constants.PARTNER_LITERAL.equalsIgnoreCase(type)) {
                 if (partnerInfoList.size() == listValues.length) {
-                    if (resourceBundle.containsKey("ENG_ALL")) {
-                        val = (String)resourceBundle.getObject("ENG_ALL");
+                    if (resourceBundle.containsKey(Constants.ENG_ALL_LITERAL)) {
+                        val = (String)resourceBundle.getObject(Constants.ENG_ALL_LITERAL);
                     }
                 } else {
                     val = selectedValues;
                 }
             } else if ("Account".equalsIgnoreCase(type)) {
                 if (accountIdList.size() == listValues.length) {
-                    if (resourceBundle.containsKey("ENG_ALL")) {
-                        val = (String)resourceBundle.getObject("ENG_ALL");
+                    if (resourceBundle.containsKey(Constants.ENG_ALL_LITERAL)) {
+                        val = (String)resourceBundle.getObject(Constants.ENG_ALL_LITERAL);
                     }
                 } else {
                     val = selectedValues;
                 }
             } else if ("CardGroup".equalsIgnoreCase(type)) {
                 if (cardGroupList.size() == listValues.length) {
-                    if (resourceBundle.containsKey("ENG_ALL")) {
-                        val = (String)resourceBundle.getObject("ENG_ALL");
+                    if (resourceBundle.containsKey(Constants.ENG_ALL_LITERAL)) {
+                        val = (String)resourceBundle.getObject(Constants.ENG_ALL_LITERAL);
                     }
                 } else {
                     val = selectedValues;
                 }
             } else if ("Status".equalsIgnoreCase(type)) {
                 if (statusList.size() == listValues.length) {
-                    if (resourceBundle.containsKey("ENG_ALL")) {
-                        val = (String)resourceBundle.getObject("ENG_ALL");
+                    if (resourceBundle.containsKey(Constants.ENG_ALL_LITERAL)) {
+                        val = (String)resourceBundle.getObject(Constants.ENG_ALL_LITERAL);
                     }
                 } else {
                     val = selectedValues;
@@ -1712,39 +1684,40 @@ public class CardBean implements Serializable {
         } else {
             val = selectedValues;
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting checkALL method of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting checkALL method of View Cards");
         return val;
     }
 
-    public String statusConversion(String statusLabel) {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside statusConversion method of View Cards");
+    public String statusConversion(String statusLabell) {
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside statusConversion method of View Cards");
+        String statusLabel = statusLabell;
         if (statusLabel != null) {
             statusLabel = statusLabel.trim();
 
             if (statusLabel.equalsIgnoreCase(Constants.ENGAGE_CARD_ACTIVE)) {
-                if (resourceBundle.containsKey("UNBLOCKED_PLURAL")) {
-                    return resourceBundle.getObject("UNBLOCKED_PLURAL").toString();
+                if (resourceBundle.containsKey(Constants.UNBLOCKED_PLURAL_LITERAL)) {
+                    return resourceBundle.getObject(Constants.UNBLOCKED_PLURAL_LITERAL).toString();
                 }
             } else if (statusLabel.equalsIgnoreCase(Constants.ENGAGE_CARD_TEMPORARY_BLOCKED)) {
-                if (resourceBundle.containsKey("TEMPORARY_BLOCKED")) {
-                    return resourceBundle.getObject("TEMPORARY_BLOCKED").toString();
+                if (resourceBundle.containsKey(Constants.TEMPORARY_BLOCKED_LITERAL)) {
+                    return resourceBundle.getObject(Constants.TEMPORARY_BLOCKED_LITERAL).toString();
                 }
             } else if (statusLabel.equalsIgnoreCase(Constants.ENGAGE_CARD_PERMANENT_BLOCKED)) {
-                if (resourceBundle.containsKey("PERMANENT_BLOCKED")) {
-                    return resourceBundle.getObject("PERMANENT_BLOCKED").toString();
+                if (resourceBundle.containsKey(Constants.PERMANENT_BLOCKED_LITERAL)) {
+                    return resourceBundle.getObject(Constants.PERMANENT_BLOCKED_LITERAL).toString();
                 }
-            } else if (statusLabel.equalsIgnoreCase("E")) {
-                if (resourceBundle.containsKey("EXPIRED")) {
-                    return resourceBundle.getObject("EXPIRED").toString();
-                }
+            } else if (statusLabel.equalsIgnoreCase("E") && resourceBundle.containsKey(Constants.EXPIRED_LITERAL)) {
+
+                return resourceBundle.getObject(Constants.EXPIRED_LITERAL).toString();
+
             }
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting statusConversion method of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting statusConversion method of View Cards");
         return null;
     }
 
     public String statusConversionList(String status) {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside statusConversionList method of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside statusConversionList method of View Cards");
         if (status != null) {
             String statusValueList = "";
             String[] sta = status.split(",");
@@ -1754,30 +1727,30 @@ public class CardBean implements Serializable {
             statusValueList = statusValueList.substring(0, statusValueList.length() - 1);
             return statusValueList;
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting statusConversionList method of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting statusConversionList method of View Cards");
         return null;
     }
 
     public void specificExportExcelListener(FacesContext facesContext, OutputStream outputStream) throws IOException, SQLException, Exception {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside specificExportExcelListener method of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside specificExportExcelListener method of View Cards");
         String selectedValues = "";
         for (int i = 0; i < shuttleValue.size(); i++) {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Item =" + i + " value== " + shuttleValue.get(i));
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Item =" + i + " value== " + shuttleValue.get(i));
             selectedValues = selectedValues + shuttleValue.get(i).toString().trim() + "|";
         }
         selectedValues = selectedValues.substring(0, selectedValues.length() - 1);
 
         ReportBundle rb = new ReportBundle();
         String langDB = (String)session.getAttribute("langReport");
-        if (langDB.equalsIgnoreCase("en_US")) {
-            langDB = "en_US".toUpperCase();
+        if (langDB.equalsIgnoreCase(Constants.LANGUAGE_ENGLISH)) {
+            langDB = Constants.LANGUAGE_ENGLISH.toUpperCase();
         } else {
             langDB = langDB.substring(langDB.length() - 2, langDB.length());
             langDB = langDB.toUpperCase();
         }
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "langDB =" + langDB);
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "langDB =" + langDB);
         String columnsReport = rb.getContentsForReport("VIEWCARDS", langDB, selectedValues);
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "From Resource Bundle:" + columnsReport);
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "From Resource Bundle:" + columnsReport);
 
         String partnerCompanyName = "";
         String[] partnerCompanyNameList = StringConversion(populateStringValues(getBindings().getPartner().getValue().toString().trim()));
@@ -1787,28 +1760,28 @@ public class CardBean implements Serializable {
         for (int z = 0; z < partnerInfoList.size(); z++) {
             if (partnerCompanyNameList.length > 0) {
                 for (int p = 0; p < partnerCompanyNameList.length; p++) {
-                    if (partnerInfoList.get(z).getPartnerValue() != null && partnerCompanyNameList[p] != null) {
-                        if (partnerInfoList.get(z).getPartnerValue().trim().equalsIgnoreCase(partnerCompanyNameList[p].trim())) {
-                            partnerCompanyName = partnerCompanyName + partnerInfoList.get(z).getPartnerValue().toString().trim() + ",";
-                            if (partnerInfoList.get(z).getAccountList() != null && partnerInfoList.get(z).getAccountList().size() > 0) {
-                                for (int i = 0; i < partnerInfoList.get(z).getAccountList().size(); i++) {
-                                    if (accountString.length > 0) {
-                                        for (int j = 0; j < accountString.length; j++) {
-                                            if (partnerInfoList.get(z).getAccountList().get(i).getAccountNumber() != null &&
-                                                partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().trim().equals(accountString[j].trim())) {
-                                                if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup() != null &&
-                                                    partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size() > 0) {
-                                                    for (int k = 0; k < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size(); k++) {
-                                                        if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID() != null &&
-                                                            cardGroupDescList.length > 0) {
-                                                            for (int cg = 0; cg < cardGroupDescList.length; cg++) {
-                                                                if ((partnerInfoList.get(z).getPartnerValue().toString().trim() +
-                                                                     partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().trim()).equals(cardGroupDescList[cg].trim())) {
-                                                                    cardGroupDescName =
-                                                                            cardGroupDescName + partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getDisplayCardGroupIdName() +
-                                                                            ",";
-                                                                }
-                                                            }
+                    if (partnerInfoList.get(z).getPartnerValue() != null && partnerCompanyNameList[p] != null &&
+                        (partnerInfoList.get(z).getPartnerValue().trim().equalsIgnoreCase(partnerCompanyNameList[p].trim()))) {
+
+                        partnerCompanyName = partnerCompanyName + partnerInfoList.get(z).getPartnerValue().toString().trim() + ",";
+                        if (partnerInfoList.get(z).getAccountList() != null && partnerInfoList.get(z).getAccountList().size() > 0) {
+                            for (int i = 0; i < partnerInfoList.get(z).getAccountList().size(); i++) {
+                                if (accountString.length > 0) {
+                                    for (int j = 0; j < accountString.length; j++) {
+                                        if (partnerInfoList.get(z).getAccountList().get(i).getAccountNumber() != null &&
+                                            partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().trim().equals(accountString[j].trim()) &&
+                                            (partnerInfoList.get(z).getAccountList().get(i).getCardGroup() != null &&
+                                             partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size() > 0)) {
+
+                                            for (int k = 0; k < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size(); k++) {
+                                                if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID() != null &&
+                                                    cardGroupDescList.length > 0) {
+                                                    for (int cg = 0; cg < cardGroupDescList.length; cg++) {
+                                                        if ((partnerInfoList.get(z).getPartnerValue().toString().trim() +
+                                                             partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().trim()).equals(cardGroupDescList[cg].trim())) {
+                                                            cardGroupDescName =
+                                                                    cardGroupDescName + partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getDisplayCardGroupIdName() +
+                                                                    ",";
                                                         }
                                                     }
                                                 }
@@ -1827,26 +1800,25 @@ public class CardBean implements Serializable {
         String[] headerDataValues = columnsReport.split(Constants.ENGAGE_REPORT_DELIMITER);
         String[] headerValues = selectedValues.split(Constants.ENGAGE_REPORT_DELIMITER);
 
-        if ("xls".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Report in Excel Format");
+        if (Constants.XLS_LITERAL.equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Report in Excel Format");
             HSSFWorkbook XLS = new HSSFWorkbook();
             HSSFRow XLS_SH_R = null;
             HSSFCell XLS_SH_R_C = null;
-            int intRow = 0;
             HSSFCellStyle cs = XLS.createCellStyle();
             HSSFFont f = XLS.createFont();
 
             HSSFSheet XLS_SH = XLS.createSheet();
             XLS.setSheetName(0, "Card_Report");
 
-            f.setFontHeightInPoints((short)10);
+            f.setFontHeightInPoints((short)Constants.TEN);
             f.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
             f.setColor((short)0);
             cs.setFont(f);
 
             HSSFCellStyle csRight = XLS.createCellStyle();
             HSSFFont fnumberData = XLS.createFont();
-            fnumberData.setFontHeightInPoints((short)10);
+            fnumberData.setFontHeightInPoints((short)Constants.TEN);
             fnumberData.setColor((short)0);
             csRight.setFont(fnumberData);
             csRight.setAlignment(HSSFCellStyle.ALIGN_RIGHT);
@@ -1854,7 +1826,7 @@ public class CardBean implements Serializable {
 
             HSSFCellStyle csData = XLS.createCellStyle();
             HSSFFont fData = XLS.createFont();
-            fData.setFontHeightInPoints((short)10);
+            fData.setFontHeightInPoints((short)Constants.TEN);
             fData.setColor((short)0);
             csData.setFont(fData);
 
@@ -1864,7 +1836,7 @@ public class CardBean implements Serializable {
             XLS_SH_R_C = XLS_SH_R.createCell(0);
             XLS_SH_R_C.setCellStyle(cs);
             if (resourceBundle.containsKey("PARTNER_ENG")) {
-                XLS_SH_R_C.setCellValue((String)resourceBundle.getObject("PARTNER_ENG") + ": " + checkALL(partnerCompanyName, "Partner"));
+                XLS_SH_R_C.setCellValue((String)resourceBundle.getObject("PARTNER_ENG") + ": " + checkALL(partnerCompanyName, Constants.PARTNER_LITERAL));
             }
 
             XLS_SH_R = XLS_SH.createRow(1);
@@ -1882,7 +1854,7 @@ public class CardBean implements Serializable {
                 XLS_SH_R_C.setCellValue((String)resourceBundle.getObject("CARDGROUP") + ": " + checkALL(cardGroupDescName, "CardGroup"));
             }
 
-            XLS_SH_R = XLS_SH.createRow(3);
+            XLS_SH_R = XLS_SH.createRow(Constants.THREE);
             XLS_SH_R_C = XLS_SH_R.createCell(0);
             XLS_SH_R_C.setCellStyle(cs);
             if (resourceBundle.containsKey("STATUS")) {
@@ -1890,37 +1862,37 @@ public class CardBean implements Serializable {
                                         checkALL((statusConversionList(populateStringValues(getBindings().getStatus().getValue().toString()))), "Status"));
             }
 
-            for (int row = 4; row < 6; row++) {
+            for (int row = Constants.FOUR; row < Constants.SIX; row++) {
                 XLS_SH_R = XLS_SH.createRow(row);
             }
 
 
             HSSFCellStyle css = XLS.createCellStyle();
             HSSFFont fcss = XLS.createFont();
-            fcss.setFontHeightInPoints((short)10);
+            fcss.setFontHeightInPoints((short)Constants.TEN);
             fcss.setItalic(true);
             fcss.setColor((short)0);
             css.setFont(fcss);
 
-            XLS_SH_R = XLS_SH.createRow(6);
+            XLS_SH_R = XLS_SH.createRow(Constants.SIX);
             XLS_SH_R_C = XLS_SH_R.createCell(0);
             XLS_SH_R_C.setCellStyle(cs);
             if (resourceBundle.containsKey("ENG_VIEW_CARD_NOTE")) {
                 XLS_SH_R_C.setCellValue((String)resourceBundle.getObject("ENG_VIEW_CARD_NOTE"));
             }
 
-            XLS_SH_R = XLS_SH.createRow(7);
+            XLS_SH_R = XLS_SH.createRow(Constants.SEVEN);
 
-            XLS_SH_R = XLS_SH.createRow(8);
+            XLS_SH_R = XLS_SH.createRow(Constants.EIGHT);
             for (int col = 0; col < headerValues.length; col++) {
                 XLS_SH_R_C = XLS_SH_R.createCell(col);
                 XLS_SH_R_C.setCellStyle(css);
                 XLS_SH_R_C.setCellValue(headerValues[col]);
             }
 
-            int rowVal = 8;
+            int rowVal = Constants.EIGHT;
 
-            ViewObject prtViewCardsVO = ADFUtils.getViewObject("PrtViewCardsVO1Iterator");
+            ViewObject prtViewCardsVO = ADFUtils.getViewObject(PRTVIEWCARDSVO1ITERATOR_LITRERAL);
             RowSetIterator iterator = prtViewCardsVO.createRowSetIterator(null);
             iterator.reset();
             while (iterator.hasNext()) {
@@ -1929,7 +1901,7 @@ public class CardBean implements Serializable {
                 XLS_SH_R = XLS_SH.createRow(rowVal);
                 if (row != null) {
                     for (int cellValue = 0; cellValue < headerDataValues.length; cellValue++) {
-                        if ("Partner".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        if (Constants.PARTNER_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getPartnerId() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
@@ -2017,10 +1989,8 @@ public class CardBean implements Serializable {
                             if (row.getLastUsed() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
-                                Date date =
-                                    new Date(row.getLastUsed().dateValue().getTime());
-                                SimpleDateFormat sdf =
-                                    new java.text.SimpleDateFormat("dd.MM.yyyy HH:mm");
+                                Date date = new Date(row.getLastUsed().dateValue().getTime());
+                                SimpleDateFormat sdf = new java.text.SimpleDateFormat(Constants.DATE_FORMAT_LITERAL);
                                 XLS_SH_R_C.setCellValue(sdf.format(date));
                             }
                         } else if ("Avg Monthly Usage".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
@@ -2039,19 +2009,19 @@ public class CardBean implements Serializable {
                                 XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getQuaterlyFuelReportFuelThreeMonths3().toString())),
                                                                          locale));
                             }
-                        } else if ("Vehicle".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if (Constants.VEHICLE_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getVehicleNumber() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getVehicleNumber().toString().trim());
                             }
-                        } else if ("Driver".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if (Constants.DRIVER_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getDriverName() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getDriverName().toString().trim());
                             }
-                        }
+                            }
 
                         else if ("Partner Name".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getCompanyName() != null) {
@@ -2089,24 +2059,23 @@ public class CardBean implements Serializable {
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getCardgroupSubType().toString().trim());
                             }
-                        } else if ("Card group number".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
-                            if (row.getCardgroupSeq() != null) {
-                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
-                                XLS_SH_R_C.setCellStyle(csData);
-                                XLS_SH_R_C.setCellValue(row.getCardgroupSeq().toString().trim());
-                            }
+                        } else if ("Card group number".equalsIgnoreCase(headerDataValues[cellValue].trim()) && row.getCardgroupSeq() != null) {
+
+                            XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                            XLS_SH_R_C.setCellStyle(csData);
+                            XLS_SH_R_C.setCellValue(row.getCardgroupSeq().toString().trim());
+
                         }
                     }
-
                 }
             }
             iterator.closeRowSetIterator();
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Printing excel Data completed");
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Printing excel Data completed");
             XLS.write(outputStream);
             outputStream.close();
 
         } else if ("csv".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Report in CSV Format");
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Report in CSV Format");
             PrintWriter out = new PrintWriter(outputStream);
 
             for (int col = 0; col < headerValues.length; col++) {
@@ -2116,15 +2085,15 @@ public class CardBean implements Serializable {
                 }
             }
             out.println();
-            ViewObject prtViewCardsVO = ADFUtils.getViewObject("PrtViewCardsVO1Iterator");
+            ViewObject prtViewCardsVO = ADFUtils.getViewObject(PRTVIEWCARDSVO1ITERATOR_LITRERAL);
             RowSetIterator iterator = prtViewCardsVO.createRowSetIterator(null);
             iterator.reset();
             while (iterator.hasNext()) {
                 PrtViewCardsVORowImpl row = (PrtViewCardsVORowImpl)iterator.next();
                 if (row != null) {
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Printing Data");
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Printing Data");
                     for (int cellValue = 0; cellValue < headerDataValues.length; cellValue++) {
-                        if ("Partner".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        if (Constants.PARTNER_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getPartnerId() != null) {
                                 out.print(row.getPartnerId().toString().trim());
                             }
@@ -2139,12 +2108,12 @@ public class CardBean implements Serializable {
                                 out.print(";");
                             }
                         } else if ("CardGroup Description".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
-                                if (row.getCardgroupDescription() != null) {
-                                    out.print(row.getCardgroupDescription());
-                                }
-                                if (cellValue != headerDataValues.length - 1) {
+                            if (row.getCardgroupDescription() != null) {
+                                out.print(row.getCardgroupDescription());
+                            }
+                            if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
-                                }
+                            }
                         } else if ("CardGroup Id".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getCardgroupId() != null) {
                                 out.print(row.getCardgroupId());
@@ -2211,7 +2180,7 @@ public class CardBean implements Serializable {
                             if (cellValue != headerDataValues.length - 1) {
                                 out.print("|");
                             }
-                        }
+                            }
 
                         else if ("Expiry".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getCardExpiryDate() != null) {
@@ -2222,7 +2191,7 @@ public class CardBean implements Serializable {
                             if (cellValue != headerDataValues.length - 1) {
                                 out.print("|");
                             }
-                        }
+                            }
 
                         else if ("Last Used".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getLastUsed() != null) {
@@ -2253,21 +2222,21 @@ public class CardBean implements Serializable {
                             if (cellValue != headerDataValues.length - 1) {
                                 out.print("|");
                             }
-                        } else if ("Vehicle".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if (Constants.VEHICLE_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getVehicleNumber() != null) {
                                 out.print(row.getVehicleNumber().toString().trim());
                             }
                             if (cellValue != headerDataValues.length - 1) {
                                 out.print("|");
                             }
-                        } else if ("Driver".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if (Constants.DRIVER_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getDriverName() != null) {
                                 out.print(row.getDriverName().toString().trim());
                             }
                             if (cellValue != headerDataValues.length - 1) {
                                 out.print("|");
                             }
-                        }
+                            }
 
                         else if ("Partner Name".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getCompanyName() != null) {
@@ -2328,7 +2297,7 @@ public class CardBean implements Serializable {
             out.close();
         } else {
             if ("csv2".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Report in CSV2 Format");
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Report in CSV2 Format");
                 PrintWriter out = new PrintWriter(outputStream);
 
                 for (int col = 0; col < headerValues.length; col++) {
@@ -2338,15 +2307,15 @@ public class CardBean implements Serializable {
                     }
                 }
                 out.println();
-                ViewObject prtViewCardsVO = ADFUtils.getViewObject("PrtViewCardsVO1Iterator");
+                ViewObject prtViewCardsVO = ADFUtils.getViewObject(PRTVIEWCARDSVO1ITERATOR_LITRERAL);
                 RowSetIterator iterator = prtViewCardsVO.createRowSetIterator(null);
                 iterator.reset();
                 while (iterator.hasNext()) {
                     PrtViewCardsVORowImpl row = (PrtViewCardsVORowImpl)iterator.next();
                     if (row != null) {
-                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Printing Data");
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Printing Data");
                         for (int cellValue = 0; cellValue < headerDataValues.length; cellValue++) {
-                            if ("Partner".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            if (Constants.PARTNER_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getPartnerId() != null) {
                                     out.print(row.getPartnerId().toString().trim());
                                 }
@@ -2391,7 +2360,7 @@ public class CardBean implements Serializable {
                             } else if ("Last Used".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getLastUsed() != null) {
                                     Date date = new Date(row.getLastUsed().dateValue().getTime());
-                                    SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd.MM.yyyy HH:mm");
+                                    SimpleDateFormat sdf = new java.text.SimpleDateFormat(Constants.DATE_FORMAT_LITERAL);
                                     out.print(sdf.format(date));
                                 }
                                 if (cellValue != headerDataValues.length - 1) {
@@ -2425,14 +2394,14 @@ public class CardBean implements Serializable {
                                 if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Vehicle".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            } else if (Constants.VEHICLE_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getVehicleNumber() != null) {
                                     out.print(row.getVehicleNumber().toString().trim());
                                 }
                                 if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Driver".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            } else if (Constants.DRIVER_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getDriverName() != null) {
                                     out.print(row.getDriverName().toString().trim());
                                 }
@@ -2465,7 +2434,7 @@ public class CardBean implements Serializable {
                             } else if ("Blocked".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getBlockTime() != null) {
                                     Date date = new Date(row.getBlockTime().dateValue().getTime());
-                                    SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd.MM.yyyy HH:mm");
+                                    SimpleDateFormat sdf = new java.text.SimpleDateFormat(Constants.DATE_FORMAT_LITERAL);
                                     out.print(sdf.format(date));
                                 }
                                 if (cellValue != headerDataValues.length - 1) {
@@ -2496,7 +2465,7 @@ public class CardBean implements Serializable {
                                 if (row.getPartnerPostalCode() != null) {
                                     out.print(row.getPartnerPostalCode().toString().trim());
                                 }
-                               if (cellValue != headerDataValues.length - 1) {
+                                if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
                             } else if ("City".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
@@ -2530,7 +2499,7 @@ public class CardBean implements Serializable {
                 out.close();
             }
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting specificExportExcelListener method of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting specificExportExcelListener method of View Cards");
     }
 
 
@@ -2538,27 +2507,22 @@ public class CardBean implements Serializable {
 
         RichSelectManyChoice soc = new RichSelectManyChoice();
 
-         if (component instanceof RichSelectManyChoice) {
+        if (component instanceof RichSelectManyChoice) {
             soc = (RichSelectManyChoice)component;
             if (status) {
                 soc.setStyleClass("af_mandatoryfield");
-                if (component.getId().contains("soc3") ||
-                    component.getId().contains("smc2") ||
-                    component.getId().contains("smc7") ||
-                    component.getId().contains("smc8") )
+                if (component.getId().contains("soc3") || component.getId().contains("smc2") || component.getId().contains("smc7") ||
+                    component.getId().contains("smc8"))
                     soc.setStyleClass("af_mandatoryfield");
 
             } else {
                 soc.setStyleClass("af_nonmandatoryfield");
-                if (component.getId().contains("soc3") ||
-                    component.getId().contains("smc2") ||
-                    component.getId().contains("smc7") ||
+                if (component.getId().contains("soc3") || component.getId().contains("smc2") || component.getId().contains("smc7") ||
                     component.getId().contains("smc8"))
                     soc.setStyleClass("af_nonmandatoryfield");
             }
             AdfFacesContext.getCurrentInstance().addPartialTarget(soc);
         }
-      
     }
 
     private Boolean isComponentEmpty(UIComponent rit1) {
@@ -2566,10 +2530,10 @@ public class CardBean implements Serializable {
         RichSelectManyChoice soc = new RichSelectManyChoice();
         if (rit1 instanceof RichSelectManyChoice) {
             soc = (RichSelectManyChoice)rit1;
-            if (soc.getValue() == null || soc.getValue().equals("")) {               
+            if (soc.getValue() == null || soc.getValue().equals("")) {
                 displayErrorComponent(soc, true);
                 return true;
-            } else {               
+            } else {
                 displayErrorComponent(soc, false);
                 return false;
             }
@@ -2598,16 +2562,16 @@ public class CardBean implements Serializable {
         return cardEmbossNum;
     }
 
-    public void setInternalName(String InternalName) {
-        this.InternalName = InternalName;
+    public void setInternalName(String internalName) {
+        this.InternalName = internalName;
     }
 
     public String getInternalName() {
         return InternalName;
     }
 
-    public void setDriverNumber1(String DriverNumber) {
-        this.DriverNumber = DriverNumber;
+    public void setDriverNumber1(String driverNumber) {
+        this.DriverNumber = driverNumber;
     }
 
     public String getDriverNumber1() {
@@ -2615,7 +2579,7 @@ public class CardBean implements Serializable {
     }
 
     public void editVehicleDriverListener(ActionEvent actionEvent) {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside editVehicleDriverListener method of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside editVehicleDriverListener method of View Cards");
         if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("cardAssociation") != null) {
             cardAssociation = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("cardAssociation").toString().trim();
         }
@@ -2625,37 +2589,37 @@ public class CardBean implements Serializable {
         if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("cardEmbossNum") != null) {
             cardEmbossNum = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("cardEmbossNum").toString().trim();
         }
-        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("InternalName") != null) {
-            InternalName = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("InternalName").toString().trim();
+        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.INTERNAL_NAME_LITERAL) != null) {
+            InternalName = AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.INTERNAL_NAME_LITERAL).toString().trim();
         }
-        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") != null) {
-            DriverNumber = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber").toString().trim();
+        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.DRIVER_NUMBER_LITERAL) != null) {
+            DriverNumber = AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.DRIVER_NUMBER_LITERAL).toString().trim();
         }
-        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverName") != null) {
-            DriverName = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverName").toString().trim();
+        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.DRIVER_NAME_LITERAL) != null) {
+            driverName = AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.DRIVER_NAME_LITERAL).toString().trim();
         }
-        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") != null) {
-            VehicleNumber = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber").toString().trim();
+        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.VEHICLE_NUMBER_LITERAL) != null) {
+            VehicleNumber = AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.VEHICLE_NUMBER_LITERAL).toString().trim();
         }
         this.driverNameValue = null;
         this.vehicleNumberValue = null;
         driverNameList = new ArrayList<SelectItem>();
         vehicleNumberList = new ArrayList<SelectItem>();
-
         this.displayDriverName = null;
         this.displayVehicleName = null;
 
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDriverNumber());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVehicleNumber());
         getBindings().getTruckdriverDetails().show(new RichPopup.PopupHints());
-        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") != null ||
-            AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") != null) {
-            if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") != null) {
-                if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("vehicleModifiedBy") != null) {
-                    vehicleModifiedBy = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("vehicleModifiedBy").toString().trim();
+        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.VEHICLE_NUMBER_LITERAL) != null ||
+            AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.DRIVER_NUMBER_LITERAL) != null) {
+            if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.VEHICLE_NUMBER_LITERAL) != null) {
+                if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.VEHICLE_MODIFIED_BY_LITERAL) != null) {
+                    vehicleModifiedBy = AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.VEHICLE_MODIFIED_BY_LITERAL).toString().trim();
                 }
-                if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("vehicleModifiedDate") != null) {
-                    vehicleModifiedDate = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("vehicleModifiedDate").toString().trim();
+                if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.VEHICLE_MODIFIED_DATE_LITERAL) != null) {
+                    vehicleModifiedDate =
+                            AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.VEHICLE_MODIFIED_DATE_LITERAL).toString().trim();
                 }
 
                 if (resourceBundle.containsKey("TRUCK_CARD_ALREADY_EXIST")) {
@@ -2666,9 +2630,9 @@ public class CardBean implements Serializable {
                     AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditInfoMessage());
                 }
             } else {
-                if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") != null) {
-                    if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("driverModifiedBy") != null) {
-                        driverModifiedBy = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("driverModifiedBy").toString().trim();
+                if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.DRIVER_NUMBER_LITERAL) != null) {
+                    if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.DRIVER_MODIFIED_BY_LITERAL) != null) {
+                        driverModifiedBy = AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.DRIVER_MODIFIED_BY_LITERAL).toString().trim();
                     }
                     if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("driverModifiedDate") != null) {
                         driverModifiedDate = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("driverModifiedDate").toString().trim();
@@ -2689,16 +2653,16 @@ public class CardBean implements Serializable {
             getBindings().getVehicleDriverRadio().setValue(null);
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVehicleDriverRadio());
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside editVehicleDriverListener method of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside editVehicleDriverListener method of View Cards");
     }
 
     public void closePopUpListener(ActionEvent actionEvent) {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside closePopUpListener method of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside closePopUpListener method of View Cards");
         getBindings().getVehicleDriverRadio().setSubmittedValue(null);
         getBindings().getVehicleDriverRadio().setValue(null);
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVehicleDriverRadio());
         getBindings().getTruckdriverDetails().hide();
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting closePopUpListener method of View Cards");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting closePopUpListener method of View Cards");
     }
 
     public void setVehicleModifiedBy(String vehicleModifiedBy) {
@@ -2799,73 +2763,55 @@ public class CardBean implements Serializable {
 
     public String resetVehicleDriver() {
 
-        associatedAccount = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("associatedAccount").toString().trim();
-        User user = null;
+        associatedAccount = AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.ASSOCIATED_ACOUNT_LITERAL).toString().trim();
+        User localUser = null;
         String modifiedBy = null;
-        user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
-        modifiedBy = user.getFirstName().concat(" ").concat(user.getLastName());
+        localUser = (User)session.getAttribute(Constants.SESSION_USER_INFO);
+        modifiedBy = localUser.getFirstName().concat(" ").concat(localUser.getLastName());
 
-        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") != null) {
-            BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
-            OperationBinding operationBinding = bindings.getOperationBinding("updateVehicleDriver");
-            operationBinding.getParamsMap().put("cardNumber", null);
+        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.DRIVER_NUMBER_LITERAL) != null) {
+            BindingContainer localBinding = BindingContext.getCurrent().getCurrentBindingsEntry();
+            OperationBinding operationBinding = localBinding.getOperationBinding(Constants.UPDATE_VEHICLE_DRIVER_LITERAL);
+            operationBinding.getParamsMap().put(Constants.CARD_NUMBER_LITERAL, null);
+            operationBinding.getParamsMap().put(Constants.TYPE_LITERAL, Constants.DRIVER_LITERAL);
+            operationBinding.getParamsMap().put(Constants.COUNTRY_CD_LITERAL, lang);
+            operationBinding.getParamsMap().put(Constants.VEHICLE_DIRVER_VALUE_LITERAL,
+                                                AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.DRIVER_NUMBER_LITERAL).toString());
+            operationBinding.getParamsMap().put(Constants.ASSOCIATED_ACOUNT_LITERAL, associatedAccount);
+            operationBinding.getParamsMap().put(Constants.MODIFIED_BY_LITERAL, modifiedBy);
+            operationBinding.execute();
 
-            operationBinding.getParamsMap().put("type", "Driver");
-            operationBinding.getParamsMap().put("countryCd", lang);
+            if (reset && resourceBundle.containsKey("DRIVER_DISASSOCIATED")) {
 
-            operationBinding.getParamsMap().put("vehicleDriverValue", AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber").toString());
-
-            operationBinding.getParamsMap().put("associatedAccount", associatedAccount);
-
-            operationBinding.getParamsMap().put("modifiedBy", modifiedBy);
-
-
-            Object result = operationBinding.execute();
-
-            if (reset) {
-                if (resourceBundle.containsKey("DRIVER_DISASSOCIATED")) {
-                    driverModifiedByVisible = false;
-                    driverModifiedDateVisible = false;
-
-                    getBindings().getTruckdriverDetails().hide();
-                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("DRIVER_DISASSOCIATED"), "");
-                    FacesContext.getCurrentInstance().addMessage(null, msg);
-                }
+                driverModifiedByVisible = false;
+                driverModifiedDateVisible = false;
+                getBindings().getTruckdriverDetails().hide();
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("DRIVER_DISASSOCIATED"), "");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
             }
-        } else if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") != null) {
+        } else if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.VEHICLE_NUMBER_LITERAL) != null) {
 
-            BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
-            OperationBinding operationBinding = bindings.getOperationBinding("updateVehicleDriver");
-            operationBinding.getParamsMap().put("cardNumber", null);
+            BindingContainer localbinding = BindingContext.getCurrent().getCurrentBindingsEntry();
+            OperationBinding operationBinding = localbinding.getOperationBinding(Constants.UPDATE_VEHICLE_DRIVER_LITERAL);
+            operationBinding.getParamsMap().put(Constants.CARD_NUMBER_LITERAL, null);
+            operationBinding.getParamsMap().put(Constants.TYPE_LITERAL, Constants.VEHICLE_LITERAL);
+            operationBinding.getParamsMap().put(Constants.COUNTRY_CD_LITERAL, lang);
+            operationBinding.getParamsMap().put(Constants.VEHICLE_DIRVER_VALUE_LITERAL,
+                                                AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.VEHICLE_NUMBER_LITERAL).toString());
+            operationBinding.getParamsMap().put(Constants.ASSOCIATED_ACOUNT_LITERAL, associatedAccount);
+            operationBinding.getParamsMap().put(Constants.MODIFIED_BY_LITERAL, modifiedBy);
+            operationBinding.execute();
 
-            operationBinding.getParamsMap().put("type", "Vehicle");
-            operationBinding.getParamsMap().put("countryCd", lang);
-
-            operationBinding.getParamsMap().put("vehicleDriverValue", AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber").toString());
-
-            operationBinding.getParamsMap().put("associatedAccount", associatedAccount);
-            operationBinding.getParamsMap().put("modifiedBy", modifiedBy);
-
-
-            Object result = operationBinding.execute();
-
-
-            if (reset) {
-                if (resourceBundle.containsKey("VEHICLE_DISASSOCIATED")) {
-
-                    vehicleModifiedByVisible = false;
-                    vehicleModifiedDateVisible = false;
-
-                    getBindings().getTruckdriverDetails().hide();
-                    getBindings().getVehicleDriverRadio().setSubmittedValue(null);
-                    getBindings().getVehicleDriverRadio().setValue(null);
-                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVehicleDriverRadio());
-                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("VEHICLE_DISASSOCIATED"), "");
-                    FacesContext.getCurrentInstance().addMessage(null, msg);
-                }
-
+            if (reset && resourceBundle.containsKey("VEHICLE_DISASSOCIATED")) {
+                vehicleModifiedByVisible = false;
+                vehicleModifiedDateVisible = false;
+                getBindings().getTruckdriverDetails().hide();
+                getBindings().getVehicleDriverRadio().setSubmittedValue(null);
+                getBindings().getVehicleDriverRadio().setValue(null);
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVehicleDriverRadio());
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("VEHICLE_DISASSOCIATED"), "");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
             }
-
         }
 
 
@@ -2890,40 +2836,34 @@ public class CardBean implements Serializable {
             if (getBindings().getCardGroup().getValue() != null) {
                 cardGroupPassingValues = populateStringValues(getBindings().getCardGroup().getValue().toString());
                 populateCardGroupValues(cardGroupPassingValues);
-
             }
-
-
         }
-        ViewObject vo = ADFUtils.getViewObject("PrtViewCardsVO1Iterator");
+        ViewObject vo = ADFUtils.getViewObject(PRTVIEWCARDSVO1ITERATOR_LITRERAL);
 
 
-        if (session.getAttribute("view_card_account_Query") != null) {
-            accountQuery = session.getAttribute("view_card_account_Query").toString().trim();
+        if (session.getAttribute(VIEW_CARD_ACCOUNT_QUERY_LITERAL) != null) {
+            accountQuery = session.getAttribute(VIEW_CARD_ACCOUNT_QUERY_LITERAL).toString().trim();
         }
-        if (session.getAttribute("view_card_cardGroup_Query") != null) {
-            cardGroupQuery = session.getAttribute("view_card_cardGroup_Query").toString().trim();
+        if (session.getAttribute(VIEW_CARD_CARDGROUP_QUERY_LITRERAL) != null) {
+            cardGroupQuery = session.getAttribute(VIEW_CARD_CARDGROUP_QUERY_LITRERAL).toString().trim();
         }
-        if (session.getAttribute("view_card_expiry_Query") != null) {
-            expiryQuery = session.getAttribute("view_card_expiry_Query").toString().trim();
+        if (session.getAttribute(VIEW_CARD_EXPIRY_QUERY_LITRERAL) != null) {
+            expiryQuery = session.getAttribute(VIEW_CARD_EXPIRY_QUERY_LITRERAL).toString().trim();
         }
-
 
         vo.setNamedWhereClauseParam("partnerId", getBindings().getPartner().getValue().toString().trim());
-
-        vo.setNamedWhereClauseParam("countryCd", lang);
-
+        vo.setNamedWhereClauseParam(Constants.COUNTRY_CD_LITERAL, lang);
 
         //for active,temporary blocked status or only active or only temporary blocked status(01, 0, 1)
         if (!statusPassingValues.contains(Constants.ENGAGE_CARD_PERMANENT_BLOCKED) && !statusPassingValues.contains("E")) {
             expiryQuery = "(CARD_EXPIRY > =: currentDate)";
-            vo.setNamedWhereClauseParam("status", statusPassingValues);
+            vo.setNamedWhereClauseParam(Constants.STATUS_LITERAL, statusPassingValues);
             vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
         } else {
             if (!statusPassingValues.contains("E")) {
                 if (statusPassingValues.contains(Constants.ENGAGE_CARD_ACTIVE) && !statusPassingValues.contains(Constants.ENGAGE_CARD_TEMPORARY_BLOCKED)) {
                     //for active & permanent blocked status(02)
-                    vo.setNamedWhereClauseParam("status", statusPassingValues);
+                    vo.setNamedWhereClauseParam(Constants.STATUS_LITERAL, statusPassingValues);
                     expiryQuery =
                             "((BLOCK_ACTION = '" + Constants.ENGAGE_CARD_ACTIVE + "' AND CARD_EXPIRY > =: currentDate) OR (BLOCK_ACTION = '" + Constants.ENGAGE_CARD_PERMANENT_BLOCKED +
                             "'))";
@@ -2931,20 +2871,20 @@ public class CardBean implements Serializable {
                 } else if (!statusPassingValues.contains(Constants.ENGAGE_CARD_ACTIVE) &&
                            statusPassingValues.contains(Constants.ENGAGE_CARD_TEMPORARY_BLOCKED)) {
                     //for active temporary blocked status(01)
-                    vo.setNamedWhereClauseParam("status", statusPassingValues);
+                    vo.setNamedWhereClauseParam(Constants.STATUS_LITERAL, statusPassingValues);
                     expiryQuery =
                             "((BLOCK_ACTION = '" + Constants.ENGAGE_CARD_TEMPORARY_BLOCKED + "' AND CARD_EXPIRY > =: currentDate) OR (BLOCK_ACTION = '" + Constants.ENGAGE_CARD_PERMANENT_BLOCKED +
                             "'))";
                     vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
                 } else if (statusPassingValues.equalsIgnoreCase(Constants.ENGAGE_CARD_PERMANENT_BLOCKED)) {
                     //for permanent blocked status(2)
-                    vo.setNamedWhereClauseParam("status", statusPassingValues);
+                    vo.setNamedWhereClauseParam(Constants.STATUS_LITERAL, statusPassingValues);
                     vo.setWhereClause(accountQuery + "AND " + cardGroupQuery);
                 } else {
                     //for active,permanent and temporary blocked status(012)
                     String status =
                         Constants.ENGAGE_CARD_ACTIVE + "," + Constants.ENGAGE_CARD_TEMPORARY_BLOCKED + "," + Constants.ENGAGE_CARD_PERMANENT_BLOCKED;
-                    vo.setNamedWhereClauseParam("status", status);
+                    vo.setNamedWhereClauseParam(Constants.STATUS_LITERAL, status);
                     expiryQuery =
                             "((BLOCK_ACTION IN ('" + Constants.ENGAGE_CARD_ACTIVE + "','" + Constants.ENGAGE_CARD_TEMPORARY_BLOCKED + "') AND CARD_EXPIRY > =: currentDate) OR (BLOCK_ACTION = '" +
                             Constants.ENGAGE_CARD_PERMANENT_BLOCKED + "'))";
@@ -2956,14 +2896,14 @@ public class CardBean implements Serializable {
                         //for active, expired and permanent blocked status(02E)
                         String status =
                             Constants.ENGAGE_CARD_ACTIVE + "," + Constants.ENGAGE_CARD_TEMPORARY_BLOCKED + "," + Constants.ENGAGE_CARD_PERMANENT_BLOCKED;
-                        vo.setNamedWhereClauseParam("status", status);
+                        vo.setNamedWhereClauseParam(Constants.STATUS_LITERAL, status);
                         expiryQuery =
                                 "((BLOCK_ACTION = '" + Constants.ENGAGE_CARD_TEMPORARY_BLOCKED + "' AND CARD_EXPIRY < =: currentDate) OR BLOCK_ACTION IN ('" +
                                 Constants.ENGAGE_CARD_ACTIVE + "','" + Constants.ENGAGE_CARD_PERMANENT_BLOCKED + "'))";
                     } else {
                         //for expired and active status(0E)
                         String status = Constants.ENGAGE_CARD_ACTIVE + "," + Constants.ENGAGE_CARD_TEMPORARY_BLOCKED;
-                        vo.setNamedWhereClauseParam("status", status);
+                        vo.setNamedWhereClauseParam(Constants.STATUS_LITERAL, status);
                         expiryQuery =
                                 "((BLOCK_ACTION = '" + Constants.ENGAGE_CARD_TEMPORARY_BLOCKED + "' AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION = '" +
                                 Constants.ENGAGE_CARD_ACTIVE + "'))";
@@ -2976,14 +2916,14 @@ public class CardBean implements Serializable {
                         //for expired ,permanent & temporary blocked status(12E)
                         String status =
                             Constants.ENGAGE_CARD_ACTIVE + "," + Constants.ENGAGE_CARD_TEMPORARY_BLOCKED + "," + Constants.ENGAGE_CARD_PERMANENT_BLOCKED;
-                        vo.setNamedWhereClauseParam("status", status);
+                        vo.setNamedWhereClauseParam(Constants.STATUS_LITERAL, status);
                         expiryQuery =
                                 "((BLOCK_ACTION = '" + Constants.ENGAGE_CARD_ACTIVE + "' AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION IN ('" + Constants.ENGAGE_CARD_TEMPORARY_BLOCKED +
                                 "','" + Constants.ENGAGE_CARD_PERMANENT_BLOCKED + "')))";
                     } else {
                         //for expired and temporary blocked status(1E)
                         String status = Constants.ENGAGE_CARD_ACTIVE + "," + Constants.ENGAGE_CARD_TEMPORARY_BLOCKED;
-                        vo.setNamedWhereClauseParam("status", status);
+                        vo.setNamedWhereClauseParam(Constants.STATUS_LITERAL, status);
                         expiryQuery =
                                 "((BLOCK_ACTION = '" + Constants.ENGAGE_CARD_ACTIVE + "' AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION = '" + Constants.ENGAGE_CARD_TEMPORARY_BLOCKED +
                                 "'))";
@@ -2995,7 +2935,7 @@ public class CardBean implements Serializable {
                     //for expire? and permanent blocked status(2E)
                     String status =
                         Constants.ENGAGE_CARD_ACTIVE + "," + Constants.ENGAGE_CARD_TEMPORARY_BLOCKED + "," + Constants.ENGAGE_CARD_PERMANENT_BLOCKED;
-                    vo.setNamedWhereClauseParam("status", status);
+                    vo.setNamedWhereClauseParam(Constants.STATUS_LITERAL, status);
                     expiryQuery =
                             "((BLOCK_ACTION IN ('" + Constants.ENGAGE_CARD_ACTIVE + "','" + Constants.ENGAGE_CARD_TEMPORARY_BLOCKED + "') AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION = '" +
                             Constants.ENGAGE_CARD_PERMANENT_BLOCKED + "'))";
@@ -3003,7 +2943,7 @@ public class CardBean implements Serializable {
                 } else if (statusPassingValues.equalsIgnoreCase("E")) {
                     //for expired status(E)
                     String status = Constants.ENGAGE_CARD_ACTIVE + "," + Constants.ENGAGE_CARD_TEMPORARY_BLOCKED;
-                    vo.setNamedWhereClauseParam("status", status);
+                    vo.setNamedWhereClauseParam(Constants.STATUS_LITERAL, status);
                     expiryQuery =
                             "(BLOCK_ACTION IN ('" + Constants.ENGAGE_CARD_ACTIVE + "','" + Constants.ENGAGE_CARD_TEMPORARY_BLOCKED + "') AND CARD_EXPIRY < =: currentDate)";
                     vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
@@ -3012,46 +2952,43 @@ public class CardBean implements Serializable {
                            !statusPassingValues.contains(Constants.ENGAGE_CARD_PERMANENT_BLOCKED)) {
                     //for active, expired and temporary blocked status(01E)
                     String status = Constants.ENGAGE_CARD_ACTIVE + "," + Constants.ENGAGE_CARD_TEMPORARY_BLOCKED;
-                    vo.setNamedWhereClauseParam("status", status);
+                    vo.setNamedWhereClauseParam(Constants.STATUS_LITERAL, status);
                     expiryQuery = "BLOCK_ACTION IN ('" + Constants.ENGAGE_CARD_ACTIVE + "','" + Constants.ENGAGE_CARD_TEMPORARY_BLOCKED + "')";
                     vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
                 } else {
                     //for All combination - 012E
                     String status =
                         Constants.ENGAGE_CARD_ACTIVE + "," + Constants.ENGAGE_CARD_TEMPORARY_BLOCKED + "," + Constants.ENGAGE_CARD_PERMANENT_BLOCKED;
-                    vo.setNamedWhereClauseParam("status", status);
+                    vo.setNamedWhereClauseParam(Constants.STATUS_LITERAL, status);
                     vo.setWhereClause(accountQuery + "AND " + cardGroupQuery);
                 }
             }
         }
 
-        if (accountIdValue.size() > 150) {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
+        if (accountIdValue.size() > Constants.ONEFIFTY) {
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
             mapAccountListValue = ValueListSplit.callValueList(accountIdValue.size(), accountIdValue);
             for (int i = 0; i < mapAccountListValue.size(); i++) {
-                String values = "account" + i;
-                String listName = "listName" + i;
-                vo.defineNamedWhereClauseParam(values, mapAccountListValue.get(listName), null);
+
+                vo.defineNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i, mapAccountListValue.get(Constants.LISTNAME_LITERAL + i), null);
             }
         } else {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
-            vo.defineNamedWhereClauseParam("account", populateStringValues(getBindings().getAccount().getValue().toString()), null);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
+            vo.defineNamedWhereClauseParam("Constants.ACCOUNT_LITERAL", populateStringValues(getBindings().getAccount().getValue().toString()), null);
         }
 
-
-        if (cardGroupValue.size() > 150) {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
+        if (cardGroupValue.size() > Constants.ONEFIFTY) {
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
             mapCardGroupListValue = ValueListSplit.callValueList(cardGroupValue.size(), cardGroupValue);
             for (int i = 0; i < mapCardGroupListValue.size(); i++) {
                 String values = "cardGroup" + i;
-                String listName = "listName" + i;
-                vo.defineNamedWhereClauseParam(values, mapCardGroupListValue.get(listName), null);
+
+                vo.defineNamedWhereClauseParam(values, mapCardGroupListValue.get(Constants.LISTNAME_LITERAL + i), null);
             }
         } else {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values < 150 ");
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values < 150 ");
             vo.defineNamedWhereClauseParam("cardGroup", populateStringValues(getBindings().getCardGroup().getValue().toString()), null);
         }
-
 
         if (!statusPassingValues.equalsIgnoreCase(Constants.ENGAGE_CARD_PERMANENT_BLOCKED) &&
             !(statusPassingValues.contains(Constants.ENGAGE_CARD_ACTIVE) && statusPassingValues.contains(Constants.ENGAGE_CARD_TEMPORARY_BLOCKED) &&
@@ -3061,9 +2998,8 @@ public class CardBean implements Serializable {
             Date dateNow = new java.util.Date();
             SimpleDateFormat dateformat = new SimpleDateFormat("dd-MMM-yy");
             currentDate = dateformat.format(dateNow);
-            vo.defineNamedWhereClauseParam("currentDate", currentDate, null);
+            vo.defineNamedWhereClauseParam(Constants.CURRENT_DATE_LITERAL, currentDate, null);
         }
-
         vo.executeQuery();
     }
 
@@ -3085,7 +3021,7 @@ public class CardBean implements Serializable {
     }
 
     public String getContentType() {
-        if ("xls".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+        if (Constants.XLS_LITERAL.equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
             contentType = "application/vnd.ms-excel";
         } else if ("csv".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
             contentType = "text/plain";
@@ -3102,7 +3038,7 @@ public class CardBean implements Serializable {
     }
 
     public String getFileName() {
-        if ("xls".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+        if (Constants.XLS_LITERAL.equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
             fileName = "Card_Report.xls";
         } else if ("csv".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
             fileName = "Card_Report.csv";
@@ -3201,6 +3137,14 @@ public class CardBean implements Serializable {
 
     public Boolean getIsEditVisible() {
         return isEditVisible;
+    }
+
+    public void setComparator(Comparator<SelectItem> comparator) {
+        this.comparator = comparator;
+    }
+
+    public Comparator<SelectItem> getComparator() {
+        return comparator;
     }
 
     public class Bindings {

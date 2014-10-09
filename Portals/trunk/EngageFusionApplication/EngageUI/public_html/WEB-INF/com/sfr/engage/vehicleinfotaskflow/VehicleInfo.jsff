@@ -261,7 +261,7 @@
                 <af:selectOneChoice id="soc1"
                                     contentStyle="width:165px;height:20.0px;"
                                     autoSubmit="true"
-                                    valueChangeListener="#{pageFlowScope.VehicleInfoBean.AddPartnerNumberListener}"
+                                    valueChangeListener="#{pageFlowScope.VehicleInfoBean.addPartnerNumberListener}"
                                     binding="#{pageFlowScope.VehicleInfoBean.bindings.addPartnerNumberId}"
                                     value="#{pageFlowScope.VehicleInfoBean.addPartnerNumberDisplayValue}"
                                     unselectedLabel="#{sfr.PLEASE_SELECT_ENG}">
@@ -280,7 +280,7 @@
                 <af:selectOneChoice id="soc5"
                                     contentStyle="width:165px;height:20.0px;"
                                     autoSubmit="true"
-                                    valueChangeListener="#{pageFlowScope.VehicleInfoBean.AddAccountNumberListener}"
+                                    valueChangeListener="#{pageFlowScope.VehicleInfoBean.addAccountNumberListener}"
                                     binding="#{pageFlowScope.VehicleInfoBean.bindings.addAccountId}"
                                     value="#{pageFlowScope.VehicleInfoBean.addAccountIdDisplayValue}"
                                     unselectedLabel="#{sfr.PLEASE_SELECT_ENG}">
@@ -526,7 +526,7 @@
                 <af:selectOneChoice id="soc6"
                                     contentStyle="width:165px;height:20.0px;"
                                     autoSubmit="true"
-                                    valueChangeListener="#{pageFlowScope.VehicleInfoBean.EditPartnerNumberLIstener}"
+                                    valueChangeListener="#{pageFlowScope.VehicleInfoBean.editPartnerNumberLIstener}"
                                     binding="#{pageFlowScope.VehicleInfoBean.bindings.editPartnerNumberId}"
                                     value="#{pageFlowScope.VehicleInfoBean.editPartnerNumberDisplayValue}"
                                     unselectedLabel="#{sfr.PLEASE_SELECT_ENG}"

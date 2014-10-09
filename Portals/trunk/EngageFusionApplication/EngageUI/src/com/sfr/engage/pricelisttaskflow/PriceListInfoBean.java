@@ -26,68 +26,52 @@ public class PriceListInfoBean {
     private RichTable pricelistinfotable;
     private Locale locale;
     private String country;
-    private String currency_code;
-    AccessDataControl accessDC = new AccessDataControl();
-
-    public static final ADFLogger log = AccessDataControl.getSFRLogger();
-    Conversion conversionUtility = new Conversion();
-
+    private String currencyCode;
+    private AccessDataControl accessDC = new AccessDataControl();
+    public static final ADFLogger LOGGER = AccessDataControl.getSFRLogger();
+    private Conversion conversionUtility = new Conversion();
 
     public PriceListInfoBean() {
-        log.fine(accessDC.getDisplayRecord() + this.getClass() +
-                 "Inside Constructor of PriceListInfoBean");
-        ExternalContext ectx =
-            FacesContext.getCurrentInstance().getExternalContext();
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside Constructor of PriceListInfoBean");
+        ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
         HttpSession session = (HttpSession)request.getSession();
         if (session != null) {
 
-
             country = (String)session.getAttribute(Constants.userLang);
-            log.info(accessDC.getDisplayRecord() + this.getClass() +
-                     "Session not null and lang of user is " + country);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "Session not null and lang of user is " + country);
             locale = conversionUtility.getLocaleFromCountryCode(country);
-            log.info(accessDC.getDisplayRecord() + this.getClass() +
-                     "Session not null and locale of user is " + locale);
-            currency_code = conversionUtility.getCurrencyCode(country);
-            log.info(accessDC.getDisplayRecord() + this.getClass() +
-                     "Session not null and Currency code is " + currency_code);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "Session not null and locale of user is " + locale);
+            currencyCode = conversionUtility.getCurrencyCode(country);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "Session not null and Currency code is " + currencyCode);
         } else {
             country = "NO";
-            log.info(accessDC.getDisplayRecord() + this.getClass() +
-                     "Session null hence lang set as " + country);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "Session null hence lang set as " + country);
             locale = new Locale("sv", "SE");
-            log.info(accessDC.getDisplayRecord() + this.getClass() +
-                     "Session null and locale of user is " + locale);
-            currency_code = conversionUtility.getCurrencyCode(country);
-            log.info(accessDC.getDisplayRecord() + this.getClass() +
-                     "Session null and Currency code is " + currency_code);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "Session null and locale of user is " + locale);
+            currencyCode = conversionUtility.getCurrencyCode(country);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "Session null and Currency code is " + currencyCode);
         }
 
-        DCBindingContainer bindings =
-            (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+        DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
         DCIteratorBinding iter;
         if (bindings != null) {
             iter = bindings.findIteratorBinding("PriceListRVO1Iterator");
 
         } else {
-            log.severe(accessDC.getDisplayRecord() + this.getClass() +
-                       "PriceListRVO1Iterator bindings is null");
+            LOGGER.severe(accessDC.getDisplayRecord() + this.getClass() + "PriceListRVO1Iterator bindings is null");
             iter = null;
         }
         ViewObject vo = iter.getViewObject();
-        vo.setNamedWhereClauseParam("currencycode", currency_code);
+        vo.setNamedWhereClauseParam("currencycode", currencyCode);
         vo.setNamedWhereClauseParam("pricinguom", "LT");
         vo.executeQuery();
-        if (vo.getEstimatedRowCount() != 0){
-            log.info(accessDC.getDisplayRecord() + this.getClass() +
-                     "Number of items fetched from database table for price list is " +
+        if (vo.getEstimatedRowCount() != 0) {
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "Number of items fetched from database table for price list is " +
                      vo.getEstimatedRowCount());
         }
 
-
-        log.fine(accessDC.getDisplayRecord() + this.getClass() +
-                 "Exiting from Constructor of PriceListInfoBean");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting from Constructor of PriceListInfoBean");
     }
 
     public void setPricelistinfotable(RichTable pricelistinfotable) {
@@ -115,11 +99,27 @@ public class PriceListInfoBean {
         return country;
     }
 
-    public void setCurrency_code(String currency_code) {
-        this.currency_code = currency_code;
+    public void setCurrencyCode(String currencyCode) {
+        this.currencyCode = currencyCode;
     }
 
-    public String getCurrency_code() {
-        return currency_code;
+    public String getCurrencyCode() {
+        return currencyCode;
+    }
+
+    public void setAccessDC(AccessDataControl accessDC) {
+        this.accessDC = accessDC;
+    }
+
+    public AccessDataControl getAccessDC() {
+        return accessDC;
+    }
+
+    public void setConversionUtility(Conversion conversionUtility) {
+        this.conversionUtility = conversionUtility;
+    }
+
+    public Conversion getConversionUtility() {
+        return conversionUtility;
     }
 }

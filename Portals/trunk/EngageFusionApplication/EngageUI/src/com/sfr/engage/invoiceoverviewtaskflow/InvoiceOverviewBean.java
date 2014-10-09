@@ -98,7 +98,6 @@ public class InvoiceOverviewBean implements Serializable {
     private String invoiceTypeValue;
     private List<String> cardValue;
     private List<SelectItem> accountList = null;
-    //    private List<SelectItem> invoiceTypeList = null;
     private List<SelectItem> cardGroupList = null;
     private List<SelectItem> cardList = null;
     private boolean searchResults = false;
@@ -121,20 +120,16 @@ public class InvoiceOverviewBean implements Serializable {
     private String invoiceNumberPdfValue;
     private Map<String, String> ucmInvoiceContentList = new HashMap<String, String>();
     private AccessDataControl accessDC = new AccessDataControl();
-
     private List<PartnerInfo> partnerInfoList;
     private List<SelectItem> partnerList = null;
     private List<String> partnerValue = null;
-    private String defaultSelection = "Transactions";
+    private String defaultSelection = Constants.TRANSACTIONS__LITERAL;
     private boolean isTransactionVisible = true;
     private boolean isInvoiceCollectionVisible = false;
-    private Date fromDate;
-    private Date toDate;
-    private String to_recipient = null;
+    private String toRecipient = null;
     private emailbean email;
-    private User global_user = new User();
-    private String invoice_req;
-    private String partner_req;
+    private User globalUser = new User();
+    private String partnerReq;
     private RichSpacer spacerFetchUserEmail;
     private String mailRecipient;
     private EngageEmaiUtilityl emailutility;
@@ -146,7 +141,7 @@ public class InvoiceOverviewBean implements Serializable {
     private Map<String, String> mapAccountListValue;
     private Map<String, String> mapCardGroupListValue;
     private Map<String, String> mapCardListValue;
-    public static final ADFLogger _logger = AccessDataControl.getSFRLogger();
+    public static final ADFLogger LOGGER = AccessDataControl.getSFRLogger();
     private ValueListSplit valueList;
     private RichOutputText mailResult;
     private RichOutputText mailResultInvoiceNotFound;
@@ -174,16 +169,24 @@ public class InvoiceOverviewBean implements Serializable {
     private List shuttleListTransaction = new ArrayList();
     private String contentType;
     private String fileName;
-    private String reportType = "Card";
-    private String cardGroupRadio = "CardGroup";
-    private String transactionStandard;
-    private String transactionStandardExtra;
+    private String cardGroupRadio = Constants.CARD_GROUP_LITERAL;
     private String contentTypeTransaction;
     private String transactionFileNamefileName;
     private String transactionStandardTransaction;
     private String transactionStandardExtraTransaction;
     private boolean showNonCollectiveInvoicePanel = false;
     private String invoiceType;
+    private static final String PRTNEWINVOICEVO1ITERATOR_LITRERAL = "PrtNewInvoiceVO1Iterator";
+    private static final String PRTCARDTRANSACTIONINVOICERVO1ITERATOR_LITRERAL = "PrtCardTransactionInvoiceRVO1Iterator";
+    private static final String PRTEXPORTINFORVO1ITERATOR_LITRERAL = "PrtExportInfoRVO1Iterator";
+    private static final String SELECT_CRITERIA_LITRERAL = "select_Criteria";
+    private static final String ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN_LITRERAL = "ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN";
+    private static final String TRANSACTION_REPORT_LITRERAL = "Transaction_Report.csv";
+    private static final String CSV2_LITRERAL = "csv2";
+    private static final String PRINTING_DATA_LITRERAL = "Printing Data";
+    private static final String LANG_REPORT_LITRERAL = "langReport";
+    private static final String TRANSACTION_SPECIFIC_ERROR_DB_LITRERAL = "TRANSACTION_SPECIFIC_ERROR_DB";
+    private static final String INVOICE_CONTENT_LIST_LITRERAL = "ucmInvoiceContentList";
 
 
     public InvoiceOverviewBean() {
@@ -201,12 +204,11 @@ public class InvoiceOverviewBean implements Serializable {
         emailutility = new EngageEmaiUtilityl();
         cardGroupList = new ArrayList<SelectItem>();
         cardGroupValue = new ArrayList<String>();
-        cardValue= new ArrayList<String>();
+        cardValue = new ArrayList<String>();
         valueList = new ValueListSplit();
         cGCardVisible = true;
         invoiceType = null;
-
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside Constructor of Invoice overview bean");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside Constructor of Invoice overview bean");
 
         if (session.getAttribute("lang") != null) {
             mailLnag = (String)session.getAttribute("lang");
@@ -252,7 +254,7 @@ public class InvoiceOverviewBean implements Serializable {
                                     cGCardVisible = true;
                                     cardGroupVisible = true;
                                     cardVisible = false;
-//                                    Collections.sort(cardGroupList, comparator);
+                                    //                                    Collections.sort(cardGroupList, comparator);
 
                                 }
                             }
@@ -260,9 +262,8 @@ public class InvoiceOverviewBean implements Serializable {
                     }
                 }
             }
-
         }
-        
+
         Collections.sort(partnerList, comparator);
         Collections.sort(accountList, comparator);
         Collections.sort(cardGroupList, comparator);
@@ -278,33 +279,33 @@ public class InvoiceOverviewBean implements Serializable {
             if (session.getAttribute("account_Query_Invoice_overview") != null) {
                 accountQuery = session.getAttribute("account_Query_Invoice_overview").toString().trim();
                 mapAccountListValue = (Map<String, String>)session.getAttribute("map_Account_List_Invoice_overview");
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "account Query & mapAccountList is found");
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "account " + accountQuery);
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "account Query & mapAccountList is found");
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "account " + accountQuery);
             }
             if (session.getAttribute("account_Query_Invoice_detail_overview") != null) {
                 accountQueryDetail = session.getAttribute("account_Query_Invoice_detail_overview").toString().trim();
                 mapAccountDetailListValue = (Map<String, String>)session.getAttribute("map_Account_List_Invoice_detail_overview");
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "account Detail Query & mapAccountList is found");
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "account " + accountQueryDetail);
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "account Detail Query & mapAccountList is found");
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "account " + accountQueryDetail);
             }
             if (session.getAttribute("cardGroup_Query_Invoice_overview") != null) {
                 cardGroupQuery = session.getAttribute("cardGroup_Query_Invoice_overview").toString().trim();
                 mapCardGroupListValue = (Map<String, String>)session.getAttribute("map_CardGroup_List_Invoice_overview");
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Query & mapCardGroupList is found");
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup " + cardGroupQuery);
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Query & mapCardGroupList is found");
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup " + cardGroupQuery);
             }
             if (session.getAttribute("card_Query_Invoice_overview") != null) {
                 cardQuery = session.getAttribute("card_Query_Invoice_overview").toString().trim();
                 mapCardListValue = (Map<String, String>)session.getAttribute("map_Card_List_Invoice_overview");
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "card Query & mapCardList is found");
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card " + cardQuery);
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "card Query & mapCardList is found");
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card " + cardQuery);
             }
 
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting constructor for invoice overview bean");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting constructor for invoice overview bean");
     }
 
-    Comparator<SelectItem> comparator = new Comparator<SelectItem>() {
+    private Comparator<SelectItem> comparator = new Comparator<SelectItem>() {
         @Override
         public int compare(SelectItem s1, SelectItem s2) {
             return s1.getLabel().compareTo(s2.getLabel());
@@ -323,20 +324,6 @@ public class InvoiceOverviewBean implements Serializable {
         return cardList;
     }
 
-    //    public List<SelectItem> getInvoiceTypeList() {
-    //        if (invoiceTypeList == null) {
-    //            invoiceTypeList = new ArrayList<SelectItem>();
-    //            SelectItem selectItem = new SelectItem();
-    //            selectItem.setLabel("Card");
-    //            selectItem.setValue("Card");
-    //            invoiceTypeList.add(selectItem);
-    //            SelectItem selectItem1 = new SelectItem();
-    //            selectItem1.setLabel("Bulk");
-    //            selectItem1.setValue("Bulk");
-    //            invoiceTypeList.add(selectItem1);
-    //        }
-    //        return invoiceTypeList;
-    //    }
 
     /**
      * @return bindings Object
@@ -357,7 +344,7 @@ public class InvoiceOverviewBean implements Serializable {
     }
 
     public void populateCardGroupValues(String cardGrpVar) {
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "PassedcardGrpVar =" + cardGrpVar);
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "PassedcardGrpVar =" + cardGrpVar);
         String[] cardGroupvalues;
         int cardGroupCount = 0;
 
@@ -377,19 +364,19 @@ public class InvoiceOverviewBean implements Serializable {
             }
 
             for (int cGrp = 0; cGrp < cardGroupCount; cGrp++) {
-                cardGroupMaintype = cardGroupMaintype + cardGroupvalues[cGrp].trim().substring(0, 3);
+                cardGroupMaintype = cardGroupMaintype + cardGroupvalues[cGrp].trim().substring(0, Constants.THREE);
                 cardGroupMaintype = cardGroupMaintype + ",";
 
-                cardGroupSubtype = cardGroupSubtype + cardGroupvalues[cGrp].trim().substring(3, 6);
+                cardGroupSubtype = cardGroupSubtype + cardGroupvalues[cGrp].trim().substring(Constants.THREE, Constants.SIX);
                 cardGroupSubtype = cardGroupSubtype + ",";
 
-                cardGroupSeq = cardGroupSeq + cardGroupvalues[cGrp].trim().substring(6);
+                cardGroupSeq = cardGroupSeq + cardGroupvalues[cGrp].trim().substring(Constants.SIX);
                 cardGroupSeq = cardGroupSeq + ",";
             }
 
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroupMainType =" + cardGroupMaintype);
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "cardGroupSubtype =" + cardGroupSubtype);
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "cardGroupSeq =" + cardGroupSeq);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroupMainType =" + cardGroupMaintype);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "cardGroupSubtype =" + cardGroupSubtype);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "cardGroupSeq =" + cardGroupSeq);
 
             cardGroupMaintypePassValue = cardGroupMaintype.trim().substring(0, cardGroupMaintype.length() - 1);
             cardGroupSubtypePassValues = cardGroupSubtype.trim().substring(0, cardGroupSubtype.length() - 1);
@@ -399,7 +386,7 @@ public class InvoiceOverviewBean implements Serializable {
 
     public void searchResultsListener(ActionEvent actionEvent) {
         resourceBundle = new EngageResourceBundle();
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside searchResultsListener for Invoices");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside searchResultsListener for Invoices");
         displayErrorComponent(getBindings().getPartnerNumber(), false);
         displayErrorComponent(getBindings().getAccount(), false);
         displayErrorComponent(getBindings().getCardGroup(), false);
@@ -408,263 +395,256 @@ public class InvoiceOverviewBean implements Serializable {
         String newToDate = null;
         if (getBindings().getPartnerNumber().getValue() != null && getBindings().getAccount().getValue() != null &&
             getBindings().getFromDate().getValue() != null && getBindings().getToDate().getValue() != null &&
-            getBindings().getCardGpCardList().getValue() != null &&
-            (getBindings().getCardGroup().getValue() != null)) {
-            if(getBindings().getCard().getValue() != null){
-        
-                        
-                        displayErrorComponent(getBindings().getCard(), false);
+            getBindings().getCardGpCardList().getValue() != null && (getBindings().getCardGroup().getValue() != null)) {
+            if (getBindings().getCard().getValue() != null) {
 
 
-            DateFormat sdf = new SimpleDateFormat("dd-MMM-yy");
-            Date fromDate = (java.util.Date)getBindings().getFromDate().getValue();
-            Date toDate = (java.util.Date)getBindings().getToDate().getValue();
-            newFromDate = sdf.format(fromDate);
-            newToDate = sdf.format(toDate);
-
-            if (toDate.before(fromDate)) {
-                if (resourceBundle.containsKey("INVOICE_TODATE_LESSTHAN")) {
-                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("INVOICE_TODATE_LESSTHAN"), "");
-                    FacesContext.getCurrentInstance().addMessage(null, msg);
-                }
-            }
+                displayErrorComponent(getBindings().getCard(), false);
 
 
-            else {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "PartnerValue=" + getBindings().getPartnerNumber().getValue());
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "AccountValue=" + getBindings().getAccount().getValue());
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "getCardGpCardList=" + getBindings().getCardGpCardList().getValue());
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "getCardGroup=" + getBindings().getCardGroup().getValue());
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "getCard=" + getBindings().getCard().getValue());
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "ToDate=" + getBindings().getToDate().getValue());
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "FromDate =" + newFromDate + "To Date = " + newToDate);
-                ViewObject invoiceVO = ADFUtils.getViewObject("PrtNewInvoiceVO1Iterator");
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Before Query=" + invoiceVO.getQuery());
+                DateFormat sdf = new SimpleDateFormat("dd-MMM-yy");
+                Date localFromDate = (java.util.Date)getBindings().getFromDate().getValue();
+                Date localToDate = (java.util.Date)getBindings().getToDate().getValue();
+                newFromDate = sdf.format(localFromDate);
+                newToDate = sdf.format(localToDate);
 
-
-                if (cardQuery.length() > 1 && cardQuery != null && cardGroupQuery.length() <= 2) {
-
-                    if (((accountQuery + "AND " + cardQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim())) ||
-                        ((accountQuery + " AND " + cardQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim()))) {
-                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "inside  card with out purchase code where removal class");
-                        if (mapAccountListValue != null) {
-                            for (int i = 0; i < mapAccountListValue.size(); i++) {
-                                String values = "account" + i;
-                                invoiceVO.removeNamedWhereClauseParam(values);
-                            }
-                        } else {
-                            invoiceVO.removeNamedWhereClauseParam("account");
-                        }
-                        if (mapCardListValue != null) {
-                            for (int i = 0; i < mapCardListValue.size(); i++) {
-                                String values = "card" + i;
-                                invoiceVO.removeNamedWhereClauseParam(values);
-                            }
-
-                        } else {
-                            invoiceVO.removeNamedWhereClauseParam("card");
-                        }
-                        invoiceVO.setWhereClause("");
-                        invoiceVO.executeQuery();
+                if (localToDate.before(localFromDate)) {
+                    if (resourceBundle.containsKey("INVOICE_TODATE_LESSTHAN")) {
+                        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("INVOICE_TODATE_LESSTHAN"), "");
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
                     }
-                } else {
-                    if (cardGroupQuery.length() > 1 && cardGroupQuery != null && cardQuery.length() <= 1) {
+                }
 
-                        if (((accountQuery + "AND " + cardGroupQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim())) ||
-                            ((accountQuery + " AND " + cardGroupQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim()))) {
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "inside  cardGroup with out purchase code where removal class");
+
+                else {
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "PartnerValue=" + getBindings().getPartnerNumber().getValue());
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "AccountValue=" + getBindings().getAccount().getValue());
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "getCardGpCardList=" + getBindings().getCardGpCardList().getValue());
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "getCardGroup=" + getBindings().getCardGroup().getValue());
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "getCard=" + getBindings().getCard().getValue());
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "ToDate=" + getBindings().getToDate().getValue());
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "FromDate =" + newFromDate + "To Date = " + newToDate);
+                    ViewObject invoiceVO = ADFUtils.getViewObject(PRTNEWINVOICEVO1ITERATOR_LITRERAL);
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Before Query=" + invoiceVO.getQuery());
+
+
+                    if (cardQuery.length() > 1 && cardQuery != null && cardGroupQuery.length() <= 2) {
+
+                        if (((accountQuery + "AND " + cardQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim())) ||
+                            ((accountQuery + " AND " + cardQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim()))) {
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "inside  card with out purchase code where removal class");
                             if (mapAccountListValue != null) {
                                 for (int i = 0; i < mapAccountListValue.size(); i++) {
-                                    String values = "account" + i;
-                                    invoiceVO.removeNamedWhereClauseParam(values);
+
+                                    invoiceVO.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i);
                                 }
                             } else {
-                                invoiceVO.removeNamedWhereClauseParam("account");
+                                invoiceVO.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL);
                             }
-                            if (mapCardGroupListValue != null) {
-                                for (int i = 0; i < mapCardGroupListValue.size(); i++) {
-                                    String values = "cardGroup" + i;
+                            if (mapCardListValue != null) {
+                                for (int i = 0; i < mapCardListValue.size(); i++) {
+                                    String values = "card" + i;
                                     invoiceVO.removeNamedWhereClauseParam(values);
                                 }
+
                             } else {
-                                invoiceVO.removeNamedWhereClauseParam("cardGroup");
+                                invoiceVO.removeNamedWhereClauseParam("card");
                             }
                             invoiceVO.setWhereClause("");
                             invoiceVO.executeQuery();
                         }
-
-                    }
-
-                }
-
-
-                resetTableFilter();
-                accountQuery = "(";
-                cardGroupQuery = "(";
-                cardQuery = "(";
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Value of account Id=================>" +
-                             populateStringValues(getBindings().getAccount().getValue().toString()));
-
-                invoiceVO.setNamedWhereClauseParam("countryCode", lang);
-                invoiceVO.setNamedWhereClauseParam("partnerId", populateStringValues(getBindings().getPartnerNumber().getValue().toString()));
-                invoiceVO.setNamedWhereClauseParam("fromDateBV", newFromDate);
-                invoiceVO.setNamedWhereClauseParam("toDateBV", newToDate);
-
-                if (accountValue.size() > 150) {
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
-                    mapAccountListValue = valueList.callValueList(accountValue.size(), accountValue);
-                    for (int i = 0; i < mapAccountListValue.size(); i++) {
-                        String values = "account" + i;
-                        accountQuery = accountQuery + "INSTR(:" + values + ",ACCOUNT_ID)<>0 OR ";
-                    }
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Account Query Values =" + accountQuery);
-                    accountQuery = accountQuery.substring(0, accountQuery.length() - 3);
-                    accountQuery = accountQuery + ")";
-
-                } else {
-                    mapAccountListValue = null;
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
-                    accountQuery = "(INSTR(:account,ACCOUNT_ID)<>0 ) ";
-                }
-
-
-                if (getBindings().getCardGpCardList().getValue() != null) {
-                    if ("Card".equalsIgnoreCase(getBindings().getCardGpCardList().getValue().toString())) {
-
-
-                        if (cardValue != null && cardValue.size() > 150) {
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values > 150 ");
-                            mapCardListValue = valueList.callValueList(cardValue.size(), cardValue);
-                            for (int i = 0; i < mapCardListValue.size(); i++) {
-                                String values = "card" + i;
-                                cardQuery = cardQuery + "INSTR(:" + values + ",INVOICED_CARD)<>0 OR ";
-                            }
-                            cardQuery = cardQuery.substring(0, cardQuery.length() - 3);
-                            cardQuery = cardQuery + ")";
-
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
-                            invoiceVO.setWhereClause(accountQuery + "AND " + cardQuery);
-                            for (int i = 0; i < mapCardListValue.size(); i++) {
-                                String values = "card" + i;
-                                String listName = "listName" + i;
-                                invoiceVO.defineNamedWhereClauseParam(values, mapCardListValue.get(listName), null);
-                            }
-
-
-                        } else {
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CARD Values < 150 ");
-                            mapCardListValue = null;
-                            cardQuery = "(INSTR(:card,INVOICED_CARD)<>0)";
-                            invoiceVO.setWhereClause(accountQuery + "AND " + cardQuery);
-                            String cardValuesList = populateStringValues(getBindings().getCard().getValue().toString());
-                            invoiceVO.defineNamedWhereClauseParam("card", cardValuesList, null);
-                        }
                     } else {
+                        if (cardGroupQuery.length() > 1 && cardGroupQuery != null && cardQuery.length() <= 1) {
 
-                        if (cardGroupValue != null && cardGroupValue.size() > 150) {
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
-                            mapCardGroupListValue = valueList.callValueList(cardGroupValue.size(), cardGroupValue);
-                            for (int i = 0; i < mapCardGroupListValue.size(); i++) {
-                                String values = "cardGroup" + i;
-                                cardGroupQuery =
-                                        cardGroupQuery + "INSTR(:" + values + ",PARTNER_ID||CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 OR ";
+                            if (((accountQuery + "AND " + cardGroupQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim())) ||
+                                ((accountQuery + " AND " + cardGroupQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim()))) {
+                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                                            "inside  cardGroup with out purchase code where removal class");
+                                if (mapAccountListValue != null) {
+                                    for (int i = 0; i < mapAccountListValue.size(); i++) {
+
+                                        invoiceVO.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i);
+                                    }
+                                } else {
+                                    invoiceVO.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL);
+                                }
+                                if (mapCardGroupListValue != null) {
+                                    for (int i = 0; i < mapCardGroupListValue.size(); i++) {
+                                        String values = "cardGroup" + i;
+                                        invoiceVO.removeNamedWhereClauseParam(values);
+                                    }
+                                } else {
+                                    invoiceVO.removeNamedWhereClauseParam("cardGroup");
+                                }
+                                invoiceVO.setWhereClause("");
+                                invoiceVO.executeQuery();
                             }
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "CARDGROUP Query Values =" + cardGroupQuery);
-                            cardGroupQuery = cardGroupQuery.substring(0, cardGroupQuery.length() - 3);
-                            cardGroupQuery = cardGroupQuery + ")";
-                            invoiceVO.setWhereClause(accountQuery + "AND " + cardGroupQuery);
-                            for (int i = 0; i < mapCardGroupListValue.size(); i++) {
-                                String values = "cardGroup" + i;
-                                String listName = "listName" + i;
-                                invoiceVO.defineNamedWhereClauseParam(values, mapCardGroupListValue.get(listName), null);
-                            }
-
-                        } else {
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CARD Values < 150 ");
-                            mapCardGroupListValue = null;
-                            cardGroupQuery = "INSTR(:cardGroup,PARTNER_ID||CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 ";
-
-                            invoiceVO.setWhereClause(accountQuery + "AND " + cardGroupQuery);
-                            invoiceVO.defineNamedWhereClauseParam("cardGroup", populateStringValues(getBindings().getCardGroup().getValue().toString()), null);
-
                         }
 
                     }
 
-                }
-                if (accountValue.size() > 150) {
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
-                    mapAccountListValue = valueList.callValueList(accountValue.size(), accountValue);
-                    for (int i = 0; i < mapAccountListValue.size(); i++) {
-                        String values = "account" + i;
-                        String listName = "listName" + i;
-                        invoiceVO.defineNamedWhereClauseParam(values, mapAccountListValue.get(listName), null);
+                    resetTableFilter();
+                    accountQuery = "(";
+                    cardGroupQuery = "(";
+                    cardQuery = "(";
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Value of account Id=================>" +
+                                populateStringValues(getBindings().getAccount().getValue().toString()));
+
+                    invoiceVO.setNamedWhereClauseParam("countryCode", lang);
+                    invoiceVO.setNamedWhereClauseParam("partnerId", populateStringValues(getBindings().getPartnerNumber().getValue().toString()));
+                    invoiceVO.setNamedWhereClauseParam("fromDateBV", newFromDate);
+                    invoiceVO.setNamedWhereClauseParam("toDateBV", newToDate);
+
+                    if (accountValue.size() > Constants.ONEFIFTY) {
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
+                        mapAccountListValue = valueList.callValueList(accountValue.size(), accountValue);
+                        for (int i = 0; i < mapAccountListValue.size(); i++) {
+                            String values = Constants.ACCOUNT_LITERAL + i;
+                            accountQuery = accountQuery + "INSTR(:" + values + ",ACCOUNT_ID)<>0 OR ";
+                        }
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "Account Query Values =" + accountQuery);
+                        accountQuery = accountQuery.substring(0, accountQuery.length() - Constants.THREE);
+                        accountQuery = accountQuery + ")";
+
+                    } else {
+                        mapAccountListValue = null;
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
+                        accountQuery = "(INSTR(:account,ACCOUNT_ID)<>0 ) ";
                     }
 
-                } else {
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
-                    invoiceVO.defineNamedWhereClauseParam("account", populateStringValues(getBindings().getAccount().getValue().toString()), null);
-                }
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Query Formed is=" + invoiceVO.getQuery());
-                invoiceVO.executeQuery();
-                session.setAttribute("account_Query_Invoice_overview", accountQuery);
-                session.setAttribute("map_Account_List_Invoice_overview", mapAccountListValue);
-                session.setAttribute("cardGroup_Query_Invoice_overview", cardGroupQuery);
-                session.setAttribute("map_CardGroup_List_Invoice_overview", mapCardGroupListValue);
-                session.setAttribute("card_Query_Invoice_overview", cardQuery);
-                session.setAttribute("map_Card_List_Invoice_overview", mapCardListValue);
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Queries are saved in session");
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Estimated Row count==" + invoiceVO.getEstimatedRowCount());
-                if (invoiceVO.getEstimatedRowCount() > 0) {
-                    searchResults = true;
-                } else {
-                    searchResults = false;
-                    if (resourceBundle.containsKey("NO_RECORDS_FOUND_DRIVER")) {
-                        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("NO_RECORDS_FOUND_DRIVER"), "");
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
-                    }
-                }
-                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Where condition:" + invoiceVO.getWhereClause());
 
-            }
-            }else{
-                if(getBindings().getCard().getValue() == null){
+                    if (getBindings().getCardGpCardList().getValue() != null) {
+                        if (Constants.CARD_LITERAL.equalsIgnoreCase(getBindings().getCardGpCardList().getValue().toString())) {
+
+                            if (cardValue.size() > Constants.ONEFIFTY) {
+                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values > 150 ");
+                                mapCardListValue = valueList.callValueList(cardValue.size(), cardValue);
+                                for (int i = 0; i < mapCardListValue.size(); i++) {
+                                    String values = "card" + i;
+                                    cardQuery = cardQuery + "INSTR(:" + values + ",INVOICED_CARD)<>0 OR ";
+                                }
+                                cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
+                                cardQuery = cardQuery + ")";
+
+                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
+                                invoiceVO.setWhereClause(accountQuery + "AND " + cardQuery);
+                                for (int i = 0; i < mapCardListValue.size(); i++) {
+                                    String values = "card" + i;
+
+                                    invoiceVO.defineNamedWhereClauseParam(values, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
+                                }
+
+                            } else {
+                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CARD Values < 150 ");
+                                mapCardListValue = null;
+                                cardQuery = "(INSTR(:card,INVOICED_CARD)<>0)";
+                                invoiceVO.setWhereClause(accountQuery + "AND " + cardQuery);
+                                String cardValuesList = populateStringValues(getBindings().getCard().getValue().toString());
+                                invoiceVO.defineNamedWhereClauseParam("card", cardValuesList, null);
+                            }
+                        } else {
+
+                            if (cardGroupValue.size() > Constants.ONEFIFTY) {
+                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
+                                mapCardGroupListValue = valueList.callValueList(cardGroupValue.size(), cardGroupValue);
+                                for (int i = 0; i < mapCardGroupListValue.size(); i++) {
+                                    String values = "cardGroup" + i;
+                                    cardGroupQuery =
+                                            cardGroupQuery + "INSTR(:" + values + ",PARTNER_ID||CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 OR ";
+                                }
+                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARDGROUP Query Values =" + cardGroupQuery);
+                                cardGroupQuery = cardGroupQuery.substring(0, cardGroupQuery.length() - Constants.THREE);
+                                cardGroupQuery = cardGroupQuery + ")";
+                                invoiceVO.setWhereClause(accountQuery + "AND " + cardGroupQuery);
+                                for (int i = 0; i < mapCardGroupListValue.size(); i++) {
+                                    String values = "cardGroup" + i;
+
+                                    invoiceVO.defineNamedWhereClauseParam(values, mapCardGroupListValue.get(Constants.LISTNAME_LITERAL + i), null);
+                                }
+
+                            } else {
+                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CARD Values < 150 ");
+                                mapCardGroupListValue = null;
+                                cardGroupQuery = "INSTR(:cardGroup,PARTNER_ID||CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 ";
+                                invoiceVO.setWhereClause(accountQuery + "AND " + cardGroupQuery);
+                                invoiceVO.defineNamedWhereClauseParam("cardGroup", populateStringValues(getBindings().getCardGroup().getValue().toString()),
+                                                                      null);
+
+                            }
+                        }
+                    }
+                    if (accountValue.size() > Constants.ONEFIFTY) {
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
+                        mapAccountListValue = valueList.callValueList(accountValue.size(), accountValue);
+                        for (int i = 0; i < mapAccountListValue.size(); i++) {
+
+                            invoiceVO.defineNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i, mapAccountListValue.get(Constants.LISTNAME_LITERAL + i),
+                                                                  null);
+                        }
+
+                    } else {
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
+                        invoiceVO.defineNamedWhereClauseParam(Constants.ACCOUNT_LITERAL,
+                                                              populateStringValues(getBindings().getAccount().getValue().toString()), null);
+                    }
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Query Formed is=" + invoiceVO.getQuery());
+                    invoiceVO.executeQuery();
+                    session.setAttribute("account_Query_Invoice_overview", accountQuery);
+                    session.setAttribute("map_Account_List_Invoice_overview", mapAccountListValue);
+                    session.setAttribute("cardGroup_Query_Invoice_overview", cardGroupQuery);
+                    session.setAttribute("map_CardGroup_List_Invoice_overview", mapCardGroupListValue);
+                    session.setAttribute("card_Query_Invoice_overview", cardQuery);
+                    session.setAttribute("map_Card_List_Invoice_overview", mapCardListValue);
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Queries are saved in session");
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Estimated Row count==" + invoiceVO.getEstimatedRowCount());
+                    if (invoiceVO.getEstimatedRowCount() > 0) {
+                        searchResults = true;
+                    } else {
+                        searchResults = false;
+                        if (resourceBundle.containsKey("NO_RECORDS_FOUND_DRIVER")) {
+                            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("NO_RECORDS_FOUND_DRIVER"), "");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }
+                    }
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Where condition:" + invoiceVO.getWhereClause());
+                }
+            } else {
+                if (getBindings().getCard().getValue() == null) {
                     displayErrorComponent(getBindings().getCard(), true);
-                    
+
                     searchResults = false;
                     if (resourceBundle.containsKey("INVOICE_MANDATORY_CHECK")) {
                         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("INVOICE_MANDATORY_CHECK"), "");
                         FacesContext.getCurrentInstance().addMessage(null, msg);
                     }
                 }
-                 
+
             }
         } else {
-            
-            
-//           cardGroupRadio = "CardGroup";
-            if(getBindings().getPartnerNumber().getValue() == null){
+
+
+            //           cardGroupRadio = "CardGroup";
+            if (getBindings().getPartnerNumber().getValue() == null) {
                 displayErrorComponent(getBindings().getPartnerNumber(), true);
             }
-            
-            if(getBindings().getAccount().getValue() == null){
+
+            if (getBindings().getAccount().getValue() == null) {
                 displayErrorComponent(getBindings().getAccount(), true);
             }
-            
-            if(getBindings().getCardGroup().getValue() == null){
+
+            if (getBindings().getCardGroup().getValue() == null) {
                 displayErrorComponent(getBindings().getCardGroup(), true);
             }
-            
-         
-            
+
+
             searchResults = false;
             if (resourceBundle.containsKey("INVOICE_MANDATORY_CHECK")) {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("INVOICE_MANDATORY_CHECK"), "");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting searchResultsListener for Invoices");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting searchResultsListener for Invoices");
     }
 
     public String formatConversion(Date date) {
@@ -685,7 +665,7 @@ public class InvoiceOverviewBean implements Serializable {
 
     public void clearSearchListener(ActionEvent actionEvent) {
 
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside clearSearchListener for Invoices");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside clearSearchListener for Invoices");
 
         this.partnerValue = null;
         getBindings().getCardGpCardList().setSubmittedValue(null);
@@ -709,7 +689,7 @@ public class InvoiceOverviewBean implements Serializable {
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceType());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
 
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting clearSearchListener for Invoices");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting clearSearchListener for Invoices");
     }
 
     public void setCardValue(List<String> cardValue) {
@@ -729,10 +709,10 @@ public class InvoiceOverviewBean implements Serializable {
     }
 
     public String invoiceDetailsCancel() {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "inside invoiceDetailsCancel for Invoices");
-        defaultSelection = "Transactions";
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "inside invoiceDetailsCancel for Invoices");
+        defaultSelection = Constants.TRANSACTIONS__LITERAL;
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRadioBtnPopUp());
-        ViewObject cardTransactionVO = ADFUtils.getViewObject("PrtCardTransactionInvoiceRVO1Iterator");
+        ViewObject cardTransactionVO = ADFUtils.getViewObject(PRTCARDTRANSACTIONINVOICERVO1ITERATOR_LITRERAL);
         if ("INVOICE_NUMBER_COLLECTIVE =:collecInvNo and pals_country_code=:country_code".equalsIgnoreCase(cardTransactionVO.getWhereClause())) {
             cardTransactionVO.removeNamedWhereClauseParam("collecInvNo");
             cardTransactionVO.removeNamedWhereClauseParam("country_code");
@@ -746,19 +726,19 @@ public class InvoiceOverviewBean implements Serializable {
             cardTransactionVO.executeQuery();
         }
         getBindings().getInvoiceDetails().hide();
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting invoiceDetailsCancel for Invoices");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting invoiceDetailsCancel for Invoices");
         return null;
     }
 
     public String invoiceNumberAction() {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside invoiceNumberAction for Invoices");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside invoiceNumberAction for Invoices");
         String invoiceGroupingValue = null;
-        defaultSelection = "Transactions";
+        defaultSelection = Constants.TRANSACTIONS__LITERAL;
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRadioBtnPopUp());
         isTransactionVisible = true;
         invoiceType = null;
         BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
-        DCIteratorBinding itr = (DCIteratorBinding)bindings.get("PrtNewInvoiceVO1Iterator");
+        DCIteratorBinding itr = (DCIteratorBinding)bindings.get(PRTNEWINVOICEVO1ITERATOR_LITRERAL);
         Row row = itr.getCurrentRow();
         if (row != null) {
 
@@ -767,38 +747,10 @@ public class InvoiceOverviewBean implements Serializable {
 
         String invoiceNumberValue = (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("invoiceNumberValue");
 
-        ViewObject cardTransactionVO = ADFUtils.getViewObject("PrtCardTransactionInvoiceRVO1Iterator");
-
+        ViewObject cardTransactionVO = ADFUtils.getViewObject(PRTCARDTRANSACTIONINVOICERVO1ITERATOR_LITRERAL);
 
         if (invoiceGroupingValue != null) {
             invoiceType = invoiceGroupingValue;
-            //            if (invoiceGroupingValue.equals("FAK")) {
-            //
-            //
-            //                cardTransactionVO.setWhereClause("INVOICE_NUMBER_NON_COLLECTIVE =:nonCollecInvNo and pals_country_code=:country_code");
-            //                cardTransactionVO.defineNamedWhereClauseParam("nonCollecInvNo",
-            //                                                              invoiceNumberValue,
-            //                                                              null);
-            //                cardTransactionVO.defineNamedWhereClauseParam("country_code",
-            //                                                              lang, null);
-            //            } else {
-            //                if (invoiceGroupingValue.equals("SAM")) {
-            //
-            //                    cardTransactionVO.setWhereClause("INVOICE_NUMBER_COLLECTIVE =:collecInvNo and pals_country_code=:country_code");
-            //                    cardTransactionVO.defineNamedWhereClauseParam("collecInvNo",
-            //                                                                  invoiceNumberValue,
-            //                                                                  null);
-            //                    cardTransactionVO.defineNamedWhereClauseParam("country_code",
-            //                                                                  lang, null);
-            //                }
-            //            }
-            //            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
-            //                         "cardTransaction Query=" +
-            //                         cardTransactionVO.getQuery());
-            //            cardTransactionVO.executeQuery();
-            //            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
-            //                         "cardTransactionVO estimatedRow:" +
-            //                         cardTransactionVO.getEstimatedRowCount());
 
             executeInvoiceTransactions(invoiceGroupingValue, invoiceNumberValue);
         }
@@ -806,34 +758,34 @@ public class InvoiceOverviewBean implements Serializable {
         getBindings().getRadioBtnPopUp().setValue(null);
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRadioBtnPopUp());
         getBindings().getInvoiceDetails().show(new RichPopup.PopupHints());
-        //        isTransactionVisible = false;
+
         isInvoiceCollectionVisible = false;
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting invoiceNumberAction for Invoices");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting invoiceNumberAction for Invoices");
         return null;
     }
 
     public void exportExcelSpecificActionTransactions(ActionEvent actionEvent) {
         resourceBundle = new EngageResourceBundle();
 
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Entering exportExcelSpecificActionTransactions");
-        defaultSelection = "Transactions";
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Entering exportExcelSpecificActionTransactions");
+        defaultSelection = Constants.TRANSACTIONS__LITERAL;
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRadioBtnPopUp());
         shuttleStatusTransaction = false;
-        String langDB = (String)session.getAttribute("langReport");
-        if (langDB.equalsIgnoreCase("en_US")) {
+        String langDB = (String)session.getAttribute(LANG_REPORT_LITRERAL);
+        if (langDB.equalsIgnoreCase(Constants.LANGUAGE_ENGLISH)) {
             langDB = "EN";
         } else {
             langDB = langDB.substring(langDB.length() - 2, langDB.length());
             langDB = langDB.toUpperCase();
         }
-        ViewObject prtExportInfoRVO1 = ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
-        prtExportInfoRVO1.setNamedWhereClauseParam("country_Code", langDB);
+        ViewObject prtExportInfoRVO1 = ADFUtils.getViewObject(PRTEXPORTINFORVO1ITERATOR_LITRERAL);
+        prtExportInfoRVO1.setNamedWhereClauseParam(Constants.COUNTRY_CODE_LITERAL, langDB);
         prtExportInfoRVO1.setNamedWhereClauseParam("report_Page", "TRANSACTION");
-        prtExportInfoRVO1.setNamedWhereClauseParam("report_Type", "Default");
-        prtExportInfoRVO1.setNamedWhereClauseParam("select_Criteria", "Default");
+        prtExportInfoRVO1.setNamedWhereClauseParam("report_Type", Constants.DEFAULT_LITERAL);
+        prtExportInfoRVO1.setNamedWhereClauseParam(SELECT_CRITERIA_LITRERAL, Constants.DEFAULT_LITERAL);
         prtExportInfoRVO1.executeQuery();
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count :" +
-                     prtExportInfoRVO1.getEstimatedRowCount());
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count :" +
+                    prtExportInfoRVO1.getEstimatedRowCount());
 
         if (prtExportInfoRVO1.getEstimatedRowCount() > 0) {
             while (prtExportInfoRVO1.hasNext()) {
@@ -857,27 +809,23 @@ public class InvoiceOverviewBean implements Serializable {
 
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShuttleExcelTransactions());
         result = true;
-        getBindings().getTransactionSelectionExportOneRadio().setValue("xls");
+        getBindings().getTransactionSelectionExportOneRadio().setValue(Constants.XLS_LITERAL);
         getBindings().getSpecificColumnsTransactions().show(new RichPopup.PopupHints());
 
+        if (!result && resourceBundle.containsKey(TRANSACTION_SPECIFIC_ERROR_DB_LITRERAL)) {
 
-        if (!result) {
-            if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR_DB")) {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR_DB"), "");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-            }
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject(TRANSACTION_SPECIFIC_ERROR_DB_LITRERAL), "");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         }
 
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Exiting exportExcelSpecificActionTransactions");
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Exiting exportExcelSpecificActionTransactions");
     }
 
 
     public void cgValueChangeListener(ValueChangeEvent valueChangeEvent) {
         resourceBundle = new EngageResourceBundle();
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside cgValueChangeListener for Invoices");
-        
-        
-        
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside cgValueChangeListener for Invoices");
+
         if (getBindings().getAccount().getValue() != null) {
             String accountNumberPassingValues = null;
             String[] accountNumberValues;
@@ -899,7 +847,7 @@ public class InvoiceOverviewBean implements Serializable {
 
                 if (valueChangeEvent.getNewValue() != null && accountCount > 0) {
                     for (int acCount = 0; acCount < accountCount; acCount++) {
-                        if (valueChangeEvent.getNewValue().equals("CardGroup")) {
+                        if (valueChangeEvent.getNewValue().equals(Constants.CARD_GROUP_LITERAL)) {
                             populateValue(valueChangeEvent.getNewValue().toString(), accountNumberValues[acCount].trim());
                             cGCardVisible = true;
                             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());
@@ -925,17 +873,17 @@ public class InvoiceOverviewBean implements Serializable {
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting cgValueChangeListener for Invoices");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting cgValueChangeListener for Invoices");
     }
 
     public void populateValue(String paramType, String accountNumber) {
         if (paramType != null) {
-            if (paramType.equals("CardGroup")) {
+            if (paramType.equals(Constants.CARD_GROUP_LITERAL)) {
 
                 popoluateCardCardgroupValues(accountNumber, paramType);
 
             } else {
-                if (paramType.equals("Card")) {
+                if (paramType.equals(Constants.CARD_LITERAL)) {
 
                     popoluateCardCardgroupValues(accountNumber, paramType);
 
@@ -947,7 +895,7 @@ public class InvoiceOverviewBean implements Serializable {
     public void popoluateCardCardgroupValues(String passingAccountNumber, String paramType) {
         if (passingAccountNumber != null && paramType != null && getBindings().getPartnerNumber().getValue() != null) {
             String[] partnerString;
-            partnerString = StringConversion(populateStringValues(getBindings().getPartnerNumber().getValue().toString()));
+            partnerString = stringSplitter(populateStringValues(getBindings().getPartnerNumber().getValue().toString()));
             if (partnerInfoList != null && partnerInfoList.size() > 0 && partnerString.length > 0) {
                 for (int pa = 0; pa < partnerInfoList.size(); pa++) {
                     for (int p = 0; p < partnerString.length; p++) {
@@ -961,7 +909,7 @@ public class InvoiceOverviewBean implements Serializable {
                                     partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().size() > 0) {
                                     for (int cg = 0; cg < partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().size(); cg++) {
                                         if (partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID() != null) {
-                                            if (paramType.equals("CardGroup")) {
+                                            if (paramType.equals(Constants.CARD_GROUP_LITERAL)) {
                                                 SelectItem selectItemCardGroup = new SelectItem();
                                                 selectItemCardGroup.setLabel(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getDisplayCardGroupIdName().toString());
                                                 selectItemCardGroup.setValue(partnerInfoList.get(pa).getPartnerValue().toString().trim() +
@@ -995,7 +943,7 @@ public class InvoiceOverviewBean implements Serializable {
                     }
                 }
             }
-            if (paramType.equals("CardGroup")) {
+            if (paramType.equals(Constants.CARD_GROUP_LITERAL)) {
                 Collections.sort(cardGroupList, comparator);
             } else {
                 Collections.sort(cardList, comparator);
@@ -1021,71 +969,64 @@ public class InvoiceOverviewBean implements Serializable {
     }
 
     public void accountValueChangeListener(ValueChangeEvent valueChangeEvent) {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside accountValueChangeListener for Invoices");
-        
-        
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside accountValueChangeListener for Invoices");
+
+
         if (valueChangeEvent.getNewValue() != null) {
 
             cGCardVisible = true;
             cardGroupVisible = true;
             cardVisible = false;
-            
+
             getBindings().getCardGpCardList().setValue("CardGroup");
 
-            
+
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGpCardList());
 
-            
-             String[] accountString = populateStringValues(valueChangeEvent.getNewValue().toString()).split(",");
+
+            String[] accountString = populateStringValues(valueChangeEvent.getNewValue().toString()).split(",");
             cardGroupList = new ArrayList<SelectItem>();
             cardGroupValue = new ArrayList<String>();
 
             for (int z = 0; z < partnerInfoList.size(); z++) {
-                if (partnerInfoList.get(z).getAccountList() != null &&
-                    partnerInfoList.get(z).getAccountList().size() > 0) {
-                    for (int i = 0;
-                         i < partnerInfoList.get(z).getAccountList().size();
-                         i++) {
+                if (partnerInfoList.get(z).getAccountList() != null && partnerInfoList.get(z).getAccountList().size() > 0) {
+                    for (int i = 0; i < partnerInfoList.get(z).getAccountList().size(); i++) {
                         for (int j = 0; j < accountString.length; j++) {
                             if (partnerInfoList.get(z).getAccountList().get(i).getAccountNumber() != null &&
                                 partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString().trim().equals(accountString[j].toString().trim())) {
                                 if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup() != null &&
                                     partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size() > 0) {
-                                    for (int k = 0;
-                                         k < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size();
-                                         k++) {
+                                    for (int k = 0; k < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size(); k++) {
                                         if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID() != null) {
                                             SelectItem selectItem = new SelectItem();
                                             selectItem.setLabel(partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getDisplayCardGroupIdName().toString());
-                                            selectItem.setValue(partnerInfoList.get(z).getPartnerValue().toString().trim()+partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
+                                            selectItem.setValue(partnerInfoList.get(z).getPartnerValue().toString().trim() +
+                                                                partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
                                             cardGroupList.add(selectItem);
-                                            cardGroupValue.add(partnerInfoList.get(z).getPartnerValue().toString().trim()+partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
+                                            cardGroupValue.add(partnerInfoList.get(z).getPartnerValue().toString().trim() +
+                                                               partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
                                         }
                                     }
                                 }
                             }
                         }
                     }
-                    Collections.sort (accountList,comparator);
-                    Collections.sort (cardGroupList,comparator);
+                    Collections.sort(accountList, comparator);
+                    Collections.sort(cardGroupList, comparator);
                 }
             }
-            
-            
+
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGpCardList());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCard());
 
-        }
-        
-        else{
-            
+        } else {
+
             searchResults = false;
             cGCardVisible = true;
             cardVisible = false;
             cardGroupVisible = true;
-
 
 
             cardGroupValue = new ArrayList<String>();
@@ -1099,21 +1040,19 @@ public class InvoiceOverviewBean implements Serializable {
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccount());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
-            
-            
+
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting accountValueChangeListener for Invoices");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting accountValueChangeListener for Invoices");
+
     }
 
     public void partnerValueChangeListener(ValueChangeEvent valueChangeEvent) {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside partnerValueChangeListner for Invoices");
-        
-        
-        
-        
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside partnerValueChangeListner for Invoices");
+
+
         if (valueChangeEvent.getNewValue() != null) {
             String[] partnerString;
-            partnerString = StringConversion(populateStringValues(valueChangeEvent.getNewValue().toString()));
+            partnerString = stringSplitter(populateStringValues(valueChangeEvent.getNewValue().toString()));
 
             cGCardVisible = true;
             cardGroupVisible = true;
@@ -1123,48 +1062,45 @@ public class InvoiceOverviewBean implements Serializable {
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGpCardList());
             accountList = new ArrayList<SelectItem>();
             accountValue = new ArrayList<String>();
-            cardGroupList=new ArrayList<SelectItem>();
-            cardGroupValue= new ArrayList<String>();
-            if (partnerInfoList != null && partnerInfoList.size() > 0) {
-                if (partnerString.length > 0) {
-                    for (int i = 0; i < partnerInfoList.size(); i++) {
-                        for (int pa = 0; pa < partnerString.length; pa++) {
-                            if (partnerInfoList.get(i).getPartnerValue() != null && partnerString[pa] != null &&
-                                partnerInfoList.get(i).getPartnerValue().toString().equals(partnerString[pa].trim()) &&
-                                partnerInfoList.get(i).getAccountList() != null && partnerInfoList.get(i).getAccountList().size() > 0) {
-                                for (int m = 0; m < partnerInfoList.get(i).getAccountList().size(); m++) {
-                                    if (partnerInfoList.get(i).getAccountList().get(m).getAccountNumber() != null) {
-                                        SelectItem selectItemAccount = new SelectItem();
-                                        selectItemAccount.setLabel(partnerInfoList.get(i).getAccountList().get(m).getAccountNumber().toString());
-                                        selectItemAccount.setValue(partnerInfoList.get(i).getAccountList().get(m).getAccountNumber().toString());
-                                        accountList.add(selectItemAccount);
-                                        accountValue.add(partnerInfoList.get(i).getAccountList().get(m).getAccountNumber().toString());
-                                    }
-                                    
-                                    if (partnerInfoList.get(i).getAccountList().get(m).getCardGroup() != null &&
-                                        partnerInfoList.get(i).getAccountList().get(m).getCardGroup().size() > 0) {
+            cardGroupList = new ArrayList<SelectItem>();
+            cardGroupValue = new ArrayList<String>();
+            if (partnerInfoList != null && partnerInfoList.size() > 0 && partnerString.length > 0) {
+
+                for (int i = 0; i < partnerInfoList.size(); i++) {
+                    for (int pa = 0; pa < partnerString.length; pa++) {
+                        if (partnerInfoList.get(i).getPartnerValue() != null && partnerString[pa] != null &&
+                            partnerInfoList.get(i).getPartnerValue().toString().equals(partnerString[pa].trim()) &&
+                            partnerInfoList.get(i).getAccountList() != null && partnerInfoList.get(i).getAccountList().size() > 0) {
+                            for (int m = 0; m < partnerInfoList.get(i).getAccountList().size(); m++) {
+                                if (partnerInfoList.get(i).getAccountList().get(m).getAccountNumber() != null) {
+                                    SelectItem selectItemAccount = new SelectItem();
+                                    selectItemAccount.setLabel(partnerInfoList.get(i).getAccountList().get(m).getAccountNumber().toString());
+                                    selectItemAccount.setValue(partnerInfoList.get(i).getAccountList().get(m).getAccountNumber().toString());
+                                    accountList.add(selectItemAccount);
+                                    accountValue.add(partnerInfoList.get(i).getAccountList().get(m).getAccountNumber().toString());
+                                }
+
+                                if (partnerInfoList.get(i).getAccountList().get(m).getCardGroup() != null &&
+                                    partnerInfoList.get(i).getAccountList().get(m).getCardGroup().size() > 0) {
+                                    cGCardVisible = true;
+                                    cardGroupVisible = true;
+                                    cardVisible = false;
+
+                                    for (int cg = 0; cg < partnerInfoList.get(i).getAccountList().get(m).getCardGroup().size(); cg++) {
+
+                                        SelectItem selectItemCardGroup = new SelectItem();
+                                        selectItemCardGroup.setLabel(partnerInfoList.get(i).getAccountList().get(m).getCardGroup().get(cg).getDisplayCardGroupIdName().toString());
+                                        selectItemCardGroup.setValue(partnerInfoList.get(i).getPartnerValue().toString().trim() +
+                                                                     partnerInfoList.get(i).getAccountList().get(m).getCardGroup().get(cg).getCardGroupID().toString());
+                                        cardGroupList.add(selectItemCardGroup);
+                                        cardGroupValue.add(partnerInfoList.get(i).getPartnerValue().toString().trim() +
+                                                           partnerInfoList.get(i).getAccountList().get(m).getCardGroup().get(cg).getCardGroupID().toString());
                                         cGCardVisible = true;
                                         cardGroupVisible = true;
                                         cardVisible = false;
+                                        Collections.sort(cardGroupList, comparator);
 
-                                        for (int cg = 0; cg < partnerInfoList.get(i).getAccountList().get(m).getCardGroup().size(); cg++) {
-
-                                            SelectItem selectItemCardGroup = new SelectItem();
-                                            selectItemCardGroup.setLabel(partnerInfoList.get(i).getAccountList().get(m).getCardGroup().get(cg).getDisplayCardGroupIdName().toString());
-                                            selectItemCardGroup.setValue(partnerInfoList.get(i).getPartnerValue().toString().trim() +
-                                                                         partnerInfoList.get(i).getAccountList().get(m).getCardGroup().get(cg).getCardGroupID().toString());
-                                            cardGroupList.add(selectItemCardGroup);
-                                            cardGroupValue.add(partnerInfoList.get(i).getPartnerValue().toString().trim() +
-                                                               partnerInfoList.get(i).getAccountList().get(m).getCardGroup().get(cg).getCardGroupID().toString());
-                                            cGCardVisible = true;
-                                            cardGroupVisible = true;
-                                            cardVisible = false;
-                                            Collections.sort(cardGroupList, comparator);
-
-                                        }
                                     }
-
-
                                 }
                             }
                         }
@@ -1200,7 +1136,7 @@ public class InvoiceOverviewBean implements Serializable {
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting partnerValueChangeListner for Invoices");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting partnerValueChangeListner for Invoices");
     }
 
     public void setLocale(Locale locale) {
@@ -1211,8 +1147,8 @@ public class InvoiceOverviewBean implements Serializable {
         return locale;
     }
 
-    public static String getPropertyValue(String PName) {
-        return ConfigurationUtility.getPropertyValue(PName);
+    public static String getPropertyValue(String pName) {
+        return ConfigurationUtility.getPropertyValue(pName);
     }
 
     public void displayErrorComponent(UIComponent component, boolean status) {
@@ -1256,28 +1192,28 @@ public class InvoiceOverviewBean implements Serializable {
 
 
     public void getUCMService(FacesContext facesContext, OutputStream outputStream) throws IOException {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside getUCMService for Invoices");
-        ViewObject invoiceVO = ADFUtils.getViewObject("PrtNewInvoiceVO1Iterator");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside getUCMService for Invoices");
+        ViewObject invoiceVO = ADFUtils.getViewObject(PRTNEWINVOICEVO1ITERATOR_LITRERAL);
         PrtNewInvoiceVORowImpl row = (PrtNewInvoiceVORowImpl)invoiceVO.getCurrentRow();
         String invoiceNumberValuePdf = row.getFinalinvoice();
         String partnerNumberValuePdf = row.getPartnerId();
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "invoice number" + invoiceNumberValuePdf);
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "PartnerId " + partnerId);
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "invoice number" + invoiceNumberValuePdf);
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "PartnerId " + partnerId);
         byte[] responseByteArr = null;
         Boolean isError = false;
         UCMCustomWeb uCMCustomWeb = null;
 
-        if (session.getAttribute("ucmInvoiceContentList") != null) {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "session is available");
+        if (session.getAttribute(INVOICE_CONTENT_LIST_LITRERAL) != null) {
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "session is available");
             try {
-                ucmInvoiceContentList = (HashMap<String, String>)session.getAttribute("ucmInvoiceContentList");
-                String UCMInvoiceContentId = ucmInvoiceContentList.get(invoiceNumberValuePdf);
-                if (UCMInvoiceContentId != null && UCMInvoiceContentId.trim().length() > 0) {
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "ContentId is available from session");
+                ucmInvoiceContentList = (HashMap<String, String>)session.getAttribute(INVOICE_CONTENT_LIST_LITRERAL);
+                String ucmInvoiceContentId = ucmInvoiceContentList.get(invoiceNumberValuePdf);
+                if (ucmInvoiceContentId != null && ucmInvoiceContentId.trim().length() > 0) {
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "ContentId is available from session");
                     uCMCustomWeb = new DAOFactory().getUCMService();
                     responseByteArr =
                             uCMCustomWeb.getFileFromUCM(DAOFactory.getPropertyValue(Constants.UCM_USERNAME), DAOFactory.getPropertyValue(Constants.UCM_PASSWORD),
-                                                        UCMInvoiceContentId);
+                                                        ucmInvoiceContentId);
                     if (responseByteArr == null || responseByteArr.length == 0) {
                         isError = true;
                     } else {
@@ -1297,12 +1233,12 @@ public class InvoiceOverviewBean implements Serializable {
 
             } catch (Exception e) {
                 isError = true;
-                _logger.severe(accessDC.getDisplayRecord() + this.getClass() + " " + ".fileDownload : " + "Exception");
-                e.printStackTrace();
+                LOGGER.severe(accessDC.getDisplayRecord() + this.getClass() + " " + ".fileDownload : " + "Exception");
+                LOGGER.severe(e);
             }
 
         } else {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "session is null");
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "session is null");
             byte[] result = searchGetFile(invoiceNumberValuePdf, partnerNumberValuePdf);
             if (result != null && result.length != 0) {
                 outputStream.write(result);
@@ -1314,50 +1250,45 @@ public class InvoiceOverviewBean implements Serializable {
 
         if (isError) {
             uCMCustomWeb = new DAOFactory().getUCMService();
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Error PDF =" + DAOFactory.getPropertyValue("ERROR_PDF_CID"));
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Error PDF =" + DAOFactory.getPropertyValue("ERROR_PDF_CID"));
             responseByteArr =
                     uCMCustomWeb.getFileFromUCM(DAOFactory.getPropertyValue(Constants.ENGAGE_UCM_USERNAME), DAOFactory.getPropertyValue(Constants.ENGAGE_UCM_PASSWORD),
                                                 DAOFactory.getPropertyValue("ERROR_PDF_CID"));
             outputStream.write(responseByteArr);
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Error while downloading PDF");
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Error while downloading PDF");
 
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting getUCMService for Invoices");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting getUCMService for Invoices");
     }
 
-    public String open_popup() {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside open_popup(Email functionality) for Invoices");
+    public String openPopup() {
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside open_popup(Email functionality) for Invoices");
 
         successResult = false;
         invoiceNotFound = false;
         failureResult = false;
         String partnerNumberValuePdf = "";
 
-        ViewObject invoiceVO = ADFUtils.getViewObject("PrtNewInvoiceVO1Iterator");
+        ViewObject invoiceVO = ADFUtils.getViewObject(PRTNEWINVOICEVO1ITERATOR_LITRERAL);
         PrtNewInvoiceVORowImpl row = (PrtNewInvoiceVORowImpl)invoiceVO.getCurrentRow();
         String invoiceNumberValuePdf = row.getFinalinvoice();
         partnerNumberValuePdf = row.getPartnerId();
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "invoice number" + invoiceNumberValuePdf);
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "invoice number" + invoiceNumberValuePdf);
 
         if (invoiceNumberValuePdf != null && partnerNumberValuePdf != null) {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Invoice requested " + invoiceNumberValuePdf);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "Invoice requested " + invoiceNumberValuePdf);
 
 
             ectx = FacesContext.getCurrentInstance().getExternalContext();
             request = (HttpServletRequest)ectx.getRequest();
             session = request.getSession(false);
-
-
             session.setAttribute("SESSION_USER_INVOICE_REQ", invoiceNumberValuePdf);
             session.setAttribute("SESSION_USER_PARTNER_REQ", partnerNumberValuePdf);
-
 
         }
 
         else {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Note able to find requested invoice");
-
-
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Note able to find requested invoice");
         }
 
 
@@ -1367,99 +1298,86 @@ public class InvoiceOverviewBean implements Serializable {
         failureResult = false;
         invoiceNotFound = false;
         successResult = false;
-
-
-        getBindings().getConfirmation_mail_popup().show(ps);
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting open_popup(Email functionality) for Invoices");
+        getBindings().getConfirmationMailPopup().show(ps);
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting open_popup(Email functionality) for Invoices");
         return null;
     }
 
     public byte[] searchGetFile(String invoiceNumber, String partnerNumber) {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside searchGetFile method");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside searchGetFile method");
 
         byte[] responseByteArr = null;
-        Boolean isError = false;
         String ucmContentId;
         UCMCustomWeb uCMCustomWeb = null;
-
         SearchInputVO searchInputVO = new SearchInputVO();
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "UserName =" + getPropertyValue(Constants.ENGAGE_UCM_USERNAME));
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Password =" + getPropertyValue(Constants.ENGAGE_UCM_PASSWORD));
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "UserName =" + getPropertyValue(Constants.ENGAGE_UCM_USERNAME));
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Password =" + getPropertyValue(Constants.ENGAGE_UCM_PASSWORD));
         searchInputVO.setUsername(getPropertyValue(Constants.ENGAGE_UCM_USERNAME));
         searchInputVO.setPassword(getPropertyValue(Constants.ENGAGE_UCM_PASSWORD));
         searchInputVO.setSourceSystem("WebPortal");
-
-        Property prop[] = new Property[5];
-
+        Property prop[] = new Property[Constants.FIVE];
         prop[0] = new Property();
         prop[0].setName("xDocumentNo");
-        prop[0].setValue(invoiceNumber.toString().trim());
-
+        prop[0].setValue(invoiceNumber.trim());
         prop[1] = new Property();
         prop[1].setName("xPartnerId");
-        prop[1].setValue(partnerNumber.toString().trim());
-
+        prop[1].setValue(partnerNumber.trim());
         prop[2] = new Property();
         prop[2].setName("xContentType");
         prop[2].setValue("FCP");
+        prop[Constants.THREE] = new Property();
+        prop[Constants.THREE].setName("xSubType");
+        prop[Constants.THREE].setValue("Invoice");
 
-        prop[3] = new Property();
-        prop[3].setName("xSubType");
-        prop[3].setValue("Invoice");
-
-        prop[4] = new Property();
-        prop[4].setName("xCountry");
-        prop[4].setValue(lang);
-
+        prop[Constants.FOUR] = new Property();
+        prop[Constants.FOUR].setName("xCountry");
+        prop[Constants.FOUR].setValue(lang);
 
         searchInputVO.getSearchResultMetadata().add("dDocTitle");
 
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "ENGAGE_UCM_WSDL_URL-------------" +
-                     DAOFactory.getPropertyValue(Constants.ENGAGE_UCM_WSDL_URL));
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "ENGAGE_UCM_WSDL_URL-------------" +
+                    DAOFactory.getPropertyValue(Constants.ENGAGE_UCM_WSDL_URL));
 
         for (int i = 0; i < prop.length; i++) {
             searchInputVO.getSearchInputQueryProperty().add(prop[i]);
         }
 
-
         try {
             uCMCustomWeb = new DAOFactory().getUCMService();
             if (uCMCustomWeb != null) {
 
-
                 for (int i = 0; i < searchInputVO.getSearchInputQueryProperty().size(); i++) {
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + "UCM input meta tags " +
-                                 searchInputVO.getSearchInputQueryProperty().get(i).getValue());
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "UCM input meta tags " +
+                                searchInputVO.getSearchInputQueryProperty().get(i).getValue());
                 }
-                List<SearchResultVO> UCMInvoiceContentIdList = uCMCustomWeb.searchDocument(searchInputVO);
+                List<SearchResultVO> ucmInvoiceContentIdList = uCMCustomWeb.searchDocument(searchInputVO);
 
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + "UCM LIST SIZE.get(0):" + UCMInvoiceContentIdList.get(0));
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + "UCM LIST SIZE.get(0):.getSearchResultMetadata.size()  : " +
-                             UCMInvoiceContentIdList.get(0).getSearchResultMetadata().size());
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + "content id " + UCMInvoiceContentIdList.get(0).getContentID());
-                if (UCMInvoiceContentIdList.size() > 0) {
-                    ucmContentId = UCMInvoiceContentIdList.get(0).getContentID();
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Content id=" + ucmContentId);
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "UCM LIST SIZE.get(0):" + ucmInvoiceContentIdList.get(0));
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "UCM LIST SIZE.get(0):.getSearchResultMetadata.size()  : " +
+                            ucmInvoiceContentIdList.get(0).getSearchResultMetadata().size());
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "content id " + ucmInvoiceContentIdList.get(0).getContentID());
+                if (ucmInvoiceContentIdList.size() > 0) {
+                    ucmContentId = ucmInvoiceContentIdList.get(0).getContentID();
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Content id=" + ucmContentId);
                     if (ucmContentId != null && ucmContentId.trim().length() > 0) {
                         ucmInvoiceContentList.put(invoiceNumber, ucmContentId);
-                        session.setAttribute("ucmInvoiceContentList", ucmInvoiceContentList);
-                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "get file from ucm");
+                        session.setAttribute(INVOICE_CONTENT_LIST_LITRERAL, ucmInvoiceContentList);
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "get file from ucm");
                         responseByteArr =
                                 uCMCustomWeb.getFileFromUCM(DAOFactory.getPropertyValue(Constants.ENGAGE_UCM_USERNAME), DAOFactory.getPropertyValue(Constants.ENGAGE_UCM_PASSWORD),
                                                             ucmContentId);
                     }
                 } else {
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Content Id is not avialable in UCM");
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Content Id is not avialable in UCM");
                 }
             }
         } catch (Exception e) {
-            _logger.severe(accessDC.getDisplayRecord() + this.getClass() + " " + ".fileDownload : " + "Exception");
-            e.printStackTrace();
+            LOGGER.severe(accessDC.getDisplayRecord() + this.getClass() + " " + ".fileDownload : " + "Exception");
+            LOGGER.severe(e);
         }
 
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting searchGetFile method");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting searchGetFile method");
         return responseByteArr;
-
     }
 
     public void setInvoiceNumberPdfValue(String invoiceNumberPdfValue) {
@@ -1510,7 +1428,7 @@ public class InvoiceOverviewBean implements Serializable {
         return lang;
     }
 
-    public void setPartnerList(ArrayList<SelectItem> partnerList) {
+    public void setPartnerList(List<SelectItem> partnerList) {
         this.partnerList = partnerList;
     }
 
@@ -1526,10 +1444,9 @@ public class InvoiceOverviewBean implements Serializable {
         return accountValue;
     }
 
-
     public void radioBtnPopUpVCE(ValueChangeEvent valueChangeEvent) {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "inside radioBtnPopUpVCE for Invoices");
-        if (valueChangeEvent != null && valueChangeEvent.getNewValue() != null && valueChangeEvent.getNewValue().equals("Transactions")) {
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "inside radioBtnPopUpVCE for Invoices");
+        if (valueChangeEvent != null && valueChangeEvent.getNewValue() != null && valueChangeEvent.getNewValue().equals(Constants.TRANSACTIONS__LITERAL)) {
             if (getBindings().getCollectiveInvoNoOt().getValue() != null) {
                 resetTableFilter();
                 removeDynamicconditionOnTxQuery();
@@ -1545,24 +1462,20 @@ public class InvoiceOverviewBean implements Serializable {
             isTransactionVisible = false;
             isInvoiceCollectionVisible = true;
             String invoiceNo = getBindings().getCollectiveInvoNoOt().getValue().toString();
-
-
             ViewObject invoiceDetailVO = ADFUtils.getViewObject("PrtInvoiceDetailVo1Iterator");
+            if (accountQueryDetail.length() > 1 && accountQueryDetail.trim().equalsIgnoreCase(invoiceDetailVO.getWhereClause().trim())) {
 
-            if (accountQueryDetail.length() > 1) {
-                if (accountQueryDetail.trim().equalsIgnoreCase(invoiceDetailVO.getWhereClause().trim())) {
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "inside  accountdetail query where removal");
-                    if (mapAccountDetailListValue != null) {
-                        for (int i = 0; i < mapAccountDetailListValue.size(); i++) {
-                            String values = "account" + i;
-                            invoiceDetailVO.removeNamedWhereClauseParam(values);
-                        }
-                    } else {
-                        invoiceDetailVO.removeNamedWhereClauseParam("account");
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "inside  accountdetail query where removal");
+                if (mapAccountDetailListValue != null) {
+                    for (int i = 0; i < mapAccountDetailListValue.size(); i++) {
+                        invoiceDetailVO.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i);
                     }
-                    invoiceDetailVO.setWhereClause("");
-                    invoiceDetailVO.executeQuery();
+                } else {
+                    invoiceDetailVO.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL);
                 }
+                invoiceDetailVO.setWhereClause("");
+                invoiceDetailVO.executeQuery();
+
             }
 
             accountQueryDetail = "(";
@@ -1570,51 +1483,51 @@ public class InvoiceOverviewBean implements Serializable {
             invoiceDetailVO.setNamedWhereClauseParam("partnerId", populateStringValues(getBindings().getPartnerNumber().getValue().toString()));
             invoiceDetailVO.setNamedWhereClauseParam("invoiceNo", invoiceNo);
 
-
-            if (accountValue.size() > 150) {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
+            if (accountValue.size() > Constants.ONEFIFTY) {
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
                 mapAccountDetailListValue = valueList.callValueList(accountValue.size(), accountValue);
                 for (int i = 0; i < mapAccountDetailListValue.size(); i++) {
-                    String values = "account" + i;
+                    String values = Constants.ACCOUNT_LITERAL + i;
                     accountQueryDetail = accountQueryDetail + "INSTR(:" + values + ",ACCOUNT_ID)<>0 OR ";
                 }
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Account Query Values =" + accountQueryDetail);
-                accountQueryDetail = accountQueryDetail.substring(0, accountQueryDetail.length() - 3);
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "Account Query Values =" + accountQueryDetail);
+                accountQueryDetail = accountQueryDetail.substring(0, accountQueryDetail.length() - Constants.THREE);
                 accountQueryDetail = accountQueryDetail + ")";
 
             } else {
                 mapAccountDetailListValue = null;
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
                 accountQueryDetail = "(INSTR(:account,ACCOUNT_ID)<>0 ) ";
             }
 
             invoiceDetailVO.setWhereClause(accountQueryDetail);
 
-            if (accountValue.size() > 150) {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
+            if (accountValue.size() > Constants.ONEFIFTY) {
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
                 mapAccountDetailListValue = valueList.callValueList(accountValue.size(), accountValue);
                 for (int i = 0; i < mapAccountDetailListValue.size(); i++) {
-                    String values = "account" + i;
-                    String listName = "listName" + i;
-                    invoiceDetailVO.defineNamedWhereClauseParam(values, mapAccountDetailListValue.get(listName), null);
+
+                    invoiceDetailVO.defineNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i, mapAccountDetailListValue.get(Constants.LISTNAME_LITERAL + i),
+                                                                null);
                 }
 
             } else {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
-                invoiceDetailVO.defineNamedWhereClauseParam("account", populateStringValues(getBindings().getAccount().getValue().toString()), null);
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
+                invoiceDetailVO.defineNamedWhereClauseParam(Constants.ACCOUNT_LITERAL, populateStringValues(getBindings().getAccount().getValue().toString()),
+                                                            null);
             }
 
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Query Formed for detail is=" + invoiceDetailVO.getQuery());
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Query Formed for detail is=" + invoiceDetailVO.getQuery());
             invoiceDetailVO.executeQuery();
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Estimated Row count of details==" + invoiceDetailVO.getEstimatedRowCount());
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Estimated Row count of details==" + invoiceDetailVO.getEstimatedRowCount());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getTransactionPanel());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceCollectionPanel());
             session.setAttribute("account_Query_Invoice_detail_overview", accountQueryDetail);
             session.setAttribute("map_Account_List_Invoice_detail_overview", mapAccountDetailListValue);
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Queries are saved in session");
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Queries are saved in session");
 
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting radioBtnPopUpVCE for Invoices");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting radioBtnPopUpVCE for Invoices");
     }
 
 
@@ -1643,52 +1556,45 @@ public class InvoiceOverviewBean implements Serializable {
     }
 
 
-    public void confirmation_popup_value(DialogEvent dialogEvent) {
+    public void confirmationPopupValue(DialogEvent dialogEvent) {
 
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside confirmation_popup_value for Invoices");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside confirmation_popup_value for Invoices");
         if (dialogEvent.getOutcome() == DialogEvent.Outcome.ok) {
 
-            String mail_result = triggermail();
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Notification of Mail " + mail_result);
-            if (mail_result != null && mail_result.equalsIgnoreCase("success")) {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Mail send successfully");
-
+            String mailResult = triggermail();
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Notification of Mail " + mailResult);
+            if (mailResult != null && mailResult.equalsIgnoreCase("success")) {
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "Mail send successfully");
 
                 failureResult = false;
                 invoiceNotFound = false;
                 successResult = true;
 
             }
-            if (mail_result != null && mail_result.equalsIgnoreCase("failure")) {
-
+            if (mailResult != null && mailResult.equalsIgnoreCase("failure")) {
 
                 failureResult = true;
                 invoiceNotFound = false;
                 successResult = true;
 
-
             }
-            if (mail_result == null) {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Invoice not Found");
-
-
+            if (mailResult == null) {
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "Invoice not Found");
                 failureResult = false;
                 invoiceNotFound = true;
                 successResult = false;
-
             }
         } else {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " mail cancelled");
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " mail cancelled");
             return;
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting confirmation_popup_value for Invoices");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting confirmation_popup_value for Invoices");
     }
 
-    private String getLocalizedString(String Key, String countryCode) {
+    private String getLocalizedString(String key, String countryCode) {
 
         HashMap paramList = new HashMap();
-
-        paramList.put("translationkey", Key);
+        paramList.put("translationkey", key);
         paramList.put("ccCode", countryCode);
         String value = accessDC.callDCForErrorMsg("getTranslation", paramList);
         if (value != null) {
@@ -1699,39 +1605,30 @@ public class InvoiceOverviewBean implements Serializable {
     }
 
     public String triggermail() {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside Trigger Mail");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside Trigger Mail");
         DAOFactory daoFactory = new DAOFactory();
-
 
         if (session != null) {
             lang = (String)session.getAttribute(Constants.userLang);
-            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " lang " + lang);
+            LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " lang " + lang);
         }
 
-        String contact_Link = daoFactory.getPropertyValue("CONTACT_STATOIL" + "_" + conversionUtility.getLangForWERCSURL(mailLnag));
-        String engagePortalLink = daoFactory.getPropertyValue("WSPORTAL_LINK" + "_" + conversionUtility.getLangForWERCSURL(mailLnag));
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Support link in Mail is " + contact_Link);
-
+        String contactLink = daoFactory.getPropertyValue("CONTACT_STATOIL" + "_" + conversionUtility.getLangForWERCSURL(mailLnag));
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "Support link in Mail is " + contactLink);
 
         boolean sendEmail = false;
-
 
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
+        String invoiceReq = null;
+        partnerReq = null;
+        if (session != null && session.getAttribute("SESSION_USER_INVOICE_REQ") != null && session.getAttribute("SESSION_USER_PARTNER_REQ") != null) {
+            invoiceReq = session.getAttribute("SESSION_USER_INVOICE_REQ").toString();
+            partnerReq = session.getAttribute("SESSION_USER_PARTNER_REQ").toString();
+            LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " invoice req = " + invoiceReq);
 
-        invoice_req = null;
-        partner_req = null;
-
-        if (session != null) {
-            if (session.getAttribute("SESSION_USER_INVOICE_REQ") != null && session.getAttribute("SESSION_USER_PARTNER_REQ") != null) {
-                invoice_req = session.getAttribute("SESSION_USER_INVOICE_REQ").toString();
-                partner_req = session.getAttribute("SESSION_USER_PARTNER_REQ").toString();
-                _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " invoice req = " + invoice_req);
-            }
         }
-
-
         String[] months = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
 
         Calendar cal = Calendar.getInstance();
@@ -1739,9 +1636,7 @@ public class InvoiceOverviewBean implements Serializable {
         int year = cal.get(Calendar.YEAR);
         int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
 
-
         String env = DAOFactory.getPropertyValue("STATOIL_IMAGE_MAIL");
-
         String email2 = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" +
             "<head>\n" +
             "<title>Email from SFR</title>\n" +
@@ -1751,25 +1646,21 @@ public class InvoiceOverviewBean implements Serializable {
             "<body>\n" +
             "<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n" +
             "  <tr>\n" +
-
             "    <td align=\"left\" valign=\"top\" bgcolor=\"\" style=\"background-color:;\"><br>\n" +
             "    <br>\n" +
             "    <table width=\"800\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n" +
             "      <tr>" + "      </tr>" + "      <tr>" +
             "        <td align=\"left\" valign=\"top\"><img src=\"cid:image\" width=\"\" height=\"50\" style=\"display:block;\"></td>\n" +
-
             "      </tr>" + "<tr> " +
             "<td align=\"left\" valign=\"top\" style=\"background-color:rgb(255,255,255); color:#ffffff; font-family:gerogia; font-size:6px;\"><font Color=\"#ffffff\">hi</font></td>" +
             "</tr>" + "      <tr>\n" +
             "        <td width=\"800\" align=\"center\" valign=\"top\" bgcolor=\"#006c00\" style=\"background-color:rgb(58,56,57); color:#000000;\">" +
             "<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"5\">\n" +
             "          <tr>\n" +
-            "            <td width=\"50%\" align=\"left\" valign=\"top\" style=\"color:#ffffff; font-family:gerogia; font-size:16px;\">&nbsp;&nbsp;" +
-
-            month + " " + dayOfMonth + ", " + year + " </td>" +
+            "            <td width=\"50%\" align=\"left\" valign=\"top\" style=\"color:#ffffff; font-family:gerogia; font-size:16px;\">&nbsp;&nbsp;" + month +
+            " " + dayOfMonth + ", " + year + " </td>" +
             "            <td align=\"right\" valign=\"top\" style=\"color:#ffffff; font-family:gerogia; font-size:16px;\"><font Color=\"#73D2EE\">      </font></td>\n" +
             "          </tr>\n" +
-
             "        </table></td>\n" +
             "      </tr>\n" +
             "      <tr>\n" +
@@ -1778,7 +1669,7 @@ public class InvoiceOverviewBean implements Serializable {
             "            <td align=\"left\" valign=\"top\" style=\"font-family:gerogia; font-size:16px; color:#525252;\">\n" +
             "<div style=\"font-size:16px;\"><br>\n" +
             getLocalizedString("ENCLOSED", mailLnag) + "." + getLocalizedString("HESITATE", mailLnag) + "<br>" +
-            getLocalizedString("AUTOGENERATED", mailLnag) + "<br>" + getLocalizedString("CONTACTDETAILS", mailLnag) + " " + "<a href=" + contact_Link +
+            getLocalizedString("AUTOGENERATED", mailLnag) + "<br>" + getLocalizedString("CONTACTDETAILS", mailLnag) + " " + "<a href=" + contactLink +
             "><font Color=\"#F89518\">" + getLocalizedString("HERE", mailLnag) + "</font></a>" + "<br><br></i>" + "</div></td>\n" +
             "          </tr>\n" +
             "        </table>\n" +
@@ -1787,13 +1678,9 @@ public class InvoiceOverviewBean implements Serializable {
             "        <td align=\"left\" valign=\"top\" bgcolor=\"#006c00\" style=\"background-color:rgb(243,243,243); \"><table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"15\">\n" +
             "          <tr>\n" +
             "            <td align=\"left\" valign=\"top\" style=\"color:#7F7F7F; font-family:gerogia; font-size:16px; \">Copyright © 2013 Statoil Fuel & Retail<br>" +
-            "     <td align=\"right\" valign=\"top\" style=\"color:#ffffff; font-family:gerogia; font-size:16px;\"><a href=" + contact_Link +
-            "><font Color=\"#F89518\">Contact Statoil</font></a></td>" +
-
-            "          </tr>\n" +
-
+            "     <td align=\"right\" valign=\"top\" style=\"color:#ffffff; font-family:gerogia; font-size:16px;\"><a href=" + contactLink +
+            "><font Color=\"#F89518\">Contact Statoil</font></a></td>" + "          </tr>\n" +
             "        </table></td>\n" +
-
             "      </tr>\n" +
             "  </table>\n" +
             "    <br>\n" +
@@ -1803,84 +1690,78 @@ public class InvoiceOverviewBean implements Serializable {
             "</body>\n" +
             "</html>\n";
 
-
         String cc = "Hiten.Karamchandani@lntinfotech.com";
 
         byte[] responseByteArr = null;
         UCMCustomWeb uCMCustomWeb = null;
         try {
 
-            if (session.getAttribute("ucmInvoiceContentList") != null) {
-                ucmInvoiceContentList = (HashMap<String, String>)session.getAttribute("ucmInvoiceContentList");
-                String UCMInvoiceContentId = ucmInvoiceContentList.get(invoice_req);
-                if (UCMInvoiceContentId != null && UCMInvoiceContentId.trim().length() > 0) {
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "ContentId is available from session");
+            if (session.getAttribute(INVOICE_CONTENT_LIST_LITRERAL) != null) {
+                ucmInvoiceContentList = (HashMap<String, String>)session.getAttribute(INVOICE_CONTENT_LIST_LITRERAL);
+                String ucmInvoiceContentId = ucmInvoiceContentList.get(invoiceReq);
+                if (ucmInvoiceContentId != null && ucmInvoiceContentId.trim().length() > 0) {
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "ContentId is available from session");
                     uCMCustomWeb = new DAOFactory().getUCMService();
                     responseByteArr =
                             uCMCustomWeb.getFileFromUCM(DAOFactory.getPropertyValue(Constants.UCM_USERNAME), DAOFactory.getPropertyValue(Constants.UCM_PASSWORD),
-                                                        UCMInvoiceContentId);
+                                                        ucmInvoiceContentId);
                     if (responseByteArr == null || responseByteArr.length == 0) {
 
                         sendEmail = false;
-                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Error");
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Error");
                     } else {
                         sendEmail = true;
                     }
                 } else {
-                    responseByteArr = searchGetFile(invoice_req, partner_req);
+                    responseByteArr = searchGetFile(invoiceReq, partnerReq);
                     if (responseByteArr != null && responseByteArr.length != 0) {
-                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Response byte array length " + responseByteArr.length);
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "Response byte array length " + responseByteArr.length);
                         sendEmail = true;
                     } else {
 
                         sendEmail = false;
-                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Eoorororoo");
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Eoorororoo");
                     }
-
                 }
             } else {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "session is null");
-                responseByteArr = searchGetFile(invoice_req, partner_req);
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "session is null");
+                responseByteArr = searchGetFile(invoiceReq, partnerReq);
                 if (responseByteArr != null && responseByteArr.length != 0) {
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Response byte array length " + responseByteArr.length);
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "Response byte array length " + responseByteArr.length);
                     sendEmail = true;
                 } else {
                     sendEmail = false;
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Eoorororoodddd");
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Eoorororoodddd");
                 }
-
             }
 
 
         } catch (Exception e) {
-            _logger.severe(accessDC.getDisplayRecord() + this.getClass() + "fileDownload : " + "Exception");
-            e.printStackTrace();
+            LOGGER.severe(accessDC.getDisplayRecord() + this.getClass() + "fileDownload : " + "Exception");
+            LOGGER.severe(e);
         }
-
 
         try {
             if (sendEmail) {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " sending email" + sendEmail + " to " +
-                             getBindings().getEmail_recipient_popup().getValue().toString() + "for invoice " + invoice_req + "having byte array size as" +
-                             responseByteArr.length);
-                emailutility.sendEmail("no-reply.SFR-Services@statoilfuelretail.com", getBindings().getEmail_recipient_popup().getValue().toString(),
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " sending email" + sendEmail + " to " +
+                            getBindings().getEmailRecipientPopup().getValue().toString() + "for invoice " + invoiceReq + "having byte array size as" +
+                            responseByteArr.length);
+                emailutility.sendEmail("no-reply.SFR-Services@statoilfuelretail.com", getBindings().getEmailRecipientPopup().getValue().toString(),
                                        "Statoilfuelretail : Invoice Delivery", email2, "smtp", "smtp.statoilfuelretail.com", cc, responseByteArr, env,
-                                       invoice_req);
-
+                                       invoiceReq);
                 return "success";
             } else {
 
-                _logger.severe(accessDC.getDisplayRecord() + this.getClass() + " Throw adf message of mail can not be send");
+                LOGGER.severe(accessDC.getDisplayRecord() + this.getClass() + " Throw adf message of mail can not be send");
 
-
-                _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting Trigger Mail()");
+                LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting Trigger Mail()");
                 return null;
             }
 
         } catch (Exception e) {
-            _logger.severe(accessDC.getDisplayRecord() + this.getClass() + " Error in mail");
-            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting Trigger Mail()");
-            e.printStackTrace();
+            LOGGER.severe(accessDC.getDisplayRecord() + this.getClass() + " Error in mail");
+            LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting Trigger Mail()");
+            LOGGER.severe(e);
             return "failure";
 
         }
@@ -1888,13 +1769,13 @@ public class InvoiceOverviewBean implements Serializable {
 
     }
 
-    public void setTo_recipient(String to_recipient) {
-        this.to_recipient = to_recipient;
+    public void setToRecipient(String toRecipient) {
+        this.toRecipient = toRecipient;
     }
 
-    public String getTo_recipient() {
+    public String getToRecipient() {
 
-        return to_recipient;
+        return toRecipient;
     }
 
 
@@ -2017,42 +1898,33 @@ public class InvoiceOverviewBean implements Serializable {
 
     public void triggerMailProcess(ActionEvent actionEvent) {
 
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Entering triggerMailProcess");
-
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "Entering triggerMailProcess");
         failureResult = false;
         invoiceNotFound = false;
         successResult = false;
-
-        String mail_result = triggermail();
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Notification of Mail " + mail_result);
-        if (mail_result != null && mail_result.equalsIgnoreCase("success")) {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Mail send successfully");
-
+        String mailResult = triggermail();
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Notification of Mail " + mailResult);
+        if (mailResult != null && mailResult.equalsIgnoreCase("success")) {
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Mail send successfully");
             failureResult = false;
             invoiceNotFound = false;
             successResult = true;
-
-
         }
-        if (mail_result != null && mail_result.equalsIgnoreCase("failure")) {
-            _logger.severe(accessDC.getDisplayRecord() + this.getClass() + " Mail was not generated");
-
-
+        if (mailResult != null && mailResult.equalsIgnoreCase("failure")) {
+            LOGGER.severe(accessDC.getDisplayRecord() + this.getClass() + " Mail was not generated");
             failureResult = true;
             invoiceNotFound = false;
             successResult = true;
 
         }
-        if (mail_result == null) {
-            _logger.severe(accessDC.getDisplayRecord() + this.getClass() + " Invoice not Found");
-
+        if (mailResult == null) {
+            LOGGER.severe(accessDC.getDisplayRecord() + this.getClass() + " Invoice not Found");
             failureResult = false;
             invoiceNotFound = true;
             successResult = false;
-
         }
 
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting ntering triggerMailProcess");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting ntering triggerMailProcess");
 
     }
 
@@ -2073,7 +1945,7 @@ public class InvoiceOverviewBean implements Serializable {
     }
 
     public void closeEmailPopup(ActionEvent actionEvent) {
-        getBindings().getConfirmation_mail_popup().hide();
+        getBindings().getConfirmationMailPopup().hide();
     }
 
     public void setResultPanel(RichPanelGroupLayout resultPanel) {
@@ -2093,29 +1965,27 @@ public class InvoiceOverviewBean implements Serializable {
     }
 
     public void resetResults(ValueChangeEvent valueChangeEvent) {
-
         successResult = false;
         invoiceNotFound = false;
         failureResult = false;
-
     }
 
     public void exportExcelSpecificActionInvoices(ActionEvent actionEvent) {
         resourceBundle = new EngageResourceBundle();
         shuttleStatus = false;
-        String langDB = (String)session.getAttribute("langReport");
-        if (langDB.equalsIgnoreCase("en_US")) {
+        String langDB = (String)session.getAttribute(LANG_REPORT_LITRERAL);
+        if (langDB.equalsIgnoreCase(Constants.LANGUAGE_ENGLISH)) {
             langDB = "EN";
         } else {
             langDB = langDB.substring(langDB.length() - 2, langDB.length());
             langDB = langDB.toUpperCase();
         }
 
-        ViewObject prtExportInfoRVO = ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
-        prtExportInfoRVO.setNamedWhereClauseParam("country_Code", langDB);
-        prtExportInfoRVO.setNamedWhereClauseParam("report_Page", "INVOICES");
-        prtExportInfoRVO.setNamedWhereClauseParam("report_Type", "Default");
-        prtExportInfoRVO.setNamedWhereClauseParam("select_Criteria", "Default");
+        ViewObject prtExportInfoRVO = ADFUtils.getViewObject(PRTEXPORTINFORVO1ITERATOR_LITRERAL);
+        prtExportInfoRVO.setNamedWhereClauseParam(Constants.COUNTRY_CODE_LITERAL, langDB);
+        prtExportInfoRVO.setNamedWhereClauseParam("report_Page", Constants.INVOICES_LITERAL);
+        prtExportInfoRVO.setNamedWhereClauseParam("report_Type", Constants.DEFAULT_LITERAL);
+        prtExportInfoRVO.setNamedWhereClauseParam(SELECT_CRITERIA_LITRERAL, Constants.DEFAULT_LITERAL);
         prtExportInfoRVO.executeQuery();
 
         if (prtExportInfoRVO.getEstimatedRowCount() > 0) {
@@ -2137,11 +2007,11 @@ public class InvoiceOverviewBean implements Serializable {
                 shuttleList.add(selectItem);
             }
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShuttleExcel());
-            getBindings().getSelectionExportOneRadio().setValue("xls");
+            getBindings().getSelectionExportOneRadio().setValue(Constants.XLS_LITERAL);
             getBindings().getSpecificColumns().show(new RichPopup.PopupHints());
         } else {
-            if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR_DB")) {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR_DB"), "");
+            if (resourceBundle.containsKey(TRANSACTION_SPECIFIC_ERROR_DB_LITRERAL)) {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject(TRANSACTION_SPECIFIC_ERROR_DB_LITRERAL), "");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
         }
@@ -2151,25 +2021,28 @@ public class InvoiceOverviewBean implements Serializable {
 
     public void getValuesForExcel(ActionEvent actionEvent) {
         resourceBundle = new EngageResourceBundle();
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside getValuesForExcel method of Invoices");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside getValuesForExcel method of Invoices");
         if (shuttleValue == null && getBindings().getSelectionExportOneRadio().getValue() == null) {
             if (shuttleValue == null) {
-                if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR")) {
-                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR"), "");
+                if (resourceBundle.containsKey(Constants.TRANSACTION_SPECIFIC_ERROR_LITERAL)) {
+                    FacesMessage msg =
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject(Constants.TRANSACTION_SPECIFIC_ERROR_LITERAL), "");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                 }
             } else {
-                if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR_SELECTION")) {
+                if (resourceBundle.containsKey(Constants.TRANSACTION_SPECIFIC_ERROR_SELECTION_LITERAL)) {
                     FacesMessage msg =
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR_SELECTION"), "");
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject(Constants.TRANSACTION_SPECIFIC_ERROR_SELECTION_LITERAL),
+                                         "");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                 }
             }
         } else {
             if (getBindings().getSelectionExportOneRadio().getValue() != null) {
                 if (shuttleValue == null) {
-                    if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR")) {
-                        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR"), "");
+                    if (resourceBundle.containsKey(Constants.TRANSACTION_SPECIFIC_ERROR_LITERAL)) {
+                        FacesMessage msg =
+                            new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject(Constants.TRANSACTION_SPECIFIC_ERROR_LITERAL), "");
                         FacesContext.getCurrentInstance().addMessage(null, msg);
                     }
                 } else {
@@ -2179,44 +2052,43 @@ public class InvoiceOverviewBean implements Serializable {
                     }
                 }
             } else {
-                if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR_SELECTION")) {
+                if (resourceBundle.containsKey(Constants.TRANSACTION_SPECIFIC_ERROR_SELECTION_LITERAL)) {
                     FacesMessage msg =
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR_SELECTION"), "");
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject(Constants.TRANSACTION_SPECIFIC_ERROR_SELECTION_LITERAL),
+                                         "");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                 }
             }
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting getValuesForExcel method of Invoices");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting getValuesForExcel method of Invoices");
     }
 
-    public String[] StringConversion(String passedVal) {
+    public String[] stringSplitter(String passedVal) {
 
-        List<String> container;
+        return passedVal.split(",");
 
-        String[] val = passedVal.split(",");
 
-        return val;
     }
 
     public String checkALL(String selectedValues, String type) {
         resourceBundle = new EngageResourceBundle();
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside checkALL method of Invoices");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside checkALL method of Invoices");
         String val = "";
         String[] listValues = selectedValues.split(",");
         if (listValues.length > 1) {
 
-            if ("Account".equalsIgnoreCase(type)) {
+            if (Constants.ACCOUNT_LITERAL.equalsIgnoreCase(type)) {
                 if (accountList.size() == listValues.length) {
-                    if (resourceBundle.containsKey("ENG_ALL")) {
-                        val = (String)resourceBundle.getObject("ENG_ALL");
+                    if (resourceBundle.containsKey(Constants.ENG_ALL_LITERAL)) {
+                        val = (String)resourceBundle.getObject(Constants.ENG_ALL_LITERAL);
                     }
                 } else {
                     val = selectedValues;
                 }
             } else {
                 if (partnerList.size() == listValues.length) {
-                    if (resourceBundle.containsKey("ENG_ALL")) {
-                        val = (String)resourceBundle.getObject("ENG_ALL");
+                    if (resourceBundle.containsKey(Constants.ENG_ALL_LITERAL)) {
+                        val = (String)resourceBundle.getObject(Constants.ENG_ALL_LITERAL);
                     }
                 } else {
                     val = selectedValues;
@@ -2226,7 +2098,7 @@ public class InvoiceOverviewBean implements Serializable {
         } else {
             val = selectedValues;
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting checkALL method of Invoices");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting checkALL method of Invoices");
         return val;
     }
 
@@ -2240,125 +2112,110 @@ public class InvoiceOverviewBean implements Serializable {
     }
 
     public void specificTransactionExportExcelListener(FacesContext facesContext, OutputStream outputStream) throws IOException, SQLException, Exception {
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Entering specificTransactionExportExcelListener");
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Entering specificTransactionExportExcelListener");
         resourceBundle = new EngageResourceBundle();
 
-        //////////////////////////////
-        defaultSelection = "Transactions";
+        defaultSelection = Constants.TRANSACTIONS__LITERAL;
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRadioBtnPopUp());
         if (shuttleValueTransaction == null && getBindings().getTransactionSelectionExportOneRadio().getValue() == null) {
             if (shuttleValueTransaction == null) {
-                if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR")) {
-                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR"), "");
+                if (resourceBundle.containsKey(Constants.TRANSACTION_SPECIFIC_ERROR_LITERAL)) {
+                    FacesMessage msg =
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject(Constants.TRANSACTION_SPECIFIC_ERROR_LITERAL), "");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                 }
 
             } else {
-                if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR_SELECTION")) {
+                if (resourceBundle.containsKey(Constants.TRANSACTION_SPECIFIC_ERROR_SELECTION_LITERAL)) {
                     FacesMessage msg =
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR_SELECTION"), "");
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject(Constants.TRANSACTION_SPECIFIC_ERROR_SELECTION_LITERAL),
+                                         "");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                 }
             }
         } else {
             if (getBindings().getTransactionSelectionExportOneRadio().getValue() != null) {
                 if (shuttleValueTransaction == null) {
-                    if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR")) {
-                        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR"), "");
+                    if (resourceBundle.containsKey(Constants.TRANSACTION_SPECIFIC_ERROR_LITERAL)) {
+                        FacesMessage msg =
+                            new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject(Constants.TRANSACTION_SPECIFIC_ERROR_LITERAL), "");
                         FacesContext.getCurrentInstance().addMessage(null, msg);
                     }
                 } else {
                     if (shuttleValueTransaction.size() > 0 && getBindings().getTransactionSelectionExportOneRadio().getValue() != null) {
                         shuttleStatusTransaction = true;
-                        //                        getBindings().getConfirmationExcel().show(new RichPopup.PopupHints());
                     }
 
                     String selectedValues = "";
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Size ==" + shuttleValueTransaction.size());
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Size ==" + shuttleValueTransaction.size());
                     resourceBundle = new EngageResourceBundle();
-
 
                     for (int i = 0; i < shuttleValueTransaction.size(); i++) {
 
                         selectedValues = selectedValues + shuttleValueTransaction.get(i).toString().trim() + "|";
                     }
 
-
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Formed String =" + selectedValues);
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Formed String =" + selectedValues);
                     String passedString = selectedValues.substring(0, selectedValues.length() - 1);
 
-
                     ReportBundle rb = new ReportBundle();
-                    String langDB = (String)session.getAttribute("langReport");
-                    if (langDB.equalsIgnoreCase("en_US")) {
-                        langDB = "en_US".toUpperCase();
+                    String langDB = (String)session.getAttribute(LANG_REPORT_LITRERAL);
+                    if (langDB.equalsIgnoreCase(Constants.LANGUAGE_ENGLISH)) {
+                        langDB.toUpperCase();
                     } else {
                         langDB = langDB.substring(langDB.length() - 2, langDB.length());
                         langDB = langDB.toUpperCase();
                     }
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "langDB =" + langDB);
-                    String columnsReport = rb.getContentsForReport("INVOICES", langDB, passedString);
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "From Resource Bundle:" + columnsReport);
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "langDB =" + langDB);
+                    String columnsReport = rb.getContentsForReport(Constants.INVOICES_LITERAL, langDB, passedString);
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "From Resource Bundle:" + columnsReport);
                     String[] headerDataValues = columnsReport.split(Constants.ENGAGE_REPORT_DELIMITER);
                     String[] headerValues = selectedValues.split(Constants.ENGAGE_REPORT_DELIMITER);
 
-
-                    if ("xls".equalsIgnoreCase(getBindings().getTransactionSelectionExportOneRadio().getValue().toString())) {
-                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Report in Excel Format");
+                    if (Constants.XLS_LITERAL.equalsIgnoreCase(getBindings().getTransactionSelectionExportOneRadio().getValue().toString())) {
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Report in Excel Format");
                         HSSFWorkbook XLS = new HSSFWorkbook();
                         HSSFRow XLS_SH_R = null;
                         HSSFCell XLS_SH_R_C = null;
-                        int intRow = 0;
                         HSSFCellStyle cs = XLS.createCellStyle();
                         HSSFFont f = XLS.createFont();
-
                         HSSFSheet XLS_SH = XLS.createSheet();
                         XLS.setSheetName(0, "Invoice Transactions Report");
-
-                        f.setFontHeightInPoints((short)10);
+                        f.setFontHeightInPoints((short)Constants.TEN);
                         f.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
                         f.setColor((short)0);
                         cs.setFont(f);
-
                         HSSFCellStyle csRight = XLS.createCellStyle();
                         HSSFFont fnumberData = XLS.createFont();
-                        fnumberData.setFontHeightInPoints((short)10);
+                        fnumberData.setFontHeightInPoints((short)Constants.TEN);
                         fnumberData.setColor((short)0);
                         csRight.setFont(fnumberData);
                         csRight.setAlignment(HSSFCellStyle.ALIGN_RIGHT);
-
-
                         HSSFCellStyle csData = XLS.createCellStyle();
                         HSSFFont fData = XLS.createFont();
-                        fData.setFontHeightInPoints((short)10);
+                        fData.setFontHeightInPoints((short)Constants.TEN);
                         fData.setColor((short)0);
                         csData.setFont(fData);
-
-                        XLS_SH.setColumnWidth(50, 50);
-
+                        XLS_SH.setColumnWidth(Constants.FIFTY, Constants.FIFTY);
 
                         HSSFCellStyle css = XLS.createCellStyle();
                         HSSFFont fcss = XLS.createFont();
-                        fcss.setFontHeightInPoints((short)10);
+                        fcss.setFontHeightInPoints((short)Constants.TEN);
                         fcss.setItalic(true);
                         fcss.setColor((short)0);
                         css.setFont(fcss);
-
 
                         XLS_SH_R = XLS_SH.createRow(0);
                         XLS_SH_R_C = XLS_SH_R.createCell(0);
                         XLS_SH_R_C.setCellStyle(cs);
                         if (resourceBundle.containsKey("ENGAGE_INVOICE_POPUP_1") && resourceBundle.containsKey("ENGAGE_INVOICE_POPUP_2")) {
 
-
                             DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                             Date date = sdf.parse(getBindings().getPopUpInvoiceDate().getValue().toString());
-
 
                             XLS_SH_R_C.setCellValue((String)resourceBundle.getObject("ENGAGE_INVOICE_POPUP_1") + ": " +
                                                     getBindings().getCollectiveInvoNoOt().getValue().toString() + " " +
                                                     (String)resourceBundle.getObject("ENGAGE_INVOICE_POPUP_2") + ": " + formatConversion(date));
-
 
                         }
 
@@ -2370,7 +2227,6 @@ public class InvoiceOverviewBean implements Serializable {
                             XLS_SH_R_C.setCellValue((String)resourceBundle.getObject("ENGAGE_INVOICE_NET") + ": " +
                                                     formatConversion(Float.parseFloat(getBindings().getPopUpInvNet().getValue().toString()), locale));
 
-
                         }
 
                         XLS_SH_R = XLS_SH.createRow(2);
@@ -2381,7 +2237,7 @@ public class InvoiceOverviewBean implements Serializable {
                                                     formatConversion(Float.parseFloat(getBindings().getPopUpInvVat().getValue().toString()), locale));
                         }
 
-                        XLS_SH_R = XLS_SH.createRow(3);
+                        XLS_SH_R = XLS_SH.createRow(Constants.THREE);
                         XLS_SH_R_C = XLS_SH_R.createCell(0);
                         XLS_SH_R_C.setCellStyle(cs);
                         if (resourceBundle.containsKey("ENGAGE_INVOICE_TOTAL_AMOUNT")) {
@@ -2389,29 +2245,25 @@ public class InvoiceOverviewBean implements Serializable {
                                                     formatConversion(Float.parseFloat(getBindings().getPopUpInvGross().getValue().toString()), locale));
                         }
 
-
-                        XLS_SH_R = XLS_SH.createRow(4);
-
-                        XLS_SH_R = XLS_SH.createRow(5);
+                        XLS_SH_R = XLS_SH.createRow(Constants.FOUR);
+                        XLS_SH_R = XLS_SH.createRow(Constants.FIVE);
                         XLS_SH_R_C = XLS_SH_R.createCell(0);
                         XLS_SH_R_C.setCellStyle(cs);
-                        if (resourceBundle.containsKey("ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN")) {
-                            XLS_SH_R_C.setCellValue((String)resourceBundle.getObject("ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN") + currencyCode);
+                        if (resourceBundle.containsKey(ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN_LITRERAL)) {
+                            XLS_SH_R_C.setCellValue((String)resourceBundle.getObject(ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN_LITRERAL) + currencyCode);
                         }
 
-
-                        XLS_SH_R = XLS_SH.createRow(6);
-
-                        XLS_SH_R = XLS_SH.createRow(7);
+                        XLS_SH_R = XLS_SH.createRow(Constants.SIX);
+                        XLS_SH_R = XLS_SH.createRow(Constants.SEVEN);
                         for (int col = 0; col < headerValues.length; col++) {
                             XLS_SH_R_C = XLS_SH_R.createCell(col);
                             XLS_SH_R_C.setCellStyle(css);
                             XLS_SH_R_C.setCellValue(headerValues[col]);
                         }
 
-                        int rowVal = 7;
+                        int rowVal = Constants.SEVEN;
 
-                        ViewObject cardTransactionVO = ADFUtils.getViewObject("PrtCardTransactionInvoiceRVO1Iterator");
+                        ViewObject cardTransactionVO = ADFUtils.getViewObject(PRTCARDTRANSACTIONINVOICERVO1ITERATOR_LITRERAL);
                         RowSetIterator iterator = cardTransactionVO.createRowSetIterator(null);
                         iterator.reset();
                         int rowNum = 0;
@@ -2425,7 +2277,7 @@ public class InvoiceOverviewBean implements Serializable {
                                     if ("Line No".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                         XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                         XLS_SH_R_C.setCellStyle(csData);
-                                        //                                XLS_SH_R_C.setCellValue(cellValue+1);
+
                                         XLS_SH_R_C.setCellValue(rowNum);
 
                                     } else if ("Invoice No".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
@@ -2452,13 +2304,13 @@ public class InvoiceOverviewBean implements Serializable {
                                             XLS_SH_R_C.setCellStyle(csData);
                                             XLS_SH_R_C.setCellValue(row.getStationName().toString().trim());
                                         }
-                                    } else if ("Card".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                    } else if (Constants.CARD_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                         if (row.getCard1Id() != null) {
                                             XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                             XLS_SH_R_C.setCellStyle(csData);
                                             XLS_SH_R_C.setCellValue(row.getCard1Id().toString().trim());
                                         }
-                                    } else if ("Net".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                    } else if (Constants.NET_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                         if (row.getInvoicedNetAmount() != null) {
                                             XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                             XLS_SH_R_C.setCellStyle(csRight);
@@ -2514,8 +2366,6 @@ public class InvoiceOverviewBean implements Serializable {
                                     } else if ("Gross amount, purchase currency".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
 
                                         if (row.getCurrencyGrossAmount() != null) {
-                                            //                                                        valForeign = true;
-                                            //                                                        valForeignLoc = cellValue;
                                             XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                             XLS_SH_R_C.setCellStyle(csRight);
                                             XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getCurrencyGrossAmount().toString())), locale));
@@ -2558,9 +2408,7 @@ public class InvoiceOverviewBean implements Serializable {
                                             XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getltPerHundred().toString())), locale));
                                         }
 
-                                    }
-                                    ////
-                                    else if ("Date".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                    } else if ("Date".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                         if (row.getTransactionDt() != null) {
                                             XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                             XLS_SH_R_C.setCellStyle(csData);
@@ -2571,13 +2419,13 @@ public class InvoiceOverviewBean implements Serializable {
                                             XLS_SH_R_C.setCellValue(formatConversion(new Date(row.getTransactionDt().timestampValue().getTime())) + "  " +
                                                                     time);
                                         }
-                                    } else if ("Partner".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                    } else if (Constants.PARTNER_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                         if (row.getPartnerId() != null) {
                                             XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                             XLS_SH_R_C.setCellStyle(csData);
                                             XLS_SH_R_C.setCellValue(row.getPartnerId().toString());
                                         }
-                                    } else if ("Account".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                    } else if (Constants.ACCOUNT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                         if (row.getAccountId() != null) {
                                             XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                             XLS_SH_R_C.setCellStyle(csData);
@@ -2589,14 +2437,14 @@ public class InvoiceOverviewBean implements Serializable {
                                             XLS_SH_R_C.setCellStyle(csData);
                                             XLS_SH_R_C.setCellValue(row.getCardTextLine2().toString());
                                         }
-                                    } else if ("Total Amount".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                    } else if (Constants.TOTAL_AMOUNT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                         if (row.getInvoicedGrossAmountRebated() != null) {
 
                                             XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                             XLS_SH_R_C.setCellStyle(csRight);
                                             XLS_SH_R_C.setCellValue(formatConversion(row.getInvoicedGrossAmountRebated(), locale));
                                         }
-                                    } else if ("Vat".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                    } else if (Constants.VAT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                         XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                         XLS_SH_R_C.setCellStyle(csRight);
                                         if (row.getInvoivedVatRebated() != null) {
@@ -2609,32 +2457,29 @@ public class InvoiceOverviewBean implements Serializable {
                                             XLS_SH_R_C.setCellStyle(csData);
                                             XLS_SH_R_C.setCellValue(row.getCardGroupDesc().toString());
                                         }
-                                    } else if ("CardGroup".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                    } else if (Constants.CARD_GROUP_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                         if (row.getCardgroupId() != null) {
                                             XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                             XLS_SH_R_C.setCellStyle(csData);
                                             XLS_SH_R_C.setCellValue(row.getCardgroupId().toString());
                                         }
-                                    } else if ("Card2Id".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
-                                        if (row.getCard2Id() != null) {
-                                            XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
-                                            XLS_SH_R_C.setCellStyle(csData);
-                                            XLS_SH_R_C.setCellValue(row.getCard2Id().toString());
-                                        }
+                                    } else if (Constants.CARD2ID_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim()) && row.getCard2Id() != null) {
+
+                                        XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                        XLS_SH_R_C.setCellStyle(csData);
+                                        XLS_SH_R_C.setCellValue(row.getCard2Id().toString());
+
                                     }
-
-
                                 }
-
                             }
                         }
                         iterator.closeRowSetIterator();
-                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Printing excel Data completed");
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Printing excel Data completed");
                         XLS.write(outputStream);
                         outputStream.close();
 
-                    } else if ("csv".equalsIgnoreCase(getBindings().getTransactionSelectionExportOneRadio().getValue().toString())) {
-                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Report in CSV Format");
+                    } else if (Constants.CSV_LITERAL.equalsIgnoreCase(getBindings().getTransactionSelectionExportOneRadio().getValue().toString())) {
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Report in CSV Format");
                         PrintWriter out = new PrintWriter(outputStream);
 
                         for (int col = 0; col < headerValues.length; col++) {
@@ -2644,7 +2489,7 @@ public class InvoiceOverviewBean implements Serializable {
                             }
                         }
                         out.println();
-                        ViewObject cardTransactionVO = ADFUtils.getViewObject("PrtCardTransactionInvoiceRVO1Iterator");
+                        ViewObject cardTransactionVO = ADFUtils.getViewObject(PRTCARDTRANSACTIONINVOICERVO1ITERATOR_LITRERAL);
                         RowSetIterator iterator = cardTransactionVO.createRowSetIterator(null);
                         iterator.reset();
                         int rowNum = 0;
@@ -2652,12 +2497,12 @@ public class InvoiceOverviewBean implements Serializable {
                             rowNum = rowNum + 1;
                             PrtCardTransactionInvoiceRVORowImpl row = (PrtCardTransactionInvoiceRVORowImpl)iterator.next();
                             if (row != null) {
-                                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Printing Data");
+                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + PRINTING_DATA_LITRERAL);
                                 for (int cellValue = 0; cellValue < headerDataValues.length; cellValue++) {
                                     if ("Line No".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
-                                        //                            if (row.getPartnerId() != null) {
+
                                         out.print(rowNum);
-                                        //                            }
+
                                         if (cellValue != headerDataValues.length - 1) {
                                             out.print(";");
                                         }
@@ -2689,14 +2534,14 @@ public class InvoiceOverviewBean implements Serializable {
                                         if (cellValue != headerDataValues.length - 1) {
                                             out.print(";");
                                         }
-                                    } else if ("Card".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                    } else if (Constants.CARD_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                         if (row.getCard1Id() != null) {
                                             out.print(row.getCard1Id().toString().trim());
                                         }
                                         if (cellValue != headerDataValues.length - 1) {
                                             out.print(";");
                                         }
-                                    } else if ("Net".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                    } else if (Constants.NET_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                         if (row.getInvoicedNetAmount() != null) {
                                             out.print((formatConversion((Float.parseFloat(row.getInvoicedNetAmount().toString())), locale)));
                                         }
@@ -2813,14 +2658,14 @@ public class InvoiceOverviewBean implements Serializable {
                                                 out.print(";");
                                             }
                                         }
-                                    } else if ("Partner".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                    } else if (Constants.PARTNER_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                         if (row.getPartnerId() != null) {
                                             out.print(row.getPartnerId().toString());
                                         }
                                         if (cellValue != headerValues.length - 1) {
                                             out.print(";");
                                         }
-                                    } else if ("Account".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                    } else if (Constants.ACCOUNT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                         if (row.getAccountId() != null) {
                                             out.print(row.getAccountId().toString());
                                         }
@@ -2834,14 +2679,14 @@ public class InvoiceOverviewBean implements Serializable {
                                         if (cellValue != headerValues.length - 1) {
                                             out.print(";");
                                         }
-                                    } else if ("Total Amount".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                    } else if (Constants.TOTAL_AMOUNT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                         if (row.getInvoicedNetAmountRebated() != null) {
                                             out.print(formatConversion(row.getInvoicedNetAmountRebated(), locale));
                                         }
                                         if (cellValue != headerValues.length - 1) {
                                             out.print(";");
                                         }
-                                    } else if ("Vat".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                    } else if (Constants.VAT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
 
                                         if (row.getInvoivedVatRebated() != null) {
                                             out.print(formatConversion(row.getInvoivedVatRebated(), locale));
@@ -2863,7 +2708,7 @@ public class InvoiceOverviewBean implements Serializable {
                                         if (cellValue != headerValues.length - 1) {
                                             out.print(";");
                                         }
-                                    } else if ("Card2Id".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                    } else if (Constants.CARD2ID_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                         if (row.getCard2Id() != null) {
                                             out.print(row.getCard2Id().toString());
                                         }
@@ -2880,8 +2725,8 @@ public class InvoiceOverviewBean implements Serializable {
                         iterator.closeRowSetIterator();
                         out.close();
                     } else {
-                        if ("csv2".equalsIgnoreCase(getBindings().getTransactionSelectionExportOneRadio().getValue().toString())) {
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Report in CSV2 Format");
+                        if (CSV2_LITRERAL.equalsIgnoreCase(getBindings().getTransactionSelectionExportOneRadio().getValue().toString())) {
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Report in CSV2 Format");
                             PrintWriter out = new PrintWriter(outputStream);
 
                             for (int col = 0; col < headerValues.length; col++) {
@@ -2893,7 +2738,7 @@ public class InvoiceOverviewBean implements Serializable {
 
                             }
                             out.println();
-                            ViewObject cardTransactionVO = ADFUtils.getViewObject("PrtCardTransactionInvoiceRVO1Iterator");
+                            ViewObject cardTransactionVO = ADFUtils.getViewObject(PRTCARDTRANSACTIONINVOICERVO1ITERATOR_LITRERAL);
                             RowSetIterator iterator = cardTransactionVO.createRowSetIterator(null);
                             iterator.reset();
                             int rowNum = 0;
@@ -2901,12 +2746,12 @@ public class InvoiceOverviewBean implements Serializable {
                                 rowNum = rowNum + 1;
                                 PrtCardTransactionInvoiceRVORowImpl row = (PrtCardTransactionInvoiceRVORowImpl)iterator.next();
                                 if (row != null) {
-                                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Printing Data");
+                                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + PRINTING_DATA_LITRERAL);
                                     for (int cellValue = 0; cellValue < headerDataValues.length; cellValue++) {
                                         if ("Line No".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
-                                            //                            if (row.getPartnerId() != null) {
+
                                             out.print(rowNum);
-                                            //                            }
+
                                             if (cellValue != headerDataValues.length - 1) {
                                                 out.print("|");
                                             }
@@ -2938,14 +2783,14 @@ public class InvoiceOverviewBean implements Serializable {
                                             if (cellValue != headerDataValues.length - 1) {
                                                 out.print("|");
                                             }
-                                        } else if ("Card".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                        } else if (Constants.CARD_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                             if (row.getCard1Id() != null) {
                                                 out.print(row.getCard1Id().toString().trim());
                                             }
                                             if (cellValue != headerDataValues.length - 1) {
                                                 out.print("|");
                                             }
-                                        } else if ("Net".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                        } else if (Constants.NET_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                             if (row.getInvoicedNetAmount() != null) {
                                                 out.print((formatConversion((Float.parseFloat(row.getInvoicedNetAmount().toString())), locale)));
                                             }
@@ -3062,14 +2907,14 @@ public class InvoiceOverviewBean implements Serializable {
                                                     out.print("|");
                                                 }
                                             }
-                                        } else if ("Partner".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                        } else if (Constants.PARTNER_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                             if (row.getPartnerId() != null) {
                                                 out.print(row.getPartnerId().toString());
                                             }
                                             if (cellValue != headerValues.length - 1) {
                                                 out.print("|");
                                             }
-                                        } else if ("Account".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                        } else if (Constants.ACCOUNT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                             if (row.getAccountId() != null) {
                                                 out.print(row.getAccountId().toString());
                                             }
@@ -3083,14 +2928,14 @@ public class InvoiceOverviewBean implements Serializable {
                                             if (cellValue != headerValues.length - 1) {
                                                 out.print("|");
                                             }
-                                        } else if ("Total Amount".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                        } else if (Constants.TOTAL_AMOUNT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                             if (row.getInvoicedNetAmountRebated() != null) {
                                                 out.print(formatConversion(row.getInvoicedNetAmountRebated(), locale));
                                             }
                                             if (cellValue != headerValues.length - 1) {
                                                 out.print("|");
                                             }
-                                        } else if ("Vat".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                        } else if (Constants.VAT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
 
                                             if (row.getInvoivedVatRebated() != null) {
                                                 out.print(formatConversion(row.getInvoivedVatRebated(), locale));
@@ -3113,7 +2958,7 @@ public class InvoiceOverviewBean implements Serializable {
                                                 out.print("|");
                                             }
                                         } else {
-                                            if ("Card2Id".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                            if (Constants.CARD2ID_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                                 if (row.getCard2Id() != null) {
                                                     out.print(row.getCard2Id().toString());
                                                 }
@@ -3122,8 +2967,6 @@ public class InvoiceOverviewBean implements Serializable {
                                                 }
                                             }
                                         }
-
-
                                     }
                                     out.println();
                                 }
@@ -3133,56 +2976,51 @@ public class InvoiceOverviewBean implements Serializable {
                             out.close();
                         }
                     }
-
-
                 }
             } else {
-                if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR_SELECTION")) {
+                if (resourceBundle.containsKey(Constants.TRANSACTION_SPECIFIC_ERROR_SELECTION_LITERAL)) {
                     FacesMessage msg =
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR_SELECTION"), "");
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject(Constants.TRANSACTION_SPECIFIC_ERROR_SELECTION_LITERAL),
+                                         "");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                 }
             }
         }
 
 
-        //////////////////////
-
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Exiting specificTransactionExportExcelListener");
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Exiting specificTransactionExportExcelListener");
 
 
     }
 
     public void specificExportExcelListener(FacesContext facesContext, OutputStream outputStream) throws IOException, SQLException, Exception {
         resourceBundle = new EngageResourceBundle();
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside specificExportExcelListener method of Invoices");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside specificExportExcelListener method of Invoices");
 
         String selectedValues = "";
         for (int i = 0; i < shuttleValue.size(); i++) {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Item =" + i + " value== " + shuttleValue.get(i));
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Item =" + i + " value== " + shuttleValue.get(i));
             selectedValues = selectedValues + shuttleValue.get(i).toString().trim() + "|";
         }
         selectedValues = selectedValues.substring(0, selectedValues.length() - 1);
 
         ReportBundle rb = new ReportBundle();
-        String langDB = (String)session.getAttribute("langReport");
-        if (langDB.equalsIgnoreCase("en_US")) {
-            langDB = "en_US".toUpperCase();
+        String langDB = (String)session.getAttribute(LANG_REPORT_LITRERAL);
+        if (langDB.equalsIgnoreCase(Constants.LANGUAGE_ENGLISH)) {
+            langDB.toUpperCase();
         } else {
             langDB = langDB.substring(langDB.length() - 2, langDB.length());
             langDB = langDB.toUpperCase();
         }
-        String columnsReport = rb.getContentsForReport("INVOICES", langDB, selectedValues);
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "From Resource Bundle:" + columnsReport);
+        String columnsReport = rb.getContentsForReport(Constants.INVOICES_LITERAL, langDB, selectedValues);
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "From Resource Bundle:" + columnsReport);
         String[] headerDataValues = columnsReport.split(Constants.ENGAGE_REPORT_DELIMITER);
-
         String partnerCompanyName = "";
-        String[] partnerCompanyNameList = StringConversion(populateStringValues(getBindings().getPartnerNumber().getValue().toString().trim()));
-
+        String[] partnerCompanyNameList = stringSplitter(populateStringValues(getBindings().getPartnerNumber().getValue().toString().trim()));
 
         String cardGroupDescName = "";
-        String[] cardGroupDescList = StringConversion(populateStringValues(getBindings().getCardGroup().getValue().toString().trim()));
-        String[] accountString = StringConversion(populateStringValues(getBindings().getAccount().getValue().toString().trim()));
+        String[] cardGroupDescList = stringSplitter(populateStringValues(getBindings().getCardGroup().getValue().toString().trim()));
+        String[] accountString = stringSplitter(populateStringValues(getBindings().getAccount().getValue().toString().trim()));
 
         for (int z = 0; z < partnerInfoList.size(); z++) {
             if (partnerCompanyNameList.length > 0 && partnerInfoList.get(z).getPartnerValue() != null) {
@@ -3190,24 +3028,24 @@ public class InvoiceOverviewBean implements Serializable {
                     if (partnerCompanyNameList[pa].trim() != null &&
                         partnerInfoList.get(z).getPartnerValue().toString().trim().equals(partnerCompanyNameList[pa].trim())) {
                         partnerCompanyName = partnerInfoList.get(z).getPartnerName();
-                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Partner value:" + partnerCompanyName);
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Partner value:" + partnerCompanyName);
                         if (partnerInfoList.get(z).getAccountList() != null && partnerInfoList.get(z).getAccountList().size() > 0) {
                             for (int i = 0; i < partnerInfoList.get(z).getAccountList().size(); i++) {
                                 if (accountString.length > 0) {
                                     for (int j = 0; j < accountString.length; j++) {
                                         if (partnerInfoList.get(z).getAccountList().get(i).getAccountNumber() != null &&
-                                            partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().trim().equals(accountString[j].trim())) {
-                                            if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup() != null &&
-                                                partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size() > 0) {
-                                                for (int k = 0; k < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size(); k++) {
-                                                    if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID() != null &&
-                                                        cardGroupDescList.length > 0) {
-                                                        for (int cg = 0; cg < cardGroupDescList.length; cg++) {
-                                                            if ((partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().trim()).equals(cardGroupDescList[cg].trim())) {
-                                                                cardGroupDescName =
-                                                                        cardGroupDescName + partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getDisplayCardGroupIdName() +
-                                                                        ",";
-                                                            }
+                                            partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().trim().equals(accountString[j].trim()) &&
+                                            partnerInfoList.get(z).getAccountList().get(i).getCardGroup() != null &&
+                                            partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size() > 0) {
+
+                                            for (int k = 0; k < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size(); k++) {
+                                                if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID() != null &&
+                                                    cardGroupDescList.length > 0) {
+                                                    for (int cg = 0; cg < cardGroupDescList.length; cg++) {
+                                                        if ((partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().trim()).equals(cardGroupDescList[cg].trim())) {
+                                                            cardGroupDescName =
+                                                                    cardGroupDescName + partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getDisplayCardGroupIdName() +
+                                                                    ",";
                                                         }
                                                     }
                                                 }
@@ -3225,33 +3063,31 @@ public class InvoiceOverviewBean implements Serializable {
             cardGroupDescName = (String)cardGroupDescName.subSequence(0, (cardGroupDescName.length()) - 1);
         }
 
-        if ("xls".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Report in Excel Format");
+        if (Constants.XLS_LITERAL.equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Report in Excel Format");
             HSSFWorkbook XLS = new HSSFWorkbook();
             HSSFRow XLS_SH_R = null;
             HSSFCell XLS_SH_R_C = null;
-            int intRow = 0;
             HSSFCellStyle cs = XLS.createCellStyle();
             HSSFFont f = XLS.createFont();
-
             HSSFSheet XLS_SH = XLS.createSheet();
             XLS.setSheetName(0, "InvoiceReport");
 
-            f.setFontHeightInPoints((short)10);
+            f.setFontHeightInPoints((short)Constants.TEN);
             f.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
             f.setColor((short)0);
             cs.setFont(f);
 
             HSSFCellStyle csRight = XLS.createCellStyle();
             HSSFFont fnumberData = XLS.createFont();
-            fnumberData.setFontHeightInPoints((short)10);
+            fnumberData.setFontHeightInPoints((short)Constants.TEN);
             fnumberData.setColor((short)0);
             csRight.setFont(fnumberData);
             csRight.setAlignment(HSSFCellStyle.ALIGN_RIGHT);
 
             HSSFCellStyle csTotalAmt = XLS.createCellStyle();
             HSSFFont fontTotal = XLS.createFont();
-            fontTotal.setFontHeightInPoints((short)10);
+            fontTotal.setFontHeightInPoints((short)Constants.TEN);
             fontTotal.setColor((short)0);
             fontTotal.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
             csTotalAmt.setFont(fontTotal);
@@ -3259,11 +3095,11 @@ public class InvoiceOverviewBean implements Serializable {
 
             HSSFCellStyle csData = XLS.createCellStyle();
             HSSFFont fData = XLS.createFont();
-            fData.setFontHeightInPoints((short)10);
+            fData.setFontHeightInPoints((short)Constants.TEN);
             fData.setColor((short)0);
             csData.setFont(fData);
 
-            XLS_SH.setColumnWidth(50, 50);
+            XLS_SH.setColumnWidth(Constants.FIFTY, Constants.FIFTY);
 
             XLS_SH_R = XLS_SH.createRow(0);
             XLS_SH_R_C = XLS_SH_R.createCell(0);
@@ -3272,9 +3108,8 @@ public class InvoiceOverviewBean implements Serializable {
             if (resourceBundle.containsKey("ENG_COMPANY")) {
 
                 XLS_SH_R_C.setCellValue((String)resourceBundle.getObject("ENG_COMPANY") + ": " +
-                                        checkALL((populateStringValues(getBindings().getPartnerNumber().getValue().toString())), "Partner"));
+                                        checkALL((populateStringValues(getBindings().getPartnerNumber().getValue().toString())), Constants.PARTNER_LITERAL));
             }
-
 
             XLS_SH_R = XLS_SH.createRow(1);
             XLS_SH_R_C = XLS_SH_R.createCell(0);
@@ -3288,31 +3123,23 @@ public class InvoiceOverviewBean implements Serializable {
             XLS_SH_R_C = XLS_SH_R.createCell(0);
             XLS_SH_R_C.setCellStyle(cs);
 
-
-            //            if (resourceBundle.containsKey("TYPE")) {
-            //                XLS_SH_R_C.setCellValue(resourceBundle.getObject("TYPE") + ": " + reportType);
-            //            }
-            //            XLS_SH_R = XLS_SH.createRow(3);
-            //            XLS_SH_R_C = XLS_SH_R.createCell(0);
-            //            XLS_SH_R_C.setCellStyle(cs);
-
             if (resourceBundle.containsKey("ENG_PERIOD")) {
 
                 XLS_SH_R_C.setCellValue(resourceBundle.getObject("ENG_PERIOD") + ": " + formatConversion((Date)getBindings().getFromDate().getValue()) + " " +
                                         resourceBundle.getObject("TO_DATE") + " " + formatConversion((Date)getBindings().getToDate().getValue()));
             }
-            XLS_SH_R = XLS_SH.createRow(3);
-            XLS_SH_R = XLS_SH.createRow(4);
-            XLS_SH_R = XLS_SH.createRow(5);
+            XLS_SH_R = XLS_SH.createRow(Constants.THREE);
+            XLS_SH_R = XLS_SH.createRow(Constants.FOUR);
+            XLS_SH_R = XLS_SH.createRow(Constants.FIVE);
             XLS_SH_R_C = XLS_SH_R.createCell(0);
             XLS_SH_R_C.setCellStyle(cs);
 
 
-            if (resourceBundle.containsKey("ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN")) {
-                XLS_SH_R_C.setCellValue(resourceBundle.getObject("ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN") + currencyCode);
+            if (resourceBundle.containsKey(ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN_LITRERAL)) {
+                XLS_SH_R_C.setCellValue(resourceBundle.getObject(ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN_LITRERAL) + currencyCode);
             }
 
-            for (int row = 6; row <= 7; row++) {
+            for (int row = Constants.SIX; row <= Constants.SEVEN; row++) {
                 XLS_SH_R = XLS_SH.createRow(row);
             }
 
@@ -3320,12 +3147,11 @@ public class InvoiceOverviewBean implements Serializable {
 
             HSSFCellStyle css = XLS.createCellStyle();
             HSSFFont fcss = XLS.createFont();
-            fcss.setFontHeightInPoints((short)10);
+            fcss.setFontHeightInPoints((short)Constants.TEN);
             fcss.setItalic(true);
             fcss.setColor((short)0);
             css.setFont(fcss);
-            XLS_SH_R = XLS_SH.createRow(7);
-
+            XLS_SH_R = XLS_SH.createRow(Constants.SEVEN);
 
             for (int col = 0; col < headerValues.length; col++) {
                 XLS_SH_R_C = XLS_SH_R.createCell(col);
@@ -3333,9 +3159,9 @@ public class InvoiceOverviewBean implements Serializable {
                 XLS_SH_R_C.setCellValue(headerValues[col].trim());
             }
 
-            int rowVal = 8;
+            int rowVal = Constants.EIGHT;
 
-            ViewObject prtNewInvoiceVO = ADFUtils.getViewObject("PrtNewInvoiceVO1Iterator");
+            ViewObject prtNewInvoiceVO = ADFUtils.getViewObject(PRTNEWINVOICEVO1ITERATOR_LITRERAL);
             RowSetIterator iterator = prtNewInvoiceVO.createRowSetIterator(null);
             iterator.reset();
             while (iterator.hasNext()) {
@@ -3344,13 +3170,13 @@ public class InvoiceOverviewBean implements Serializable {
                 XLS_SH_R = XLS_SH.createRow(rowVal);
                 if (row != null) {
                     for (int cellValue = 0; cellValue < headerDataValues.length; cellValue++) {
-                        if ("Partner".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        if (Constants.PARTNER_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getPartnerId() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getPartnerId().toString());
                             }
-                        } else if ("Account".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if (Constants.ACCOUNT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getAccountId() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
@@ -3382,36 +3208,36 @@ public class InvoiceOverviewBean implements Serializable {
                             }
                         }
 
-                        else if ("NET".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        else if (Constants.NET_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getnetAmount() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csRight);
                                 XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getnetAmount().toString())), locale));
                             }
-                        } else if ("VAT".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if (Constants.VAT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getInvVatAmt() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csRight);
                                 XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getInvVatAmt().toString())), locale));
                             }
-                        } else if ("Total Amount".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
-                            if (row.getInvGrossAmt() != null) {
-                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
-                                XLS_SH_R_C.setCellStyle(csRight);
-                                XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getInvGrossAmt().toString())), locale));
-                            }
+                        } else if (Constants.TOTAL_AMOUNT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim()) && row.getInvGrossAmt() != null) {
+
+                            XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                            XLS_SH_R_C.setCellStyle(csRight);
+                            XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getInvGrossAmt().toString())), locale));
+
                         }
                     }
 
                 }
             }
             iterator.closeRowSetIterator();
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Printing excel Data completed");
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Printing excel Data completed");
             XLS.write(outputStream);
             outputStream.close();
 
-        } else if ("csv".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Report in CSV Format");
+        } else if (Constants.CSV_LITERAL.equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Report in CSV Format");
 
             PrintWriter out = new PrintWriter(outputStream);
             String[] headerValues = selectedValues.split(Constants.ENGAGE_REPORT_DELIMITER);
@@ -3422,16 +3248,16 @@ public class InvoiceOverviewBean implements Serializable {
                 }
             }
             out.println();
-            ViewObject prtNewInvoiceVO = ADFUtils.getViewObject("PrtNewInvoiceVO1Iterator");
+            ViewObject prtNewInvoiceVO = ADFUtils.getViewObject(PRTNEWINVOICEVO1ITERATOR_LITRERAL);
             RowSetIterator iterator = prtNewInvoiceVO.createRowSetIterator(null);
             iterator.reset();
             while (iterator.hasNext()) {
                 PrtNewInvoiceVORowImpl row = (PrtNewInvoiceVORowImpl)iterator.next();
                 if (row != null) {
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Printing Data");
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + PRINTING_DATA_LITRERAL);
                     for (int cellValue = 0; cellValue < headerDataValues.length; cellValue++) {
 
-                        if ("Partner".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        if (Constants.PARTNER_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getPartnerId() != null) {
                                 out.print(row.getPartnerId().toString());
                             }
@@ -3440,7 +3266,7 @@ public class InvoiceOverviewBean implements Serializable {
                             }
                         }
 
-                        else if ("Account".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        else if (Constants.ACCOUNT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getAccountId() != null) {
                                 out.print(row.getAccountId().toString());
                             }
@@ -3476,21 +3302,21 @@ public class InvoiceOverviewBean implements Serializable {
                             }
                         }
 
-                        else if ("NET".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        else if (Constants.NET_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getnetAmount() != null) {
                                 out.print(row.getnetAmount().toString());
                             }
                             if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("VAT".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if (Constants.VAT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getInvVatAmt() != null) {
                                 out.print(row.getInvVatAmt().toString());
                             }
                             if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Total Amount".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if (Constants.TOTAL_AMOUNT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getInvGrossAmt() != null) {
                                 out.print(row.getInvGrossAmt().toString());
                             }
@@ -3506,8 +3332,8 @@ public class InvoiceOverviewBean implements Serializable {
             iterator.closeRowSetIterator();
             out.close();
         } else {
-            if ("csv2".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Report in CSV2 Format");
+            if (CSV2_LITRERAL.equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Report in CSV2 Format");
 
                 PrintWriter out = new PrintWriter(outputStream);
                 String[] headerValues = selectedValues.split(Constants.ENGAGE_REPORT_DELIMITER);
@@ -3518,16 +3344,16 @@ public class InvoiceOverviewBean implements Serializable {
                     }
                 }
                 out.println();
-                ViewObject prtNewInvoiceVO = ADFUtils.getViewObject("PrtNewInvoiceVO1Iterator");
+                ViewObject prtNewInvoiceVO = ADFUtils.getViewObject(PRTNEWINVOICEVO1ITERATOR_LITRERAL);
                 RowSetIterator iterator = prtNewInvoiceVO.createRowSetIterator(null);
                 iterator.reset();
                 while (iterator.hasNext()) {
                     PrtNewInvoiceVORowImpl row = (PrtNewInvoiceVORowImpl)iterator.next();
                     if (row != null) {
-                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Printing Data");
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + PRINTING_DATA_LITRERAL);
                         for (int cellValue = 0; cellValue < headerValues.length; cellValue++) {
 
-                            if ("Partner".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            if (Constants.PARTNER_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getPartnerId() != null) {
                                     out.print(row.getPartnerId().toString());
                                 }
@@ -3536,7 +3362,7 @@ public class InvoiceOverviewBean implements Serializable {
                                 }
                             }
 
-                            else if ("Account".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            else if (Constants.ACCOUNT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getAccountId() != null) {
                                     out.print(row.getAccountId().toString());
                                 }
@@ -3572,21 +3398,21 @@ public class InvoiceOverviewBean implements Serializable {
                                 }
                             }
 
-                            else if ("NET".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            else if (Constants.NET_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getnetAmount() != null) {
                                     out.print(row.getnetAmount().toString());
                                 }
                                 if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("VAT".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            } else if (Constants.VAT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getInvVatAmt() != null) {
                                     out.print(row.getInvVatAmt().toString());
                                 }
                                 if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Total Amount".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            } else if (Constants.TOTAL_AMOUNT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getInvGrossAmt() != null) {
                                     out.print(row.getInvGrossAmt().toString());
                                 }
@@ -3603,7 +3429,7 @@ public class InvoiceOverviewBean implements Serializable {
                 out.close();
             }
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting specificExportExcelListener method of Invoices");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting specificExportExcelListener method of Invoices");
     }
 
     public String excelDownLoad() {
@@ -3675,43 +3501,27 @@ public class InvoiceOverviewBean implements Serializable {
 
             (FilterableQueryDescriptor)getBindings().getInvoiceResults().getFilterModel();
 
-        if (queryDescriptor != null && queryDescriptor.getFilterCriteria() != null)
-
-        {
-
+        if (queryDescriptor != null && queryDescriptor.getFilterCriteria() != null) {
             queryDescriptor.getFilterCriteria().clear();
-
             getBindings().getInvoiceResults().queueEvent(new QueryEvent(getBindings().getInvoiceResults(), queryDescriptor));
-
         }
-
 
         FilterableQueryDescriptor queryDescriptor2 =
 
             (FilterableQueryDescriptor)getBindings().getInvoiceResultsPopup().getFilterModel();
 
-        if (queryDescriptor2 != null && queryDescriptor2.getFilterCriteria() != null)
-
-        {
-
+        if (queryDescriptor2 != null && queryDescriptor2.getFilterCriteria() != null) {
             queryDescriptor2.getFilterCriteria().clear();
-
             getBindings().getInvoiceResultsPopup().queueEvent(new QueryEvent(getBindings().getInvoiceResultsPopup(), queryDescriptor2));
-
         }
 
         FilterableQueryDescriptor queryDescriptor3 =
 
             (FilterableQueryDescriptor)getBindings().getInvoiceResultsCollection().getFilterModel();
 
-        if (queryDescriptor3 != null && queryDescriptor3.getFilterCriteria() != null)
-
-        {
-
+        if (queryDescriptor3 != null && queryDescriptor3.getFilterCriteria() != null) {
             queryDescriptor3.getFilterCriteria().clear();
-
             getBindings().getInvoiceResultsCollection().queueEvent(new QueryEvent(getBindings().getInvoiceResultsCollection(), queryDescriptor3));
-
         }
 
 
@@ -3766,22 +3576,22 @@ public class InvoiceOverviewBean implements Serializable {
     public List getShuttleValue() {
 
         if (!shuttleStatus) {
-            String langDB = (String)session.getAttribute("langReport");
-            if (langDB.equalsIgnoreCase("en_US")) {
+            String langDB = (String)session.getAttribute(LANG_REPORT_LITRERAL);
+            if (langDB.equalsIgnoreCase(Constants.LANGUAGE_ENGLISH)) {
                 langDB = "EN";
             } else {
                 langDB = langDB.substring(langDB.length() - 2, langDB.length());
                 langDB = langDB.toUpperCase();
             }
             shuttleValue = new ArrayList();
-            ViewObject prtExportInfoRVO = ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
-            prtExportInfoRVO.setNamedWhereClauseParam("country_Code", langDB);
-            prtExportInfoRVO.setNamedWhereClauseParam("report_Page", "INVOICES");
-            //            prtExportInfoRVO.setNamedWhereClauseParam("report_Type", "Default");
-            prtExportInfoRVO.setNamedWhereClauseParam("select_Criteria", "Default");
+            ViewObject prtExportInfoRVO = ADFUtils.getViewObject(PRTEXPORTINFORVO1ITERATOR_LITRERAL);
+            prtExportInfoRVO.setNamedWhereClauseParam(Constants.COUNTRY_CODE_LITERAL, langDB);
+            prtExportInfoRVO.setNamedWhereClauseParam("report_Page", Constants.INVOICES_LITERAL);
+
+            prtExportInfoRVO.setNamedWhereClauseParam(SELECT_CRITERIA_LITRERAL, Constants.DEFAULT_LITERAL);
             prtExportInfoRVO.executeQuery();
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count in CardGroup shuttle:" +
-                         prtExportInfoRVO.getEstimatedRowCount());
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count in CardGroup shuttle:" +
+                        prtExportInfoRVO.getEstimatedRowCount());
             if (prtExportInfoRVO.getEstimatedRowCount() > 0) {
 
                 while (prtExportInfoRVO.hasNext()) {
@@ -3790,7 +3600,7 @@ public class InvoiceOverviewBean implements Serializable {
                 }
             }
             if (strInvoicesPrepopulatedColumns != null) {
-                //                shuttleStatus=true;
+
                 String[] strHead = strInvoicesPrepopulatedColumns.split(Constants.ENGAGE_REPORT_DELIMITER);
                 for (int col = 0; col < strHead.length; col++) {
                     shuttleValue.add(strHead[col].trim());
@@ -3817,13 +3627,13 @@ public class InvoiceOverviewBean implements Serializable {
     }
 
     public String getContentType() {
-        if ("xls".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+        if (Constants.XLS_LITERAL.equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
             contentType = "application/vnd.ms-excel";
-        } else if ("csv".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
-            contentType = "text/plain";
+        } else if (Constants.CSV_LITERAL.equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+            contentType = Constants.CONTENT_TYPE_LITERAL;
         } else {
-            if ("csv2".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
-                contentType = "text/plain";
+            if (CSV2_LITRERAL.equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+                contentType = Constants.CONTENT_TYPE_LITERAL;
             }
         }
 
@@ -3836,12 +3646,12 @@ public class InvoiceOverviewBean implements Serializable {
 
     public String getFileName() {
 
-        if ("xls".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+        if (Constants.XLS_LITERAL.equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
             fileName = "Invoice_Report.xls";
-        } else if ("csv".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+        } else if (Constants.CSV_LITERAL.equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
             fileName = "Invoice_Report.csv";
         } else {
-            if ("csv2".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+            if (CSV2_LITRERAL.equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
                 fileName = "Invoice_Report.csv";
             }
         }
@@ -3851,13 +3661,13 @@ public class InvoiceOverviewBean implements Serializable {
 
     public String getTransactionFileName() {
 
-        if ("xls".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+        if (Constants.XLS_LITERAL.equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
             fileName = "Transaction_Report.xls";
-        } else if ("csv".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
-            fileName = "Transaction_Report.csv";
+        } else if (Constants.CSV_LITERAL.equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+            fileName = TRANSACTION_REPORT_LITRERAL;
         } else {
-            if ("csv2".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
-                fileName = "Transaction_Report.csv";
+            if (CSV2_LITRERAL.equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+                fileName = TRANSACTION_REPORT_LITRERAL;
             }
         }
         return fileName;
@@ -3871,12 +3681,12 @@ public class InvoiceOverviewBean implements Serializable {
         return partnerValue;
     }
 
-    public void setPartner_req(String partner_req) {
-        this.partner_req = partner_req;
+    public void setPartnerReq(String partnerReq) {
+        this.partnerReq = partnerReq;
     }
 
-    public String getPartner_req() {
-        return partner_req;
+    public String getPartnerReq() {
+        return partnerReq;
     }
 
     public void setCardGroupRadio(String cardGroupRadio) {
@@ -3903,8 +3713,8 @@ public class InvoiceOverviewBean implements Serializable {
     public List getShuttleValueTransaction() {
 
         if (!shuttleStatusTransaction) {
-            String langDB = (String)session.getAttribute("langReport");
-            if (langDB.equalsIgnoreCase("en_US")) {
+            String langDB = (String)session.getAttribute(LANG_REPORT_LITRERAL);
+            if (langDB.equalsIgnoreCase(Constants.LANGUAGE_ENGLISH)) {
                 langDB = "EN";
             } else {
                 langDB = langDB.substring(langDB.length() - 2, langDB.length());
@@ -3912,16 +3722,14 @@ public class InvoiceOverviewBean implements Serializable {
             }
 
             shuttleValueTransaction = new ArrayList();
-            ViewObject prtExportInfoRVO = ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
-
-            prtExportInfoRVO.setNamedWhereClauseParam("country_Code", langDB);
+            ViewObject prtExportInfoRVO = ADFUtils.getViewObject(PRTEXPORTINFORVO1ITERATOR_LITRERAL);
+            prtExportInfoRVO.setNamedWhereClauseParam(Constants.COUNTRY_CODE_LITERAL, langDB);
             prtExportInfoRVO.setNamedWhereClauseParam("report_Page", "TRANSACTION");
-            prtExportInfoRVO.setNamedWhereClauseParam("report_Type", "Default");
-            prtExportInfoRVO.setNamedWhereClauseParam("select_Criteria", "Default");
+            prtExportInfoRVO.setNamedWhereClauseParam("report_Type", Constants.DEFAULT_LITERAL);
+            prtExportInfoRVO.setNamedWhereClauseParam(SELECT_CRITERIA_LITRERAL, Constants.DEFAULT_LITERAL);
             prtExportInfoRVO.executeQuery();
-
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count in CardGroup shuttle:" +
-                         prtExportInfoRVO.getEstimatedRowCount());
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count in CardGroup shuttle:" +
+                        prtExportInfoRVO.getEstimatedRowCount());
 
             if (prtExportInfoRVO.getEstimatedRowCount() > 0) {
                 while (prtExportInfoRVO.hasNext()) {
@@ -3969,13 +3777,13 @@ public class InvoiceOverviewBean implements Serializable {
 
     public String getContentTypeTransaction() {
 
-        if ("xls".equalsIgnoreCase(getBindings().getTransactionSelectionExportOneRadio().getValue().toString())) {
+        if (Constants.XLS_LITERAL.equalsIgnoreCase(getBindings().getTransactionSelectionExportOneRadio().getValue().toString())) {
             contentTypeTransaction = "application/vnd.ms-excel";
-        } else if ("csv".equalsIgnoreCase(getBindings().getTransactionSelectionExportOneRadio().getValue().toString())) {
-            contentTypeTransaction = "text/plain";
+        } else if (Constants.CSV_LITERAL.equalsIgnoreCase(getBindings().getTransactionSelectionExportOneRadio().getValue().toString())) {
+            contentTypeTransaction = Constants.CONTENT_TYPE_LITERAL;
         } else {
-            if ("csv2".equalsIgnoreCase(getBindings().getTransactionSelectionExportOneRadio().getValue().toString())) {
-                contentTypeTransaction = "text/plain";
+            if (CSV2_LITRERAL.equalsIgnoreCase(getBindings().getTransactionSelectionExportOneRadio().getValue().toString())) {
+                contentTypeTransaction = Constants.CONTENT_TYPE_LITERAL;
             }
         }
         return contentTypeTransaction;
@@ -3988,13 +3796,13 @@ public class InvoiceOverviewBean implements Serializable {
     public String getTransactionFileNamefileName() {
 
 
-        if ("xls".equalsIgnoreCase(getBindings().getTransactionSelectionExportOneRadio().getValue().toString())) {
+        if (Constants.XLS_LITERAL.equalsIgnoreCase(getBindings().getTransactionSelectionExportOneRadio().getValue().toString())) {
             transactionFileNamefileName = "Transaction_Report.xls";
-        } else if ("csv".equalsIgnoreCase(getBindings().getTransactionSelectionExportOneRadio().getValue().toString())) {
-            transactionFileNamefileName = "Transaction_Report.csv";
+        } else if (Constants.CSV_LITERAL.equalsIgnoreCase(getBindings().getTransactionSelectionExportOneRadio().getValue().toString())) {
+            transactionFileNamefileName = TRANSACTION_REPORT_LITRERAL;
         } else {
-            if ("csv2".equalsIgnoreCase(getBindings().getTransactionSelectionExportOneRadio().getValue().toString())) {
-                transactionFileNamefileName = "Transaction_Report.csv";
+            if (CSV2_LITRERAL.equalsIgnoreCase(getBindings().getTransactionSelectionExportOneRadio().getValue().toString())) {
+                transactionFileNamefileName = TRANSACTION_REPORT_LITRERAL;
             }
         }
         return transactionFileNamefileName;
@@ -4002,8 +3810,8 @@ public class InvoiceOverviewBean implements Serializable {
 
 
     public void executeInvoiceTransactions(String invoiceType, String invoiceNumber) {
-        ViewObject cardTransactionVO = ADFUtils.getViewObject("PrtCardTransactionInvoiceRVO1Iterator");
-        //            resetTableFilter();
+        ViewObject cardTransactionVO = ADFUtils.getViewObject(PRTCARDTRANSACTIONINVOICERVO1ITERATOR_LITRERAL);
+
         if (invoiceNumber != null && invoiceType != null) {
             if (invoiceType.equals("FAK") || invoiceType.equals(Constants.ENGAGE_INVOICE_TX_LINK)) {
                 cardTransactionVO.setWhereClause("INVOICE_NUMBER_NON_COLLECTIVE =:nonCollecInvNo and pals_country_code=:country_code");
@@ -4017,14 +3825,14 @@ public class InvoiceOverviewBean implements Serializable {
                     cardTransactionVO.defineNamedWhereClauseParam("country_code", lang, null);
                 }
             }
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "cardTransaction Query=" + cardTransactionVO.getQuery());
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "cardTransaction Query=" + cardTransactionVO.getQuery());
             cardTransactionVO.executeQuery();
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "cardTransactionVO estimatedRow:" + cardTransactionVO.getEstimatedRowCount());
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "cardTransactionVO estimatedRow:" + cardTransactionVO.getEstimatedRowCount());
         }
     }
 
     public void removeDynamicconditionOnTxQuery() {
-        ViewObject cardTransactionVO = ADFUtils.getViewObject("PrtCardTransactionInvoiceRVO1Iterator");
+        ViewObject cardTransactionVO = ADFUtils.getViewObject(PRTCARDTRANSACTIONINVOICERVO1ITERATOR_LITRERAL);
         if ("INVOICE_NUMBER_COLLECTIVE =:collecInvNo and pals_country_code=:country_code".equalsIgnoreCase(cardTransactionVO.getWhereClause())) {
             cardTransactionVO.removeNamedWhereClauseParam("collecInvNo");
             cardTransactionVO.removeNamedWhereClauseParam("country_code");
@@ -4060,22 +3868,31 @@ public class InvoiceOverviewBean implements Serializable {
         return invoiceType;
     }
 
+    public void setComparator(Comparator<SelectItem> comparator) {
+        this.comparator = comparator;
+    }
+
+    public Comparator<SelectItem> getComparator() {
+        return comparator;
+    }
+
+
     public void cardGroupVCE(ValueChangeEvent valueChangeEvent) {
-        
-//        displayErrorComponent(getBindings().getCardGroup(), false);
-//        displayErrorComponent(getBindings().getCard(), false);
-//        isComponentEmpty(getBindings().getCardGroup());
-//        isComponentEmpty(getBindings().getCard());
-//        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());
-//        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCard());
+
+        //        displayErrorComponent(getBindings().getCardGroup(), false);
+        //        displayErrorComponent(getBindings().getCard(), false);
+        //        isComponentEmpty(getBindings().getCardGroup());
+        //        isComponentEmpty(getBindings().getCard());
+        //        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());
+        //        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCard());
     }
 
     public void cardVCE(ValueChangeEvent valueChangeEvent) {
-        
-//        isComponentEmpty(getBindings().getCardGroup());
-//        isComponentEmpty(getBindings().getCard());
-//        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());
-//        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCard());
+
+        //        isComponentEmpty(getBindings().getCardGroup());
+        //        isComponentEmpty(getBindings().getCard());
+        //        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());
+        //        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCard());
     }
 
 
@@ -4103,9 +3920,9 @@ public class InvoiceOverviewBean implements Serializable {
         private RichPanelGroupLayout transactionPanel;
         private RichPanelGroupLayout invoiceCollectionPanel;
         private RichOutputText collectiveInvoNoOt;
-        private RichPopup confirmation_mail_popup;
-        private RichInputText email_recipient_popup;
-        private RichOutputText invoice_form;
+        private RichPopup confirmationMailPopup;
+        private RichInputText emailRecipientPopup;
+        private RichOutputText invoiceForm;
         private RichPopup specificColumnsTransactions;
         private RichSelectManyShuttle shuttleExcelTransactions;
         private RichSelectOneRadio transactionSelectionExportOneRadio;
@@ -4157,12 +3974,12 @@ public class InvoiceOverviewBean implements Serializable {
         }
 
 
-        public void setConfirmation_mail_popup(RichPopup confirmation_mail_popup) {
-            this.confirmation_mail_popup = confirmation_mail_popup;
+        public void setConfirmationMailPopup(RichPopup confirmationMailPopup) {
+            this.confirmationMailPopup = confirmationMailPopup;
         }
 
-        public RichPopup getConfirmation_mail_popup() {
-            return confirmation_mail_popup;
+        public RichPopup getConfirmationMailPopup() {
+            return confirmationMailPopup;
         }
 
 
@@ -4190,47 +4007,47 @@ public class InvoiceOverviewBean implements Serializable {
             return popUpInvGross;
         }
 
-        public void setEmail_recipient_popup(RichInputText email_recipient_popup) {
+        //        public void setEmailRecipientPopup(RichInputText EmailRecipientPopup) {
+        //
+        //            if (setreceipent) {
+        //                if (session != null) {
+        //                    if (null != session.getAttribute(Constants.SESSION_USER_INFO)) {
+        //                        globalUser = (User)session.getAttribute(Constants.SESSION_USER_INFO);
+        //                        if (globalUser.getEmailID() != null) {
+        //                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Invoice bean : " + "user email id in my profile bean " +
+        //                                        globalUser.getEmailID());
+        //                            EmailRecipientPopup.setValue(globalUser.getEmailID().trim());
+        //
+        //                        } else {
+        //                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Invoice bean : " + "user first name in my profile bean " +
+        //                                        globalUser.getFirstName());
+        //                            EmailRecipientPopup.setValue(globalUser.getFirstName().toString().trim());
+        //                        }
+        //                    }
+        //
+        //
+        //                } else {
+        //                    EmailRecipientPopup.setValue("");
+        //                }
+        //                setreceipent = false;
+        //
+        //
+        //            }
+        //
+        //
+        //            this.emailRecipientPopup = EmailRecipientPopup;
+        //        }
+        //
+        //        public RichInputText getEmailRecipientPopup() {
+        //            return emailRecipientPopup;
+        //        }
 
-            if (setreceipent) {
-                if (session != null) {
-                    if (null != session.getAttribute(Constants.SESSION_USER_INFO)) {
-                        global_user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
-                        if (global_user.getEmailID() != null) {
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Invoice bean : " + "user email id in my profile bean " +
-                                         global_user.getEmailID());
-                            email_recipient_popup.setValue(global_user.getEmailID().trim());
-
-                        } else {
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Invoice bean : " + "user first name in my profile bean " +
-                                         global_user.getFirstName());
-                            email_recipient_popup.setValue(global_user.getFirstName().toString().trim());
-                        }
-                    }
-
-
-                } else {
-                    email_recipient_popup.setValue("");
-                }
-                setreceipent = false;
-
-
-            }
-
-
-            this.email_recipient_popup = email_recipient_popup;
+        public void setInvoiceForm(RichOutputText invoiceForm) {
+            this.invoiceForm = invoiceForm;
         }
 
-        public RichInputText getEmail_recipient_popup() {
-            return email_recipient_popup;
-        }
-
-        public void setInvoice_form(RichOutputText invoice_form) {
-            this.invoice_form = invoice_form;
-        }
-
-        public RichOutputText getInvoice_form() {
-            return invoice_form;
+        public RichOutputText getInvoiceForm() {
+            return invoiceForm;
         }
 
         public void setSpecificColumnsTransactions(RichPopup specificColumnsTransactions) {
@@ -4448,6 +4265,41 @@ public class InvoiceOverviewBean implements Serializable {
 
         public RichTable getNonInvoiceCollectiveTxTable() {
             return nonInvoiceCollectiveTxTable;
+        }
+
+        public void setEmailRecipientPopup(RichInputText emailRecipientPopup) {
+
+
+            if (setreceipent) {
+                if (session != null) {
+                    if (null != session.getAttribute(Constants.SESSION_USER_INFO)) {
+                        globalUser = (User)session.getAttribute(Constants.SESSION_USER_INFO);
+                        if (globalUser.getEmailID() != null) {
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Invoice bean : " + "user email id in my profile bean " +
+                                        globalUser.getEmailID());
+                            emailRecipientPopup.setValue(globalUser.getEmailID().trim());
+
+                        } else {
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Invoice bean : " + "user first name in my profile bean " +
+                                        globalUser.getFirstName());
+                            emailRecipientPopup.setValue(globalUser.getFirstName().toString().trim());
+                        }
+                    }
+
+
+                } else {
+                    emailRecipientPopup.setValue("");
+                }
+                setreceipent = false;
+
+
+            }
+
+            this.emailRecipientPopup = emailRecipientPopup;
+        }
+
+        public RichInputText getEmailRecipientPopup() {
+            return emailRecipientPopup;
         }
     }
 }

@@ -368,7 +368,7 @@
 
               <af:spacer width="240" height="10" id="s5"/>
               <af:commandButton text="#{sfr.SEARCH}" id="cb2"
-              actionListener="#{pageFlowScope.TransactionOverviewBean.searchTransactionAction_event}">
+              actionListener="#{pageFlowScope.TransactionOverviewBean.searchTransactionActionEvent}">
               </af:commandButton>
               <af:spacer width="20" height="10" id="s23"/>
               <af:commandButton text="#{sfr.CLEAR}" id="cb3" partialSubmit="true"
@@ -745,7 +745,7 @@
           <af:outputText value="#{row.Odometer}" id="ot76" visible="#{row.OdometerPortal eq null ? true : false}" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>
           <af:commandLink text="#{row.OdometerPortal}" visible="#{row.OdometerPortal ne null ? true : false}"
                           id="cl1" styleClass="links_odometer af_goLink "
-                          actionListener="#{pageFlowScope.TransactionOverviewBean.odometerLink_Action}">
+                          actionListener="#{pageFlowScope.TransactionOverviewBean.odoMeterLinkAction}">
                           </af:commandLink>
           <af:commandImageLink id="cil1"
                             action="#{pageFlowScope.TransactionOverviewBean.odometerEditAction}"
@@ -1115,7 +1115,7 @@
     </af:popup>
     </af:panelGroupLayout>
     <af:popup contentDelivery="immediate" autoCancel="disabled"
-              binding="#{pageFlowScope.TransactionOverviewBean.bindings.odometer_PopUp}"
+              binding="#{pageFlowScope.TransactionOverviewBean.bindings.odometerPopUp}"
               id="p1">
     <af:dialog closeIconVisible="true" type="none">
       <af:panelGroupLayout id="pgl33" layout="horizontal" valign="top"

@@ -7,7 +7,6 @@ import com.sfr.engage.core.CardGroupInfo;
 import com.sfr.engage.core.PartnerInfo;
 import com.sfr.engage.model.queries.rvo.PrtCardTypeNameMapVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtCardVORowImpl;
-import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.util.ADFUtils;
 import com.sfr.util.AccessDataControl;
 import com.sfr.util.constants.Constants;
@@ -63,54 +62,41 @@ import org.apache.myfaces.trinidad.model.RowKeySetImpl;
 public class AccountSummaryBean implements Serializable {
     @SuppressWarnings("compatibility")
     private static final long serialVersionUID = 1L;
-
     private String overviewText;
-
     private String id;
-
     private List<String> cardTypeList = new ArrayList<String>();
-
     private String accountId;
     private String cardGroupId;
     private String cardId;
     private String partnerId;
     private String partnerIdName;
-
-    RowKeySetImpl rksImpl;
-
+    private RowKeySetImpl rksImpl;
     private PartnerInfo partner = new PartnerInfo();
     private AccountInfo account = new AccountInfo();
-
-    private List<AccountInfo> AccountList = new ArrayList<AccountInfo>();
+    private List<AccountInfo> accountList = new ArrayList<AccountInfo>();
     private List<PartnerInfo> partnerList = new ArrayList<PartnerInfo>();
-    private List<CardGroupInfo> cardgrouplist = new ArrayList<CardGroupInfo>();
     private HttpServletRequest request;
     private ExternalContext ectx;
     private HttpSession session;
     private boolean displayAccountOverview = false;
     private boolean displayCardGroupOverview = false;
     private transient Bindings bindings;
-    JUCtrlHierNodeBinding dropNodeParent;
-    JUCtrlHierNodeBinding rootNode;
-    AccessDataControl accessDC = new AccessDataControl();
+    private JUCtrlHierNodeBinding dropNodeParent;
+    private JUCtrlHierNodeBinding rootNode;
+    private AccessDataControl accessDC = new AccessDataControl();
     private boolean businessProfile = false;
     private boolean privateProfile = false;
     private String profile = "private";
-    String cardType = "";
+    private String cardType = "";
     private User userInfo;
-    public static final ADFLogger log = AccessDataControl.getSFRLogger();
+    public static final ADFLogger LOGGER = AccessDataControl.getSFRLogger();
     private String firstName = "";
     private String lastName = "";
-    private List<AccountInfo> AccountListDefault = new ArrayList<AccountInfo>();
     private List<PartnerInfo> partnerListDefault = new ArrayList<PartnerInfo>();
-    private List<CardGroupInfo> cardgrouplistDefault = new ArrayList<CardGroupInfo>();
-    private List<CardGroupInfo> cardlistDefault = new ArrayList<CardGroupInfo>();
     private String partnerName = "";
     private String accountName = "";
     private String cardgroupName = "";
     private String cardName = "";
-    private PartnerInfo partnerDefault = new PartnerInfo();
-    private AccountInfo accountDefault = new AccountInfo();
     private boolean isPartner = false;
     private boolean ismanager = false;
     private boolean isEmployee = false;
@@ -119,7 +105,6 @@ public class AccountSummaryBean implements Serializable {
     private Map<String, String> cardTypeNameMap;
     private String searchLevel;
     private String searchString;
-
     private List<String> cardTextline2SocList = new ArrayList<String>();
     private List<String> cardgroupsSocList = new ArrayList<String>();
     private List<String> cardsSocList = new ArrayList<String>();
@@ -136,7 +121,6 @@ public class AccountSummaryBean implements Serializable {
     private boolean displayperblockedandtempcards = false;
     private boolean displayallcards = true;
     private RichPanelGroupLayout noSearchResults;
-    private EngageResourceBundle resourceBundle;
     private RichPanelGroupLayout treePanel;
     private List filterAttributes = new ArrayList();
     private RichTree blockcardshiddentree;
@@ -149,8 +133,7 @@ public class AccountSummaryBean implements Serializable {
 
     public AccountSummaryBean() {
 
-
-        log.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside Constructor of Account Summary");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside Constructor of Account Summary");
         RichTree tree = getBindings().getAdfTree();
         if (tree != null) {
             RowKeySet _disclosedRowKeys = tree.getDisclosedRowKeys();
@@ -158,7 +141,7 @@ public class AccountSummaryBean implements Serializable {
             if (_disclosedRowKeys != null && _disclosedRowKeys.size() > 0) {
                 _disclosedRowKeys.clear();
             } else {
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " No key to disclose in adf tree");
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " No key to disclose in adf tree");
             }
 
             tree.setDisclosedRowKeys(_disclosedRowKeys);
@@ -189,7 +172,7 @@ public class AccountSummaryBean implements Serializable {
 
             if (session != null) {
 
-                log.info(accessDC.getDisplayRecord() + " session not null getting adfTree from session");
+                LOGGER.info(accessDC.getDisplayRecord() + " session not null getting adfTree from session");
                 if (session.getAttribute("adfTree") != null) {
                     tree = (RichTree)session.getAttribute("adfTree");
                     RowKeySet _disclosedRowKeys = tree.getDisclosedRowKeys();
@@ -198,17 +181,18 @@ public class AccountSummaryBean implements Serializable {
                         _disclosedRowKeys.clear();
                     } else {
 
-                        log.info(accessDC.getDisplayRecord() + " No key to disclose in adf tree");
+                        LOGGER.info(accessDC.getDisplayRecord() + " No key to disclose in adf tree");
                     }
                     tree.setDisclosedRowKeys(_disclosedRowKeys);
-                } else
+                } else {
 
-                    log.info(accessDC.getDisplayRecord() + " Session is not null but still adf tree is null it may be due to first hit on Account Summary");
+                    LOGGER.info(accessDC.getDisplayRecord() + " Session is not null but still adf tree is null it may be due to first hit on Account Summary");
+                }
             }
 
         }
 
-        log.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting from Constructor of Account Summary");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting from Constructor of Account Summary");
 
         if (session != null) {
             if (null != session.getAttribute(Constants.SESSION_USER_INFO)) {
@@ -234,13 +218,12 @@ public class AccountSummaryBean implements Serializable {
                                     int a = userInfo.getRoleList().get(i).getIdString().get(j).indexOf("PP");
                                     if (partnerListDefault.get(k).getPartnerValue().equals(userInfo.getRoleList().get(i).getIdString().get(j).substring(a + 2,
                                                                                                                                                         a +
-                                                                                                                                                        10))) {
+                                                                                                                                                        Constants.TEN))) {
                                         temp.add(partnerListDefault.get(k).getPartnerName());
                                         partnerName = temp.toString().substring(1, temp.toString().length() - 1).replace("", "");
                                     }
                                 }
                             }
-
                         }
                         if (userInfo.getRoleList().get(i).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR)) {
                             if (userInfo.getRoleList().get(i).getIdString().get(j).contains("AC")) {
@@ -248,7 +231,7 @@ public class AccountSummaryBean implements Serializable {
 
 
                                 int b = userInfo.getRoleList().get(i).getIdString().get(j).indexOf("AC");
-                                temp1.add(userInfo.getRoleList().get(i).getIdString().get(j).substring(b + 2, b + 12));
+                                temp1.add(userInfo.getRoleList().get(i).getIdString().get(j).substring(b + 2, b + Constants.TWELVE));
                                 accountName = temp1.toString().substring(1, temp1.toString().length() - 1).replace("", "");
 
                             }
@@ -272,37 +255,35 @@ public class AccountSummaryBean implements Serializable {
                                     }
                                 }
                             }
-
                         }
 
-                        if (userInfo.getRoleList().get(i).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_EMP)) {
-
-                            if (userInfo.getRoleList().get(i).getIdString().get(j).contains("CC")) {
-                                isEmployee = true;
-                                if (partnerListDefault != null) {
-                                    for (int k = 0; k < partnerListDefault.size(); k++) {
-                                        int d = userInfo.getRoleList().get(i).getIdString().get(j).indexOf("CC");
+                        if (userInfo.getRoleList().get(i).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_EMP) &&
+                            userInfo.getRoleList().get(i).getIdString().get(j).contains("CC")) {
 
 
-                                        for (int ac = 0; ac < partnerListDefault.get(k).getAccountList().size(); ac++) {
-                                            for (int cg = 0; cg < partnerListDefault.get(k).getAccountList().get(ac).getCardGroup().size(); cg++) {
+                            isEmployee = true;
+                            if (partnerListDefault != null) {
+                                for (int k = 0; k < partnerListDefault.size(); k++) {
+                                    int d = userInfo.getRoleList().get(i).getIdString().get(j).indexOf("CC");
 
-                                                for (int cc = 0;
-                                                     cc < partnerListDefault.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCard().size(); cc++) {
+
+                                    for (int ac = 0; ac < partnerListDefault.get(k).getAccountList().size(); ac++) {
+                                        for (int cg = 0; cg < partnerListDefault.get(k).getAccountList().get(ac).getCardGroup().size(); cg++) {
+
+                                            for (int cc = 0; cc < partnerListDefault.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCard().size();
+                                                 cc++) {
 
 
-                                                    if (partnerListDefault.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID().equals(userInfo.getRoleList().get(i).getIdString().get(j).substring(d +
-                                                                                                                                                                                                                                    2))) {
-                                                        temp3.add(partnerListDefault.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getExternalCardID());
-                                                        cardName = temp3.toString().substring(1, temp3.toString().length() - 1).replace("", "");
-                                                    }
+                                                if (partnerListDefault.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID().equals(userInfo.getRoleList().get(i).getIdString().get(j).substring(d +
+                                                                                                                                                                                                                                2))) {
+                                                    temp3.add(partnerListDefault.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getExternalCardID());
+                                                    cardName = temp3.toString().substring(1, temp3.toString().length() - 1).replace("", "");
                                                 }
                                             }
                                         }
                                     }
                                 }
                             }
-
 
                         }
 
@@ -340,24 +321,18 @@ public class AccountSummaryBean implements Serializable {
                                             }
                                         }
                                     }
-
                                 }
                             }
                         }
 
                     }
 
-                    log.info(accessDC.getDisplayRecord() + this.getClass() + " cardgroupsSocList size " + cardgroupsSocList.size());
-                    log.info(accessDC.getDisplayRecord() + this.getClass() + " cardsSocList size " + cardsSocList.size());
-                    log.info(accessDC.getDisplayRecord() + this.getClass() + " cardtextline2 size " + cardTextline2SocList.size());
-
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " cardgroupsSocList size " + cardgroupsSocList.size());
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " cardsSocList size " + cardsSocList.size());
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " cardtextline2 size " + cardTextline2SocList.size());
                 }
-
-
             }
         }
-
-
     }
 
     public void resetinputtext(ValueChangeEvent valueChangeEvent) {
@@ -368,18 +343,13 @@ public class AccountSummaryBean implements Serializable {
     }
 
     public void hideBlockedCards(ActionEvent actionEvent) {
-
-
         searchString = "";
         searchStringInputtext.resetValue();
         searchStringInputtext.setSubmittedValue(null);
         AdfFacesContext.getCurrentInstance().addPartialTarget(searchStringInputtext);
         searchLevel = "";
-
-        log.info(accessDC.getDisplayRecord() + this.getClass() + "filterAttributes size is " + filterAttributes.size());
-
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "filterAttributes size is " + filterAttributes.size());
         String searchAttributeArray[] = (String[])filterAttributes.toArray(new String[filterAttributes.size()]);
-
         String listString = "";
 
         for (String s : searchAttributeArray) {
@@ -469,10 +439,9 @@ public class AccountSummaryBean implements Serializable {
             if (_disclosedRowKeys != null && _disclosedRowKeys.size() > 0) {
                 _disclosedRowKeys.clear();
             } else {
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " No key to disclose in adf tree");
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " No key to disclose in adf tree");
             }
             treereset.setDisclosedRowKeys(_disclosedRowKeys);
-
         }
 
         treereset = getBlockcardshiddentree();
@@ -482,7 +451,7 @@ public class AccountSummaryBean implements Serializable {
             if (_disclosedRowKeys != null && _disclosedRowKeys.size() > 0) {
                 _disclosedRowKeys.clear();
             } else {
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " No key to disclose in getBlockcardshiddentree tree");
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " No key to disclose in getBlockcardshiddentree tree");
             }
             treereset.setDisclosedRowKeys(_disclosedRowKeys);
 
@@ -495,7 +464,7 @@ public class AccountSummaryBean implements Serializable {
             if (_disclosedRowKeys != null && _disclosedRowKeys.size() > 0) {
                 _disclosedRowKeys.clear();
             } else {
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " No key to disclose in getOnlyactivecardstree tree");
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " No key to disclose in getOnlyactivecardstree tree");
             }
             treereset.setDisclosedRowKeys(_disclosedRowKeys);
 
@@ -508,12 +477,11 @@ public class AccountSummaryBean implements Serializable {
             if (_disclosedRowKeys != null && _disclosedRowKeys.size() > 0) {
                 _disclosedRowKeys.clear();
             } else {
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " No key to disclose in getOnlytempblockedcardstree tree");
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " No key to disclose in getOnlytempblockedcardstree tree");
             }
             treereset.setDisclosedRowKeys(_disclosedRowKeys);
 
         }
-
 
         treereset = getOnlyblockedcardstree();
         if (treereset != null) {
@@ -522,7 +490,7 @@ public class AccountSummaryBean implements Serializable {
             if (_disclosedRowKeys != null && _disclosedRowKeys.size() > 0) {
                 _disclosedRowKeys.clear();
             } else {
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " No key to disclose in getOnlyblockedcardstree tree");
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " No key to disclose in getOnlyblockedcardstree tree");
             }
             treereset.setDisclosedRowKeys(_disclosedRowKeys);
 
@@ -536,7 +504,7 @@ public class AccountSummaryBean implements Serializable {
             if (_disclosedRowKeys != null && _disclosedRowKeys.size() > 0) {
                 _disclosedRowKeys.clear();
             } else {
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " No key to disclose in getPermblockedandactivecardstree tree");
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " No key to disclose in getPermblockedandactivecardstree tree");
             }
             treereset.setDisclosedRowKeys(_disclosedRowKeys);
 
@@ -549,7 +517,7 @@ public class AccountSummaryBean implements Serializable {
             if (_disclosedRowKeys != null && _disclosedRowKeys.size() > 0) {
                 _disclosedRowKeys.clear();
             } else {
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " No key to disclose in getPermblockedandtempblockedcardstree tree");
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " No key to disclose in getPermblockedandtempblockedcardstree tree");
             }
             treereset.setDisclosedRowKeys(_disclosedRowKeys);
 
@@ -572,209 +540,211 @@ public class AccountSummaryBean implements Serializable {
         hideAll();
         AdfFacesContext.getCurrentInstance().addPartialTarget(treePanel);
 
-        if (searchLevel != null && searchLevel.trim() != null) {
-            if (searchLevel.equalsIgnoreCase("displayCardGroupIdName") || searchLevel.equalsIgnoreCase("externalCardID") ||
-                searchLevel.equalsIgnoreCase("cardTextline2")) {
-                if (searchLevel.equalsIgnoreCase("displayCardGroupIdName")) {
-                    log.info(accessDC.getDisplayRecord() + this.getClass() + " inside searchTraverse CG level");
-                    searchAttributes.clear();
-                    searchAttributes.add("displayCardGroupIdName");
+        if (searchLevel != null && searchLevel.trim() != null &&
+            (searchLevel.equalsIgnoreCase("displayCardGroupIdName") || searchLevel.equalsIgnoreCase("externalCardID") ||
+             searchLevel.equalsIgnoreCase("cardTextline2"))) {
 
-                    for (int p = 0; p < cardgroupsSocList.size() && searchString != null; p++) {
-                        if (searchString.equalsIgnoreCase(cardgroupsSocList.get(p))) {
-                            executeSearch = true;
+            if (searchLevel.equalsIgnoreCase("displayCardGroupIdName")) {
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " inside searchTraverse CG level");
+                searchAttributes.clear();
+                searchAttributes.add("displayCardGroupIdName");
 
-                        }
-                        log.info(accessDC.getDisplayRecord() + this.getClass() + " executeSearch in cardgroup level" + executeSearch);
+                for (int p = 0; p < cardgroupsSocList.size() && searchString != null; p++) {
+                    if (searchString.equalsIgnoreCase(cardgroupsSocList.get(p))) {
+                        executeSearch = true;
 
                     }
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " executeSearch in cardgroup level" + executeSearch);
 
-
-                } else if (searchLevel.equalsIgnoreCase("externalCardID")) {
-                    log.info(accessDC.getDisplayRecord() + this.getClass() + " inside searchTraverse externalCardID level");
-                    searchAttributes.clear();
-                    searchAttributes.add("externalCardID");
-                    for (int p = 0; p < cardsSocList.size() && searchString != null; p++) {
-                        if (searchString.equalsIgnoreCase(cardsSocList.get(p))) {
-                            executeSearch = true;
-                        }
-
-                    }
-
-                } else if (searchLevel.equalsIgnoreCase("cardTextline2")) {
-                    log.info(accessDC.getDisplayRecord() + this.getClass() + " inside searchTraverse cardtextline 2 level");
-                    searchAttributes.clear();
-                    searchAttributes.add("cardTextline2");
-
-                    for (int p = 0; p < cardTextline2SocList.size() && searchString != null; p++) {
-                        if (searchString.equalsIgnoreCase(cardTextline2SocList.get(p))) {
-                            executeSearch = true;
-                        }
-
-                    }
                 }
 
 
-                if (executeSearch) {
-                    JUCtrlHierBinding treeBinding = null;
+            } else if (searchLevel.equalsIgnoreCase("externalCardID")) {
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " inside searchTraverse externalCardID level");
+                searchAttributes.clear();
+                searchAttributes.add("externalCardID");
+                for (int p = 0; p < cardsSocList.size() && searchString != null; p++) {
+                    if (searchString.equalsIgnoreCase(cardsSocList.get(p))) {
+                        executeSearch = true;
+                    }
 
-                    //get handle to tree if it does not exist. If tree component cannot be
-                    //found in view, exit this function
+                }
+
+            } else if (searchLevel.equalsIgnoreCase("cardTextline2")) {
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " inside searchTraverse cardtextline 2 level");
+                searchAttributes.clear();
+                searchAttributes.add("cardTextline2");
+
+                for (int p = 0; p < cardTextline2SocList.size() && searchString != null; p++) {
+                    if (searchString.equalsIgnoreCase(cardTextline2SocList.get(p))) {
+                        executeSearch = true;
+                    }
+
+                }
+            }
+
+
+            if (executeSearch) {
+                JUCtrlHierBinding treeBinding = null;
+
+                //get handle to tree if it does not exist. If tree component cannot be
+                //found in view, exit this function
+                if (tree1 == null) {
+                    this.findTreeInView();
                     if (tree1 == null) {
-                        this.findTreeInView();
-                        if (tree1 == null) {
-                            //tree not found
-                            log.info(accessDC.getDisplayRecord() + this.getClass() +
-                                     " The tree component could not be found in the view. Please check for naming containers. Search function cancelled");
-                            return;
-                        } else {
-                            log.info(accessDC.getDisplayRecord() + this.getClass() + " tree not null");
-                        }
-                    }
-                    //Get the JUCtrlHierbinding reference from the PageDef
-                    CollectionModel model = (CollectionModel)tree1.getValue();
-                    treeBinding = (JUCtrlHierBinding)model.getWrappedData();
-
-                    //Read the attributes to search in from the SelectManyChoice component
-                    String searchAttributeArray[] = (String[])searchAttributes.toArray(new String[searchAttributes.size()]);
-
-                    //Define a node to search in. In this example, the root node is used
-                    JUCtrlHierNodeBinding root = treeBinding.getRootNodeBinding();
-
-                    //However, if the user used the "Show as Top" context menu option to
-                    //shorten the tree display, then we only search starting from this top
-                    //mode
-
-                    List topNode = (List)tree1.getFocusRowKey();
-                    if (topNode != null) {
-                        //make top node the root node for the search
-                        root = treeBinding.findNodeByKeyPath(topNode);
-                    }
-
-                    //Select the tree items that match the search criteria and expand the
-                    //tree to display them
-                    RowKeySet resultRowKeySet = searchTreeNode(root, searchAttributeArray, searchType, searchString);
-                    RowKeySet disclosedRowKeySet = buildDiscloseRowKeySet(treeBinding, resultRowKeySet);
-                    tree1.setSelectedRowKeys(resultRowKeySet);
-                    tree1.setDisclosedRowKeys(disclosedRowKeySet);
-
-                    AdfFacesContext.getCurrentInstance().addPartialTarget(tree1);
-
-                    Iterator rksIterator = resultRowKeySet.iterator();
-
-                    if (rksIterator != null) {
-                        log.info(accessDC.getDisplayRecord() + this.getClass() + " iterator is " + rksIterator);
+                        //tree not found
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() +
+                                    " The tree component could not be found in the view. Please check for naming containers. Search function cancelled");
+                        return;
                     } else {
-                        log.info(accessDC.getDisplayRecord() + this.getClass() + " Iterator null ");
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " tree not null");
                     }
-                    while (rksIterator.hasNext()) {
-                        List key1 = (List)rksIterator.next();
-                        treeBinding = null;
+                }
+                //Get the JUCtrlHierbinding reference from the PageDef
+                CollectionModel model = (CollectionModel)tree1.getValue();
+                treeBinding = (JUCtrlHierBinding)model.getWrappedData();
 
-                        CollectionModel collectionModel = (CollectionModel)tree1.getValue();
-                        treeBinding = (JUCtrlHierBinding)collectionModel.getWrappedData();
+                //Read the attributes to search in from the SelectManyChoice component
+                String searchAttributeArray[] = (String[])searchAttributes.toArray(new String[searchAttributes.size()]);
 
-                        RowKeySetImpl rksImpl;
-                        rksImpl = new RowKeySetImpl();
-                        JUCtrlHierNodeBinding nodeBinding1 = null;
-                        nodeBinding1 = treeBinding.findNodeByKeyPath(key1);
-                        log.info(accessDC.getDisplayRecord() + this.getClass() + " Node Binding is  " + nodeBinding1);
-                        rksImpl.add(key1);
+                //Define a node to search in. In this example, the root node is used
+                JUCtrlHierNodeBinding root = treeBinding.getRootNodeBinding();
 
-                        rootNode = treeBinding.getRootNodeBinding();
-                        log.info(accessDC.getDisplayRecord() + this.getClass() + " rootNode " + rootNode);
-                        dropNodeParent = nodeBinding1.getParent();
-                        log.info(accessDC.getDisplayRecord() + this.getClass() + " dropNodeParent " + dropNodeParent);
+                //However, if the user used the "Show as Top" context menu option to
+                //shorten the tree display, then we only search starting from this top
+                //mode
 
-                        /* code added to expand and disclose the node from backing bean */
+                List topNode = (List)tree1.getFocusRowKey();
+                if (topNode != null) {
+                    //make top node the root node for the search
+                    root = treeBinding.findNodeByKeyPath(topNode);
+                }
 
-                        for (Object ob : nodeBinding1.getParent().getAttributeValues()) {
-                            if (ob != null) {
-                                log.info(accessDC.getDisplayRecord() + this.getClass() + " dropNodeParent after conversion " + ob.toString());
-                            }
-                            break;
+                //Select the tree items that match the search criteria and expand the
+                //tree to display them
+                RowKeySet resultRowKeySet = searchTreeNode(root, searchAttributeArray, searchType, searchString);
+                RowKeySet disclosedRowKeySet = buildDiscloseRowKeySet(treeBinding, resultRowKeySet);
+                tree1.setSelectedRowKeys(resultRowKeySet);
+                tree1.setDisclosedRowKeys(disclosedRowKeySet);
+
+                AdfFacesContext.getCurrentInstance().addPartialTarget(tree1);
+
+                Iterator rksIterator = resultRowKeySet.iterator();
+
+                if (rksIterator != null) {
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " iterator is " + rksIterator);
+                } else {
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Iterator null ");
+                }
+                while (rksIterator.hasNext()) {
+                    List key1 = (List)rksIterator.next();
+                    treeBinding = null;
+
+                    CollectionModel collectionModel = (CollectionModel)tree1.getValue();
+                    treeBinding = (JUCtrlHierBinding)collectionModel.getWrappedData();
+
+                    RowKeySetImpl rksImplLocal;
+                    rksImplLocal = new RowKeySetImpl();
+                    JUCtrlHierNodeBinding nodeBinding1 = null;
+                    nodeBinding1 = treeBinding.findNodeByKeyPath(key1);
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Node Binding is  " + nodeBinding1);
+                    rksImplLocal.add(key1);
+
+                    rootNode = treeBinding.getRootNodeBinding();
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " rootNode " + rootNode);
+                    dropNodeParent = nodeBinding1.getParent();
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " dropNodeParent " + dropNodeParent);
+
+                    /* code added to expand and disclose the node from backing bean */
+
+                    for (Object ob : nodeBinding1.getParent().getAttributeValues()) {
+                        if (ob != null) {
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " dropNodeParent after conversion " + ob.toString());
                         }
+                        break;
+                    }
+
+                    for (Object o : nodeBinding1.getAttributeValues()) {
+
+                        id = o.toString();
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "  id is " + id);
+                        break;
+
+
+                    }
+                    Row rw = null;
+                    String rowType = "";
+                    rw = nodeBinding1.getRow();
+                    rowType = rw.getStructureDef().getDefName();
+
+
+                    if (rowType.contains("AccountInfo")) {
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " rowType is Account");
+                    } else if (rowType.contains("CardInfo")) {
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " rowType is Card");
+                        getBindings().getDefaultPanel().setVisible(false);
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDefaultPanel());
 
                         for (Object o : nodeBinding1.getAttributeValues()) {
 
-                            id = o.toString();
-                            log.info(accessDC.getDisplayRecord() + this.getClass() + "  id is " + id);
-                            break;
-
+                            cardId = o.toString();
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " inside card overview id is " + id);
 
                         }
-                        Row rw = null;
-                        String rowType = "";
-                        rw = nodeBinding1.getRow();
-                        rowType = rw.getStructureDef().getDefName();
+                        cardOverview();
 
+                    } else if (rowType.contains("CardGroupInfo")) {
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " rowType is cardGroupInfo");
 
-                        if (rowType.contains("AccountInfo")) {
-                            log.info(accessDC.getDisplayRecord() + this.getClass() + " rowType is Account");
-                        } else if (rowType.contains("CardInfo")) {
-                            log.info(accessDC.getDisplayRecord() + this.getClass() + " rowType is Card");
-                            getBindings().getDefaultPanel().setVisible(false);
-                            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDefaultPanel());
+                        //hiding default panel
+                        getBindings().getDefaultPanel().setVisible(false);
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDefaultPanel());
+                        //clicked node belongs to cardGroup so execute cardGroup overview
 
-                            for (Object o : nodeBinding1.getAttributeValues()) {
+                        for (Object o : nodeBinding1.getAttributeValues()) {
 
-                                cardId = o.toString();
-                                log.info(accessDC.getDisplayRecord() + this.getClass() + " inside card overview id is " + id);
-
-                            }
-                            cardOverview();
-
-                        } else if (rowType.contains("CardGroupInfo")) {
-                            log.info(accessDC.getDisplayRecord() + this.getClass() + " rowType is cardGroupInfo");
-
-                            //hiding default panel
-                            getBindings().getDefaultPanel().setVisible(false);
-                            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDefaultPanel());
-                            //clicked node belongs to cardGroup so execute cardGroup overview
-
-                            for (Object o : nodeBinding1.getAttributeValues()) {
-
-                                cardGroupId = o.toString();
-                                log.info(accessDC.getDisplayRecord() + this.getClass() + " inside cardgroup overview id is " + cardGroupId);
-
-                            }
-                            cardGroupOverview();
+                            cardGroupId = o.toString();
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " inside cardgroup overview id is " + cardGroupId);
 
                         }
-
+                        cardGroupOverview();
 
                     }
 
-                } else {
 
-                    if (tree1 != null) {
-                        RowKeySet _disclosedRowKeys = tree1.getDisclosedRowKeys();
-
-                        if (_disclosedRowKeys != null && _disclosedRowKeys.size() > 0) {
-                            _disclosedRowKeys.clear();
-
-                        } else {
-                            log.info(accessDC.getDisplayRecord() + this.getClass() + " No key to disclose in adf tree");
-                        }
-                        tree1.setDisclosedRowKeys(_disclosedRowKeys);
-                        AdfFacesContext.getCurrentInstance().addPartialTarget(tree1);
-                        if (getBindings().getAdfTree() != null)
-                            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAdfTree());
-                    }
-
-                    noSearchResults.setVisible(true);
-                    AdfFacesContext.getCurrentInstance().addPartialTarget(noSearchResults);
-                    getBindings().getDefaultPanel().setVisible(false);
-                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDefaultPanel());
                 }
 
+            } else {
+
+                if (tree1 != null) {
+                    RowKeySet _disclosedRowKeys = tree1.getDisclosedRowKeys();
+
+                    if (_disclosedRowKeys != null && _disclosedRowKeys.size() > 0) {
+                        _disclosedRowKeys.clear();
+
+                    } else {
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " No key to disclose in adf tree");
+                    }
+                    tree1.setDisclosedRowKeys(_disclosedRowKeys);
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(tree1);
+                    if (getBindings().getAdfTree() != null) {
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAdfTree());
+                    }
+                }
+
+                noSearchResults.setVisible(true);
+                AdfFacesContext.getCurrentInstance().addPartialTarget(noSearchResults);
+                getBindings().getDefaultPanel().setVisible(false);
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDefaultPanel());
             }
+
+
         }
 
     }
 
     private void findTreeInView() {
-        log.info(accessDC.getDisplayRecord() + this.getClass() + " search tree method called");
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " search tree method called");
         FacesContext fctx = FacesContext.getCurrentInstance();
         UIViewRoot root = fctx.getViewRoot();
         //hard coding tree component Id with its surrounding naming container ID
@@ -805,15 +775,15 @@ public class AccountSummaryBean implements Serializable {
 
         //Sanity checks
         if (node == null) {
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " Node passed as NULL");
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Node passed as NULL");
             return rowKeys;
         }
         if (searchAttributes == null || searchAttributes.length < 1) {
-            log.info(accessDC.getDisplayRecord() + this.getClass() + node.getName() + ": search attribute is NULL or has a ZERO length");
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + node.getName() + ": search attribute is NULL or has a ZERO length");
             return rowKeys;
         }
         if (searchString == null || searchString.length() < 1) {
-            log.info(accessDC.getDisplayRecord() + this.getClass() + node.getName() + ": Search string cannot be NULL or EMPTY");
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + node.getName() + ": Search string cannot be NULL or EMPTY");
             return rowKeys;
         }
 
@@ -881,7 +851,6 @@ public class AccountSummaryBean implements Serializable {
             if (node != null && node.getParent() != null && !node.getParent().getKeyPath().isEmpty()) {
                 //store the parent path
                 discloseRowKeySet.add(node.getParent().getKeyPath());
-
                 //call method recursively until no parents are found
                 RowKeySetImpl parentKeySet = new RowKeySetImpl();
                 parentKeySet.add(node.getParent().getKeyPath());
@@ -897,9 +866,9 @@ public class AccountSummaryBean implements Serializable {
         ArrayList<SelectItem> selectItems = new ArrayList<SelectItem>();
 
         if (searchLevel != null && searchLevel.trim() != null) {
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " searchLevel" + getSearchLevel().toString());
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " searchLevel" + getSearchLevel().toString());
             if (searchLevel.equalsIgnoreCase("displayCardGroupIdName")) {
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " cardgroup level selected");
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " cardgroup level selected");
 
                 for (int z = 0; z < cardgroupsSocList.size(); z++) {
                     if (cardgroupsSocList.get(z).toUpperCase().contains(string.toUpperCase())) {
@@ -910,9 +879,9 @@ public class AccountSummaryBean implements Serializable {
                     }
 
                 }
-                log.info(accessDC.getDisplayRecord() + this.getClass() + "selectItems size " + selectItems.size());
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "selectItems size " + selectItems.size());
             } else if (searchLevel.equalsIgnoreCase("externalCardID")) {
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " embossed card no level selected");
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " embossed card no level selected");
                 for (int z = 0; z < cardsSocList.size(); z++) {
                     if (cardsSocList.get(z).toUpperCase().contains(string.toUpperCase())) {
                         SelectItem selectItem = new SelectItem();
@@ -922,9 +891,9 @@ public class AccountSummaryBean implements Serializable {
                     }
 
                 }
-                log.info(accessDC.getDisplayRecord() + this.getClass() + "selectItems size " + selectItems.size());
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "selectItems size " + selectItems.size());
             } else if (searchLevel.equalsIgnoreCase("cardTextline2")) {
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " cardtextline level selected");
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " cardtextline level selected");
                 for (int z = 0; z < cardTextline2SocList.size(); z++) {
                     if (cardTextline2SocList.get(z).toUpperCase().contains(string.toUpperCase())) {
                         SelectItem selectItem = new SelectItem();
@@ -934,7 +903,7 @@ public class AccountSummaryBean implements Serializable {
                     }
 
                 }
-                log.info(accessDC.getDisplayRecord() + this.getClass() + "selectItems size " + selectItems.size());
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "selectItems size " + selectItems.size());
 
             }
 
@@ -963,7 +932,7 @@ public class AccountSummaryBean implements Serializable {
         this.businessProfile = businessProfile;
     }
 
-    public String close_Action() {
+    public String closeAction() {
         getBindings().getShowAllPopUp().cancel();
         return null;
     }
@@ -1192,7 +1161,7 @@ public class AccountSummaryBean implements Serializable {
         return noSearchResults;
     }
 
-    private void CallPrtCardsPerRVO(String paramValue, String partnerid, String accountid, String cgid) {
+    private void callPrtCardsPerRVO(String paramValue, String partnerid, String accountid, String cgid) {
         String currentDate = "";
         String nextMonth = "";
         Date dateNow = new java.util.Date();
@@ -1333,6 +1302,38 @@ public class AccountSummaryBean implements Serializable {
         return permblockedandtempblockedcardstree;
     }
 
+    public void setRksImpl(RowKeySetImpl rksImpl) {
+        this.rksImpl = rksImpl;
+    }
+
+    public RowKeySetImpl getRksImpl() {
+        return rksImpl;
+    }
+
+    public void setAccessDC(AccessDataControl accessDC) {
+        this.accessDC = accessDC;
+    }
+
+    public AccessDataControl getAccessDC() {
+        return accessDC;
+    }
+
+    public void setDropNodeParent(JUCtrlHierNodeBinding dropNodeParent) {
+        this.dropNodeParent = dropNodeParent;
+    }
+
+    public JUCtrlHierNodeBinding getDropNodeParent() {
+        return dropNodeParent;
+    }
+
+    public void setRootNode(JUCtrlHierNodeBinding rootNode) {
+        this.rootNode = rootNode;
+    }
+
+    public JUCtrlHierNodeBinding getRootNode() {
+        return rootNode;
+    }
+
 
     public class Bindings {
         private RichPanelGroupLayout accountOverview;
@@ -1424,63 +1425,55 @@ public class AccountSummaryBean implements Serializable {
 
 
     public void treeListner(SelectionEvent selectionEvent) {
-        log.fine(accessDC.getDisplayRecord() + this.getClass() + " Entering in tree selection listner ");
-
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Entering in tree selection listner ");
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
-
-        log.info(accessDC.getDisplayRecord() + this.getClass() + " Inside tree listner");
-
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Inside tree listner");
         JUCtrlHierNodeBinding nodeBinding1 = null;
         Row rw = null;
         String rowType = "";
-        RichTree tree1 = (RichTree)selectionEvent.getSource();
-        if (tree1 != null) {
+        RichTree tree1Local = (RichTree)selectionEvent.getSource();
+        if (tree1Local != null) {
 
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " Tree is not null in selection listner");
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Tree is not null in selection listner");
             if (session != null) {
-                session.setAttribute("adfTree", tree1);
+                session.setAttribute("adfTree", tree1Local);
 
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " adftree stored in session");
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " adftree stored in session");
 
 
             } else {
-                log.warning(accessDC.getDisplayRecord() + this.getClass() + " Session null and adf tree not stored in session");
+                LOGGER.warning(accessDC.getDisplayRecord() + this.getClass() + " Session null and adf tree not stored in session");
             }
 
 
         } else {
-            log.warning(accessDC.getDisplayRecord() + this.getClass() + " Tree is null in selection listner also");
+            LOGGER.warning(accessDC.getDisplayRecord() + this.getClass() + " Tree is null in selection listner also");
 
         }
         RowKeySet rowKeySet1 = selectionEvent.getAddedSet();
-        log.info(accessDC.getDisplayRecord() + this.getClass() + " RowKeySet " + rowKeySet1);
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " RowKeySet " + rowKeySet1);
 
         Iterator rksIterator = rowKeySet1.iterator();
         while (rksIterator.hasNext()) {
             List key1 = (List)rksIterator.next();
             JUCtrlHierBinding treeBinding = null;
             JUCtrlHierBinding treeBinding2 = null;
-            CollectionModel collectionModel = (CollectionModel)tree1.getValue();
+            CollectionModel collectionModel = (CollectionModel)tree1Local.getValue();
             treeBinding = (JUCtrlHierBinding)collectionModel.getWrappedData();
             treeBinding2 = (JUCtrlHierBinding)collectionModel.getRowData();
             rksImpl = new RowKeySetImpl();
             nodeBinding1 = treeBinding.findNodeByKeyPath(key1);
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " Node Binding 1 " + nodeBinding1);
-
-
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Node Binding 1 " + nodeBinding1);
             rksImpl.add(key1);
-
             rootNode = treeBinding.getRootNodeBinding();
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " rootNode " + rootNode);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " rootNode " + rootNode);
             dropNodeParent = nodeBinding1.getParent();
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " dropNodeParent " + dropNodeParent);
-
-
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " dropNodeParent " + dropNodeParent);
             for (Object ob : nodeBinding1.getParent().getAttributeValues()) {
                 if (ob != null) {
-                    log.info(accessDC.getDisplayRecord() + this.getClass() + " dropNodeParent after conversion " + ob.toString());
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " dropNodeParent after conversion " + ob.toString());
                 }
                 break;
             }
@@ -1488,30 +1481,21 @@ public class AccountSummaryBean implements Serializable {
             for (Object o : nodeBinding1.getAttributeValues()) {
 
                 id = o.toString();
-                log.info(accessDC.getDisplayRecord() + this.getClass() + "  id is " + id);
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "  id is " + id);
                 break;
 
 
             }
-            if (session != null) {
-
-                if (session.getAttribute("Partner_Object_List") != null) {
-
-                    partnerList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
-                    if (partnerList != null) {
-                        for (int k = 0; k < partnerList.size(); k++) {
-                            if (partnerList.get(k).getPartnerValue().toString().equals(id)) {
-                                partner = partnerList.get(k);
-                                AccountList = partner.getAccountList();
-                            }
-
+            if (session != null && session.getAttribute("Partner_Object_List") != null) {
+                partnerList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
+                if (partnerList != null) {
+                    for (int k = 0; k < partnerList.size(); k++) {
+                        if (partnerList.get(k).getPartnerValue().toString().equals(id)) {
+                            partner = partnerList.get(k);
+                            accountList = partner.getAccountList();
                         }
-
                     }
-
                 }
-
-
             }
 
 
@@ -1537,7 +1521,7 @@ public class AccountSummaryBean implements Serializable {
             for (Object o : nodeBinding1.getAttributeValues()) {
 
                 cardGroupId = o.toString();
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " inside cardgroup overview id is " + cardGroupId);
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " inside cardgroup overview id is " + cardGroupId);
 
             }
             cardGroupOverview();
@@ -1549,7 +1533,7 @@ public class AccountSummaryBean implements Serializable {
             //clicked node belongs to card so execute card overview
             for (Object o : nodeBinding1.getAttributeValues()) {
                 cardId = o.toString();
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " inside card overview id is " + id);
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " inside card overview id is " + id);
             }
             cardOverview();
 
@@ -1561,14 +1545,14 @@ public class AccountSummaryBean implements Serializable {
             for (Object o : nodeBinding1.getAttributeValues()) {
 
                 partnerIdName = o.toString();
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " partnerIdName is " + id);
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " partnerIdName is " + id);
 
             }
             companyOverview();
 
         }
 
-        log.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting from tree selection listner ");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting from tree selection listner ");
     }
 
 
@@ -1595,7 +1579,7 @@ public class AccountSummaryBean implements Serializable {
     }
 
 
-    public void setCardTypeList(ArrayList<String> cardTypeList) {
+    public void setCardTypeList(List<String> cardTypeList) {
         this.cardTypeList = cardTypeList;
     }
 
@@ -1676,7 +1660,7 @@ public class AccountSummaryBean implements Serializable {
     }
 
     public void accountOverview() {
-        log.fine(accessDC.getDisplayRecord() + this.getClass() + " Entering in account overview function ");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Entering in account overview function ");
 
         hideAll();
 
@@ -1685,12 +1669,12 @@ public class AccountSummaryBean implements Serializable {
 
 
         partnerId = dropNodeParent.toString();
-        log.info(accessDC.getDisplayRecord() + this.getClass() + " partnerId inside accountoverview " + partnerId);
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " partnerId inside accountoverview " + partnerId);
 
-        partnerIdName = partnerId.substring(partnerId.indexOf(" ") + 1);
+        partnerIdName = partnerId.substring(partnerId.indexOf(' ') + 1);
 
-        partnerId = partnerId.substring(0, partnerId.indexOf(" "));
-        log.info(accessDC.getDisplayRecord() + this.getClass() + " partnerId inside accountoverview " + partnerId);
+        partnerId = partnerId.substring(0, partnerId.indexOf(' '));
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " partnerId inside accountoverview " + partnerId);
 
 
         accountId = id;
@@ -1699,33 +1683,33 @@ public class AccountSummaryBean implements Serializable {
             for (int k = 0; k < partnerList.size(); k++) {
                 if (partnerList.get(k).getPartnerValue().toString().equals(partnerId)) {
                     partner = partnerList.get(k);
-                    AccountList = partner.getAccountList();
+                    accountList = partner.getAccountList();
                 }
 
             }
 
         }
-        for (int k = 0; k < AccountList.size(); k++) {
+        for (int k = 0; k < accountList.size(); k++) {
 
-            if (AccountList.get(k).getAccountNumber().equalsIgnoreCase(id)) {
-                displayAccountOverview = AccountList.get(k).isAccountOverview();
+            if (accountList.get(k).getAccountNumber().equalsIgnoreCase(id)) {
+                displayAccountOverview = accountList.get(k).isAccountOverview();
                 break;
             }
         }
 
 
         if (displayAccountOverview) {
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " Account node clicked, Account Overview is true in partner object " +
-                     partner.getPartnerValue() + " & Accountid " + id);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Account node clicked, Account Overview is true in partner object " +
+                        partner.getPartnerValue() + " & Accountid " + id);
 
-            DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+            DCBindingContainer localBinding = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
             DCIteratorBinding iter1;
 
-            if (bindings != null) {
-                iter1 = bindings.findIteratorBinding("PrtAccountVO2Iterator");
+            if (localBinding != null) {
+                iter1 = localBinding.findIteratorBinding("PrtAccountVO2Iterator");
 
             } else {
-                log.severe(accessDC.getDisplayRecord() + this.getClass() + " account bindings inside account Overview is null");
+                LOGGER.severe(accessDC.getDisplayRecord() + this.getClass() + " account bindings inside account Overview is null");
 
                 iter1 = null;
             }
@@ -1754,51 +1738,48 @@ public class AccountSummaryBean implements Serializable {
             getBindings().getAccountOverview().setVisible(true);
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccountOverview());
 
-            CallPrtCardsPerRVO("account", partnerId, id, "");
+            callPrtCardsPerRVO("account", partnerId, id, "");
 
 
         } else {
             hideAll();
 
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " Account node clicked But Account Overview is false in partner object " +
-                     partner.getPartnerValue() + " & Accountid " + id);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Account node clicked But Account Overview is false in partner object " +
+                        partner.getPartnerValue() + " & Accountid " + id);
             getBindings().getRestrictedAccess().setVisible(true);
 
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRestrictedAccess());
         }
 
-        log.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting from AccountOverview function ");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting from AccountOverview function ");
     }
 
     public void cardGroupOverview() {
 
-        log.fine(accessDC.getDisplayRecord() + this.getClass() + " Entering in cardGroupOverview function ");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Entering in cardGroupOverview function ");
 
         hideAll();
         getBindings().getRestrictedAccess().setVisible(false);
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRestrictedAccess());
 
         partnerId = dropNodeParent.getParent().toString();
-        log.info(accessDC.getDisplayRecord() + this.getClass() + " partnerId inside cardgroupoverview " + partnerId);
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " partnerId inside cardgroupoverview " + partnerId);
 
-        partnerIdName = partnerId.substring(partnerId.indexOf(" ") + 1);
-        partnerId = partnerId.substring(0, partnerId.indexOf(" "));
-        log.info(accessDC.getDisplayRecord() + this.getClass() + " partnerId inside cardgroupoverview " + partnerId);
+        partnerIdName = partnerId.substring(partnerId.indexOf(' ') + 1);
+        partnerId = partnerId.substring(0, partnerId.indexOf(' '));
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " partnerId inside cardgroupoverview " + partnerId);
 
         accountId = dropNodeParent.toString();
 
-        if (session != null) {
+        if (session != null && session.getAttribute("Partner_Object_List") != null) {
 
-            if (session.getAttribute("Partner_Object_List") != null) {
 
-                partnerList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
-                if (partnerList != null) {
-                    for (int k = 0; k < partnerList.size(); k++) {
-                        if (partnerList.get(k).getPartnerValue().toString().equals(id)) {
-                            partner = partnerList.get(k);
-                            AccountList = partner.getAccountList();
-                        }
-
+            partnerList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
+            if (partnerList != null) {
+                for (int k = 0; k < partnerList.size(); k++) {
+                    if (partnerList.get(k).getPartnerValue().toString().equals(id)) {
+                        partner = partnerList.get(k);
+                        accountList = partner.getAccountList();
                     }
 
                 }
@@ -1812,7 +1793,7 @@ public class AccountSummaryBean implements Serializable {
             for (int k = 0; k < partnerList.size(); k++) {
                 if (partnerList.get(k).getPartnerValue().toString().equals(partnerId)) {
                     partner = partnerList.get(k);
-                    AccountList = partner.getAccountList();
+                    accountList = partner.getAccountList();
                 }
 
             }
@@ -1820,14 +1801,14 @@ public class AccountSummaryBean implements Serializable {
         }
 
 
-        for (int k = 0; k < AccountList.size(); k++) {
-            account = AccountList.get(k);
-            cardgrouplist = account.getCardGroup();
+        for (int k = 0; k < accountList.size(); k++) {
+            account = accountList.get(k);
+            List<CardGroupInfo> cardgrouplist = account.getCardGroup();
 
-            for (int cardgrp_count = 0; cardgrp_count < cardgrouplist.size(); cardgrp_count++) {
-                if (cardgrouplist.get(cardgrp_count).getCardGroupID().equalsIgnoreCase(id)) {
+            for (int cardgrpCount = 0; cardgrpCount < cardgrouplist.size(); cardgrpCount++) {
+                if (cardgrouplist.get(cardgrpCount).getCardGroupID().equalsIgnoreCase(id)) {
 
-                    displayCardGroupOverview = cardgrouplist.get(cardgrp_count).isCardGroupOverview();
+                    displayCardGroupOverview = cardgrouplist.get(cardgrpCount).isCardGroupOverview();
                     break;
                 }
             }
@@ -1837,18 +1818,18 @@ public class AccountSummaryBean implements Serializable {
         if (displayCardGroupOverview) {
 
 
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " cardGroup node clicked, cardGroup Overview is true in partner object " +
-                     partner.getPartnerValue() + " & cardGroupId " + id);
-            DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " cardGroup node clicked, cardGroup Overview is true in partner object " +
+                        partner.getPartnerValue() + " & cardGroupId " + id);
+            DCBindingContainer localBinding = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
             DCIteratorBinding iter1;
 
 
-            if (bindings != null) {
-                iter1 = bindings.findIteratorBinding("PrtCardgroupVO3Iterator");
+            if (localBinding != null) {
+                iter1 = localBinding.findIteratorBinding("PrtCardgroupVO3Iterator");
 
             } else {
 
-                log.severe(accessDC.getDisplayRecord() + this.getClass() + " card bindings inside cardGroup Overview is null ");
+                LOGGER.severe(accessDC.getDisplayRecord() + this.getClass() + " card bindings inside cardGroup Overview is null ");
                 iter1 = null;
             }
 
@@ -1864,15 +1845,13 @@ public class AccountSummaryBean implements Serializable {
                     cardGroupVO.setWhereClause("");
                     cardGroupVO.executeQuery();
                 }
-                String maintype = id.substring(0, 3);
+                String maintype = id.substring(0, Constants.THREE);
 
-                String subtype = id.substring(3, 6);
+                String subtype = id.substring(Constants.THREE, Constants.SIX);
 
-                String cardgroupseq = id.substring(6);
-
+                String cardgroupseq = id.substring(Constants.SIX);
 
                 cardGroupVO.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub AND ACCOUNT_ID=: acid");
-
 
                 cardGroupVO.defineNamedWhereClauseParam("cgid", cardgroupseq, null);
 
@@ -1881,17 +1860,15 @@ public class AccountSummaryBean implements Serializable {
                 cardGroupVO.defineNamedWhereClauseParam("cgsub", subtype, null);
                 cardGroupVO.defineNamedWhereClauseParam("acid", accountId, null);
 
-
                 cardGroupVO.executeQuery();
 
-
-                bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+                localBinding = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
                 DCIteratorBinding iter3;
-                if (bindings != null) {
-                    iter3 = bindings.findIteratorBinding("PrtCardVO4Iterator");
+                if (localBinding != null) {
+                    iter3 = localBinding.findIteratorBinding("PrtCardVO4Iterator");
 
                 } else {
-                    log.severe(accessDC.getDisplayRecord() + this.getClass() + " card bindings in PrtCardVO4Iterator is null");
+                    LOGGER.severe(accessDC.getDisplayRecord() + this.getClass() + " card bindings in PrtCardVO4Iterator is null");
 
                     iter3 = null;
                 }
@@ -1946,23 +1923,20 @@ public class AccountSummaryBean implements Serializable {
                             cardTypeNameMap.put(currRow.getCardType(), currRow.getTypeName());
 
                         }
-
                     }
-
-
                 }
 
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " CardType List size inside cardgroup Overview " + cardTypeList.size());
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " CardType List size inside cardgroup Overview " + cardTypeList.size());
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowAllPopUp());
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardTypeOT());
 
                 for (int i = 0; i < cardTypeList.size(); i++) {
                     if (cardTypeNameMap.size() > 0 && cardTypeNameMap.get(cardTypeList.get(i)) != null) {
                         displayCardTypeName = displayCardTypeName + cardTypeList.get(i) + " - " + cardTypeNameMap.get(cardTypeList.get(i)) + "<br/>";
-                        log.info(accessDC.getDisplayRecord() + this.getClass() + " displayCardTypeName-------------->" + displayCardTypeName);
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " displayCardTypeName-------------->" + displayCardTypeName);
                     } else {
                         displayCardTypeName = displayCardTypeName + cardTypeList.get(i) + "<br/>";
-                        log.info(accessDC.getDisplayRecord() + this.getClass() + " displayCardTypeName-------------->" + displayCardTypeName);
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " displayCardTypeName-------------->" + displayCardTypeName);
                     }
                 }
                 if (cardTypeList.size() > 0) {
@@ -1972,8 +1946,7 @@ public class AccountSummaryBean implements Serializable {
             }
 
 
-            CallPrtCardsPerRVO("cardgroup", partnerId, accountId, id);
-
+            callPrtCardsPerRVO("cardgroup", partnerId, accountId, id);
             getBindings().getCardGroupOverview().setVisible(true);
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupOverview());
 
@@ -1982,56 +1955,47 @@ public class AccountSummaryBean implements Serializable {
 
             hideAll();
 
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " cardGroup node clicked But cardGroup Overview is false in partner object " +
-                     partner.getPartnerValue() + " & cardGroupId " + id);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " cardGroup node clicked But cardGroup Overview is false in partner object " +
+                        partner.getPartnerValue() + " & cardGroupId " + id);
             getBindings().getRestrictedAccess().setVisible(true);
 
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRestrictedAccess());
         }
 
-
-        log.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting cardGroupOverview function ");
-
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting cardGroupOverview function ");
     }
 
     public void cardOverview() {
 
-        log.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside cardOverview function");
-
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside cardOverview function");
 
         hideAll();
         getBindings().getRestrictedAccess().setVisible(false);
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRestrictedAccess());
 
-
         for (Object ob : dropNodeParent.getAttributeValues()) {
             cardGroupId = ob.toString();
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " cardgroupID after conversion " + cardGroupId);
-
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " cardgroupID after conversion " + cardGroupId);
         }
 
         dropNodeParent = dropNodeParent.getParent();
         accountId = dropNodeParent.toString();
         partnerId = dropNodeParent.getParent().toString();
-        log.info(accessDC.getDisplayRecord() + this.getClass() + " partnerId inside cardoverview " + partnerId);
-        partnerIdName = partnerId.substring(partnerId.indexOf(" ") + 1);
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " partnerId inside cardoverview " + partnerId);
+        partnerIdName = partnerId.substring(partnerId.indexOf(' ') + 1);
+        partnerId = partnerId.substring(0, partnerId.indexOf(' '));
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " partnerId inside cardoverview " + partnerId);
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " card node clicked for partner object" + partner.getPartnerValue() + " & cardid " + id);
 
-        partnerId = partnerId.substring(0, partnerId.indexOf(" "));
-        log.info(accessDC.getDisplayRecord() + this.getClass() + " partnerId inside cardoverview " + partnerId);
-
-
-        log.info(accessDC.getDisplayRecord() + this.getClass() + " card node clicked for partner object" + partner.getPartnerValue() + " & cardid " + id);
-
-        DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+        DCBindingContainer localBinding = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
         DCIteratorBinding iter1;
 
-
-        if (bindings != null) {
-            iter1 = bindings.findIteratorBinding("PrtCardVO4Iterator");
+        if (localBinding != null) {
+            iter1 = localBinding.findIteratorBinding("PrtCardVO4Iterator");
 
         } else {
 
-            log.warning(accessDC.getDisplayRecord() + this.getClass() + " card bindings inside card Overview is null");
+            LOGGER.warning(accessDC.getDisplayRecord() + this.getClass() + " card bindings inside card Overview is null");
             iter1 = null;
         }
 
@@ -2056,7 +2020,6 @@ public class AccountSummaryBean implements Serializable {
 
             cardVO.defineNamedWhereClauseParam("cc", session.getAttribute(Constants.userLang), null);
 
-
             cardVO.executeQuery();
 
 
@@ -2066,25 +2029,24 @@ public class AccountSummaryBean implements Serializable {
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardOverview());
 
 
-        log.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting cardOverview function");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting cardOverview function");
     }
 
     public void companyOverview() {
 
-        log.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside companyOverview function");
-
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside companyOverview function");
         hideAll();
         getBindings().getRestrictedAccess().setVisible(false);
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRestrictedAccess());
 
-        DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+        DCBindingContainer localBinding = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
         DCIteratorBinding iter1;
 
-        if (bindings != null) {
-            iter1 = bindings.findIteratorBinding("PrtPartnerVO1Iterator");
+        if (localBinding != null) {
+            iter1 = localBinding.findIteratorBinding("PrtPartnerVO1Iterator");
 
         } else {
-            log.severe(accessDC.getDisplayRecord() + this.getClass() + " PrtPartnerVO1Iterator bindings is null");
+            LOGGER.severe(accessDC.getDisplayRecord() + this.getClass() + " PrtPartnerVO1Iterator bindings is null");
             iter1 = null;
         }
 
@@ -2093,99 +2055,97 @@ public class AccountSummaryBean implements Serializable {
             ViewObject partnerVO = iter1.getViewObject();
             partnerVO.setWhereClause("PARTNER_ID =: partid AND COUNTRY_CODE =: cc");
             partnerVO.defineNamedWhereClauseParam("partid", id, null);
-
             partnerVO.defineNamedWhereClauseParam("cc", session.getAttribute(Constants.userLang), null);
-
             partnerVO.executeQuery();
 
         }
 
-        CallPrtCardsPerRVO("partner", id, "", "");
+        callPrtCardsPerRVO("partner", id, "", "");
 
         if (session != null) {
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " partner value from session " + partner.getPartnerValue());
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " partner value from session " + partner.getPartnerValue());
         }
         if (partner.isCompanyOverview()) {
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " partner node clicked, company/partner Overview is true in partner object & partnerId " +
-                     partner.getPartnerValue().toString());
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() +
+                        " partner node clicked, company/partner Overview is true in partner object & partnerId " + partner.getPartnerValue().toString());
             getBindings().getCompanyOverview().setVisible(true);
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCompanyOverview());
         } else {
             hideAll();
-            log.info(accessDC.getDisplayRecord() + this.getClass() +
-                     " partner node clicked But company/partner Overview is false in partner object & partnerId " + partner.getPartnerValue().toString());
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() +
+                        " partner node clicked But company/partner Overview is false in partner object & partnerId " + partner.getPartnerValue().toString());
             getBindings().getRestrictedAccess().setVisible(true);
 
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRestrictedAccess());
         }
-        log.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting commpanyOverview function");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting commpanyOverview function");
     }
-    
-    
+
+
     public void displayErrorComponent(UIComponent component, boolean status) {
 
-            RichSelectManyChoice soc = new RichSelectManyChoice();
-            RichSelectOneChoice soc1 = new RichSelectOneChoice();
+        RichSelectManyChoice soc = new RichSelectManyChoice();
+        RichSelectOneChoice soc1 = new RichSelectOneChoice();
 
-             if (component instanceof RichSelectManyChoice) {
-                soc = (RichSelectManyChoice)component;
-                if (status) {
+        if (component instanceof RichSelectManyChoice) {
+            soc = (RichSelectManyChoice)component;
+            if (status) {
+                soc.setContentStyle("af_mandatoryfield");
+                if (component.getId().contains("smc1"))
                     soc.setContentStyle("af_mandatoryfield");
-                    if (component.getId().contains("smc1"))
-                        soc.setContentStyle("af_mandatoryfield");
 
-                } else {
+            } else {
+                soc.setContentStyle("af_nonmandatoryfield");
+                if (component.getId().contains("smc1"))
                     soc.setContentStyle("af_nonmandatoryfield");
-                    if (component.getId().contains("smc1"))
-                    soc.setContentStyle("af_nonmandatoryfield");
-                }
-                AdfFacesContext.getCurrentInstance().addPartialTarget(soc);
             }
-             
-            else if (component instanceof RichSelectOneChoice) {
-                        soc1 = (RichSelectOneChoice)component;
-                        if (status) {
-                            soc1.setContentStyle("af_mandatoryfield");
-                            if (component.getId().contains("sml1"))
-                                soc1.setContentStyle("af_mandatoryfield");
-
-                        } else {
-                            soc1.setContentStyle("af_nonmandatoryfield");
-                            if (component.getId().contains("sml1"))
-                                soc1.setContentStyle("af_nonmandatoryfield");
-                        }
-                        AdfFacesContext.getCurrentInstance().addPartialTarget(soc1);
-                    }
-          
+            AdfFacesContext.getCurrentInstance().addPartialTarget(soc);
         }
 
-        private Boolean isComponentEmpty(UIComponent rit1) {
+        else if (component instanceof RichSelectOneChoice) {
+            soc1 = (RichSelectOneChoice)component;
+            if (status) {
+                soc1.setContentStyle("af_mandatoryfield");
+                if (component.getId().contains("sml1"))
+                    soc1.setContentStyle("af_mandatoryfield");
 
-            RichSelectManyChoice soc = new RichSelectManyChoice();
-            RichSelectOneChoice soc1 = new RichSelectOneChoice();
-            if (rit1 instanceof RichSelectManyChoice) {
-                soc = (RichSelectManyChoice)rit1;
-                if (soc.getValue() == null || soc.getValue().equals("")) {                   
-                    displayErrorComponent(soc, true);
-                    return true;
-                } else {                   
-                    displayErrorComponent(soc, false);
-                    return false;
-                }
+            } else {
+                soc1.setContentStyle("af_nonmandatoryfield");
+                if (component.getId().contains("sml1"))
+                    soc1.setContentStyle("af_nonmandatoryfield");
             }
-            
-            else if (rit1 instanceof RichSelectOneChoice) {
-                        soc1 = (RichSelectOneChoice)rit1;
-                        if (soc1.getValue() == null || soc1.getValue().equals("")) {                            
-                            displayErrorComponent(soc1, true);
-                            return true;
-                        } else {                            
-                            displayErrorComponent(soc1, false);
-                            return false;
-                        }
-                    }
-            
-            return true;
+            AdfFacesContext.getCurrentInstance().addPartialTarget(soc1);
         }
-    
+
+    }
+
+    private Boolean isComponentEmpty(UIComponent rit1) {
+
+        RichSelectManyChoice soc = new RichSelectManyChoice();
+        RichSelectOneChoice soc1 = new RichSelectOneChoice();
+        if (rit1 instanceof RichSelectManyChoice) {
+            soc = (RichSelectManyChoice)rit1;
+            if (soc.getValue() == null || soc.getValue().equals("")) {
+                displayErrorComponent(soc, true);
+                return true;
+            } else {
+                displayErrorComponent(soc, false);
+                return false;
+            }
+        }
+
+        else if (rit1 instanceof RichSelectOneChoice) {
+            soc1 = (RichSelectOneChoice)rit1;
+            if (soc1.getValue() == null || soc1.getValue().equals("")) {
+                displayErrorComponent(soc1, true);
+                return true;
+            } else {
+                displayErrorComponent(soc1, false);
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 }

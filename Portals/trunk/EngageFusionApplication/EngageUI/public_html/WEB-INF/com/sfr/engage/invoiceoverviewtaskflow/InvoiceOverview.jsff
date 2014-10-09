@@ -359,16 +359,16 @@
                                         filename="#{row.Finalinvoice}.pdf"/>
         </af:commandImageLink>
         <af:spacer width="10" height="10" id="ss26"/>
-        <af:commandImageLink id="cil2" styleClass="mail_icon" icon="/images/mail_send.png" action="#{pageFlowScope.InvoiceOverviewBean.open_popup}"/>
+        <af:commandImageLink id="cil2" styleClass="mail_icon" icon="/images/mail_send.png" action="#{pageFlowScope.InvoiceOverviewBean.openPopup}"/>
        </af:panelGroupLayout>
       </af:column>
      </af:table>
      <af:spacer width="10" height="20" id="s59"/>
     </af:panelGroupLayout>
    </af:panelGroupLayout>
-   <af:popup id="p1" contentDelivery="immediate" binding="#{pageFlowScope.InvoiceOverviewBean.bindings.confirmation_mail_popup}" autoCancel="disabled"
+   <af:popup id="p1" contentDelivery="immediate" binding="#{pageFlowScope.InvoiceOverviewBean.bindings.confirmationMailPopup}" autoCancel="disabled"
              animate="false">
-    <af:dialog id="d1" title="#{sfr.EMAIL_CONFIRMATION}" dialogListener="#{pageFlowScope.InvoiceOverviewBean.confirmation_popup_value}"
+    <af:dialog id="d1" title="#{sfr.EMAIL_CONFIRMATION}" dialogListener="#{pageFlowScope.InvoiceOverviewBean.confirmationPopupValue}"
                shortDesc="#{sfr.SURE_SEND_EMAIL}" styleClass="textDialogs" contentWidth="330" type="none" inlineStyle="width:330px;" closeIconVisible="false">
      <af:panelGroupLayout id="pgl19">
       <af:separator id="s24" inlineStyle="width: 325px; margin-left: 0px!important;"/>
@@ -397,8 +397,8 @@
       <af:outputText value="#{sfr.CONFIRM_EMAIL_ID} :" inlineStyle="padding-left: 5px;" noWrap="true" id="ot74"/>
       <af:spacer width="10" height="2" id="s6"/>
       <af:panelGroupLayout id="pgl30" styleClass="AFStretchWidth" layout="horizontal">
-       <af:inputText value="#{pageFlowScope.InvoiceOverviewBean.to_recipient}" id="it12" readOnly="true"
-                     binding="#{pageFlowScope.InvoiceOverviewBean.bindings.email_recipient_popup}" contentStyle="width: 300px; margin-left: -2px;"
+       <af:inputText value="#{pageFlowScope.InvoiceOverviewBean.toRecipient}" id="it12" readOnly="true"
+                     binding="#{pageFlowScope.InvoiceOverviewBean.bindings.emailRecipientPopup}" contentStyle="width: 300px; margin-left: -2px;"
                      autoSubmit="true" valueChangeListener="#{pageFlowScope.InvoiceOverviewBean.resetResults}"></af:inputText>
        <af:spacer id="s19" height="5"/>
        <af:spacer width="0" height="0" binding="#{pageFlowScope.InvoiceOverviewBean.spacerFetchUserEmail}"/>
@@ -476,7 +476,7 @@
                                           filename="#{bindings.Finalinvoice1.inputValue}.pdf"/>
           </af:commandImageLink>
           <af:spacer width="10" height="10" id="s53"/>
-          <af:commandImageLink id="cil4" styleClass="mail_icon" icon="/images/mail_send.png" action="#{pageFlowScope.InvoiceOverviewBean.open_popup}"/>
+          <af:commandImageLink id="cil4" styleClass="mail_icon" icon="/images/mail_send.png" action="#{pageFlowScope.InvoiceOverviewBean.openPopup}"/>
          </af:panelGroupLayout>
          <af:spacer width="20" height="20" id="s52"/>
          <af:selectOneRadio id="selectOneRadio1" layout="horizontal" autoSubmit="true" inlineStyle="margin-left: -25px;"

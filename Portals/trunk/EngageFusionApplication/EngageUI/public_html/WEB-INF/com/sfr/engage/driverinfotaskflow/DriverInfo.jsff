@@ -251,7 +251,7 @@
                 <af:selectOneChoice id="soc1"
                                     contentStyle="width:165px;height:20.0px;"
                                     autoSubmit="true"
-                                    valueChangeListener="#{pageFlowScope.DriverInfoBean.AddPartnerNumberListener}"
+                                    valueChangeListener="#{pageFlowScope.DriverInfoBean.addPartnerNumberListener}"
                                     binding="#{pageFlowScope.DriverInfoBean.bindings.addPartnerNumberId}"
                                     value="#{pageFlowScope.DriverInfoBean.addPartnerNumberDisplayValue}"
                                     unselectedLabel="#{sfr.PLEASE_SELECT_ENG}">
@@ -269,7 +269,7 @@
                 <af:selectOneChoice id="soc5"
                                     contentStyle="width:165px;height:20.0px;"
                                     autoSubmit="true"
-                                    valueChangeListener="#{pageFlowScope.DriverInfoBean.AddAccountNumberListener}"
+                                    valueChangeListener="#{pageFlowScope.DriverInfoBean.addAccountNumberListener}"
                                     binding="#{pageFlowScope.DriverInfoBean.bindings.addAccountId}"
                                     value="#{pageFlowScope.DriverInfoBean.addAccountIdDisplayValue}"
                                     unselectedLabel="#{sfr.PLEASE_SELECT_ENG}">
@@ -498,7 +498,7 @@
                 <af:selectOneChoice id="soc6"
                                     contentStyle="width:165px;height:20.0px;"
                                     autoSubmit="true"
-                                    valueChangeListener="#{pageFlowScope.DriverInfoBean.EditPartnerNumberLIstener}"
+                                    valueChangeListener="#{pageFlowScope.DriverInfoBean.editPartnerNumberLIstener}"
                                     binding="#{pageFlowScope.DriverInfoBean.bindings.editPartnerNumberId}"
                                     value="#{pageFlowScope.DriverInfoBean.editPartnerNumberDisplayValue}"
                                     unselectedLabel="#{sfr.PLEASE_SELECT_ENG}"

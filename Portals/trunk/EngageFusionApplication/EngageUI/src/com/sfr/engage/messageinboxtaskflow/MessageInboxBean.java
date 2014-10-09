@@ -1,13 +1,10 @@
 package com.sfr.engage.messageinboxtaskflow;
 
-import com.sfr.core.bean.EngageEmaiUtilityl;
-import com.sfr.engage.core.PartnerInfo;
-import com.sfr.engage.invoiceoverviewtaskflow.InvoiceOverviewBean;
 
+import com.sfr.engage.core.PartnerInfo;
 import com.sfr.engage.model.queries.rvo.PrtCustomerCardMapRVO1RowImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.util.ADFUtils;
-
 import com.sfr.util.AccessDataControl;
 import com.sfr.util.constants.Constants;
 import com.sfr.util.validations.Conversion;
@@ -24,10 +21,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
-
-import java.util.List;
 import java.util.ResourceBundle;
-
 import java.util.Set;
 
 import javax.faces.application.FacesMessage;
@@ -44,26 +38,25 @@ import javax.servlet.http.HttpSession;
 import oracle.adf.share.logging.ADFLogger;
 import oracle.adf.view.rich.component.rich.input.RichInputDate;
 import oracle.adf.view.rich.component.rich.input.RichSelectManyChoice;
-
 import oracle.adf.view.rich.component.rich.input.RichSelectOneChoice;
 import oracle.adf.view.rich.component.rich.layout.RichPanelGroupLayout;
 import oracle.adf.view.rich.context.AdfFacesContext;
 
 import oracle.jbo.ViewObject;
 
+
 public class MessageInboxBean implements Serializable {
     @SuppressWarnings("compatibility")
     private static final long serialVersionUID = 1L;
     private transient Bindings bindings;
     private HttpSession session;
-    private ExternalContext ectx;
     private HttpServletRequest request;
     private boolean isMessageAdmin = true;
     private List<SelectItem> categoryList;
     private String categoryValue = null;
     private List<SelectItem> messageTypeList;
     private List<String> messageTypeValue = null;
-    ResourceBundle resourceBundle;
+    private ResourceBundle resourceBundle;
     private List<SelectItem> partnerList = null;
     private List<String> partnerValue = null;
     private List<String> accountValue;
@@ -73,7 +66,7 @@ public class MessageInboxBean implements Serializable {
     private List<String> cardValue;
     private List<SelectItem> cardList = null;
     private String customerTypeValue;
-    public static final ADFLogger log = AccessDataControl.getSFRLogger();
+    public static final ADFLogger LOGGER = AccessDataControl.getSFRLogger();
     private AccessDataControl accessDC = new AccessDataControl();
     private Conversion conversionUtility;
     private String langSession = "";
@@ -81,13 +74,12 @@ public class MessageInboxBean implements Serializable {
     private boolean resultToFrom = true;
     private boolean isSearchTableVisible = false;
     private List<PartnerInfo> partnerInfoList;
-
+    private final int minusThree = -3;
 
     public MessageInboxBean() {
-        log.info(accessDC.getDisplayRecord() + this.getClass() +
-                 " constructor of Message Inbox");
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " constructor of Message Inbox");
         conversionUtility = new Conversion();
-        ectx = FacesContext.getCurrentInstance().getExternalContext();
+        ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
         resourceBundle = new EngageResourceBundle();
@@ -101,9 +93,8 @@ public class MessageInboxBean implements Serializable {
         cardList = new ArrayList<SelectItem>();
         messageTypeValue = new ArrayList<String>();
 
-        if (resourceBundle.containsKey("ENGAGE_CATEGORY_ADMIN")) {
-            categoryValue =
-                    resourceBundle.getObject("ENGAGE_CATEGORY_ADMIN").toString();
+        if (resourceBundle.containsKey(Constants.ENGAGE_CATEGORY_ADMIN_LITERAL)) {
+            categoryValue = resourceBundle.getObject(Constants.ENGAGE_CATEGORY_ADMIN_LITERAL).toString();
         } else {
             categoryValue = "";
         }
@@ -111,16 +102,13 @@ public class MessageInboxBean implements Serializable {
         messageTypeValue.add("YES");
         if (session != null) {
 
-
             if (session.getAttribute("Partner_Object_List") != null) {
-                partnerInfoList =
-                        (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
+                partnerInfoList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
             }
 
             if (partnerInfoList != null && partnerInfoList.size() > 0) {
                 for (int i = 0; i < partnerInfoList.size(); i++) {
-                    if (partnerInfoList.get(i).getPartnerName() != null &&
-                        partnerInfoList.get(i).getPartnerValue() != null) {
+                    if (partnerInfoList.get(i).getPartnerName() != null && partnerInfoList.get(i).getPartnerValue() != null) {
                         SelectItem selectItemPartner = new SelectItem();
                         selectItemPartner.setLabel(partnerInfoList.get(i).getPartnerName().toString());
                         selectItemPartner.setValue(partnerInfoList.get(i).getPartnerValue().toString());
@@ -128,30 +116,20 @@ public class MessageInboxBean implements Serializable {
                         partnerValue.add(partnerInfoList.get(i).getPartnerValue().toString());
                     }
 
-                    if (partnerInfoList.get(i).getAccountList() != null &&
-                        partnerInfoList.get(i).getAccountList().size() > 0) {
-                        for (int j = 0;
-                             j < partnerInfoList.get(i).getAccountList().size();
-                             j++) {
-                            if (partnerInfoList.get(i).getAccountList().get(j).getAccountNumber() !=
-                                null) {
+                    if (partnerInfoList.get(i).getAccountList() != null && partnerInfoList.get(i).getAccountList().size() > 0) {
+                        for (int j = 0; j < partnerInfoList.get(i).getAccountList().size(); j++) {
+                            if (partnerInfoList.get(i).getAccountList().get(j).getAccountNumber() != null) {
                                 SelectItem selectItem = new SelectItem();
                                 selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
                                 selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
                                 accountList.add(selectItem);
                                 accountValue.add(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
-                                if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup() !=
-                                    null &&
-                                    partnerInfoList.get(i).getAccountList().get(j).getCardGroup().size() >
-                                    0) {
+                                if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup() != null &&
+                                    partnerInfoList.get(i).getAccountList().get(j).getCardGroup().size() > 0) {
 
+                                    for (int cg = 0; cg < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().size(); cg++) {
 
-                                    for (int cg = 0;
-                                         cg < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().size();
-                                         cg++) {
-
-                                        SelectItem selectItemCardGroup =
-                                            new SelectItem();
+                                        SelectItem selectItemCardGroup = new SelectItem();
                                         selectItemCardGroup.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(cg).getDisplayCardGroupIdName().toString());
                                         selectItemCardGroup.setValue(partnerInfoList.get(i).getPartnerValue().toString().trim() +
                                                                      partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(cg).getCardGroupID().toString());
@@ -159,144 +137,95 @@ public class MessageInboxBean implements Serializable {
                                         cardGroupValue.add(partnerInfoList.get(i).getPartnerValue().toString().trim() +
                                                            partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(cg).getCardGroupID().toString());
 
-
-                                        if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(cg).getCard() !=
-                                            null &&
-                                            partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(cg).getCard().size() >
-                                            0) {
-                                            for (int cc = 0;
-                                                 cc < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(cg).getCard().size();
+                                        if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(cg).getCard() != null &&
+                                            partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(cg).getCard().size() > 0) {
+                                            for (int cc = 0; cc < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(cg).getCard().size();
                                                  cc++) {
-                                                SelectItem selectItemCard =
-                                                    new SelectItem();
+                                                SelectItem selectItemCard = new SelectItem();
                                                 selectItemCard.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(cg).getCard().get(cc).getExternalCardID().toString());
                                                 selectItemCard.setValue(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(cg).getCard().get(cc).getCardID().toString());
                                                 cardList.add(selectItemCard);
                                                 cardValue.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(cg).getCard().get(cc).getCardID().toString());
-
                                             }
-
-
                                         }
-
-
-                                        Collections.sort(cardGroupList,
-                                                         comparator);
-
+                                        Collections.sort(cardGroupList, comparator);
                                     }
                                 }
                             }
                         }
                     }
                 }
-
             }
 
             langSession = (String)session.getAttribute(Constants.userLang);
-            log.info(accessDC.getDisplayRecord() + this.getClass() +
-                     " langSession" + langSession);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " langSession" + langSession);
 
             Date dateNow = new java.util.Date();
             GregorianCalendar gc = new GregorianCalendar();
             gc.setTime(dateNow);
-            gc.add(GregorianCalendar.MONTH, -3);
+            gc.add(GregorianCalendar.MONTH, minusThree);
             Date dateBefore = gc.getTime();
-            SimpleDateFormat dateformat =
-                               new SimpleDateFormat("dd-MMM-yy");
+            SimpleDateFormat dateformat = new SimpleDateFormat("dd-MMM-yy");
             String tmpFrom = dateformat.format(dateBefore);
-
-            String tmpTo = dateformat.format(dateBefore); 
-
+            String tmpTo = dateformat.format(dateBefore);
             Set<String> cardTypeSet = new HashSet<String>();
             List<String> customerTypeList = new ArrayList<String>();
-            if (session.getAttribute("cardTypeList") != null) {
+            if (session.getAttribute(Constants.CARDTYPELIST_LITERAL) != null) {
 
-                cardTypeSet =
-                        (Set<String>)session.getAttribute("cardTypeList");
+                cardTypeSet = (Set<String>)session.getAttribute(Constants.CARDTYPELIST_LITERAL);
             }
             List<String> cardTypeListTemp = new ArrayList<String>(cardTypeSet);
-            String cardTypeList =
-                cardTypeListTemp.toString().substring(1, cardTypeListTemp.toString().length() -
-                                                      1).replace("", "");
-            
-            ViewObject prtCustomerCardMapVO =
-                ADFUtils.getViewObject("PrtCustomerCardMapRVO1_1Iterator");
-            prtCustomerCardMapVO.setNamedWhereClauseParam("cardType",
-                                                          cardTypeList);
+            String cardTypeList = cardTypeListTemp.toString().substring(1, cardTypeListTemp.toString().length() - 1).replace("", "");
+            ViewObject prtCustomerCardMapVO = ADFUtils.getViewObject("PrtCustomerCardMapRVO1_1Iterator");
+            prtCustomerCardMapVO.setNamedWhereClauseParam("cardType", cardTypeList);
             prtCustomerCardMapVO.executeQuery();
             if (prtCustomerCardMapVO.getEstimatedRowCount() != 0) {
                 while (prtCustomerCardMapVO.hasNext()) {
-                    PrtCustomerCardMapRVO1RowImpl currRow =
-                        (PrtCustomerCardMapRVO1RowImpl)prtCustomerCardMapVO.next();
+                    PrtCustomerCardMapRVO1RowImpl currRow = (PrtCustomerCardMapRVO1RowImpl)prtCustomerCardMapVO.next();
                     if (currRow != null) {
                         customerTypeList.add(currRow.getCustomerType());
-                        customerTypeValue =
-                                customerTypeList.toString().substring(1,
-                                                                      customerTypeList.toString().length() -
-                                                                      1).replace("",
-                                                                                 "");
+                        customerTypeValue = customerTypeList.toString().substring(1, customerTypeList.toString().length() - 1).replace("", "");
                     }
                 }
                 customerTypeValue = customerTypeValue + ",ALL";
 
             }
-			
-			
-			                log.info(accessDC.getDisplayRecord() + this.getClass() +
-                         " lang passed in PRTPCMFEEDS is " +
-                         conversionUtility.getCustomerCountryCode(langSession));
-                if (customerTypeValue != null) {
-                ViewObject prtPCMFeedsVO =
-                    ADFUtils.getViewObject("PrtPcmFeedsRVO1Iterator");
-                                     
-                    
-                    if(prtPCMFeedsVO.getWhereClause() != null && "INSTR(:customerType,CUSTOMER_TYPE)<>0  AND INFORMATION_TYPE =:infoType AND COUNTRY_CODE=:countryCode AND EFFECTIVE_DATE >=:fromDate AND EFFECTIVE_DATE <=:toDate AND INSTR(:showFlag,trim(SHOW_FLAG))<>0".equalsIgnoreCase(prtPCMFeedsVO.getWhereClause())){
-                        prtPCMFeedsVO.removeNamedWhereClauseParam("customerType");
-                        prtPCMFeedsVO.removeNamedWhereClauseParam("infoType");
-                        prtPCMFeedsVO.removeNamedWhereClauseParam("countryCode");
-                        prtPCMFeedsVO.removeNamedWhereClauseParam("fromDate");
-                        prtPCMFeedsVO.removeNamedWhereClauseParam("toDate");
-                        prtPCMFeedsVO.removeNamedWhereClauseParam("showFlag");
-                        prtPCMFeedsVO.setWhereClause("");
-                        prtPCMFeedsVO.executeQuery();
-                    }
-                    
 
-                    prtPCMFeedsVO.setWhereClause("INSTR(:customerType,CUSTOMER_TYPE)<>0  AND INFORMATION_TYPE =:infoType AND COUNTRY_CODE=:countryCode AND EFFECTIVE_DATE <=:fromDate AND END_DATE >=:toDate");
-                    prtPCMFeedsVO.defineNamedWhereClauseParam("customerType",
-                                                              customerTypeValue,
-                                                              null);
-                    prtPCMFeedsVO.defineNamedWhereClauseParam("infoType",
-                                                              "MESSAGES",
-                                                              null);
-                    prtPCMFeedsVO.defineNamedWhereClauseParam("countryCode",
-                                                              conversionUtility.getCustomerCountryCode(langSession),
-                                                              null);
-                    prtPCMFeedsVO.defineNamedWhereClauseParam("fromDate",
-                                                              tmpFrom,
-                                                              null);
-                    prtPCMFeedsVO.defineNamedWhereClauseParam("toDate",
-                                                              tmpTo,
-                                                              null);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " lang passed in PRTPCMFEEDS is " +
+                        conversionUtility.getCustomerCountryCode(langSession));
+            if (customerTypeValue != null) {
+                ViewObject prtPCMFeedsVO = ADFUtils.getViewObject("PrtPcmFeedsRVO1Iterator");
+
+                if (prtPCMFeedsVO.getWhereClause() != null &&
+                    "INSTR(:customerType,CUSTOMER_TYPE)<>0  AND INFORMATION_TYPE =:infoType AND COUNTRY_CODE=:countryCode AND EFFECTIVE_DATE >=:fromDate AND EFFECTIVE_DATE <=:toDate AND INSTR(:showFlag,trim(SHOW_FLAG))<>0".equalsIgnoreCase(prtPCMFeedsVO.getWhereClause())) {
+                    prtPCMFeedsVO.removeNamedWhereClauseParam(Constants.CUSTOMER_TYPE_LITERAL);
+                    prtPCMFeedsVO.removeNamedWhereClauseParam(Constants.INFO_TYPE_LITERAL);
+                    prtPCMFeedsVO.removeNamedWhereClauseParam(Constants.COUNTRYCODE_LITERAL);
+                    prtPCMFeedsVO.removeNamedWhereClauseParam(Constants.FROM_DATE_LITERAL);
+                    prtPCMFeedsVO.removeNamedWhereClauseParam(Constants.TO_DATE_LITERAL);
+                    prtPCMFeedsVO.removeNamedWhereClauseParam("showFlag");
+                    prtPCMFeedsVO.setWhereClause("");
                     prtPCMFeedsVO.executeQuery();
-                    log.info(accessDC.getDisplayRecord() + this.getClass() +
-                             " " + "Information Row Count " +
-                             prtPCMFeedsVO.getEstimatedRowCount());
+                }
 
-							 
-				    if (prtPCMFeedsVO.getEstimatedRowCount() > 0) {
-				        isSearchTableVisible = true;
-				    } 
-                    else{
-                        isSearchTableVisible = false;
-                    }
-							 
-				}
+                prtPCMFeedsVO.setWhereClause("INSTR(:customerType,CUSTOMER_TYPE)<>0  AND INFORMATION_TYPE =:infoType AND COUNTRY_CODE=:countryCode AND EFFECTIVE_DATE <=:fromDate AND END_DATE >=:toDate");
+                prtPCMFeedsVO.defineNamedWhereClauseParam(Constants.CUSTOMER_TYPE_LITERAL, customerTypeValue, null);
+                prtPCMFeedsVO.defineNamedWhereClauseParam(Constants.INFO_TYPE_LITERAL, "MESSAGES", null);
+                prtPCMFeedsVO.defineNamedWhereClauseParam(Constants.COUNTRYCODE_LITERAL, conversionUtility.getCustomerCountryCode(langSession), null);
+                prtPCMFeedsVO.defineNamedWhereClauseParam(Constants.FROM_DATE_LITERAL, tmpFrom, null);
+                prtPCMFeedsVO.defineNamedWhereClauseParam(Constants.TO_DATE_LITERAL, tmpTo, null);
+                prtPCMFeedsVO.executeQuery();
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Information Row Count " + prtPCMFeedsVO.getEstimatedRowCount());
 
+                if (prtPCMFeedsVO.getEstimatedRowCount() > 0) {
+                    isSearchTableVisible = true;
+                } else {
+                    isSearchTableVisible = false;
+                }
+            }
         }
-
     }
-    Comparator<SelectItem> comparator = new Comparator<SelectItem>() {
+    private Comparator<SelectItem> comparator = new Comparator<SelectItem>() {
         @Override
         public int compare(SelectItem s1, SelectItem s2) {
             return s1.getLabel().compareTo(s2.getLabel());
@@ -330,9 +259,9 @@ public class MessageInboxBean implements Serializable {
         if (categoryList == null) {
             categoryList = new ArrayList<SelectItem>();
             SelectItem selectItem = new SelectItem();
-            if (resourceBundle.containsKey("ENGAGE_CATEGORY_ADMIN")) {
-                selectItem.setLabel(resourceBundle.getObject("ENGAGE_CATEGORY_ADMIN").toString());
-                selectItem.setValue(resourceBundle.getObject("ENGAGE_CATEGORY_ADMIN").toString());
+            if (resourceBundle.containsKey(Constants.ENGAGE_CATEGORY_ADMIN_LITERAL)) {
+                selectItem.setLabel(resourceBundle.getObject(Constants.ENGAGE_CATEGORY_ADMIN_LITERAL).toString());
+                selectItem.setValue(resourceBundle.getObject(Constants.ENGAGE_CATEGORY_ADMIN_LITERAL).toString());
                 categoryList.add(selectItem);
             }
             SelectItem selectItem1 = new SelectItem();
@@ -345,7 +274,6 @@ public class MessageInboxBean implements Serializable {
         }
         return categoryList;
     }
-
 
     public void setMessageTypeList(List<SelectItem> messageTypeList) {
         this.messageTypeList = messageTypeList;
@@ -371,13 +299,9 @@ public class MessageInboxBean implements Serializable {
         return messageTypeList;
     }
 
-    public String[] StringConversion(String passedVal) {
+    public String[] stringSplitter(String passedVal) {
 
-        List<String> container;
-
-        String[] val = passedVal.split(",");
-
-        return val;
+        return passedVal.split(",");
     }
 
     public void partnerValueChangeListener(ValueChangeEvent valueChangeEvent) {
@@ -394,7 +318,6 @@ public class MessageInboxBean implements Serializable {
 
     public void clearSearchListener(ActionEvent actionEvent) {
 
-
         this.partnerValue = null;
         isSearchTableVisible = false;
         messageTypeValue = null;
@@ -406,8 +329,6 @@ public class MessageInboxBean implements Serializable {
         cardGroupList = new ArrayList<SelectItem>();
         cardValue = new ArrayList<String>();
         cardList = new ArrayList<SelectItem>();
-        //        messageTypeList=new ArrayList<SelectItem>();
-
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccount());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getFromDate());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getToDate());
@@ -416,15 +337,12 @@ public class MessageInboxBean implements Serializable {
     }
 
     public String showErrorMessage(String errorVar) {
-        if (errorVar != null) {
-            if (resourceBundle.containsKey(errorVar)) {
-                FacesMessage msg =
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                     (String)resourceBundle.getObject(errorVar),
-                                     "");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-                return null;
-            }
+        if (errorVar != null && resourceBundle.containsKey(errorVar)) {
+
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject(errorVar), "");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            return null;
+
         }
         return null;
     }
@@ -433,8 +351,7 @@ public class MessageInboxBean implements Serializable {
         String passingValues = null;
         if (var != null) {
             String lovValues = var.trim();
-            String selectedValues =
-                lovValues.substring(1, lovValues.length() - 1);
+            String selectedValues = lovValues.substring(1, lovValues.length() - 1);
             passingValues = selectedValues.trim();
 
         }
@@ -446,206 +363,143 @@ public class MessageInboxBean implements Serializable {
         String newToDate = null;
         String messageValue = null;
         isSearchTableVisible = false;
-        
-        if(getBindings().getMessageType().getValue() != null) {           
-        displayErrorComponent(getBindings().getMessageType(), false);    
-        if (isMessageAdmin) {
-            if (getBindings().getCategory().getValue() != null &&
-                getBindings().getMessageType().getValue() != null &&
-                getBindings().getFromDate().getValue() != null &&
-                getBindings().getToDate().getValue() != null) {
 
+        if (getBindings().getMessageType().getValue() != null) {
+            displayErrorComponent(getBindings().getMessageType(), false);
+            if (isMessageAdmin) {
+                if (getBindings().getCategory().getValue() != null && getBindings().getMessageType().getValue() != null &&
+                    getBindings().getFromDate().getValue() != null && getBindings().getToDate().getValue() != null) {
 
-                if (getBindings().getFromDate().getValue() != null &&
-                    getBindings().getToDate().getValue() != null) {
-                    DateFormat sdf = new SimpleDateFormat("dd-MMM-yy");
-                    Date effectiveFromDate =
-                        (java.util.Date)getBindings().getFromDate().getValue();
-                    Date effectiveToDate1 =
-                        (java.util.Date)getBindings().getToDate().getValue();
-                    newFromDate = sdf.format(effectiveFromDate);
-                    newToDate = sdf.format(effectiveToDate1);
+                    if (getBindings().getFromDate().getValue() != null && getBindings().getToDate().getValue() != null) {
+                        DateFormat sdf = new SimpleDateFormat("dd-MMM-yy");
+                        Date effectiveFromDate = (java.util.Date)getBindings().getFromDate().getValue();
+                        Date effectiveToDate1 = (java.util.Date)getBindings().getToDate().getValue();
+                        newFromDate = sdf.format(effectiveFromDate);
+                        newToDate = sdf.format(effectiveToDate1);
 
-                    if (effectiveToDate1.before(effectiveFromDate)) {
-                        log.info(accessDC.getDisplayRecord() +
-                                 this.getClass() + " " +
-                                 "value of new from date ================>" +
-                                 newFromDate);
-                        showErrorMessage("ENGAGE_VALID_FROM_TO_DATE");
-                        return;
-                    }
-                }
-
-
-                if (getBindings().getMessageType().getValue() != null) {
-                    messageValue =
-                            populateStringValues(getBindings().getMessageType().getValue().toString());
-                }
-
-                Date date = new Date();
-                java.sql.Date passedDate = new java.sql.Date(date.getTime());
-                Set<String> cardTypeSet = new HashSet<String>();
-                List<String> customerTypeList = new ArrayList<String>();
-                if (session.getAttribute("cardTypeList") != null) {
-
-                    cardTypeSet =
-                            (Set<String>)session.getAttribute("cardTypeList");
-                }
-
-                List<String> cardTypeListTemp =
-                    new ArrayList<String>(cardTypeSet);
-                String cardTypeList =
-                    cardTypeListTemp.toString().substring(1, cardTypeListTemp.toString().length() -
-                                                          1).replace("", "");
-
-                ViewObject prtCustomerCardMapVO =
-                    ADFUtils.getViewObject("PrtCustomerCardMapRVO1_1Iterator");
-                prtCustomerCardMapVO.setNamedWhereClauseParam("cardType",
-                                                              cardTypeList);
-                prtCustomerCardMapVO.executeQuery();
-                if (prtCustomerCardMapVO.getEstimatedRowCount() != 0) {
-                    while (prtCustomerCardMapVO.hasNext()) {
-                        PrtCustomerCardMapRVO1RowImpl currRow =
-                            (PrtCustomerCardMapRVO1RowImpl)prtCustomerCardMapVO.next();
-                        if (currRow != null) {
-                            customerTypeList.add(currRow.getCustomerType());
-                            customerTypeValue =
-                                    customerTypeList.toString().substring(1,
-                                                                          customerTypeList.toString().length() -
-                                                                          1).replace("",
-                                                                                     "");
+                        if (effectiveToDate1.before(effectiveFromDate)) {
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "value of new from date ================>" + newFromDate);
+                            showErrorMessage("ENGAGE_VALID_FROM_TO_DATE");
+                            return;
                         }
                     }
-                    customerTypeValue = customerTypeValue + ",ALL";
-                }
-                if (customerTypeValue != null) {
-                    ViewObject prtPCMFeedsVO =
-                        ADFUtils.getViewObject("PrtPcmFeedsRVO1Iterator");
 
+                    if (getBindings().getMessageType().getValue() != null) {
+                        messageValue = populateStringValues(getBindings().getMessageType().getValue().toString());
+                    }
 
-                    if (prtPCMFeedsVO.getWhereClause() != null &&
-                        "INSTR(:customerType,CUSTOMER_TYPE)<>0  AND INFORMATION_TYPE =:infoType AND COUNTRY_CODE=:countryCode AND EFFECTIVE_DATE <=:fromDate AND END_DATE >=:toDate".equalsIgnoreCase(prtPCMFeedsVO.getWhereClause())) {
-                        prtPCMFeedsVO.removeNamedWhereClauseParam("customerType");
-                        prtPCMFeedsVO.removeNamedWhereClauseParam("infoType");
-                        prtPCMFeedsVO.removeNamedWhereClauseParam("countryCode");
-                        prtPCMFeedsVO.removeNamedWhereClauseParam("fromDate");
-                        prtPCMFeedsVO.removeNamedWhereClauseParam("toDate");
-                        prtPCMFeedsVO.setWhereClause("");
+                    Date date = new Date();
+                    Set<String> cardTypeSet = new HashSet<String>();
+                    List<String> customerTypeList = new ArrayList<String>();
+                    if (session.getAttribute(Constants.CARDTYPELIST_LITERAL) != null) {
+
+                        cardTypeSet = (Set<String>)session.getAttribute(Constants.CARDTYPELIST_LITERAL);
+                    }
+
+                    List<String> cardTypeListTemp = new ArrayList<String>(cardTypeSet);
+                    String cardTypeList = cardTypeListTemp.toString().substring(1, cardTypeListTemp.toString().length() - 1).replace("", "");
+                    ViewObject prtCustomerCardMapVO = ADFUtils.getViewObject("PrtCustomerCardMapRVO1_1Iterator");
+                    prtCustomerCardMapVO.setNamedWhereClauseParam("cardType", cardTypeList);
+                    prtCustomerCardMapVO.executeQuery();
+                    if (prtCustomerCardMapVO.getEstimatedRowCount() != 0) {
+                        while (prtCustomerCardMapVO.hasNext()) {
+                            PrtCustomerCardMapRVO1RowImpl currRow = (PrtCustomerCardMapRVO1RowImpl)prtCustomerCardMapVO.next();
+                            if (currRow != null) {
+                                customerTypeList.add(currRow.getCustomerType());
+                                customerTypeValue = customerTypeList.toString().substring(1, customerTypeList.toString().length() - 1).replace("", "");
+                            }
+                        }
+                        customerTypeValue = customerTypeValue + ",ALL";
+                    }
+                    if (customerTypeValue != null) {
+                        ViewObject prtPCMFeedsVO = ADFUtils.getViewObject("PrtPcmFeedsRVO1Iterator");
+
+                        if (prtPCMFeedsVO.getWhereClause() != null &&
+                            "INSTR(:customerType,CUSTOMER_TYPE)<>0  AND INFORMATION_TYPE =:infoType AND COUNTRY_CODE=:countryCode AND EFFECTIVE_DATE <=:fromDate AND END_DATE >=:toDate".equalsIgnoreCase(prtPCMFeedsVO.getWhereClause())) {
+                            prtPCMFeedsVO.removeNamedWhereClauseParam(Constants.CUSTOMER_TYPE_LITERAL);
+                            prtPCMFeedsVO.removeNamedWhereClauseParam(Constants.INFO_TYPE_LITERAL);
+                            prtPCMFeedsVO.removeNamedWhereClauseParam(Constants.COUNTRYCODE_LITERAL);
+                            prtPCMFeedsVO.removeNamedWhereClauseParam(Constants.FROM_DATE_LITERAL);
+                            prtPCMFeedsVO.removeNamedWhereClauseParam(Constants.TO_DATE_LITERAL);
+                            prtPCMFeedsVO.setWhereClause("");
+                            prtPCMFeedsVO.executeQuery();
+                        }
+
+                        prtPCMFeedsVO.setWhereClause("INSTR(:customerType,CUSTOMER_TYPE)<>0  AND INFORMATION_TYPE =:infoType AND COUNTRY_CODE=:countryCode AND EFFECTIVE_DATE >=:fromDate AND EFFECTIVE_DATE <=:toDate AND INSTR(:showFlag,trim(SHOW_FLAG))<>0");
+                        prtPCMFeedsVO.defineNamedWhereClauseParam(Constants.CUSTOMER_TYPE_LITERAL, customerTypeValue, null);
+                        prtPCMFeedsVO.defineNamedWhereClauseParam(Constants.INFO_TYPE_LITERAL, "MESSAGES", null);
+                        prtPCMFeedsVO.defineNamedWhereClauseParam(Constants.COUNTRYCODE_LITERAL, conversionUtility.getCustomerCountryCode(langSession), null);
+                        prtPCMFeedsVO.defineNamedWhereClauseParam(Constants.FROM_DATE_LITERAL, newFromDate, null);
+                        prtPCMFeedsVO.defineNamedWhereClauseParam(Constants.TO_DATE_LITERAL, newToDate, null);
+                        prtPCMFeedsVO.defineNamedWhereClauseParam("showFlag", messageValue, null);
                         prtPCMFeedsVO.executeQuery();
-                    }
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Messages Row Count " + prtPCMFeedsVO.getEstimatedRowCount());
+                        if (prtPCMFeedsVO.getEstimatedRowCount() > 0) {
+                            isSearchTableVisible = true;
+                        } else {
+                            isSearchTableVisible = false;
+                            if (messageValue.equalsIgnoreCase("NO")) {
+                                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("ENG_NO_READ_MSGS"), "");
+                                FacesContext.getCurrentInstance().addMessage(null, msg);
+                            }
 
+                            else if (messageValue.equalsIgnoreCase("YES")) {
+                                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("ENG_NO_UNREAD_MSGS"), "");
+                                FacesContext.getCurrentInstance().addMessage(null, msg);
+                            }
 
-                    prtPCMFeedsVO.setWhereClause("INSTR(:customerType,CUSTOMER_TYPE)<>0  AND INFORMATION_TYPE =:infoType AND COUNTRY_CODE=:countryCode AND EFFECTIVE_DATE >=:fromDate AND EFFECTIVE_DATE <=:toDate AND INSTR(:showFlag,trim(SHOW_FLAG))<>0");
-
-
-                    prtPCMFeedsVO.defineNamedWhereClauseParam("customerType",
-                                                              customerTypeValue,
-                                                              null);
-                    prtPCMFeedsVO.defineNamedWhereClauseParam("infoType",
-                                                              "MESSAGES",
-                                                              null);
-                    prtPCMFeedsVO.defineNamedWhereClauseParam("countryCode",
-                                                              conversionUtility.getCustomerCountryCode(langSession),
-                                                              null);
-                    prtPCMFeedsVO.defineNamedWhereClauseParam("fromDate",
-                                                              newFromDate,
-                                                              null);
-                    prtPCMFeedsVO.defineNamedWhereClauseParam("toDate",
-                                                              newToDate, null);
-                    prtPCMFeedsVO.defineNamedWhereClauseParam("showFlag",
-                                                              messageValue,
-                                                              null);
-                    prtPCMFeedsVO.executeQuery();
-                    log.info(accessDC.getDisplayRecord() + this.getClass() +
-                             " " + "Messages Row Count " +
-                             prtPCMFeedsVO.getEstimatedRowCount());
-                    if (prtPCMFeedsVO.getEstimatedRowCount() > 0) {
-                        isSearchTableVisible = true;
-                    } else {
-                        isSearchTableVisible = false;
-                        if(messageValue.equalsIgnoreCase("NO")) {
-                            FacesMessage msg =
-                                new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                                 (String)resourceBundle.getObject("ENG_NO_READ_MSGS"),
-                                                 "");
-                            FacesContext.getCurrentInstance().addMessage(null,
-                                                                         msg);                            
-                        }
-                        
-                        else  if(messageValue.equalsIgnoreCase("YES")) {
-                            FacesMessage msg =
-                                new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                                 (String)resourceBundle.getObject("ENG_NO_UNREAD_MSGS"),
-                                                 "");
-                            FacesContext.getCurrentInstance().addMessage(null,
-                                                                         msg);                            
-                        }
-                        
-                        else { 
-                        if (resourceBundle.containsKey("ENG_NO_ADMIN_MSGS")) {
-                            FacesMessage msg =
-                                new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                                 (String)resourceBundle.getObject("ENG_NO_ADMIN_MSGS"),
-                                                 "");
-                            FacesContext.getCurrentInstance().addMessage(null,
-                                                                         msg);
-                        }
+                            else {
+                                if (resourceBundle.containsKey("ENG_NO_ADMIN_MSGS")) {
+                                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("ENG_NO_ADMIN_MSGS"), "");
+                                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                                }
+                            }
                         }
                     }
+
+                } else {
+                    showErrorMessage("ENGAGE_SELECT_TRANSACTION_MANDATORY");
+                    return;
                 }
-
             } else {
-                showErrorMessage("ENGAGE_SELECT_TRANSACTION_MANDATORY");
+                isSearchTableVisible = false;
+                if (resourceBundle.containsKey("ENG_NO_ADMIN_MSGS")) {
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("NO_DATA"), "");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
                 return;
             }
+
         } else {
-            isSearchTableVisible = false;
-            if (resourceBundle.containsKey("ENG_NO_ADMIN_MSGS")) {
-                FacesMessage msg =
-                    new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                     (String)resourceBundle.getObject("NO_DATA"),
-                                     "");
-                FacesContext.getCurrentInstance().addMessage(null,
-                                                             msg);
-            }
-            return;
+            displayErrorComponent(getBindings().getMessageType(), true);
+            showErrorMessage("ENGAGE_SELECT_TRANSACTION_MANDATORY");
         }
-        
-    }
-    else {
-        displayErrorComponent(getBindings().getMessageType(), true);    
-        showErrorMessage("ENGAGE_SELECT_TRANSACTION_MANDATORY");          
-    }
     }
 
+    // Sunsu component isd can be checked comminly and based on stauts content style can be set
 
     public void displayErrorComponent(UIComponent component, boolean status) {
 
         RichSelectManyChoice soc = new RichSelectManyChoice();
 
-         if (component instanceof RichSelectManyChoice) {
+        if (component instanceof RichSelectManyChoice) {
             soc = (RichSelectManyChoice)component;
             if (status) {
                 soc.setStyleClass("af_mandatoryfield");
-                if (component.getId().contains("selectManyChoice1") ||
-                    component.getId().contains("smc1") ||
-                    component.getId().contains("selectManyChoice3") ||
-                    component.getId().contains("selectManyChoice4") ||
-                    component.getId().contains("smc4"))
+                if (component.getId().contains("selectManyChoice1") || component.getId().contains("smc1") || component.getId().contains("selectManyChoice3") ||
+                    component.getId().contains("selectManyChoice4") || component.getId().contains("smc4")) {
                     soc.setStyleClass("af_mandatoryfield");
-
+                }
             } else {
                 soc.setStyleClass("af_nonmandatoryfield");
-                if (component.getId().contains("selectManyChoice1") ||
-                    component.getId().contains("smc1") ||
-                    component.getId().contains("selectManyChoice3") ||
-                    component.getId().contains("selectManyChoice4") ||
-                    component.getId().contains("smc4"))
+                if (component.getId().contains("selectManyChoice1") || component.getId().contains("smc1") || component.getId().contains("selectManyChoice3") ||
+                    component.getId().contains("selectManyChoice4") || component.getId().contains("smc4")) {
                     soc.setStyleClass("af_nonmandatoryfield");
+                }
             }
             AdfFacesContext.getCurrentInstance().addPartialTarget(soc);
         }
-      
+
     }
 
     private Boolean isComponentEmpty(UIComponent rit1) {
@@ -654,7 +508,7 @@ public class MessageInboxBean implements Serializable {
         if (rit1 instanceof RichSelectManyChoice) {
             soc = (RichSelectManyChoice)rit1;
             if (soc.getValue() == null || soc.getValue().equals("")) {
-              
+
                 displayErrorComponent(soc, true);
                 return true;
             } else {
@@ -738,23 +592,6 @@ public class MessageInboxBean implements Serializable {
         return customerTypeValue;
     }
 
-    //    public void categoryVCE(ValueChangeEvent valueChangeEvent) {
-    //        if(valueChangeEvent.getNewValue()!=null && valueChangeEvent.getNewValue().equals("Admin")){
-    //            log.info(accessDC.getDisplayRecord() + this.getClass() +
-    //                     " " + "inside category VCE for Admin ");
-    //            isMessageAdmin=true;
-    //        }
-    //        else{
-    //            log.info(accessDC.getDisplayRecord() + this.getClass() +
-    //                     " " + "inside category VCE for non-Admin ");
-    //            isMessageAdmin=false;
-    //            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getPartnerNumber());
-    //            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccount());
-    //            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());
-    //            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCard());
-    //
-    //        }
-    //    }
 
     public void setCategoryValue(String categoryValue) {
         this.categoryValue = categoryValue;
@@ -775,19 +612,16 @@ public class MessageInboxBean implements Serializable {
     public void categoryValueChangeEvent(ValueChangeEvent valueChangeEvent) {
         isSearchTableVisible = false;
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().searchTablePanel);
-        log.info(accessDC.getDisplayRecord() + this.getClass() + " " +
-                 "inside category VCE");
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "inside category VCE");
 
 
         if (valueChangeEvent.getNewValue() != null &&
-            valueChangeEvent.getNewValue().equals(resourceBundle.getObject("ENGAGE_CATEGORY_ADMIN").toString())) {
-            log.info(accessDC.getDisplayRecord() + this.getClass() +
-                               " " + "inside category VCE for Admin ");
+            valueChangeEvent.getNewValue().equals(resourceBundle.getObject(Constants.ENGAGE_CATEGORY_ADMIN_LITERAL).toString())) {
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "inside category VCE for Admin ");
             isMessageAdmin = true;
 
         } else {
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " " +
-                     "inside category VCE for non-Admin ");
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "inside category VCE for non-Admin ");
             isMessageAdmin = false;
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getPartnerNumber());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccount());
@@ -810,6 +644,22 @@ public class MessageInboxBean implements Serializable {
             isSearchTableVisible = false;
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().searchTablePanel);
         }
+    }
+
+    public void setResourceBundle(ResourceBundle resourceBundle) {
+        this.resourceBundle = resourceBundle;
+    }
+
+    public ResourceBundle getResourceBundle() {
+        return resourceBundle;
+    }
+
+    public void setComparator(Comparator<SelectItem> comparator) {
+        this.comparator = comparator;
+    }
+
+    public Comparator<SelectItem> getComparator() {
+        return comparator;
     }
 
 
@@ -864,10 +714,9 @@ public class MessageInboxBean implements Serializable {
                 Date dateNow = new java.util.Date();
                 GregorianCalendar gc = new GregorianCalendar();
                 gc.setTime(dateNow);
-                gc.add(GregorianCalendar.MONTH, -3);
+                gc.add(GregorianCalendar.MONTH, minusThree);
                 Date dateBefore = gc.getTime();
-                SimpleDateFormat dateformat =
-                    new SimpleDateFormat("dd.MM.yyyy");
+                SimpleDateFormat dateformat = new SimpleDateFormat("dd.MM.yyyy");
                 String tmp = dateformat.format(dateBefore);
                 fromDate.setValue(tmp);
                 resultFromTo = false;
@@ -886,8 +735,7 @@ public class MessageInboxBean implements Serializable {
             if (resultToFrom) {
 
                 Date dateNow = new java.util.Date();
-                SimpleDateFormat dateformat =
-                    new SimpleDateFormat("dd.MM.yyyy");
+                SimpleDateFormat dateformat = new SimpleDateFormat("dd.MM.yyyy");
                 String tmp = dateformat.format(dateNow);
                 toDate.setValue(tmp);
                 resultToFrom = false;

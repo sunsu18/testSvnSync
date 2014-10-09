@@ -88,7 +88,6 @@ public class TransactionOverviewBean implements Serializable {
     @SuppressWarnings("compatibility")
     private static final long serialVersionUID = 1L;
     private transient Bindings bindings;
-
     private List<SelectItem> partnerIdList;
     private List<String> partnerIdValue;
     private List<String> partnerIdValues;
@@ -121,8 +120,6 @@ public class TransactionOverviewBean implements Serializable {
     private boolean reportPriceSpecification = false;
     private boolean noteInternational = false;
     private HttpSession session;
-    private ExternalContext ectx;
-    private HttpServletRequest request;
     private List<PartnerInfo> partnerInfoList;
     private Boolean isTableVisible = false;
     private Boolean value = false;
@@ -138,9 +135,6 @@ public class TransactionOverviewBean implements Serializable {
     private String contentType;
     private String fileName;
     private Locale locale;
-    private String partnerCountry = null;
-    private Conversion conversionUtility;
-
     private String accountQuery = "(";
     private String accountQueryVehicle = "(";
     private String accountQueryDriver = "(";
@@ -163,7 +157,6 @@ public class TransactionOverviewBean implements Serializable {
     private String strCardPrePopulated;
     private String strVehiclePrePopulated;
     private String strDriverPrePopulated;
-
     private String strCardGroupExtra;
     private String strCardExtra;
     private String strVehicleExtra;
@@ -173,7 +166,6 @@ public class TransactionOverviewBean implements Serializable {
     private boolean fromDateInitial = true;
     private boolean toDateInitial = true;
     private boolean vehicleName = false;
-
     private String vehicleNumberOdometer = "";
     private String odometerPartner = "";
     private String odometerAccount = "";
@@ -181,17 +173,21 @@ public class TransactionOverviewBean implements Serializable {
     private String odometerPortal = null;
     private String urefTransactionId = null;
     private String palsCountryCode = null;
-    public static final ADFLogger _logger = AccessDataControl.getSFRLogger();
+    public static final ADFLogger LOGGER = AccessDataControl.getSFRLogger();
     private AccessDataControl accessDC = new AccessDataControl();
-    private String cardGroupRadio = "CardGroup";
-
+    private String cardGroupRadio = Constants.CARD_GROUP_LITERAL;
+    private static final String PRTEXPORTINFORVO1ITERATOR_LITRERAL = "PrtExportInfoRVO1Iterator";
+    private static final String SELECT_CRITERIA_LITRERAL = "select_Criteria";
+    private static final String PRT_CARD_PK_LITRERAL = "PrtCardPk";
+    private static final String PURCHASE_COUNTRY_CODE_LITRERAL = "purchaseCountryCode";
     private boolean showDriverCode = false;
 
-    public TransactionOverviewBean() {
-        conversionUtility = new Conversion();
 
-        ectx = FacesContext.getCurrentInstance().getExternalContext();
-        request = (HttpServletRequest)ectx.getRequest();
+    public TransactionOverviewBean() {
+        Conversion conversionUtility = new Conversion();
+
+        ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
+        HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
         conversionUtility = new Conversion();
         //resourceBundle = new EngageResourceBundle();
@@ -199,7 +195,7 @@ public class TransactionOverviewBean implements Serializable {
         terminalValue = new ArrayList<String>();
         typeValue = new ArrayList<String>();
         partnerId = null;
-        cardGroupRadio = "CardGroup";
+        cardGroupRadio = Constants.CARD_GROUP_LITERAL;
 
         if (session.getAttribute("Partner_Object_List") != null) {
             partnerInfoList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
@@ -240,7 +236,6 @@ public class TransactionOverviewBean implements Serializable {
                             }
                         }
                     }
-
                 }
             }
             Collections.sort(partnerIdList, comparator);
@@ -251,34 +246,34 @@ public class TransactionOverviewBean implements Serializable {
             if (session.getAttribute("account_Query") != null) {
                 accountQuery = session.getAttribute("account_Query").toString().trim();
                 mapAccountListValue = (Map<String, String>)session.getAttribute("map_Account_List");
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "account Query & mapAccountList is found");
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "account " + accountQuery);
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "account Query & mapAccountList is found");
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "account " + accountQuery);
             }
             if (session.getAttribute("cardGroup_Query") != null) {
                 cardGroupQuery = session.getAttribute("cardGroup_Query").toString().trim();
                 mapCardGroupListValue = (Map<String, String>)session.getAttribute("map_CardGroup_List");
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Query & mapCardGroupList is found");
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup " + cardGroupQuery);
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Query & mapCardGroupList is found");
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup " + cardGroupQuery);
             }
             if (session.getAttribute("card_Query") != null) {
                 cardQuery = session.getAttribute("card_Query").toString().trim();
                 mapCardListValue = (Map<String, String>)session.getAttribute("map_Card_List");
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "card Query & mapCardList is found");
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card " + cardQuery);
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "card Query & mapCardList is found");
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card " + cardQuery);
             }
 
             if (session.getAttribute("account_Query_Driver") != null) {
                 accountQueryDriver = session.getAttribute("account_Query_Driver").toString().trim();
                 mapAccountDriverListValue = (Map<String, String>)session.getAttribute("map_Account_List_Driver");
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Query Driver & map_Account_List_Driver is found");
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Query Driver " + accountQueryDriver);
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Query Driver & map_Account_List_Driver is found");
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Query Driver " + accountQueryDriver);
             }
 
             if (session.getAttribute("account_Query_Vehicle") != null) {
                 accountQueryVehicle = session.getAttribute("account_Query_Vehicle").toString().trim();
                 mapAccountVehicleListValue = (Map<String, String>)session.getAttribute("map_Account_List_Vehicle");
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Query Vehicle & map_Account_List_Vehicle is found");
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Query Vehicle " + accountQueryVehicle);
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Query Vehicle & map_Account_List_Vehicle is found");
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Query Vehicle " + accountQueryVehicle);
             }
 
 
@@ -287,27 +282,25 @@ public class TransactionOverviewBean implements Serializable {
 
         terminalValue.add("HOME");
         terminalValue.add("EXTERNAL");
-
         typeValue.add("PRE");
         typeValue.add("PRI");
         typeValue.add("FAK");
 
-
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Language :" + lang);
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Language :" + lang);
 
         if (lang != null) {
             currencyCode = conversionUtility.getCurrencyCode(lang);
             locale = conversionUtility.getLocaleFromCountryCode(lang);
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "currencyCode :" + currencyCode);
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Locale :" + locale);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "currencyCode :" + currencyCode);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Locale :" + locale);
         } else {
             currencyCode = conversionUtility.getCurrencyCode("SE");
             locale = conversionUtility.getLocaleFromCountryCode("SE");
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Default:currencyCode :" + currencyCode);
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Default:Locale :" + locale);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Default:currencyCode :" + currencyCode);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Default:Locale :" + locale);
         }
 
-        reportFormatValue = "Default";
+        reportFormatValue = Constants.DEFAULT_LITERAL;
 
     }
 
@@ -357,7 +350,7 @@ public class TransactionOverviewBean implements Serializable {
 
     public void partnerIdValueChangeListener(ValueChangeEvent valueChangeEvent) {
         if (valueChangeEvent.getNewValue() != null) {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "partner Id=====>" + valueChangeEvent.getNewValue());
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "partner Id=====>" + valueChangeEvent.getNewValue());
             partnerIdValues = new ArrayList<String>();
             partnerIdValues = (ArrayList<String>)valueChangeEvent.getNewValue();
             accountIdList = new ArrayList<SelectItem>();
@@ -366,99 +359,98 @@ public class TransactionOverviewBean implements Serializable {
             if (partnerInfoList != null) {
                 for (int i = 0; i < partnerIdValues.size(); i++) {
                     for (int k = 0; k < partnerInfoList.size(); k++) {
-                        if (partnerIdValues.get(i).equalsIgnoreCase(partnerInfoList.get(k).getPartnerValue().toString())) {
-                            if (partnerInfoList.get(k).getAccountList() != null && partnerInfoList.get(k).getAccountList().size() > 0) {
-                                for (int ac = 0; ac < partnerInfoList.get(k).getAccountList().size(); ac++) {
-                                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
-                                                 partnerInfoList.get(k).getAccountList().get(ac).getAccountNumber().toString());
-                                    SelectItem selectItem = new SelectItem();
-                                    selectItem.setLabel(partnerInfoList.get(k).getAccountList().get(ac).getAccountNumber().toString());
-                                    selectItem.setValue(partnerInfoList.get(k).getAccountList().get(ac).getAccountNumber().toString());
-                                    accountIdList.add(selectItem);
-                                    accountIdValue.add(partnerInfoList.get(k).getAccountList().get(ac).getAccountNumber().toString());
-                                    
-                                    if (partnerInfoList.get(k).getAccountList().get(ac).getCardGroup() != null &&
-                                        partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().size() > 0) {
+                        if (partnerIdValues.get(i).equalsIgnoreCase(partnerInfoList.get(k).getPartnerValue().toString()) &&
+                            partnerInfoList.get(k).getAccountList() != null && partnerInfoList.get(k).getAccountList().size() > 0) {
+
+                            for (int ac = 0; ac < partnerInfoList.get(k).getAccountList().size(); ac++) {
+                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                                            partnerInfoList.get(k).getAccountList().get(ac).getAccountNumber().toString());
+                                SelectItem selectItem = new SelectItem();
+                                selectItem.setLabel(partnerInfoList.get(k).getAccountList().get(ac).getAccountNumber().toString());
+                                selectItem.setValue(partnerInfoList.get(k).getAccountList().get(ac).getAccountNumber().toString());
+                                accountIdList.add(selectItem);
+                                accountIdValue.add(partnerInfoList.get(k).getAccountList().get(ac).getAccountNumber().toString());
+
+                                if (partnerInfoList.get(k).getAccountList().get(ac).getCardGroup() != null &&
+                                    partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().size() > 0) {
+                                    cardIdPGL = false;
+                                    cardGPGL = true;
+                                    vNumberPGL = false;
+                                    dNamePGL = false;
+
+                                    for (int cg = 0; cg < partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().size(); cg++) {
+
+                                        SelectItem selectItemCardGroup = new SelectItem();
+                                        selectItemCardGroup.setLabel(partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getDisplayCardGroupIdName().toString());
+                                        selectItemCardGroup.setValue(partnerInfoList.get(k).getPartnerValue().toString().trim() +
+                                                                     partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID().toString());
+                                        cardGroupList.add(selectItemCardGroup);
+                                        cardGroupValue.add(partnerInfoList.get(k).getPartnerValue().toString().trim() +
+                                                           partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID().toString());
                                         cardIdPGL = false;
                                         cardGPGL = true;
                                         vNumberPGL = false;
                                         dNamePGL = false;
 
-                                        for (int cg = 0; cg < partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().size(); cg++) {
-
-                                            SelectItem selectItemCardGroup = new SelectItem();
-                                            selectItemCardGroup.setLabel(partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getDisplayCardGroupIdName().toString());
-                                            selectItemCardGroup.setValue(partnerInfoList.get(k).getPartnerValue().toString().trim() +
-                                                                         partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID().toString());
-                                            cardGroupList.add(selectItemCardGroup);
-                                            cardGroupValue.add(partnerInfoList.get(k).getPartnerValue().toString().trim() +
-                                                               partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID().toString());
-                                            cardIdPGL = false;
-                                            cardGPGL = true;
-                                            vNumberPGL = false;
-                                            dNamePGL = false;
-                                           
-                                        }
                                     }
                                 }
-                                
-                            
+
 
                             }
 
                         }
                     }
                 }
+            } else {
+                accountIdList = new ArrayList<SelectItem>();
+                accountIdValue = new ArrayList<String>();
+                cardNumberList = new ArrayList<SelectItem>();
+                cardNumberValue = new ArrayList<String>();
+                cardGroupList = new ArrayList<SelectItem>();
+                cardGroupValue = new ArrayList<String>();
+                vehicleNumberList = new ArrayList<SelectItem>();
+                vehicleNumberValue = new ArrayList<String>();
+                driverNameList = new ArrayList<SelectItem>();
+                driverNameValue = new ArrayList<String>();
+
             }
-        } else {
-            accountIdList = new ArrayList<SelectItem>();
-            accountIdValue = new ArrayList<String>();
-            cardNumberList = new ArrayList<SelectItem>();
-            cardNumberValue = new ArrayList<String>();
-            cardGroupList = new ArrayList<SelectItem>();
-            cardGroupValue = new ArrayList<String>();
-            vehicleNumberList = new ArrayList<SelectItem>();
-            vehicleNumberValue = new ArrayList<String>();
-            driverNameList = new ArrayList<SelectItem>();
-            driverNameValue = new ArrayList<String>();
-            
+            //        getBindings().getCardCardGrpDrVhOneRadio().setValue(null);
+            //        getBindings().getCardCardGrpDrVhOneRadio().setSubmittedValue(null);
+
+            cardIdPGL = false;
+            cardGPGL = true;
+            vNumberPGL = false;
+            dNamePGL = false;
+            getBindings().getCardCardGrpDrVhOneRadio().setValue("CardGroup");
+            //        cardGroupRadio = null;
+            if (isTableVisible) {
+                isTableVisible = false;
+            }
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowSearchResultPG());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardNoPGL());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVhNumberPGL());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDriverNamePGL());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardCardGrpDrVhOneRadio());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccount());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "account list is created");
+
+
+            Collections.sort(cardGroupList, comparator);
+            Collections.sort(partnerIdList, comparator);
+            Collections.sort(accountIdList, comparator);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "account list is created");
+
         }
-//        getBindings().getCardCardGrpDrVhOneRadio().setValue(null);        
-//        getBindings().getCardCardGrpDrVhOneRadio().setSubmittedValue(null);
-        
-        cardIdPGL = false;
-        cardGPGL = true;
-        vNumberPGL = false;
-        dNamePGL = false;
-        getBindings().getCardCardGrpDrVhOneRadio().setValue("CardGroup");
-//        cardGroupRadio = null;
-        if (isTableVisible) {
-            isTableVisible = false;
-        }
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowSearchResultPG());
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardNoPGL());
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVhNumberPGL());
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDriverNamePGL());
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardCardGrpDrVhOneRadio());
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccount());
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());
-        
-        
-        
-        Collections.sort(cardGroupList, comparator);
-        Collections.sort(partnerIdList, comparator);
-        Collections.sort(accountIdList, comparator);
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "account list is created");
-       
     }
 
     public void radioButtonValueChangeListener(ValueChangeEvent valueChangeEvent) {
         if (getBindings().getAccount().getValue() != null) {
             if (valueChangeEvent.getNewValue() != null) {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "value of radioButon value change event======>" +
-                             valueChangeEvent.getNewValue());
-               if (valueChangeEvent.getNewValue().equals("CardGroup")) {
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "value of radioButon value change event======>" +
+                            valueChangeEvent.getNewValue());
+                if (valueChangeEvent.getNewValue().equals(Constants.CARD_GROUP_LITERAL)) {
                     cardGPGL = true;
                     cardIdPGL = false;
                     dNamePGL = false;
@@ -469,7 +461,7 @@ public class TransactionOverviewBean implements Serializable {
                     AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardNoPGL());
                     AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDriverNamePGL());
                     AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVhNumberPGL());
-                } else if (valueChangeEvent.getNewValue().equals("Card")) {
+                } else if (valueChangeEvent.getNewValue().equals(Constants.CARD_LITERAL)) {
                     cardGPGL = false;
                     cardIdPGL = true;
                     dNamePGL = false;
@@ -480,7 +472,7 @@ public class TransactionOverviewBean implements Serializable {
                     AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardNoPGL());
                     AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDriverNamePGL());
                     AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVhNumberPGL());
-                } else if (valueChangeEvent.getNewValue().equals("Vehicle")) {
+                } else if (valueChangeEvent.getNewValue().equals(Constants.VEHICLE_LITERAL)) {
                     cardGPGL = false;
                     cardIdPGL = false;
                     dNamePGL = false;
@@ -529,7 +521,7 @@ public class TransactionOverviewBean implements Serializable {
         return cardGPGL;
     }
 
-   public void setDNamePGL(boolean dNamePGL) {
+    public void setDNamePGL(boolean dNamePGL) {
         this.dNamePGL = dNamePGL;
     }
 
@@ -565,114 +557,114 @@ public class TransactionOverviewBean implements Serializable {
     }
 
     public List getShuttleValue() {
-        if (getBindings().getCardCardGrpDrVhOneRadio().getValue() != null && getBindings().getReportFormat().getValue() != null) {
-            if (!shuttleStatus) {
-                String langDB = (String)session.getAttribute("langReport");
-                if (langDB.equalsIgnoreCase("en_US")) {
-                    langDB = "EN";
-                } else {
-                    langDB = langDB.substring(langDB.length() - 2, langDB.length());
-                    langDB = langDB.toUpperCase();
-                }
-               if ("CardGroup".equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
-                    shuttleValue = new ArrayList();
-                    ViewObject prtExportInfoRVO = ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
-                    prtExportInfoRVO.setNamedWhereClauseParam("country_Code", langDB);
-                    prtExportInfoRVO.setNamedWhereClauseParam("report_Page", "TRANSACTION");
-                    prtExportInfoRVO.setNamedWhereClauseParam("report_Type", getBindings().getReportFormat().getValue().toString());
-                    prtExportInfoRVO.setNamedWhereClauseParam("select_Criteria", getBindings().getCardCardGrpDrVhOneRadio().getValue().toString());
-                    prtExportInfoRVO.executeQuery();
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count in CardGroup shuttle:" +
-                                 prtExportInfoRVO.getEstimatedRowCount());
-                    if (prtExportInfoRVO.getEstimatedRowCount() > 0) {
-                        while (prtExportInfoRVO.hasNext()) {
-                            PrtExportInfoRVORowImpl prtExportRow = (PrtExportInfoRVORowImpl)prtExportInfoRVO.next();
-                            strCardGroupPrePopulated = prtExportRow.getPrePopulatedColumns();
-                        }
-                    }
-                    if (strCardGroupPrePopulated != null) {
+        if (getBindings().getCardCardGrpDrVhOneRadio().getValue() != null && getBindings().getReportFormat().getValue() != null && !shuttleStatus) {
 
-                        String[] strHead = strCardGroupPrePopulated.split(Constants.ENGAGE_REPORT_DELIMITER);
-                        for (int col = 0; col < strHead.length; col++) {
-                            shuttleValue.add(strHead[col]);
-                        }
-                        if (vehicleName) {
-                            shuttleValue.add("Fordonsnummer");
-                            shuttleValue.add("Namn");
-                        }
+            String langDB = (String)session.getAttribute("langReport");
+            if (langDB.equalsIgnoreCase(Constants.LANGUAGE_ENGLISH)) {
+                langDB = "EN";
+            } else {
+                langDB = langDB.substring(langDB.length() - 2, langDB.length());
+                langDB = langDB.toUpperCase();
+            }
+            if (Constants.CARD_GROUP_LITERAL.equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
+                shuttleValue = new ArrayList();
+                ViewObject prtExportInfoRVO = ADFUtils.getViewObject(PRTEXPORTINFORVO1ITERATOR_LITRERAL);
+                prtExportInfoRVO.setNamedWhereClauseParam(Constants.COUNTRY_CODE_LITERAL, langDB);
+                prtExportInfoRVO.setNamedWhereClauseParam(Constants.REPORT_PAGE_LITERAL, Constants.TRANSACTION_LITERAL);
+                prtExportInfoRVO.setNamedWhereClauseParam(Constants.REPORT_TYPE_LITERAL, getBindings().getReportFormat().getValue().toString());
+                prtExportInfoRVO.setNamedWhereClauseParam(SELECT_CRITERIA_LITRERAL, getBindings().getCardCardGrpDrVhOneRadio().getValue().toString());
+                prtExportInfoRVO.executeQuery();
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count in CardGroup shuttle:" +
+                            prtExportInfoRVO.getEstimatedRowCount());
+                if (prtExportInfoRVO.getEstimatedRowCount() > 0) {
+                    while (prtExportInfoRVO.hasNext()) {
+                        PrtExportInfoRVORowImpl prtExportRow = (PrtExportInfoRVORowImpl)prtExportInfoRVO.next();
+                        strCardGroupPrePopulated = prtExportRow.getPrePopulatedColumns();
                     }
-                } else if ("Card".equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
-                    shuttleValue = new ArrayList();
-                    ViewObject prtExportInfoRVO = ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
-                    prtExportInfoRVO.setNamedWhereClauseParam("country_Code", langDB);
-                    prtExportInfoRVO.setNamedWhereClauseParam("report_Page", "TRANSACTION");
-                    prtExportInfoRVO.setNamedWhereClauseParam("report_Type", getBindings().getReportFormat().getValue().toString());
-                    prtExportInfoRVO.setNamedWhereClauseParam("select_Criteria", getBindings().getCardCardGrpDrVhOneRadio().getValue().toString());
-                    prtExportInfoRVO.executeQuery();
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count in Card shuttle:" +
-                                 prtExportInfoRVO.getEstimatedRowCount());
-                    if (prtExportInfoRVO.getEstimatedRowCount() > 0) {
-                        while (prtExportInfoRVO.hasNext()) {
-                            PrtExportInfoRVORowImpl prtExportRow = (PrtExportInfoRVORowImpl)prtExportInfoRVO.next();
-                            strCardPrePopulated = prtExportRow.getPrePopulatedColumns();
-                        }
+                }
+                if (strCardGroupPrePopulated != null) {
+
+                    String[] strHead = strCardGroupPrePopulated.split(Constants.ENGAGE_REPORT_DELIMITER);
+                    for (int col = 0; col < strHead.length; col++) {
+                        shuttleValue.add(strHead[col]);
                     }
-                    if (strCardPrePopulated != null) {
-                        String[] strHead = strCardPrePopulated.split(Constants.ENGAGE_REPORT_DELIMITER);
-                        for (int col = 0; col < strHead.length; col++) {
-                            shuttleValue.add(strHead[col]);
-                        }
-                        if (vehicleName) {
-                            shuttleValue.add("Fordonsnummer");
-                            shuttleValue.add("Namn");
-                        }
+                    if (vehicleName) {
+                        shuttleValue.add("Fordonsnummer");
+                        shuttleValue.add("Namn");
                     }
-                } else if ("Vehicle".equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
-                    shuttleValue = new ArrayList();
-                    ViewObject prtExportInfoRVO = ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
-                    prtExportInfoRVO.setNamedWhereClauseParam("country_Code", langDB);
-                    prtExportInfoRVO.setNamedWhereClauseParam("report_Page", "TRANSACTION");
-                    prtExportInfoRVO.setNamedWhereClauseParam("report_Type", getBindings().getReportFormat().getValue().toString());
-                    prtExportInfoRVO.setNamedWhereClauseParam("select_Criteria", getBindings().getCardCardGrpDrVhOneRadio().getValue().toString());
-                    prtExportInfoRVO.executeQuery();
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count in vehicle shuttle:" +
-                                 prtExportInfoRVO.getEstimatedRowCount());
-                    if (prtExportInfoRVO.getEstimatedRowCount() > 0) {
-                        while (prtExportInfoRVO.hasNext()) {
-                            PrtExportInfoRVORowImpl prtExportRow = (PrtExportInfoRVORowImpl)prtExportInfoRVO.next();
-                            strVehiclePrePopulated = prtExportRow.getPrePopulatedColumns();
-                        }
+                }
+            } else if (Constants.CARD_LITERAL.equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
+                shuttleValue = new ArrayList();
+                ViewObject prtExportInfoRVO = ADFUtils.getViewObject(PRTEXPORTINFORVO1ITERATOR_LITRERAL);
+                prtExportInfoRVO.setNamedWhereClauseParam(Constants.COUNTRY_CODE_LITERAL, langDB);
+                prtExportInfoRVO.setNamedWhereClauseParam(Constants.REPORT_PAGE_LITERAL, Constants.TRANSACTION_LITERAL);
+                prtExportInfoRVO.setNamedWhereClauseParam(Constants.REPORT_TYPE_LITERAL, getBindings().getReportFormat().getValue().toString());
+                prtExportInfoRVO.setNamedWhereClauseParam(SELECT_CRITERIA_LITRERAL, getBindings().getCardCardGrpDrVhOneRadio().getValue().toString());
+                prtExportInfoRVO.executeQuery();
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count in Card shuttle:" +
+                            prtExportInfoRVO.getEstimatedRowCount());
+                if (prtExportInfoRVO.getEstimatedRowCount() > 0) {
+                    while (prtExportInfoRVO.hasNext()) {
+                        PrtExportInfoRVORowImpl prtExportRow = (PrtExportInfoRVORowImpl)prtExportInfoRVO.next();
+                        strCardPrePopulated = prtExportRow.getPrePopulatedColumns();
                     }
-                    if (strVehiclePrePopulated != null) {
-                        String[] strHead = strVehiclePrePopulated.split(Constants.ENGAGE_REPORT_DELIMITER);
-                        for (int col = 0; col < strHead.length; col++) {
-                            shuttleValue.add(strHead[col]);
-                        }
+                }
+                if (strCardPrePopulated != null) {
+                    String[] strHead = strCardPrePopulated.split(Constants.ENGAGE_REPORT_DELIMITER);
+                    for (int col = 0; col < strHead.length; col++) {
+                        shuttleValue.add(strHead[col]);
                     }
-                } else {
-                    shuttleValue = new ArrayList();
-                    ViewObject prtExportInfoRVO = ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
-                    prtExportInfoRVO.setNamedWhereClauseParam("country_Code", langDB);
-                    prtExportInfoRVO.setNamedWhereClauseParam("report_Page", "TRANSACTION");
-                    prtExportInfoRVO.setNamedWhereClauseParam("report_Type", getBindings().getReportFormat().getValue().toString());
-                    prtExportInfoRVO.setNamedWhereClauseParam("select_Criteria", getBindings().getCardCardGrpDrVhOneRadio().getValue().toString());
-                    prtExportInfoRVO.executeQuery();
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count in Driver shuttle:" +
-                                 prtExportInfoRVO.getEstimatedRowCount());
-                    if (prtExportInfoRVO.getEstimatedRowCount() > 0) {
-                        while (prtExportInfoRVO.hasNext()) {
-                            PrtExportInfoRVORowImpl prtExportRow = (PrtExportInfoRVORowImpl)prtExportInfoRVO.next();
-                            strDriverPrePopulated = prtExportRow.getPrePopulatedColumns();
-                        }
+                    if (vehicleName) {
+                        shuttleValue.add("Fordonsnummer");
+                        shuttleValue.add("Namn");
                     }
-                    if (strDriverPrePopulated != null) {
-                        String[] strHead = strDriverPrePopulated.split(Constants.ENGAGE_REPORT_DELIMITER);
-                        for (int col = 0; col < strHead.length; col++) {
-                            shuttleValue.add(strHead[col]);
-                        }
+                }
+            } else if (Constants.VEHICLE_LITERAL.equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
+                shuttleValue = new ArrayList();
+                ViewObject prtExportInfoRVO = ADFUtils.getViewObject(PRTEXPORTINFORVO1ITERATOR_LITRERAL);
+                prtExportInfoRVO.setNamedWhereClauseParam(Constants.COUNTRY_CODE_LITERAL, langDB);
+                prtExportInfoRVO.setNamedWhereClauseParam(Constants.REPORT_PAGE_LITERAL, Constants.TRANSACTION_LITERAL);
+                prtExportInfoRVO.setNamedWhereClauseParam(Constants.REPORT_TYPE_LITERAL, getBindings().getReportFormat().getValue().toString());
+                prtExportInfoRVO.setNamedWhereClauseParam(SELECT_CRITERIA_LITRERAL, getBindings().getCardCardGrpDrVhOneRadio().getValue().toString());
+                prtExportInfoRVO.executeQuery();
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count in vehicle shuttle:" +
+                            prtExportInfoRVO.getEstimatedRowCount());
+                if (prtExportInfoRVO.getEstimatedRowCount() > 0) {
+                    while (prtExportInfoRVO.hasNext()) {
+                        PrtExportInfoRVORowImpl prtExportRow = (PrtExportInfoRVORowImpl)prtExportInfoRVO.next();
+                        strVehiclePrePopulated = prtExportRow.getPrePopulatedColumns();
+                    }
+                }
+                if (strVehiclePrePopulated != null) {
+                    String[] strHead = strVehiclePrePopulated.split(Constants.ENGAGE_REPORT_DELIMITER);
+                    for (int col = 0; col < strHead.length; col++) {
+                        shuttleValue.add(strHead[col]);
+                    }
+                }
+            } else {
+                shuttleValue = new ArrayList();
+                ViewObject prtExportInfoRVO = ADFUtils.getViewObject(PRTEXPORTINFORVO1ITERATOR_LITRERAL);
+                prtExportInfoRVO.setNamedWhereClauseParam(Constants.COUNTRY_CODE_LITERAL, langDB);
+                prtExportInfoRVO.setNamedWhereClauseParam(Constants.REPORT_PAGE_LITERAL, Constants.TRANSACTION_LITERAL);
+                prtExportInfoRVO.setNamedWhereClauseParam(Constants.REPORT_TYPE_LITERAL, getBindings().getReportFormat().getValue().toString());
+                prtExportInfoRVO.setNamedWhereClauseParam(SELECT_CRITERIA_LITRERAL, getBindings().getCardCardGrpDrVhOneRadio().getValue().toString());
+                prtExportInfoRVO.executeQuery();
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count in Driver shuttle:" +
+                            prtExportInfoRVO.getEstimatedRowCount());
+                if (prtExportInfoRVO.getEstimatedRowCount() > 0) {
+                    while (prtExportInfoRVO.hasNext()) {
+                        PrtExportInfoRVORowImpl prtExportRow = (PrtExportInfoRVORowImpl)prtExportInfoRVO.next();
+                        strDriverPrePopulated = prtExportRow.getPrePopulatedColumns();
+                    }
+                }
+                if (strDriverPrePopulated != null) {
+                    String[] strHead = strDriverPrePopulated.split(Constants.ENGAGE_REPORT_DELIMITER);
+                    for (int col = 0; col < strHead.length; col++) {
+                        shuttleValue.add(strHead[col]);
                     }
                 }
             }
+
 
         }
         return shuttleValue;
@@ -682,7 +674,7 @@ public class TransactionOverviewBean implements Serializable {
         this.shuttleValue = shuttleValue;
     }
 
-    Comparator<SelectItem> comparator = new Comparator<SelectItem>() {
+    private Comparator<SelectItem> comparator = new Comparator<SelectItem>() {
         @Override
         public int compare(SelectItem s1, SelectItem s2) {
             return s1.getLabel().compareTo(s2.getLabel());
@@ -718,7 +710,7 @@ public class TransactionOverviewBean implements Serializable {
     public void populateValue(String paramType, String accountValue) {
         if (paramType != null) {
             String[] listValues = accountValue.split(",");
-            if (paramType.equals("CardGroup")) {
+            if (paramType.equals(Constants.CARD_GROUP_LITERAL)) {
                 cardGroupList = new ArrayList<SelectItem>();
                 cardGroupValue = new ArrayList<String>();
                 if (partnerInfoList != null) {
@@ -738,19 +730,17 @@ public class TransactionOverviewBean implements Serializable {
                                                                    partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID().toString());
                                             }
                                         }
-
                                     }
-
                                 }
                             }
                         }
                     }
                     Collections.sort(cardGroupList, comparator);
                 }
-            } else if (paramType.equals("Card")) {
+            } else if (paramType.equals(Constants.CARD_LITERAL)) {
                 cardNumberList = new ArrayList<SelectItem>();
                 cardNumberValue = new ArrayList<String>();
-               if (partnerInfoList != null) {
+                if (partnerInfoList != null) {
                     for (int i = 0; i < partnerIdValues.size(); i++) {
                         for (int k = 0; k < partnerInfoList.size(); k++) {
                             if (partnerIdValues.get(i).equalsIgnoreCase(partnerInfoList.get(k).getPartnerValue().toString())) {
@@ -778,11 +768,8 @@ public class TransactionOverviewBean implements Serializable {
                                                     }
                                                 }
                                             }
-
                                         }
-
                                     }
-
                                 }
                             }
                         }
@@ -790,80 +777,79 @@ public class TransactionOverviewBean implements Serializable {
                     Collections.sort(cardNumberList, comparator);
                 }
             } else {
-                if (paramType.equals("Vehicle") || paramType.equals("Driver")) {
+                if (paramType.equals(Constants.VEHICLE_LITERAL) || paramType.equals("Driver")) {
                     accountQueryDriver = "(";
                     accountQueryVehicle = "(";
                     ViewObject vehicleVo = ADFUtils.getViewObject("PrtCardTransactionVehicleInfoRVO1Iterator");
                     ViewObject driverVo = ADFUtils.getViewObject("PrtCardDriverVehicleInfoRVO1Iterator");
 
                     if (vNumberPGL) {
-                        if (accountQueryDriver.length() > 1 && accountQueryDriver != null) {
-                            if (accountQueryDriver.equalsIgnoreCase(driverVo.getWhereClause())) {
-                                if (mapAccountDriverListValue != null) {
-                                    for (int i = 0; i < mapAccountDriverListValue.size(); i++) {
-                                        String values = "account" + i;
-                                        driverVo.removeNamedWhereClauseParam(values);
-                                    }
-                                } else {
-                                    driverVo.removeNamedWhereClauseParam("account");
+                        if (accountQueryDriver.length() > 1 && accountQueryDriver != null && accountQueryDriver.equalsIgnoreCase(driverVo.getWhereClause())) {
+
+                            if (mapAccountDriverListValue != null) {
+                                for (int i = 0; i < mapAccountDriverListValue.size(); i++) {
+                                    driverVo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i);
                                 }
-                                driverVo.setWhereClause("");
-                                driverVo.executeQuery();
+                            } else {
+                                driverVo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL);
                             }
+                            driverVo.setWhereClause("");
+                            driverVo.executeQuery();
+
                         }
 
-                        if (accountQueryVehicle.length() > 1 && accountQueryVehicle != null) {
-                            if (accountQueryVehicle.equalsIgnoreCase(vehicleVo.getWhereClause())) {
-                                if (mapAccountVehicleListValue != null) {
-                                    for (int i = 0; i < mapAccountVehicleListValue.size(); i++) {
-                                        String values = "account" + i;
-                                        vehicleVo.removeNamedWhereClauseParam(values);
-                                    }
-                                } else {
-                                    vehicleVo.removeNamedWhereClauseParam("account");
+                        if (accountQueryVehicle.length() > 1 && accountQueryVehicle != null &&
+                            accountQueryVehicle.equalsIgnoreCase(vehicleVo.getWhereClause())) {
+
+                            if (mapAccountVehicleListValue != null) {
+                                for (int i = 0; i < mapAccountVehicleListValue.size(); i++) {
+                                    vehicleVo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i);
                                 }
-                                vehicleVo.setWhereClause("");
-                                vehicleVo.executeQuery();
+                            } else {
+                                vehicleVo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL);
                             }
+                            vehicleVo.setWhereClause("");
+                            vehicleVo.executeQuery();
                         }
 
                         vehicleNumberList = new ArrayList<SelectItem>();
                         vehicleNumberValue = new ArrayList<String>();
 
-                        vehicleVo.setNamedWhereClauseParam("countryCd", lang);
+                        vehicleVo.setNamedWhereClauseParam(Constants.COUNTRY_CD_LITERAL, lang);
                         vehicleVo.setNamedWhereClauseParam("paramValue", paramType);
 
-                        if (accountIdValue.size() > 150) {
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle/driver > 150 ");
-                           mapAccountVehicleListValue = ValueListSplit.callValueList(accountIdValue.size(), accountIdValue);
+                        if (accountIdValue.size() > Constants.ONEFIFTY) {
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle/driver > 150 ");
+                            mapAccountVehicleListValue = ValueListSplit.callValueList(accountIdValue.size(), accountIdValue);
                             for (int i = 0; i < mapAccountVehicleListValue.size(); i++) {
-                                String values = "account" + i;
+                                String values = Constants.ACCOUNT_LITERAL + i;
                                 accountQueryVehicle = accountQueryVehicle + "INSTR(:" + values + ",ACCOUNT_NUMBER)<>0 OR ";
                             }
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Account Query vehicle/driver Values =" + accountQueryVehicle);
-                            accountQueryVehicle = accountQueryVehicle.substring(0, accountQueryVehicle.length() - 3);
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "Account Query vehicle/driver Values =" + accountQueryVehicle);
+                            accountQueryVehicle = accountQueryVehicle.substring(0, accountQueryVehicle.length() - Constants.THREE);
                             accountQueryVehicle = accountQueryVehicle + ")";
                         } else {
                             mapAccountListValue = null;
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle/driver < 150 ");
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle/driver < 150 ");
                             accountQueryVehicle = "(INSTR(:account,ACCOUNT_NUMBER)<>0)";
                         }
 
                         vehicleVo.setWhereClause(accountQueryVehicle);
 
-                        if (accountIdValue.size() > 150) {
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle > 150 ");
+                        if (accountIdValue.size() > Constants.ONEFIFTY) {
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle > 150 ");
                             mapAccountVehicleListValue = ValueListSplit.callValueList(accountIdValue.size(), accountIdValue);
                             for (int i = 0; i < mapAccountVehicleListValue.size(); i++) {
-                                String values = "account" + i;
-                                String listName = "listName" + i;
-                                vehicleVo.defineNamedWhereClauseParam(values, mapAccountVehicleListValue.get(listName), null);
+
+                                vehicleVo.defineNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i,
+                                                                      mapAccountVehicleListValue.get(Constants.LISTNAME_LITERAL + i), null);
                             }
 
                         } else {
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle < 150 ");
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle < 150 ");
                             if (getBindings().getAccount().getValue() != null) {
-                                vehicleVo.defineNamedWhereClauseParam("account", populateStringValues(getBindings().getAccount().getValue().toString()), null);
+                                vehicleVo.defineNamedWhereClauseParam(Constants.ACCOUNT_LITERAL,
+                                                                      populateStringValues(getBindings().getAccount().getValue().toString()), null);
                             }
                         }
                         vehicleVo.executeQuery();
@@ -877,9 +863,9 @@ public class TransactionOverviewBean implements Serializable {
                                         if (currRow.getPrtCardPk() != null) {
                                             SelectItem selectItem = new SelectItem();
                                             selectItem.setLabel(currRow.getAttribute("VehicleNumber").toString());
-                                            selectItem.setValue(currRow.getAttribute("PrtCardPk").toString());
+                                            selectItem.setValue(currRow.getAttribute(PRT_CARD_PK_LITRERAL).toString());
                                             vehicleNumberList.add(selectItem);
-                                            vehicleNumberValue.add(currRow.getAttribute("PrtCardPk").toString());
+                                            vehicleNumberValue.add(currRow.getAttribute(PRT_CARD_PK_LITRERAL).toString());
                                         } else {
                                             if (currRow.getReferenceNumber() != null) {
                                                 SelectItem selectItem = new SelectItem();
@@ -897,71 +883,73 @@ public class TransactionOverviewBean implements Serializable {
                     }
                     if (dNamePGL) {
 
-                        if (accountQueryDriver.length() > 1 && accountQueryDriver != null) {
-                            if (accountQueryDriver.equalsIgnoreCase(driverVo.getWhereClause())) {
-                                if (mapAccountDriverListValue != null) {
-                                    for (int i = 0; i < mapAccountDriverListValue.size(); i++) {
-                                        String values = "account" + i;
-                                        driverVo.removeNamedWhereClauseParam(values);
-                                    }
-                                } else {
-                                    driverVo.removeNamedWhereClauseParam("account");
+                        if (accountQueryDriver.length() > 1 && accountQueryDriver != null && accountQueryDriver.equalsIgnoreCase(driverVo.getWhereClause())) {
+
+                            if (mapAccountDriverListValue != null) {
+                                for (int i = 0; i < mapAccountDriverListValue.size(); i++) {
+
+                                    driverVo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i);
                                 }
-                                driverVo.setWhereClause("");
-                                driverVo.executeQuery();
+                            } else {
+                                driverVo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL);
                             }
+                            driverVo.setWhereClause("");
+                            driverVo.executeQuery();
+
                         }
 
-                        if (accountQueryVehicle.length() > 1 && accountQueryVehicle != null) {
-                            if (accountQueryVehicle.equalsIgnoreCase(vehicleVo.getWhereClause())) {
-                                if (mapAccountVehicleListValue != null) {
-                                    for (int i = 0; i < mapAccountVehicleListValue.size(); i++) {
-                                        String values = "account" + i;
-                                        vehicleVo.removeNamedWhereClauseParam(values);
-                                    }
-                                } else {
-                                    vehicleVo.removeNamedWhereClauseParam("account");
+                        if (accountQueryVehicle.length() > 1 && accountQueryVehicle != null &&
+                            accountQueryVehicle.equalsIgnoreCase(vehicleVo.getWhereClause())) {
+
+                            if (mapAccountVehicleListValue != null) {
+                                for (int i = 0; i < mapAccountVehicleListValue.size(); i++) {
+                                    vehicleVo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i);
                                 }
-                                vehicleVo.setWhereClause("");
-                                vehicleVo.executeQuery();
+                            } else {
+                                vehicleVo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL);
                             }
+                            vehicleVo.setWhereClause("");
+                            vehicleVo.executeQuery();
+
                         }
                         driverNameList = new ArrayList<SelectItem>();
                         driverNameValue = new ArrayList<String>();
-                        driverVo.setNamedWhereClauseParam("countryCd", lang);
+                        driverVo.setNamedWhereClauseParam(Constants.COUNTRY_CD_LITERAL, lang);
                         driverVo.setNamedWhereClauseParam("paramValue", paramType);
 
-                        if (accountIdValue.size() > 150) {
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle/driver > 150 ");
+                        if (accountIdValue.size() > Constants.ONEFIFTY) {
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle/driver > 150 ");
                             mapAccountDriverListValue = ValueListSplit.callValueList(accountIdValue.size(), accountIdValue);
                             for (int i = 0; i < mapAccountDriverListValue.size(); i++) {
-                                String values = "account" + i;
+                                String values = Constants.ACCOUNT_LITERAL + i;
                                 accountQueryDriver = accountQueryDriver + "INSTR(:" + values + ",ACCOUNT_NUMBER)<>0 OR ";
                             }
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Account Query vehicle/driver Values =" + accountQueryDriver);
-                            accountQueryDriver = accountQueryDriver.substring(0, accountQueryDriver.length() - 3);
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "Account Query vehicle/driver Values =" + accountQueryDriver);
+                            accountQueryDriver = accountQueryDriver.substring(0, accountQueryDriver.length() - Constants.THREE);
                             accountQueryDriver = accountQueryDriver + ")";
                         } else {
                             mapAccountListValue = null;
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle/driver < 150 ");
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle/driver < 150 ");
                             accountQueryDriver = "(INSTR(:account,ACCOUNT_NUMBER)<>0)";
                         }
 
                         driverVo.setWhereClause(accountQueryDriver);
 
-                        if (accountIdValue.size() > 150) {
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle > 150 ");
+                        if (accountIdValue.size() > Constants.ONEFIFTY) {
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle > 150 ");
                             mapAccountDriverListValue = ValueListSplit.callValueList(accountIdValue.size(), accountIdValue);
                             for (int i = 0; i < mapAccountDriverListValue.size(); i++) {
-                                String values = "account" + i;
-                                String listName = "listName" + i;
-                                driverVo.defineNamedWhereClauseParam(values, mapAccountDriverListValue.get(listName), null);
+
+
+                                driverVo.defineNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i,
+                                                                     mapAccountDriverListValue.get(Constants.LISTNAME_LITERAL + i), null);
                             }
 
                         } else {
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle < 150 ");
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle < 150 ");
                             if (getBindings().getAccount().getValue() != null) {
-                                driverVo.defineNamedWhereClauseParam("account", populateStringValues(getBindings().getAccount().getValue().toString()), null);
+                                driverVo.defineNamedWhereClauseParam(Constants.ACCOUNT_LITERAL,
+                                                                     populateStringValues(getBindings().getAccount().getValue().toString()), null);
                             }
                         }
                         driverVo.executeQuery();
@@ -975,10 +963,10 @@ public class TransactionOverviewBean implements Serializable {
                                         if (currRow.getPrtCardPk() != null) {
                                             SelectItem selectItem = new SelectItem();
                                             selectItem.setLabel(currRow.getAttribute("DriverName").toString());
-                                            selectItem.setValue(currRow.getAttribute("PrtCardPk").toString());
+                                            selectItem.setValue(currRow.getAttribute(PRT_CARD_PK_LITRERAL).toString());
                                             driverNameList.add(selectItem);
-                                            driverNameValue.add(currRow.getAttribute("PrtCardPk").toString());
-                                       } else {
+                                            driverNameValue.add(currRow.getAttribute(PRT_CARD_PK_LITRERAL).toString());
+                                        } else {
                                             if (currRow.getReferenceNumber() != null) {
                                                 SelectItem selectItem = new SelectItem();
                                                 selectItem.setLabel(currRow.getAttribute("DriverName").toString());
@@ -1020,12 +1008,12 @@ public class TransactionOverviewBean implements Serializable {
         if (getBindings().getPartner().getValue() != null && getBindings().getReportFormat().getValue() != null &&
             getBindings().getFromDate().getValue() != null && getBindings().getToDate().getValue() != null &&
             getBindings().getCardCardGrpDrVhOneRadio().getValue() != null && getBindings().getAccount().getValue() != null) {
-        
+
 
             if (getBindings().getTransationType().getValue() != null) {
                 displayErrorComponent(getBindings().getTransationType(), false);
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "value of transaction type================>" +
-                             getBindings().getTransationType().getValue().toString().trim());
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "value of transaction type================>" +
+                            getBindings().getTransationType().getValue().toString().trim());
                 transTypePassingValues = populateStringValues(getBindings().getTransationType().getValue().toString());
             } else {
                 displayErrorComponent(getBindings().getTransationType(), true);
@@ -1041,7 +1029,7 @@ public class TransactionOverviewBean implements Serializable {
                 newToDate = sdf.format(effectiveToDate1);
 
                 if (effectiveToDate1.before(effectiveFromDate)) {
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "value of new from date ================>" + newFromDate);
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "value of new from date ================>" + newFromDate);
                     showErrorMessage("ENGAGE_VALID_FROM_TO_DATE");
                     return null;
                 }
@@ -1050,24 +1038,24 @@ public class TransactionOverviewBean implements Serializable {
             if (cardGPGL) {
                 if (getBindings().getCardGroup().getValue() != null) {
                     displayErrorComponent(getBindings().getCardGroup(), false);
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "value of card group================>" +
-                                 getBindings().getCardGroup().getValue().toString().trim());
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "value of card group================>" +
+                                getBindings().getCardGroup().getValue().toString().trim());
                     cardGroupPassingValues = populateStringValues(getBindings().getCardGroup().getValue().toString());
                     populateCardGroupValues(cardGroupPassingValues);
                 } else {
                     displayErrorComponent(getBindings().getTransationType(), true);
-                   showErrorMessage("ENGAGE_NO_CARD_GROUP");
+                    showErrorMessage("ENGAGE_NO_CARD_GROUP");
                     return null;
                 }
             }
 
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "bollean value of vehicle====>" + vNumberPGL + dNamePGL);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "bollean value of vehicle====>" + vNumberPGL + dNamePGL);
 
             if (cardIdPGL) {
                 if (getBindings().getCard().getValue() != null) {
                     displayErrorComponent(getBindings().getCard(), false);
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "value of card  for card Id================>" +
-                                 getBindings().getCard().getValue().toString().trim());
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "value of card  for card Id================>" +
+                                getBindings().getCard().getValue().toString().trim());
                     cardNumberPasingValues = populateStringValues(getBindings().getCard().getValue().toString());
                 } else {
                     displayErrorComponent(getBindings().getCard(), true);
@@ -1079,12 +1067,12 @@ public class TransactionOverviewBean implements Serializable {
             if (vNumberPGL) {
                 if (getBindings().getVehicleNumber().getValue() != null) {
                     displayErrorComponent(getBindings().getVehicleNumber(), false);
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "value of card  for vehicle ================>" +
-                                 getBindings().getVehicleNumber().getValue().toString().trim());
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "value of card  for vehicle ================>" +
+                                getBindings().getVehicleNumber().getValue().toString().trim());
                     cardNumberPasingValues = populateStringValues(getBindings().getVehicleNumber().getValue().toString());
                 } else {
                     displayErrorComponent(getBindings().getVehicleNumber(), true);
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Is it coming inside vehicle else number block");
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Is it coming inside vehicle else number block");
                     showErrorMessage("ENGAGE_NO_VEHICLE");
                     return null;
                 }
@@ -1093,8 +1081,8 @@ public class TransactionOverviewBean implements Serializable {
             if (dNamePGL) {
                 if (getBindings().getDriverName().getValue() != null) {
                     displayErrorComponent(getBindings().getDriverName(), false);
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "value of card driver================>" +
-                                 getBindings().getDriverName().getValue().toString().trim());
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "value of card driver================>" +
+                                getBindings().getDriverName().getValue().toString().trim());
                     cardNumberPasingValues = populateStringValues(getBindings().getDriverName().getValue().toString());
                 } else {
                     displayErrorComponent(getBindings().getDriverName(), true);
@@ -1104,9 +1092,9 @@ public class TransactionOverviewBean implements Serializable {
             }
 
 
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "value of trans type ================>" + transTypePassingValues);
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "value of card111111 ================>" + cardNumberPasingValues);
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values ================>" + getBindings().getAccount().getValue());
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "value of trans type ================>" + transTypePassingValues);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "value of card111111 ================>" + cardNumberPasingValues);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values ================>" + getBindings().getAccount().getValue());
 
             isTableVisible = false;
 
@@ -1116,14 +1104,14 @@ public class TransactionOverviewBean implements Serializable {
                       "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)").trim().equalsIgnoreCase(vo.getWhereClause().trim())) ||
                     ((accountQuery + " AND " + cardQuery +
                       "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)").trim().equalsIgnoreCase(vo.getWhereClause().trim()))) {
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "inside  card where removal with purchase code class");
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "inside  card where removal with purchase code class");
                     if (mapAccountListValue != null) {
                         for (int i = 0; i < mapAccountListValue.size(); i++) {
-                            String values = "account" + i;
-                            vo.removeNamedWhereClauseParam(values);
+
+                            vo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i);
                         }
                     } else {
-                        vo.removeNamedWhereClauseParam("account");
+                        vo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL);
                     }
 
                     if (mapCardListValue != null) {
@@ -1132,27 +1120,27 @@ public class TransactionOverviewBean implements Serializable {
                             vo.removeNamedWhereClauseParam(values);
                         }
                         for (int i = 0; i < mapCardListValue.size(); i++) {
-                            String values = "card2id" + i;
-                            vo.removeNamedWhereClauseParam(values);
+
+                            vo.removeNamedWhereClauseParam(Constants.CARD2ID_LITERAL + i);
                         }
                     } else {
                         vo.removeNamedWhereClauseParam("card");
-                        vo.removeNamedWhereClauseParam("card2id");
+                        vo.removeNamedWhereClauseParam(Constants.CARD2ID_LITERAL);
                     }
-                    vo.removeNamedWhereClauseParam("purchaseCountryCode");
+                    vo.removeNamedWhereClauseParam(PURCHASE_COUNTRY_CODE_LITRERAL);
                     vo.setWhereClause("");
                     vo.executeQuery();
                 } else {
                     if (((accountQuery + "AND " + cardQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim())) ||
                         ((accountQuery + " AND " + cardQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim()))) {
-                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "inside  card with out purchase code where removal class");
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "inside  card with out purchase code where removal class");
                         if (mapAccountListValue != null) {
                             for (int i = 0; i < mapAccountListValue.size(); i++) {
-                                String values = "account" + i;
-                                vo.removeNamedWhereClauseParam(values);
+
+                                vo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i);
                             }
                         } else {
-                            vo.removeNamedWhereClauseParam("account");
+                            vo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL);
                         }
                         if (mapCardListValue != null) {
                             for (int i = 0; i < mapCardListValue.size(); i++) {
@@ -1160,12 +1148,12 @@ public class TransactionOverviewBean implements Serializable {
                                 vo.removeNamedWhereClauseParam(values);
                             }
                             for (int i = 0; i < mapCardListValue.size(); i++) {
-                                String values = "card2id" + i;
-                                vo.removeNamedWhereClauseParam(values);
+
+                                vo.removeNamedWhereClauseParam(Constants.CARD2ID_LITERAL + i);
                             }
                         } else {
                             vo.removeNamedWhereClauseParam("card");
-                            vo.removeNamedWhereClauseParam("card2id");
+                            vo.removeNamedWhereClauseParam(Constants.CARD2ID_LITERAL);
                         }
                         vo.setWhereClause("");
                         vo.executeQuery();
@@ -1177,14 +1165,14 @@ public class TransactionOverviewBean implements Serializable {
                           "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)").trim().equalsIgnoreCase(vo.getWhereClause().trim())) ||
                         ((accountQuery + " AND " + cardGroupQuery +
                           "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)").trim().equalsIgnoreCase(vo.getWhereClause().trim()))) {
-                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "inside cardGroup with purchase code where removal class");
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "inside cardGroup with purchase code where removal class");
                         if (mapAccountListValue != null) {
                             for (int i = 0; i < mapAccountListValue.size(); i++) {
-                                String values = "account" + i;
-                                vo.removeNamedWhereClauseParam(values);
+
+                                vo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i);
                             }
                         } else {
-                            vo.removeNamedWhereClauseParam("account");
+                            vo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL);
                         }
                         if (mapCardGroupListValue != null) {
                             for (int i = 0; i < mapCardGroupListValue.size(); i++) {
@@ -1194,20 +1182,20 @@ public class TransactionOverviewBean implements Serializable {
                         } else {
                             vo.removeNamedWhereClauseParam("cardGroup");
                         }
-                        vo.removeNamedWhereClauseParam("purchaseCountryCode");
+                        vo.removeNamedWhereClauseParam(PURCHASE_COUNTRY_CODE_LITRERAL);
                         vo.setWhereClause("");
                         vo.executeQuery();
                     } else {
                         if (((accountQuery + "AND " + cardGroupQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim())) ||
                             ((accountQuery + " AND " + cardGroupQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim()))) {
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "inside  cardGroup with out purchase code where removal class");
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "inside  cardGroup with out purchase code where removal class");
                             if (mapAccountListValue != null) {
                                 for (int i = 0; i < mapAccountListValue.size(); i++) {
-                                    String values = "account" + i;
-                                    vo.removeNamedWhereClauseParam(values);
+
+                                    vo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i);
                                 }
                             } else {
-                                vo.removeNamedWhereClauseParam("account");
+                                vo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL);
                             }
                             if (mapCardGroupListValue != null) {
                                 for (int i = 0; i < mapCardGroupListValue.size(); i++) {
@@ -1229,278 +1217,272 @@ public class TransactionOverviewBean implements Serializable {
             cardGroupQuery = "(";
             cardQuery = "((";
 
-            vo.setNamedWhereClauseParam("countryCd", lang);
+            vo.setNamedWhereClauseParam(Constants.COUNTRY_CD_LITERAL, lang);
             vo.setNamedWhereClauseParam("partnerId", populateStringValues(getBindings().getPartner().getValue().toString()));
             vo.setNamedWhereClauseParam("type", transTypePassingValues);
             vo.setNamedWhereClauseParam("fromDate", newFromDate);
             vo.setNamedWhereClauseParam("toDate", newToDate);
-            if (accountIdValue.size() > 150) {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
+            if (accountIdValue.size() > Constants.ONEFIFTY) {
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
                 mapAccountListValue = ValueListSplit.callValueList(accountIdValue.size(), accountIdValue);
                 for (int i = 0; i < mapAccountListValue.size(); i++) {
-                    String values = "account" + i;
+                    String values = Constants.ACCOUNT_LITERAL + i;
                     accountQuery = accountQuery + "INSTR(:" + values + ",ACCOUNT_ID)<>0 OR ";
                 }
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Account Query Values =" + accountQuery);
-                accountQuery = accountQuery.substring(0, accountQuery.length() - 3);
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "Account Query Values =" + accountQuery);
+                accountQuery = accountQuery.substring(0, accountQuery.length() - Constants.THREE);
                 accountQuery = accountQuery + ")";
 
             } else {
                 mapAccountListValue = null;
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
                 accountQuery = "(INSTR(:account,ACCOUNT_ID)<>0 ) ";
             }
 
             if (cardIdPGL || vNumberPGL || dNamePGL) {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Inside block for card");
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Inside block for card");
                 if (getBindings().getReportFormat().getValue() != null) {
-                    if ("Card".equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
-                        if ("International".equalsIgnoreCase(getBindings().getReportFormat().getValue().toString().trim())) {
-                            if (cardNumberValue.size() > 150) {
-                                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values > 150 ");
+                    if (Constants.CARD_LITERAL.equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
+                        if (Constants.INTERNATIONAL_LITERAL.equalsIgnoreCase(getBindings().getReportFormat().getValue().toString().trim())) {
+                            if (cardNumberValue.size() > Constants.ONEFIFTY) {
+                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values > 150 ");
                                 mapCardListValue = ValueListSplit.callValueList(cardNumberValue.size(), cardNumberValue);
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
                                     String values = "card" + i;
                                     cardQuery = cardQuery + "INSTR(:" + values + ",KSID)<>0 OR ";
                                 }
-                                cardQuery = cardQuery.substring(0, cardQuery.length() - 3);
+                                cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
                                 cardQuery = cardQuery + ") OR (";
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
-                                    String values = "card2id" + i;
+                                    String values = Constants.CARD2ID_LITERAL + i;
                                     cardQuery = cardQuery + "INSTR(:" + values + ",CARD_2_ID)<>0 OR ";
                                 }
-                                cardQuery = cardQuery.substring(0, cardQuery.length() - 3);
+                                cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
                                 cardQuery =
                                         cardQuery + ") AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
-                                _logger.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
+                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
                                 vo.setWhereClause(accountQuery + "AND " + cardQuery + "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
                                     String values = "card" + i;
-                                    String listName = "listName" + i;
-                                    vo.defineNamedWhereClauseParam(values, mapCardListValue.get(listName), null);
+
+                                    vo.defineNamedWhereClauseParam(values, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
                                 }
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
-                                    String values = "card2id" + i;
-                                    String listName = "listName" + i;
-                                    vo.defineNamedWhereClauseParam(values, mapCardListValue.get(listName), null);
+
+                                    vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL + i, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
                                 }
 
                             } else {
-                                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CARD Values < 150 ");
+                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CARD Values < 150 ");
                                 mapCardListValue = null;
                                 cardQuery =
                                         "((INSTR(:card,KSID)<>0 OR INSTR(:card2id,CARD_2_ID)<>0) AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
                                 vo.setWhereClause(accountQuery + "AND " + cardQuery + "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
                                 vo.defineNamedWhereClauseParam("card", cardNumberPasingValues, null);
-                                vo.defineNamedWhereClauseParam("card2id", cardNumberPasingValues, null);
+                                vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL, cardNumberPasingValues, null);
                             }
-                            vo.defineNamedWhereClauseParam("purchaseCountryCode", lang, null);
+                            vo.defineNamedWhereClauseParam(PURCHASE_COUNTRY_CODE_LITRERAL, lang, null);
                         } else {
-                            if (cardNumberValue.size() > 150) {
-                                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values > 150 ");
+                            if (cardNumberValue.size() > Constants.ONEFIFTY) {
+                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values > 150 ");
                                 mapCardListValue = ValueListSplit.callValueList(cardNumberValue.size(), cardNumberValue);
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
                                     String values = "card" + i;
                                     cardQuery = cardQuery + "INSTR(:" + values + ",KSID)<>0 OR ";
                                 }
-                                cardQuery = cardQuery.substring(0, cardQuery.length() - 3);
+                                cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
                                 cardQuery = cardQuery + ") OR (";
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
-                                    String values = "card2id" + i;
+                                    String values = Constants.CARD2ID_LITERAL + i;
                                     cardQuery = cardQuery + "INSTR(:" + values + ",CARD_2_ID)<>0 OR ";
                                 }
-                                cardQuery = cardQuery.substring(0, cardQuery.length() - 3);
-                                _logger.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
+                                cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
+                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
                                 cardQuery =
                                         cardQuery + ") AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
                                 vo.setWhereClause(accountQuery + "AND " + cardQuery);
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
                                     String values = "card" + i;
-                                    String listName = "listName" + i;
-                                    vo.defineNamedWhereClauseParam(values, mapCardListValue.get(listName), null);
+
+                                    vo.defineNamedWhereClauseParam(values, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
                                 }
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
-                                    String values = "card2id" + i;
-                                    String listName = "listName" + i;
-                                    vo.defineNamedWhereClauseParam(values, mapCardListValue.get(listName), null);
+
+
+                                    vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL + i, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
                                 }
 
-
                             } else {
-                                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CARD Values < 150 ");
+                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CARD Values < 150 ");
                                 mapCardListValue = null;
                                 cardQuery =
                                         "((INSTR(:card,KSID)<>0 OR INSTR(:card2id,CARD_2_ID)<>0) AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
                                 vo.setWhereClause(accountQuery + "AND " + cardQuery);
                                 vo.defineNamedWhereClauseParam("card", cardNumberPasingValues, null);
-                                vo.defineNamedWhereClauseParam("card2id", cardNumberPasingValues, null);
+                                vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL, cardNumberPasingValues, null);
                             }
                         }
-                    } else if ("Vehicle".equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
-                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Vehicle");
-                        if ("International".equalsIgnoreCase(getBindings().getReportFormat().getValue().toString().trim())) {
-                            if (vehicleNumberValue.size() > 150) {
-                                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Vehicle Values > 150 ");
+                    } else if (Constants.VEHICLE_LITERAL.equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + Constants.VEHICLE_LITERAL);
+                        if (Constants.INTERNATIONAL_LITERAL.equalsIgnoreCase(getBindings().getReportFormat().getValue().toString().trim())) {
+                            if (vehicleNumberValue.size() > Constants.ONEFIFTY) {
+                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Vehicle Values > 150 ");
                                 mapCardListValue = ValueListSplit.callValueList(vehicleNumberValue.size(), vehicleNumberValue);
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
                                     String values = "card" + i;
                                     cardQuery = cardQuery + "INSTR(:" + values + ",KSID)<>0 OR ";
                                 }
-                               cardQuery = cardQuery.substring(0, cardQuery.length() - 3);
+                                cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
                                 cardQuery = cardQuery + ") OR (";
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
-                                    String values = "card2id" + i;
+                                    String values = Constants.CARD2ID_LITERAL + i;
                                     cardQuery = cardQuery + "INSTR(:" + values + ",CARD_2_ID)<>0 OR ";
                                 }
-                                cardQuery = cardQuery.substring(0, cardQuery.length() - 3);
+                                cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
                                 cardQuery =
                                         cardQuery + ") AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
-                                _logger.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
+                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
                                 vo.setWhereClause(accountQuery + "AND " + cardQuery + "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
                                     String values = "card" + i;
-                                    String listName = "listName" + i;
-                                    vo.defineNamedWhereClauseParam(values, mapCardListValue.get(listName), null);
+
+                                    vo.defineNamedWhereClauseParam(values, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
                                 }
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
-                                    String values = "card2id" + i;
-                                    String listName = "listName" + i;
-                                    vo.defineNamedWhereClauseParam(values, mapCardListValue.get(listName), null);
+
+                                    vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL + i, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
                                 }
 
                             } else {
-                                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Vehicle Values < 150 ");
+                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Vehicle Values < 150 ");
                                 mapCardListValue = null;
                                 cardQuery =
                                         "((INSTR(:card,KSID)<>0 OR INSTR(:card2id,CARD_2_ID)<>0) AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
                                 vo.setWhereClause(accountQuery + "AND " + cardQuery + "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
                                 vo.defineNamedWhereClauseParam("card", cardNumberPasingValues, null);
-                                vo.defineNamedWhereClauseParam("card2id", cardNumberPasingValues, null);
+                                vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL, cardNumberPasingValues, null);
                             }
-                            vo.defineNamedWhereClauseParam("purchaseCountryCode", lang, null);
+                            vo.defineNamedWhereClauseParam(PURCHASE_COUNTRY_CODE_LITRERAL, lang, null);
                         } else {
-                            if (vehicleNumberValue.size() > 150) {
-                                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Vehicle Values > 150 ");
+                            if (vehicleNumberValue.size() > Constants.ONEFIFTY) {
+                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Vehicle Values > 150 ");
                                 mapCardListValue = ValueListSplit.callValueList(vehicleNumberValue.size(), vehicleNumberValue);
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
                                     String values = "card" + i;
                                     cardQuery = cardQuery + "INSTR(:" + values + ",KSID)<>0 OR ";
                                 }
-                                cardQuery = cardQuery.substring(0, cardQuery.length() - 3);
+                                cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
                                 cardQuery = cardQuery + ") OR (";
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
-                                    String values = "card2id" + i;
+                                    String values = Constants.CARD2ID_LITERAL + i;
                                     cardQuery = cardQuery + "INSTR(:" + values + ",CARD_2_ID)<>0 OR ";
                                 }
-                                cardQuery = cardQuery.substring(0, cardQuery.length() - 3);
-                                _logger.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
+                                cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
+                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
                                 cardQuery =
                                         cardQuery + ") AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
                                 vo.setWhereClause(accountQuery + "AND " + cardQuery);
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
                                     String values = "card" + i;
-                                    String listName = "listName" + i;
-                                    vo.defineNamedWhereClauseParam(values, mapCardListValue.get(listName), null);
+                                    vo.defineNamedWhereClauseParam(values, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
                                 }
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
-                                    String values = "card2id" + i;
-                                    String listName = "listName" + i;
-                                    vo.defineNamedWhereClauseParam(values, mapCardListValue.get(listName), null);
+
+                                    vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL + i, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
                                 }
 
 
                             } else {
-                                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Vehicle Values < 150 ");
+                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Vehicle Values < 150 ");
                                 mapCardListValue = null;
                                 cardQuery =
                                         "((INSTR(:card,KSID)<>0 OR INSTR(:card2id,CARD_2_ID)<>0) AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
                                 vo.setWhereClause(accountQuery + "AND " + cardQuery);
                                 vo.defineNamedWhereClauseParam("card", cardNumberPasingValues, null);
-                                vo.defineNamedWhereClauseParam("card2id", cardNumberPasingValues, null);
+                                vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL, cardNumberPasingValues, null);
                             }
                         }
                     } else {
                         if ("Driver".equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Driver");
-                            if ("International".equalsIgnoreCase(getBindings().getReportFormat().getValue().toString().trim())) {
-                                if (driverNameValue.size() > 150) {
-                                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Driver Values > 150 ");
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "Driver");
+                            if (Constants.INTERNATIONAL_LITERAL.equalsIgnoreCase(getBindings().getReportFormat().getValue().toString().trim())) {
+                                if (driverNameValue.size() > Constants.ONEFIFTY) {
+                                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Driver Values > 150 ");
                                     mapCardListValue = ValueListSplit.callValueList(driverNameValue.size(), driverNameValue);
                                     for (int i = 0; i < mapCardListValue.size(); i++) {
                                         String values = "card" + i;
                                         cardQuery = cardQuery + "INSTR(:" + values + ",KSID)<>0 OR ";
                                     }
-                                    cardQuery = cardQuery.substring(0, cardQuery.length() - 3);
+                                    cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
                                     cardQuery = cardQuery + ") OR (";
                                     for (int i = 0; i < mapCardListValue.size(); i++) {
-                                        String values = "card2id" + i;
+                                        String values = Constants.CARD2ID_LITERAL + i;
                                         cardQuery = cardQuery + "INSTR(:" + values + ",CARD_2_ID)<>0 OR ";
                                     }
-                                    cardQuery = cardQuery.substring(0, cardQuery.length() - 3);
+                                    cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
                                     cardQuery =
                                             cardQuery + ") AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
-                                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
+                                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
                                     vo.setWhereClause(accountQuery + "AND " + cardQuery + "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
                                     for (int i = 0; i < mapCardListValue.size(); i++) {
                                         String values = "card" + i;
-                                        String listName = "listName" + i;
-                                        vo.defineNamedWhereClauseParam(values, mapCardListValue.get(listName), null);
+
+                                        vo.defineNamedWhereClauseParam(values, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
                                     }
                                     for (int i = 0; i < mapCardListValue.size(); i++) {
-                                        String values = "card2id" + i;
-                                        String listName = "listName" + i;
-                                        vo.defineNamedWhereClauseParam(values, mapCardListValue.get(listName), null);
+
+
+                                        vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL + i, mapCardListValue.get(Constants.LISTNAME_LITERAL + i),
+                                                                       null);
                                     }
 
                                 } else {
-                                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Driver Values < 150 ");
+                                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Driver Values < 150 ");
                                     mapCardListValue = null;
                                     cardQuery =
                                             "((INSTR(:card,KSID)<>0 OR INSTR(:card2id,CARD_2_ID)<>0) AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
                                     vo.setWhereClause(accountQuery + "AND " + cardQuery + "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
                                     vo.defineNamedWhereClauseParam("card", cardNumberPasingValues, null);
-                                    vo.defineNamedWhereClauseParam("card2id", cardNumberPasingValues, null);
+                                    vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL, cardNumberPasingValues, null);
                                 }
-                                vo.defineNamedWhereClauseParam("purchaseCountryCode", lang, null);
+                                vo.defineNamedWhereClauseParam(PURCHASE_COUNTRY_CODE_LITRERAL, lang, null);
                             } else {
-                                if (driverNameValue.size() > 150) {
-                                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Driver Values > 150 ");
+                                if (driverNameValue.size() > Constants.ONEFIFTY) {
+                                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Driver Values > 150 ");
                                     mapCardListValue = ValueListSplit.callValueList(driverNameValue.size(), driverNameValue);
                                     for (int i = 0; i < mapCardListValue.size(); i++) {
                                         String values = "card" + i;
                                         cardQuery = cardQuery + "INSTR(:" + values + ",KSID)<>0 OR ";
                                     }
-                                    cardQuery = cardQuery.substring(0, cardQuery.length() - 3);
+                                    cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
                                     cardQuery = cardQuery + ") OR (";
                                     for (int i = 0; i < mapCardListValue.size(); i++) {
-                                        String values = "card2id" + i;
+                                        String values = Constants.CARD2ID_LITERAL + i;
                                         cardQuery = cardQuery + "INSTR(:" + values + ",CARD_2_ID)<>0 OR ";
                                     }
-                                    cardQuery = cardQuery.substring(0, cardQuery.length() - 3);
-                                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
+                                    cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
+                                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
                                     cardQuery =
                                             cardQuery + ") AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
                                     vo.setWhereClause(accountQuery + "AND " + cardQuery);
                                     for (int i = 0; i < mapCardListValue.size(); i++) {
                                         String values = "card" + i;
-                                        String listName = "listName" + i;
-                                        vo.defineNamedWhereClauseParam(values, mapCardListValue.get(listName), null);
+
+                                        vo.defineNamedWhereClauseParam(values, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
                                     }
                                     for (int i = 0; i < mapCardListValue.size(); i++) {
-                                        String values = "card2id" + i;
-                                        String listName = "listName" + i;
-                                        vo.defineNamedWhereClauseParam(values, mapCardListValue.get(listName), null);
+
+                                        vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
                                     }
 
-
                                 } else {
-                                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Driver Values < 150 ");
+                                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Driver Values < 150 ");
                                     mapCardListValue = null;
                                     cardQuery =
                                             "((INSTR(:card,KSID)<>0 OR INSTR(:card2id,CARD_2_ID)<>0) AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
                                     vo.setWhereClause(accountQuery + "AND " + cardQuery);
                                     vo.defineNamedWhereClauseParam("card", cardNumberPasingValues, null);
-                                    vo.defineNamedWhereClauseParam("card2id", cardNumberPasingValues, null);
+                                    vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL, cardNumberPasingValues, null);
                                 }
                             }
                         }
@@ -1508,85 +1490,82 @@ public class TransactionOverviewBean implements Serializable {
                 }
 
             } else {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Coming inside card group block");
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Coming inside card group block");
                 if (getBindings().getReportFormat().getValue() != null) {
-                    if ("International".equalsIgnoreCase(getBindings().getReportFormat().getValue().toString().trim())) {
-                        if (cardGroupValue.size() > 150) {
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
+                    if (Constants.INTERNATIONAL_LITERAL.equalsIgnoreCase(getBindings().getReportFormat().getValue().toString().trim())) {
+                        if (cardGroupValue.size() > Constants.ONEFIFTY) {
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
                             mapCardGroupListValue = ValueListSplit.callValueList(cardGroupValue.size(), cardGroupValue);
                             for (int i = 0; i < mapCardGroupListValue.size(); i++) {
                                 String values = "cardGroup" + i;
                                 cardGroupQuery =
                                         cardGroupQuery + "INSTR(:" + values + ",PARTNER_ID||CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 OR ";
                             }
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "CARDGROUP Query Values =" + cardGroupQuery);
-                            cardGroupQuery = cardGroupQuery.substring(0, cardGroupQuery.length() - 3);
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARDGROUP Query Values =" + cardGroupQuery);
+                            cardGroupQuery = cardGroupQuery.substring(0, cardGroupQuery.length() - Constants.THREE);
                             cardGroupQuery = cardGroupQuery + ")";
                             vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
                             for (int i = 0; i < mapCardGroupListValue.size(); i++) {
                                 String values = "cardGroup" + i;
-                                String listName = "listName" + i;
-                                vo.defineNamedWhereClauseParam(values, mapCardGroupListValue.get(listName), null);
+
+                                vo.defineNamedWhereClauseParam(values, mapCardGroupListValue.get(Constants.LISTNAME_LITERAL + i), null);
                             }
 
                         } else {
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CARD Values < 150 ");
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CARD Values < 150 ");
                             mapCardGroupListValue = null;
                             cardGroupQuery = "INSTR(:cardGroup,PARTNER_ID||CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 ";
                             vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
                             vo.defineNamedWhereClauseParam("cardGroup", populateStringValues(getBindings().getCardGroup().getValue().toString()), null);
                         }
-                        vo.defineNamedWhereClauseParam("purchaseCountryCode", lang, null);
+                        vo.defineNamedWhereClauseParam(PURCHASE_COUNTRY_CODE_LITRERAL, lang, null);
 
                     } else {
-                        if (cardGroupValue.size() > 150) {
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
+                        if (cardGroupValue.size() > Constants.ONEFIFTY) {
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
                             mapCardGroupListValue = ValueListSplit.callValueList(cardGroupValue.size(), cardGroupValue);
                             for (int i = 0; i < mapCardGroupListValue.size(); i++) {
                                 String values = "cardGroup" + i;
                                 cardGroupQuery =
                                         cardGroupQuery + "INSTR(:" + values + ",PARTNER_ID||CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 OR ";
                             }
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
-                            cardGroupQuery = cardGroupQuery.substring(0, cardGroupQuery.length() - 3);
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
+                            cardGroupQuery = cardGroupQuery.substring(0, cardGroupQuery.length() - Constants.THREE);
                             cardGroupQuery = cardGroupQuery + ")";
                             vo.setWhereClause(accountQuery + "AND " + cardGroupQuery);
                             for (int i = 0; i < mapCardGroupListValue.size(); i++) {
                                 String values = "cardGroup" + i;
-                                String listName = "listName" + i;
-                                vo.defineNamedWhereClauseParam(values, mapCardGroupListValue.get(listName), null);
+
+                                vo.defineNamedWhereClauseParam(values, mapCardGroupListValue.get(Constants.LISTNAME_LITERAL + i), null);
                             }
 
                         } else {
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CARD Values < 150 ");
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CARD Values < 150 ");
                             mapCardGroupListValue = null;
                             cardGroupQuery = "(INSTR(:cardGroup,PARTNER_ID||CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0) ";
                             vo.setWhereClause(accountQuery + "AND " + cardGroupQuery);
                             vo.defineNamedWhereClauseParam("cardGroup", populateStringValues(getBindings().getCardGroup().getValue().toString()), null);
                         }
                     }
-
                 }
-
             }
 
 
-            if (accountIdValue.size() > 150) {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
+            if (accountIdValue.size() > Constants.ONEFIFTY) {
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
                 mapAccountListValue = ValueListSplit.callValueList(accountIdValue.size(), accountIdValue);
                 for (int i = 0; i < mapAccountListValue.size(); i++) {
-                    String values = "account" + i;
-                    String listName = "listName" + i;
-                    vo.defineNamedWhereClauseParam(values, mapAccountListValue.get(listName), null);
+
+                    vo.defineNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i, mapAccountListValue.get(Constants.LISTNAME_LITERAL + i), null);
                 }
 
             } else {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
-                vo.defineNamedWhereClauseParam("account", populateStringValues(getBindings().getAccount().getValue().toString()), null);
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < oneFifty ");
+                vo.defineNamedWhereClauseParam(Constants.ACCOUNT_LITERAL, populateStringValues(getBindings().getAccount().getValue().toString()), null);
             }
 
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "where clause of view object=====>" + vo.getQuery());
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "where clause of view object=====>" + vo.getWhereClause());
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "where clause of view object=====>" + vo.getQuery());
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "where clause of view object=====>" + vo.getWhereClause());
             vo.executeQuery();
             session.setAttribute("account_Query", accountQuery);
             session.setAttribute("map_Account_List", mapAccountListValue);
@@ -1594,7 +1573,7 @@ public class TransactionOverviewBean implements Serializable {
             session.setAttribute("map_CardGroup_List", mapCardGroupListValue);
             session.setAttribute("card_Query", cardQuery);
             session.setAttribute("map_Card_List", mapCardListValue);
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Queries are saved in session");
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Queries are saved in session");
 
             value = true;
             sum = 0.00f;
@@ -1604,7 +1583,7 @@ public class TransactionOverviewBean implements Serializable {
             RowSetIterator iterator = vo.createRowSetIterator(null);
             iterator.reset();
             if (vo.getEstimatedRowCount() != 0) {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Inside Estimated row count" + vo.getEstimatedRowCount());
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Inside Estimated row count" + vo.getEstimatedRowCount());
                 while (iterator.hasNext()) {
                     PrtCardTransactionOverviewRVORowImpl row = (PrtCardTransactionOverviewRVORowImpl)iterator.next();
                     if (row.getInvoicedGrossAmountRebated() != null) {
@@ -1624,37 +1603,37 @@ public class TransactionOverviewBean implements Serializable {
                         netAmountSum = netAmountSum + tempNetTotal;
                     }
                 }
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "sum =" + sum);
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "foreignGrossAmountSum =" + foreignGrossAmountSum);
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "vatSum =" + vatSum);
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "netAmountSum =" + netAmountSum);
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "sum =" + sum);
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "foreignGrossAmountSum =" + foreignGrossAmountSum);
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "vatSum =" + vatSum);
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "netAmountSum =" + netAmountSum);
             }
         } else {
             showErrorMessage("ENGAGE_SELECT_TRANSACTION_MANDATORY");
-            if(getBindings().getPartner().getValue() == null){
-            displayErrorComponent(getBindings().getPartner(), true);
+            if (getBindings().getPartner().getValue() == null) {
+                displayErrorComponent(getBindings().getPartner(), true);
             }
-            if(getBindings().getAccount().getValue() == null){
-            displayErrorComponent(getBindings().getAccount(), true);
+            if (getBindings().getAccount().getValue() == null) {
+                displayErrorComponent(getBindings().getAccount(), true);
             }
             return null;
         }
         return null;
     }
 
-    public String searchTransactionAction_event(ActionEvent actionEvent) {
+    public String searchTransactionActionEvent(ActionEvent actionEvent) {
         if (getBindings().getReportFormat().getValue() != null) {
             if ("Raw Data".equalsIgnoreCase(getBindings().getReportFormat().getValue().toString())) {
                 reportRawData = true;
                 reportInternationalTx = false;
                 reportPriceSpecification = false;
                 reportDefault = false;
-            } else if ("International".equalsIgnoreCase(getBindings().getReportFormat().getValue().toString())) {
+            } else if (Constants.INTERNATIONAL_LITERAL.equalsIgnoreCase(getBindings().getReportFormat().getValue().toString())) {
                 reportRawData = false;
                 reportInternationalTx = true;
                 reportPriceSpecification = false;
                 reportDefault = false;
-            } else if ("Default".equalsIgnoreCase(getBindings().getReportFormat().getValue().toString())) {
+            } else if (Constants.DEFAULT_LITERAL.equalsIgnoreCase(getBindings().getReportFormat().getValue().toString())) {
                 reportRawData = false;
                 reportInternationalTx = false;
                 reportPriceSpecification = false;
@@ -1668,39 +1647,39 @@ public class TransactionOverviewBean implements Serializable {
                 }
             }
         }
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Partner ID 2-Card" + partnerInfoList.get(0).isConsistsTwoCard());
-        if (lang == "SE" || "SE".equalsIgnoreCase(lang.trim())) {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside Partner ID 2-Card");
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Partner ID 2-Card" + partnerInfoList.get(0).isConsistsTwoCard());
+        if (lang.equals("SE") || "SE".equalsIgnoreCase(lang.trim())) {
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Inside Partner ID 2-Card");
             for (int i = 0; i < partnerIdValues.size(); i++) {
                 for (int k = 0; k < partnerInfoList.size(); k++) {
                     if (partnerIdValues.get(i).equalsIgnoreCase(partnerInfoList.get(k).getPartnerValue().toString())) {
-                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Partner ID 2-Card" + partnerInfoList.get(k).isConsistsTwoCard());
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Partner ID 2-Card" + partnerInfoList.get(k).isConsistsTwoCard());
                         if (partnerInfoList.get(k).isConsistsTwoCard()) {
-                            if ("Default".equalsIgnoreCase(getBindings().getReportFormat().getValue().toString())) {
+                            if (Constants.DEFAULT_LITERAL.equalsIgnoreCase(getBindings().getReportFormat().getValue().toString())) {
                                 vehicleName = true;
                             } else {
                                 vehicleName = false;
                             }
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Partner ID 2-Card Vehicle Name" + vehicleName);
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Partner ID 2-Card Vehicle Name" + vehicleName);
                         }
                     }
                 }
             }
         } else {
             vehicleName = false;
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Partner ID 2-Card Vehicle Name" + vehicleName);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Partner ID 2-Card Vehicle Name" + vehicleName);
         }
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Partner ID 2-Card Vehicle Name" + vehicleName);
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Partner ID 2-Card Vehicle Name" + vehicleName);
 
-        if (lang == "DK" || "DK".equalsIgnoreCase(lang.trim())) {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " To check Partner for 2 In 1 card");
+        if (lang.equals("DK") || "DK".equalsIgnoreCase(lang.trim())) {
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " To check Partner for 2 In 1 card");
             for (int pa = 0; pa < partnerIdValues.size(); pa++) {
                 for (int k = 0; k < partnerInfoList.size(); k++) {
                     if (partnerIdValues.get(pa).equalsIgnoreCase(partnerInfoList.get(k).getPartnerValue().toString())) {
-                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Flag of Partner for 2 In 1 card" +
-                                     partnerInfoList.get(k).isConsistsTwoCard());
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Flag of Partner for 2 In 1 card" +
+                                    partnerInfoList.get(k).isConsistsTwoCard());
                         if (partnerInfoList.get(k).isConsistTwoInOneCard()) {
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Flag of Partner for 2 In 1 card" + showDriverCode);
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Flag of Partner for 2 In 1 card" + showDriverCode);
                             showDriverCode = true;
                         }
                     }
@@ -1708,7 +1687,7 @@ public class TransactionOverviewBean implements Serializable {
             }
         } else {
             showDriverCode = false;
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Flag of Partner for 2 In 1 card" + showDriverCode);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Flag of Partner for 2 In 1 card" + showDriverCode);
         }
 
         searchResults();
@@ -1722,7 +1701,7 @@ public class TransactionOverviewBean implements Serializable {
         accountIdList = new ArrayList<SelectItem>();
         this.accountIdValue = null;
         this.partnerIdValue = null;
-        this.reportFormatValue = "Default";
+        this.reportFormatValue = Constants.DEFAULT_LITERAL;
         getBindings().getCardCardGrpDrVhOneRadio().setValue(null);
         getBindings().getFromDate().setValue(null);
         getBindings().getToDate().setValue(null);
@@ -1797,13 +1776,11 @@ public class TransactionOverviewBean implements Serializable {
             }
 
             for (int cGrp = 0; cGrp < cardGroupCount; cGrp++) {
-                cardGroupMaintype = cardGroupMaintype + cardGroupvalues[cGrp].trim().substring(0, 3);
+                cardGroupMaintype = cardGroupMaintype + cardGroupvalues[cGrp].trim().substring(0, Constants.THREE);
                 cardGroupMaintype = cardGroupMaintype + ",";
-
-                cardGroupSubtype = cardGroupSubtype + cardGroupvalues[cGrp].trim().substring(3, 6);
+                cardGroupSubtype = cardGroupSubtype + cardGroupvalues[cGrp].trim().substring(Constants.THREE, Constants.SIX);
                 cardGroupSubtype = cardGroupSubtype + ",";
-
-                cardGroupSeq = cardGroupSeq + cardGroupvalues[cGrp].trim().substring(6);
+                cardGroupSeq = cardGroupSeq + cardGroupvalues[cGrp].trim().substring(Constants.SIX);
                 cardGroupSeq = cardGroupSeq + ",";
             }
 
@@ -1811,15 +1788,15 @@ public class TransactionOverviewBean implements Serializable {
             cardGroupSubtypePassValues = cardGroupSubtype.trim().substring(0, cardGroupSubtype.length() - 1);
             cardGroupSeqPassValues = cardGroupSeq.trim().substring(0, cardGroupSeq.length() - 1);
 
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "card group main type======>" + cardGroupMaintypePassValue);
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "card group sub type===>" + cardGroupSubtypePassValues);
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "card group sequence value====>" + cardGroupSeqPassValues);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "card group main type======>" + cardGroupMaintypePassValue);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "card group sub type===>" + cardGroupSubtypePassValues);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "card group sequence value====>" + cardGroupSeqPassValues);
         }
     }
 
     public void reportFormatValueChangeListener(ValueChangeEvent valueChangeEvent) {
         if (valueChangeEvent.getNewValue() != null) {
-            if ("International".equalsIgnoreCase(valueChangeEvent.getNewValue().toString())) {
+            if (Constants.INTERNATIONAL_LITERAL.equalsIgnoreCase(valueChangeEvent.getNewValue().toString())) {
                 noteVisible = false;
             } else {
                 noteVisible = true;
@@ -1840,44 +1817,40 @@ public class TransactionOverviewBean implements Serializable {
             cardGroupValue = new ArrayList<String>();
 
             for (int z = 0; z < partnerInfoList.size(); z++) {
-                if (partnerInfoList.get(z).getAccountList() != null &&
-                    partnerInfoList.get(z).getAccountList().size() > 0) {
-                    for (int i = 0;
-                         i < partnerInfoList.get(z).getAccountList().size();
-                         i++) {
+                if (partnerInfoList.get(z).getAccountList() != null && partnerInfoList.get(z).getAccountList().size() > 0) {
+                    for (int i = 0; i < partnerInfoList.get(z).getAccountList().size(); i++) {
                         for (int j = 0; j < accountString.length; j++) {
-                           if (partnerInfoList.get(z).getAccountList().get(i).getAccountNumber() != null &&
+                            if (partnerInfoList.get(z).getAccountList().get(i).getAccountNumber() != null &&
                                 partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString().trim().equals(accountString[j].toString().trim())) {
                                 if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup() != null &&
                                     partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size() > 0) {
-                                    for (int k = 0;
-                                         k < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size();
-                                         k++) {
+                                    for (int k = 0; k < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size(); k++) {
                                         if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID() != null) {
                                             SelectItem selectItem = new SelectItem();
                                             selectItem.setLabel(partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getDisplayCardGroupIdName().toString());
-                                            selectItem.setValue(partnerInfoList.get(z).getPartnerValue().toString().trim()+partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
+                                            selectItem.setValue(partnerInfoList.get(z).getPartnerValue().toString().trim() +
+                                                                partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
                                             cardGroupList.add(selectItem);
-                                            cardGroupValue.add(partnerInfoList.get(z).getPartnerValue().toString().trim()+partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
+                                            cardGroupValue.add(partnerInfoList.get(z).getPartnerValue().toString().trim() +
+                                                               partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
                                         }
                                     }
                                 }
                             }
                         }
                     }
-                    Collections.sort (accountIdList,comparator);
-                    Collections.sort (cardGroupList,comparator);
+                    Collections.sort(accountIdList, comparator);
+                    Collections.sort(cardGroupList, comparator);
                 }
             }
 
 
-        
             cardGPGL = true;
             cardIdPGL = false;
             dNamePGL = false;
             vNumberPGL = false;
             getBindings().getCardCardGrpDrVhOneRadio().setValue("CardGroup"); //for setting radio button to defult
-           
+
             if (isTableVisible) {
                 isTableVisible = false;
             }
@@ -1890,11 +1863,11 @@ public class TransactionOverviewBean implements Serializable {
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardCardGrpDrVhOneRadio());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());
         }
-        
-        
-        else{
-//            getBindings().getCardCardGrpDrVhOneRadio().setValue(null);        
-//            getBindings().getCardCardGrpDrVhOneRadio().setSubmittedValue(null);
+
+
+        else {
+            //            getBindings().getCardCardGrpDrVhOneRadio().setValue(null);
+            //            getBindings().getCardCardGrpDrVhOneRadio().setSubmittedValue(null);
             getBindings().getCardCardGrpDrVhOneRadio().setValue("CardGroup");
             cardNumberList = new ArrayList<SelectItem>();
             cardNumberValue = new ArrayList<String>();
@@ -2088,95 +2061,91 @@ public class TransactionOverviewBean implements Serializable {
     }
 
     public void specificExportExcelListener(FacesContext facesContext, OutputStream outputStream) throws IOException, SQLException, Exception {
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Entering getValues..");
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Entering getValues..");
         String selectedValues = "";
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Size ==" + shuttleValue.size());
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Size ==" + shuttleValue.size());
         resourceBundle = new EngageResourceBundle();
         for (int i = 0; i < shuttleValue.size(); i++) {
 
             selectedValues = selectedValues + shuttleValue.get(i).toString().trim() + "|";
         }
 
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Formed String =" + selectedValues);
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Formed String =" + selectedValues);
         String passedString = selectedValues.substring(0, selectedValues.length() - 1);
 
 
         ReportBundle rb = new ReportBundle();
         String langDB = (String)session.getAttribute("langReport");
-        if (langDB.equalsIgnoreCase("en_US")) {
-            langDB = "en_US".toUpperCase();
+        if (langDB.equalsIgnoreCase(Constants.LANGUAGE_ENGLISH)) {
+            langDB = Constants.LANGUAGE_ENGLISH.toUpperCase();
         } else {
             langDB = langDB.substring(langDB.length() - 2, langDB.length());
             langDB = langDB.toUpperCase();
         }
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "langDB =" + langDB);
-        String columnsReport = rb.getContentsForReport("TRANSACTION", langDB, passedString);
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "From Resource Bundle:" + columnsReport);
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "langDB =" + langDB);
+        String columnsReport = rb.getContentsForReport(Constants.TRANSACTION_LITERAL, langDB, passedString);
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "From Resource Bundle:" + columnsReport);
         String[] headerDataValues = columnsReport.split(Constants.ENGAGE_REPORT_DELIMITER);
 
 
         String partnerCompanyName = "";
 
         if (partnerIdList.size() == partnerIdValues.size()) {
-            if (resourceBundle.containsKey("ENG_ALL")) {
-                partnerCompanyName = (String)resourceBundle.getObject("ENG_ALL");
+            if (resourceBundle.containsKey(Constants.ENG_ALL_LITERAL)) {
+                partnerCompanyName = (String)resourceBundle.getObject(Constants.ENG_ALL_LITERAL);
             }
         } else {
 
             for (int i = 0; i < partnerIdValues.size(); i++) {
                 for (int k = 0; k < partnerInfoList.size(); k++) {
-                    if (partnerIdValues.get(i).equalsIgnoreCase(partnerInfoList.get(k).getPartnerValue().toString())) {
-                        if (partnerInfoList.get(k).getPartnerName() != null) {
-                            partnerCompanyName = partnerCompanyName + partnerInfoList.get(k).getPartnerValue().toString() + ",";
-                        }
+                    if (partnerIdValues.get(i).equalsIgnoreCase(partnerInfoList.get(k).getPartnerValue().toString()) &&
+                        partnerInfoList.get(k).getPartnerName() != null) {
+
+                        partnerCompanyName = partnerCompanyName + partnerInfoList.get(k).getPartnerValue().toString() + ",";
+
                     }
                 }
             }
             partnerCompanyName = partnerCompanyName.substring(0, partnerCompanyName.length() - 1);
         }
-        if ("xls".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Report in Excel Format");
+        if (Constants.XLS_LITERAL.equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Report in Excel Format");
             HSSFWorkbook XLS = new HSSFWorkbook();
             HSSFRow XLS_SH_R = null;
             HSSFCell XLS_SH_R_C = null;
-            int intRow = 0;
             HSSFCellStyle cs = XLS.createCellStyle();
             HSSFFont f = XLS.createFont();
-
-
             HSSFSheet XLS_SH = XLS.createSheet();
             if (resourceBundle.containsKey("ENG_TRANSACTION_REPORT")) {
                 XLS.setSheetName(0, (String)resourceBundle.getObject("ENG_TRANSACTION_REPORT"));
             }
 
-            f.setFontHeightInPoints((short)10);
+            f.setFontHeightInPoints((short)Constants.TEN);
             f.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
             f.setColor((short)0);
             cs.setFont(f);
 
             HSSFCellStyle csRight = XLS.createCellStyle();
             HSSFFont fnumberData = XLS.createFont();
-            fnumberData.setFontHeightInPoints((short)10);
+            fnumberData.setFontHeightInPoints((short)Constants.TEN);
             fnumberData.setColor((short)0);
             csRight.setFont(fnumberData);
             csRight.setAlignment(HSSFCellStyle.ALIGN_RIGHT);
 
             HSSFCellStyle csTotalAmt = XLS.createCellStyle();
             HSSFFont fontTotal = XLS.createFont();
-            fontTotal.setFontHeightInPoints((short)10);
+            fontTotal.setFontHeightInPoints((short)Constants.TEN);
             fontTotal.setColor((short)0);
             fontTotal.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
             csTotalAmt.setFont(fontTotal);
             csTotalAmt.setAlignment(HSSFCellStyle.ALIGN_RIGHT);
-
             HSSFCellStyle csData = XLS.createCellStyle();
             HSSFFont fData = XLS.createFont();
-            fData.setFontHeightInPoints((short)10);
+            fData.setFontHeightInPoints((short)Constants.TEN);
             fData.setColor((short)0);
             csData.setFont(fData);
 
-
-            XLS_SH.setColumnWidth(50, 50);
+            XLS_SH.setColumnWidth(Constants.FIFTY, Constants.FIFTY);
             XLS_SH_R = XLS_SH.createRow(0);
             XLS_SH_R_C = XLS_SH_R.createCell(0);
             XLS_SH_R_C.setCellStyle(cs);
@@ -2190,8 +2159,8 @@ public class TransactionOverviewBean implements Serializable {
             if (resourceBundle.containsKey("ACCOUNT")) {
                 String accountNumbers = "";
                 if (accountIdValue.size() == accountIdList.size()) {
-                    if (resourceBundle.containsKey("ENG_ALL")) {
-                        accountNumbers = (String)resourceBundle.getObject("ENG_ALL");
+                    if (resourceBundle.containsKey(Constants.ENG_ALL_LITERAL)) {
+                        accountNumbers = (String)resourceBundle.getObject(Constants.ENG_ALL_LITERAL);
                     }
                 } else {
                     accountNumbers = populateStringValues(getBindings().getAccount().getValue().toString());
@@ -2204,22 +2173,22 @@ public class TransactionOverviewBean implements Serializable {
             XLS_SH_R_C = XLS_SH_R.createCell(0);
             XLS_SH_R_C.setCellStyle(cs);
             if ("All".equalsIgnoreCase(checkALL((populateStringValues(getBindings().getTransationType().getValue().toString())), "Type"))) {
-                if (resourceBundle.containsKey("ENG_ALL") && resourceBundle.containsKey("TYPE")) {
-                    XLS_SH_R_C.setCellValue(resourceBundle.getObject("TYPE") + ": " + resourceBundle.getObject("ENG_ALL"));
+                if (resourceBundle.containsKey(Constants.ENG_ALL_LITERAL) && resourceBundle.containsKey("TYPE")) {
+                    XLS_SH_R_C.setCellValue(resourceBundle.getObject("TYPE") + ": " + resourceBundle.getObject(Constants.ENG_ALL_LITERAL));
                 }
             } else {
                 XLS_SH_R_C.setCellValue(resourceBundle.getObject("TYPE") + ": " +
                                         checkALL((populateStringValues(getBindings().getTransationType().getValue().toString())), "Type"));
             }
 
-            XLS_SH_R = XLS_SH.createRow(3);
+            XLS_SH_R = XLS_SH.createRow(Constants.THREE);
             XLS_SH_R_C = XLS_SH_R.createCell(0);
             XLS_SH_R_C.setCellStyle(cs);
             if (resourceBundle.containsKey("REPORT_ENG")) {
                 XLS_SH_R_C.setCellValue(resourceBundle.getObject("REPORT_ENG") + ": " + getBindings().getReportFormat().getValue().toString());
             }
 
-            XLS_SH_R = XLS_SH.createRow(4);
+            XLS_SH_R = XLS_SH.createRow(Constants.FOUR);
             XLS_SH_R_C = XLS_SH_R.createCell(0);
             XLS_SH_R_C.setCellStyle(cs);
             if (resourceBundle.containsKey("ENG_PERIOD")) {
@@ -2227,14 +2196,14 @@ public class TransactionOverviewBean implements Serializable {
                                         resourceBundle.getObject("TO_DATE") + " " + formatConversion((Date)getBindings().getToDate().getValue()));
             }
 
-            for (int row = 5; row <= 6; row++) {
+            for (int row = Constants.FIVE; row <= Constants.SIX; row++) {
                 XLS_SH_R = XLS_SH.createRow(row);
             }
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Passed String =" + passedString);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Passed String =" + passedString);
             String[] headerValues = passedString.split(Constants.ENGAGE_REPORT_DELIMITER);
 
 
-            XLS_SH_R = XLS_SH.createRow(7);
+            XLS_SH_R = XLS_SH.createRow(Constants.SEVEN);
             XLS_SH_R_C = XLS_SH_R.createCell(0);
             XLS_SH_R_C.setCellStyle(cs);
             if (resourceBundle.containsKey("TRANSACTIONS_INTERNATIONAL_NOTE") && resourceBundle.containsKey("TRANSACTIONS_INTERNATIONAL_NOTE_1")) {
@@ -2242,36 +2211,35 @@ public class TransactionOverviewBean implements Serializable {
                                         resourceBundle.getObject("TRANSACTIONS_INTERNATIONAL_NOTE_1"));
             }
 
-            XLS_SH_R = XLS_SH.createRow(8);
+            XLS_SH_R = XLS_SH.createRow(Constants.EIGHT);
             XLS_SH_R_C = XLS_SH_R.createCell(0);
             XLS_SH_R_C.setCellStyle(cs);
             for (int i = 0; i < headerDataValues.length; i++) {
-                if ("Total Amount".equalsIgnoreCase(headerDataValues[i].trim())) {
-                    if (getBindings().getReportFormat().getValue() != null) {
-                        if ("International".equalsIgnoreCase(getBindings().getReportFormat().getValue().toString().trim())) {
-                            XLS_SH_R_C.setCellValue("");
-                        } else {
-                            if (resourceBundle.containsKey("ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN")) {
-                                XLS_SH_R_C.setCellValue(resourceBundle.getObject("ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN") + currencyCode);
-                            }
+                if (Constants.TOTAL_AMOUNT_LITERAL.equalsIgnoreCase(headerDataValues[i].trim()) && getBindings().getReportFormat().getValue() != null) {
+
+                    if (Constants.INTERNATIONAL_LITERAL.equalsIgnoreCase(getBindings().getReportFormat().getValue().toString().trim())) {
+                        XLS_SH_R_C.setCellValue("");
+                    } else {
+                        if (resourceBundle.containsKey("ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN")) {
+                            XLS_SH_R_C.setCellValue(resourceBundle.getObject("ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN") + currencyCode);
                         }
                     }
-
                 }
             }
 
 
             HSSFCellStyle css = XLS.createCellStyle();
             HSSFFont fcss = XLS.createFont();
-            fcss.setFontHeightInPoints((short)10);
+            fcss.setFontHeightInPoints((short)Constants.TEN);
             fcss.setItalic(true);
             fcss.setColor((short)0);
             css.setFont(fcss);
-            XLS_SH_R = XLS_SH.createRow(9);
+            XLS_SH_R = XLS_SH.createRow(Constants.NINE);
             int cellValueSpace = 0;
             for (int col = 0; col < headerDataValues.length; col++) {
                 if ("Total Amount".equalsIgnoreCase(headerDataValues[col]) || "ForeginGrossAmount".equalsIgnoreCase(headerDataValues[col].trim()) ||
-                    "Vat".equalsIgnoreCase(headerDataValues[col].trim()) || "Net".equalsIgnoreCase(headerDataValues[col].trim())) {
+                    Constants.VAT_LITERAL.equalsIgnoreCase(headerDataValues[col].trim()) ||
+                    Constants.NET_LITERAL.equalsIgnoreCase(headerDataValues[col].trim())) {
                     cellValueSpace = 1;
                 }
             }
@@ -2280,7 +2248,6 @@ public class TransactionOverviewBean implements Serializable {
                 dataHeaderColumn = dataHeaderColumn + cellValueSpace;
             }
 
-
             for (int col = 0; col < headerValues.length; col++) {
                 XLS_SH_R_C = XLS_SH_R.createCell(dataHeaderColumn);
                 XLS_SH_R_C.setCellStyle(css);
@@ -2288,8 +2255,8 @@ public class TransactionOverviewBean implements Serializable {
                 dataHeaderColumn = dataHeaderColumn + 1;
             }
 
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Created Header Data");
-            int rowVal = 9;
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Created Header Data");
+            int rowVal = Constants.NINE;
             boolean val = false;
             boolean valForeign = false;
             boolean valVat = false;
@@ -2327,9 +2294,9 @@ public class TransactionOverviewBean implements Serializable {
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getPartnerId().toString());
                             }
-                        } else if ("Account".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if (Constants.ACCOUNT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getAccountId() != null) {
-                               XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
+                                XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getAccountId().toString());
                             }
@@ -2410,7 +2377,7 @@ public class TransactionOverviewBean implements Serializable {
                             if (row.getInvoicedUnitPriceRebated() != null) {
                                 XLS_SH_R_C.setCellValue(formatConversion(row.getInvoicedUnitPriceRebated(), locale));
                             }
-                        } else if ("Vat".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if (Constants.VAT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                             XLS_SH_R_C.setCellStyle(csRight);
                             if (row.getInvoivedVatRebated() != null) {
@@ -2418,7 +2385,7 @@ public class TransactionOverviewBean implements Serializable {
                                 valVatLoc = dataColumn;
                                 XLS_SH_R_C.setCellValue(formatConversion(row.getInvoivedVatRebated(), locale));
                             }
-                        } else if ("Net".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if (Constants.NET_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                             XLS_SH_R_C.setCellStyle(csRight);
                             if (row.getInvoicedNetAmountRebated() != null) {
@@ -2426,7 +2393,7 @@ public class TransactionOverviewBean implements Serializable {
                                 valNetLoc = dataColumn;
                                 XLS_SH_R_C.setCellValue(formatConversion(row.getInvoicedNetAmountRebated(), locale));
                             }
-                        } else if ("Card".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if (Constants.CARD_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getCard1Id() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                                 XLS_SH_R_C.setCellStyle(csData);
@@ -2438,7 +2405,7 @@ public class TransactionOverviewBean implements Serializable {
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getVehicleNumber().toString());
                             }
-                        } else if ("InternalName".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if (Constants.INTERNAL_NAME_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getInternalName() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                                 XLS_SH_R_C.setCellStyle(csData);
@@ -2478,7 +2445,7 @@ public class TransactionOverviewBean implements Serializable {
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getCardGroupDesc().toString());
                             }
-                        } else if ("CardGroup".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if (Constants.CARD_GROUP_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getCardgroupId() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                                 XLS_SH_R_C.setCellStyle(csData);
@@ -2490,19 +2457,19 @@ public class TransactionOverviewBean implements Serializable {
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getDriverNumber().toString());
                             }
-                        } else if ("Card2Id".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if (Constants.CARD2ID_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getCard2Id() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getCard2Id().toString());
                             }
                         } else {
-                            if ("Driver Name".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
-                                if (row.getDriverName() != null) {
-                                    XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
-                                    XLS_SH_R_C.setCellStyle(csData);
-                                    XLS_SH_R_C.setCellValue(row.getDriverName().toString());
-                                }
+                            if ("Driver Name".equalsIgnoreCase(headerDataValues[cellValue].trim()) && row.getDriverName() != null) {
+
+                                XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
+                                XLS_SH_R_C.setCellStyle(csData);
+                                XLS_SH_R_C.setCellValue(row.getDriverName().toString());
+
                             }
                         }
                         dataColumn = dataColumn + 1;
@@ -2521,51 +2488,50 @@ public class TransactionOverviewBean implements Serializable {
                 if (resourceBundle.containsKey("ENGAGE_INVOICE_TOTAL_AMOUNT")) {
                     XLS_SH_R_C.setCellValue((String)resourceBundle.getObject("ENGAGE_INVOICE_TOTAL_AMOUNT"));
                 }
-                if (val) {
-                    if (valLoc > 0) {
-                        XLS_SH_R_C = XLS_SH_R.createCell(valLoc);
-                        XLS_SH_R_C.setCellStyle(csTotalAmt);
-                        if (sum != null) {
-                            XLS_SH_R_C.setCellValue(formatConversion(sum, locale));
-                        }
+                if (val && valLoc > 0) {
+                    XLS_SH_R_C = XLS_SH_R.createCell(valLoc);
+                    XLS_SH_R_C.setCellStyle(csTotalAmt);
+                    if (sum != null) {
+                        XLS_SH_R_C.setCellValue(formatConversion(sum, locale));
                     }
+
                 }
-                if (valForeign) {
-                    if (valForeignLoc > 0) {
-                        XLS_SH_R_C = XLS_SH_R.createCell(valForeignLoc);
-                        XLS_SH_R_C.setCellStyle(csTotalAmt);
-                        if (foreignGrossAmountSum != null) {
-                            XLS_SH_R_C.setCellValue(formatConversion(foreignGrossAmountSum, locale));
-                        }
+                if (valForeign && valForeignLoc > 0) {
+
+                    XLS_SH_R_C = XLS_SH_R.createCell(valForeignLoc);
+                    XLS_SH_R_C.setCellStyle(csTotalAmt);
+                    if (foreignGrossAmountSum != null) {
+                        XLS_SH_R_C.setCellValue(formatConversion(foreignGrossAmountSum, locale));
                     }
+
                 }
-                if (valVat) {
-                    if (valVatLoc > 0) {
-                        XLS_SH_R_C = XLS_SH_R.createCell(valVatLoc);
-                        XLS_SH_R_C.setCellStyle(csTotalAmt);
-                        if (vatSum != null) {
-                            XLS_SH_R_C.setCellValue(formatConversion(vatSum, locale));
-                        }
+                if (valVat && valVatLoc > 0) {
+
+                    XLS_SH_R_C = XLS_SH_R.createCell(valVatLoc);
+                    XLS_SH_R_C.setCellStyle(csTotalAmt);
+                    if (vatSum != null) {
+                        XLS_SH_R_C.setCellValue(formatConversion(vatSum, locale));
                     }
+
                 }
-                if (valNet) {
-                    if (valNetLoc > 0) {
-                        XLS_SH_R_C = XLS_SH_R.createCell(valNetLoc);
-                        XLS_SH_R_C.setCellStyle(csTotalAmt);
-                        if (netAmountSum != null) {
-                            XLS_SH_R_C.setCellValue(formatConversion(netAmountSum, locale));
-                        }
+                if (valNet && valNetLoc > 0) {
+
+                    XLS_SH_R_C = XLS_SH_R.createCell(valNetLoc);
+                    XLS_SH_R_C.setCellStyle(csTotalAmt);
+                    if (netAmountSum != null) {
+                        XLS_SH_R_C.setCellValue(formatConversion(netAmountSum, locale));
                     }
+
                 }
 
             }
             iterator.closeRowSetIterator();
 
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Printing excel Data completed");
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Printing excel Data completed");
             XLS.write(outputStream);
             outputStream.close();
         } else if ("csv".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Report in CSV Format");
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Report in CSV Format");
             PrintWriter out = new PrintWriter(outputStream);
             String[] headerValues = passedString.split(Constants.ENGAGE_REPORT_DELIMITER);
             for (int col = 0; col < headerValues.length; col++) {
@@ -2603,7 +2569,7 @@ public class TransactionOverviewBean implements Serializable {
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Account".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if (Constants.ACCOUNT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getAccountId() != null) {
                                 out.print(row.getAccountId().toString());
                             }
@@ -2658,7 +2624,7 @@ public class TransactionOverviewBean implements Serializable {
                             }
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
-                           }
+                            }
                         } else if ("Unit price, purchase currency".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getCurrencyUnitPrice() != null) {
                                 out.print(formatConversion((Float.parseFloat(row.getCurrencyUnitPrice().toString())), locale));
@@ -2694,7 +2660,7 @@ public class TransactionOverviewBean implements Serializable {
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Vat".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if (Constants.VAT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
 
                             if (row.getInvoivedVatRebated() != null) {
                                 out.print(formatConversion(row.getInvoivedVatRebated(), locale));
@@ -2702,14 +2668,14 @@ public class TransactionOverviewBean implements Serializable {
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Net".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if (Constants.NET_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getInvoicedNetAmountRebated() != null) {
                                 out.print(formatConversion(row.getInvoicedNetAmountRebated(), locale));
                             }
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Card".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if (Constants.CARD_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getCard1Id() != null) {
                                 out.print(row.getCard1Id().toString());
                             }
@@ -2723,7 +2689,7 @@ public class TransactionOverviewBean implements Serializable {
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("InternalName".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if (Constants.INTERNAL_NAME_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getInternalName() != null) {
                                 out.print(row.getInternalName().toString());
                             }
@@ -2784,7 +2750,7 @@ public class TransactionOverviewBean implements Serializable {
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Card2Id".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if (Constants.CARD2ID_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getCard2Id() != null) {
                                 out.print(row.getCard2Id().toString());
                             }
@@ -2813,7 +2779,7 @@ public class TransactionOverviewBean implements Serializable {
 
         } else {
             if ("csv2".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Report in CSV2 Format");
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Report in CSV2 Format");
                 PrintWriter out = new PrintWriter(outputStream);
                 String[] headerValues = passedString.split(Constants.ENGAGE_REPORT_DELIMITER);
                 for (int col = 0; col < headerValues.length; col++) {
@@ -2852,7 +2818,7 @@ public class TransactionOverviewBean implements Serializable {
                                 if (cellValue != headerValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Account".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            } else if (Constants.ACCOUNT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getAccountId() != null) {
                                     out.print(row.getAccountId().toString());
                                 }
@@ -2915,7 +2881,7 @@ public class TransactionOverviewBean implements Serializable {
                                 if (cellValue != headerValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Vat".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            } else if (Constants.VAT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
 
                                 if (row.getInvoivedVatRebated() != null) {
                                     out.print(formatConversion(row.getInvoivedVatRebated(), locale));
@@ -2923,7 +2889,7 @@ public class TransactionOverviewBean implements Serializable {
                                 if (cellValue != headerValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Net".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            } else if (Constants.NET_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getInvoicedNetAmountRebated() != null) {
                                     out.print(formatConversion(row.getInvoicedNetAmountRebated(), locale));
                                 }
@@ -2958,7 +2924,7 @@ public class TransactionOverviewBean implements Serializable {
                                 if (cellValue != headerValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Card".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            } else if (Constants.CARD_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getCard1Id() != null) {
                                     out.print(row.getCard1Id().toString());
                                 }
@@ -2972,7 +2938,7 @@ public class TransactionOverviewBean implements Serializable {
                                 if (cellValue != headerValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("InternalName".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            } else if (Constants.INTERNAL_NAME_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getInternalName() != null) {
                                     out.print(row.getInternalName().toString());
                                 }
@@ -3033,7 +2999,7 @@ public class TransactionOverviewBean implements Serializable {
                                 if (cellValue != headerValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Card2Id".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            } else if (Constants.CARD2ID_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getCard2Id() != null) {
                                     out.print(row.getCard2Id().toString());
                                 }
@@ -3082,21 +3048,21 @@ public class TransactionOverviewBean implements Serializable {
         shuttleStatus = false;
         resourceBundle = new EngageResourceBundle();
         String langDB = (String)session.getAttribute("langReport");
-        if (langDB.equalsIgnoreCase("en_US")) {
+        if (langDB.equalsIgnoreCase(Constants.LANGUAGE_ENGLISH)) {
             langDB = "EN";
         } else {
             langDB = langDB.substring(langDB.length() - 2, langDB.length());
             langDB = langDB.toUpperCase();
         }
-        if ("CardGroup".equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
-            ViewObject prtExportInfoRVO = ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
-            prtExportInfoRVO.setNamedWhereClauseParam("country_Code", langDB);
-            prtExportInfoRVO.setNamedWhereClauseParam("report_Page", "TRANSACTION");
-            prtExportInfoRVO.setNamedWhereClauseParam("report_Type", getBindings().getReportFormat().getValue().toString());
-            prtExportInfoRVO.setNamedWhereClauseParam("select_Criteria", getBindings().getCardCardGrpDrVhOneRadio().getValue().toString());
+        if (Constants.CARD_GROUP_LITERAL.equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
+            ViewObject prtExportInfoRVO = ADFUtils.getViewObject(PRTEXPORTINFORVO1ITERATOR_LITRERAL);
+            prtExportInfoRVO.setNamedWhereClauseParam(Constants.COUNTRY_CODE_LITERAL, langDB);
+            prtExportInfoRVO.setNamedWhereClauseParam(Constants.REPORT_PAGE_LITERAL, Constants.TRANSACTION_LITERAL);
+            prtExportInfoRVO.setNamedWhereClauseParam(Constants.REPORT_TYPE_LITERAL, getBindings().getReportFormat().getValue().toString());
+            prtExportInfoRVO.setNamedWhereClauseParam(SELECT_CRITERIA_LITRERAL, getBindings().getCardCardGrpDrVhOneRadio().getValue().toString());
             prtExportInfoRVO.executeQuery();
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count in CardGroup:" +
-                         prtExportInfoRVO.getEstimatedRowCount());
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count in CardGroup:" +
+                        prtExportInfoRVO.getEstimatedRowCount());
             if (prtExportInfoRVO.getEstimatedRowCount() > 0) {
                 while (prtExportInfoRVO.hasNext()) {
                     PrtExportInfoRVORowImpl prtExportRow = (PrtExportInfoRVORowImpl)prtExportInfoRVO.next();
@@ -3114,15 +3080,15 @@ public class TransactionOverviewBean implements Serializable {
                     shuttleList.add(selectItem);
                 }
             }
-        } else if ("Card".equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
-            ViewObject prtExportInfoRVO = ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
-            prtExportInfoRVO.setNamedWhereClauseParam("country_Code", langDB);
-            prtExportInfoRVO.setNamedWhereClauseParam("report_Page", "TRANSACTION");
-            prtExportInfoRVO.setNamedWhereClauseParam("report_Type", getBindings().getReportFormat().getValue().toString());
-            prtExportInfoRVO.setNamedWhereClauseParam("select_Criteria", getBindings().getCardCardGrpDrVhOneRadio().getValue().toString());
+        } else if (Constants.CARD_LITERAL.equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
+            ViewObject prtExportInfoRVO = ADFUtils.getViewObject(PRTEXPORTINFORVO1ITERATOR_LITRERAL);
+            prtExportInfoRVO.setNamedWhereClauseParam(Constants.COUNTRY_CODE_LITERAL, langDB);
+            prtExportInfoRVO.setNamedWhereClauseParam(Constants.REPORT_PAGE_LITERAL, Constants.TRANSACTION_LITERAL);
+            prtExportInfoRVO.setNamedWhereClauseParam(Constants.REPORT_TYPE_LITERAL, getBindings().getReportFormat().getValue().toString());
+            prtExportInfoRVO.setNamedWhereClauseParam(SELECT_CRITERIA_LITRERAL, getBindings().getCardCardGrpDrVhOneRadio().getValue().toString());
             prtExportInfoRVO.executeQuery();
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count in Card:" +
-                         prtExportInfoRVO.getEstimatedRowCount());
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count in Card:" +
+                        prtExportInfoRVO.getEstimatedRowCount());
             if (prtExportInfoRVO.getEstimatedRowCount() > 0) {
                 while (prtExportInfoRVO.hasNext()) {
                     PrtExportInfoRVORowImpl prtExportRow = (PrtExportInfoRVORowImpl)prtExportInfoRVO.next();
@@ -3140,15 +3106,15 @@ public class TransactionOverviewBean implements Serializable {
                     shuttleList.add(selectItem);
                 }
             }
-       } else if ("Vehicle".equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
-            ViewObject prtExportInfoRVO = ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
-            prtExportInfoRVO.setNamedWhereClauseParam("country_Code", langDB);
-            prtExportInfoRVO.setNamedWhereClauseParam("report_Page", "TRANSACTION");
-            prtExportInfoRVO.setNamedWhereClauseParam("report_Type", getBindings().getReportFormat().getValue().toString());
-            prtExportInfoRVO.setNamedWhereClauseParam("select_Criteria", getBindings().getCardCardGrpDrVhOneRadio().getValue().toString());
+        } else if (Constants.VEHICLE_LITERAL.equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
+            ViewObject prtExportInfoRVO = ADFUtils.getViewObject(PRTEXPORTINFORVO1ITERATOR_LITRERAL);
+            prtExportInfoRVO.setNamedWhereClauseParam(Constants.COUNTRY_CODE_LITERAL, langDB);
+            prtExportInfoRVO.setNamedWhereClauseParam(Constants.REPORT_PAGE_LITERAL, Constants.TRANSACTION_LITERAL);
+            prtExportInfoRVO.setNamedWhereClauseParam(Constants.REPORT_TYPE_LITERAL, getBindings().getReportFormat().getValue().toString());
+            prtExportInfoRVO.setNamedWhereClauseParam(SELECT_CRITERIA_LITRERAL, getBindings().getCardCardGrpDrVhOneRadio().getValue().toString());
             prtExportInfoRVO.executeQuery();
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count in Vehicle:" +
-                         prtExportInfoRVO.getEstimatedRowCount());
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count in Vehicle:" +
+                        prtExportInfoRVO.getEstimatedRowCount());
             if (prtExportInfoRVO.getEstimatedRowCount() > 0) {
                 while (prtExportInfoRVO.hasNext()) {
                     PrtExportInfoRVORowImpl prtExportRow = (PrtExportInfoRVORowImpl)prtExportInfoRVO.next();
@@ -3167,14 +3133,14 @@ public class TransactionOverviewBean implements Serializable {
                 }
             }
         } else {
-            ViewObject prtExportInfoRVO = ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
-            prtExportInfoRVO.setNamedWhereClauseParam("country_Code", langDB);
-            prtExportInfoRVO.setNamedWhereClauseParam("report_Page", "TRANSACTION");
-            prtExportInfoRVO.setNamedWhereClauseParam("report_Type", getBindings().getReportFormat().getValue().toString());
-            prtExportInfoRVO.setNamedWhereClauseParam("select_Criteria", getBindings().getCardCardGrpDrVhOneRadio().getValue().toString());
+            ViewObject prtExportInfoRVO = ADFUtils.getViewObject(PRTEXPORTINFORVO1ITERATOR_LITRERAL);
+            prtExportInfoRVO.setNamedWhereClauseParam(Constants.COUNTRY_CODE_LITERAL, langDB);
+            prtExportInfoRVO.setNamedWhereClauseParam(Constants.REPORT_PAGE_LITERAL, Constants.TRANSACTION_LITERAL);
+            prtExportInfoRVO.setNamedWhereClauseParam(Constants.REPORT_TYPE_LITERAL, getBindings().getReportFormat().getValue().toString());
+            prtExportInfoRVO.setNamedWhereClauseParam(SELECT_CRITERIA_LITRERAL, getBindings().getCardCardGrpDrVhOneRadio().getValue().toString());
             prtExportInfoRVO.executeQuery();
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count in Driver:" +
-                         prtExportInfoRVO.getEstimatedRowCount());
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count in Driver:" +
+                        prtExportInfoRVO.getEstimatedRowCount());
             if (prtExportInfoRVO.getEstimatedRowCount() > 0) {
                 while (prtExportInfoRVO.hasNext()) {
                     PrtExportInfoRVORowImpl prtExportRow = (PrtExportInfoRVORowImpl)prtExportInfoRVO.next();
@@ -3199,36 +3165,33 @@ public class TransactionOverviewBean implements Serializable {
             if (strCardGroup != null) {
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShuttleExcel());
                 result = true;
-                getBindings().getSelectionExportOneRadio().setValue("xls");
+                getBindings().getSelectionExportOneRadio().setValue(Constants.XLS_LITERAL);
                 getBindings().getSpecificColumns().show(new RichPopup.PopupHints());
             } else if (strCard != null) {
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShuttleExcel());
                 result = true;
-                getBindings().getSelectionExportOneRadio().setValue("xls");
+                getBindings().getSelectionExportOneRadio().setValue(Constants.XLS_LITERAL);
                 getBindings().getSpecificColumns().show(new RichPopup.PopupHints());
             } else if (strVehicle != null) {
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShuttleExcel());
                 result = true;
-                getBindings().getSelectionExportOneRadio().setValue("xls");
+                getBindings().getSelectionExportOneRadio().setValue(Constants.XLS_LITERAL);
                 getBindings().getSpecificColumns().show(new RichPopup.PopupHints());
             } else {
                 if (strDriver != null) {
                     AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShuttleExcel());
                     result = true;
-                    getBindings().getSelectionExportOneRadio().setValue("xls");
+                    getBindings().getSelectionExportOneRadio().setValue(Constants.XLS_LITERAL);
                     getBindings().getSpecificColumns().show(new RichPopup.PopupHints());
                 }
             }
         }
 
-        if (!result) {
-            if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR_DB")) {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR_DB"), "");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-            }
+        if (!result && resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR_DB")) {
+
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR_DB"), "");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         }
-
-
     }
 
 
@@ -3240,22 +3203,24 @@ public class TransactionOverviewBean implements Serializable {
         resourceBundle = new EngageResourceBundle();
         if (shuttleValue == null && getBindings().getSelectionExportOneRadio().getValue() == null) {
             if (shuttleValue == null) {
-                if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR")) {
-                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR"), "");
+                if (resourceBundle.containsKey(Constants.TRANSACTION_SPECIFIC_ERROR_LITERAL)) {
+                    FacesMessage msg =
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject(Constants.TRANSACTION_SPECIFIC_ERROR_LITERAL), "");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                 }
 
             } else {
-                if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR_SELECTION")) {
+                if (resourceBundle.containsKey(Constants.TRANSACTION_SPECIFIC_ERROR_SELECTION_LITERAL)) {
                     FacesMessage msg =
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR_SELECTION"), "");
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject(Constants.TRANSACTION_SPECIFIC_ERROR_SELECTION_LITERAL),
+                                         "");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                 }
             }
         } else {
             if (getBindings().getSelectionExportOneRadio().getValue() != null) {
                 if (shuttleValue == null) {
-                    if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR")) {
+                    if (resourceBundle.containsKey(Constants.TRANSACTION_SPECIFIC_ERROR_LITERAL)) {
                         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR"), "");
                         FacesContext.getCurrentInstance().addMessage(null, msg);
                     }
@@ -3266,9 +3231,10 @@ public class TransactionOverviewBean implements Serializable {
                     }
                 }
             } else {
-                if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR_SELECTION")) {
+                if (resourceBundle.containsKey(Constants.TRANSACTION_SPECIFIC_ERROR_SELECTION_LITERAL)) {
                     FacesMessage msg =
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR_SELECTION"), "");
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject(Constants.TRANSACTION_SPECIFIC_ERROR_SELECTION_LITERAL),
+                                         "");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                 }
             }
@@ -3296,52 +3262,44 @@ public class TransactionOverviewBean implements Serializable {
 
     public void displayErrorComponent(UIComponent component, boolean status) {
 
-            RichSelectManyChoice soc = new RichSelectManyChoice();
+        RichSelectManyChoice soc = new RichSelectManyChoice();
 
-             if (component instanceof RichSelectManyChoice) {
-                soc = (RichSelectManyChoice)component;
-                if (status) {
+        if (component instanceof RichSelectManyChoice) {
+            soc = (RichSelectManyChoice)component;
+            if (status) {
+                soc.setStyleClass("af_mandatoryfield");
+                if (component.getId().contains("smc1") || component.getId().contains("soc3") || component.getId().contains("smc2") ||
+                    component.getId().contains("smc3") || component.getId().contains("smc4") || component.getId().contains("smc5") ||
+                    component.getId().contains("smc6"))
                     soc.setStyleClass("af_mandatoryfield");
-                    if (component.getId().contains("smc1") ||
-                        component.getId().contains("soc3") ||
-                        component.getId().contains("smc2") ||
-                        component.getId().contains("smc3") ||
-                        component.getId().contains("smc4") ||
-                        component.getId().contains("smc5") ||
-                        component.getId().contains("smc6"))
-                        soc.setStyleClass("af_mandatoryfield");
 
-                } else {
+            } else {
+                soc.setStyleClass("af_nonmandatoryfield");
+                if (component.getId().contains("smc1") || component.getId().contains("soc3") || component.getId().contains("smc2") ||
+                    component.getId().contains("smc3") || component.getId().contains("smc4") || component.getId().contains("smc5") ||
+                    component.getId().contains("smc6"))
                     soc.setStyleClass("af_nonmandatoryfield");
-                    if (component.getId().contains("smc1") ||
-                        component.getId().contains("soc3") ||
-                        component.getId().contains("smc2") ||
-                        component.getId().contains("smc3") ||
-                        component.getId().contains("smc4") ||
-                        component.getId().contains("smc5") ||
-                        component.getId().contains("smc6"))
-                        soc.setStyleClass("af_nonmandatoryfield");
-                }
-                AdfFacesContext.getCurrentInstance().addPartialTarget(soc);
             }
-          
+            AdfFacesContext.getCurrentInstance().addPartialTarget(soc);
         }
 
-        private Boolean isComponentEmpty(UIComponent rit1) {
+    }
 
-            RichSelectManyChoice soc = new RichSelectManyChoice();
-            if (rit1 instanceof RichSelectManyChoice) {
-                soc = (RichSelectManyChoice)rit1;
-                if (soc.getValue() == null || soc.getValue().equals("")) {              
-                    displayErrorComponent(soc, true);
-                    return true;
-                } else {              
-                    displayErrorComponent(soc, false);
-                    return false;
-                }
+    private Boolean isComponentEmpty(UIComponent rit1) {
+
+        RichSelectManyChoice soc = new RichSelectManyChoice();
+        if (rit1 instanceof RichSelectManyChoice) {
+            soc = (RichSelectManyChoice)rit1;
+            if (soc.getValue() == null || soc.getValue().equals("")) {
+                displayErrorComponent(soc, true);
+                return true;
+            } else {
+                displayErrorComponent(soc, false);
+                return false;
             }
-            return true;
         }
+        return true;
+    }
 
     public String odometerEditAction() {
         if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("vnumberkey") != null) {
@@ -3352,10 +3310,10 @@ public class TransactionOverviewBean implements Serializable {
         } else {
             odometerPortal = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("odometerkey").toString().trim();
         }
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "uref id=================>" +
-                     AdfFacesContext.getCurrentInstance().getPageFlowScope().get("ureftranskey"));
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "pals country id=================>" +
-                     AdfFacesContext.getCurrentInstance().getPageFlowScope().get("palscountrykey"));
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "uref id=================>" +
+                    AdfFacesContext.getCurrentInstance().getPageFlowScope().get("ureftranskey"));
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "pals country id=================>" +
+                    AdfFacesContext.getCurrentInstance().getPageFlowScope().get("palscountrykey"));
         urefTransactionId = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("ureftranskey").toString().trim();
         palsCountryCode = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("palscountrykey").toString().trim();
         if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("primarycard") != null) {
@@ -3373,20 +3331,20 @@ public class TransactionOverviewBean implements Serializable {
     }
 
     public String editOdometerSave() {
-       User user = null;
+        User user = null;
         String modifiedBy = null;
         user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
         modifiedBy = user.getFirstName().concat(" ").concat(user.getLastName());
 
-        BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
-        OperationBinding operationBinding = bindings.getOperationBinding("updateOdometerPortal");
+        BindingContainer localBinding = BindingContext.getCurrent().getCurrentBindingsEntry();
+        OperationBinding operationBinding = localBinding.getOperationBinding("updateOdometerPortal");
         operationBinding.getParamsMap().put("urefTransactionId", urefTransactionId);
         operationBinding.getParamsMap().put("palsCountryCode", palsCountryCode);
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "odometer portal popup value=======>" +
-                     getBindings().getOdometerPortalValue().getValue());
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "odometer portal popup value=======>" +
+                    getBindings().getOdometerPortalValue().getValue());
         operationBinding.getParamsMap().put("modifiedBy", modifiedBy);
         operationBinding.getParamsMap().put("odoMeterPortalValue", getBindings().getOdometerPortalValue().getValue());
-        Object result = operationBinding.execute();
+        operationBinding.execute();
         if (operationBinding.getErrors().isEmpty()) {
             ViewObject transactionVo = ADFUtils.getViewObject("PrtCardTransactionHeaderUrefIdUpdateOdometerRvo1Iterator");
             if (odometerKsid != null && odometerPartner != null && odometerAccount != null) {
@@ -3402,12 +3360,12 @@ public class TransactionOverviewBean implements Serializable {
                     PrtCardTransactionHeaderUrefIdUpdateOdometerRvoRowImpl currRow =
                         (PrtCardTransactionHeaderUrefIdUpdateOdometerRvoRowImpl)transactionVo.next();
                     if (currRow != null && currRow.getUrefTransactionId() != null) {
-                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "uref transaction id of next record=======>" +
-                                     currRow.getUrefTransactionId());
-                        OperationBinding previousOdometerOpn = bindings.getOperationBinding("updatePreviousOdometer");
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "uref transaction id of next record=======>" +
+                                    currRow.getUrefTransactionId());
+                        OperationBinding previousOdometerOpn = localBinding.getOperationBinding("updatePreviousOdometer");
                         previousOdometerOpn.getParamsMap().put("cardNumber", odometerKsid);
                         previousOdometerOpn.getParamsMap().put("accountId", odometerAccount);
-                        previousOdometerOpn.getParamsMap().put("countryCd", palsCountryCode);
+                        previousOdometerOpn.getParamsMap().put(Constants.COUNTRY_CD_LITERAL, palsCountryCode);
                         previousOdometerOpn.getParamsMap().put("partnerId", odometerPartner);
                         previousOdometerOpn.getParamsMap().put("transactionId", currRow.getUrefTransactionId());
                         previousOdometerOpn.getParamsMap().put("previousOdometer", getBindings().getOdometerPortalValue().getValue());
@@ -3460,8 +3418,8 @@ public class TransactionOverviewBean implements Serializable {
         return palsCountryCode;
     }
 
-    public void odometerLink_Action(ActionEvent event) {
-        getBindings().getOdometer_PopUp().show(new RichPopup.PopupHints());
+    public void odoMeterLinkAction(ActionEvent event) {
+        getBindings().getOdometerPopUp().show(new RichPopup.PopupHints());
 
     }
 
@@ -3480,7 +3438,7 @@ public class TransactionOverviewBean implements Serializable {
         ViewObject prtCardTransactionOverViewRVO = ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");
         RowSetIterator iterator = prtCardTransactionOverViewRVO.createRowSetIterator(null);
         iterator.reset();
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Estimated Row Count =" + prtCardTransactionOverViewRVO.getEstimatedRowCount());
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Estimated Row Count =" + prtCardTransactionOverViewRVO.getEstimatedRowCount());
         sum = 0.00f;
         foreignGrossAmountSum = 0.00f;
         vatSum = 0.00f;
@@ -3521,10 +3479,10 @@ public class TransactionOverviewBean implements Serializable {
             }
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowSearchResultPG());
         }
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "sum =" + sum);
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "foreignGrossAmountSum =" + foreignGrossAmountSum);
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "vatSum =" + vatSum);
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "netAmountSum =" + netAmountSum);
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "sum =" + sum);
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "foreignGrossAmountSum =" + foreignGrossAmountSum);
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "vatSum =" + vatSum);
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "netAmountSum =" + netAmountSum);
         value = false;
         filterValue = false;
 
@@ -3539,7 +3497,7 @@ public class TransactionOverviewBean implements Serializable {
     }
 
     public String getContentType() {
-        if ("xls".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+        if (Constants.XLS_LITERAL.equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
             contentType = "application/vnd.ms-excel";
         } else if ("csv".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
             contentType = "text/plain";
@@ -3557,7 +3515,7 @@ public class TransactionOverviewBean implements Serializable {
 
     public String getFileName() {
 
-        if ("xls".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+        if (Constants.XLS_LITERAL.equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
             fileName = "Transaction_Report.xls";
         } else if ("csv".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
             fileName = "Transaction_Report.csv";
@@ -3569,7 +3527,7 @@ public class TransactionOverviewBean implements Serializable {
         return fileName;
     }
 
-    public void setPartnerIdList(ArrayList<SelectItem> partnerIdList) {
+    public void setPartnerIdList(List<SelectItem> partnerIdList) {
         this.partnerIdList = partnerIdList;
     }
 
@@ -3592,7 +3550,7 @@ public class TransactionOverviewBean implements Serializable {
             SelectItem selectItem = new SelectItem();
             if (resourceBundle.containsKey("DEFAULT")) {
                 selectItem.setLabel(resourceBundle.getObject("DEFAULT").toString());
-                selectItem.setValue("Default");
+                selectItem.setValue(Constants.DEFAULT_LITERAL);
                 reportFormatList.add(selectItem);
             }
             SelectItem selectItem1 = new SelectItem();
@@ -3604,7 +3562,7 @@ public class TransactionOverviewBean implements Serializable {
             SelectItem selectItem2 = new SelectItem();
             if (resourceBundle.containsKey("INTERNATIONAL")) {
                 selectItem2.setLabel(resourceBundle.getObject("INTERNATIONAL").toString());
-                selectItem2.setValue("International");
+                selectItem2.setValue(Constants.INTERNATIONAL_LITERAL);
                 reportFormatList.add(selectItem2);
             }
             SelectItem selectItem3 = new SelectItem();
@@ -3753,6 +3711,14 @@ public class TransactionOverviewBean implements Serializable {
         return showDriverCode;
     }
 
+    public void setComparator(Comparator<SelectItem> comparator) {
+        this.comparator = comparator;
+    }
+
+    public Comparator<SelectItem> getComparator() {
+        return comparator;
+    }
+
 
     public class Bindings {
         private RichSelectManyChoice account;
@@ -3779,18 +3745,18 @@ public class TransactionOverviewBean implements Serializable {
         private RichPanelGroupLayout selectedPGL;
         private RichPopup editOdometerPopup;
         private RichInputText odometerPortalValue;
-       private RichPopup odometer_PopUp;
+        private RichPopup odometerPopUp;
         private RichTable searchTable;
         private RichOutputText noteText;
         private RichOutputText noteInternationalText;
         private RichTable searchResultsTB;
 
-        public void setOdometer_PopUp(RichPopup odometer_PopUp) {
-            this.odometer_PopUp = odometer_PopUp;
+        public void setOdometerPopUp(RichPopup odometer_PopUp) {
+            this.odometerPopUp = odometer_PopUp;
         }
 
-        public RichPopup getOdometer_PopUp() {
-            return odometer_PopUp;
+        public RichPopup getOdometerPopUp() {
+            return odometerPopUp;
         }
 
 
@@ -3809,7 +3775,7 @@ public class TransactionOverviewBean implements Serializable {
                 gc.setTime(dateNow);
                 gc.add(GregorianCalendar.MONTH, -1);
                 Date dateBefore = gc.getTime();
-               SimpleDateFormat dateformat = new SimpleDateFormat("dd.MM.yyyy");
+                SimpleDateFormat dateformat = new SimpleDateFormat("dd.MM.yyyy");
                 String tmp = dateformat.format(dateBefore);
                 fromDate.setValue(tmp);
                 fromDateInitial = false;

@@ -38,16 +38,15 @@ public class HelpInfoBean implements Serializable {
     private String langPortal;
     private String portal;
     private String contactLink;
-    AccessDataControl accessDC = new AccessDataControl();
-    Conversion conversionUtility = new Conversion();
-
-    public static final ADFLogger log = AccessDataControl.getSFRLogger();
+    private AccessDataControl accessDC = new AccessDataControl();
+    private Conversion conversionUtility = new Conversion();
+    public static final ADFLogger LOGGER = AccessDataControl.getSFRLogger();
     private RichSpacer getContactLink;
     private RichGoLink contactSELink;
-
+    private final int three = 3;
 
     public HelpInfoBean() {
-        log.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside Constructor of HelpInfo Bean");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside Constructor of HelpInfo Bean");
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
         HttpSession session = (HttpSession)request.getSession();
@@ -55,37 +54,34 @@ public class HelpInfoBean implements Serializable {
         if (session.getAttribute(Constants.userLang) != null) {
             countryPortal = (String)session.getAttribute(Constants.userLang);
         } else {
-            countryPortal = (String)session.getAttribute("lang").toString().substring(3);
+            countryPortal = (String)session.getAttribute(Constants.LANG_LITERAL).toString().substring(three);
         }
 
         if (session.getAttribute(Constants.HELPLIST + countryPortal) == null) {
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " helpList is null so creating list of Q&A");
-
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " helpList is null so creating list of Q&A");
 
             if (session.getAttribute(Constants.userLang) != null) {
-
                 countryPortal = (String)session.getAttribute(Constants.userLang);
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " Session not null and lang/country of user is " + countryPortal);
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Session not null and lang/country of user is " + countryPortal);
                 langPortal = conversionUtility.getCustomerCountryCode(countryPortal);
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " Session not null and lang of portal is " + langPortal);
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Session not null and lang of portal is " + langPortal);
                 portal = Constants.ENGAGE;
             } else {
 
-                countryPortal = (String)session.getAttribute("lang").toString().substring(3);
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " Session not null and countryPortal from url is " + countryPortal);
-                langPortal = (String)session.getAttribute("lang");
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " Session not null and lang of Portal from url is " + langPortal);
+                countryPortal = (String)session.getAttribute(Constants.LANG_LITERAL).toString().substring(three);
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Session not null and countryPortal from url is " + countryPortal);
+                langPortal = (String)session.getAttribute(Constants.LANG_LITERAL);
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Session not null and lang of Portal from url is " + langPortal);
                 portal = Constants.ENGAGE;
             }
 
 
-            DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+            DCBindingContainer dcBindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
             DCIteratorBinding iter;
-            if (bindings != null) {
-                iter = bindings.findIteratorBinding("PrtGenHelpRVO1Iterator");
-
+            if (dcBindings != null) {
+                iter = dcBindings.findIteratorBinding("PrtGenHelpRVO1Iterator");
             } else {
-                log.warning(accessDC.getDisplayRecord() + this.getClass() + " PrtGenHelpRVOIterator bindings is nul");
+                LOGGER.warning(accessDC.getDisplayRecord() + this.getClass() + " PrtGenHelpRVOIterator bindings is nul");
 
                 iter = null;
             }
@@ -94,26 +90,21 @@ public class HelpInfoBean implements Serializable {
                 countryPortal = "SE";
                 langPortal = "se_SE";
             }
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " country, lang and portalname passed for FAQ are " + countryPortal + ", " + langPortal +
-                     " and " + portal);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " country, lang and portalname passed for FAQ are " + countryPortal + ", " +
+                        langPortal + " and " + portal);
             vo.setNamedWhereClauseParam("country", countryPortal);
-            vo.setNamedWhereClauseParam("lang", langPortal);
+            vo.setNamedWhereClauseParam(Constants.LANG_LITERAL, langPortal);
             vo.setNamedWhereClauseParam("portalname", portal);
             vo.executeQuery();
-
-
             helpList = new ArrayList<Help>();
             if (vo.getEstimatedRowCount() != 0) {
 
-
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " RowCount in helpinfo " + vo.getEstimatedRowCount());
-
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " RowCount in helpinfo " + vo.getEstimatedRowCount());
                 while (vo.hasNext()) {
                     Help help = new Help();
                     PrtGenHelpRVORowImpl currRow = (PrtGenHelpRVORowImpl)vo.next();
 
                     if (currRow != null) {
-
 
                         if (currRow.getKeyQuest() != null) {
 
@@ -127,19 +118,15 @@ public class HelpInfoBean implements Serializable {
                     }
 
                 }
-
-
                 session.setAttribute(Constants.HELPLIST + countryPortal, helpList);
-
             }
 
 
         } else {
-            log.info(accessDC.getDisplayRecord() + " HelpList is not null so no need to create list of Q&A");
+            LOGGER.info(accessDC.getDisplayRecord() + " HelpList is not null so no need to create list of Q&A");
             helpList = (List<Help>)session.getAttribute(Constants.HELPLIST + countryPortal);
-
         }
-        log.fine(accessDC.getDisplayRecord() + " Exiting Constructor of HelpInfo Bean");
+        LOGGER.fine(accessDC.getDisplayRecord() + " Exiting Constructor of HelpInfo Bean");
 
     }
 
@@ -224,6 +211,22 @@ public class HelpInfoBean implements Serializable {
         return contactLink;
     }
 
+    public void setAccessDC(AccessDataControl accessDC) {
+        this.accessDC = accessDC;
+    }
+
+    public AccessDataControl getAccessDC() {
+        return accessDC;
+    }
+
+    public void setConversionUtility(Conversion conversionUtility) {
+        this.conversionUtility = conversionUtility;
+    }
+
+    public Conversion getConversionUtility() {
+        return conversionUtility;
+    }
+
     public class Bindings {
         private RichPanelGroupLayout helpinfopanel;
 
@@ -235,6 +238,5 @@ public class HelpInfoBean implements Serializable {
             return helpinfopanel;
         }
     }
-
 
 }

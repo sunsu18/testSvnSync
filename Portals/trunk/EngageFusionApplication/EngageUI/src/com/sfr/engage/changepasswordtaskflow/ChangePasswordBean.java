@@ -35,13 +35,12 @@ public class ChangePasswordBean implements Serializable {
     private transient Bindings bindings;
     private ResourceBundle resourceBundle;
     private String lang;
-    public static final ADFLogger log = AccessDataControl.getSFRLogger();
-    AccessDataControl accessDC = new AccessDataControl();
+    private AccessDataControl accessDC = new AccessDataControl();
     private HttpSession session;
     private ExternalContext ectx;
     private HttpServletRequest request;
     private User userBean;
-    public static final ADFLogger _logger = AccessDataControl.getSFRLogger();
+    public static final ADFLogger LOGGER = AccessDataControl.getSFRLogger();
 
     /**
      * @return bindings Object
@@ -64,14 +63,13 @@ public class ChangePasswordBean implements Serializable {
             if (null != session.getAttribute(Constants.SESSION_USER_INFO)) {
                 userBean = (User)session.getAttribute(Constants.SESSION_USER_INFO);
             }
-            _logger.info(AccessDataControl.getDisplayRecord() + this.getClass() + ".ChangePassword : " + "Inside change password constructor :" +
-                         userBean.getRolelist());
+            LOGGER.info(AccessDataControl.getDisplayRecord() + this.getClass() + ".ChangePassword : " + "Inside change password constructor :" +
+                        userBean.getRolelist());
 
             lang = (String)session.getAttribute("lang");
-            _logger.info(AccessDataControl.getDisplayRecord() + this.getClass() + ".ChangePassword : " + "Language :" + lang);
+            LOGGER.info(AccessDataControl.getDisplayRecord() + this.getClass() + ".ChangePassword : " + "Language :" + lang);
         }
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Language :" + lang);
-
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Language :" + lang);
     }
 
     public String changeUserPassword() {
@@ -103,9 +101,9 @@ public class ChangePasswordBean implements Serializable {
 
                 if (getBindings().getNewPasswordIT().getValue().equals(getBindings().getConfirmPasswordIT().getValue())) {
 
-                    BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
-                    OperationBinding operationBinding = bindings.getOperationBinding("changePassword");
-                    _logger.info(AccessDataControl.getDisplayRecord() + this.getClass() + ".ChangePassword : " + "Email Id :" + userBean.getEmailID());
+                    BindingContainer localBinding = BindingContext.getCurrent().getCurrentBindingsEntry();
+                    OperationBinding operationBinding = localBinding.getOperationBinding("changePassword");
+                    LOGGER.info(AccessDataControl.getDisplayRecord() + this.getClass() + ".ChangePassword : " + "Email Id :" + userBean.getEmailID());
                     operationBinding.getParamsMap().put("userID", userBean.getEmailID());
                     operationBinding.getParamsMap().put("oldPassword", getBindings().getOldPasswordIT().getValue().toString());
                     operationBinding.getParamsMap().put("newPassword", getBindings().getNewPasswordIT().getValue().toString());
@@ -155,11 +153,10 @@ public class ChangePasswordBean implements Serializable {
         return null;
     }
 
-
     private String getWSDLErrorMessage(String error) {
 
-        BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
-        OperationBinding operationBinding = bindings.getOperationBinding("getWebServiceErrorMessage");
+        BindingContainer localBinding = BindingContext.getCurrent().getCurrentBindingsEntry();
+        OperationBinding operationBinding = localBinding.getOperationBinding("getWebServiceErrorMessage");
         operationBinding.getParamsMap().put("errorMessage", error);
         operationBinding.getParamsMap().put("countryCode", lang);
         String result = (String)operationBinding.execute();
@@ -176,6 +173,14 @@ public class ChangePasswordBean implements Serializable {
 
     public String getLang() {
         return lang;
+    }
+
+    public void setAccessDC(AccessDataControl accessDC) {
+        this.accessDC = accessDC;
+    }
+
+    public AccessDataControl getAccessDC() {
+        return accessDC;
     }
 
     public class Bindings {

@@ -1,8 +1,8 @@
 package com.sfr.engage.associationselectiontaskflow;
 
+
 import com.sfr.core.bean.User;
 import com.sfr.engage.core.UserDetails;
-
 import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.util.AccessDataControl;
 import com.sfr.util.constants.Constants;
@@ -31,19 +31,20 @@ import oracle.adf.view.rich.context.AdfFacesContext;
 import oracle.binding.BindingContainer;
 import oracle.binding.OperationBinding;
 
+
 public class AssociationSelectionBean {
     private RichInputText searchText;
     private RichPanelGroupLayout searchResultsIdm;
     private List<UserDetails> userdetailslist = new ArrayList<UserDetails>();
     private RichTable searchUsersTable;
     private List<User> userlist = new ArrayList<User>();
-    HttpSession session = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getSession();
-    UserDetails userdetails;
-    public String selectedUser;
+    private HttpSession session = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getSession();
+    private UserDetails userdetails;
+    private String selectedUser;
     private RichCommandButton confirmButton;
-    EngageResourceBundle resourceBundle = new EngageResourceBundle();
-    public static final ADFLogger _logger = AccessDataControl.getSFRLogger();
-    AccessDataControl accessDC = new AccessDataControl();
+    private EngageResourceBundle resourceBundle = new EngageResourceBundle();
+    public static final ADFLogger LOGGER = AccessDataControl.getSFRLogger();
+    private AccessDataControl accessDC = new AccessDataControl();
 
     public AssociationSelectionBean() {
     }
@@ -56,38 +57,39 @@ public class AssociationSelectionBean {
         return searchText;
     }
 
-    public void SearchIDMUsers(ActionEvent actionEvent) {
+    public void searchIDMUsers(ActionEvent actionEvent) {
         userdetailslist = new ArrayList<UserDetails>();
         userlist = new ArrayList<User>();
         userdetailslist.clear();
-        
         String finaluserid = "";
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Searching");
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "Searching");
         String regex = "\\d+";
         if (searchText.getValue() != null && searchText.getValue().toString().trim().matches(regex)) {
             BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
             OperationBinding operationBinding = bindings.getOperationBinding("searchUser");
-            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "searchText is " + searchText.getValue().toString().trim());
-            if (searchText.getValue().toString().trim().length() == 8) {
-                _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "appending lang");
+            LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "searchText is " + searchText.getValue().toString().trim());
+            if (searchText.getValue().toString().trim().length() == Constants.EIGHT) {
+                LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "appending lang");
                 if (session != null) {
-                    finaluserid = (session.getAttribute(Constants.DISPLAY_PORTAL_LANG).toString()).concat("PP").concat(searchText.getValue().toString().trim());
+                    finaluserid =
+                            (session.getAttribute(Constants.DISPLAY_PORTAL_LANG).toString()).concat("PP").concat(searchText.getValue().toString().trim());
                 }
-                _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "finaluserid " + finaluserid);
+                LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "finaluserid " + finaluserid);
                 operationBinding.getParamsMap().put("customerId", finaluserid);
                 userlist = (List<User>)operationBinding.execute();
-                _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "searched user list size is  " + userlist.size());
+                LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "searched user list size is  " + userlist.size());
                 if (userlist != null && userlist.size() > 0) {
                     for (int b = 0; b < userlist.size(); b++) {
-                        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "user " + b + " -> " + userlist.get(b).getEmailID());
-                        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "user " + b + " -> " + userlist.get(b).getFirstName());
-                        _logger.info(accessDC.getDisplayRecord() + this.getClass() +" userlist.get(b).getRoleList().size()" + userlist.get(b).getRoleList().size());
-                        
+                        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "user " + b + " -> " + userlist.get(b).getEmailID());
+                        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "user " + b + " -> " + userlist.get(b).getFirstName());
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " userlist.get(b).getRoleList().size()" +
+                                    userlist.get(b).getRoleList().size());
 
                         for (int r = 0; r < userlist.get(b).getRoleList().size(); r++) {
-                            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "user role" + b + " -> " + userlist.get(b).getRoleList().get(r).getRoleName());
+                            LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "user role" + b + " -> " +
+                                        userlist.get(b).getRoleList().get(r).getRoleName());
                             if (userlist.get(b).getRoleList().get(r).getRoleName().equalsIgnoreCase(Constants.ROLE_WCP_CARD_B2B_ADMIN)) {
-                                
+
                                 userdetails = new UserDetails();
                                 userdetails.setUseremail(userlist.get(b).getEmailID());
                                 if (userlist.get(b).getRoleList().get(r).getIdString() != null) {
@@ -104,16 +106,14 @@ public class AssociationSelectionBean {
                                     userdetails.setLastname(userlist.get(b).getLastName());
                                 }
                                 userdetailslist.add(userdetails);
-                                
+
                             }
                         }
-
-
                     }
-                    _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "userdetails are as follows size" + userdetailslist.size());
+                    LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "userdetails are as follows size" + userdetailslist.size());
                     for (int b = 0; b < userdetailslist.size(); b++) {
-                        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "User email -> " + userdetailslist.get(b).getUseremail() +
-                                     " partners ids " + userdetailslist.get(b).getPartnerids());
+                        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "User email -> " + userdetailslist.get(b).getUseremail() +
+                                    " partners ids " + userdetailslist.get(b).getPartnerids());
                     }
 
                     confirmButton.setVisible(true);
@@ -146,13 +146,13 @@ public class AssociationSelectionBean {
     }
 
     public String showErrorMessage(String errorVar) {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "throwing error message");
-        if (errorVar != null) {
-            if (resourceBundle.containsKey(errorVar)) {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject(errorVar), "");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-                return null;
-            }
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "throwing error message");
+        if (errorVar != null && resourceBundle.containsKey(errorVar)) {
+
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject(errorVar), "");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            return null;
+
         }
         return null;
     }
@@ -186,24 +186,23 @@ public class AssociationSelectionBean {
         UserDetails selectedRow = (UserDetails)userTable.getSelectedRowData();
 
         if (selectedRow != null) {
-            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "selected row is " + selectedRow.getUseremail());
-            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "selected row is " + selectedRow.getUseremail());
+            LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "selected row is " + selectedRow.getUseremail());
+            LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "selected row is " + selectedRow.getUseremail());
             selectedUser = selectedRow.getUseremail();
-
             for (int k = 0; k < userlist.size(); k++) {
                 if (userlist.get(k).getEmailID().equalsIgnoreCase(selectedUser)) {
                     session.setAttribute(Constants.SESSION_USER_INFO, userlist.get(k));
                     session.setAttribute("executePartnerObjLogic", null);
-                    _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "user in session is " + userlist.get(k).getEmailID());
+                    LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "user in session is " + userlist.get(k).getEmailID());
                     break;
                 }
             }
-            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "redirecting to home page");
+            LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "redirecting to home page");
             ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
             try {
                 ectx.redirect(ectx.getRequestContextPath() + "/faces/card/home");
             } catch (IOException e) {
-                _logger.severe(accessDC.getDisplayRecord() + this.getClass() + "exception " + e.getMessage());
+                LOGGER.severe(accessDC.getDisplayRecord() + this.getClass() + "exception " + e.getMessage());
             }
         } else {
             showErrorMessage("PLEASE_SELECT_A_USER");
@@ -227,4 +226,43 @@ public class AssociationSelectionBean {
         return confirmButton;
     }
 
+    public void setSession(HttpSession session) {
+        this.session = session;
+    }
+
+    public HttpSession getSession() {
+        return session;
+    }
+
+    public void setUserdetails(UserDetails userdetails) {
+        this.userdetails = userdetails;
+    }
+
+    public UserDetails getUserdetails() {
+        return userdetails;
+    }
+
+    public void setSelectedUser(String selectedUser) {
+        this.selectedUser = selectedUser;
+    }
+
+    public String getSelectedUser() {
+        return selectedUser;
+    }
+
+    public void setAccessDC(AccessDataControl accessDC) {
+        this.accessDC = accessDC;
+    }
+
+    public AccessDataControl getAccessDC() {
+        return accessDC;
+    }
+
+    public void setResourceBundle(EngageResourceBundle resourceBundle) {
+        this.resourceBundle = resourceBundle;
+    }
+
+    public EngageResourceBundle getResourceBundle() {
+        return resourceBundle;
+    }
 }

@@ -41,7 +41,6 @@ import oracle.adf.view.rich.component.rich.data.RichTable;
 import oracle.adf.view.rich.component.rich.data.RichTree;
 import oracle.adf.view.rich.component.rich.layout.RichPanelGroupLayout;
 import oracle.adf.view.rich.component.rich.output.RichOutputText;
-import oracle.adf.view.rich.component.rich.output.RichSpacer;
 
 import oracle.jbo.ViewObject;
 
@@ -58,7 +57,7 @@ public class AuthenticatedHomeBean implements Serializable {
     private List<Messages> infoFromStatoil;
     private boolean infoPanelVisible;
     private String customerTypeValue;
-    public static final ADFLogger log = AccessDataControl.getSFRLogger();
+    public static final ADFLogger LOGGER = AccessDataControl.getSFRLogger();
     private AccessDataControl accessDC = new AccessDataControl();
     private List<PartnerInfo> partnerInfoList;
     private List<String> partnerId = new ArrayList<String>();
@@ -84,9 +83,6 @@ public class AuthenticatedHomeBean implements Serializable {
     private String langSession = "";
     private SecurityContext securityContext = null;
     private ADFContext adfCtx = null;
-    private List<PartnerInfo> partnerListDefault =
-        new ArrayList<PartnerInfo>();
-    private User userInfo;
     private String titleVisible = " ";
     private String title = "";
 
@@ -100,11 +96,8 @@ public class AuthenticatedHomeBean implements Serializable {
         return bindings;
     }
 
-    //TODO : Add java docs for all methods.
-
     public AuthenticatedHomeBean() {
-        log.info(accessDC.getDisplayRecord() + this.getClass() +
-                 " constructor of AuthenticatedHomeBean");
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " constructor of AuthenticatedHomeBean");
         conversionUtility = new Conversion();
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
@@ -114,31 +107,22 @@ public class AuthenticatedHomeBean implements Serializable {
         if (securityContext.isAuthenticated()) {
             if (session != null) {
 
-                if (session.getAttribute("profile") != null) {
-
-                    profile = (String)session.getAttribute("profile");
-
+                if (session.getAttribute(Constants.PROFILE_LITERAL) != null) {
+                    profile = (String)session.getAttribute(Constants.PROFILE_LITERAL);
                     if (profile.equalsIgnoreCase("business")) {
-
                         businessProfile = true;
                         privateProfile = false;
                     } else if (profile.equalsIgnoreCase("private")) {
-
                         businessProfile = false;
                         privateProfile = true;
-
                     }
                 }
 
                 langSession = (String)session.getAttribute(Constants.userLang);
-                log.info(accessDC.getDisplayRecord() + this.getClass() +
-                         " langSession" + langSession);
-
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " langSession" + langSession);
                 if (user == null) {
-                    user =
-(User)session.getAttribute(Constants.SESSION_USER_INFO);
+                    user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
                 }
-
 
                 if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_SFR)) {
                     profileSession = "B2C";
@@ -146,78 +130,55 @@ public class AuthenticatedHomeBean implements Serializable {
                     profileSession = "B2B";
                 }
 
-
                 Conversion conv = new Conversion();
                 lang = (String)session.getAttribute("lang");
-                log.info(accessDC.getDisplayRecord() + this.getClass() +
-                         " lang" + lang);
-                profile = (String)session.getAttribute("profile");
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " lang" + lang);
+                profile = (String)session.getAttribute(Constants.PROFILE_LITERAL);
                 if (profile.equalsIgnoreCase("business")) {
                     customerType = "B2B";
                 } else {
                     customerType = "B2C";
                 }
-                DCBindingContainer bindings =
-                    (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+                DCBindingContainer dcBindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
                 DCIteratorBinding iter;
-                if (bindings != null) {
-                    iter =
-bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
+                if (dcBindings != null) {
+                    iter = dcBindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
 
                 } else {
-                    log.severe(accessDC.getDisplayRecord() + this.getClass() +
-                               " ProductsDisplayRVO1Iterator bindings is null");
+                    LOGGER.severe(accessDC.getDisplayRecord() + this.getClass() + " ProductsDisplayRVO1Iterator bindings is null");
                     iter = null;
                 }
                 ViewObject vo = iter.getViewObject();
+
                 // TODO : ASHTHA - 02, May, 2014 : Query hardcodes the params. Instead values fetched from session should be used
-                vo.setNamedWhereClauseParam("countryCode",
-                                            conv.getLangForWERCSURL((lang)));
+                vo.setNamedWhereClauseParam(Constants.COUNTRYCODE_LITERAL, conv.getLangForWERCSURL((lang)));
                 vo.setNamedWhereClauseParam("catalogType", "PP");
-                vo.setNamedWhereClauseParam("customerType", profileSession);
+                vo.setNamedWhereClauseParam(Constants.CUSTOMER_TYPE_LITERAL, profileSession);
                 vo.executeQuery();
-                log.info(accessDC.getDisplayRecord() + this.getClass() +
-                         " Top products count is " +
-                         vo.getEstimatedRowCount());
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Top products count is " + vo.getEstimatedRowCount());
             }
-            
+
             resourceBundle = new EngageResourceBundle();
             Date date = new Date();
             java.sql.Date passedDate = new java.sql.Date(date.getTime());
-//                                DateFormat sdf = new SimpleDateFormat("dd-MMM-yy");
-//                   
-//                    String passedDate = sdf.format(date);
-
-            
             Set<String> cardTypeSet = new HashSet<String>();
             List<String> customerTypeList = new ArrayList<String>();
             if (session.getAttribute("cardTypeList") != null) {
 
-                cardTypeSet =
-                        (Set<String>)session.getAttribute("cardTypeList");
+                cardTypeSet = (Set<String>)session.getAttribute("cardTypeList");
             }
 
             List<String> cardTypeListTemp = new ArrayList<String>(cardTypeSet);
-            String cardTypeList =
-                cardTypeListTemp.toString().substring(1, cardTypeListTemp.toString().length() -
-                                                      1).replace("", "");
-
-            ViewObject prtCustomerCardMapVO =
-                ADFUtils.getViewObject("PrtCustomerCardMapRVO1_1Iterator");
-            prtCustomerCardMapVO.setNamedWhereClauseParam("cardType",
-                                                          cardTypeList);
+            String cardTypeList = cardTypeListTemp.toString().substring(1, cardTypeListTemp.toString().length() - 1).replace("", "");
+            ViewObject prtCustomerCardMapVO = ADFUtils.getViewObject("PrtCustomerCardMapRVO1_1Iterator");
+            prtCustomerCardMapVO.setNamedWhereClauseParam("cardType", cardTypeList);
             prtCustomerCardMapVO.executeQuery();
             if (prtCustomerCardMapVO.getEstimatedRowCount() != 0) {
                 while (prtCustomerCardMapVO.hasNext()) {
-                    PrtCustomerCardMapRVO1RowImpl currRow =
-                        (PrtCustomerCardMapRVO1RowImpl)prtCustomerCardMapVO.next();
+                    PrtCustomerCardMapRVO1RowImpl currRow = (PrtCustomerCardMapRVO1RowImpl)prtCustomerCardMapVO.next();
                     if (currRow != null) {
                         customerTypeList.add(currRow.getCustomerType());
-                        customerTypeValue =
-                                customerTypeList.toString().substring(1,
-                                                                      customerTypeList.toString().length() -
-                                                                      1).replace("",
-                                                                                 "");
+                        customerTypeValue = customerTypeList.toString().substring(1, customerTypeList.toString().length() - 1).replace("", "");
                     }
                 }
                 customerTypeValue = customerTypeValue + ",ALL";
@@ -226,9 +187,8 @@ bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
             //TODO : Check if the below queries can be merged and make it one, otherwise okay.
 
             try {
-                log.info(accessDC.getDisplayRecord() + this.getClass() +
-                         " lang passed in PRTPCMFEEDS is " +
-                         conversionUtility.getCustomerCountryCode(langSession));
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " lang passed in PRTPCMFEEDS is " +
+                            conversionUtility.getCustomerCountryCode(langSession));
                 if (customerTypeValue != null) {
                     User user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
                     String userEmail = user.getEmailID();
@@ -242,79 +202,55 @@ bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
                     if (vo.getEstimatedRowCount() != 0) {
                         while (vo.hasNext()) {
                             PrtUserPreferredLangVORowImpl currRow = (PrtUserPreferredLangVORowImpl)vo.next();
-                            if(currRow.getUserId() != null && currRow.getPreferredLang() != null){
+                            if (currRow.getUserId() != null && currRow.getPreferredLang() != null) {
                                 preferredLang = currRow.getPreferredLang();
                             }
-                            
+
                         }
                     } else {
                         preferredLang = userCountryLang;
                     }
-                    
-                    if("PrtUserPreferredLangEO.USER_ID=:userEmail".equalsIgnoreCase(vo.getWhereClause())){
+
+                    if ("PrtUserPreferredLangEO.USER_ID=:userEmail".equalsIgnoreCase(vo.getWhereClause())) {
                         vo.removeNamedWhereClauseParam("userEmail");
                         vo.setWhereClause("");
                         vo.executeQuery();
                     }
-                    
-                    ViewObject prtPCMFeedsVO =
-                        ADFUtils.getViewObject("PrtPcmFeedsRVO1Iterator");
-                    
-                    
-                    
-                    if(prtPCMFeedsVO.getWhereClause() != null && "INSTR(:customerType,CUSTOMER_TYPE)<>0  AND INFORMATION_TYPE =:infoType AND COUNTRY_CODE=:countryCode AND EFFECTIVE_DATE >=:fromDate AND EFFECTIVE_DATE <=:toDate AND INSTR(:showFlag,trim(SHOW_FLAG))<>0".equalsIgnoreCase(prtPCMFeedsVO.getWhereClause())){
-                        prtPCMFeedsVO.removeNamedWhereClauseParam("customerType");
-                        prtPCMFeedsVO.removeNamedWhereClauseParam("infoType");
-                        prtPCMFeedsVO.removeNamedWhereClauseParam("countryCode");
-                        prtPCMFeedsVO.removeNamedWhereClauseParam("fromDate");
-                        prtPCMFeedsVO.removeNamedWhereClauseParam("toDate");
+
+                    ViewObject prtPCMFeedsVO = ADFUtils.getViewObject("PrtPcmFeedsRVO1Iterator");
+                    if (prtPCMFeedsVO.getWhereClause() != null &&
+                        "INSTR(:customerType,CUSTOMER_TYPE)<>0  AND INFORMATION_TYPE =:infoType AND COUNTRY_CODE=:countryCode AND EFFECTIVE_DATE >=:fromDate AND EFFECTIVE_DATE <=:toDate AND INSTR(:showFlag,trim(SHOW_FLAG))<>0".equalsIgnoreCase(prtPCMFeedsVO.getWhereClause())) {
+                        prtPCMFeedsVO.removeNamedWhereClauseParam(Constants.CUSTOMER_TYPE_LITERAL);
+                        prtPCMFeedsVO.removeNamedWhereClauseParam(Constants.INFO_TYPE_LITERAL);
+                        prtPCMFeedsVO.removeNamedWhereClauseParam(Constants.COUNTRYCODE_LITERAL);
+                        prtPCMFeedsVO.removeNamedWhereClauseParam(Constants.FROM_DATE_LITERAL);
+                        prtPCMFeedsVO.removeNamedWhereClauseParam(Constants.TO_DATE_LITERAL);
                         prtPCMFeedsVO.removeNamedWhereClauseParam("showFlag");
                         prtPCMFeedsVO.setWhereClause("");
                         prtPCMFeedsVO.executeQuery();
                     }
-                    
                     prtPCMFeedsVO.setWhereClause("INSTR(:customerType,CUSTOMER_TYPE)<>0  AND INFORMATION_TYPE =:infoType AND COUNTRY_CODE=:countryCode AND EFFECTIVE_DATE <=:fromDate AND END_DATE >=:toDate");
-                    prtPCMFeedsVO.defineNamedWhereClauseParam("customerType",
-                                                              customerTypeValue,
-                                                              null);
-                    prtPCMFeedsVO.defineNamedWhereClauseParam("infoType",
-                                                              "INFO_STATOIL",
-                                                              null);
-                    prtPCMFeedsVO.defineNamedWhereClauseParam("countryCode",
-                                                              conversionUtility.getCustomerCountryCode(langSession),
-                                                              null);
-                    prtPCMFeedsVO.defineNamedWhereClauseParam("fromDate",
-                                                              passedDate,
-                                                              null);
-                    prtPCMFeedsVO.defineNamedWhereClauseParam("toDate",
-                                                              passedDate,
-                                                              null);
+                    prtPCMFeedsVO.defineNamedWhereClauseParam(Constants.CUSTOMER_TYPE_LITERAL, customerTypeValue, null);
+                    prtPCMFeedsVO.defineNamedWhereClauseParam(Constants.INFO_TYPE_LITERAL, "INFO_STATOIL", null);
+                    prtPCMFeedsVO.defineNamedWhereClauseParam(Constants.COUNTRYCODE_LITERAL, conversionUtility.getCustomerCountryCode(langSession), null);
+                    prtPCMFeedsVO.defineNamedWhereClauseParam(Constants.FROM_DATE_LITERAL, passedDate, null);
+                    prtPCMFeedsVO.defineNamedWhereClauseParam(Constants.TO_DATE_LITERAL, passedDate, null);
                     prtPCMFeedsVO.executeQuery();
-                    log.info(accessDC.getDisplayRecord() + this.getClass() +
-                             " " + "Information Row Count " +
-                             prtPCMFeedsVO.getEstimatedRowCount());
-
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Information Row Count " + prtPCMFeedsVO.getEstimatedRowCount());
                     if (prtPCMFeedsVO.getEstimatedRowCount() != 0) {
                         infoPanelVisible = true;
                         infoFromStatoil = new ArrayList<Messages>();
-                        log.info(accessDC.getDisplayRecord() +
-                                 this.getClass() + " " +
-                                 "coming inside INFORMATION block");
-
-
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "coming inside INFORMATION block");
                         while (prtPCMFeedsVO.hasNext()) {
 
-
-                            PrtPcmFeedsRVORowImpl currRow =
-                                (PrtPcmFeedsRVORowImpl)prtPCMFeedsVO.next();
+                            PrtPcmFeedsRVORowImpl currRow = (PrtPcmFeedsRVORowImpl)prtPCMFeedsVO.next();
 
                             if (currRow != null) {
                                 Messages infovalue = new Messages();
                                 if (preferredLang.equalsIgnoreCase(userCountryLang) && currRow.getMessageLang() != null) {
                                     if (currRow.getTitle() != null) {
 
-                                        infovalue.setTitle(currRow.getTitle() +
-                                                           ":");
+                                        infovalue.setTitle(currRow.getTitle() + ":");
                                     } else {
                                         infovalue.setTitle(null);
                                     }
@@ -324,11 +260,8 @@ bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
                                     if (preferredLang.equalsIgnoreCase("en_US") && currRow.getMessageEnglish() != null) {
                                         if (currRow.getTitle() != null) {
 
-                                            infovalue.setTitle(currRow.getTitle() +
-                                                               ":");
-                                        }
-
-                                        else {
+                                            infovalue.setTitle(currRow.getTitle() + ":");
+                                        } else {
                                             infovalue.setTitle(null);
                                         }
                                         infovalue.setMessage(currRow.getMessageEnglish());
@@ -344,42 +277,25 @@ bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
                         infoPanelVisible = false;
                     }
 
-                    prtPCMFeedsVO.defineNamedWhereClauseParam("customerType",
-                                                              customerTypeValue,
-                                                              null);
-                    prtPCMFeedsVO.defineNamedWhereClauseParam("infoType",
-                                                              "MESSAGES",
-                                                              null);
-                    prtPCMFeedsVO.defineNamedWhereClauseParam("countryCode",
-                                                              conversionUtility.getCustomerCountryCode(langSession),
-                                                              null);
-                    prtPCMFeedsVO.defineNamedWhereClauseParam("fromDate",
-                                                              passedDate,
-                                                              null);
-                    prtPCMFeedsVO.defineNamedWhereClauseParam("toDate",
-                                                              passedDate,
-                                                              null);
+                    prtPCMFeedsVO.defineNamedWhereClauseParam(Constants.CUSTOMER_TYPE_LITERAL, customerTypeValue, null);
+                    prtPCMFeedsVO.defineNamedWhereClauseParam(Constants.INFO_TYPE_LITERAL, "MESSAGES", null);
+                    prtPCMFeedsVO.defineNamedWhereClauseParam(Constants.COUNTRYCODE_LITERAL, conversionUtility.getCustomerCountryCode(langSession), null);
+                    prtPCMFeedsVO.defineNamedWhereClauseParam(Constants.FROM_DATE_LITERAL, passedDate, null);
+                    prtPCMFeedsVO.defineNamedWhereClauseParam(Constants.TO_DATE_LITERAL, passedDate, null);
                     prtPCMFeedsVO.executeQuery();
-                    log.info(accessDC.getDisplayRecord() + this.getClass() +
-                             " " + "Messages Row Count " +
-                             prtPCMFeedsVO.getEstimatedRowCount());
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Messages Row Count " + prtPCMFeedsVO.getEstimatedRowCount());
                     if (prtPCMFeedsVO.getEstimatedRowCount() != 0) {
                         messages = new ArrayList<Messages>();
-                        log.info(accessDC.getDisplayRecord() +
-                                 this.getClass() + " " +
-                                 "coming inside MESSAGE block");
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "coming inside MESSAGE block");
                         while (prtPCMFeedsVO.hasNext()) {
-                            PrtPcmFeedsRVORowImpl currRow =
-                                (PrtPcmFeedsRVORowImpl)prtPCMFeedsVO.next();
-
+                            PrtPcmFeedsRVORowImpl currRow = (PrtPcmFeedsRVORowImpl)prtPCMFeedsVO.next();
                             if (currRow != null) {
                                 Messages message = new Messages();
                                 if (preferredLang.equalsIgnoreCase(userCountryLang) && currRow.getMessageLang() != null) {
-                                
+
                                     if (currRow.getTitle() != null) {
 
-                                        message.setTitle(currRow.getTitle() +
-                                                         ":");
+                                        message.setTitle(currRow.getTitle() + ":");
                                     } else {
                                         message.setTitle(null);
                                     }
@@ -389,8 +305,7 @@ bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
                                     if (preferredLang.equalsIgnoreCase("en_US") && currRow.getMessageEnglish() != null) {
                                         if (currRow.getTitle() != null) {
 
-                                            message.setTitle(currRow.getTitle() +
-                                                             ":");
+                                            message.setTitle(currRow.getTitle() + ":");
                                         }
 
                                         else {
@@ -407,11 +322,11 @@ bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
                     }
 
                     if ("INSTR(:customerType,CUSTOMER_TYPE)<>0 AND INFORMATION_TYPE =:infoType AND COUNTRY_CODE=:countryCode AND EFFECTIVE_DATE <=:fromDate AND END_DATE >=:toDate".equalsIgnoreCase(prtPCMFeedsVO.getWhereClause())) {
-                        prtPCMFeedsVO.removeNamedWhereClauseParam("customerType");
-                        prtPCMFeedsVO.removeNamedWhereClauseParam("infoType");
-                        prtPCMFeedsVO.removeNamedWhereClauseParam("countryCode");
-                        prtPCMFeedsVO.removeNamedWhereClauseParam("fromDate");
-                        prtPCMFeedsVO.removeNamedWhereClauseParam("toDate");
+                        prtPCMFeedsVO.removeNamedWhereClauseParam(Constants.CUSTOMER_TYPE_LITERAL);
+                        prtPCMFeedsVO.removeNamedWhereClauseParam(Constants.INFO_TYPE_LITERAL);
+                        prtPCMFeedsVO.removeNamedWhereClauseParam(Constants.COUNTRYCODE_LITERAL);
+                        prtPCMFeedsVO.removeNamedWhereClauseParam(Constants.FROM_DATE_LITERAL);
+                        prtPCMFeedsVO.removeNamedWhereClauseParam(Constants.TO_DATE_LITERAL);
                         prtPCMFeedsVO.setWhereClause("");
                         prtPCMFeedsVO.executeQuery();
                     }
@@ -420,61 +335,48 @@ bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
                 if (session.getAttribute("Partner_Object_List") != null) {
 
                     partnerInfoList = new ArrayList<PartnerInfo>();
-                    partnerInfoList =
-                            (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
+                    partnerInfoList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
                 }
 
                 if (partnerInfoList != null && partnerInfoList.size() > 0) {
-                    log.fine(accessDC.getDisplayRecord() + this.getClass() +
-                             " " + "Inside partner info object");
+                    LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " " + "Inside partner info object");
 
                     if (partnerInfoList.get(0).getCountry() != null) {
 
-                        country =
-                                partnerInfoList.get(0).getCountry().toString();
+                        country = partnerInfoList.get(0).getCountry().toString();
                     } else {
                         country = "SE";
                     }
-                    locale =
-                            conversionUtility.getLocaleFromCountryCode(country);
+                    locale = conversionUtility.getLocaleFromCountryCode(country);
 
                     for (int pa = 0; pa < partnerInfoList.size(); pa++) {
                         partnerId.add(partnerInfoList.get(pa).getPartnerValue());
 
                     }
                     String idList = partnerId.toString();
-                    String partnerIdList =
-                        idList.substring(1, idList.length() - 1).replace(" ",
-                                                                         "");
+                    String partnerIdList = idList.substring(1, idList.length() - 1).replace(" ", "");
 
-                    log.info(accessDC.getDisplayRecord() + this.getClass() +
-                             " arraylist after conversion is " +
-                             partnerIdList);
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " arraylist after conversion is " + partnerIdList);
 
                     if (session != null) {
                         user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
                         roleCsr = false;
-                        if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_SFR) ||
-                            user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR) ||
+                        if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_SFR) || user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR) ||
                             user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN)) {
                             authenticatedPanelVisible = true;
                             invoicesPanel = true;
-                            log.info(accessDC.getDisplayRecord() +
-                                     this.getClass() + " Higher roles found");
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Higher roles found");
 
                         } else if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_EMP)) {
                             authenticatedPanelVisible = true;
                             invoicesPanel = false;
-                            log.info(accessDC.getDisplayRecord() +
-                                     this.getClass() +
-                                     " B2B Employee role found");
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " B2B Employee role found");
 
                         } else if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_CSR) ||
                                    user.getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)) {
                             authenticatedPanelVisible = false;
                             invoicesPanel = false;
-                            log.info(accessDC.getDisplayRecord() +
-                                     this.getClass() + " CSR role found");
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " CSR role found");
                         } else if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_JET) ||
                                    user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_PETRO)) {
                             authenticatedPanelVisible = true;
@@ -483,33 +385,25 @@ bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
                         }
 
                         if (!authenticatedPanelVisible) {
-                            log.info(accessDC.getDisplayRecord() +
-                                     this.getClass() +
-                                     " Authenticated Panel should not be visible");
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Authenticated Panel should not be visible");
                         } else {
-                            log.info(accessDC.getDisplayRecord() +
-                                     this.getClass() +
-                                     " Authenticated Panel should be visible");
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Authenticated Panel should be visible");
 
-                            searchInvoices(partnerIdList, country);
+                            searchInvoices(country);
                             searchTransactions(partnerIdList, country);
 
                         }
 
                     }
-                    
 
                 }
             } catch (Exception e) {
 
-                e.printStackTrace();
+                LOGGER.severe(e);
             }
-
-
         }
-       
-        log.info(accessDC.getDisplayRecord() + this.getClass() +
-                 " exiting constructor of AuthenticatedHomeBean");
+
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " exiting constructor of AuthenticatedHomeBean");
 
     }
 
@@ -518,10 +412,8 @@ bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
         String passingValues = null;
         if (var != null) {
             String lovValues = var.trim();
-            String selectedValues =
-                lovValues.substring(1, lovValues.length() - 1);
+            String selectedValues = lovValues.substring(1, lovValues.length() - 1);
             passingValues = selectedValues.trim();
-
         }
         return passingValues;
     }
@@ -565,44 +457,37 @@ bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
         return customerTypeValue;
     }
 
-    private void searchInvoices(String partnerId, String country) {
+    private void searchInvoices(String country) {
         ViewObject vo = ADFUtils.getViewObject("PrtHomeInvoiceRVO1Iterator");
-
-        vo.setNamedWhereClauseParam("countryCode", country);
+        vo.setNamedWhereClauseParam(Constants.COUNTRYCODE_LITERAL, country);
         String userEmail = user.getEmailID();
         vo.setNamedWhereClauseParam("userid", userEmail);
-        
+
         if (user.getRoleList().get(0).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR)) {
-            
-            
+
+
             if (user.getRoleList().get(0).getIdString().get(0).contains("AC")) {
-                System.out.println("passing role WCP_CARD_B2B_MGR_ACC to home INvoices");
-                vo.setNamedWhereClauseParam("role", "WCP_CARD_B2B_MGR_ACC");
-            }
-            else
-            if(user.getRoleList().get(0).getIdString().get(0).contains("CG")) {
-                System.out.println("passing role WCP_CARD_B2B_MGR_CG to home INvoices");
-                vo.setNamedWhereClauseParam("role", "WCP_CARD_B2B_MGR_CG");
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "passing role WCP_CARD_B2B_MGR_ACC to home INvoices");
+                vo.setNamedWhereClauseParam(Constants.ROLE_LITERAL, "WCP_CARD_B2B_MGR_ACC");
+            } else if (user.getRoleList().get(0).getIdString().get(0).contains("CG")) {
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "passing role WCP_CARD_B2B_MGR_CG to home INvoices");
+                vo.setNamedWhereClauseParam(Constants.ROLE_LITERAL, "WCP_CARD_B2B_MGR_CG");
             }
         }
         if (user.getRoleList().get(0).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_ADMIN)) {
-            
-            System.out.println("passing role WCP_CARD_B2B_ADMIN to home INvoices");
-                vo.setNamedWhereClauseParam("role", "WCP_CARD_B2B_ADMIN");
-           
-            
+
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "passing role WCP_CARD_B2B_ADMIN to home INvoices");
+            vo.setNamedWhereClauseParam(Constants.ROLE_LITERAL, "WCP_CARD_B2B_ADMIN");
         }
-        
+
         vo.executeQuery();
 
         if (vo.getEstimatedRowCount() != 0) {
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " " +
-                     "Inside Estimated row count" + vo.getEstimatedRowCount());
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Inside Estimated row count" + vo.getEstimatedRowCount());
 
         } else {
 
-            emptyText =
-                    (String)resourceBundle.getObject("NO_INVOICES_TO_DISPLAY");
+            emptyText = (String)resourceBundle.getObject("NO_INVOICES_TO_DISPLAY");
         }
 
 
@@ -658,48 +543,36 @@ bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
     }
 
     private void searchTransactions(String partnerId, String country) {
-        ViewObject latestTransactionVO =
-            ADFUtils.getViewObject("PrtHomeTransactions1Iterator");
-        log.info(accessDC.getDisplayRecord() + this.getClass() +
-                 " Country code in Transaction VO" + country);
-        log.info(accessDC.getDisplayRecord() + this.getClass() +
-                 " Arraylist in Transaction VO " + partnerId);
-
-        latestTransactionVO.setNamedWhereClauseParam("countryCode", country);
-       
+        ViewObject latestTransactionVO = ADFUtils.getViewObject("PrtHomeTransactions1Iterator");
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Country code in Transaction VO" + country);
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Arraylist in Transaction VO " + partnerId);
+        latestTransactionVO.setNamedWhereClauseParam(Constants.COUNTRYCODE_LITERAL, country);
         if (user.getRoleList().get(0).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR)) {
-            
-            
+
             if (user.getRoleList().get(0).getIdString().get(0).contains("AC")) {
-                System.out.println("passing role WCP_CARD_B2B_MGR_ACC to home Transactions");
-                latestTransactionVO.setNamedWhereClauseParam("role", "WCP_CARD_B2B_MGR_ACC");
-            }
-            else
-            if(user.getRoleList().get(0).getIdString().get(0).contains("CG")) {
-                System.out.println("passing role WCP_CARD_B2B_MGR_CG to home Transactions");
-                latestTransactionVO.setNamedWhereClauseParam("role", "WCP_CARD_B2B_MGR_CG");
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "passing role WCP_CARD_B2B_MGR_ACC to home Transactions");
+                latestTransactionVO.setNamedWhereClauseParam(Constants.ROLE_LITERAL, "WCP_CARD_B2B_MGR_ACC");
+            } else if (user.getRoleList().get(0).getIdString().get(0).contains("CG")) {
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "passing role WCP_CARD_B2B_MGR_CG to home Transactions");
+                latestTransactionVO.setNamedWhereClauseParam(Constants.ROLE_LITERAL, "WCP_CARD_B2B_MGR_CG");
             }
         }
         if (user.getRoleList().get(0).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_ADMIN)) {
-            
-            System.out.println("passing role WCP_CARD_B2B_ADMIN to home Transactions");
-                latestTransactionVO.setNamedWhereClauseParam("role", "WCP_CARD_B2B_ADMIN");
-           
-            
+
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "passing role WCP_CARD_B2B_ADMIN to home Transactions");
+            latestTransactionVO.setNamedWhereClauseParam(Constants.ROLE_LITERAL, "WCP_CARD_B2B_ADMIN");
+
         }
         String userEmail = user.getEmailID();
         latestTransactionVO.setNamedWhereClauseParam("userid", userEmail);
-
         latestTransactionVO.executeQuery();
         if (latestTransactionVO.getEstimatedRowCount() != 0) {
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " " +
-                     "Inside Estimated row count latestTransactionVO" +
-                     latestTransactionVO.getEstimatedRowCount());
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Inside Estimated row count latestTransactionVO" +
+                        latestTransactionVO.getEstimatedRowCount());
 
         } else {
 
-            emptyText =
-                    (String)resourceBundle.getObject("NO_RECORDS_FOUND_TRANSACTIONS");
+            emptyText = (String)resourceBundle.getObject("NO_RECORDS_FOUND_TRANSACTIONS");
         }
 
     }
@@ -766,14 +639,11 @@ bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
-
         try {
-            String urlRedirect =
-                request.getContextPath() + "/faces/card/transaction/invoiceoverview";
+            String urlRedirect = request.getContextPath() + "/faces/card/transaction/invoiceoverview";
             ectx.redirect(urlRedirect);
         } catch (IOException e) {
-            log.severe(accessDC.getDisplayRecord() + this.getClass() +
-                       " Error while redirecting to Invoices overview page");
+            LOGGER.severe(accessDC.getDisplayRecord() + this.getClass() + " Error while redirecting to Invoices overview page");
         }
     }
 
@@ -784,12 +654,10 @@ bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
         session = request.getSession(false);
 
         try {
-            String urlRedirect =
-                request.getContextPath() + "/faces/card/transaction/transactions";
+            String urlRedirect = request.getContextPath() + "/faces/card/transaction/transactions";
             ectx.redirect(urlRedirect);
         } catch (IOException e) {
-            log.severe(accessDC.getDisplayRecord() + this.getClass() +
-                       " Error while redirecting to Transactions overview page");
+            LOGGER.severe(accessDC.getDisplayRecord() + this.getClass() + " Error while redirecting to Transactions overview page");
         }
     }
 
@@ -797,17 +665,13 @@ bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
-
-
         try {
 
-            ectx.redirect("https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog?lang=" +
-                          session.getAttribute("lang") + "&profile=" +
-                          session.getAttribute("profile"));
+            ectx.redirect("https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog?lang=" + session.getAttribute("lang") + "&profile=" +
+                          session.getAttribute(Constants.PROFILE_LITERAL));
 
         } catch (IOException e) {
-            log.severe(accessDC.getDisplayRecord() + this.getClass() +
-                       " Error while redirecting to Product Catalog overview page");
+            LOGGER.severe(accessDC.getDisplayRecord() + this.getClass() + " Error while redirecting to Product Catalog overview page");
         }
 
 
@@ -858,7 +722,6 @@ bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
     public class Bindings {
         private RichOutputText infoText;
         private RichPanelGroupLayout infoPanel;
-        private RichSpacer bindingSpacer;
         private RichTable invoiceTable;
         private RichPanelGroupLayout infoFromStatoil;
         private RichPanelGroupLayout messagePanel;
@@ -904,4 +767,3 @@ bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
         }
     }
 }
-
