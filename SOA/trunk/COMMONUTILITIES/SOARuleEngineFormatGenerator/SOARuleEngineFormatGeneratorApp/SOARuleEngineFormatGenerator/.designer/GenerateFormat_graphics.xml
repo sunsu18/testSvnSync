@@ -4,14 +4,16 @@
    <annotationfile/>
    <iconize/>
    <partnerlink_locations>
-      <partnerlink name="generateformat_client" x="0" y="364" side="left"/>
+      <partnerlink name="generateformat_client" x="0" y="390" side="left"/>
    </partnerlink_locations>
-   <graph_layout viewport="0,300,756,340" show_swimlanes="true">
+   <graph_layout viewport="0,277,957,340" show_swimlanes="true">
       <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catchAll" type="catchall"/>
+      <layout_item collapsed="false" xpath="/process/faultHandlers/catchAll/sequence" type="sequence"/>
       <layout_item collapsed="false" xpath="/process/sequence" type="sequence"/>
       <layout_item collapsed="false" xpath="/process/sequence/scope" type="scope" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/sequence/scope/faultHandlers/catchAll" type="catchall"/>
+      <layout_item collapsed="false" xpath="/process/sequence/scope/faultHandlers/catchAll/sequence" type="sequence"/>
       <layout_item collapsed="false" xpath="/process/sequence/scope/sequence" type="sequence"/>
    </graph_layout>
    <bookmarks/>

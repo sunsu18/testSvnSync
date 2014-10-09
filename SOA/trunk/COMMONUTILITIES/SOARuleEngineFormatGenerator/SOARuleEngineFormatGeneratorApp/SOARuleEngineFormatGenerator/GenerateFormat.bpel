@@ -91,12 +91,15 @@
     </variables>
     <faultHandlers>
         <catchAll>
-            <assign name="AssignFault">
-                <copy>
-                    <from>ora:getFaultAsString()</from>
-                    <to>$outputVariable.payload/ns1:RuleID</to>
-                </copy>
-            </assign>
+            <sequence name="CatchAllSequence">
+                <assign name="AssignFault">
+                    <copy>
+                        <from>ora:getFaultAsString()</from>
+                        <to>$outputVariable.payload/ns1:RuleID</to>
+                    </copy>
+                </assign>
+                <rethrow name="Rethrow"/>
+            </sequence>
         </catchAll>
     </faultHandlers>
     <!-- 
@@ -130,12 +133,15 @@
             </variables>
             <faultHandlers>
                 <catchAll>
-                    <assign name="AssignFaultData">
-                        <copy>
-                            <from>ora:getFaultAsString()</from>
-                            <to>$outputVariable.payload/ns1:RuleID</to>
-                        </copy>
-                    </assign>
+                    <sequence name="ScopeCatchAllSequence">
+                        <assign name="AssignFaultData">
+                            <copy>
+                                <from>ora:getFaultAsString()</from>
+                                <to>$outputVariable.payload/ns1:RuleID</to>
+                            </copy>
+                        </assign>
+                        <rethrow name="Rethrow"/>
+                    </sequence>
                 </catchAll>
             </faultHandlers>
             <sequence name="SequenceGenerateExcelReport">
