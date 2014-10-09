@@ -5,6 +5,10 @@
 /*af|statusIndicator::connecting-icon, af|statusIndicator::processing-icon, af|statusIndicator::reconnecting-icon {
    content: url(/images/ajax-loader-new.gif);
  }*/
+ 
+.af_mandatoryfield .af_inputText_content{
+     border: 1px solid red;
+ }
 
 .permanentBlockCards
 {

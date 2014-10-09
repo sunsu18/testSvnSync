@@ -22,6 +22,7 @@ import com.sfr.util.validations.Conversion;
 import java.math.BigInteger;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -135,10 +136,14 @@ public class Alerts {
     private Map<String, String> mapCardListValue;
     private ValueListSplit valueList;
     private Boolean isTableVisible;
-
-
+    private Boolean okVisibleForQuality;
+    private Boolean editVisibleForQuality;
+    private Boolean okVisibleForBusinessHr;
+    private Boolean editVisibleForBusinessHr;
+    
     public Alerts() {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside constructor of Alerts");
+        
         weekdays.add("MONDAY");
         weekdays.add("TUESDAY");
         weekdays.add("WEDNESDAY");
@@ -146,7 +151,6 @@ public class Alerts {
         weekdays.add("FRIDAY");
         weekdays.add("SATURDAY");
         weekdays.add("SUNDAY");
-        
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
@@ -179,7 +183,11 @@ public class Alerts {
         Conversion conv = new Conversion();
         valueList = new ValueListSplit();
         isTableVisible = false;
-
+        okVisibleForQuality = false;
+        okVisibleForBusinessHr = false;
+        editVisibleForBusinessHr = true;
+        editVisibleForQuality = true;
+        
         if (session.getAttribute(Constants.DISPLAY_PORTAL_LANG) != null) {
             langValue = conv.getCustomerCountryCode((String)session.getAttribute(Constants.DISPLAY_PORTAL_LANG));
         }
@@ -549,6 +557,19 @@ public class Alerts {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside editAlert1Timings method of Alerts");
     }
 
+    public void editAlert2Timings(ActionEvent actionEvent) {
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside editAlert2Timings method of Alerts");
+        okVisibleForQuality = true;
+        editVisibleForQuality = false;
+        getBindings().getSuccessAlert3().setRendered(false);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSuccessAlert3());
+        getBindings().getConfigureFuelCapacityAlert2().setDisabled(false);
+        getBindings().getConfigureLtrPerDayRadio().setDisabled(false);
+        getBindings().getConfigureLtrPerWeekRadio().setDisabled(false);
+        getBindings().getConfigureLtrPerMonthRadio().setDisabled(false);
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside editAlert2Timings method of Alerts");
+    }
+
     public void setSession(HttpSession session) {
         this.session = session;
     }
@@ -683,7 +704,7 @@ public class Alerts {
     public void setBusinessHoursAlert(ActionEvent actionEvent) {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside setBusinessHoursAlert method of Alerts");
         BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
-        if (validateinput()) {
+        if (validateinput(true)) {
             if (bindings != null) {
                 OperationBinding operationBinding = bindings.getOperationBinding("subscribeAlerts");
                 if (operationBinding != null) {
@@ -775,7 +796,6 @@ public class Alerts {
                         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getToTimingsHh());
                         getBindings().getToTimingsMm().setReadOnly(true);
                         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getToTimingsMm());
-
                     }
                 }
             }
@@ -804,12 +824,28 @@ public class Alerts {
         return null;
     }
 
-    public boolean validateinput() {
+    public boolean validateinput(boolean flag1) {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside validateinput method of Alerts");
         boolean validinput = true;
-        if (getBindings().getAlert1PartnerValues().getValue() != null && getBindings().getAlert1PartnerValues().getValue().toString() != null) {
-            displayErrorComponent(getBindings().getAlert1PartnerValues(), false);
-            RichTable rt = getBindings().getAlert1Table();
+        boolean flag2 = false;
+        RichTable rt = null;
+        if(flag1){
+        // flag1 is true when alert is being added
+            if (getBindings().getAlert1PartnerValues().getValue() != null && getBindings().getAlert1PartnerValues().getValue().toString() != null) {
+                displayErrorComponent(getBindings().getAlert1PartnerValues(), false);
+                flag2 = true;
+                rt = getBindings().getAlert1Table();
+            }else {
+                validinput = false;
+                displayErrorComponent(getBindings().getAlert1PartnerValues(), true);
+            }
+        }else{
+            flag2 = true;
+            rt = getBindings().getConfigureAlert1Table();
+        }
+        
+        if(flag2)
+        {
             Object o;
             FuelTimings checkFuelTimings;
             int fromHh;
@@ -823,6 +859,18 @@ public class Alerts {
                     checkFuelTimings.getFromMm().toString().trim() != null && checkFuelTimings.getToHh() != null &&
                     checkFuelTimings.getToHh().toString().trim() != null && checkFuelTimings.getToMm() != null &&
                     checkFuelTimings.getToMm().toString().trim() != null) {
+//                    if(flag1){
+//                        displayErrorComponent(getBindings().getFromTimingsHh(), false);
+//                        displayErrorComponent(getBindings().getFromTimingsMm(), false);
+//                        displayErrorComponent(getBindings().getToTimingsHh(), false);
+//                        displayErrorComponent(getBindings().getToTimingsMm(), false);
+//                    }else{
+//                        displayErrorComponent(getBindings().getConfigureFromTimingsHh(), false);
+//                        displayErrorComponent(getBindings().getConfigureFromTimingsMm(), false);
+//                        displayErrorComponent(getBindings().getConfigureToTimingsHh(), false);
+//                        displayErrorComponent(getBindings().getConfigureToTimingsMm(), false);
+//                    }
+                    
                     String regex = "\\d+";
                     if (checkFuelTimings.getFromHh().toString().trim().matches(regex) && checkFuelTimings.getFromMm().toString().trim().matches(regex) &&
                         checkFuelTimings.getToHh().toString().trim().matches(regex) && checkFuelTimings.getToMm().toString().trim().matches(regex)) {
@@ -837,6 +885,33 @@ public class Alerts {
                         }
                     } else {
                         validinput = false;
+                        if(flag1){
+                            if(checkFuelTimings.getFromHh() == null && checkFuelTimings.getFromHh().toString().trim() == null){
+                                displayErrorComponent(getBindings().getFromTimingsHh(), true);
+                            }
+                            if(checkFuelTimings.getFromMm() != null && checkFuelTimings.getFromMm().toString().trim() != null){
+                                displayErrorComponent(getBindings().getFromTimingsMm(), true);
+                            }
+                            if(checkFuelTimings.getToHh() != null && checkFuelTimings.getToHh().toString().trim() != null){
+                                displayErrorComponent(getBindings().getToTimingsHh(), true);
+                            }
+                            if(checkFuelTimings.getToMm() != null && checkFuelTimings.getToMm().toString().trim() != null){
+                                displayErrorComponent(getBindings().getToTimingsMm(), true);
+                            }
+                        }else{
+                            if(checkFuelTimings.getFromHh().toString().trim().equals("")){
+                                displayErrorComponent(getBindings().getConfigureFromTimingsHh(), true);
+                            }
+                            if(checkFuelTimings.getFromMm().toString().trim().equals("")){
+                                displayErrorComponent(getBindings().getConfigureFromTimingsMm(), true);
+                            }
+                            if(checkFuelTimings.getToHh().toString().trim().equals("")){
+                                displayErrorComponent(getBindings().getConfigureToTimingsHh(), true);
+                            }
+                            if(checkFuelTimings.getToMm().toString().trim().equals("")){
+                                displayErrorComponent(getBindings().getConfigureToTimingsMm(), true);
+                            }
+                        }
                         break;
                     }
                 } else {
@@ -844,10 +919,7 @@ public class Alerts {
                     break;
                 }
             }
-        } else {
-            validinput = false;
-            displayErrorComponent(getBindings().getAlert1PartnerValues(), true);
-        }
+        } 
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside validateinput method of Alerts");
         return validinput;
     }
@@ -1427,7 +1499,6 @@ public class Alerts {
                 if (user.getEmailID() != null && user.getFirstName() != null) {
                     userEmail = user.getEmailID();
                     userFirstName = user.getFirstName();
-
                 }
                 if (user.getPhoneNumber() != null) {
                     userMobileNo = user.getPhoneNumber();
@@ -1483,11 +1554,12 @@ public class Alerts {
             getBindings().getCardDropdownAlert2().getValue().toString().trim().replaceAll(" ", "") != null &&
             getBindings().getCardDropdownAlert2().getValue().toString().trim().replaceAll(" ", "") != "" &&
             getBindings().getFuelCapacityAlert2().getValue() != null && getBindings().getFuelCapacityAlert2().getValue().toString().trim() != null) {
-//            displayErrorComponent(getBindings().getPartnerDropdownAlert2(), true);
-//            displayErrorComponent(getBindings().getAccountDropdwonAlert2(), true);
-//            displayErrorComponent(getBindings().getCardGroupDowndownAlert2(), true);
-//            displayErrorComponent(getBindings().getCardDropdownAlert2(), true);
-//            displayErrorComponent(getBindings().getFuelCapacityAlert2(), true);
+            displayErrorComponent(getBindings().getPartnerDropdownAlert2(), false);
+            displayErrorComponent(getBindings().getAccountDropdwonAlert2(), false);
+            displayErrorComponent(getBindings().getCardGroupDowndownAlert2(), false);
+            displayErrorComponent(getBindings().getCardDropdownAlert2(), false);
+            displayErrorComponent(getBindings().getFuelCapacityAlert2(), false);
+            displayErrorComponent(getBindings().getFuelCapacityAlert2(), false);
             String regex = "\\d+";
             if (getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", "").matches(regex)) {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + "fuelCapacityAlert2 " +
@@ -1496,29 +1568,30 @@ public class Alerts {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + "fuelCapacityAlert22 " +
                              getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
                 validinput2 = false;
+                displayErrorComponent(getBindings().getFuelCapacityAlert2(), true);
             }
         } else {
             validinput2 = false;
-//            if(getBindings().getPartnerDropdownAlert2().getValue() != null){
-//                displayErrorComponent(getBindings().getPartnerDropdownAlert2(), false);
-//            }else{
-//                displayErrorComponent(getBindings().getPartnerDropdownAlert2(), true);
-//            }
-//            if(getBindings().getAccountDropdwonAlert2().getValue() != null){
-//                displayErrorComponent(getBindings().getAccountDropdwonAlert2(), false);
-//            }else{
-//                displayErrorComponent(getBindings().getAccountDropdwonAlert2(), true);
-//            }
-//            if(getBindings().getCardGroupDowndownAlert2().getValue() != null){
-//                displayErrorComponent(getBindings().getCardGroupDowndownAlert2(), false);
-//            }else{
-//                displayErrorComponent(getBindings().getCardGroupDowndownAlert2(), true);
-//            }
-//            if(getBindings().getCardDropdownAlert2().getValue() != null ){
-//                displayErrorComponent(getBindings().getCardDropdownAlert2(), false);
-//            }else{
-//                displayErrorComponent(getBindings().getCardDropdownAlert2(), true);
-//            }
+            if(getBindings().getPartnerDropdownAlert2().getValue() != null){
+                displayErrorComponent(getBindings().getPartnerDropdownAlert2(), false);
+            }else{
+                displayErrorComponent(getBindings().getPartnerDropdownAlert2(), true);
+            }
+            if(getBindings().getAccountDropdwonAlert2().getValue() != null){
+                displayErrorComponent(getBindings().getAccountDropdwonAlert2(), false);
+            }else{
+                displayErrorComponent(getBindings().getAccountDropdwonAlert2(), true);
+            }
+            if(getBindings().getCardGroupDowndownAlert2().getValue() != null){
+                displayErrorComponent(getBindings().getCardGroupDowndownAlert2(), false);
+            }else{
+                displayErrorComponent(getBindings().getCardGroupDowndownAlert2(), true);
+            }
+            if(getBindings().getCardDropdownAlert2().getValue() != null ){
+                displayErrorComponent(getBindings().getCardDropdownAlert2(), false);
+            }else{
+                displayErrorComponent(getBindings().getCardDropdownAlert2(), true);
+            }
             
         }
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside validateinput2 method of Alerts");
@@ -1844,7 +1917,6 @@ public class Alerts {
                     req.setNotificationFormat("EXCEL");
                     DCBindingContainer bindings2 = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
                     DCIteratorBinding CardRuleSubscriptionIter = bindings2.findIteratorBinding("PrtCardRuleSubscriptionVO1Iterator");
-
                     DCIteratorBinding PrtCardFuelCapacityIter = bindings2.findIteratorBinding("PrtCardFuelCapacityVO1Iterator");
 
                     ViewObject cardRuleSubscription = CardRuleSubscriptionIter.getViewObject();
@@ -2475,6 +2547,16 @@ public class Alerts {
             if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("RuleIdkey").toString().trim().equalsIgnoreCase("1")) {
                 configuredPartner = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim();
                 configureDefaultTimings(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("SubscrIdkey").toString().trim(), CountryCode);
+                getBindings().getSuccessAlert4().setVisible(false);
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSuccessAlert4());
+                getBindings().getInvalidInputMsg().setVisible(false);
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvalidInputMsg());
+                okVisibleForBusinessHr = false;
+                editVisibleForBusinessHr = true;
+                getBindings().getConfigureFromTimingsHh().setReadOnly(true);
+                getBindings().getConfigureFromTimingsMm().setReadOnly(true);
+                getBindings().getConfigureToTimingsHh().setReadOnly(true);
+                getBindings().getConfigureToTimingsMm().setReadOnly(true);
                 RichPopup.PopupHints ps = new RichPopup.PopupHints();
                 getBindings().getConfigureAlert1Popup().show(ps);
             } else if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("RuleIdkey").toString().trim().equalsIgnoreCase("2")) {
@@ -2518,6 +2600,17 @@ public class Alerts {
 
 
                 fetchFuelCapacity(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("SubscrIdkey").toString().trim(), CountryCode);
+                okVisibleForQuality = false;
+                editVisibleForQuality = true;
+                getBindings().getSuccessAlert3().setRendered(false);
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSuccessAlert3());
+                getBindings().getInvalidInputMsg3().setRendered(false);
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvalidInputMsg3());
+                getBindings().getConfigureFuelCapacityAlert2().setDisabled(true);
+                getBindings().getConfigureLtrPerDayRadio().setDisabled(true);
+                getBindings().getConfigureLtrPerWeekRadio().setDisabled(true);
+                getBindings().getConfigureLtrPerMonthRadio().setDisabled(true);
+                displayErrorComponent(getBindings().getConfigureFuelCapacityAlert2(), false);
                 RichPopup.PopupHints ps = new RichPopup.PopupHints();
                 getBindings().getConfigureAlert2Popup().show(ps);
 
@@ -2614,9 +2707,70 @@ public class Alerts {
     }
 
     public void editAlert1ConfigureTimings(ActionEvent actionEvent) {
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside editAlert1ConfigureTimings method of Alerts");
+        okVisibleForBusinessHr = true;
+        editVisibleForBusinessHr = false;
+        getBindings().getConfigureFromTimingsHh().setReadOnly(false);
+        getBindings().getConfigureFromTimingsMm().setReadOnly(false);
+        getBindings().getConfigureToTimingsHh().setReadOnly(false);
+        getBindings().getConfigureToTimingsMm().setReadOnly(false);
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside editAlert1ConfigureTimings method of Alerts");
     }
 
     public void setBusinessHoursConfigureAlert(ActionEvent actionEvent) {
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside setBusinessHoursConfigureAlert method of Alerts");
+        if(validateinput(false)){
+            BindingContainer bc = BindingContext.getCurrent().getCurrentBindingsEntry();
+            DCIteratorBinding fuelCaoItr = (DCIteratorBinding)bc.get("PrtCardRuleBusinessHoursVO1Iterator");
+            ViewObject vo = ADFUtils.getViewObject("PrtCardRuleBusinessHoursVO1Iterator");
+            vo.setWhereClause("subscr_id =: subscrId");
+            if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("SubscrIdkey") != null){
+                String subscrId = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("SubscrIdkey").toString().trim();
+                vo.defineNamedWhereClauseParam("subscrId",subscrId,null);
+            }
+            vo.executeQuery();
+            RichTable rt = getBindings().getConfigureAlert1Table();
+            Object o;
+            FuelTimings editFuelTimings;
+            Row businessHr;
+            for (int i = 0; i < 7; i++) {
+                o = rt.getRowData(i);
+                editFuelTimings = (FuelTimings)o;
+                businessHr = vo.next();
+                businessHr.setAttribute("Day", weekdays.get(i));
+                businessHr.setAttribute("BusiStartFrom", editFuelTimings.getFromHh().toString().trim() + ":" + editFuelTimings.getFromMm().toString().trim());
+                businessHr.setAttribute("BusiStartTo", editFuelTimings.getToHh().toString().trim() + ":" + editFuelTimings.getToMm().toString().trim());
+                businessHr.setAttribute("ModifiedBy", userEmail);
+            }
+            if (bc != null) {
+                OperationBinding operationBinding = bc.getOperationBinding("subscribeAlerts");
+                if (operationBinding != null) {
+                    operationBinding = bc.getOperationBinding("Commit");
+                    operationBinding.execute();
+                    getBindings().getSuccessAlert4().setVisible(true);
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSuccessAlert4());
+                    okVisibleForBusinessHr = false;
+                    editVisibleForBusinessHr = true;
+                    getBindings().getConfigureFromTimingsHh().setReadOnly(true);
+                    getBindings().getConfigureFromTimingsMm().setReadOnly(true);
+                    getBindings().getConfigureToTimingsHh().setReadOnly(true);
+                    getBindings().getConfigureToTimingsMm().setReadOnly(true);
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getConfigureFromTimingsHh());
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getConfigureToTimingsHh());
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getConfigureToTimingsMm());
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getConfigureFromTimingsMm());
+                }
+            }
+            vo.removeNamedWhereClauseParam("subscrId");
+            vo.setWhereClause("");
+            vo.executeQuery();
+        }else{
+            getBindings().getSuccessAlert4().setVisible(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSuccessAlert4());
+            getBindings().getInvalidInputMsg().setVisible(true);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvalidInputMsg());
+        }
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside setBusinessHoursConfigureAlert method of Alerts");
     }
 
     public void claoseConfigureAlert1Popup(ActionEvent actionEvent) {
@@ -2702,7 +2856,72 @@ public class Alerts {
         return configureCardNumberValue;
     }
 
-    public void setConfigureFuelCapacityAlert(ActionEvent actionEvent) {
+    public void setConfigureFuelCapacityAlert(ActionEvent actionEvent) {   
+        if(getBindings().getConfigureFuelCapacityAlert2()!= null){
+            if(!getBindings().getConfigureFuelCapacityAlert2().getValue().equals("")){
+                String regex = "\\d+";
+                if (getBindings().getConfigureFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", "").matches(regex)) {
+                    BindingContainer bc = BindingContext.getCurrent().getCurrentBindingsEntry();
+                    DCIteratorBinding fuelCaoItr = (DCIteratorBinding)bc.get("PrtCardFuelCapacityVO1Iterator");
+                    ViewObject vo = ADFUtils.getViewObject("PrtCardFuelCapacityVO1Iterator");
+                    vo.setWhereClause("subscr_id =: subscrId");
+                    if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("SubscrIdkey") != null){
+                        String subscrId = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("SubscrIdkey").toString().trim();
+                        vo.defineNamedWhereClauseParam("subscrId",subscrId,null);
+                    }
+                    vo.executeQuery();
+                    Row fuelCapRow = fuelCaoItr.getCurrentRow();
+                    if(fuelCapRow != null){            
+                        if(getBindings().getConfigureLtrPerDayRadio().getValue() != null &&
+                            getBindings().getConfigureLtrPerDayRadio().getValue().toString().equalsIgnoreCase("true")){
+                            fuelCapRow.setAttribute("FuelPerDay", getBindings().getConfigureFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
+                        }else{
+                            fuelCapRow.setAttribute("FuelPerDay", "");
+                        }
+                        if(getBindings().getConfigureLtrPerWeekRadio().getValue() != null &&
+                            getBindings().getConfigureLtrPerWeekRadio().getValue().toString().equalsIgnoreCase("true")){
+                            fuelCapRow.setAttribute("FuelPerWeek", getBindings().getConfigureFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
+                        }else{
+                            fuelCapRow.setAttribute("FuelPerWeek", "");
+                        }
+                        if(getBindings().getConfigureLtrPerMonthRadio().getValue() != null &&
+                            getBindings().getConfigureLtrPerMonthRadio().getValue().toString().equalsIgnoreCase("true")){
+                            fuelCapRow.setAttribute("FuelPerMonth", getBindings().getConfigureFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
+                        }else{
+                            fuelCapRow.setAttribute("FuelPerMonth", "");
+                        }
+                        fuelCapRow.setAttribute("ModifiedBy", userEmail);
+                    }
+                    if (bc != null) {
+                        OperationBinding operationBinding = bc.getOperationBinding("subscribeAlerts");
+                        if (operationBinding != null) {
+                            operationBinding = bc.getOperationBinding("Commit");
+                            operationBinding.execute();
+                            getBindings().getSuccessAlert3().setRendered(true);
+                            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSuccessAlert3());
+                            getBindings().getInvalidInputMsg3().setRendered(false);
+                            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvalidInputMsg3());
+                            okVisibleForQuality = false;
+                            editVisibleForQuality = true;
+                            getBindings().getConfigureFuelCapacityAlert2().setDisabled(true);
+                            getBindings().getConfigureLtrPerDayRadio().setDisabled(true);
+                            getBindings().getConfigureLtrPerWeekRadio().setDisabled(true);
+                            getBindings().getConfigureLtrPerMonthRadio().setDisabled(true);
+                            displayErrorComponent(getBindings().getConfigureFuelCapacityAlert2(), false);
+                        }
+                    }
+                    vo.removeNamedWhereClauseParam("subscrId");
+                    vo.setWhereClause("");
+                    vo.executeQuery();
+                } else {
+                    getBindings().getInvalidInputMsg3().setRendered(true);
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvalidInputMsg3());
+                    displayErrorComponent(getBindings().getConfigureFuelCapacityAlert2(), true);
+                }
+            }else{
+                displayErrorComponent(getBindings().getConfigureFuelCapacityAlert2(), true);
+            }
+        }
     }
 
     public void claoseConfigureAlert2Popup(ActionEvent actionEvent) {
@@ -3228,14 +3447,20 @@ public class Alerts {
         if (component instanceof RichInputText) {
             rit = (RichInputText)component;
             if (status) {
-                rit.setContentStyle("af_mandatoryfield");
-                if (component.getId().contains("it19") || component.getId().contains("it3"))
+                rit.setStyleClass("af_mandatoryfield");
+                if (component.getId().contains("it19") || component.getId().contains("it3") || component.getId().contains("it10") || 
+                    component.getId().contains("it6") || component.getId().contains("it7") || component.getId().contains("it8") ||
+                    component.getId().contains("it9") || component.getId().contains("it1") || component.getId().contains("it4") ||
+                    component.getId().contains("it2") || component.getId().contains("it5"))
                     rit.setStyleClass("af_mandatoryfield");
 
 
             } else {
-                rit.setContentStyle("af_nonmandatoryfield");
-                if (component.getId().contains("it19") || component.getId().contains("it3"))
+                rit.setStyleClass("af_nonmandatoryfield");
+                if (component.getId().contains("it19") || component.getId().contains("it3") || component.getId().contains("it10") || 
+                    component.getId().contains("it6") || component.getId().contains("it7") || component.getId().contains("it8") ||
+                    component.getId().contains("it9") || component.getId().contains("it1") || component.getId().contains("it4") ||
+                    component.getId().contains("it2") || component.getId().contains("it5"))
                     rit.setStyleClass("af_nonmandatoryfield");
 
             }
@@ -3295,7 +3520,6 @@ public class Alerts {
 
 
     public void unsubscribeAlert(ActionEvent actionEvent) {
-        // Add event code here...
         AlertsUnsubscribeRequest unsubscribeRequest = new AlertsUnsubscribeRequest();
         AlertsUnsubscribeResponse unsubscribeResponse = new AlertsUnsubscribeResponse();
 
@@ -3364,6 +3588,38 @@ public class Alerts {
         getBindings().getConfirmationPopup().hide();
     }
 
+    public void setOkVisibleForBusinessHr(Boolean okVisibleForBusinessHr) {
+        this.okVisibleForBusinessHr = okVisibleForBusinessHr;
+    }
+
+    public Boolean getOkVisibleForBusinessHr() {
+        return okVisibleForBusinessHr;
+    }
+
+    public void setEditVisibleForBusinessHr(Boolean editVisibleForBusinessHr) {
+        this.editVisibleForBusinessHr = editVisibleForBusinessHr;
+    }
+
+    public Boolean getEditVisibleForBusinessHr() {
+        return editVisibleForBusinessHr;
+    }
+
+    public void setOkVisibleForQuality(Boolean okVisibleForQuality) {
+        this.okVisibleForQuality = okVisibleForQuality;
+    }
+
+    public Boolean getOkVisibleForQuality() {
+        return okVisibleForQuality;
+    }
+
+    public void setEditVisibleForQuality(Boolean editVisibleForQuality) {
+        this.editVisibleForQuality = editVisibleForQuality;
+    }
+
+    public Boolean getEditVisibleForQuality() {
+        return editVisibleForQuality;
+    }
+
     public class Bindings {
         private RichPopup alert1Popup;
         private RichPopup alert2Popup;
@@ -3387,6 +3643,10 @@ public class Alerts {
         private RichCommandButton okButtonAlert2;
         private RichCommandButton cancelButtonAlert2;
         private RichPanelGroupLayout successAlert2;
+        private RichPanelGroupLayout successAlert3;
+        private RichPanelGroupLayout successAlert4;
+        private RichPanelGroupLayout invalidInputMsg;
+        private RichPanelGroupLayout invalidInputMsg3;
         private RichCommandButton closeButtonAlert2;
         private RichSelectManyChoice viewAlertDropdown;
         private RichSelectManyChoice viewAlertCardGroupDropdown;
@@ -3960,6 +4220,37 @@ public class Alerts {
             return cardSelectionPanel;
         }
 
+        public void setSuccessAlert3(RichPanelGroupLayout successAlert3) {
+            this.successAlert3 = successAlert3;
+        }
+
+        public RichPanelGroupLayout getSuccessAlert3() {
+            return successAlert3;
+        }
+
+        public void setSuccessAlert4(RichPanelGroupLayout successAlert4) {
+            this.successAlert4 = successAlert4;
+        }
+
+        public RichPanelGroupLayout getSuccessAlert4() {
+            return successAlert4;
+        }
+
+        public void setInvalidInputMsg(RichPanelGroupLayout invalidInputMsg) {
+            this.invalidInputMsg = invalidInputMsg;
+        }
+
+        public RichPanelGroupLayout getInvalidInputMsg() {
+            return invalidInputMsg;
+        }
+
+        public void setInvalidInputMsg3(RichPanelGroupLayout invalidInputMsg3) {
+            this.invalidInputMsg3 = invalidInputMsg3;
+        }
+
+        public RichPanelGroupLayout getInvalidInputMsg3() {
+            return invalidInputMsg3;
+        }
     }
 }
 

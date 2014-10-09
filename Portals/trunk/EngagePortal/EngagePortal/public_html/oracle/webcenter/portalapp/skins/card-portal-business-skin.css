@@ -5,6 +5,10 @@ af|statusIndicator::connected-icon, af|statusIndicator::disconnected-icon, af|st
 af|statusIndicator::connecting-icon, af|statusIndicator::processing-icon, af|statusIndicator::reconnecting-icon {
    content: url(/images/ajax-loader-new.gif);
  }
+ 
+ .af_mandatoryfield .af_inputText_content{
+     border: 1px solid red;
+ }
 
 /*Auto-Suggest UI*/
 
@@ -952,6 +956,7 @@ margin-top: 5px;
 .alertPopup1 .af_inputText_content{
     
     width:20px !important;
+    border:1px
 }
 
 .af_inputText_content, .WCInputText {
