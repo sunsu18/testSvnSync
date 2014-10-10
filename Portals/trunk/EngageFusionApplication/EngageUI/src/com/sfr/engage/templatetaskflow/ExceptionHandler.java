@@ -11,7 +11,7 @@ import oracle.adf.share.logging.ADFLogger;
 
 public class ExceptionHandler {
     public static final ADFLogger LOGGER = AccessDataControl.getSFRLogger();
-    AccessDataControl accessDC = new AccessDataControl();
+    private AccessDataControl accessDC = new AccessDataControl();
 
     public ExceptionHandler() {
     }
@@ -22,5 +22,13 @@ public class ExceptionHandler {
         message.setSeverity(FacesMessage.SEVERITY_WARN);
         FacesContext fc = FacesContext.getCurrentInstance();
         fc.addMessage(null, message);
+    }
+
+    public void setAccessDC(AccessDataControl accessDC) {
+        this.accessDC = accessDC;
+    }
+
+    public AccessDataControl getAccessDC() {
+        return accessDC;
     }
 }

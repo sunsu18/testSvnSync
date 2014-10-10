@@ -141,11 +141,11 @@ public class DriverInfoBean implements Serializable {
         isEditVisible = true;
         isEditDisable = false;
 
-        if (user.getRoleList().get(0).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR)) {
-            if (user.getRoleList().get(0).getIdString().get(0).contains("CG")) {
-                isEditVisible = false;
-                isEditDisable = true;
-            }
+        if (user.getRoleList().get(0).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR) && user.getRoleList().get(0).getIdString().get(0).contains("CG")) {
+
+            isEditVisible = false;
+            isEditDisable = true;
+
         }
 
         if (partnerInfoList != null && partnerInfoList.size() > 0) {

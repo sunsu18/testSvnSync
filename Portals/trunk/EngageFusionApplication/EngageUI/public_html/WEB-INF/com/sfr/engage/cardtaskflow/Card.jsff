@@ -139,7 +139,7 @@
           <af:spacer width="10" height="30" id="s6"/>
           <af:panelGroupLayout id="pgal1" halign="right" layout="horizontal">
             <af:commandButton text="#{sfr.SEARCH}" id="cb2"
-                              actionListener="#{pageFlowScope.CardBean.searchViewCardAction_event}"></af:commandButton>
+                              actionListener="#{pageFlowScope.CardBean.searchViewCardActionEvent}"></af:commandButton>
             <af:spacer width="10" height="10" id="s7"/>
             <af:commandButton text="#{sfr.CLEAR}" id="cb3"
                               actionListener="#{pageFlowScope.CardBean.clearSearchListener}"/>

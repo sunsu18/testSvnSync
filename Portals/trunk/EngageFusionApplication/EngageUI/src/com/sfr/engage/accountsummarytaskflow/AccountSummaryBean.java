@@ -136,38 +136,37 @@ public class AccountSummaryBean implements Serializable {
         LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside Constructor of Account Summary");
         RichTree tree = getBindings().getAdfTree();
         if (tree != null) {
-            RowKeySet _disclosedRowKeys = tree.getDisclosedRowKeys();
+            RowKeySet disclosedRowKeys = tree.getDisclosedRowKeys();
 
-            if (_disclosedRowKeys != null && _disclosedRowKeys.size() > 0) {
-                _disclosedRowKeys.clear();
+            if (disclosedRowKeys != null && disclosedRowKeys.size() > 0) {
+                disclosedRowKeys.clear();
             } else {
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " No key to disclose in adf tree");
             }
 
-            tree.setDisclosedRowKeys(_disclosedRowKeys);
+            tree.setDisclosedRowKeys(disclosedRowKeys);
         } else {
 
             ectx = FacesContext.getCurrentInstance().getExternalContext();
             request = (HttpServletRequest)ectx.getRequest();
             session = request.getSession(false);
 
-            if (session != null) {
+            if (session != null && session.getAttribute("profile") != null) {
 
-                if (session.getAttribute("profile") != null) {
 
-                    profile = (String)session.getAttribute("profile");
+                profile = (String)session.getAttribute("profile");
 
-                    if (profile.equalsIgnoreCase("business")) {
+                if (profile.equalsIgnoreCase("business")) {
 
-                        businessProfile = true;
-                        privateProfile = false;
-                    } else if (profile.equalsIgnoreCase("private")) {
+                    businessProfile = true;
+                    privateProfile = false;
+                } else if (profile.equalsIgnoreCase("private")) {
 
-                        businessProfile = false;
-                        privateProfile = true;
+                    businessProfile = false;
+                    privateProfile = true;
 
-                    }
                 }
+
             }
 
             if (session != null) {
@@ -175,15 +174,15 @@ public class AccountSummaryBean implements Serializable {
                 LOGGER.info(accessDC.getDisplayRecord() + " session not null getting adfTree from session");
                 if (session.getAttribute("adfTree") != null) {
                     tree = (RichTree)session.getAttribute("adfTree");
-                    RowKeySet _disclosedRowKeys = tree.getDisclosedRowKeys();
+                    RowKeySet disclosedRowKeys = tree.getDisclosedRowKeys();
 
-                    if (_disclosedRowKeys != null && _disclosedRowKeys.size() > 0) {
-                        _disclosedRowKeys.clear();
+                    if (disclosedRowKeys != null && disclosedRowKeys.size() > 0) {
+                        disclosedRowKeys.clear();
                     } else {
 
                         LOGGER.info(accessDC.getDisplayRecord() + " No key to disclose in adf tree");
                     }
-                    tree.setDisclosedRowKeys(_disclosedRowKeys);
+                    tree.setDisclosedRowKeys(disclosedRowKeys);
                 } else {
 
                     LOGGER.info(accessDC.getDisplayRecord() + " Session is not null but still adf tree is null it may be due to first hit on Account Summary");
@@ -434,92 +433,92 @@ public class AccountSummaryBean implements Serializable {
         RichTree treereset;
         treereset = getBindings().getAdfTree();
         if (treereset != null) {
-            RowKeySet _disclosedRowKeys = treereset.getDisclosedRowKeys();
+            RowKeySet disclosedRowKeys = treereset.getDisclosedRowKeys();
 
-            if (_disclosedRowKeys != null && _disclosedRowKeys.size() > 0) {
-                _disclosedRowKeys.clear();
+            if (disclosedRowKeys != null && disclosedRowKeys.size() > 0) {
+                disclosedRowKeys.clear();
             } else {
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " No key to disclose in adf tree");
             }
-            treereset.setDisclosedRowKeys(_disclosedRowKeys);
+            treereset.setDisclosedRowKeys(disclosedRowKeys);
         }
 
         treereset = getBlockcardshiddentree();
         if (treereset != null) {
-            RowKeySet _disclosedRowKeys = treereset.getDisclosedRowKeys();
+            RowKeySet disclosedRowKeys = treereset.getDisclosedRowKeys();
 
-            if (_disclosedRowKeys != null && _disclosedRowKeys.size() > 0) {
-                _disclosedRowKeys.clear();
+            if (disclosedRowKeys != null && disclosedRowKeys.size() > 0) {
+                disclosedRowKeys.clear();
             } else {
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " No key to disclose in getBlockcardshiddentree tree");
             }
-            treereset.setDisclosedRowKeys(_disclosedRowKeys);
+            treereset.setDisclosedRowKeys(disclosedRowKeys);
 
         }
 
         treereset = getOnlyactivecardstree();
         if (treereset != null) {
-            RowKeySet _disclosedRowKeys = treereset.getDisclosedRowKeys();
+            RowKeySet disclosedRowKeys = treereset.getDisclosedRowKeys();
 
-            if (_disclosedRowKeys != null && _disclosedRowKeys.size() > 0) {
-                _disclosedRowKeys.clear();
+            if (disclosedRowKeys != null && disclosedRowKeys.size() > 0) {
+                disclosedRowKeys.clear();
             } else {
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " No key to disclose in getOnlyactivecardstree tree");
             }
-            treereset.setDisclosedRowKeys(_disclosedRowKeys);
+            treereset.setDisclosedRowKeys(disclosedRowKeys);
 
         }
 
         treereset = getOnlytempblockedcardstree();
         if (treereset != null) {
-            RowKeySet _disclosedRowKeys = treereset.getDisclosedRowKeys();
+            RowKeySet disclosedRowKeys = treereset.getDisclosedRowKeys();
 
-            if (_disclosedRowKeys != null && _disclosedRowKeys.size() > 0) {
-                _disclosedRowKeys.clear();
+            if (disclosedRowKeys != null && disclosedRowKeys.size() > 0) {
+                disclosedRowKeys.clear();
             } else {
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " No key to disclose in getOnlytempblockedcardstree tree");
             }
-            treereset.setDisclosedRowKeys(_disclosedRowKeys);
+            treereset.setDisclosedRowKeys(disclosedRowKeys);
 
         }
 
         treereset = getOnlyblockedcardstree();
         if (treereset != null) {
-            RowKeySet _disclosedRowKeys = treereset.getDisclosedRowKeys();
+            RowKeySet disclosedRowKeys = treereset.getDisclosedRowKeys();
 
-            if (_disclosedRowKeys != null && _disclosedRowKeys.size() > 0) {
-                _disclosedRowKeys.clear();
+            if (disclosedRowKeys != null && disclosedRowKeys.size() > 0) {
+                disclosedRowKeys.clear();
             } else {
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " No key to disclose in getOnlyblockedcardstree tree");
             }
-            treereset.setDisclosedRowKeys(_disclosedRowKeys);
+            treereset.setDisclosedRowKeys(disclosedRowKeys);
 
         }
 
 
         treereset = getPermblockedandactivecardstree();
         if (treereset != null) {
-            RowKeySet _disclosedRowKeys = treereset.getDisclosedRowKeys();
+            RowKeySet disclosedRowKeys = treereset.getDisclosedRowKeys();
 
-            if (_disclosedRowKeys != null && _disclosedRowKeys.size() > 0) {
-                _disclosedRowKeys.clear();
+            if (disclosedRowKeys != null && disclosedRowKeys.size() > 0) {
+                disclosedRowKeys.clear();
             } else {
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " No key to disclose in getPermblockedandactivecardstree tree");
             }
-            treereset.setDisclosedRowKeys(_disclosedRowKeys);
+            treereset.setDisclosedRowKeys(disclosedRowKeys);
 
         }
 
         treereset = getPermblockedandtempblockedcardstree();
         if (treereset != null) {
-            RowKeySet _disclosedRowKeys = treereset.getDisclosedRowKeys();
+            RowKeySet disclosedRowKeys = treereset.getDisclosedRowKeys();
 
-            if (_disclosedRowKeys != null && _disclosedRowKeys.size() > 0) {
-                _disclosedRowKeys.clear();
+            if (disclosedRowKeys != null && disclosedRowKeys.size() > 0) {
+                disclosedRowKeys.clear();
             } else {
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " No key to disclose in getPermblockedandtempblockedcardstree tree");
             }
-            treereset.setDisclosedRowKeys(_disclosedRowKeys);
+            treereset.setDisclosedRowKeys(disclosedRowKeys);
 
         }
 
@@ -717,15 +716,15 @@ public class AccountSummaryBean implements Serializable {
             } else {
 
                 if (tree1 != null) {
-                    RowKeySet _disclosedRowKeys = tree1.getDisclosedRowKeys();
+                    RowKeySet disclosedRowKeys = tree1.getDisclosedRowKeys();
 
-                    if (_disclosedRowKeys != null && _disclosedRowKeys.size() > 0) {
-                        _disclosedRowKeys.clear();
+                    if (disclosedRowKeys != null && disclosedRowKeys.size() > 0) {
+                        disclosedRowKeys.clear();
 
                     } else {
                         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " No key to disclose in adf tree");
                     }
-                    tree1.setDisclosedRowKeys(_disclosedRowKeys);
+                    tree1.setDisclosedRowKeys(disclosedRowKeys);
                     AdfFacesContext.getCurrentInstance().addPartialTarget(tree1);
                     if (getBindings().getAdfTree() != null) {
                         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAdfTree());
@@ -1940,7 +1939,7 @@ public class AccountSummaryBean implements Serializable {
                     }
                 }
                 if (cardTypeList.size() > 0) {
-                    displayCardTypeName = displayCardTypeName.substring(0, displayCardTypeName.length() - 5);
+                    displayCardTypeName = displayCardTypeName.substring(0, displayCardTypeName.length() - Constants.FIVE);
                 }
 
             }
@@ -2091,13 +2090,15 @@ public class AccountSummaryBean implements Serializable {
             soc = (RichSelectManyChoice)component;
             if (status) {
                 soc.setContentStyle("af_mandatoryfield");
-                if (component.getId().contains("smc1"))
+                if (component.getId().contains("smc1")) {
                     soc.setContentStyle("af_mandatoryfield");
+                }
 
             } else {
                 soc.setContentStyle("af_nonmandatoryfield");
-                if (component.getId().contains("smc1"))
+                if (component.getId().contains("smc1")) {
                     soc.setContentStyle("af_nonmandatoryfield");
+                }
             }
             AdfFacesContext.getCurrentInstance().addPartialTarget(soc);
         }
@@ -2106,13 +2107,15 @@ public class AccountSummaryBean implements Serializable {
             soc1 = (RichSelectOneChoice)component;
             if (status) {
                 soc1.setContentStyle("af_mandatoryfield");
-                if (component.getId().contains("sml1"))
+                if (component.getId().contains("sml1")) {
                     soc1.setContentStyle("af_mandatoryfield");
+                }
 
             } else {
                 soc1.setContentStyle("af_nonmandatoryfield");
-                if (component.getId().contains("sml1"))
+                if (component.getId().contains("sml1")) {
                     soc1.setContentStyle("af_nonmandatoryfield");
+                }
             }
             AdfFacesContext.getCurrentInstance().addPartialTarget(soc1);
         }

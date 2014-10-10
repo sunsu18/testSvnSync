@@ -43,7 +43,7 @@ public class HelpInfoBean implements Serializable {
     public static final ADFLogger LOGGER = AccessDataControl.getSFRLogger();
     private RichSpacer getContactLink;
     private RichGoLink contactSELink;
-    private final int three = 3;
+
 
     public HelpInfoBean() {
         LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside Constructor of HelpInfo Bean");
@@ -54,7 +54,7 @@ public class HelpInfoBean implements Serializable {
         if (session.getAttribute(Constants.userLang) != null) {
             countryPortal = (String)session.getAttribute(Constants.userLang);
         } else {
-            countryPortal = (String)session.getAttribute(Constants.LANG_LITERAL).toString().substring(three);
+            countryPortal = (String)session.getAttribute(Constants.LANG_LITERAL).toString().substring(Constants.THREE);
         }
 
         if (session.getAttribute(Constants.HELPLIST + countryPortal) == null) {
@@ -68,7 +68,7 @@ public class HelpInfoBean implements Serializable {
                 portal = Constants.ENGAGE;
             } else {
 
-                countryPortal = (String)session.getAttribute(Constants.LANG_LITERAL).toString().substring(three);
+                countryPortal = (String)session.getAttribute(Constants.LANG_LITERAL).toString().substring(Constants.THREE);
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Session not null and countryPortal from url is " + countryPortal);
                 langPortal = (String)session.getAttribute(Constants.LANG_LITERAL);
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Session not null and lang of Portal from url is " + langPortal);

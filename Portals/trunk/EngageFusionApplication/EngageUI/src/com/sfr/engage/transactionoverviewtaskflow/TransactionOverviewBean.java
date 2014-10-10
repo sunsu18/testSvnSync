@@ -176,10 +176,10 @@ public class TransactionOverviewBean implements Serializable {
     public static final ADFLogger LOGGER = AccessDataControl.getSFRLogger();
     private AccessDataControl accessDC = new AccessDataControl();
     private String cardGroupRadio = Constants.CARD_GROUP_LITERAL;
-    private static final String PRTEXPORTINFORVO1ITERATOR_LITRERAL = "PrtExportInfoRVO1Iterator";
-    private static final String SELECT_CRITERIA_LITRERAL = "select_Criteria";
-    private static final String PRT_CARD_PK_LITRERAL = "PrtCardPk";
-    private static final String PURCHASE_COUNTRY_CODE_LITRERAL = "purchaseCountryCode";
+    private static final String PRTEXPORTINFORVO1ITERATORLITRERAL = "PrtExportInfoRVO1Iterator";
+    private static final String SELECTCRITERIALITRERAL = "select_Criteria";
+    private static final String PRTCARDPKLITRERAL = "PrtCardPk";
+    private static final String PURCHASECOUNTRYCODELITRERAL = "purchaseCountryCode";
     private boolean showDriverCode = false;
 
 
@@ -190,7 +190,6 @@ public class TransactionOverviewBean implements Serializable {
         HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
         conversionUtility = new Conversion();
-        //resourceBundle = new EngageResourceBundle();
         accountIdList = new ArrayList<SelectItem>();
         terminalValue = new ArrayList<String>();
         typeValue = new ArrayList<String>();
@@ -414,15 +413,12 @@ public class TransactionOverviewBean implements Serializable {
                 driverNameValue = new ArrayList<String>();
 
             }
-            //        getBindings().getCardCardGrpDrVhOneRadio().setValue(null);
-            //        getBindings().getCardCardGrpDrVhOneRadio().setSubmittedValue(null);
 
             cardIdPGL = false;
             cardGPGL = true;
             vNumberPGL = false;
             dNamePGL = false;
             getBindings().getCardCardGrpDrVhOneRadio().setValue("CardGroup");
-            //        cardGroupRadio = null;
             if (isTableVisible) {
                 isTableVisible = false;
             }
@@ -568,11 +564,11 @@ public class TransactionOverviewBean implements Serializable {
             }
             if (Constants.CARD_GROUP_LITERAL.equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
                 shuttleValue = new ArrayList();
-                ViewObject prtExportInfoRVO = ADFUtils.getViewObject(PRTEXPORTINFORVO1ITERATOR_LITRERAL);
+                ViewObject prtExportInfoRVO = ADFUtils.getViewObject(PRTEXPORTINFORVO1ITERATORLITRERAL);
                 prtExportInfoRVO.setNamedWhereClauseParam(Constants.COUNTRY_CODE_LITERAL, langDB);
                 prtExportInfoRVO.setNamedWhereClauseParam(Constants.REPORT_PAGE_LITERAL, Constants.TRANSACTION_LITERAL);
                 prtExportInfoRVO.setNamedWhereClauseParam(Constants.REPORT_TYPE_LITERAL, getBindings().getReportFormat().getValue().toString());
-                prtExportInfoRVO.setNamedWhereClauseParam(SELECT_CRITERIA_LITRERAL, getBindings().getCardCardGrpDrVhOneRadio().getValue().toString());
+                prtExportInfoRVO.setNamedWhereClauseParam(SELECTCRITERIALITRERAL, getBindings().getCardCardGrpDrVhOneRadio().getValue().toString());
                 prtExportInfoRVO.executeQuery();
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count in CardGroup shuttle:" +
                             prtExportInfoRVO.getEstimatedRowCount());
@@ -595,11 +591,11 @@ public class TransactionOverviewBean implements Serializable {
                 }
             } else if (Constants.CARD_LITERAL.equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
                 shuttleValue = new ArrayList();
-                ViewObject prtExportInfoRVO = ADFUtils.getViewObject(PRTEXPORTINFORVO1ITERATOR_LITRERAL);
+                ViewObject prtExportInfoRVO = ADFUtils.getViewObject(PRTEXPORTINFORVO1ITERATORLITRERAL);
                 prtExportInfoRVO.setNamedWhereClauseParam(Constants.COUNTRY_CODE_LITERAL, langDB);
                 prtExportInfoRVO.setNamedWhereClauseParam(Constants.REPORT_PAGE_LITERAL, Constants.TRANSACTION_LITERAL);
                 prtExportInfoRVO.setNamedWhereClauseParam(Constants.REPORT_TYPE_LITERAL, getBindings().getReportFormat().getValue().toString());
-                prtExportInfoRVO.setNamedWhereClauseParam(SELECT_CRITERIA_LITRERAL, getBindings().getCardCardGrpDrVhOneRadio().getValue().toString());
+                prtExportInfoRVO.setNamedWhereClauseParam(SELECTCRITERIALITRERAL, getBindings().getCardCardGrpDrVhOneRadio().getValue().toString());
                 prtExportInfoRVO.executeQuery();
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count in Card shuttle:" +
                             prtExportInfoRVO.getEstimatedRowCount());
@@ -621,11 +617,11 @@ public class TransactionOverviewBean implements Serializable {
                 }
             } else if (Constants.VEHICLE_LITERAL.equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
                 shuttleValue = new ArrayList();
-                ViewObject prtExportInfoRVO = ADFUtils.getViewObject(PRTEXPORTINFORVO1ITERATOR_LITRERAL);
+                ViewObject prtExportInfoRVO = ADFUtils.getViewObject(PRTEXPORTINFORVO1ITERATORLITRERAL);
                 prtExportInfoRVO.setNamedWhereClauseParam(Constants.COUNTRY_CODE_LITERAL, langDB);
                 prtExportInfoRVO.setNamedWhereClauseParam(Constants.REPORT_PAGE_LITERAL, Constants.TRANSACTION_LITERAL);
                 prtExportInfoRVO.setNamedWhereClauseParam(Constants.REPORT_TYPE_LITERAL, getBindings().getReportFormat().getValue().toString());
-                prtExportInfoRVO.setNamedWhereClauseParam(SELECT_CRITERIA_LITRERAL, getBindings().getCardCardGrpDrVhOneRadio().getValue().toString());
+                prtExportInfoRVO.setNamedWhereClauseParam(SELECTCRITERIALITRERAL, getBindings().getCardCardGrpDrVhOneRadio().getValue().toString());
                 prtExportInfoRVO.executeQuery();
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count in vehicle shuttle:" +
                             prtExportInfoRVO.getEstimatedRowCount());
@@ -643,11 +639,11 @@ public class TransactionOverviewBean implements Serializable {
                 }
             } else {
                 shuttleValue = new ArrayList();
-                ViewObject prtExportInfoRVO = ADFUtils.getViewObject(PRTEXPORTINFORVO1ITERATOR_LITRERAL);
+                ViewObject prtExportInfoRVO = ADFUtils.getViewObject(PRTEXPORTINFORVO1ITERATORLITRERAL);
                 prtExportInfoRVO.setNamedWhereClauseParam(Constants.COUNTRY_CODE_LITERAL, langDB);
                 prtExportInfoRVO.setNamedWhereClauseParam(Constants.REPORT_PAGE_LITERAL, Constants.TRANSACTION_LITERAL);
                 prtExportInfoRVO.setNamedWhereClauseParam(Constants.REPORT_TYPE_LITERAL, getBindings().getReportFormat().getValue().toString());
-                prtExportInfoRVO.setNamedWhereClauseParam(SELECT_CRITERIA_LITRERAL, getBindings().getCardCardGrpDrVhOneRadio().getValue().toString());
+                prtExportInfoRVO.setNamedWhereClauseParam(SELECTCRITERIALITRERAL, getBindings().getCardCardGrpDrVhOneRadio().getValue().toString());
                 prtExportInfoRVO.executeQuery();
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count in Driver shuttle:" +
                             prtExportInfoRVO.getEstimatedRowCount());
@@ -863,9 +859,9 @@ public class TransactionOverviewBean implements Serializable {
                                         if (currRow.getPrtCardPk() != null) {
                                             SelectItem selectItem = new SelectItem();
                                             selectItem.setLabel(currRow.getAttribute("VehicleNumber").toString());
-                                            selectItem.setValue(currRow.getAttribute(PRT_CARD_PK_LITRERAL).toString());
+                                            selectItem.setValue(currRow.getAttribute(PRTCARDPKLITRERAL).toString());
                                             vehicleNumberList.add(selectItem);
-                                            vehicleNumberValue.add(currRow.getAttribute(PRT_CARD_PK_LITRERAL).toString());
+                                            vehicleNumberValue.add(currRow.getAttribute(PRTCARDPKLITRERAL).toString());
                                         } else {
                                             if (currRow.getReferenceNumber() != null) {
                                                 SelectItem selectItem = new SelectItem();
@@ -963,9 +959,9 @@ public class TransactionOverviewBean implements Serializable {
                                         if (currRow.getPrtCardPk() != null) {
                                             SelectItem selectItem = new SelectItem();
                                             selectItem.setLabel(currRow.getAttribute("DriverName").toString());
-                                            selectItem.setValue(currRow.getAttribute(PRT_CARD_PK_LITRERAL).toString());
+                                            selectItem.setValue(currRow.getAttribute(PRTCARDPKLITRERAL).toString());
                                             driverNameList.add(selectItem);
-                                            driverNameValue.add(currRow.getAttribute(PRT_CARD_PK_LITRERAL).toString());
+                                            driverNameValue.add(currRow.getAttribute(PRTCARDPKLITRERAL).toString());
                                         } else {
                                             if (currRow.getReferenceNumber() != null) {
                                                 SelectItem selectItem = new SelectItem();
@@ -1127,7 +1123,7 @@ public class TransactionOverviewBean implements Serializable {
                         vo.removeNamedWhereClauseParam("card");
                         vo.removeNamedWhereClauseParam(Constants.CARD2ID_LITERAL);
                     }
-                    vo.removeNamedWhereClauseParam(PURCHASE_COUNTRY_CODE_LITRERAL);
+                    vo.removeNamedWhereClauseParam(PURCHASECOUNTRYCODELITRERAL);
                     vo.setWhereClause("");
                     vo.executeQuery();
                 } else {
@@ -1182,7 +1178,7 @@ public class TransactionOverviewBean implements Serializable {
                         } else {
                             vo.removeNamedWhereClauseParam("cardGroup");
                         }
-                        vo.removeNamedWhereClauseParam(PURCHASE_COUNTRY_CODE_LITRERAL);
+                        vo.removeNamedWhereClauseParam(PURCHASECOUNTRYCODELITRERAL);
                         vo.setWhereClause("");
                         vo.executeQuery();
                     } else {
@@ -1281,7 +1277,7 @@ public class TransactionOverviewBean implements Serializable {
                                 vo.defineNamedWhereClauseParam("card", cardNumberPasingValues, null);
                                 vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL, cardNumberPasingValues, null);
                             }
-                            vo.defineNamedWhereClauseParam(PURCHASE_COUNTRY_CODE_LITRERAL, lang, null);
+                            vo.defineNamedWhereClauseParam(PURCHASECOUNTRYCODELITRERAL, lang, null);
                         } else {
                             if (cardNumberValue.size() > Constants.ONEFIFTY) {
                                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values > 150 ");
@@ -1362,7 +1358,7 @@ public class TransactionOverviewBean implements Serializable {
                                 vo.defineNamedWhereClauseParam("card", cardNumberPasingValues, null);
                                 vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL, cardNumberPasingValues, null);
                             }
-                            vo.defineNamedWhereClauseParam(PURCHASE_COUNTRY_CODE_LITRERAL, lang, null);
+                            vo.defineNamedWhereClauseParam(PURCHASECOUNTRYCODELITRERAL, lang, null);
                         } else {
                             if (vehicleNumberValue.size() > Constants.ONEFIFTY) {
                                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Vehicle Values > 150 ");
@@ -1445,7 +1441,7 @@ public class TransactionOverviewBean implements Serializable {
                                     vo.defineNamedWhereClauseParam("card", cardNumberPasingValues, null);
                                     vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL, cardNumberPasingValues, null);
                                 }
-                                vo.defineNamedWhereClauseParam(PURCHASE_COUNTRY_CODE_LITRERAL, lang, null);
+                                vo.defineNamedWhereClauseParam(PURCHASECOUNTRYCODELITRERAL, lang, null);
                             } else {
                                 if (driverNameValue.size() > Constants.ONEFIFTY) {
                                     LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Driver Values > 150 ");
@@ -1518,7 +1514,7 @@ public class TransactionOverviewBean implements Serializable {
                             vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
                             vo.defineNamedWhereClauseParam("cardGroup", populateStringValues(getBindings().getCardGroup().getValue().toString()), null);
                         }
-                        vo.defineNamedWhereClauseParam(PURCHASE_COUNTRY_CODE_LITRERAL, lang, null);
+                        vo.defineNamedWhereClauseParam(PURCHASECOUNTRYCODELITRERAL, lang, null);
 
                     } else {
                         if (cardGroupValue.size() > Constants.ONEFIFTY) {
@@ -1821,7 +1817,7 @@ public class TransactionOverviewBean implements Serializable {
                     for (int i = 0; i < partnerInfoList.get(z).getAccountList().size(); i++) {
                         for (int j = 0; j < accountString.length; j++) {
                             if (partnerInfoList.get(z).getAccountList().get(i).getAccountNumber() != null &&
-                                partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString().trim().equals(accountString[j].toString().trim())) {
+                                partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().trim().equals(accountString[j].toString().trim())) {
                                 if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup() != null &&
                                     partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size() > 0) {
                                     for (int k = 0; k < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size(); k++) {
@@ -1849,7 +1845,7 @@ public class TransactionOverviewBean implements Serializable {
             cardIdPGL = false;
             dNamePGL = false;
             vNumberPGL = false;
-            getBindings().getCardCardGrpDrVhOneRadio().setValue("CardGroup"); //for setting radio button to defult
+            getBindings().getCardCardGrpDrVhOneRadio().setValue("CardGroup");
 
             if (isTableVisible) {
                 isTableVisible = false;
@@ -1866,8 +1862,6 @@ public class TransactionOverviewBean implements Serializable {
 
 
         else {
-            //            getBindings().getCardCardGrpDrVhOneRadio().setValue(null);
-            //            getBindings().getCardCardGrpDrVhOneRadio().setSubmittedValue(null);
             getBindings().getCardCardGrpDrVhOneRadio().setValue("CardGroup");
             cardNumberList = new ArrayList<SelectItem>();
             cardNumberValue = new ArrayList<String>();
@@ -2060,7 +2054,7 @@ public class TransactionOverviewBean implements Serializable {
         return lang;
     }
 
-    public void specificExportExcelListener(FacesContext facesContext, OutputStream outputStream) throws IOException, SQLException, Exception {
+    public void specificExportExcelListener(FacesContext facesContext, OutputStream outputStream) throws IOException, SQLException {
         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Entering getValues..");
         String selectedValues = "";
         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Size ==" + shuttleValue.size());
@@ -3055,11 +3049,11 @@ public class TransactionOverviewBean implements Serializable {
             langDB = langDB.toUpperCase();
         }
         if (Constants.CARD_GROUP_LITERAL.equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
-            ViewObject prtExportInfoRVO = ADFUtils.getViewObject(PRTEXPORTINFORVO1ITERATOR_LITRERAL);
+            ViewObject prtExportInfoRVO = ADFUtils.getViewObject(PRTEXPORTINFORVO1ITERATORLITRERAL);
             prtExportInfoRVO.setNamedWhereClauseParam(Constants.COUNTRY_CODE_LITERAL, langDB);
             prtExportInfoRVO.setNamedWhereClauseParam(Constants.REPORT_PAGE_LITERAL, Constants.TRANSACTION_LITERAL);
             prtExportInfoRVO.setNamedWhereClauseParam(Constants.REPORT_TYPE_LITERAL, getBindings().getReportFormat().getValue().toString());
-            prtExportInfoRVO.setNamedWhereClauseParam(SELECT_CRITERIA_LITRERAL, getBindings().getCardCardGrpDrVhOneRadio().getValue().toString());
+            prtExportInfoRVO.setNamedWhereClauseParam(SELECTCRITERIALITRERAL, getBindings().getCardCardGrpDrVhOneRadio().getValue().toString());
             prtExportInfoRVO.executeQuery();
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count in CardGroup:" +
                         prtExportInfoRVO.getEstimatedRowCount());
@@ -3081,11 +3075,11 @@ public class TransactionOverviewBean implements Serializable {
                 }
             }
         } else if (Constants.CARD_LITERAL.equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
-            ViewObject prtExportInfoRVO = ADFUtils.getViewObject(PRTEXPORTINFORVO1ITERATOR_LITRERAL);
+            ViewObject prtExportInfoRVO = ADFUtils.getViewObject(PRTEXPORTINFORVO1ITERATORLITRERAL);
             prtExportInfoRVO.setNamedWhereClauseParam(Constants.COUNTRY_CODE_LITERAL, langDB);
             prtExportInfoRVO.setNamedWhereClauseParam(Constants.REPORT_PAGE_LITERAL, Constants.TRANSACTION_LITERAL);
             prtExportInfoRVO.setNamedWhereClauseParam(Constants.REPORT_TYPE_LITERAL, getBindings().getReportFormat().getValue().toString());
-            prtExportInfoRVO.setNamedWhereClauseParam(SELECT_CRITERIA_LITRERAL, getBindings().getCardCardGrpDrVhOneRadio().getValue().toString());
+            prtExportInfoRVO.setNamedWhereClauseParam(SELECTCRITERIALITRERAL, getBindings().getCardCardGrpDrVhOneRadio().getValue().toString());
             prtExportInfoRVO.executeQuery();
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count in Card:" +
                         prtExportInfoRVO.getEstimatedRowCount());
@@ -3107,11 +3101,11 @@ public class TransactionOverviewBean implements Serializable {
                 }
             }
         } else if (Constants.VEHICLE_LITERAL.equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
-            ViewObject prtExportInfoRVO = ADFUtils.getViewObject(PRTEXPORTINFORVO1ITERATOR_LITRERAL);
+            ViewObject prtExportInfoRVO = ADFUtils.getViewObject(PRTEXPORTINFORVO1ITERATORLITRERAL);
             prtExportInfoRVO.setNamedWhereClauseParam(Constants.COUNTRY_CODE_LITERAL, langDB);
             prtExportInfoRVO.setNamedWhereClauseParam(Constants.REPORT_PAGE_LITERAL, Constants.TRANSACTION_LITERAL);
             prtExportInfoRVO.setNamedWhereClauseParam(Constants.REPORT_TYPE_LITERAL, getBindings().getReportFormat().getValue().toString());
-            prtExportInfoRVO.setNamedWhereClauseParam(SELECT_CRITERIA_LITRERAL, getBindings().getCardCardGrpDrVhOneRadio().getValue().toString());
+            prtExportInfoRVO.setNamedWhereClauseParam(SELECTCRITERIALITRERAL, getBindings().getCardCardGrpDrVhOneRadio().getValue().toString());
             prtExportInfoRVO.executeQuery();
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count in Vehicle:" +
                         prtExportInfoRVO.getEstimatedRowCount());
@@ -3133,11 +3127,11 @@ public class TransactionOverviewBean implements Serializable {
                 }
             }
         } else {
-            ViewObject prtExportInfoRVO = ADFUtils.getViewObject(PRTEXPORTINFORVO1ITERATOR_LITRERAL);
+            ViewObject prtExportInfoRVO = ADFUtils.getViewObject(PRTEXPORTINFORVO1ITERATORLITRERAL);
             prtExportInfoRVO.setNamedWhereClauseParam(Constants.COUNTRY_CODE_LITERAL, langDB);
             prtExportInfoRVO.setNamedWhereClauseParam(Constants.REPORT_PAGE_LITERAL, Constants.TRANSACTION_LITERAL);
             prtExportInfoRVO.setNamedWhereClauseParam(Constants.REPORT_TYPE_LITERAL, getBindings().getReportFormat().getValue().toString());
-            prtExportInfoRVO.setNamedWhereClauseParam(SELECT_CRITERIA_LITRERAL, getBindings().getCardCardGrpDrVhOneRadio().getValue().toString());
+            prtExportInfoRVO.setNamedWhereClauseParam(SELECTCRITERIALITRERAL, getBindings().getCardCardGrpDrVhOneRadio().getValue().toString());
             prtExportInfoRVO.executeQuery();
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count in Driver:" +
                         prtExportInfoRVO.getEstimatedRowCount());
@@ -3270,15 +3264,17 @@ public class TransactionOverviewBean implements Serializable {
                 soc.setStyleClass("af_mandatoryfield");
                 if (component.getId().contains("smc1") || component.getId().contains("soc3") || component.getId().contains("smc2") ||
                     component.getId().contains("smc3") || component.getId().contains("smc4") || component.getId().contains("smc5") ||
-                    component.getId().contains("smc6"))
+                    component.getId().contains("smc6")) {
                     soc.setStyleClass("af_mandatoryfield");
+                }
 
             } else {
                 soc.setStyleClass("af_nonmandatoryfield");
                 if (component.getId().contains("smc1") || component.getId().contains("soc3") || component.getId().contains("smc2") ||
                     component.getId().contains("smc3") || component.getId().contains("smc4") || component.getId().contains("smc5") ||
-                    component.getId().contains("smc6"))
+                    component.getId().contains("smc6")) {
                     soc.setStyleClass("af_nonmandatoryfield");
+                }
             }
             AdfFacesContext.getCurrentInstance().addPartialTarget(soc);
         }

@@ -2,6 +2,7 @@
 <JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.61.92" id="Roles" Package="com.sfr.core.bean" BeanClass="com.sfr.core.bean.Roles"
           isJavaBased="true">
   <Attribute Name="roleName" Type="java.lang.String"/>
+  <Attribute Name="engageRoleTypeAssociation" Type="java.lang.String"/>
   <AccessorAttribute id="customerID" IsCollection="true" Type="java.util.List" CollectionBeanClass="UpdateableCollection">
     <Attribute Name="element" Type="java.lang.Integer"/>
   </AccessorAttribute>

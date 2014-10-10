@@ -31,6 +31,7 @@ import java.sql.Timestamp;
 
 import java.text.DateFormat;
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
@@ -127,7 +128,6 @@ public class InvoiceOverviewBean implements Serializable {
     private boolean isTransactionVisible = true;
     private boolean isInvoiceCollectionVisible = false;
     private String toRecipient = null;
-    private emailbean email;
     private User globalUser = new User();
     private String partnerReq;
     private RichSpacer spacerFetchUserEmail;
@@ -176,27 +176,26 @@ public class InvoiceOverviewBean implements Serializable {
     private String transactionStandardExtraTransaction;
     private boolean showNonCollectiveInvoicePanel = false;
     private String invoiceType;
-    private static final String PRTNEWINVOICEVO1ITERATOR_LITRERAL = "PrtNewInvoiceVO1Iterator";
-    private static final String PRTCARDTRANSACTIONINVOICERVO1ITERATOR_LITRERAL = "PrtCardTransactionInvoiceRVO1Iterator";
-    private static final String PRTEXPORTINFORVO1ITERATOR_LITRERAL = "PrtExportInfoRVO1Iterator";
-    private static final String SELECT_CRITERIA_LITRERAL = "select_Criteria";
-    private static final String ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN_LITRERAL = "ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN";
-    private static final String TRANSACTION_REPORT_LITRERAL = "Transaction_Report.csv";
-    private static final String CSV2_LITRERAL = "csv2";
-    private static final String PRINTING_DATA_LITRERAL = "Printing Data";
-    private static final String LANG_REPORT_LITRERAL = "langReport";
-    private static final String TRANSACTION_SPECIFIC_ERROR_DB_LITRERAL = "TRANSACTION_SPECIFIC_ERROR_DB";
-    private static final String INVOICE_CONTENT_LIST_LITRERAL = "ucmInvoiceContentList";
+    private static final String PRTNEWINVOICEVO1ITERATORLITRERAL = "PrtNewInvoiceVO1Iterator";
+    private static final String PRTCARDTRANSACTIONINVOICERVO1ITERATORLITRERAL = "PrtCardTransactionInvoiceRVO1Iterator";
+    private static final String PRTEXPORTINFORVO1ITERATORLITRERAL = "PrtExportInfoRVO1Iterator";
+    private static final String SELECT_CRITERIALITRERAL = "select_Criteria";
+    private static final String ENGAGENOTEALLPRICESBELOWAREINLITRERAL = "ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN";
+    private static final String TRANSACTIONREPORTLITRERAL = "Transaction_Report.csv";
+    private static final String CSV2LITRERAL = "csv2";
+    private static final String PRINTINGDATALITRERAL = "Printing Data";
+    private static final String LANGREPORTLITRERAL = "langReport";
+    private static final String TRANSACTIONSPECIFICERRORDBLITRERAL = "TRANSACTION_SPECIFIC_ERROR_DB";
+    private static final String INVOICECONTENTLISTLITRERAL = "ucmInvoiceContentList";
 
 
     public InvoiceOverviewBean() {
         super();
-        email = new emailbean();
+        emailbean email = new emailbean();
         conversionUtility = new Conversion();
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
-        //resourceBundle = new EngageResourceBundle();
         partnerList = new ArrayList<SelectItem>();
         partnerValue = new ArrayList<String>();
         accountList = new ArrayList<SelectItem>();
@@ -254,7 +253,7 @@ public class InvoiceOverviewBean implements Serializable {
                                     cGCardVisible = true;
                                     cardGroupVisible = true;
                                     cardVisible = false;
-                                    //                                    Collections.sort(cardGroupList, comparator);
+
 
                                 }
                             }
@@ -424,7 +423,7 @@ public class InvoiceOverviewBean implements Serializable {
                     LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "getCard=" + getBindings().getCard().getValue());
                     LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "ToDate=" + getBindings().getToDate().getValue());
                     LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "FromDate =" + newFromDate + "To Date = " + newToDate);
-                    ViewObject invoiceVO = ADFUtils.getViewObject(PRTNEWINVOICEVO1ITERATOR_LITRERAL);
+                    ViewObject invoiceVO = ADFUtils.getViewObject(PRTNEWINVOICEVO1ITERATORLITRERAL);
                     LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Before Query=" + invoiceVO.getQuery());
 
 
@@ -624,7 +623,6 @@ public class InvoiceOverviewBean implements Serializable {
         } else {
 
 
-            //           cardGroupRadio = "CardGroup";
             if (getBindings().getPartnerNumber().getValue() == null) {
                 displayErrorComponent(getBindings().getPartnerNumber(), true);
             }
@@ -712,7 +710,7 @@ public class InvoiceOverviewBean implements Serializable {
         LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "inside invoiceDetailsCancel for Invoices");
         defaultSelection = Constants.TRANSACTIONS__LITERAL;
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRadioBtnPopUp());
-        ViewObject cardTransactionVO = ADFUtils.getViewObject(PRTCARDTRANSACTIONINVOICERVO1ITERATOR_LITRERAL);
+        ViewObject cardTransactionVO = ADFUtils.getViewObject(PRTCARDTRANSACTIONINVOICERVO1ITERATORLITRERAL);
         if ("INVOICE_NUMBER_COLLECTIVE =:collecInvNo and pals_country_code=:country_code".equalsIgnoreCase(cardTransactionVO.getWhereClause())) {
             cardTransactionVO.removeNamedWhereClauseParam("collecInvNo");
             cardTransactionVO.removeNamedWhereClauseParam("country_code");
@@ -737,8 +735,8 @@ public class InvoiceOverviewBean implements Serializable {
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRadioBtnPopUp());
         isTransactionVisible = true;
         invoiceType = null;
-        BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
-        DCIteratorBinding itr = (DCIteratorBinding)bindings.get(PRTNEWINVOICEVO1ITERATOR_LITRERAL);
+        BindingContainer localBinding = BindingContext.getCurrent().getCurrentBindingsEntry();
+        DCIteratorBinding itr = (DCIteratorBinding)localBinding.get(PRTNEWINVOICEVO1ITERATORLITRERAL);
         Row row = itr.getCurrentRow();
         if (row != null) {
 
@@ -747,7 +745,7 @@ public class InvoiceOverviewBean implements Serializable {
 
         String invoiceNumberValue = (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("invoiceNumberValue");
 
-        ViewObject cardTransactionVO = ADFUtils.getViewObject(PRTCARDTRANSACTIONINVOICERVO1ITERATOR_LITRERAL);
+        ViewObject cardTransactionVO = ADFUtils.getViewObject(PRTCARDTRANSACTIONINVOICERVO1ITERATORLITRERAL);
 
         if (invoiceGroupingValue != null) {
             invoiceType = invoiceGroupingValue;
@@ -771,18 +769,18 @@ public class InvoiceOverviewBean implements Serializable {
         defaultSelection = Constants.TRANSACTIONS__LITERAL;
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRadioBtnPopUp());
         shuttleStatusTransaction = false;
-        String langDB = (String)session.getAttribute(LANG_REPORT_LITRERAL);
+        String langDB = (String)session.getAttribute(LANGREPORTLITRERAL);
         if (langDB.equalsIgnoreCase(Constants.LANGUAGE_ENGLISH)) {
             langDB = "EN";
         } else {
             langDB = langDB.substring(langDB.length() - 2, langDB.length());
             langDB = langDB.toUpperCase();
         }
-        ViewObject prtExportInfoRVO1 = ADFUtils.getViewObject(PRTEXPORTINFORVO1ITERATOR_LITRERAL);
+        ViewObject prtExportInfoRVO1 = ADFUtils.getViewObject(PRTEXPORTINFORVO1ITERATORLITRERAL);
         prtExportInfoRVO1.setNamedWhereClauseParam(Constants.COUNTRY_CODE_LITERAL, langDB);
         prtExportInfoRVO1.setNamedWhereClauseParam("report_Page", "TRANSACTION");
         prtExportInfoRVO1.setNamedWhereClauseParam("report_Type", Constants.DEFAULT_LITERAL);
-        prtExportInfoRVO1.setNamedWhereClauseParam(SELECT_CRITERIA_LITRERAL, Constants.DEFAULT_LITERAL);
+        prtExportInfoRVO1.setNamedWhereClauseParam(SELECT_CRITERIALITRERAL, Constants.DEFAULT_LITERAL);
         prtExportInfoRVO1.executeQuery();
         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count :" +
                     prtExportInfoRVO1.getEstimatedRowCount());
@@ -812,9 +810,9 @@ public class InvoiceOverviewBean implements Serializable {
         getBindings().getTransactionSelectionExportOneRadio().setValue(Constants.XLS_LITERAL);
         getBindings().getSpecificColumnsTransactions().show(new RichPopup.PopupHints());
 
-        if (!result && resourceBundle.containsKey(TRANSACTION_SPECIFIC_ERROR_DB_LITRERAL)) {
+        if (!result && resourceBundle.containsKey(TRANSACTIONSPECIFICERRORDBLITRERAL)) {
 
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject(TRANSACTION_SPECIFIC_ERROR_DB_LITRERAL), "");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject(TRANSACTIONSPECIFICERRORDBLITRERAL), "");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
 
@@ -993,7 +991,7 @@ public class InvoiceOverviewBean implements Serializable {
                     for (int i = 0; i < partnerInfoList.get(z).getAccountList().size(); i++) {
                         for (int j = 0; j < accountString.length; j++) {
                             if (partnerInfoList.get(z).getAccountList().get(i).getAccountNumber() != null &&
-                                partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString().trim().equals(accountString[j].toString().trim())) {
+                                partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().trim().equals(accountString[j].toString().trim())) {
                                 if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup() != null &&
                                     partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size() > 0) {
                                     for (int k = 0; k < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size(); k++) {
@@ -1160,14 +1158,16 @@ public class InvoiceOverviewBean implements Serializable {
             if (status) {
                 soc.setStyleClass("af_mandatoryfield");
                 if (component.getId().contains("smc45") || component.getId().contains("smc4") || component.getId().contains("smc3") ||
-                    component.getId().contains("soc3"))
+                    component.getId().contains("soc3")) {
                     soc.setStyleClass("af_mandatoryfield");
+                }
 
             } else {
                 soc.setStyleClass("af_nonmandatoryfield");
                 if (component.getId().contains("smc45") || component.getId().contains("smc4") || component.getId().contains("smc3") ||
-                    component.getId().contains("soc3"))
+                    component.getId().contains("soc3")) {
                     soc.setStyleClass("af_nonmandatoryfield");
+                }
             }
             AdfFacesContext.getCurrentInstance().addPartialTarget(soc);
         }
@@ -1193,7 +1193,7 @@ public class InvoiceOverviewBean implements Serializable {
 
     public void getUCMService(FacesContext facesContext, OutputStream outputStream) throws IOException {
         LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside getUCMService for Invoices");
-        ViewObject invoiceVO = ADFUtils.getViewObject(PRTNEWINVOICEVO1ITERATOR_LITRERAL);
+        ViewObject invoiceVO = ADFUtils.getViewObject(PRTNEWINVOICEVO1ITERATORLITRERAL);
         PrtNewInvoiceVORowImpl row = (PrtNewInvoiceVORowImpl)invoiceVO.getCurrentRow();
         String invoiceNumberValuePdf = row.getFinalinvoice();
         String partnerNumberValuePdf = row.getPartnerId();
@@ -1203,10 +1203,10 @@ public class InvoiceOverviewBean implements Serializable {
         Boolean isError = false;
         UCMCustomWeb uCMCustomWeb = null;
 
-        if (session.getAttribute(INVOICE_CONTENT_LIST_LITRERAL) != null) {
+        if (session.getAttribute(INVOICECONTENTLISTLITRERAL) != null) {
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "session is available");
             try {
-                ucmInvoiceContentList = (HashMap<String, String>)session.getAttribute(INVOICE_CONTENT_LIST_LITRERAL);
+                ucmInvoiceContentList = (HashMap<String, String>)session.getAttribute(INVOICECONTENTLISTLITRERAL);
                 String ucmInvoiceContentId = ucmInvoiceContentList.get(invoiceNumberValuePdf);
                 if (ucmInvoiceContentId != null && ucmInvoiceContentId.trim().length() > 0) {
                     LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "ContentId is available from session");
@@ -1269,7 +1269,7 @@ public class InvoiceOverviewBean implements Serializable {
         failureResult = false;
         String partnerNumberValuePdf = "";
 
-        ViewObject invoiceVO = ADFUtils.getViewObject(PRTNEWINVOICEVO1ITERATOR_LITRERAL);
+        ViewObject invoiceVO = ADFUtils.getViewObject(PRTNEWINVOICEVO1ITERATORLITRERAL);
         PrtNewInvoiceVORowImpl row = (PrtNewInvoiceVORowImpl)invoiceVO.getCurrentRow();
         String invoiceNumberValuePdf = row.getFinalinvoice();
         partnerNumberValuePdf = row.getPartnerId();
@@ -1361,7 +1361,7 @@ public class InvoiceOverviewBean implements Serializable {
                     LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Content id=" + ucmContentId);
                     if (ucmContentId != null && ucmContentId.trim().length() > 0) {
                         ucmInvoiceContentList.put(invoiceNumber, ucmContentId);
-                        session.setAttribute(INVOICE_CONTENT_LIST_LITRERAL, ucmInvoiceContentList);
+                        session.setAttribute(INVOICECONTENTLISTLITRERAL, ucmInvoiceContentList);
                         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "get file from ucm");
                         responseByteArr =
                                 uCMCustomWeb.getFileFromUCM(DAOFactory.getPropertyValue(Constants.ENGAGE_UCM_USERNAME), DAOFactory.getPropertyValue(Constants.ENGAGE_UCM_PASSWORD),
@@ -1561,9 +1561,9 @@ public class InvoiceOverviewBean implements Serializable {
         LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside confirmation_popup_value for Invoices");
         if (dialogEvent.getOutcome() == DialogEvent.Outcome.ok) {
 
-            String mailResult = triggermail();
-            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Notification of Mail " + mailResult);
-            if (mailResult != null && mailResult.equalsIgnoreCase("success")) {
+            String localMailResult = triggermail();
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Notification of Mail " + localMailResult);
+            if (localMailResult != null && localMailResult.equalsIgnoreCase("success")) {
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "Mail send successfully");
 
                 failureResult = false;
@@ -1571,14 +1571,14 @@ public class InvoiceOverviewBean implements Serializable {
                 successResult = true;
 
             }
-            if (mailResult != null && mailResult.equalsIgnoreCase("failure")) {
+            if (localMailResult != null && localMailResult.equalsIgnoreCase("failure")) {
 
                 failureResult = true;
                 invoiceNotFound = false;
                 successResult = true;
 
             }
-            if (mailResult == null) {
+            if (localMailResult == null) {
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "Invoice not Found");
                 failureResult = false;
                 invoiceNotFound = true;
@@ -1696,8 +1696,8 @@ public class InvoiceOverviewBean implements Serializable {
         UCMCustomWeb uCMCustomWeb = null;
         try {
 
-            if (session.getAttribute(INVOICE_CONTENT_LIST_LITRERAL) != null) {
-                ucmInvoiceContentList = (HashMap<String, String>)session.getAttribute(INVOICE_CONTENT_LIST_LITRERAL);
+            if (session.getAttribute(INVOICECONTENTLISTLITRERAL) != null) {
+                ucmInvoiceContentList = (HashMap<String, String>)session.getAttribute(INVOICECONTENTLISTLITRERAL);
                 String ucmInvoiceContentId = ucmInvoiceContentList.get(invoiceReq);
                 if (ucmInvoiceContentId != null && ucmInvoiceContentId.trim().length() > 0) {
                     LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "ContentId is available from session");
@@ -1902,22 +1902,22 @@ public class InvoiceOverviewBean implements Serializable {
         failureResult = false;
         invoiceNotFound = false;
         successResult = false;
-        String mailResult = triggermail();
-        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Notification of Mail " + mailResult);
-        if (mailResult != null && mailResult.equalsIgnoreCase("success")) {
+        String localMailResult = triggermail();
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Notification of Mail " + localMailResult);
+        if (localMailResult != null && localMailResult.equalsIgnoreCase("success")) {
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Mail send successfully");
             failureResult = false;
             invoiceNotFound = false;
             successResult = true;
         }
-        if (mailResult != null && mailResult.equalsIgnoreCase("failure")) {
+        if (localMailResult != null && localMailResult.equalsIgnoreCase("failure")) {
             LOGGER.severe(accessDC.getDisplayRecord() + this.getClass() + " Mail was not generated");
             failureResult = true;
             invoiceNotFound = false;
             successResult = true;
 
         }
-        if (mailResult == null) {
+        if (localMailResult == null) {
             LOGGER.severe(accessDC.getDisplayRecord() + this.getClass() + " Invoice not Found");
             failureResult = false;
             invoiceNotFound = true;
@@ -1973,7 +1973,7 @@ public class InvoiceOverviewBean implements Serializable {
     public void exportExcelSpecificActionInvoices(ActionEvent actionEvent) {
         resourceBundle = new EngageResourceBundle();
         shuttleStatus = false;
-        String langDB = (String)session.getAttribute(LANG_REPORT_LITRERAL);
+        String langDB = (String)session.getAttribute(LANGREPORTLITRERAL);
         if (langDB.equalsIgnoreCase(Constants.LANGUAGE_ENGLISH)) {
             langDB = "EN";
         } else {
@@ -1981,11 +1981,11 @@ public class InvoiceOverviewBean implements Serializable {
             langDB = langDB.toUpperCase();
         }
 
-        ViewObject prtExportInfoRVO = ADFUtils.getViewObject(PRTEXPORTINFORVO1ITERATOR_LITRERAL);
+        ViewObject prtExportInfoRVO = ADFUtils.getViewObject(PRTEXPORTINFORVO1ITERATORLITRERAL);
         prtExportInfoRVO.setNamedWhereClauseParam(Constants.COUNTRY_CODE_LITERAL, langDB);
         prtExportInfoRVO.setNamedWhereClauseParam("report_Page", Constants.INVOICES_LITERAL);
         prtExportInfoRVO.setNamedWhereClauseParam("report_Type", Constants.DEFAULT_LITERAL);
-        prtExportInfoRVO.setNamedWhereClauseParam(SELECT_CRITERIA_LITRERAL, Constants.DEFAULT_LITERAL);
+        prtExportInfoRVO.setNamedWhereClauseParam(SELECT_CRITERIALITRERAL, Constants.DEFAULT_LITERAL);
         prtExportInfoRVO.executeQuery();
 
         if (prtExportInfoRVO.getEstimatedRowCount() > 0) {
@@ -2010,8 +2010,8 @@ public class InvoiceOverviewBean implements Serializable {
             getBindings().getSelectionExportOneRadio().setValue(Constants.XLS_LITERAL);
             getBindings().getSpecificColumns().show(new RichPopup.PopupHints());
         } else {
-            if (resourceBundle.containsKey(TRANSACTION_SPECIFIC_ERROR_DB_LITRERAL)) {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject(TRANSACTION_SPECIFIC_ERROR_DB_LITRERAL), "");
+            if (resourceBundle.containsKey(TRANSACTIONSPECIFICERRORDBLITRERAL)) {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject(TRANSACTIONSPECIFICERRORDBLITRERAL), "");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
         }
@@ -2111,7 +2111,7 @@ public class InvoiceOverviewBean implements Serializable {
         return val;
     }
 
-    public void specificTransactionExportExcelListener(FacesContext facesContext, OutputStream outputStream) throws IOException, SQLException, Exception {
+    public void specificTransactionExportExcelListener(FacesContext facesContext, OutputStream outputStream) throws IOException, SQLException, ParseException {
         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Entering specificTransactionExportExcelListener");
         resourceBundle = new EngageResourceBundle();
 
@@ -2159,9 +2159,9 @@ public class InvoiceOverviewBean implements Serializable {
                     String passedString = selectedValues.substring(0, selectedValues.length() - 1);
 
                     ReportBundle rb = new ReportBundle();
-                    String langDB = (String)session.getAttribute(LANG_REPORT_LITRERAL);
+                    String langDB = (String)session.getAttribute(LANGREPORTLITRERAL);
                     if (langDB.equalsIgnoreCase(Constants.LANGUAGE_ENGLISH)) {
-                        langDB.toUpperCase();
+                        langDB = "EN";
                     } else {
                         langDB = langDB.substring(langDB.length() - 2, langDB.length());
                         langDB = langDB.toUpperCase();
@@ -2249,8 +2249,8 @@ public class InvoiceOverviewBean implements Serializable {
                         XLS_SH_R = XLS_SH.createRow(Constants.FIVE);
                         XLS_SH_R_C = XLS_SH_R.createCell(0);
                         XLS_SH_R_C.setCellStyle(cs);
-                        if (resourceBundle.containsKey(ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN_LITRERAL)) {
-                            XLS_SH_R_C.setCellValue((String)resourceBundle.getObject(ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN_LITRERAL) + currencyCode);
+                        if (resourceBundle.containsKey(ENGAGENOTEALLPRICESBELOWAREINLITRERAL)) {
+                            XLS_SH_R_C.setCellValue((String)resourceBundle.getObject(ENGAGENOTEALLPRICESBELOWAREINLITRERAL) + currencyCode);
                         }
 
                         XLS_SH_R = XLS_SH.createRow(Constants.SIX);
@@ -2263,7 +2263,7 @@ public class InvoiceOverviewBean implements Serializable {
 
                         int rowVal = Constants.SEVEN;
 
-                        ViewObject cardTransactionVO = ADFUtils.getViewObject(PRTCARDTRANSACTIONINVOICERVO1ITERATOR_LITRERAL);
+                        ViewObject cardTransactionVO = ADFUtils.getViewObject(PRTCARDTRANSACTIONINVOICERVO1ITERATORLITRERAL);
                         RowSetIterator iterator = cardTransactionVO.createRowSetIterator(null);
                         iterator.reset();
                         int rowNum = 0;
@@ -2489,7 +2489,7 @@ public class InvoiceOverviewBean implements Serializable {
                             }
                         }
                         out.println();
-                        ViewObject cardTransactionVO = ADFUtils.getViewObject(PRTCARDTRANSACTIONINVOICERVO1ITERATOR_LITRERAL);
+                        ViewObject cardTransactionVO = ADFUtils.getViewObject(PRTCARDTRANSACTIONINVOICERVO1ITERATORLITRERAL);
                         RowSetIterator iterator = cardTransactionVO.createRowSetIterator(null);
                         iterator.reset();
                         int rowNum = 0;
@@ -2497,7 +2497,7 @@ public class InvoiceOverviewBean implements Serializable {
                             rowNum = rowNum + 1;
                             PrtCardTransactionInvoiceRVORowImpl row = (PrtCardTransactionInvoiceRVORowImpl)iterator.next();
                             if (row != null) {
-                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + PRINTING_DATA_LITRERAL);
+                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + PRINTINGDATALITRERAL);
                                 for (int cellValue = 0; cellValue < headerDataValues.length; cellValue++) {
                                     if ("Line No".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
 
@@ -2725,7 +2725,7 @@ public class InvoiceOverviewBean implements Serializable {
                         iterator.closeRowSetIterator();
                         out.close();
                     } else {
-                        if (CSV2_LITRERAL.equalsIgnoreCase(getBindings().getTransactionSelectionExportOneRadio().getValue().toString())) {
+                        if (CSV2LITRERAL.equalsIgnoreCase(getBindings().getTransactionSelectionExportOneRadio().getValue().toString())) {
                             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Report in CSV2 Format");
                             PrintWriter out = new PrintWriter(outputStream);
 
@@ -2738,7 +2738,7 @@ public class InvoiceOverviewBean implements Serializable {
 
                             }
                             out.println();
-                            ViewObject cardTransactionVO = ADFUtils.getViewObject(PRTCARDTRANSACTIONINVOICERVO1ITERATOR_LITRERAL);
+                            ViewObject cardTransactionVO = ADFUtils.getViewObject(PRTCARDTRANSACTIONINVOICERVO1ITERATORLITRERAL);
                             RowSetIterator iterator = cardTransactionVO.createRowSetIterator(null);
                             iterator.reset();
                             int rowNum = 0;
@@ -2746,7 +2746,7 @@ public class InvoiceOverviewBean implements Serializable {
                                 rowNum = rowNum + 1;
                                 PrtCardTransactionInvoiceRVORowImpl row = (PrtCardTransactionInvoiceRVORowImpl)iterator.next();
                                 if (row != null) {
-                                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + PRINTING_DATA_LITRERAL);
+                                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + PRINTINGDATALITRERAL);
                                     for (int cellValue = 0; cellValue < headerDataValues.length; cellValue++) {
                                         if ("Line No".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
 
@@ -3005,9 +3005,9 @@ public class InvoiceOverviewBean implements Serializable {
         selectedValues = selectedValues.substring(0, selectedValues.length() - 1);
 
         ReportBundle rb = new ReportBundle();
-        String langDB = (String)session.getAttribute(LANG_REPORT_LITRERAL);
+        String langDB = (String)session.getAttribute(LANGREPORTLITRERAL);
         if (langDB.equalsIgnoreCase(Constants.LANGUAGE_ENGLISH)) {
-            langDB.toUpperCase();
+            langDB = "EN";
         } else {
             langDB = langDB.substring(langDB.length() - 2, langDB.length());
             langDB = langDB.toUpperCase();
@@ -3135,8 +3135,8 @@ public class InvoiceOverviewBean implements Serializable {
             XLS_SH_R_C.setCellStyle(cs);
 
 
-            if (resourceBundle.containsKey(ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN_LITRERAL)) {
-                XLS_SH_R_C.setCellValue(resourceBundle.getObject(ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN_LITRERAL) + currencyCode);
+            if (resourceBundle.containsKey(ENGAGENOTEALLPRICESBELOWAREINLITRERAL)) {
+                XLS_SH_R_C.setCellValue(resourceBundle.getObject(ENGAGENOTEALLPRICESBELOWAREINLITRERAL) + currencyCode);
             }
 
             for (int row = Constants.SIX; row <= Constants.SEVEN; row++) {
@@ -3161,7 +3161,7 @@ public class InvoiceOverviewBean implements Serializable {
 
             int rowVal = Constants.EIGHT;
 
-            ViewObject prtNewInvoiceVO = ADFUtils.getViewObject(PRTNEWINVOICEVO1ITERATOR_LITRERAL);
+            ViewObject prtNewInvoiceVO = ADFUtils.getViewObject(PRTNEWINVOICEVO1ITERATORLITRERAL);
             RowSetIterator iterator = prtNewInvoiceVO.createRowSetIterator(null);
             iterator.reset();
             while (iterator.hasNext()) {
@@ -3248,13 +3248,13 @@ public class InvoiceOverviewBean implements Serializable {
                 }
             }
             out.println();
-            ViewObject prtNewInvoiceVO = ADFUtils.getViewObject(PRTNEWINVOICEVO1ITERATOR_LITRERAL);
+            ViewObject prtNewInvoiceVO = ADFUtils.getViewObject(PRTNEWINVOICEVO1ITERATORLITRERAL);
             RowSetIterator iterator = prtNewInvoiceVO.createRowSetIterator(null);
             iterator.reset();
             while (iterator.hasNext()) {
                 PrtNewInvoiceVORowImpl row = (PrtNewInvoiceVORowImpl)iterator.next();
                 if (row != null) {
-                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + PRINTING_DATA_LITRERAL);
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + PRINTINGDATALITRERAL);
                     for (int cellValue = 0; cellValue < headerDataValues.length; cellValue++) {
 
                         if (Constants.PARTNER_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
@@ -3332,7 +3332,7 @@ public class InvoiceOverviewBean implements Serializable {
             iterator.closeRowSetIterator();
             out.close();
         } else {
-            if (CSV2_LITRERAL.equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+            if (CSV2LITRERAL.equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Report in CSV2 Format");
 
                 PrintWriter out = new PrintWriter(outputStream);
@@ -3344,13 +3344,13 @@ public class InvoiceOverviewBean implements Serializable {
                     }
                 }
                 out.println();
-                ViewObject prtNewInvoiceVO = ADFUtils.getViewObject(PRTNEWINVOICEVO1ITERATOR_LITRERAL);
+                ViewObject prtNewInvoiceVO = ADFUtils.getViewObject(PRTNEWINVOICEVO1ITERATORLITRERAL);
                 RowSetIterator iterator = prtNewInvoiceVO.createRowSetIterator(null);
                 iterator.reset();
                 while (iterator.hasNext()) {
                     PrtNewInvoiceVORowImpl row = (PrtNewInvoiceVORowImpl)iterator.next();
                     if (row != null) {
-                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + PRINTING_DATA_LITRERAL);
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + PRINTINGDATALITRERAL);
                         for (int cellValue = 0; cellValue < headerValues.length; cellValue++) {
 
                             if (Constants.PARTNER_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
@@ -3576,7 +3576,7 @@ public class InvoiceOverviewBean implements Serializable {
     public List getShuttleValue() {
 
         if (!shuttleStatus) {
-            String langDB = (String)session.getAttribute(LANG_REPORT_LITRERAL);
+            String langDB = (String)session.getAttribute(LANGREPORTLITRERAL);
             if (langDB.equalsIgnoreCase(Constants.LANGUAGE_ENGLISH)) {
                 langDB = "EN";
             } else {
@@ -3584,11 +3584,11 @@ public class InvoiceOverviewBean implements Serializable {
                 langDB = langDB.toUpperCase();
             }
             shuttleValue = new ArrayList();
-            ViewObject prtExportInfoRVO = ADFUtils.getViewObject(PRTEXPORTINFORVO1ITERATOR_LITRERAL);
+            ViewObject prtExportInfoRVO = ADFUtils.getViewObject(PRTEXPORTINFORVO1ITERATORLITRERAL);
             prtExportInfoRVO.setNamedWhereClauseParam(Constants.COUNTRY_CODE_LITERAL, langDB);
             prtExportInfoRVO.setNamedWhereClauseParam("report_Page", Constants.INVOICES_LITERAL);
 
-            prtExportInfoRVO.setNamedWhereClauseParam(SELECT_CRITERIA_LITRERAL, Constants.DEFAULT_LITERAL);
+            prtExportInfoRVO.setNamedWhereClauseParam(SELECT_CRITERIALITRERAL, Constants.DEFAULT_LITERAL);
             prtExportInfoRVO.executeQuery();
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count in CardGroup shuttle:" +
                         prtExportInfoRVO.getEstimatedRowCount());
@@ -3632,7 +3632,7 @@ public class InvoiceOverviewBean implements Serializable {
         } else if (Constants.CSV_LITERAL.equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
             contentType = Constants.CONTENT_TYPE_LITERAL;
         } else {
-            if (CSV2_LITRERAL.equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+            if (CSV2LITRERAL.equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
                 contentType = Constants.CONTENT_TYPE_LITERAL;
             }
         }
@@ -3651,7 +3651,7 @@ public class InvoiceOverviewBean implements Serializable {
         } else if (Constants.CSV_LITERAL.equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
             fileName = "Invoice_Report.csv";
         } else {
-            if (CSV2_LITRERAL.equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+            if (CSV2LITRERAL.equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
                 fileName = "Invoice_Report.csv";
             }
         }
@@ -3664,10 +3664,10 @@ public class InvoiceOverviewBean implements Serializable {
         if (Constants.XLS_LITERAL.equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
             fileName = "Transaction_Report.xls";
         } else if (Constants.CSV_LITERAL.equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
-            fileName = TRANSACTION_REPORT_LITRERAL;
+            fileName = TRANSACTIONREPORTLITRERAL;
         } else {
-            if (CSV2_LITRERAL.equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
-                fileName = TRANSACTION_REPORT_LITRERAL;
+            if (CSV2LITRERAL.equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+                fileName = TRANSACTIONREPORTLITRERAL;
             }
         }
         return fileName;
@@ -3713,7 +3713,7 @@ public class InvoiceOverviewBean implements Serializable {
     public List getShuttleValueTransaction() {
 
         if (!shuttleStatusTransaction) {
-            String langDB = (String)session.getAttribute(LANG_REPORT_LITRERAL);
+            String langDB = (String)session.getAttribute(LANGREPORTLITRERAL);
             if (langDB.equalsIgnoreCase(Constants.LANGUAGE_ENGLISH)) {
                 langDB = "EN";
             } else {
@@ -3722,11 +3722,11 @@ public class InvoiceOverviewBean implements Serializable {
             }
 
             shuttleValueTransaction = new ArrayList();
-            ViewObject prtExportInfoRVO = ADFUtils.getViewObject(PRTEXPORTINFORVO1ITERATOR_LITRERAL);
+            ViewObject prtExportInfoRVO = ADFUtils.getViewObject(PRTEXPORTINFORVO1ITERATORLITRERAL);
             prtExportInfoRVO.setNamedWhereClauseParam(Constants.COUNTRY_CODE_LITERAL, langDB);
             prtExportInfoRVO.setNamedWhereClauseParam("report_Page", "TRANSACTION");
             prtExportInfoRVO.setNamedWhereClauseParam("report_Type", Constants.DEFAULT_LITERAL);
-            prtExportInfoRVO.setNamedWhereClauseParam(SELECT_CRITERIA_LITRERAL, Constants.DEFAULT_LITERAL);
+            prtExportInfoRVO.setNamedWhereClauseParam(SELECT_CRITERIALITRERAL, Constants.DEFAULT_LITERAL);
             prtExportInfoRVO.executeQuery();
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count in CardGroup shuttle:" +
                         prtExportInfoRVO.getEstimatedRowCount());
@@ -3782,7 +3782,7 @@ public class InvoiceOverviewBean implements Serializable {
         } else if (Constants.CSV_LITERAL.equalsIgnoreCase(getBindings().getTransactionSelectionExportOneRadio().getValue().toString())) {
             contentTypeTransaction = Constants.CONTENT_TYPE_LITERAL;
         } else {
-            if (CSV2_LITRERAL.equalsIgnoreCase(getBindings().getTransactionSelectionExportOneRadio().getValue().toString())) {
+            if (CSV2LITRERAL.equalsIgnoreCase(getBindings().getTransactionSelectionExportOneRadio().getValue().toString())) {
                 contentTypeTransaction = Constants.CONTENT_TYPE_LITERAL;
             }
         }
@@ -3799,10 +3799,10 @@ public class InvoiceOverviewBean implements Serializable {
         if (Constants.XLS_LITERAL.equalsIgnoreCase(getBindings().getTransactionSelectionExportOneRadio().getValue().toString())) {
             transactionFileNamefileName = "Transaction_Report.xls";
         } else if (Constants.CSV_LITERAL.equalsIgnoreCase(getBindings().getTransactionSelectionExportOneRadio().getValue().toString())) {
-            transactionFileNamefileName = TRANSACTION_REPORT_LITRERAL;
+            transactionFileNamefileName = TRANSACTIONREPORTLITRERAL;
         } else {
-            if (CSV2_LITRERAL.equalsIgnoreCase(getBindings().getTransactionSelectionExportOneRadio().getValue().toString())) {
-                transactionFileNamefileName = TRANSACTION_REPORT_LITRERAL;
+            if (CSV2LITRERAL.equalsIgnoreCase(getBindings().getTransactionSelectionExportOneRadio().getValue().toString())) {
+                transactionFileNamefileName = TRANSACTIONREPORTLITRERAL;
             }
         }
         return transactionFileNamefileName;
@@ -3810,7 +3810,7 @@ public class InvoiceOverviewBean implements Serializable {
 
 
     public void executeInvoiceTransactions(String invoiceType, String invoiceNumber) {
-        ViewObject cardTransactionVO = ADFUtils.getViewObject(PRTCARDTRANSACTIONINVOICERVO1ITERATOR_LITRERAL);
+        ViewObject cardTransactionVO = ADFUtils.getViewObject(PRTCARDTRANSACTIONINVOICERVO1ITERATORLITRERAL);
 
         if (invoiceNumber != null && invoiceType != null) {
             if (invoiceType.equals("FAK") || invoiceType.equals(Constants.ENGAGE_INVOICE_TX_LINK)) {
@@ -3832,7 +3832,7 @@ public class InvoiceOverviewBean implements Serializable {
     }
 
     public void removeDynamicconditionOnTxQuery() {
-        ViewObject cardTransactionVO = ADFUtils.getViewObject(PRTCARDTRANSACTIONINVOICERVO1ITERATOR_LITRERAL);
+        ViewObject cardTransactionVO = ADFUtils.getViewObject(PRTCARDTRANSACTIONINVOICERVO1ITERATORLITRERAL);
         if ("INVOICE_NUMBER_COLLECTIVE =:collecInvNo and pals_country_code=:country_code".equalsIgnoreCase(cardTransactionVO.getWhereClause())) {
             cardTransactionVO.removeNamedWhereClauseParam("collecInvNo");
             cardTransactionVO.removeNamedWhereClauseParam("country_code");
@@ -3874,25 +3874,6 @@ public class InvoiceOverviewBean implements Serializable {
 
     public Comparator<SelectItem> getComparator() {
         return comparator;
-    }
-
-
-    public void cardGroupVCE(ValueChangeEvent valueChangeEvent) {
-
-        //        displayErrorComponent(getBindings().getCardGroup(), false);
-        //        displayErrorComponent(getBindings().getCard(), false);
-        //        isComponentEmpty(getBindings().getCardGroup());
-        //        isComponentEmpty(getBindings().getCard());
-        //        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());
-        //        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCard());
-    }
-
-    public void cardVCE(ValueChangeEvent valueChangeEvent) {
-
-        //        isComponentEmpty(getBindings().getCardGroup());
-        //        isComponentEmpty(getBindings().getCard());
-        //        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());
-        //        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCard());
     }
 
 
@@ -4007,40 +3988,6 @@ public class InvoiceOverviewBean implements Serializable {
             return popUpInvGross;
         }
 
-        //        public void setEmailRecipientPopup(RichInputText EmailRecipientPopup) {
-        //
-        //            if (setreceipent) {
-        //                if (session != null) {
-        //                    if (null != session.getAttribute(Constants.SESSION_USER_INFO)) {
-        //                        globalUser = (User)session.getAttribute(Constants.SESSION_USER_INFO);
-        //                        if (globalUser.getEmailID() != null) {
-        //                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Invoice bean : " + "user email id in my profile bean " +
-        //                                        globalUser.getEmailID());
-        //                            EmailRecipientPopup.setValue(globalUser.getEmailID().trim());
-        //
-        //                        } else {
-        //                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Invoice bean : " + "user first name in my profile bean " +
-        //                                        globalUser.getFirstName());
-        //                            EmailRecipientPopup.setValue(globalUser.getFirstName().toString().trim());
-        //                        }
-        //                    }
-        //
-        //
-        //                } else {
-        //                    EmailRecipientPopup.setValue("");
-        //                }
-        //                setreceipent = false;
-        //
-        //
-        //            }
-        //
-        //
-        //            this.emailRecipientPopup = EmailRecipientPopup;
-        //        }
-        //
-        //        public RichInputText getEmailRecipientPopup() {
-        //            return emailRecipientPopup;
-        //        }
 
         public void setInvoiceForm(RichOutputText invoiceForm) {
             this.invoiceForm = invoiceForm;

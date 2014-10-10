@@ -66,7 +66,6 @@ public class AuthenticatedHomeBean implements Serializable {
     private HttpServletRequest request;
     private String country = null;
     private Locale locale;
-    private Conversion conversionUtility;
     private String emptyText = null;
     private User user = null;
     private boolean roleCsr = false;
@@ -81,8 +80,6 @@ public class AuthenticatedHomeBean implements Serializable {
     private String profile = "private";
     private String profileSession = "";
     private String langSession = "";
-    private SecurityContext securityContext = null;
-    private ADFContext adfCtx = null;
     private String titleVisible = " ";
     private String title = "";
 
@@ -98,12 +95,12 @@ public class AuthenticatedHomeBean implements Serializable {
 
     public AuthenticatedHomeBean() {
         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " constructor of AuthenticatedHomeBean");
-        conversionUtility = new Conversion();
+        Conversion conversionUtility = new Conversion();
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
-        adfCtx = ADFContext.getCurrent();
-        securityContext = adfCtx.getSecurityContext();
+        ADFContext adfCtx = ADFContext.getCurrent();
+        SecurityContext securityContext = adfCtx.getSecurityContext();
         if (securityContext.isAuthenticated()) {
             if (session != null) {
 
@@ -190,8 +187,8 @@ public class AuthenticatedHomeBean implements Serializable {
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " lang passed in PRTPCMFEEDS is " +
                             conversionUtility.getCustomerCountryCode(langSession));
                 if (customerTypeValue != null) {
-                    User user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
-                    String userEmail = user.getEmailID();
+                    User localUser = (User)session.getAttribute(Constants.SESSION_USER_INFO);
+                    String userEmail = localUser.getEmailID();
                     String preferredLang = "";
                     ViewObject vo = ADFUtils.getViewObject("PrtUserPreferredLangVO1Iterator");
                     vo.setWhereClause("PrtUserPreferredLangEO.USER_ID=:userEmail");

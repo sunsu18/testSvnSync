@@ -783,13 +783,13 @@ public class VehicleInfoBean implements Serializable {
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "Inside of edit vehicle save method to check for existing driver :::::::::");
                 while (driverVo.hasNext()) {
                     PrtDriverInformationVORowImpl currRow = (PrtDriverInformationVORowImpl)driverVo.next();
-                    if (currRow != null) {
-                        if (resourceBundle.containsKey(Constants.DRIVER_CARD_EXIST_LITERAL)) {
-                            warningMsg = resourceBundle.getObject(Constants.DRIVER_CARD_EXIST_LITERAL).toString().concat(" ").concat(currRow.getDriverName());
-                            showErrorMsgEditFlag = true;
-                            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditErrorMessage());
-                            return null;
-                        }
+                    if (currRow != null && resourceBundle.containsKey(Constants.DRIVER_CARD_EXIST_LITERAL)) {
+
+                        warningMsg = resourceBundle.getObject(Constants.DRIVER_CARD_EXIST_LITERAL).toString().concat(" ").concat(currRow.getDriverName());
+                        showErrorMsgEditFlag = true;
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditErrorMessage());
+                        return null;
+
                     }
                 }
             }
@@ -845,14 +845,14 @@ public class VehicleInfoBean implements Serializable {
                                 "Checking for existing vehicle in edit vehicle save method for previous card null:::::::::");
                     while (truckVo.hasNext()) {
                         PrtTruckInformationVORowImpl currRow = (PrtTruckInformationVORowImpl)truckVo.next();
-                        if (currRow != null) {
-                            if (resourceBundle.containsKey(Constants.TRUCK_CARD_EXIST_LITERAL)) {
-                                warningMsg =
-                                        resourceBundle.getObject(Constants.TRUCK_CARD_EXIST_LITERAL).toString().concat(" ").concat(currRow.getVehicleNumber());
-                                showErrorMsgEditFlag = true;
-                                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditErrorMessage());
-                                return null;
-                            }
+                        if (currRow != null && resourceBundle.containsKey(Constants.TRUCK_CARD_EXIST_LITERAL)) {
+
+                            warningMsg =
+                                    resourceBundle.getObject(Constants.TRUCK_CARD_EXIST_LITERAL).toString().concat(" ").concat(currRow.getVehicleNumber());
+                            showErrorMsgEditFlag = true;
+                            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditErrorMessage());
+                            return null;
+
                         }
                     }
                 }
@@ -1532,7 +1532,7 @@ public class VehicleInfoBean implements Serializable {
         return myAccountList;
     }
 
-    public void setCardNumberList(ArrayList<SelectItem> cardNumberList) {
+    public void setCardNumberList(List<SelectItem> cardNumberList) {
         this.cardNumberList = cardNumberList;
     }
 
@@ -1737,13 +1737,15 @@ public class VehicleInfoBean implements Serializable {
             soc = (RichSelectManyChoice)component;
             if (status) {
                 soc.setStyleClass("af_mandatoryfield");
-                if (component.getId().contains("smc1"))
+                if (component.getId().contains("smc1")) {
                     soc.setStyleClass("af_mandatoryfield");
+                }
 
             } else {
                 soc.setStyleClass("af_nonmandatoryfield");
-                if (component.getId().contains("smc1"))
+                if (component.getId().contains("smc1")) {
                     soc.setStyleClass("af_nonmandatoryfield");
+                }
             }
             AdfFacesContext.getCurrentInstance().addPartialTarget(soc);
         }
@@ -1753,14 +1755,16 @@ public class VehicleInfoBean implements Serializable {
             if (status) {
                 soc1.setStyleClass("af_mandatoryfield");
                 if (component.getId().contains("partnerSOC") || component.getId().contains("soc1") || component.getId().contains("soc5") ||
-                    component.getId().contains("soc6") || component.getId().contains("soc2"))
+                    component.getId().contains("soc6") || component.getId().contains("soc2")) {
                     soc1.setStyleClass("af_mandatoryfield");
+                }
 
             } else {
                 soc1.setStyleClass("af_nonmandatoryfield");
                 if (component.getId().contains("partnerSOC") || component.getId().contains("soc1") || component.getId().contains("soc5") ||
-                    component.getId().contains("soc6") || component.getId().contains("soc2"))
+                    component.getId().contains("soc6") || component.getId().contains("soc2")) {
                     soc1.setStyleClass("af_nonmandatoryfield");
+                }
             }
             AdfFacesContext.getCurrentInstance().addPartialTarget(soc1);
         }

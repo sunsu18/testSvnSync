@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import java.util.ResourceBundle;
 
 import javax.faces.context.ExternalContext;
@@ -39,122 +38,100 @@ public class PrtCardRuleSubscriptionRVORowImpl extends ViewRowImpl {
                 return obj.getSubscrId();
             }
 
-            public void put(PrtCardRuleSubscriptionRVORowImpl obj,
-                            Object value) {
+            public void put(PrtCardRuleSubscriptionRVORowImpl obj, Object value) {
                 obj.setSubscrId((Number)value);
             }
-        }
-        ,
+        },
         RuleId {
             public Object get(PrtCardRuleSubscriptionRVORowImpl obj) {
                 return obj.getRuleId();
             }
 
-            public void put(PrtCardRuleSubscriptionRVORowImpl obj,
-                            Object value) {
+            public void put(PrtCardRuleSubscriptionRVORowImpl obj, Object value) {
                 obj.setRuleId((Number)value);
             }
-        }
-        ,
+        },
         PartnerId {
             public Object get(PrtCardRuleSubscriptionRVORowImpl obj) {
                 return obj.getPartnerId();
             }
 
-            public void put(PrtCardRuleSubscriptionRVORowImpl obj,
-                            Object value) {
+            public void put(PrtCardRuleSubscriptionRVORowImpl obj, Object value) {
                 obj.setPartnerId((String)value);
             }
-        }
-        ,
+        },
         AccountId {
             public Object get(PrtCardRuleSubscriptionRVORowImpl obj) {
                 return obj.getAccountId();
             }
 
-            public void put(PrtCardRuleSubscriptionRVORowImpl obj,
-                            Object value) {
+            public void put(PrtCardRuleSubscriptionRVORowImpl obj, Object value) {
                 obj.setAccountId((String)value);
             }
-        }
-        ,
+        },
         CardgroupMain {
             public Object get(PrtCardRuleSubscriptionRVORowImpl obj) {
                 return obj.getCardgroupMain();
             }
 
-            public void put(PrtCardRuleSubscriptionRVORowImpl obj,
-                            Object value) {
+            public void put(PrtCardRuleSubscriptionRVORowImpl obj, Object value) {
                 obj.setCardgroupMain((String)value);
             }
-        }
-        ,
+        },
         CardgroupSeq {
             public Object get(PrtCardRuleSubscriptionRVORowImpl obj) {
                 return obj.getCardgroupSeq();
             }
 
-            public void put(PrtCardRuleSubscriptionRVORowImpl obj,
-                            Object value) {
+            public void put(PrtCardRuleSubscriptionRVORowImpl obj, Object value) {
                 obj.setCardgroupSeq((String)value);
             }
-        }
-        ,
+        },
         CardgroupSub {
             public Object get(PrtCardRuleSubscriptionRVORowImpl obj) {
                 return obj.getCardgroupSub();
             }
 
-            public void put(PrtCardRuleSubscriptionRVORowImpl obj,
-                            Object value) {
+            public void put(PrtCardRuleSubscriptionRVORowImpl obj, Object value) {
                 obj.setCardgroupSub((String)value);
             }
-        }
-        ,
+        },
         CardKsid {
             public Object get(PrtCardRuleSubscriptionRVORowImpl obj) {
                 return obj.getCardKsid();
             }
 
-            public void put(PrtCardRuleSubscriptionRVORowImpl obj,
-                            Object value) {
+            public void put(PrtCardRuleSubscriptionRVORowImpl obj, Object value) {
                 obj.setCardKsid((String)value);
             }
-        }
-        ,
+        },
         SubscrDate {
             public Object get(PrtCardRuleSubscriptionRVORowImpl obj) {
                 return obj.getSubscrDate();
             }
 
-            public void put(PrtCardRuleSubscriptionRVORowImpl obj,
-                            Object value) {
+            public void put(PrtCardRuleSubscriptionRVORowImpl obj, Object value) {
                 obj.setSubscrDate((Date)value);
             }
-        }
-        ,
+        },
         CardEmbossNumber {
             public Object get(PrtCardRuleSubscriptionRVORowImpl obj) {
                 return obj.getCardEmbossNumber();
             }
 
-            public void put(PrtCardRuleSubscriptionRVORowImpl obj,
-                            Object value) {
+            public void put(PrtCardRuleSubscriptionRVORowImpl obj, Object value) {
                 obj.setCardEmbossNumber((String)value);
             }
-        }
-        ,
+        },
         CardgroupId {
             public Object get(PrtCardRuleSubscriptionRVORowImpl obj) {
                 return obj.getCardgroupId();
             }
 
-            public void put(PrtCardRuleSubscriptionRVORowImpl obj,
-                            Object value) {
+            public void put(PrtCardRuleSubscriptionRVORowImpl obj, Object value) {
                 obj.setCardgroupId((String)value);
             }
-        }
-        ;
+        };
         private static AttributesEnum[] vals = null;
         private static int firstIndex = 0;
 
@@ -205,47 +182,46 @@ public class PrtCardRuleSubscriptionRVORowImpl extends ViewRowImpl {
      * This is the default constructor (do not remove).
      */
     public PrtCardRuleSubscriptionRVORowImpl() {
-        
+
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
         partnerInfoList = new ArrayList<PartnerInfo>();
-        
+
         if (session.getAttribute("Partner_Object_List") != null) {
-            System.out.println("partnerlist not null");
             partnerInfoList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
         }
-        
+
         if (partnerInfoList != null && partnerInfoList.size() > 0) {
             for (int i = 0; i < partnerInfoList.size(); i++) {
-                    for (int j = 0; j < partnerInfoList.get(i).getAccountList().size(); j++) {
-                       
-                        for (int k = 0; k < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().size(); k++) {
-                            
-                            for (int cc = 0; cc < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().size(); cc++)
-                            {
-                                if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID() != null &&
-                                    partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID() != null){
-                                      
-                                        cardMap.put(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID(), partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID());   
-                                       
-                                    }
+                for (int j = 0; j < partnerInfoList.get(i).getAccountList().size(); j++) {
+
+                    for (int k = 0; k < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().size(); k++) {
+
+                        for (int cc = 0; cc < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().size(); cc++) {
+                            if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID() != null &&
+                                partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID() != null) {
+
+                                cardMap.put(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID(),
+                                            partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID());
+
                             }
                         }
                     }
                 }
-                cardMap.put("ALL", "All");
             }
-            
+            cardMap.put("ALL", "All");
         }
-    
+
+    }
+
 
     /**
      * Gets the attribute value for the calculated attribute SubscrId.
      * @return the SubscrId
      */
     public Number getSubscrId() {
-        return (Number) getAttributeInternal(SUBSCRID);
+        return (Number)getAttributeInternal(SUBSCRID);
     }
 
     /**
@@ -261,7 +237,7 @@ public class PrtCardRuleSubscriptionRVORowImpl extends ViewRowImpl {
      * @return the RuleId
      */
     public Number getRuleId() {
-        return (Number) getAttributeInternal(RULEID);
+        return (Number)getAttributeInternal(RULEID);
     }
 
     /**
@@ -278,9 +254,9 @@ public class PrtCardRuleSubscriptionRVORowImpl extends ViewRowImpl {
      */
     public String getPartnerId() {
         String result;
-        result = (String) getAttributeInternal(PARTNERID);
+        result = (String)getAttributeInternal(PARTNERID);
         resourceBundle = new EngageResourceBundle();
-        if(result.equalsIgnoreCase("ALL")) {
+        if (result.equalsIgnoreCase("ALL")) {
             if (resourceBundle.containsKey("ENG_ALL")) {
                 result = resourceBundle.getObject("ENG_ALL").toString().trim();
             }
@@ -302,9 +278,9 @@ public class PrtCardRuleSubscriptionRVORowImpl extends ViewRowImpl {
      */
     public String getAccountId() {
         String result;
-        result = (String) getAttributeInternal(ACCOUNTID);
+        result = (String)getAttributeInternal(ACCOUNTID);
         resourceBundle = new EngageResourceBundle();
-        if(result.equalsIgnoreCase("ALL")) {
+        if (result.equalsIgnoreCase("ALL")) {
             if (resourceBundle.containsKey("ENG_ALL")) {
                 result = resourceBundle.getObject("ENG_ALL").toString().trim();
             }
@@ -325,7 +301,7 @@ public class PrtCardRuleSubscriptionRVORowImpl extends ViewRowImpl {
      * @return the CardgroupMain
      */
     public String getCardgroupMain() {
-        return (String) getAttributeInternal(CARDGROUPMAIN);
+        return (String)getAttributeInternal(CARDGROUPMAIN);
     }
 
     /**
@@ -341,7 +317,7 @@ public class PrtCardRuleSubscriptionRVORowImpl extends ViewRowImpl {
      * @return the CardgroupSeq
      */
     public String getCardgroupSeq() {
-        return (String) getAttributeInternal(CARDGROUPSEQ);
+        return (String)getAttributeInternal(CARDGROUPSEQ);
     }
 
     /**
@@ -357,7 +333,7 @@ public class PrtCardRuleSubscriptionRVORowImpl extends ViewRowImpl {
      * @return the CardgroupSub
      */
     public String getCardgroupSub() {
-        return (String) getAttributeInternal(CARDGROUPSUB);
+        return (String)getAttributeInternal(CARDGROUPSUB);
     }
 
     /**
@@ -373,8 +349,8 @@ public class PrtCardRuleSubscriptionRVORowImpl extends ViewRowImpl {
      * @return the CardKsid
      */
     public String getCardKsid() {
-        return (String) getAttributeInternal(CARDKSID);
-//        return (String)cardMap.get(getAttributeInternal(CARDKSID));
+        return (String)getAttributeInternal(CARDKSID);
+        //        return (String)cardMap.get(getAttributeInternal(CARDKSID));
     }
 
     /**
@@ -390,7 +366,7 @@ public class PrtCardRuleSubscriptionRVORowImpl extends ViewRowImpl {
      * @return the SubscrDate
      */
     public Date getSubscrDate() {
-        return (Date) getAttributeInternal(SUBSCRDATE);
+        return (Date)getAttributeInternal(SUBSCRDATE);
     }
 
     /**
@@ -407,10 +383,10 @@ public class PrtCardRuleSubscriptionRVORowImpl extends ViewRowImpl {
      */
     public String getCardEmbossNumber() {
         String result;
-        if(getCardKsid() != null){
-            result = (String) cardMap.get(getCardKsid());
+        if (getCardKsid() != null) {
+            result = (String)cardMap.get(getCardKsid());
             resourceBundle = new EngageResourceBundle();
-            if(result != null & result.equalsIgnoreCase("ALL")) {
+            if (result != null & result.equalsIgnoreCase("ALL")) {
                 if (resourceBundle.containsKey("ENG_ALL")) {
                     result = resourceBundle.getObject("ENG_ALL").toString().trim();
                 }
@@ -434,10 +410,10 @@ public class PrtCardRuleSubscriptionRVORowImpl extends ViewRowImpl {
      */
     public String getCardgroupId() {
         String result;
-        if(getCardgroupMain() != null & getCardgroupSub() != null & getCardgroupSeq() != null){
+        if (getCardgroupMain() != null & getCardgroupSub() != null & getCardgroupSeq() != null) {
             result = getCardgroupMain() + getCardgroupSub() + getCardgroupSeq();
             resourceBundle = new EngageResourceBundle();
-            if(result.equalsIgnoreCase("ALLALLALL")) {
+            if (result.equalsIgnoreCase("ALLALLALL")) {
                 if (resourceBundle.containsKey("ENG_ALL")) {
                     result = resourceBundle.getObject("ENG_ALL").toString().trim();
                 }

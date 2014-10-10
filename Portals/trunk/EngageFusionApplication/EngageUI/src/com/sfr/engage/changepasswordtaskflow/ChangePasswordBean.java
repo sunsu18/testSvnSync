@@ -36,9 +36,6 @@ public class ChangePasswordBean implements Serializable {
     private ResourceBundle resourceBundle;
     private String lang;
     private AccessDataControl accessDC = new AccessDataControl();
-    private HttpSession session;
-    private ExternalContext ectx;
-    private HttpServletRequest request;
     private User userBean;
     public static final ADFLogger LOGGER = AccessDataControl.getSFRLogger();
 
@@ -54,9 +51,9 @@ public class ChangePasswordBean implements Serializable {
 
     public ChangePasswordBean() {
         super();
-        ectx = FacesContext.getCurrentInstance().getExternalContext();
-        request = (HttpServletRequest)ectx.getRequest();
-        session = request.getSession(false);
+        ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
+        HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
+        HttpSession session = request.getSession(false);
         userBean = new User();
         resourceBundle = new EngageResourceBundle();
         if (session != null) {
