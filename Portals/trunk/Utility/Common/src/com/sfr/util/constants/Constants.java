@@ -759,7 +759,7 @@ public class Constants {
     public static final String VEHICLE_MODIFIED_BY_LITERAL = "vehicleModifiedBy";
     public static final String INTERNAL_NAME_LITERAL = "InternalName";
     public static final String ASSOCIATED_ACOUNT_LITERAL = "associatedAccount";
-    public static final String INTERNAL_CARD_NAME_LITERAL = "internalCardNumber";
+    public static final String INTERNAL_CARD_NUMBER_LITERAL = "internalCardNumber";
     public static final String UPDATE_VEHICLE_DRIVER_LITERAL = "updateVehicleDriver";
     public static final String CARD_NUMBER_LITERAL = "cardNumber";
     public static final String TYPE_LITERAL = "type";
@@ -800,5 +800,17 @@ public class Constants {
     public static final String CARDGROUP_KEY_LITERAL = "CardGroupkey";
     public static final String CARDKSID_KEY_LITERAL = "CardKsidkey";
     public static final String SUBSCRSTATUS_LITERAL = "SubscrStatus";
+    public static final String ACCOUNTIDLITERAL = "AccountId";
+    public static final String MODIFIEDBYLITERAL = "ModifiedBy";
+    public static final String ENGAGENOPARTNER_LITERAL = "ENGAGE_NO_PARTNER";
+    public static final String USERIDLITERAL = "userId";
+    public static final String CARDLITERAL = "card";
+    public static final String CARDGROUPLITERAL = "cardGroup";
+    public static final String SUBSCRIDLITERAL = "subscrId";
+    public static final String DRIVERMODIFIEDDATELITERAL = "driverModifiedDate";
+    public static final String ACCOUNTLITERAL = "Account";
+    public static final String STATUSLITERAL = "Status";
+    public static final String CONTAINLITERAL = "CONTAIN";
+    public static final String ENGAGECATEGORYNONADMINLITERAL = "ENGAGE_CATEGORY_NON_ADMIN";
 
 }
