@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class ValueListSplit {
+public final class ValueListSplit {
     private ValueListSplit() {
         //not called
     }
