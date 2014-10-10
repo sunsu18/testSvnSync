@@ -142,7 +142,6 @@ public class InvoiceOverviewBean implements Serializable {
     private Map<String, String> mapCardGroupListValue;
     private Map<String, String> mapCardListValue;
     public static final ADFLogger LOGGER = AccessDataControl.getSFRLogger();
-//    private ValueListSplit valueList;
     private RichOutputText mailResult;
     private RichOutputText mailResultInvoiceNotFound;
     private RichOutputText mailResultFailure;
@@ -441,12 +440,11 @@ public class InvoiceOverviewBean implements Serializable {
                             }
                             if (mapCardListValue != null) {
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
-                                    String values = "card" + i;
-                                    invoiceVO.removeNamedWhereClauseParam(values);
+                                    invoiceVO.removeNamedWhereClauseParam(Constants.CARDLITERAL + i);
                                 }
 
                             } else {
-                                invoiceVO.removeNamedWhereClauseParam("card");
+                                invoiceVO.removeNamedWhereClauseParam(Constants.CARDLITERAL);
                             }
                             invoiceVO.setWhereClause("");
                             invoiceVO.executeQuery();
@@ -468,11 +466,10 @@ public class InvoiceOverviewBean implements Serializable {
                                 }
                                 if (mapCardGroupListValue != null) {
                                     for (int i = 0; i < mapCardGroupListValue.size(); i++) {
-                                        String values = "cardGroup" + i;
-                                        invoiceVO.removeNamedWhereClauseParam(values);
+                                        invoiceVO.removeNamedWhereClauseParam(Constants.CARDGROUPLITERAL + i);
                                     }
                                 } else {
-                                    invoiceVO.removeNamedWhereClauseParam("cardGroup");
+                                    invoiceVO.removeNamedWhereClauseParam(Constants.CARDGROUPLITERAL);
                                 }
                                 invoiceVO.setWhereClause("");
                                 invoiceVO.executeQuery();
@@ -518,7 +515,7 @@ public class InvoiceOverviewBean implements Serializable {
                                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values > 150 ");
                                 mapCardListValue = ValueListSplit.callValueList(cardValue.size(), cardValue);
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
-                                    String values = "card" + i;
+                                    String values = Constants.CARDLITERAL + i;
                                     cardQuery = cardQuery + "INSTR(:" + values + ",INVOICED_CARD)<>0 OR ";
                                 }
                                 cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
@@ -527,9 +524,8 @@ public class InvoiceOverviewBean implements Serializable {
                                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
                                 invoiceVO.setWhereClause(accountQuery + "AND " + cardQuery);
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
-                                    String values = "card" + i;
-
-                                    invoiceVO.defineNamedWhereClauseParam(values, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
+                                    invoiceVO.defineNamedWhereClauseParam(Constants.CARDLITERAL + i, mapCardListValue.get(Constants.LISTNAME_LITERAL + i),
+                                                                          null);
                                 }
 
                             } else {
@@ -538,7 +534,7 @@ public class InvoiceOverviewBean implements Serializable {
                                 cardQuery = "(INSTR(:card,INVOICED_CARD)<>0)";
                                 invoiceVO.setWhereClause(accountQuery + "AND " + cardQuery);
                                 String cardValuesList = populateStringValues(getBindings().getCard().getValue().toString());
-                                invoiceVO.defineNamedWhereClauseParam("card", cardValuesList, null);
+                                invoiceVO.defineNamedWhereClauseParam(Constants.CARDLITERAL, cardValuesList, null);
                             }
                         } else {
 
@@ -546,7 +542,7 @@ public class InvoiceOverviewBean implements Serializable {
                                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
                                 mapCardGroupListValue = ValueListSplit.callValueList(cardGroupValue.size(), cardGroupValue);
                                 for (int i = 0; i < mapCardGroupListValue.size(); i++) {
-                                    String values = "cardGroup" + i;
+                                    String values = Constants.CARDGROUPLITERAL + i;
                                     cardGroupQuery =
                                             cardGroupQuery + "INSTR(:" + values + ",PARTNER_ID||CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 OR ";
                                 }
@@ -555,9 +551,8 @@ public class InvoiceOverviewBean implements Serializable {
                                 cardGroupQuery = cardGroupQuery + ")";
                                 invoiceVO.setWhereClause(accountQuery + "AND " + cardGroupQuery);
                                 for (int i = 0; i < mapCardGroupListValue.size(); i++) {
-                                    String values = "cardGroup" + i;
-
-                                    invoiceVO.defineNamedWhereClauseParam(values, mapCardGroupListValue.get(Constants.LISTNAME_LITERAL + i), null);
+                                    invoiceVO.defineNamedWhereClauseParam(Constants.CARDGROUPLITERAL + i,
+                                                                          mapCardGroupListValue.get(Constants.LISTNAME_LITERAL + i), null);
                                 }
 
                             } else {
@@ -565,8 +560,8 @@ public class InvoiceOverviewBean implements Serializable {
                                 mapCardGroupListValue = null;
                                 cardGroupQuery = "INSTR(:cardGroup,PARTNER_ID||CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 ";
                                 invoiceVO.setWhereClause(accountQuery + "AND " + cardGroupQuery);
-                                invoiceVO.defineNamedWhereClauseParam("cardGroup", populateStringValues(getBindings().getCardGroup().getValue().toString()),
-                                                                      null);
+                                invoiceVO.defineNamedWhereClauseParam(Constants.CARDGROUPLITERAL,
+                                                                      populateStringValues(getBindings().getCardGroup().getValue().toString()), null);
 
                             }
                         }
@@ -975,7 +970,7 @@ public class InvoiceOverviewBean implements Serializable {
             cardGroupVisible = true;
             cardVisible = false;
 
-            getBindings().getCardGpCardList().setValue("CardGroup");
+            getBindings().getCardGpCardList().setValue(Constants.CARD_GROUP_LITERAL);
 
 
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGpCardList());
@@ -990,7 +985,7 @@ public class InvoiceOverviewBean implements Serializable {
                     for (int i = 0; i < partnerInfoList.get(z).getAccountList().size(); i++) {
                         for (int j = 0; j < accountString.length; j++) {
                             if (partnerInfoList.get(z).getAccountList().get(i).getAccountNumber() != null &&
-                                partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().trim().equals(accountString[j].toString().trim())) {
+                                partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().trim().equals(accountString[j].trim())) {
                                 if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup() != null &&
                                     partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size() > 0) {
                                     for (int k = 0; k < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size(); k++) {
@@ -1030,7 +1025,7 @@ public class InvoiceOverviewBean implements Serializable {
             cardGroupList = new ArrayList<SelectItem>();
             cardValue = new ArrayList<String>();
             cardList = new ArrayList<SelectItem>();
-            getBindings().getCardGpCardList().setValue("CardGroup");
+            getBindings().getCardGpCardList().setValue(Constants.CARD_GROUP_LITERAL);
 
 
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGpCardList());
@@ -1054,7 +1049,7 @@ public class InvoiceOverviewBean implements Serializable {
             cGCardVisible = true;
             cardGroupVisible = true;
             cardVisible = false;
-            getBindings().getCardGpCardList().setValue("CardGroup");
+            getBindings().getCardGpCardList().setValue(Constants.CARD_GROUP_LITERAL);
 
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGpCardList());
             accountList = new ArrayList<SelectItem>();
@@ -1124,7 +1119,7 @@ public class InvoiceOverviewBean implements Serializable {
             cardGroupList = new ArrayList<SelectItem>();
             cardValue = new ArrayList<String>();
             cardList = new ArrayList<SelectItem>();
-            getBindings().getCardGpCardList().setValue("CardGroup");
+            getBindings().getCardGpCardList().setValue(Constants.CARD_GROUP_LITERAL);
 
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGpCardList());
 
@@ -2992,7 +2987,7 @@ public class InvoiceOverviewBean implements Serializable {
 
     }
 
-    public void specificExportExcelListener(FacesContext facesContext, OutputStream outputStream) throws IOException, SQLException, Exception {
+    public void specificExportExcelListener(FacesContext facesContext, OutputStream outputStream) throws IOException, SQLException {
         resourceBundle = new EngageResourceBundle();
         LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside specificExportExcelListener method of Invoices");
 

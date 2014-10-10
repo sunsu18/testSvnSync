@@ -139,6 +139,11 @@ public class Alerts {
     private Boolean okVisibleForBusinessHr;
     private Boolean editVisibleForBusinessHr;
     private static final String PRTCARDRULESUBSCRIPTIONVO1ITERATORLITRERAL = "PrtCardRuleSubscriptionVO1Iterator";
+    private static final String PRTCARDFUELCAPACITYVO1ITERATORLITRERAL = "PrtCardFuelCapacityVO1Iterator";
+    private static final String PRTCARDRULESUBSCRIPTIONRVO1ITERATORLITRERAL = "PrtCardRuleSubscriptionRVO1Iterator";
+    private static final String LOCALNO = "9898989898";
+    private static final String AFMANDATORYFIELDLITERAL = "af_mandatoryfield";
+    private static final String AFNONMANDATORYFIELDLITERAL = "af_nonmandatoryfield";
 
     public Alerts() {
         LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside constructor of Alerts");
@@ -639,9 +644,9 @@ public class Alerts {
         getBindings().getMandatoryMsg().setRendered(false);
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getMandatoryMsg());
         getBindings().getAlert2ValidData().setVisible(false);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlert2ValidData()); 
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlert2ValidData());
         getBindings().getMandatoryMsg().setVisible(false);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getMandatoryMsg()); 
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getMandatoryMsg());
         displayErrorComponent(getBindings().getPartnerDropdownAlert2(), false);
         displayErrorComponent(getBindings().getAccountDropdwonAlert2(), false);
         displayErrorComponent(getBindings().getCardGroupDowndownAlert2(), false);
@@ -740,11 +745,11 @@ public class Alerts {
                     LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "response = " + response.getSubscriptionID());
                     if (response.getSubscriptionID() != null) {
                         DCBindingContainer bindings2 = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
-                        DCIteratorBinding CardRuleSubscriptionIter = bindings2.findIteratorBinding(PRTCARDRULESUBSCRIPTIONVO1ITERATORLITRERAL);
-                        DCIteratorBinding CardRuleBusinessHoursIter = bindings2.findIteratorBinding("PrtCardRuleBusinessHoursVO1Iterator");
-                        if (CardRuleSubscriptionIter != null && CardRuleBusinessHoursIter != null) {
-                            ViewObject cardRuleSubscription = CardRuleSubscriptionIter.getViewObject();
-                            ViewObject cardRuleBusinessHours = CardRuleBusinessHoursIter.getViewObject();
+                        DCIteratorBinding cardRuleSubscriptionIter = bindings2.findIteratorBinding(PRTCARDRULESUBSCRIPTIONVO1ITERATORLITRERAL);
+                        DCIteratorBinding cardRuleBusinessHoursIter = bindings2.findIteratorBinding("PrtCardRuleBusinessHoursVO1Iterator");
+                        if (cardRuleSubscriptionIter != null && cardRuleBusinessHoursIter != null) {
+                            ViewObject cardRuleSubscription = cardRuleSubscriptionIter.getViewObject();
+                            ViewObject cardRuleBusinessHours = cardRuleBusinessHoursIter.getViewObject();
                             Row cardRuleSubscriptionRow = cardRuleSubscription.createRow();
                             if (session.getAttribute(Constants.PARTNER_LANG_LITERAL) != null) {
                                 cardRuleSubscriptionRow.setAttribute("CountryCode", session.getAttribute(Constants.PARTNER_LANG_LITERAL));
@@ -752,14 +757,14 @@ public class Alerts {
                             cardRuleSubscriptionRow.setAttribute(Constants.USER_ID_LITERAL, userEmail);
                             cardRuleSubscriptionRow.setAttribute(Constants.SUBSCR_ID_LITERAL, response.getSubscriptionID().toString().trim());
                             cardRuleSubscriptionRow.setAttribute(Constants.RULE_ID_LITERAL, "1");
-                            cardRuleSubscriptionRow.setAttribute("SubscrStatus", Constants.ACTIVE_LITERAL);
+                            cardRuleSubscriptionRow.setAttribute(Constants.SUBSCRSTATUS_LITERAL, Constants.ACTIVE_LITERAL);
                             cardRuleSubscriptionRow.setAttribute(Constants.PARTNER_ID_LITERAL, getBindings().getAlert1PartnerValues().getValue().toString());
-                            cardRuleSubscriptionRow.setAttribute("AccountId", Constants.ALL_LITERAL);
-                            cardRuleSubscriptionRow.setAttribute("CardgroupMain", Constants.ALL_LITERAL);
-                            cardRuleSubscriptionRow.setAttribute("CardgroupSub", Constants.ALL_LITERAL);
-                            cardRuleSubscriptionRow.setAttribute("CardgroupSeq", Constants.ALL_LITERAL);
-                            cardRuleSubscriptionRow.setAttribute("ModifiedBy", userEmail);
-                            cardRuleSubscriptionRow.setAttribute("CardKsid", Constants.ALL_LITERAL);
+                            cardRuleSubscriptionRow.setAttribute(Constants.ACCOUNTIDLITERAL, Constants.ALL_LITERAL);
+                            cardRuleSubscriptionRow.setAttribute(Constants.CARDGROUP_MAIN_LITERAL, Constants.ALL_LITERAL);
+                            cardRuleSubscriptionRow.setAttribute(Constants.CARDGROUP_SUB_LITERAL, Constants.ALL_LITERAL);
+                            cardRuleSubscriptionRow.setAttribute(Constants.CARDGROUP_SEQ_LITERAL, Constants.ALL_LITERAL);
+                            cardRuleSubscriptionRow.setAttribute(Constants.MODIFIEDBYLITERAL, userEmail);
+                            cardRuleSubscriptionRow.setAttribute(Constants.CADRDKSID_LITERAL, Constants.ALL_LITERAL);
                             cardRuleSubscription.insertRow(cardRuleSubscriptionRow);
                             RichTable rt = getBindings().getAlert1Table();
                             Object o;
@@ -779,10 +784,10 @@ public class Alerts {
                                                                       checkFuelTimings.getFromHh().toString().trim() + ":" + checkFuelTimings.getFromMm().toString().trim());
                                 cardRuleBusinessHoursRow.setAttribute("BusiStartTo",
                                                                       checkFuelTimings.getToHh().toString().trim() + ":" + checkFuelTimings.getToMm().toString().trim());
-                                cardRuleBusinessHoursRow.setAttribute("ModifiedBy", userEmail);
+                                cardRuleBusinessHoursRow.setAttribute(Constants.MODIFIEDBYLITERAL, userEmail);
                                 cardRuleBusinessHours.insertRow(cardRuleBusinessHoursRow);
                             }
-                            operationBinding = localBinding.getOperationBinding("Commit");
+                            operationBinding = localBinding.getOperationBinding(Constants.COMMIT_LITERAL);
                             operationBinding.execute();
                         }
 
@@ -866,11 +871,12 @@ public class Alerts {
             for (int i = 0; i < Constants.SEVEN; i++) {
                 o = rt.getRowData(i);
                 checkFuelTimings = (FuelTimings)o;
-                    String regex = "\\d+";
-                    if (checkFuelTimings.getFromHh() != null && !checkFuelTimings.getFromHh().equals("") && checkFuelTimings.getFromHh().toString().trim() != null &&
-                    checkFuelTimings.getFromMm() != null && checkFuelTimings.getFromMm().toString().trim() != null && !checkFuelTimings.getFromMm().equals("") &&
-                    checkFuelTimings.getToHh() != null && checkFuelTimings.getToHh().toString().trim() != null && !checkFuelTimings.getToHh().equals("") &&
-                    checkFuelTimings.getToMm() != null && checkFuelTimings.getToMm().toString().trim() != null && !checkFuelTimings.getToMm().equals("")) {
+                String regex = "\\d+";
+                if (checkFuelTimings.getFromHh() != null && !checkFuelTimings.getFromHh().equals("") &&
+                    checkFuelTimings.getFromHh().toString().trim() != null && checkFuelTimings.getFromMm() != null &&
+                    checkFuelTimings.getFromMm().toString().trim() != null && !checkFuelTimings.getFromMm().equals("") && checkFuelTimings.getToHh() != null &&
+                    checkFuelTimings.getToHh().toString().trim() != null && !checkFuelTimings.getToHh().equals("") && checkFuelTimings.getToMm() != null &&
+                    checkFuelTimings.getToMm().toString().trim() != null && !checkFuelTimings.getToMm().equals("")) {
                     if (checkFuelTimings.getFromHh().toString().trim().matches(regex) && checkFuelTimings.getFromMm().toString().trim().matches(regex) &&
                         checkFuelTimings.getToHh().toString().trim().matches(regex) && checkFuelTimings.getToMm().toString().trim().matches(regex)) {
                         fromHh = Integer.parseInt(checkFuelTimings.getFromHh().toString().trim());
@@ -879,10 +885,10 @@ public class Alerts {
                         toMm = Integer.parseInt(checkFuelTimings.getToMm().toString().trim());
                         if (!(fromHh < Constants.TWENTYFOUR && toHh < Constants.TWENTYFOUR && fromMm < Constants.SIXTY && toMm < Constants.SIXTY)) {
                             validinput = false;
-                            if(flag1){
+                            if (flag1) {
                                 getBindings().getAlert1ValidData().setVisible(true);
                                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlert1ValidData());
-                            }else{
+                            } else {
                                 getBindings().getInvalidInputMsg().setVisible(true);
                                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvalidInputMsg());
                             }
@@ -890,10 +896,10 @@ public class Alerts {
                         }
                     } else {
                         validinput = false;
-                        if(flag1){
+                        if (flag1) {
                             getBindings().getAlert1ValidData().setVisible(true);
                             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlert1ValidData());
-                        }else{
+                        } else {
                             getBindings().getInvalidInputMsg().setVisible(true);
                             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvalidInputMsg());
                         }
@@ -903,32 +909,32 @@ public class Alerts {
                     }
                 } else {
                     validinput = false;
-                    if(flag1){
-                        if(checkFuelTimings.getFromHh() == null && checkFuelTimings.getFromHh().toString().trim() == null){
+                    if (flag1) {
+                        if (checkFuelTimings.getFromHh() == null && checkFuelTimings.getFromHh().toString().trim() == null) {
                             displayErrorComponent(getBindings().getFromTimingsHh(), true);
                         }
-                        if(checkFuelTimings.getFromMm() != null && checkFuelTimings.getFromMm().toString().trim() != null){
+                        if (checkFuelTimings.getFromMm() != null && checkFuelTimings.getFromMm().toString().trim() != null) {
                             displayErrorComponent(getBindings().getFromTimingsMm(), true);
                         }
-                        if(checkFuelTimings.getToHh() != null && checkFuelTimings.getToHh().toString().trim() != null){
+                        if (checkFuelTimings.getToHh() != null && checkFuelTimings.getToHh().toString().trim() != null) {
                             displayErrorComponent(getBindings().getToTimingsHh(), true);
                         }
-                        if(checkFuelTimings.getToMm() != null && checkFuelTimings.getToMm().toString().trim() != null){
+                        if (checkFuelTimings.getToMm() != null && checkFuelTimings.getToMm().toString().trim() != null) {
                             displayErrorComponent(getBindings().getToTimingsMm(), true);
                         }
                         getBindings().getMandatoryMsg1().setVisible(true);
                         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getMandatoryMsg1());
-                    }else{
-                        if(checkFuelTimings.getFromHh().toString().trim().equals("")){
+                    } else {
+                        if (checkFuelTimings.getFromHh().toString().trim().equals("")) {
                             displayErrorComponent(getBindings().getConfigureFromTimingsHh(), true);
                         }
-                        if(checkFuelTimings.getFromMm().toString().trim().equals("")){
+                        if (checkFuelTimings.getFromMm().toString().trim().equals("")) {
                             displayErrorComponent(getBindings().getConfigureFromTimingsMm(), true);
                         }
-                        if(checkFuelTimings.getToHh().toString().trim().equals("")){
+                        if (checkFuelTimings.getToHh().toString().trim().equals("")) {
                             displayErrorComponent(getBindings().getConfigureToTimingsHh(), true);
                         }
-                        if(checkFuelTimings.getToMm().toString().trim().equals("")){
+                        if (checkFuelTimings.getToMm().toString().trim().equals("")) {
                             displayErrorComponent(getBindings().getConfigureToTimingsMm(), true);
                         }
                         getBindings().getMandatoryMsg4().setVisible(true);
@@ -1523,10 +1529,10 @@ public class Alerts {
                 if (user.getPhoneNumber() != null) {
                     localUserMobileNo = user.getPhoneNumber();
                 } else {
-                    localUserMobileNo = "9898989898";
+                    localUserMobileNo = LOCALNO;
                 }
             }
-            
+
             String cardListString = "";
             for (String s : initialCardValue) {
                 cardListString += s + ",";
@@ -1570,11 +1576,6 @@ public class Alerts {
             getBindings().getCardDropdownAlert2().getValue().toString().trim().replaceAll(" ", "") != null &&
             !getBindings().getCardDropdownAlert2().getValue().toString().trim().replaceAll(" ", "").equals("") &&
             getBindings().getFuelCapacityAlert2().getValue() != null && getBindings().getFuelCapacityAlert2().getValue().toString().trim() != null) {
-//            displayErrorComponent(getBindings().getPartnerDropdownAlert2(), false);
-//            displayErrorComponent(getBindings().getAccountDropdwonAlert2(), false);
-//            displayErrorComponent(getBindings().getCardGroupDowndownAlert2(), false);
-//            displayErrorComponent(getBindings().getCardDropdownAlert2(), false);
-//            displayErrorComponent(getBindings().getFuelCapacityAlert2(), false);
             String regex = "\\d+";
             if (getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", "").matches(regex)) {
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "fuelCapacityAlert2 " +
@@ -1612,15 +1613,15 @@ public class Alerts {
             } else {
                 displayErrorComponent(getBindings().getCardDropdownAlert2(), true);
             }
-            if(getBindings().getFuelCapacityAlert2().getValue() != null ){               
+            if (getBindings().getFuelCapacityAlert2().getValue() != null) {
                 displayErrorComponent(getBindings().getFuelCapacityAlert2(), false);
-            }else{
+            } else {
                 displayErrorComponent(getBindings().getFuelCapacityAlert2(), true);
             }
             getBindings().getMandatoryMsg3().setRendered(true);
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getMandatoryMsg3());
             getBindings().getAlert2ValidData().setVisible(false);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlert2ValidData()); 
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlert2ValidData());
         }
         LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside validateinput2 method of Alerts");
         return validinput2;
@@ -1660,7 +1661,7 @@ public class Alerts {
                     customerobj.setEmailID(userEmail);
                     customerobj.setCustomerID(userEmail);
                     customerobj.setFIrstName(userFirstName);
-                    BigInteger bigint2 = new BigInteger("9898989898");
+                    BigInteger bigint2 = new BigInteger(LOCALNO);
                     customerobj.setMobileNumber(bigint2);
                     req.setCustomer(customerobj);
 
@@ -1671,14 +1672,14 @@ public class Alerts {
                     req.setNotificationChannel(Constants.EMAIL_LITERAL);
                     req.setNotificationFormat(Constants.EXCEL_LITERAL);
                     DCBindingContainer bindings2 = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
-                    DCIteratorBinding CardRuleSubscriptionIter = bindings2.findIteratorBinding(PRTCARDRULESUBSCRIPTIONVO1ITERATORLITRERAL);
+                    DCIteratorBinding cardRuleSubscriptionIter = bindings2.findIteratorBinding(PRTCARDRULESUBSCRIPTIONVO1ITERATORLITRERAL);
 
-                    DCIteratorBinding PrtCardFuelCapacityIter = bindings2.findIteratorBinding("PrtCardFuelCapacityVO1Iterator");
+                    DCIteratorBinding prtCardFuelCapacityIter = bindings2.findIteratorBinding(PRTCARDFUELCAPACITYVO1ITERATORLITRERAL);
 
-                    ViewObject cardRuleSubscription = CardRuleSubscriptionIter.getViewObject();
-                    ViewObject prtCardFuelCapacity = PrtCardFuelCapacityIter.getViewObject();
+                    ViewObject cardRuleSubscription = cardRuleSubscriptionIter.getViewObject();
+                    ViewObject prtCardFuelCapacity = prtCardFuelCapacityIter.getViewObject();
 
-                    if (CardRuleSubscriptionIter != null && PrtCardFuelCapacityIter != null) {
+                    if (cardRuleSubscriptionIter != null && prtCardFuelCapacityIter != null) {
                         String cardgroup[] =
                             (populateStringValues(getBindings().getCardGroupDowndownAlert2().getValue().toString().trim()).replaceAll(" ", "")).split(",");
                         String accountId = "";
@@ -1697,17 +1698,17 @@ public class Alerts {
                                 cardRuleSubscriptionRow.setAttribute(Constants.USER_ID_LITERAL, userEmail);
                                 cardRuleSubscriptionRow.setAttribute(Constants.SUBSCR_ID_LITERAL, response.getSubscriptionID().toString().trim());
                                 cardRuleSubscriptionRow.setAttribute(Constants.RULE_ID_LITERAL, "2");
-                                cardRuleSubscriptionRow.setAttribute("SubscrStatus", Constants.ACTIVE_LITERAL);
+                                cardRuleSubscriptionRow.setAttribute(Constants.SUBSCRSTATUS_LITERAL, Constants.ACTIVE_LITERAL);
                                 partnerId = cardgroup[cardgrp].substring(0, Constants.EIGHT);
                                 accountId = cardgroup[cardgrp].substring(Constants.EIGHT, Constants.EIGHTEEN);
                                 cardgroupId = cardgroup[cardgrp].substring(Constants.EIGHTEEN);
                                 cardRuleSubscriptionRow.setAttribute(Constants.PARTNER_ID_LITERAL, partnerId);
-                                cardRuleSubscriptionRow.setAttribute("AccountId", accountId);
-                                cardRuleSubscriptionRow.setAttribute("CardgroupMain", cardgroupId.substring(0, Constants.THREE));
-                                cardRuleSubscriptionRow.setAttribute("CardgroupSub", cardgroupId.substring(Constants.THREE, Constants.SIX));
-                                cardRuleSubscriptionRow.setAttribute("CardgroupSeq", cardgroupId.substring(Constants.SIX));
-                                cardRuleSubscriptionRow.setAttribute("ModifiedBy", userEmail);
-                                cardRuleSubscriptionRow.setAttribute("CardKsid", Constants.ALL_LITERAL);
+                                cardRuleSubscriptionRow.setAttribute(Constants.ACCOUNTIDLITERAL, accountId);
+                                cardRuleSubscriptionRow.setAttribute(Constants.CARDGROUP_MAIN_LITERAL, cardgroupId.substring(0, Constants.THREE));
+                                cardRuleSubscriptionRow.setAttribute(Constants.CARDGROUP_SUB_LITERAL, cardgroupId.substring(Constants.THREE, Constants.SIX));
+                                cardRuleSubscriptionRow.setAttribute(Constants.CARDGROUP_SEQ_LITERAL, cardgroupId.substring(Constants.SIX));
+                                cardRuleSubscriptionRow.setAttribute(Constants.MODIFIEDBYLITERAL, userEmail);
+                                cardRuleSubscriptionRow.setAttribute(Constants.CADRDKSID_LITERAL, Constants.ALL_LITERAL);
                                 cardRuleSubscription.insertRow(cardRuleSubscriptionRow);
                                 Row prtCardFuelCapacityRow = prtCardFuelCapacity.createRow();
                                 prtCardFuelCapacityRow.setAttribute("CountryCode", countryCode);
@@ -1715,30 +1716,30 @@ public class Alerts {
                                 prtCardFuelCapacityRow.setAttribute(Constants.RULE_ID_LITERAL, "2");
 
                                 if (getBindings().getLtrPerDayRadio().getValue() != null &&
-                                    getBindings().getLtrPerDayRadio().getValue().toString().equalsIgnoreCase("true")) {
-                                    prtCardFuelCapacityRow.setAttribute("FuelPerDay",
+                                    getBindings().getLtrPerDayRadio().getValue().toString().equalsIgnoreCase(Constants.TRUE_LITERAL)) {
+                                    prtCardFuelCapacityRow.setAttribute(Constants.FUEL_PER_DAY_LITERAL,
                                                                         getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ",
                                                                                                                                                       ""));
                                 }
 
                                 if (getBindings().getLtrPerWeekRadio().getValue() != null &&
-                                    getBindings().getLtrPerWeekRadio().getValue().toString().equalsIgnoreCase("true")) {
-                                    prtCardFuelCapacityRow.setAttribute("FuelPerWeek",
+                                    getBindings().getLtrPerWeekRadio().getValue().toString().equalsIgnoreCase(Constants.TRUE_LITERAL)) {
+                                    prtCardFuelCapacityRow.setAttribute(Constants.FUEL_PER_WEEK_LITERAL,
                                                                         getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ",
                                                                                                                                                       ""));
                                 }
 
                                 if (getBindings().getLtrPerMonthRadio().getValue() != null &&
-                                    getBindings().getLtrPerMonthRadio().getValue().toString().equalsIgnoreCase("true")) {
-                                    prtCardFuelCapacityRow.setAttribute("FuelPerMonth",
+                                    getBindings().getLtrPerMonthRadio().getValue().toString().equalsIgnoreCase(Constants.TRUE_LITERAL)) {
+                                    prtCardFuelCapacityRow.setAttribute(Constants.FUEL_PER_MONTH_LITERAL,
                                                                         getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ",
                                                                                                                                                       ""));
                                 }
 
-                                prtCardFuelCapacityRow.setAttribute("ModifiedBy", userEmail);
+                                prtCardFuelCapacityRow.setAttribute(Constants.MODIFIEDBYLITERAL, userEmail);
                             }
                         }
-                        operationBinding = localBinding.getOperationBinding("Commit");
+                        operationBinding = localBinding.getOperationBinding(Constants.COMMIT_LITERAL);
                         operationBinding.execute();
                     }
                 }
@@ -1794,7 +1795,7 @@ public class Alerts {
                 customerobj.setEmailID(userEmail);
                 customerobj.setCustomerID(userEmail);
                 customerobj.setFIrstName(userFirstName);
-                BigInteger bigint2 = new BigInteger("9898989898");
+                BigInteger bigint2 = new BigInteger(LOCALNO);
                 customerobj.setMobileNumber(bigint2);
                 req.setCustomer(customerobj);
 
@@ -1807,7 +1808,7 @@ public class Alerts {
                 DCBindingContainer bindings2 = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
                 DCIteratorBinding CardRuleSubscriptionIter = bindings2.findIteratorBinding(PRTCARDRULESUBSCRIPTIONVO1ITERATORLITRERAL);
 
-                DCIteratorBinding PrtCardFuelCapacityIter = bindings2.findIteratorBinding("PrtCardFuelCapacityVO1Iterator");
+                DCIteratorBinding PrtCardFuelCapacityIter = bindings2.findIteratorBinding(PRTCARDFUELCAPACITYVO1ITERATORLITRERAL);
 
                 ViewObject cardRuleSubscription = CardRuleSubscriptionIter.getViewObject();
                 ViewObject prtCardFuelCapacity = PrtCardFuelCapacityIter.getViewObject();
@@ -1829,42 +1830,42 @@ public class Alerts {
                             cardRuleSubscriptionRow.setAttribute(Constants.USER_ID_LITERAL, userEmail);
                             cardRuleSubscriptionRow.setAttribute(Constants.SUBSCR_ID_LITERAL, response.getSubscriptionID().toString().trim());
                             cardRuleSubscriptionRow.setAttribute(Constants.RULE_ID_LITERAL, "2");
-                            cardRuleSubscriptionRow.setAttribute("SubscrStatus", Constants.ACTIVE_LITERAL);
+                            cardRuleSubscriptionRow.setAttribute(Constants.SUBSCRSTATUS_LITERAL, Constants.ACTIVE_LITERAL);
                             partnerId = card[cardcc].substring(0, Constants.EIGHT);
                             accountId = card[cardcc].substring(Constants.EIGHT, Constants.EIGHTEEN);
                             cardgroupId = card[cardcc].substring(Constants.EIGHTEEN, Constants.TWENTYNINE);
                             cardId = card[cardcc].substring(Constants.TWENTYNINE);
                             cardRuleSubscriptionRow.setAttribute(Constants.PARTNER_ID_LITERAL, partnerId);
-                            cardRuleSubscriptionRow.setAttribute("AccountId", accountId);
-                            cardRuleSubscriptionRow.setAttribute("CardgroupMain", cardgroupId.substring(0, Constants.THREE));
-                            cardRuleSubscriptionRow.setAttribute("CardgroupSub", cardgroupId.substring(Constants.THREE, Constants.SIX));
-                            cardRuleSubscriptionRow.setAttribute("CardgroupSeq", cardgroupId.substring(Constants.SIX, Constants.ELEVEN));
-                            cardRuleSubscriptionRow.setAttribute("ModifiedBy", userEmail);
-                            cardRuleSubscriptionRow.setAttribute("CardKsid", cardId);
+                            cardRuleSubscriptionRow.setAttribute(Constants.ACCOUNTIDLITERAL, accountId);
+                            cardRuleSubscriptionRow.setAttribute(Constants.CARDGROUP_MAIN_LITERAL, cardgroupId.substring(0, Constants.THREE));
+                            cardRuleSubscriptionRow.setAttribute(Constants.CARDGROUP_SUB_LITERAL, cardgroupId.substring(Constants.THREE, Constants.SIX));
+                            cardRuleSubscriptionRow.setAttribute(Constants.CARDGROUP_SEQ_LITERAL, cardgroupId.substring(Constants.SIX, Constants.ELEVEN));
+                            cardRuleSubscriptionRow.setAttribute(Constants.MODIFIEDBYLITERAL, userEmail);
+                            cardRuleSubscriptionRow.setAttribute(Constants.CADRDKSID_LITERAL, cardId);
                             cardRuleSubscription.insertRow(cardRuleSubscriptionRow);
                             Row prtCardFuelCapacityRow = prtCardFuelCapacity.createRow();
                             prtCardFuelCapacityRow.setAttribute("CountryCode", countryCode);
                             prtCardFuelCapacityRow.setAttribute(Constants.SUBSCR_ID_LITERAL, response.getSubscriptionID().toString().trim());
                             prtCardFuelCapacityRow.setAttribute(Constants.RULE_ID_LITERAL, "2");
                             if (getBindings().getLtrPerDayRadio().getValue() != null &&
-                                getBindings().getLtrPerDayRadio().getValue().toString().equalsIgnoreCase("true")) {
-                                prtCardFuelCapacityRow.setAttribute("FuelPerDay",
+                                getBindings().getLtrPerDayRadio().getValue().toString().equalsIgnoreCase(Constants.TRUE_LITERAL)) {
+                                prtCardFuelCapacityRow.setAttribute(Constants.FUEL_PER_DAY_LITERAL,
                                                                     getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
                             }
                             if (getBindings().getLtrPerWeekRadio().getValue() != null &&
-                                getBindings().getLtrPerWeekRadio().getValue().toString().equalsIgnoreCase("true")) {
-                                prtCardFuelCapacityRow.setAttribute("FuelPerWeek",
+                                getBindings().getLtrPerWeekRadio().getValue().toString().equalsIgnoreCase(Constants.TRUE_LITERAL)) {
+                                prtCardFuelCapacityRow.setAttribute(Constants.FUEL_PER_WEEK_LITERAL,
                                                                     getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
                             }
                             if (getBindings().getLtrPerMonthRadio().getValue() != null &&
-                                getBindings().getLtrPerMonthRadio().getValue().toString().equalsIgnoreCase("true")) {
-                                prtCardFuelCapacityRow.setAttribute("FuelPerMonth",
+                                getBindings().getLtrPerMonthRadio().getValue().toString().equalsIgnoreCase(Constants.TRUE_LITERAL)) {
+                                prtCardFuelCapacityRow.setAttribute(Constants.FUEL_PER_MONTH_LITERAL,
                                                                     getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
                             }
-                            prtCardFuelCapacityRow.setAttribute("ModifiedBy", userEmail);
+                            prtCardFuelCapacityRow.setAttribute(Constants.MODIFIEDBYLITERAL, userEmail);
                         }
                     }
-                    operationBinding = localBinding.getOperationBinding("Commit");
+                    operationBinding = localBinding.getOperationBinding(Constants.COMMIT_LITERAL);
                     operationBinding.execute();
                 }
             }
@@ -1939,7 +1940,7 @@ public class Alerts {
                     customerobj.setEmailID(userEmail);
                     customerobj.setCustomerID(userEmail);
                     customerobj.setFIrstName(userFirstName);
-                    BigInteger bigint2 = new BigInteger("9898989898");
+                    BigInteger bigint2 = new BigInteger(LOCALNO);
                     customerobj.setMobileNumber(bigint2);
                     req.setCustomer(customerobj);
 
@@ -1951,7 +1952,7 @@ public class Alerts {
                     req.setNotificationFormat(Constants.EXCEL_LITERAL);
                     DCBindingContainer bindings2 = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
                     DCIteratorBinding CardRuleSubscriptionIter = bindings2.findIteratorBinding(PRTCARDRULESUBSCRIPTIONVO1ITERATORLITRERAL);
-                    DCIteratorBinding PrtCardFuelCapacityIter = bindings2.findIteratorBinding("PrtCardFuelCapacityVO1Iterator");
+                    DCIteratorBinding PrtCardFuelCapacityIter = bindings2.findIteratorBinding(PRTCARDFUELCAPACITYVO1ITERATORLITRERAL);
 
                     ViewObject cardRuleSubscription = CardRuleSubscriptionIter.getViewObject();
                     ViewObject prtCardFuelCapacity = PrtCardFuelCapacityIter.getViewObject();
@@ -1972,43 +1973,43 @@ public class Alerts {
                                 cardRuleSubscriptionRow.setAttribute(Constants.USER_ID_LITERAL, userEmail);
                                 cardRuleSubscriptionRow.setAttribute(Constants.SUBSCR_ID_LITERAL, response.getSubscriptionID().toString().trim());
                                 cardRuleSubscriptionRow.setAttribute(Constants.RULE_ID_LITERAL, "2");
-                                cardRuleSubscriptionRow.setAttribute("SubscrStatus", Constants.ACTIVE_LITERAL);
+                                cardRuleSubscriptionRow.setAttribute(Constants.SUBSCRSTATUS_LITERAL, Constants.ACTIVE_LITERAL);
                                 partnerId = account[acc].substring(0, Constants.EIGHT);
                                 accountId = account[acc].substring(Constants.EIGHT);
                                 cardRuleSubscriptionRow.setAttribute(Constants.PARTNER_ID_LITERAL, partnerId);
-                                cardRuleSubscriptionRow.setAttribute("AccountId", accountId);
-                                cardRuleSubscriptionRow.setAttribute("CardgroupMain", Constants.ALL_LITERAL);
-                                cardRuleSubscriptionRow.setAttribute("CardgroupSub", Constants.ALL_LITERAL);
-                                cardRuleSubscriptionRow.setAttribute("CardgroupSeq", Constants.ALL_LITERAL);
-                                cardRuleSubscriptionRow.setAttribute("ModifiedBy", userEmail);
-                                cardRuleSubscriptionRow.setAttribute("CardKsid", Constants.ALL_LITERAL);
+                                cardRuleSubscriptionRow.setAttribute(Constants.ACCOUNTIDLITERAL, accountId);
+                                cardRuleSubscriptionRow.setAttribute(Constants.CARDGROUP_MAIN_LITERAL, Constants.ALL_LITERAL);
+                                cardRuleSubscriptionRow.setAttribute(Constants.CARDGROUP_SUB_LITERAL, Constants.ALL_LITERAL);
+                                cardRuleSubscriptionRow.setAttribute(Constants.CARDGROUP_SEQ_LITERAL, Constants.ALL_LITERAL);
+                                cardRuleSubscriptionRow.setAttribute(Constants.MODIFIEDBYLITERAL, userEmail);
+                                cardRuleSubscriptionRow.setAttribute(Constants.CADRDKSID_LITERAL, Constants.ALL_LITERAL);
                                 cardRuleSubscription.insertRow(cardRuleSubscriptionRow);
                                 Row prtCardFuelCapacityRow = prtCardFuelCapacity.createRow();
                                 prtCardFuelCapacityRow.setAttribute("CountryCode", countryCode);
                                 prtCardFuelCapacityRow.setAttribute(Constants.SUBSCR_ID_LITERAL, response.getSubscriptionID().toString().trim());
                                 prtCardFuelCapacityRow.setAttribute(Constants.RULE_ID_LITERAL, "2");
                                 if (getBindings().getLtrPerDayRadio().getValue() != null &&
-                                    getBindings().getLtrPerDayRadio().getValue().toString().equalsIgnoreCase("true")) {
-                                    prtCardFuelCapacityRow.setAttribute("FuelPerDay",
+                                    getBindings().getLtrPerDayRadio().getValue().toString().equalsIgnoreCase(Constants.TRUE_LITERAL)) {
+                                    prtCardFuelCapacityRow.setAttribute(Constants.FUEL_PER_DAY_LITERAL,
                                                                         getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ",
                                                                                                                                                       ""));
                                 }
                                 if (getBindings().getLtrPerWeekRadio().getValue() != null &&
-                                    getBindings().getLtrPerWeekRadio().getValue().toString().equalsIgnoreCase("true")) {
-                                    prtCardFuelCapacityRow.setAttribute("FuelPerWeek",
+                                    getBindings().getLtrPerWeekRadio().getValue().toString().equalsIgnoreCase(Constants.TRUE_LITERAL)) {
+                                    prtCardFuelCapacityRow.setAttribute(Constants.FUEL_PER_WEEK_LITERAL,
                                                                         getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ",
                                                                                                                                                       ""));
                                 }
                                 if (getBindings().getLtrPerMonthRadio().getValue() != null &&
-                                    getBindings().getLtrPerMonthRadio().getValue().toString().equalsIgnoreCase("true")) {
-                                    prtCardFuelCapacityRow.setAttribute("FuelPerMonth",
+                                    getBindings().getLtrPerMonthRadio().getValue().toString().equalsIgnoreCase(Constants.TRUE_LITERAL)) {
+                                    prtCardFuelCapacityRow.setAttribute(Constants.FUEL_PER_MONTH_LITERAL,
                                                                         getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ",
                                                                                                                                                       ""));
                                 }
-                                prtCardFuelCapacityRow.setAttribute("ModifiedBy", userEmail);
+                                prtCardFuelCapacityRow.setAttribute(Constants.MODIFIEDBYLITERAL, userEmail);
                             }
                         }
-                        operationBinding = localBinding.getOperationBinding("Commit");
+                        operationBinding = localBinding.getOperationBinding(Constants.COMMIT_LITERAL);
                         operationBinding.execute();
                     }
                 }
@@ -2070,7 +2071,7 @@ public class Alerts {
                 customerobj.setEmailID(userEmail);
                 customerobj.setCustomerID(userEmail);
                 customerobj.setFIrstName(userFirstName);
-                BigInteger bigint2 = new BigInteger("9898989898");
+                BigInteger bigint2 = new BigInteger(LOCALNO);
                 customerobj.setMobileNumber(bigint2);
                 req.setCustomer(customerobj);
                 AlertsSubscribeFrequencyType freq = new AlertsSubscribeFrequencyType();
@@ -2080,7 +2081,7 @@ public class Alerts {
                 req.setNotificationFormat(Constants.EXCEL_LITERAL);
                 DCBindingContainer bindings2 = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
                 DCIteratorBinding CardRuleSubscriptionIter = bindings2.findIteratorBinding(PRTCARDRULESUBSCRIPTIONVO1ITERATORLITRERAL);
-                DCIteratorBinding PrtCardFuelCapacityIter = bindings2.findIteratorBinding("PrtCardFuelCapacityVO1Iterator");
+                DCIteratorBinding PrtCardFuelCapacityIter = bindings2.findIteratorBinding(PRTCARDFUELCAPACITYVO1ITERATORLITRERAL);
                 ViewObject cardRuleSubscription = CardRuleSubscriptionIter.getViewObject();
                 ViewObject prtCardFuelCapacity = PrtCardFuelCapacityIter.getViewObject();
                 if (CardRuleSubscriptionIter != null && PrtCardFuelCapacityIter != null) {
@@ -2096,41 +2097,41 @@ public class Alerts {
                             cardRuleSubscriptionRow.setAttribute(Constants.USER_ID_LITERAL, userEmail);
                             cardRuleSubscriptionRow.setAttribute(Constants.SUBSCR_ID_LITERAL, response.getSubscriptionID().toString().trim());
                             cardRuleSubscriptionRow.setAttribute(Constants.RULE_ID_LITERAL, "2");
-                            cardRuleSubscriptionRow.setAttribute("SubscrStatus", Constants.ACTIVE_LITERAL);
+                            cardRuleSubscriptionRow.setAttribute(Constants.SUBSCRSTATUS_LITERAL, Constants.ACTIVE_LITERAL);
                             cardRuleSubscriptionRow.setAttribute(Constants.PARTNER_ID_LITERAL, partner[part]);
-                            cardRuleSubscriptionRow.setAttribute("AccountId", Constants.ALL_LITERAL);
-                            cardRuleSubscriptionRow.setAttribute("CardgroupMain", Constants.ALL_LITERAL);
-                            cardRuleSubscriptionRow.setAttribute("CardgroupSub", Constants.ALL_LITERAL);
-                            cardRuleSubscriptionRow.setAttribute("CardgroupSeq", Constants.ALL_LITERAL);
-                            cardRuleSubscriptionRow.setAttribute("ModifiedBy", userEmail);
-                            cardRuleSubscriptionRow.setAttribute("CardKsid", Constants.ALL_LITERAL);
+                            cardRuleSubscriptionRow.setAttribute(Constants.ACCOUNTIDLITERAL, Constants.ALL_LITERAL);
+                            cardRuleSubscriptionRow.setAttribute(Constants.CARDGROUP_MAIN_LITERAL, Constants.ALL_LITERAL);
+                            cardRuleSubscriptionRow.setAttribute(Constants.CARDGROUP_SUB_LITERAL, Constants.ALL_LITERAL);
+                            cardRuleSubscriptionRow.setAttribute(Constants.CARDGROUP_SEQ_LITERAL, Constants.ALL_LITERAL);
+                            cardRuleSubscriptionRow.setAttribute(Constants.MODIFIEDBYLITERAL, userEmail);
+                            cardRuleSubscriptionRow.setAttribute(Constants.CADRDKSID_LITERAL, Constants.ALL_LITERAL);
                             cardRuleSubscription.insertRow(cardRuleSubscriptionRow);
                             Row prtCardFuelCapacityRow = prtCardFuelCapacity.createRow();
                             prtCardFuelCapacityRow.setAttribute("CountryCode", countryCode);
                             prtCardFuelCapacityRow.setAttribute(Constants.SUBSCR_ID_LITERAL, response.getSubscriptionID().toString().trim());
                             prtCardFuelCapacityRow.setAttribute(Constants.RULE_ID_LITERAL, "2");
                             if (getBindings().getLtrPerDayRadio().getValue() != null &&
-                                getBindings().getLtrPerDayRadio().getValue().toString().equalsIgnoreCase("true")) {
-                                prtCardFuelCapacityRow.setAttribute("FuelPerDay",
+                                getBindings().getLtrPerDayRadio().getValue().toString().equalsIgnoreCase(Constants.TRUE_LITERAL)) {
+                                prtCardFuelCapacityRow.setAttribute(Constants.FUEL_PER_DAY_LITERAL,
                                                                     getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
                             }
 
                             if (getBindings().getLtrPerWeekRadio().getValue() != null &&
-                                getBindings().getLtrPerWeekRadio().getValue().toString().equalsIgnoreCase("true")) {
-                                prtCardFuelCapacityRow.setAttribute("FuelPerWeek",
+                                getBindings().getLtrPerWeekRadio().getValue().toString().equalsIgnoreCase(Constants.TRUE_LITERAL)) {
+                                prtCardFuelCapacityRow.setAttribute(Constants.FUEL_PER_WEEK_LITERAL,
                                                                     getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
                             }
 
                             if (getBindings().getLtrPerMonthRadio().getValue() != null &&
-                                getBindings().getLtrPerMonthRadio().getValue().toString().equalsIgnoreCase("true")) {
-                                prtCardFuelCapacityRow.setAttribute("FuelPerMonth",
+                                getBindings().getLtrPerMonthRadio().getValue().toString().equalsIgnoreCase(Constants.TRUE_LITERAL)) {
+                                prtCardFuelCapacityRow.setAttribute(Constants.FUEL_PER_MONTH_LITERAL,
                                                                     getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
                             }
 
-                            prtCardFuelCapacityRow.setAttribute("ModifiedBy", userEmail);
+                            prtCardFuelCapacityRow.setAttribute(Constants.MODIFIEDBYLITERAL, userEmail);
                         }
                     }
-                    operationBinding = localBinding.getOperationBinding("Commit");
+                    operationBinding = localBinding.getOperationBinding(Constants.COMMIT_LITERAL);
                     operationBinding.execute();
                 }
             }
@@ -2227,7 +2228,7 @@ public class Alerts {
     public void viewSubscribedAlertsUI() {
         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Inside viewSubscribedAlerts method of Alerts");
         resetTableFilter();
-        ViewObject prtCardRuleSubscriptionVO = ADFUtils.getViewObject("PrtCardRuleSubscriptionRVO1Iterator");
+        ViewObject prtCardRuleSubscriptionVO = ADFUtils.getViewObject(PRTCARDRULESUBSCRIPTIONRVO1ITERATORLITRERAL);
         if (selectionPanel) {
             if (prtCardRuleSubscriptionVO != null) {
                 String cardListString = "";
@@ -2251,7 +2252,7 @@ public class Alerts {
                         readCardlevel();
                     }
                 } else {
-                    showErrorMessage("ENGAGE_NO_PARTNER");
+                    showErrorMessage(Constants.ENGAGENOPARTNER_LITERAL);
                     displayErrorComponent(getBindings().getViewAlertDropdown(), true);
                 }
             }
@@ -2262,22 +2263,22 @@ public class Alerts {
                     searchCorrespondingDetalis();
                     if (prtCardRuleSubscriptionVO != null) {
                         removeWhereClause(prtCardRuleSubscriptionVO);
-                        prtCardRuleSubscriptionVO.setNamedWhereClauseParam("pId", passingPartner);
-                        prtCardRuleSubscriptionVO.setNamedWhereClauseParam("userId", userEmail);
+                        prtCardRuleSubscriptionVO.setNamedWhereClauseParam(Constants.PID_LITERAL, passingPartner);
+                        prtCardRuleSubscriptionVO.setNamedWhereClauseParam(Constants.USERIDLITERAL, userEmail);
                         prtCardRuleSubscriptionVO.setNamedWhereClauseParam(Constants.COUNTRYCODE_LITERAL, countryCode);
                         cardQuery = "(INSTR(:card,PARTNER_ID||ACCOUNT_ID||CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ||CARD_KSID)<>0 OR (CARD_KSID = 'ALL')";
                         String cardValuesList = passingPartner + passingAccount + passingCardgrpMain + passingCardgrpSub + passingCardgrpSeq + passingCardKsId;
                         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "cardValuesList " + cardValuesList);
-                        prtCardRuleSubscriptionVO.defineNamedWhereClauseParam("card", cardValuesList, null);
+                        prtCardRuleSubscriptionVO.defineNamedWhereClauseParam(Constants.CARDLITERAL, cardValuesList, null);
                         accountQuery = "INSTR(:account,PARTNER_ID||ACCOUNT_ID)<>0 OR (ACCOUNT_ID = 'ALL')) ";
                         String accountValueList = passingPartner + passingAccount;
                         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "accountValueList " + accountValueList);
-                        prtCardRuleSubscriptionVO.defineNamedWhereClauseParam("account", accountValueList, null);
+                        prtCardRuleSubscriptionVO.defineNamedWhereClauseParam(Constants.ACCOUNT_LITERAL, accountValueList, null);
                         cardGroupQuery =
                                 "(INSTR(:cardGroup,PARTNER_ID||ACCOUNT_ID||CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ)<>0 OR ((CARDGROUP_MAIN = 'ALL') AND (CARDGROUP_SUB = 'ALL') AND (CARDGROUP_SEQ = 'ALL'))) ";
                         String cardgrpValueList = passingPartner + passingAccount + passingCardgrpMain + passingCardgrpSub + passingCardgrpSeq;
                         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "cardgrpValueList " + cardgrpValueList);
-                        prtCardRuleSubscriptionVO.defineNamedWhereClauseParam("cardGroup", cardgrpValueList, null);
+                        prtCardRuleSubscriptionVO.defineNamedWhereClauseParam(Constants.CARDGROUPLITERAL, cardgrpValueList, null);
                         prtCardRuleSubscriptionVO.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + cardQuery);
                         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "Query for card search : " + prtCardRuleSubscriptionVO.getQuery());
                         prtCardRuleSubscriptionVO.executeQuery();
@@ -2291,7 +2292,7 @@ public class Alerts {
                     }
                 }
             } else {
-                showErrorMessage("ENGAGE_NO_PARTNER");
+                showErrorMessage(Constants.ENGAGENOPARTNER_LITERAL);
                 displayErrorComponent(getBindings().getSearchStringInputtext(), true);
             }
         }
@@ -2300,7 +2301,7 @@ public class Alerts {
 
     public void readCardlevel() {
         LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside readCardlevel method of Alerts");
-        ViewObject prtCardRuleSubscriptionVO = ADFUtils.getViewObject("PrtCardRuleSubscriptionRVO1Iterator");
+        ViewObject prtCardRuleSubscriptionVO = ADFUtils.getViewObject(PRTCARDRULESUBSCRIPTIONRVO1ITERATORLITRERAL);
         String[] values = populateStringValues(getBindings().getViewAlertDropdown().getValue().toString()).split(",");
         String[] partner = new String[values.length];
         String[] account = new String[values.length];
@@ -2333,8 +2334,8 @@ public class Alerts {
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + card[j]);
         }
 
-        prtCardRuleSubscriptionVO.setNamedWhereClauseParam("pId", mergeArraytoCommaSeperatedSting(partner));
-        prtCardRuleSubscriptionVO.setNamedWhereClauseParam("userId", userEmail);
+        prtCardRuleSubscriptionVO.setNamedWhereClauseParam(Constants.PID_LITERAL, mergeArraytoCommaSeperatedSting(partner));
+        prtCardRuleSubscriptionVO.setNamedWhereClauseParam(Constants.USERIDLITERAL, userEmail);
         prtCardRuleSubscriptionVO.setNamedWhereClauseParam(Constants.COUNTRYCODE_LITERAL, countryCode);
         removeWhereClause(prtCardRuleSubscriptionVO);
         String accountPassingValue = mergeArraytoCommaSeperatedSting(account);
@@ -2409,10 +2410,10 @@ public class Alerts {
                     LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + cardgrp[j]);
                 }
 
-                ViewObject prtCardRuleSubscriptionVO = ADFUtils.getViewObject("PrtCardRuleSubscriptionRVO1Iterator");
+                ViewObject prtCardRuleSubscriptionVO = ADFUtils.getViewObject(PRTCARDRULESUBSCRIPTIONRVO1ITERATORLITRERAL);
                 removeWhereClause(prtCardRuleSubscriptionVO);
-                prtCardRuleSubscriptionVO.setNamedWhereClauseParam("pId", mergeArraytoCommaSeperatedSting(partner));
-                prtCardRuleSubscriptionVO.setNamedWhereClauseParam("userId", userEmail);
+                prtCardRuleSubscriptionVO.setNamedWhereClauseParam(Constants.PID_LITERAL, mergeArraytoCommaSeperatedSting(partner));
+                prtCardRuleSubscriptionVO.setNamedWhereClauseParam(Constants.USERIDLITERAL, userEmail);
                 prtCardRuleSubscriptionVO.setNamedWhereClauseParam(Constants.COUNTRYCODE_LITERAL, countryCode);
                 createAccountQuery();
                 createCardGroupQuery();
@@ -2432,7 +2433,7 @@ public class Alerts {
                 isTableVisible = true;
             }
         } else {
-            showErrorMessage("ENGAGE_NO_PARTNER");
+            showErrorMessage(Constants.ENGAGENOPARTNER_LITERAL);
             displayErrorComponent(getBindings().getViewAlertCardGroupDropdown(), true);
         }
         LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside readCardGroupLevel method of Alerts");
@@ -2477,10 +2478,10 @@ public class Alerts {
                 for (int j = 0; j < account.length; j++) {
                     LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + account[j]);
                 }
-                ViewObject prtCardRuleSubscriptionVO = ADFUtils.getViewObject("PrtCardRuleSubscriptionRVO1Iterator");
+                ViewObject prtCardRuleSubscriptionVO = ADFUtils.getViewObject(PRTCARDRULESUBSCRIPTIONRVO1ITERATORLITRERAL);
                 removeWhereClause(prtCardRuleSubscriptionVO);
-                prtCardRuleSubscriptionVO.setNamedWhereClauseParam("pId", mergeArraytoCommaSeperatedSting(partner));
-                prtCardRuleSubscriptionVO.setNamedWhereClauseParam("userId", userEmail);
+                prtCardRuleSubscriptionVO.setNamedWhereClauseParam(Constants.PID_LITERAL, mergeArraytoCommaSeperatedSting(partner));
+                prtCardRuleSubscriptionVO.setNamedWhereClauseParam(Constants.USERIDLITERAL, userEmail);
                 prtCardRuleSubscriptionVO.setNamedWhereClauseParam(Constants.COUNTRYCODE_LITERAL, countryCode);
                 createAccountQuery();
                 prtCardRuleSubscriptionVO.setWhereClause(accountQuery);
@@ -2529,11 +2530,11 @@ public class Alerts {
             for (int j = 0; j < partner.length; j++) {
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + partner[j]);
             }
-            ViewObject prtCardRuleSubscriptionVO = ADFUtils.getViewObject("PrtCardRuleSubscriptionRVO1Iterator");
+            ViewObject prtCardRuleSubscriptionVO = ADFUtils.getViewObject(PRTCARDRULESUBSCRIPTIONRVO1ITERATORLITRERAL);
             removeWhereClause(prtCardRuleSubscriptionVO);
-            prtCardRuleSubscriptionVO.setNamedWhereClauseParam("pId",
+            prtCardRuleSubscriptionVO.setNamedWhereClauseParam(Constants.PID_LITERAL,
                                                                populateStringValues(getBindings().getViewAlertsPartnerDropdown().getValue().toString()));
-            prtCardRuleSubscriptionVO.setNamedWhereClauseParam("userId", userEmail);
+            prtCardRuleSubscriptionVO.setNamedWhereClauseParam(Constants.USERIDLITERAL, userEmail);
             prtCardRuleSubscriptionVO.setNamedWhereClauseParam(Constants.COUNTRYCODE_LITERAL, countryCode);
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "Query: " + prtCardRuleSubscriptionVO.getQuery());
             prtCardRuleSubscriptionVO.executeQuery();
@@ -2541,7 +2542,7 @@ public class Alerts {
                         prtCardRuleSubscriptionVO.getEstimatedRowCount());
             isTableVisible = true;
         } else {
-            showErrorMessage("ENGAGE_NO_PARTNER");
+            showErrorMessage(Constants.ENGAGENOPARTNER_LITERAL);
             displayErrorComponent(getBindings().getViewAlertsPartnerDropdown(), true);
         }
         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Outside readPartnerLevel method of Alerts");
@@ -2574,16 +2575,17 @@ public class Alerts {
 
     public void viewConfiguredAlertPopup(ActionEvent actionEvent) {
         LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside viewConfiguredAlertPopup method of Alerts");
-        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("SubscrIdkey") != null) {
+        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.SUBSCRID_KEY_LITERAL) != null) {
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() +
-                        AdfFacesContext.getCurrentInstance().getPageFlowScope().get("SubscrIdkey").toString().trim());
+                        AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.SUBSCRID_KEY_LITERAL).toString().trim());
         }
-        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("RuleIdkey") != null) {
+        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.RULEID_KEY_LITERAL) != null) {
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() +
-                        AdfFacesContext.getCurrentInstance().getPageFlowScope().get("RuleIdkey").toString().trim());
-            if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("RuleIdkey").toString().trim().equalsIgnoreCase("1")) {
-                configuredPartner = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim();
-                configureDefaultTimings(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("SubscrIdkey").toString().trim(), countryCode);
+                        AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.RULEID_KEY_LITERAL).toString().trim());
+            if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.RULEID_KEY_LITERAL).toString().trim().equalsIgnoreCase("1")) {
+                configuredPartner = AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.PARTNERID_KEY_LITERAL).toString().trim();
+                configureDefaultTimings(AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.SUBSCRID_KEY_LITERAL).toString().trim(),
+                                        countryCode);
                 getBindings().getSuccessAlert4().setVisible(false);
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSuccessAlert4());
                 getBindings().getInvalidInputMsg().setVisible(false);
@@ -2598,33 +2600,33 @@ public class Alerts {
                 getBindings().getConfigureToTimingsMm().setReadOnly(true);
                 RichPopup.PopupHints ps = new RichPopup.PopupHints();
                 getBindings().getConfigureAlert1Popup().show(ps);
-            } else if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("RuleIdkey").toString().trim().equalsIgnoreCase("2")) {
+            } else if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.RULEID_KEY_LITERAL).toString().trim().equalsIgnoreCase("2")) {
                 configurePartnerIdList = new ArrayList<SelectItem>();
                 configurePartnerIdValue2 = new ArrayList<String>();
                 SelectItem selectItem = new SelectItem();
-                selectItem.setLabel(getPartnerName(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim()));
-                selectItem.setValue(getPartnerName(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim()));
-                configurePartnerIdValue2.add(getPartnerName(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim()));
+                selectItem.setLabel(getPartnerName(AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.PARTNERID_KEY_LITERAL).toString().trim()));
+                selectItem.setValue(getPartnerName(AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.PARTNERID_KEY_LITERAL).toString().trim()));
+                configurePartnerIdValue2.add(getPartnerName(AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.PARTNERID_KEY_LITERAL).toString().trim()));
                 configurePartnerIdList.add(selectItem);
                 configureAccountIdList = new ArrayList<SelectItem>();
                 configureAccountIdValue = new ArrayList<String>();
                 selectItem = new SelectItem();
-                selectItem.setLabel(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("AccountIdkey").toString().trim());
-                selectItem.setValue(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("AccountIdkey").toString().trim());
-                configureAccountIdValue.add(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("AccountIdkey").toString().trim());
+                selectItem.setLabel(AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.ACCOUNTID_KEY_LITERAL).toString().trim());
+                selectItem.setValue(AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.ACCOUNTID_KEY_LITERAL).toString().trim());
+                configureAccountIdValue.add(AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.ACCOUNTID_KEY_LITERAL).toString().trim());
                 configureAccountIdList.add(selectItem);
                 configureCardGroupList = new ArrayList<SelectItem>();
                 configureCardGroupValue = new ArrayList<String>();
                 selectItem = new SelectItem();
-                if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("CardGroupkey").toString().trim().equals("ALLALLALL")) {
+                if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.CARDGROUP_KEY_LITERAL).toString().trim().equals("ALLALLALL")) {
                     selectItem.setLabel(Constants.ALL_LITERAL);
                     selectItem.setValue(Constants.ALL_LITERAL);
                     configureCardGroupValue.add(Constants.ALL_LITERAL);
                     configureCardGroupList.add(selectItem);
                 } else {
-                    selectItem.setLabel(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("CardGroupkey").toString().trim());
-                    selectItem.setValue(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("CardGroupkey").toString().trim());
-                    configureCardGroupValue.add(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("CardGroupkey").toString().trim());
+                    selectItem.setLabel(AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.CARDGROUP_KEY_LITERAL).toString().trim());
+                    selectItem.setValue(AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.CARDGROUP_KEY_LITERAL).toString().trim());
+                    configureCardGroupValue.add(AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.CARDGROUP_KEY_LITERAL).toString().trim());
                     configureCardGroupList.add(selectItem);
                 }
 
@@ -2632,13 +2634,13 @@ public class Alerts {
                 configureCardNumberValue = new ArrayList<String>();
                 selectItem = new SelectItem();
 
-                selectItem.setLabel(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("CardKsidkey").toString().trim());
-                selectItem.setValue(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("CardKsidkey").toString().trim());
-                configureCardNumberValue.add(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("CardKsidkey").toString().trim());
+                selectItem.setLabel(AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.CARDKSID_KEY_LITERAL).toString().trim());
+                selectItem.setValue(AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.CARDKSID_KEY_LITERAL).toString().trim());
+                configureCardNumberValue.add(AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.CARDKSID_KEY_LITERAL).toString().trim());
                 configureCardNumberList.add(selectItem);
 
 
-                fetchFuelCapacity(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("SubscrIdkey").toString().trim(), countryCode);
+                fetchFuelCapacity(AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.SUBSCRID_KEY_LITERAL).toString().trim(), countryCode);
                 okVisibleForQuality = false;
                 editVisibleForQuality = true;
                 getBindings().getSuccessAlert3().setRendered(false);
@@ -2658,21 +2660,21 @@ public class Alerts {
 
             }
         }
-        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey") != null) {
+        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.PARTNERID_KEY_LITERAL) != null) {
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() +
-                        AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim());
+                        AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.PARTNERID_KEY_LITERAL).toString().trim());
         }
-        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("AccountIdkey") != null) {
+        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.ACCOUNTID_KEY_LITERAL) != null) {
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() +
-                        AdfFacesContext.getCurrentInstance().getPageFlowScope().get("AccountIdkey").toString().trim());
+                        AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.ACCOUNTID_KEY_LITERAL).toString().trim());
         }
-        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("CardGroupkey") != null) {
+        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.CARDGROUP_KEY_LITERAL) != null) {
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() +
-                        AdfFacesContext.getCurrentInstance().getPageFlowScope().get("CardGroupkey").toString().trim());
+                        AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.CARDGROUP_KEY_LITERAL).toString().trim());
         }
-        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("CardKsidkey") != null) {
+        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.CARDKSID_KEY_LITERAL) != null) {
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() +
-                        AdfFacesContext.getCurrentInstance().getPageFlowScope().get("CardKsidkey").toString().trim());
+                        AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.CARDKSID_KEY_LITERAL).toString().trim());
         }
         LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside viewConfiguredAlertPopup method of Alerts");
     }
@@ -2765,9 +2767,9 @@ public class Alerts {
             DCIteratorBinding fuelCaoItr = (DCIteratorBinding)bc.get("PrtCardRuleBusinessHoursVO1Iterator");
             ViewObject vo = ADFUtils.getViewObject("PrtCardRuleBusinessHoursVO1Iterator");
             vo.setWhereClause("subscr_id =: subscrId");
-            if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("SubscrIdkey") != null) {
-                String subscrId = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("SubscrIdkey").toString().trim();
-                vo.defineNamedWhereClauseParam("subscrId", subscrId, null);
+            if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.SUBSCRID_KEY_LITERAL) != null) {
+                String subscrId = AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.SUBSCRID_KEY_LITERAL).toString().trim();
+                vo.defineNamedWhereClauseParam(Constants.SUBSCRIDLITERAL, subscrId, null);
             }
             vo.executeQuery();
             RichTable rt = getBindings().getConfigureAlert1Table();
@@ -2781,12 +2783,12 @@ public class Alerts {
                 businessHr.setAttribute("Day", weekdays.get(i));
                 businessHr.setAttribute("BusiStartFrom", editFuelTimings.getFromHh().toString().trim() + ":" + editFuelTimings.getFromMm().toString().trim());
                 businessHr.setAttribute("BusiStartTo", editFuelTimings.getToHh().toString().trim() + ":" + editFuelTimings.getToMm().toString().trim());
-                businessHr.setAttribute("ModifiedBy", userEmail);
+                businessHr.setAttribute(Constants.MODIFIEDBYLITERAL, userEmail);
             }
             if (bc != null) {
                 OperationBinding operationBinding = bc.getOperationBinding("subscribeAlerts");
                 if (operationBinding != null) {
-                    operationBinding = bc.getOperationBinding("Commit");
+                    operationBinding = bc.getOperationBinding(Constants.COMMIT_LITERAL);
                     operationBinding.execute();
                     getBindings().getSuccessAlert4().setVisible(true);
                     AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSuccessAlert4());
@@ -2802,15 +2804,13 @@ public class Alerts {
                     AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getConfigureFromTimingsMm());
                 }
             }
-            vo.removeNamedWhereClauseParam("subscrId");
+            vo.removeNamedWhereClauseParam(Constants.SUBSCRIDLITERAL);
             vo.setWhereClause("");
             vo.executeQuery();
         } else {
             getBindings().getSuccessAlert4().setVisible(false);
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSuccessAlert4());
-//            getBindings().getInvalidInputMsg().setVisible(true);
-//            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvalidInputMsg());
-        }
+                   }
         LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside setBusinessHoursConfigureAlert method of Alerts");
     }
 
@@ -2903,43 +2903,43 @@ public class Alerts {
                 String regex = "\\d+";
                 if (getBindings().getConfigureFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", "").matches(regex)) {
                     BindingContainer bc = BindingContext.getCurrent().getCurrentBindingsEntry();
-                    DCIteratorBinding fuelCaoItr = (DCIteratorBinding)bc.get("PrtCardFuelCapacityVO1Iterator");
-                    ViewObject vo = ADFUtils.getViewObject("PrtCardFuelCapacityVO1Iterator");
+                    DCIteratorBinding fuelCaoItr = (DCIteratorBinding)bc.get(PRTCARDFUELCAPACITYVO1ITERATORLITRERAL);
+                    ViewObject vo = ADFUtils.getViewObject(PRTCARDFUELCAPACITYVO1ITERATORLITRERAL);
                     vo.setWhereClause("subscr_id =: subscrId");
-                    if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("SubscrIdkey") != null) {
-                        String subscrId = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("SubscrIdkey").toString().trim();
-                        vo.defineNamedWhereClauseParam("subscrId", subscrId, null);
+                    if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.SUBSCRID_KEY_LITERAL) != null) {
+                        String subscrId = AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.SUBSCRID_KEY_LITERAL).toString().trim();
+                        vo.defineNamedWhereClauseParam(Constants.SUBSCRIDLITERAL, subscrId, null);
                     }
                     vo.executeQuery();
                     Row fuelCapRow = fuelCaoItr.getCurrentRow();
                     if (fuelCapRow != null) {
                         if (getBindings().getConfigureLtrPerDayRadio().getValue() != null &&
-                            getBindings().getConfigureLtrPerDayRadio().getValue().toString().equalsIgnoreCase("true")) {
-                            fuelCapRow.setAttribute("FuelPerDay",
+                            getBindings().getConfigureLtrPerDayRadio().getValue().toString().equalsIgnoreCase(Constants.TRUE_LITERAL)) {
+                            fuelCapRow.setAttribute(Constants.FUEL_PER_DAY_LITERAL,
                                                     getBindings().getConfigureFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
                         } else {
-                            fuelCapRow.setAttribute("FuelPerDay", "");
+                            fuelCapRow.setAttribute(Constants.FUEL_PER_DAY_LITERAL, "");
                         }
                         if (getBindings().getConfigureLtrPerWeekRadio().getValue() != null &&
-                            getBindings().getConfigureLtrPerWeekRadio().getValue().toString().equalsIgnoreCase("true")) {
-                            fuelCapRow.setAttribute("FuelPerWeek",
+                            getBindings().getConfigureLtrPerWeekRadio().getValue().toString().equalsIgnoreCase(Constants.TRUE_LITERAL)) {
+                            fuelCapRow.setAttribute(Constants.FUEL_PER_WEEK_LITERAL,
                                                     getBindings().getConfigureFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
                         } else {
-                            fuelCapRow.setAttribute("FuelPerWeek", "");
+                            fuelCapRow.setAttribute(Constants.FUEL_PER_WEEK_LITERAL, "");
                         }
                         if (getBindings().getConfigureLtrPerMonthRadio().getValue() != null &&
-                            getBindings().getConfigureLtrPerMonthRadio().getValue().toString().equalsIgnoreCase("true")) {
-                            fuelCapRow.setAttribute("FuelPerMonth",
+                            getBindings().getConfigureLtrPerMonthRadio().getValue().toString().equalsIgnoreCase(Constants.TRUE_LITERAL)) {
+                            fuelCapRow.setAttribute(Constants.FUEL_PER_MONTH_LITERAL,
                                                     getBindings().getConfigureFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
                         } else {
-                            fuelCapRow.setAttribute("FuelPerMonth", "");
+                            fuelCapRow.setAttribute(Constants.FUEL_PER_MONTH_LITERAL, "");
                         }
-                        fuelCapRow.setAttribute("ModifiedBy", userEmail);
+                        fuelCapRow.setAttribute(Constants.MODIFIEDBYLITERAL, userEmail);
                     }
                     if (bc != null) {
                         OperationBinding operationBinding = bc.getOperationBinding("subscribeAlerts");
                         if (operationBinding != null) {
-                            operationBinding = bc.getOperationBinding("Commit");
+                            operationBinding = bc.getOperationBinding(Constants.COMMIT_LITERAL);
                             operationBinding.execute();
                             getBindings().getSuccessAlert3().setRendered(true);
                             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSuccessAlert3());
@@ -2954,19 +2954,19 @@ public class Alerts {
                             displayErrorComponent(getBindings().getConfigureFuelCapacityAlert2(), false);
                         }
                     }
-                    vo.removeNamedWhereClauseParam("subscrId");
+                    vo.removeNamedWhereClauseParam(Constants.SUBSCRIDLITERAL);
                     vo.setWhereClause("");
                     vo.executeQuery();
                 } else {
                     getBindings().getInvalidInputMsg3().setRendered(true);
                     AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvalidInputMsg3());
-                    getBindings().getMandatoryMsg3().setRendered(false);       
+                    getBindings().getMandatoryMsg3().setRendered(false);
                     AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getMandatoryMsg3());
                     displayErrorComponent(getBindings().getConfigureFuelCapacityAlert2(), true);
                 }
             } else {
                 displayErrorComponent(getBindings().getConfigureFuelCapacityAlert2(), true);
-                getBindings().getMandatoryMsg3().setRendered(true);       
+                getBindings().getMandatoryMsg3().setRendered(true);
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getMandatoryMsg3());
                 getBindings().getInvalidInputMsg3().setRendered(false);
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvalidInputMsg3());
@@ -3040,7 +3040,7 @@ public class Alerts {
         }
         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "valueChangeEvent mainSelectionPanelRadioListner" +
                     valueChangeEvent.getNewValue().toString());
-        if (valueChangeEvent.getNewValue() != null && valueChangeEvent.getNewValue().toString().equals("true")) {
+        if (valueChangeEvent.getNewValue() != null && valueChangeEvent.getNewValue().toString().equals(Constants.TRUE_LITERAL)) {
             selectionPanel = true;
             cardsSelectionPanel = false;
             if (selectionPanel) {
@@ -3080,7 +3080,7 @@ public class Alerts {
 
         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "valueChangeEvent cardSelectionPanelRadioListner" +
                     valueChangeEvent.getNewValue().toString());
-        if (valueChangeEvent.getNewValue() != null && valueChangeEvent.getNewValue().toString().equals("true")) {
+        if (valueChangeEvent.getNewValue() != null && valueChangeEvent.getNewValue().toString().equals(Constants.TRUE_LITERAL)) {
             selectionPanel = false;
             cardsSelectionPanel = true;
             if (cardsSelectionPanel) {
@@ -3284,27 +3284,24 @@ public class Alerts {
                     ((accountQuery + " AND " + cardGroupQuery + " AND " + cardQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim()))) {
                     if (mapAccountListValue != null) {
                         for (int i = 0; i < mapAccountListValue.size(); i++) {
-                            String values = "account" + i;
-                            vo.removeNamedWhereClauseParam(values);
+                            vo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i);
                         }
                     } else {
-                        vo.removeNamedWhereClauseParam("account");
+                        vo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL);
                     }
                     if (mapCardGroupListValue != null) {
                         for (int i = 0; i < mapCardGroupListValue.size(); i++) {
-                            String values = "cardGroup" + i;
-                            vo.removeNamedWhereClauseParam(values);
+                            vo.removeNamedWhereClauseParam(Constants.CARDGROUPLITERAL + i);
                         }
                     } else {
-                        vo.removeNamedWhereClauseParam("cardGroup");
+                        vo.removeNamedWhereClauseParam(Constants.CARDGROUPLITERAL);
                     }
                     if (mapCardListValue != null) {
                         for (int i = 0; i < mapCardListValue.size(); i++) {
-                            String values = "card" + i;
-                            vo.removeNamedWhereClauseParam(values);
+                            vo.removeNamedWhereClauseParam(Constants.CARDLITERAL + i);
                         }
                     } else {
-                        vo.removeNamedWhereClauseParam("card");
+                        vo.removeNamedWhereClauseParam(Constants.CARDLITERAL);
                     }
                     vo.setWhereClause("");
                     vo.executeQuery();
@@ -3316,19 +3313,18 @@ public class Alerts {
                     ((accountQuery + " AND " + cardGroupQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim()))) {
                     if (mapAccountListValue != null) {
                         for (int i = 0; i < mapAccountListValue.size(); i++) {
-                            String values = "account" + i;
-                            vo.removeNamedWhereClauseParam(values);
+                            vo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i);
                         }
                     } else {
-                        vo.removeNamedWhereClauseParam("account");
+                        vo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL);
                     }
                     if (mapCardGroupListValue != null) {
                         for (int i = 0; i < mapCardGroupListValue.size(); i++) {
-                            String values = "cardGroup" + i;
-                            vo.removeNamedWhereClauseParam(values);
+
+                            vo.removeNamedWhereClauseParam(Constants.CARDGROUPLITERAL + i);
                         }
                     } else {
-                        vo.removeNamedWhereClauseParam("cardGroup");
+                        vo.removeNamedWhereClauseParam(Constants.CARDGROUPLITERAL);
                     }
                     vo.setWhereClause("");
                     vo.executeQuery();
@@ -3339,11 +3335,10 @@ public class Alerts {
                 if ((accountQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim())) {
                     if (mapAccountListValue != null) {
                         for (int i = 0; i < mapAccountListValue.size(); i++) {
-                            String values = "account" + i;
-                            vo.removeNamedWhereClauseParam(values);
+                            vo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i);
                         }
                     } else {
-                        vo.removeNamedWhereClauseParam("account");
+                        vo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL);
                     }
                     vo.setWhereClause("");
                     vo.executeQuery();
@@ -3362,7 +3357,7 @@ public class Alerts {
             mapAccountListValue = ValueListSplit.callValueList(accountIdValue2.size(), accountIdValue2);
             accountQuery = accountQuery + "(ACCOUNT_ID = 'ALL') OR ";
             for (int i = 0; i < mapAccountListValue.size(); i++) {
-                String values = "account" + i;
+                String values = Constants.ACCOUNT_LITERAL + i;
                 accountQuery = accountQuery + "INSTR(:" + values + ",ACCOUNT_ID)<>0 OR ";
             }
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "Account Query Values =" + accountQuery);
@@ -3381,7 +3376,7 @@ public class Alerts {
             cardGroupQuery = cardGroupQuery + "((CARDGROUP_MAIN = 'ALL') AND (CARDGROUP_SUB = 'ALL') AND (CARDGROUP_SEQ = 'ALL')) OR ";
             mapCardGroupListValue = ValueListSplit.callValueList(cardGroupValue2.size(), cardGroupValue2);
             for (int i = 0; i < mapCardGroupListValue.size(); i++) {
-                String values = "cardGroup" + i;
+                String values = Constants.CARDGROUPLITERAL + i;
                 cardGroupQuery = cardGroupQuery + "INSTR(:" + values + ",CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ)<>0 OR ";
             }
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARDGROUP Query Values =" + cardGroupQuery);
@@ -3401,7 +3396,7 @@ public class Alerts {
             cardQuery = cardQuery + "(CARD_KSID = 'ALL') OR ";
             mapCardListValue = ValueListSplit.callValueList(cardNumberValue2.size(), cardNumberValue2);
             for (int i = 0; i < mapCardListValue.size(); i++) {
-                String values = "card" + i;
+                String values = Constants.CARDLITERAL + i;
                 cardQuery = cardQuery + "INSTR(:" + values + ",CARD_KSID)<>0 OR ";
             }
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
@@ -3419,13 +3414,13 @@ public class Alerts {
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 in Alerts");
             mapAccountListValue = ValueListSplit.callValueList(accountIdValue2.size(), accountIdValue2);
             for (int i = 0; i < mapAccountListValue.size(); i++) {
-                String values = "account" + i;
+
                 String listName = "listName" + i;
-                vo.defineNamedWhereClauseParam(values, mapAccountListValue.get(listName), null);
+                vo.defineNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i, mapAccountListValue.get(listName), null);
             }
         } else {
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 in Alerts");
-            vo.defineNamedWhereClauseParam("account", passingValue, null);
+            vo.defineNamedWhereClauseParam(Constants.ACCOUNT_LITERAL, passingValue, null);
         }
     }
 
@@ -3434,13 +3429,12 @@ public class Alerts {
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 in Alerts");
             mapCardGroupListValue = ValueListSplit.callValueList(cardGroupValue2.size(), cardGroupValue2);
             for (int i = 0; i < mapCardGroupListValue.size(); i++) {
-                String values = "cardGroup" + i;
                 String listName = "listName" + i;
-                vo.defineNamedWhereClauseParam(values, mapCardGroupListValue.get(listName), null);
+                vo.defineNamedWhereClauseParam(Constants.CARDGROUPLITERAL + i, mapCardGroupListValue.get(listName), null);
             }
         } else {
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values < 150 in Alerts");
-            vo.defineNamedWhereClauseParam("cardGroup", passingValue, null);
+            vo.defineNamedWhereClauseParam(Constants.CARDGROUPLITERAL, passingValue, null);
         }
     }
 
@@ -3451,11 +3445,11 @@ public class Alerts {
             for (int i = 0; i < mapCardListValue.size(); i++) {
                 String values = "card" + i;
                 String listName = "listName" + i;
-                vo.defineNamedWhereClauseParam(values, mapCardListValue.get(listName), null);
+                vo.defineNamedWhereClauseParam(Constants.CARDLITERAL + i, mapCardListValue.get(listName), null);
             }
         } else {
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values < 150 Alerts");
-            vo.defineNamedWhereClauseParam("card", passingValue, null);
+            vo.defineNamedWhereClauseParam(Constants.CARDLITERAL, passingValue, null);
         }
     }
 
@@ -3496,64 +3490,63 @@ public class Alerts {
         RichSelectManyChoice smc = new RichSelectManyChoice();
         RichInputText rit = new RichInputText();
         RichSelectOneChoice soc = new RichSelectOneChoice();
-        
+
         if (component instanceof RichInputText) {
             rit = (RichInputText)component;
             if (status) {
-                rit.setStyleClass("af_mandatoryfield");
+                rit.setStyleClass(AFMANDATORYFIELDLITERAL);
                 if (component.getId().contains("it19") || component.getId().contains("it3") || component.getId().contains("it10") ||
                     component.getId().contains("it6") || component.getId().contains("it7") || component.getId().contains("it8") ||
                     component.getId().contains("it9") || component.getId().contains("it1") || component.getId().contains("it4") ||
-                    component.getId().contains("it2") || component.getId().contains("it5")){
-                    rit.setStyleClass("af_mandatoryfield");
+                    component.getId().contains("it2") || component.getId().contains("it5")) {
+                    rit.setStyleClass(AFMANDATORYFIELDLITERAL);
                 }
             } else {
-                rit.setStyleClass("af_nonmandatoryfield");
+                rit.setStyleClass(AFNONMANDATORYFIELDLITERAL);
                 if (component.getId().contains("it19") || component.getId().contains("it3") || component.getId().contains("it10") ||
                     component.getId().contains("it6") || component.getId().contains("it7") || component.getId().contains("it8") ||
                     component.getId().contains("it9") || component.getId().contains("it1") || component.getId().contains("it4") ||
-                    component.getId().contains("it2") || component.getId().contains("it5")){
-                    rit.setStyleClass("af_nonmandatoryfield");
+                    component.getId().contains("it2") || component.getId().contains("it5")) {
+                    rit.setStyleClass(AFNONMANDATORYFIELDLITERAL);
                 }
             }
             AdfFacesContext.getCurrentInstance().addPartialTarget(rit);
         } else if (component instanceof RichSelectManyChoice) {
             smc = (RichSelectManyChoice)component;
             if (status) {
-                smc.setStyleClass("af_mandatoryfield");
+                smc.setStyleClass(AFMANDATORYFIELDLITERAL);
                 if (component.getId().contains("smc1") || component.getId().contains("smc4") || component.getId().contains("smc3") ||
                     component.getId().contains("soc3") || component.getId().contains("smc2") || component.getId().contains("smc5") ||
                     component.getId().contains("smc6") || component.getId().contains("smc7") || component.getId().contains("smc8") ||
                     component.getId().contains("smc9") || component.getId().contains("smc10") || component.getId().contains("smc11")) {
-                    smc.setStyleClass("af_mandatoryfield");
+                    smc.setStyleClass(AFMANDATORYFIELDLITERAL);
                 }
 
             } else {
-                smc.setStyleClass("af_nonmandatoryfield");
+                smc.setStyleClass(AFNONMANDATORYFIELDLITERAL);
                 if (component.getId().contains("smc1") || component.getId().contains("smc4") || component.getId().contains("smc3") ||
                     component.getId().contains("soc3") || component.getId().contains("smc2") || component.getId().contains("smc5") ||
                     component.getId().contains("smc6") || component.getId().contains("smc7") || component.getId().contains("smc8") ||
                     component.getId().contains("smc9") || component.getId().contains("smc10") || component.getId().contains("smc11")) {
-                    smc.setStyleClass("af_nonmandatoryfield");
+                    smc.setStyleClass(AFNONMANDATORYFIELDLITERAL);
                 }
             }
             AdfFacesContext.getCurrentInstance().addPartialTarget(soc);
-        }
-        else if (component instanceof RichInputText) {
+        } else if (component instanceof RichInputText) {
             soc = (RichSelectOneChoice)component;
             if (status) {
-                soc.setStyleClass("af_mandatoryfield");
-                if (component.getId().contains("soc1")){
-                    soc.setStyleClass("af_mandatoryfield");
+                soc.setStyleClass(AFMANDATORYFIELDLITERAL);
+                if (component.getId().contains("soc1")) {
+                    soc.setStyleClass(AFMANDATORYFIELDLITERAL);
                 }
             } else {
-                soc.setStyleClass("af_nonmandatoryfield");
-                if (component.getId().contains("soc1")){
-                    soc.setStyleClass("af_nonmandatoryfield");
+                soc.setStyleClass(AFNONMANDATORYFIELDLITERAL);
+                if (component.getId().contains("soc1")) {
+                    soc.setStyleClass(AFNONMANDATORYFIELDLITERAL);
                 }
             }
             AdfFacesContext.getCurrentInstance().addPartialTarget(rit);
-        } 
+        }
     }
 
     private Boolean isComponentEmpty(UIComponent rit1) {
@@ -3597,11 +3590,11 @@ public class Alerts {
 
             if (operationBinding != null) {
 
-                if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("SubscrIdkey") != null &&
-                    AdfFacesContext.getCurrentInstance().getPageFlowScope().get("RuleIdkey") != null) {
-                    unsubscribeRequest.setSubscriptionID(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("SubscrIdkey").toString());
+                if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.SUBSCRID_KEY_LITERAL) != null &&
+                    AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.RULEID_KEY_LITERAL) != null) {
+                    unsubscribeRequest.setSubscriptionID(AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.SUBSCRID_KEY_LITERAL).toString());
                     unsubscribeRequest.setCustomerID(userEmail);
-                    LOGGER.info("Subscribe Id " + AdfFacesContext.getCurrentInstance().getPageFlowScope().get("SubscrIdkey"));
+                    LOGGER.info("Subscribe Id " + AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.SUBSCRID_KEY_LITERAL));
                     operationBinding.getParamsMap().put("unsubscribeRequest", unsubscribeRequest);
                 }
 
@@ -3620,14 +3613,15 @@ public class Alerts {
 
 
                 if (operationBinding != null) {
-                    if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("SubscrIdkey") != null) {
-                        LOGGER.info("1 " + AdfFacesContext.getCurrentInstance().getPageFlowScope().get("SubscrIdkey"));
-                        operationBinding.getParamsMap().put("subsId", AdfFacesContext.getCurrentInstance().getPageFlowScope().get("SubscrIdkey").toString());
+                    if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.SUBSCRID_KEY_LITERAL) != null) {
+                        LOGGER.info("1 " + AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.SUBSCRID_KEY_LITERAL));
+                        operationBinding.getParamsMap().put("subsId",
+                                                            AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.SUBSCRID_KEY_LITERAL).toString());
                     }
-                    if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("RuleIdkey") != null) {
-                        LOGGER.info("2 " + AdfFacesContext.getCurrentInstance().getPageFlowScope().get("RuleIdkey"));
+                    if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.RULEID_KEY_LITERAL) != null) {
+                        LOGGER.info("2 " + AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.RULEID_KEY_LITERAL));
                         operationBinding.getParamsMap().put(Constants.RULE_ID_LITERAL,
-                                                            AdfFacesContext.getCurrentInstance().getPageFlowScope().get("RuleIdkey").toString());
+                                                            AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.RULEID_KEY_LITERAL).toString());
                     }
 
 

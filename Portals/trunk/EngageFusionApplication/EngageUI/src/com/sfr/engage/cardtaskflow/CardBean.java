@@ -123,9 +123,9 @@ public class CardBean implements Serializable {
     private String internalCardNumber = null;
     private String cardEmbossNum = null;
     private String internalName = null;
-    private String DriverNumber = null;
+    private String driverNumberMulti = null;
     private String driverName = null;
-    private String VehicleNumber = null;
+    private String vehicleNumberMulti = null;
     private String vehicleModifiedBy = null;
     private String vehicleModifiedDate = null;
     private String driverModifiedBy = null;
@@ -640,11 +640,10 @@ public class CardBean implements Serializable {
                             }
                             if (mapCardGroupListValue != null) {
                                 for (int i = 0; i < mapCardGroupListValue.size(); i++) {
-                                    String values = "cardGroup" + i;
-                                    vo.removeNamedWhereClauseParam(values);
+                                    vo.removeNamedWhereClauseParam(Constants.CARDGROUPLITERAL + i);
                                 }
                             } else {
-                                vo.removeNamedWhereClauseParam("cardGroup");
+                                vo.removeNamedWhereClauseParam(Constants.CARDGROUPLITERAL);
                             }
                             if (expiryQuery.contains(Constants.CURRENT_DATE_LITERAL)) {
                                 vo.removeNamedWhereClauseParam(Constants.CURRENT_DATE_LITERAL);
@@ -664,11 +663,10 @@ public class CardBean implements Serializable {
                                 }
                                 if (mapCardGroupListValue != null) {
                                     for (int i = 0; i < mapCardGroupListValue.size(); i++) {
-                                        String values = "cardGroup" + i;
-                                        vo.removeNamedWhereClauseParam(values);
+                                        vo.removeNamedWhereClauseParam(Constants.CARDGROUPLITERAL + i);
                                     }
                                 } else {
-                                    vo.removeNamedWhereClauseParam("cardGroup");
+                                    vo.removeNamedWhereClauseParam(Constants.CARDGROUPLITERAL);
                                 }
                                 vo.setWhereClause("");
                                 vo.executeQuery();
@@ -701,7 +699,7 @@ public class CardBean implements Serializable {
                         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
                         mapCardGroupListValue = ValueListSplit.callValueList(cardGroupValue.size(), cardGroupValue);
                         for (int i = 0; i < mapCardGroupListValue.size(); i++) {
-                            String values = "cardGroup" + i;
+                            String values = Constants.CARDGROUPLITERAL + i;
                             cardGroupQuery =
                                     cardGroupQuery + "INSTR(:" + values + ",PARTNER_ID||CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 OR ";
                         }
@@ -849,13 +847,12 @@ public class CardBean implements Serializable {
                         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
                         mapCardGroupListValue = ValueListSplit.callValueList(cardGroupValue.size(), cardGroupValue);
                         for (int i = 0; i < mapCardGroupListValue.size(); i++) {
-                            String values = "cardGroup" + i;
-
-                            vo.defineNamedWhereClauseParam(values, mapCardGroupListValue.get(Constants.LISTNAME_LITERAL + i), null);
+                            vo.defineNamedWhereClauseParam(Constants.CARDGROUPLITERAL + i, mapCardGroupListValue.get(Constants.LISTNAME_LITERAL + i), null);
                         }
                     } else {
                         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values < 150 ");
-                        vo.defineNamedWhereClauseParam("cardGroup", populateStringValues(getBindings().getCardGroup().getValue().toString()), null);
+                        vo.defineNamedWhereClauseParam(Constants.CARDGROUPLITERAL, populateStringValues(getBindings().getCardGroup().getValue().toString()),
+                                                       null);
                     }
 
                     if (!statusPassingValues.equalsIgnoreCase(Constants.ENGAGE_CARD_PERMANENT_BLOCKED) &&
@@ -949,13 +946,14 @@ public class CardBean implements Serializable {
                 if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.DRIVER_NUMBER_LITERAL) != null) {
                     driverNameValue = AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.DRIVER_NUMBER_LITERAL).toString().trim();
                     if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.DRIVER_MODIFIED_BY_LITERAL) != null &&
-                        AdfFacesContext.getCurrentInstance().getPageFlowScope().get("driverModifiedDate") != null) {
+                        AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.DRIVERMODIFIEDDATELITERAL) != null) {
                         vehicleModifiedByVisible = false;
                         vehicleModifiedDateVisible = false;
                         driverModifiedByVisible = true;
                         driverModifiedDateVisible = true;
                         driverModifiedBy = AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.DRIVER_MODIFIED_BY_LITERAL).toString().trim();
-                        driverModifiedDate = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("driverModifiedDate").toString().trim();
+                        driverModifiedDate =
+                                AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.DRIVERMODIFIEDDATELITERAL).toString().trim();
                     }
                 }
 
@@ -1195,8 +1193,9 @@ public class CardBean implements Serializable {
                     } else {
 
 
-                        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("internalCardNumber") != null) {
-                            internalCardNumber = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("internalCardNumber").toString().trim();
+                        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.INTERNAL_CARD_NUMBER_LITERAL) != null) {
+                            internalCardNumber =
+                                    AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.INTERNAL_CARD_NUMBER_LITERAL).toString().trim();
                         }
                         if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.ASSOCIATED_ACOUNT_LITERAL) != null) {
                             associatedAccount =
@@ -1287,8 +1286,9 @@ public class CardBean implements Serializable {
 
                     else {
 
-                        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("internalCardNumber") != null) {
-                            internalCardNumber = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("internalCardNumber").toString().trim();
+                        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.INTERNAL_CARD_NUMBER_LITERAL) != null) {
+                            internalCardNumber =
+                                    AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.INTERNAL_CARD_NUMBER_LITERAL).toString().trim();
                         }
                         if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.ASSOCIATED_ACOUNT_LITERAL) != null) {
                             associatedAccount =
@@ -1497,19 +1497,19 @@ public class CardBean implements Serializable {
     /**
      * @param driverNumber
      */
-    public void setDriverNumber(String driverNumber) {
+    public void setDriverNumberMulti(String driverNumber) {
         this.driverNumber = driverNumber;
     }
 
-    public String getDriverNumber() {
+    public String getDriverNumberMulti() {
         return driverNumber;
     }
 
-    public void setVehicleNumber(String vehicleNumber) {
+    public void setVehicleNumberMulti(String vehicleNumber) {
         this.vehicleNumber = vehicleNumber;
     }
 
-    public String getVehicleNumber() {
+    public String getVehicleNumberMulti() {
         return vehicleNumber;
     }
 
@@ -1656,7 +1656,7 @@ public class CardBean implements Serializable {
                 } else {
                     val = selectedValues;
                 }
-            } else if ("Account".equalsIgnoreCase(type)) {
+            } else if (Constants.ACCOUNTLITERAL.equalsIgnoreCase(type)) {
                 if (accountIdList.size() == listValues.length) {
                     if (resourceBundle.containsKey(Constants.ENG_ALL_LITERAL)) {
                         val = (String)resourceBundle.getObject(Constants.ENG_ALL_LITERAL);
@@ -1672,7 +1672,7 @@ public class CardBean implements Serializable {
                 } else {
                     val = selectedValues;
                 }
-            } else if ("Status".equalsIgnoreCase(type)) {
+            } else if (Constants.STATUSLITERAL.equalsIgnoreCase(type)) {
                 if (statusList.size() == listValues.length) {
                     if (resourceBundle.containsKey(Constants.ENG_ALL_LITERAL)) {
                         val = (String)resourceBundle.getObject(Constants.ENG_ALL_LITERAL);
@@ -1845,7 +1845,7 @@ public class CardBean implements Serializable {
             XLS_SH_R_C.setCellStyle(cs);
             if (resourceBundle.containsKey("ACCOUNT")) {
                 XLS_SH_R_C.setCellValue((String)resourceBundle.getObject("ACCOUNT") + ": " +
-                                        checkALL((populateStringValues(getBindings().getAccount().getValue().toString())), "Account"));
+                                        checkALL((populateStringValues(getBindings().getAccount().getValue().toString())), Constants.ACCOUNTLITERAL));
             }
 
             XLS_SH_R = XLS_SH.createRow(2);
@@ -1860,7 +1860,8 @@ public class CardBean implements Serializable {
             XLS_SH_R_C.setCellStyle(cs);
             if (resourceBundle.containsKey("STATUS")) {
                 XLS_SH_R_C.setCellValue((String)resourceBundle.getObject("STATUS") + ": " +
-                                        checkALL((statusConversionList(populateStringValues(getBindings().getStatus().getValue().toString()))), "Status"));
+                                        checkALL((statusConversionList(populateStringValues(getBindings().getStatus().getValue().toString()))),
+                                                 Constants.STATUSLITERAL));
             }
 
             for (int row = Constants.FOUR; row < Constants.SIX; row++) {
@@ -1908,7 +1909,7 @@ public class CardBean implements Serializable {
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getPartnerId().toString().trim());
                             }
-                        } else if ("Account".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if (Constants.ACCOUNTLITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getAccountId() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
@@ -1952,7 +1953,7 @@ public class CardBean implements Serializable {
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getTypeName().toString().trim());
                             }
-                        } else if ("Status".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if (Constants.STATUSLITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getBlockAction() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
@@ -2093,7 +2094,7 @@ public class CardBean implements Serializable {
                             if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Account".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if (Constants.ACCOUNTLITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getAccountId() != null) {
                                 out.print(row.getAccountId().toString().trim());
                             }
@@ -2146,7 +2147,7 @@ public class CardBean implements Serializable {
                             if (cellValue != headerDataValues.length - 1) {
                                 out.print("|");
                             }
-                        } else if ("Status".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if (Constants.STATUSLITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getBlockAction() != null) {
                                 out.print(statusConversion(row.getBlockAction().toString().trim()));
                             }
@@ -2305,7 +2306,7 @@ public class CardBean implements Serializable {
                                 if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Account".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            } else if (Constants.ACCOUNTLITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getAccountId() != null) {
                                     out.print(row.getAccountId().toString().trim());
                                 }
@@ -2391,7 +2392,7 @@ public class CardBean implements Serializable {
                                 if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Status".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            } else if (Constants.STATUSLITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getBlockAction() != null) {
                                     out.print(statusConversion(row.getBlockAction().toString().trim()));
                                 }
@@ -2556,11 +2557,11 @@ public class CardBean implements Serializable {
     }
 
     public void setDriverNumber1(String driverNumber) {
-        this.DriverNumber = driverNumber;
+        this.driverNumberMulti = driverNumber;
     }
 
     public String getDriverNumber1() {
-        return DriverNumber;
+        return driverNumberMulti;
     }
 
     public void editVehicleDriverListener(ActionEvent actionEvent) {
@@ -2568,8 +2569,8 @@ public class CardBean implements Serializable {
         if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("cardAssociation") != null) {
             cardAssociation = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("cardAssociation").toString().trim();
         }
-        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("internalCardNumber") != null) {
-            internalCardNumber = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("internalCardNumber").toString().trim();
+        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.INTERNAL_CARD_NUMBER_LITERAL) != null) {
+            internalCardNumber = AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.INTERNAL_CARD_NUMBER_LITERAL).toString().trim();
         }
         if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("cardEmbossNum") != null) {
             cardEmbossNum = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("cardEmbossNum").toString().trim();
@@ -2578,13 +2579,13 @@ public class CardBean implements Serializable {
             internalName = AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.INTERNAL_NAME_LITERAL).toString().trim();
         }
         if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.DRIVER_NUMBER_LITERAL) != null) {
-            DriverNumber = AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.DRIVER_NUMBER_LITERAL).toString().trim();
+            driverNumberMulti = AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.DRIVER_NUMBER_LITERAL).toString().trim();
         }
         if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.DRIVER_NAME_LITERAL) != null) {
             driverName = AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.DRIVER_NAME_LITERAL).toString().trim();
         }
         if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.VEHICLE_NUMBER_LITERAL) != null) {
-            VehicleNumber = AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.VEHICLE_NUMBER_LITERAL).toString().trim();
+            vehicleNumberMulti = AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.VEHICLE_NUMBER_LITERAL).toString().trim();
         }
         this.driverNameValue = null;
         this.vehicleNumberValue = null;
@@ -2609,7 +2610,7 @@ public class CardBean implements Serializable {
 
                 if (resourceBundle.containsKey("TRUCK_CARD_ALREADY_EXIST")) {
                     showEditInfoMessage = true;
-                    infoMsgAssociated = resourceBundle.getObject("CARD_ASSOCIATED_VEHICLE").toString().concat(" " + VehicleNumber);
+                    infoMsgAssociated = resourceBundle.getObject("CARD_ASSOCIATED_VEHICLE").toString().concat(" " + vehicleNumberMulti);
                     infoMsgModifiedDate = resourceBundle.getObject("MODIFIED_BY").toString().concat(" " + vehicleModifiedBy);
                     infoMsgModifiedBy = resourceBundle.getObject("MODIFIED_DATE").toString().concat(" " + vehicleModifiedDate);
                     AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditInfoMessage());
@@ -2619,13 +2620,14 @@ public class CardBean implements Serializable {
                     if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.DRIVER_MODIFIED_BY_LITERAL) != null) {
                         driverModifiedBy = AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.DRIVER_MODIFIED_BY_LITERAL).toString().trim();
                     }
-                    if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("driverModifiedDate") != null) {
-                        driverModifiedDate = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("driverModifiedDate").toString().trim();
+                    if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.DRIVERMODIFIEDDATELITERAL) != null) {
+                        driverModifiedDate =
+                                AdfFacesContext.getCurrentInstance().getPageFlowScope().get(Constants.DRIVERMODIFIEDDATELITERAL).toString().trim();
                     }
 
                     if (resourceBundle.containsKey("DRIVER_CARD_ALREADY_EXIST")) {
                         showEditInfoMessage = true;
-                        infoMsgAssociated = resourceBundle.getObject("CARD_ASSOCIATED_DRIVER").toString().concat(" " + DriverNumber);
+                        infoMsgAssociated = resourceBundle.getObject("CARD_ASSOCIATED_DRIVER").toString().concat(" " + driverNumberMulti);
                         infoMsgModifiedDate = resourceBundle.getObject("MODIFIED_DATE").toString().concat(" " + driverModifiedDate);
                         infoMsgModifiedBy = resourceBundle.getObject("MODIFIED_BY").toString().concat(" " + driverModifiedBy);
                         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditInfoMessage());
@@ -2966,13 +2968,11 @@ public class CardBean implements Serializable {
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
             mapCardGroupListValue = ValueListSplit.callValueList(cardGroupValue.size(), cardGroupValue);
             for (int i = 0; i < mapCardGroupListValue.size(); i++) {
-                String values = "cardGroup" + i;
-
-                vo.defineNamedWhereClauseParam(values, mapCardGroupListValue.get(Constants.LISTNAME_LITERAL + i), null);
+                vo.defineNamedWhereClauseParam(Constants.CARDGROUPLITERAL + i, mapCardGroupListValue.get(Constants.LISTNAME_LITERAL + i), null);
             }
         } else {
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values < 150 ");
-            vo.defineNamedWhereClauseParam("cardGroup", populateStringValues(getBindings().getCardGroup().getValue().toString()), null);
+            vo.defineNamedWhereClauseParam(Constants.CARDGROUPLITERAL, populateStringValues(getBindings().getCardGroup().getValue().toString()), null);
         }
 
         if (!statusPassingValues.equalsIgnoreCase(Constants.ENGAGE_CARD_PERMANENT_BLOCKED) &&

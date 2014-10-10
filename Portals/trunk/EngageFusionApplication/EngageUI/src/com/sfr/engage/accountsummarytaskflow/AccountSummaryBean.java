@@ -129,7 +129,13 @@ public class AccountSummaryBean implements Serializable {
     private RichTree onlyblockedcardstree;
     private RichTree permblockedandactivecardstree;
     private RichTree permblockedandtempblockedcardstree;
-
+    public static final String PARTNEROBJECTLISTLITERAL = "Partner_Object_List";
+    public static final String ACTIVECARDSLITERAL = "Active Cards";
+    public static final String HARDBLOCKSLITERAL = "Hardblock Cards";
+    public static final String SOFTBLOCKLITERAL = "Softblock Cards";
+    public static final String CGIDLITERAL = "cgid";
+    private static final String AFMANDATORYFIELDLITERAL = "af_mandatoryfield";
+    private static final String AFNONMANDATORYFIELDLITERAL = "af_nonmandatoryfield";
 
     public AccountSummaryBean() {
 
@@ -205,7 +211,7 @@ public class AccountSummaryBean implements Serializable {
                 List<String> temp1 = new ArrayList<String>();
                 List<String> temp2 = new ArrayList<String>();
                 List<String> temp3 = new ArrayList<String>();
-                partnerListDefault = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
+                partnerListDefault = (List<PartnerInfo>)session.getAttribute(PARTNEROBJECTLISTLITERAL);
                 for (int i = 0; i < userInfo.getRoleList().size(); i++) {
                     for (int j = 0; j < userInfo.getRoleList().get(i).getIdString().size(); j++) {
 
@@ -355,7 +361,7 @@ public class AccountSummaryBean implements Serializable {
             listString += s + ",";
         }
 
-        if (listString.contains("Active Cards") && listString.contains("Softblock Cards") && listString.contains("Hardblock Cards")) {
+        if (listString.contains(ACTIVECARDSLITERAL) && listString.contains(SOFTBLOCKLITERAL) && listString.contains(HARDBLOCKSLITERAL)) {
             hideblockedcards = false;
             displayallcards = true;
             displayactivecards = false;
@@ -365,7 +371,7 @@ public class AccountSummaryBean implements Serializable {
             displayperblockedandtempcards = false;
             hideAll();
             AdfFacesContext.getCurrentInstance().addPartialTarget(treePanel);
-        } else if (listString.contains("Active Cards") && listString.contains("Softblock Cards")) {
+        } else if (listString.contains(ACTIVECARDSLITERAL) && listString.contains(SOFTBLOCKLITERAL)) {
             hideblockedcards = true;
             displayallcards = false;
             displayactivecards = false;
@@ -375,7 +381,7 @@ public class AccountSummaryBean implements Serializable {
             displayperblockedandtempcards = false;
             hideAll();
             AdfFacesContext.getCurrentInstance().addPartialTarget(treePanel);
-        } else if (listString.contains("Active Cards") && listString.contains("Hardblock Cards")) {
+        } else if (listString.contains(ACTIVECARDSLITERAL) && listString.contains(HARDBLOCKSLITERAL)) {
             hideblockedcards = false;
             displayallcards = false;
             displayactivecards = false;
@@ -386,7 +392,7 @@ public class AccountSummaryBean implements Serializable {
             hideAll();
             AdfFacesContext.getCurrentInstance().addPartialTarget(treePanel);
 
-        } else if (listString.contains("Softblock Cards") && listString.contains("Hardblock Cards")) {
+        } else if (listString.contains(SOFTBLOCKLITERAL) && listString.contains(HARDBLOCKSLITERAL)) {
 
             hideblockedcards = false;
             displayallcards = false;
@@ -397,7 +403,7 @@ public class AccountSummaryBean implements Serializable {
             displayperblockedandtempcards = true;
             hideAll();
             AdfFacesContext.getCurrentInstance().addPartialTarget(treePanel);
-        } else if (listString.contains("Active Cards")) {
+        } else if (listString.contains(ACTIVECARDSLITERAL)) {
             hideblockedcards = false;
             displayallcards = false;
             displayactivecards = true;
@@ -407,7 +413,7 @@ public class AccountSummaryBean implements Serializable {
             displayperblockedandtempcards = false;
             hideAll();
             AdfFacesContext.getCurrentInstance().addPartialTarget(treePanel);
-        } else if (listString.contains("Softblock Cards")) {
+        } else if (listString.contains(SOFTBLOCKLITERAL)) {
             hideblockedcards = false;
             displayallcards = false;
             displayactivecards = false;
@@ -417,7 +423,7 @@ public class AccountSummaryBean implements Serializable {
             displayperblockedandtempcards = false;
             hideAll();
             AdfFacesContext.getCurrentInstance().addPartialTarget(treePanel);
-        } else if (listString.contains("Hardblock Cards")) {
+        } else if (listString.contains(HARDBLOCKSLITERAL)) {
             hideblockedcards = false;
             displayallcards = false;
             displayactivecards = false;
@@ -770,7 +776,7 @@ public class AccountSummaryBean implements Serializable {
     private RowKeySet searchTreeNode(JUCtrlHierNodeBinding node, String[] searchAttributes, String searchType, String searchString) {
         RowKeySetImpl rowKeys = new RowKeySetImpl();
         //set default search
-        String _searchType = searchType == null ? "CONTAIN" : searchType.length() > 0 ? searchType : "CONTAIN";
+        String boolSearchType = searchType == null ? "CONTAIN" : searchType.length() > 0 ? searchType : "CONTAIN";
 
         //Sanity checks
         if (node == null) {
@@ -802,13 +808,13 @@ public class AccountSummaryBean implements Serializable {
                     //node does not have attribute. Exclude from search
                 }
                 //compare strings case insesitive.
-                if (_searchType.equalsIgnoreCase("CONTAIN") && compareString.toUpperCase().indexOf(searchString.toUpperCase()) > -1) {
+                if (boolSearchType.equalsIgnoreCase("CONTAIN") && compareString.toUpperCase().indexOf(searchString.toUpperCase()) > -1) {
                     //get row key
                     rowKeys.add(node.getKeyPath());
-                } else if (_searchType.equalsIgnoreCase("START") && compareString.toUpperCase().startsWith(searchString.toUpperCase())) {
+                } else if (boolSearchType.equalsIgnoreCase("START") && compareString.toUpperCase().startsWith(searchString.toUpperCase())) {
                     //get row key
                     rowKeys.add(node.getKeyPath());
-                } else if (_searchType.equalsIgnoreCase("END") && compareString.toUpperCase().endsWith(searchString.toUpperCase())) {
+                } else if (boolSearchType.equalsIgnoreCase("END") && compareString.toUpperCase().endsWith(searchString.toUpperCase())) {
                     //get row key
                     rowKeys.add(node.getKeyPath());
                 }
@@ -1175,7 +1181,7 @@ public class AccountSummaryBean implements Serializable {
         perCardVO.setNamedWhereClauseParam("paramValue", paramValue);
         perCardVO.setNamedWhereClauseParam("partnerid", partnerid);
         perCardVO.setNamedWhereClauseParam("accountid", accountid);
-        perCardVO.setNamedWhereClauseParam("cgid", cgid);
+        perCardVO.setNamedWhereClauseParam(CGIDLITERAL, cgid);
         perCardVO.setNamedWhereClauseParam("currentDate", currentDate);
         perCardVO.setNamedWhereClauseParam("nextMonth", nextMonth);
         perCardVO.executeQuery();
@@ -1485,8 +1491,8 @@ public class AccountSummaryBean implements Serializable {
 
 
             }
-            if (session != null && session.getAttribute("Partner_Object_List") != null) {
-                partnerList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
+            if (session != null && session.getAttribute(PARTNEROBJECTLISTLITERAL) != null) {
+                partnerList = (List<PartnerInfo>)session.getAttribute(PARTNEROBJECTLISTLITERAL);
                 if (partnerList != null) {
                     for (int k = 0; k < partnerList.size(); k++) {
                         if (partnerList.get(k).getPartnerValue().toString().equals(id)) {
@@ -1770,10 +1776,10 @@ public class AccountSummaryBean implements Serializable {
 
         accountId = dropNodeParent.toString();
 
-        if (session != null && session.getAttribute("Partner_Object_List") != null) {
+        if (session != null && session.getAttribute(PARTNEROBJECTLISTLITERAL) != null) {
 
 
-            partnerList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
+            partnerList = (List<PartnerInfo>)session.getAttribute(PARTNEROBJECTLISTLITERAL);
             if (partnerList != null) {
                 for (int k = 0; k < partnerList.size(); k++) {
                     if (partnerList.get(k).getPartnerValue().toString().equals(id)) {
@@ -1852,7 +1858,7 @@ public class AccountSummaryBean implements Serializable {
 
                 cardGroupVO.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub AND ACCOUNT_ID=: acid");
 
-                cardGroupVO.defineNamedWhereClauseParam("cgid", cardgroupseq, null);
+                cardGroupVO.defineNamedWhereClauseParam(CGIDLITERAL, cardgroupseq, null);
 
                 cardGroupVO.defineNamedWhereClauseParam("cc", session.getAttribute(Constants.userLang), null);
                 cardGroupVO.defineNamedWhereClauseParam("cgmain", maintype, null);
@@ -1885,7 +1891,7 @@ public class AccountSummaryBean implements Serializable {
 
                 cardVO = iter3.getViewObject();
                 cardVO.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub AND ACCOUNT_ID=: acid");
-                cardVO.defineNamedWhereClauseParam("cgid", cardgroupseq, null);
+                cardVO.defineNamedWhereClauseParam(CGIDLITERAL, cardgroupseq, null);
 
                 cardVO.defineNamedWhereClauseParam("cc", session.getAttribute(Constants.userLang), null);
                 cardVO.defineNamedWhereClauseParam("cgmain", maintype, null);
@@ -2004,7 +2010,7 @@ public class AccountSummaryBean implements Serializable {
 
             if ("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub AND ACCOUNT_ID=: acid".equalsIgnoreCase(cardVO.getWhereClause())) {
 
-                cardVO.removeNamedWhereClauseParam("cgid");
+                cardVO.removeNamedWhereClauseParam(CGIDLITERAL);
                 cardVO.removeNamedWhereClauseParam("cc");
                 cardVO.removeNamedWhereClauseParam("cgmain");
                 cardVO.removeNamedWhereClauseParam("cgsub");
@@ -2089,15 +2095,15 @@ public class AccountSummaryBean implements Serializable {
         if (component instanceof RichSelectManyChoice) {
             soc = (RichSelectManyChoice)component;
             if (status) {
-                soc.setContentStyle("af_mandatoryfield");
+                soc.setContentStyle(AFMANDATORYFIELDLITERAL);
                 if (component.getId().contains("smc1")) {
-                    soc.setContentStyle("af_mandatoryfield");
+                    soc.setContentStyle(AFMANDATORYFIELDLITERAL);
                 }
 
             } else {
-                soc.setContentStyle("af_nonmandatoryfield");
+                soc.setContentStyle(AFNONMANDATORYFIELDLITERAL);
                 if (component.getId().contains("smc1")) {
-                    soc.setContentStyle("af_nonmandatoryfield");
+                    soc.setContentStyle(AFNONMANDATORYFIELDLITERAL);
                 }
             }
             AdfFacesContext.getCurrentInstance().addPartialTarget(soc);
@@ -2106,15 +2112,15 @@ public class AccountSummaryBean implements Serializable {
         else if (component instanceof RichSelectOneChoice) {
             soc1 = (RichSelectOneChoice)component;
             if (status) {
-                soc1.setContentStyle("af_mandatoryfield");
+                soc1.setContentStyle(AFMANDATORYFIELDLITERAL);
                 if (component.getId().contains("sml1")) {
-                    soc1.setContentStyle("af_mandatoryfield");
+                    soc1.setContentStyle(AFMANDATORYFIELDLITERAL);
                 }
 
             } else {
-                soc1.setContentStyle("af_nonmandatoryfield");
+                soc1.setContentStyle(AFNONMANDATORYFIELDLITERAL);
                 if (component.getId().contains("sml1")) {
-                    soc1.setContentStyle("af_nonmandatoryfield");
+                    soc1.setContentStyle(AFNONMANDATORYFIELDLITERAL);
                 }
             }
             AdfFacesContext.getCurrentInstance().addPartialTarget(soc1);

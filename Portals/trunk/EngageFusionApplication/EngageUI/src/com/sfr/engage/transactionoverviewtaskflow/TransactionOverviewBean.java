@@ -177,6 +177,7 @@ public class TransactionOverviewBean implements Serializable {
     private AccessDataControl accessDC = new AccessDataControl();
     private String cardGroupRadio = Constants.CARD_GROUP_LITERAL;
     private static final String PRTEXPORTINFORVO1ITERATORLITRERAL = "PrtExportInfoRVO1Iterator";
+    private static final String PRTCARDTRANSACTIONOVERVIEWRVO1ITERATORLITRERAL = "PrtCardTransactionOverviewRVO1Iterator";
     private static final String SELECTCRITERIALITRERAL = "select_Criteria";
     private static final String PRTCARDPKLITRERAL = "PrtCardPk";
     private static final String PURCHASECOUNTRYCODELITRERAL = "purchaseCountryCode";
@@ -1094,7 +1095,7 @@ public class TransactionOverviewBean implements Serializable {
 
             isTableVisible = false;
 
-            ViewObject vo = ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");
+            ViewObject vo = ADFUtils.getViewObject(PRTCARDTRANSACTIONOVERVIEWRVO1ITERATORLITRERAL);
             if (cardQuery.length() > 2 && cardQuery != null && cardGroupQuery.length() <= 2) {
                 if (((accountQuery + "AND " + cardQuery +
                       "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)").trim().equalsIgnoreCase(vo.getWhereClause().trim())) ||
@@ -1112,15 +1113,14 @@ public class TransactionOverviewBean implements Serializable {
 
                     if (mapCardListValue != null) {
                         for (int i = 0; i < mapCardListValue.size(); i++) {
-                            String values = "card" + i;
-                            vo.removeNamedWhereClauseParam(values);
+                            vo.removeNamedWhereClauseParam(Constants.CARDLITERAL + i);
                         }
                         for (int i = 0; i < mapCardListValue.size(); i++) {
 
                             vo.removeNamedWhereClauseParam(Constants.CARD2ID_LITERAL + i);
                         }
                     } else {
-                        vo.removeNamedWhereClauseParam("card");
+                        vo.removeNamedWhereClauseParam(Constants.CARDLITERAL);
                         vo.removeNamedWhereClauseParam(Constants.CARD2ID_LITERAL);
                     }
                     vo.removeNamedWhereClauseParam(PURCHASECOUNTRYCODELITRERAL);
@@ -1140,15 +1140,14 @@ public class TransactionOverviewBean implements Serializable {
                         }
                         if (mapCardListValue != null) {
                             for (int i = 0; i < mapCardListValue.size(); i++) {
-                                String values = "card" + i;
-                                vo.removeNamedWhereClauseParam(values);
+                                vo.removeNamedWhereClauseParam(Constants.CARDLITERAL + i);
                             }
                             for (int i = 0; i < mapCardListValue.size(); i++) {
 
                                 vo.removeNamedWhereClauseParam(Constants.CARD2ID_LITERAL + i);
                             }
                         } else {
-                            vo.removeNamedWhereClauseParam("card");
+                            vo.removeNamedWhereClauseParam(Constants.CARDLITERAL);
                             vo.removeNamedWhereClauseParam(Constants.CARD2ID_LITERAL);
                         }
                         vo.setWhereClause("");
@@ -1172,11 +1171,11 @@ public class TransactionOverviewBean implements Serializable {
                         }
                         if (mapCardGroupListValue != null) {
                             for (int i = 0; i < mapCardGroupListValue.size(); i++) {
-                                String values = "cardGroup" + i;
-                                vo.removeNamedWhereClauseParam(values);
+
+                                vo.removeNamedWhereClauseParam(Constants.CARDGROUPLITERAL + i);
                             }
                         } else {
-                            vo.removeNamedWhereClauseParam("cardGroup");
+                            vo.removeNamedWhereClauseParam(Constants.CARDGROUPLITERAL);
                         }
                         vo.removeNamedWhereClauseParam(PURCHASECOUNTRYCODELITRERAL);
                         vo.setWhereClause("");
@@ -1195,11 +1194,11 @@ public class TransactionOverviewBean implements Serializable {
                             }
                             if (mapCardGroupListValue != null) {
                                 for (int i = 0; i < mapCardGroupListValue.size(); i++) {
-                                    String values = "cardGroup" + i;
-                                    vo.removeNamedWhereClauseParam(values);
+
+                                    vo.removeNamedWhereClauseParam(Constants.CARDGROUPLITERAL + i);
                                 }
                             } else {
-                                vo.removeNamedWhereClauseParam("cardGroup");
+                                vo.removeNamedWhereClauseParam(Constants.CARDGROUPLITERAL);
                             }
                             vo.setWhereClause("");
                             vo.executeQuery();
@@ -1244,7 +1243,7 @@ public class TransactionOverviewBean implements Serializable {
                                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values > 150 ");
                                 mapCardListValue = ValueListSplit.callValueList(cardNumberValue.size(), cardNumberValue);
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
-                                    String values = "card" + i;
+                                    String values = Constants.CARDLITERAL + i;
                                     cardQuery = cardQuery + "INSTR(:" + values + ",KSID)<>0 OR ";
                                 }
                                 cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
@@ -1259,9 +1258,7 @@ public class TransactionOverviewBean implements Serializable {
                                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
                                 vo.setWhereClause(accountQuery + "AND " + cardQuery + "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
-                                    String values = "card" + i;
-
-                                    vo.defineNamedWhereClauseParam(values, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
+                                    vo.defineNamedWhereClauseParam(Constants.CARDLITERAL + i, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
                                 }
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
 
@@ -1274,7 +1271,7 @@ public class TransactionOverviewBean implements Serializable {
                                 cardQuery =
                                         "((INSTR(:card,KSID)<>0 OR INSTR(:card2id,CARD_2_ID)<>0) AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
                                 vo.setWhereClause(accountQuery + "AND " + cardQuery + "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
-                                vo.defineNamedWhereClauseParam("card", cardNumberPasingValues, null);
+                                vo.defineNamedWhereClauseParam(Constants.CARDLITERAL, cardNumberPasingValues, null);
                                 vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL, cardNumberPasingValues, null);
                             }
                             vo.defineNamedWhereClauseParam(PURCHASECOUNTRYCODELITRERAL, lang, null);
@@ -1283,7 +1280,7 @@ public class TransactionOverviewBean implements Serializable {
                                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values > 150 ");
                                 mapCardListValue = ValueListSplit.callValueList(cardNumberValue.size(), cardNumberValue);
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
-                                    String values = "card" + i;
+                                    String values = Constants.CARDLITERAL + i;
                                     cardQuery = cardQuery + "INSTR(:" + values + ",KSID)<>0 OR ";
                                 }
                                 cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
@@ -1298,9 +1295,7 @@ public class TransactionOverviewBean implements Serializable {
                                         cardQuery + ") AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
                                 vo.setWhereClause(accountQuery + "AND " + cardQuery);
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
-                                    String values = "card" + i;
-
-                                    vo.defineNamedWhereClauseParam(values, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
+                                    vo.defineNamedWhereClauseParam(Constants.CARDLITERAL + i, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
                                 }
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
 
@@ -1314,7 +1309,7 @@ public class TransactionOverviewBean implements Serializable {
                                 cardQuery =
                                         "((INSTR(:card,KSID)<>0 OR INSTR(:card2id,CARD_2_ID)<>0) AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
                                 vo.setWhereClause(accountQuery + "AND " + cardQuery);
-                                vo.defineNamedWhereClauseParam("card", cardNumberPasingValues, null);
+                                vo.defineNamedWhereClauseParam(Constants.CARDLITERAL, cardNumberPasingValues, null);
                                 vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL, cardNumberPasingValues, null);
                             }
                         }
@@ -1325,7 +1320,7 @@ public class TransactionOverviewBean implements Serializable {
                                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Vehicle Values > 150 ");
                                 mapCardListValue = ValueListSplit.callValueList(vehicleNumberValue.size(), vehicleNumberValue);
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
-                                    String values = "card" + i;
+                                    String values = Constants.CARDLITERAL + i;
                                     cardQuery = cardQuery + "INSTR(:" + values + ",KSID)<>0 OR ";
                                 }
                                 cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
@@ -1340,9 +1335,7 @@ public class TransactionOverviewBean implements Serializable {
                                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
                                 vo.setWhereClause(accountQuery + "AND " + cardQuery + "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
-                                    String values = "card" + i;
-
-                                    vo.defineNamedWhereClauseParam(values, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
+                                    vo.defineNamedWhereClauseParam(Constants.CARDLITERAL + i, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
                                 }
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
 
@@ -1355,7 +1348,7 @@ public class TransactionOverviewBean implements Serializable {
                                 cardQuery =
                                         "((INSTR(:card,KSID)<>0 OR INSTR(:card2id,CARD_2_ID)<>0) AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
                                 vo.setWhereClause(accountQuery + "AND " + cardQuery + "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
-                                vo.defineNamedWhereClauseParam("card", cardNumberPasingValues, null);
+                                vo.defineNamedWhereClauseParam(Constants.CARDLITERAL, cardNumberPasingValues, null);
                                 vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL, cardNumberPasingValues, null);
                             }
                             vo.defineNamedWhereClauseParam(PURCHASECOUNTRYCODELITRERAL, lang, null);
@@ -1364,7 +1357,7 @@ public class TransactionOverviewBean implements Serializable {
                                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Vehicle Values > 150 ");
                                 mapCardListValue = ValueListSplit.callValueList(vehicleNumberValue.size(), vehicleNumberValue);
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
-                                    String values = "card" + i;
+                                    String values = Constants.CARDLITERAL + i;
                                     cardQuery = cardQuery + "INSTR(:" + values + ",KSID)<>0 OR ";
                                 }
                                 cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
@@ -1379,8 +1372,7 @@ public class TransactionOverviewBean implements Serializable {
                                         cardQuery + ") AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
                                 vo.setWhereClause(accountQuery + "AND " + cardQuery);
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
-                                    String values = "card" + i;
-                                    vo.defineNamedWhereClauseParam(values, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
+                                    vo.defineNamedWhereClauseParam(Constants.CARDLITERAL + i, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
                                 }
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
 
@@ -1394,7 +1386,7 @@ public class TransactionOverviewBean implements Serializable {
                                 cardQuery =
                                         "((INSTR(:card,KSID)<>0 OR INSTR(:card2id,CARD_2_ID)<>0) AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
                                 vo.setWhereClause(accountQuery + "AND " + cardQuery);
-                                vo.defineNamedWhereClauseParam("card", cardNumberPasingValues, null);
+                                vo.defineNamedWhereClauseParam(Constants.CARDLITERAL, cardNumberPasingValues, null);
                                 vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL, cardNumberPasingValues, null);
                             }
                         }
@@ -1406,7 +1398,7 @@ public class TransactionOverviewBean implements Serializable {
                                     LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Driver Values > 150 ");
                                     mapCardListValue = ValueListSplit.callValueList(driverNameValue.size(), driverNameValue);
                                     for (int i = 0; i < mapCardListValue.size(); i++) {
-                                        String values = "card" + i;
+                                        String values = Constants.CARDLITERAL + i;
                                         cardQuery = cardQuery + "INSTR(:" + values + ",KSID)<>0 OR ";
                                     }
                                     cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
@@ -1421,9 +1413,7 @@ public class TransactionOverviewBean implements Serializable {
                                     LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
                                     vo.setWhereClause(accountQuery + "AND " + cardQuery + "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
                                     for (int i = 0; i < mapCardListValue.size(); i++) {
-                                        String values = "card" + i;
-
-                                        vo.defineNamedWhereClauseParam(values, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
+                                        vo.defineNamedWhereClauseParam(Constants.CARDLITERAL + i, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
                                     }
                                     for (int i = 0; i < mapCardListValue.size(); i++) {
 
@@ -1438,7 +1428,7 @@ public class TransactionOverviewBean implements Serializable {
                                     cardQuery =
                                             "((INSTR(:card,KSID)<>0 OR INSTR(:card2id,CARD_2_ID)<>0) AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
                                     vo.setWhereClause(accountQuery + "AND " + cardQuery + "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
-                                    vo.defineNamedWhereClauseParam("card", cardNumberPasingValues, null);
+                                    vo.defineNamedWhereClauseParam(Constants.CARDLITERAL, cardNumberPasingValues, null);
                                     vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL, cardNumberPasingValues, null);
                                 }
                                 vo.defineNamedWhereClauseParam(PURCHASECOUNTRYCODELITRERAL, lang, null);
@@ -1447,7 +1437,7 @@ public class TransactionOverviewBean implements Serializable {
                                     LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Driver Values > 150 ");
                                     mapCardListValue = ValueListSplit.callValueList(driverNameValue.size(), driverNameValue);
                                     for (int i = 0; i < mapCardListValue.size(); i++) {
-                                        String values = "card" + i;
+                                        String values = Constants.CARDLITERAL + i;
                                         cardQuery = cardQuery + "INSTR(:" + values + ",KSID)<>0 OR ";
                                     }
                                     cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
@@ -1462,9 +1452,7 @@ public class TransactionOverviewBean implements Serializable {
                                             cardQuery + ") AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
                                     vo.setWhereClause(accountQuery + "AND " + cardQuery);
                                     for (int i = 0; i < mapCardListValue.size(); i++) {
-                                        String values = "card" + i;
-
-                                        vo.defineNamedWhereClauseParam(values, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
+                                        vo.defineNamedWhereClauseParam(Constants.CARDLITERAL + i, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
                                     }
                                     for (int i = 0; i < mapCardListValue.size(); i++) {
 
@@ -1477,7 +1465,7 @@ public class TransactionOverviewBean implements Serializable {
                                     cardQuery =
                                             "((INSTR(:card,KSID)<>0 OR INSTR(:card2id,CARD_2_ID)<>0) AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
                                     vo.setWhereClause(accountQuery + "AND " + cardQuery);
-                                    vo.defineNamedWhereClauseParam("card", cardNumberPasingValues, null);
+                                    vo.defineNamedWhereClauseParam(Constants.CARDLITERAL, cardNumberPasingValues, null);
                                     vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL, cardNumberPasingValues, null);
                                 }
                             }
@@ -1493,7 +1481,7 @@ public class TransactionOverviewBean implements Serializable {
                             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
                             mapCardGroupListValue = ValueListSplit.callValueList(cardGroupValue.size(), cardGroupValue);
                             for (int i = 0; i < mapCardGroupListValue.size(); i++) {
-                                String values = "cardGroup" + i;
+                                String values = Constants.CARDGROUPLITERAL + i;
                                 cardGroupQuery =
                                         cardGroupQuery + "INSTR(:" + values + ",PARTNER_ID||CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 OR ";
                             }
@@ -1502,9 +1490,8 @@ public class TransactionOverviewBean implements Serializable {
                             cardGroupQuery = cardGroupQuery + ")";
                             vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
                             for (int i = 0; i < mapCardGroupListValue.size(); i++) {
-                                String values = "cardGroup" + i;
-
-                                vo.defineNamedWhereClauseParam(values, mapCardGroupListValue.get(Constants.LISTNAME_LITERAL + i), null);
+                                vo.defineNamedWhereClauseParam(Constants.CARDGROUPLITERAL + i, mapCardGroupListValue.get(Constants.LISTNAME_LITERAL + i),
+                                                               null);
                             }
 
                         } else {
@@ -1512,7 +1499,8 @@ public class TransactionOverviewBean implements Serializable {
                             mapCardGroupListValue = null;
                             cardGroupQuery = "INSTR(:cardGroup,PARTNER_ID||CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 ";
                             vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
-                            vo.defineNamedWhereClauseParam("cardGroup", populateStringValues(getBindings().getCardGroup().getValue().toString()), null);
+                            vo.defineNamedWhereClauseParam(Constants.CARDGROUPLITERAL,
+                                                           populateStringValues(getBindings().getCardGroup().getValue().toString()), null);
                         }
                         vo.defineNamedWhereClauseParam(PURCHASECOUNTRYCODELITRERAL, lang, null);
 
@@ -1521,7 +1509,7 @@ public class TransactionOverviewBean implements Serializable {
                             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
                             mapCardGroupListValue = ValueListSplit.callValueList(cardGroupValue.size(), cardGroupValue);
                             for (int i = 0; i < mapCardGroupListValue.size(); i++) {
-                                String values = "cardGroup" + i;
+                                String values = Constants.CARDGROUPLITERAL + i;
                                 cardGroupQuery =
                                         cardGroupQuery + "INSTR(:" + values + ",PARTNER_ID||CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 OR ";
                             }
@@ -1530,9 +1518,8 @@ public class TransactionOverviewBean implements Serializable {
                             cardGroupQuery = cardGroupQuery + ")";
                             vo.setWhereClause(accountQuery + "AND " + cardGroupQuery);
                             for (int i = 0; i < mapCardGroupListValue.size(); i++) {
-                                String values = "cardGroup" + i;
-
-                                vo.defineNamedWhereClauseParam(values, mapCardGroupListValue.get(Constants.LISTNAME_LITERAL + i), null);
+                                vo.defineNamedWhereClauseParam(Constants.CARDGROUPLITERAL + i, mapCardGroupListValue.get(Constants.LISTNAME_LITERAL + i),
+                                                               null);
                             }
 
                         } else {
@@ -1540,7 +1527,8 @@ public class TransactionOverviewBean implements Serializable {
                             mapCardGroupListValue = null;
                             cardGroupQuery = "(INSTR(:cardGroup,PARTNER_ID||CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0) ";
                             vo.setWhereClause(accountQuery + "AND " + cardGroupQuery);
-                            vo.defineNamedWhereClauseParam("cardGroup", populateStringValues(getBindings().getCardGroup().getValue().toString()), null);
+                            vo.defineNamedWhereClauseParam(Constants.CARDGROUPLITERAL,
+                                                           populateStringValues(getBindings().getCardGroup().getValue().toString()), null);
                         }
                     }
                 }
@@ -1817,7 +1805,7 @@ public class TransactionOverviewBean implements Serializable {
                     for (int i = 0; i < partnerInfoList.get(z).getAccountList().size(); i++) {
                         for (int j = 0; j < accountString.length; j++) {
                             if (partnerInfoList.get(z).getAccountList().get(i).getAccountNumber() != null &&
-                                partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().trim().equals(accountString[j].toString().trim())) {
+                                partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().trim().equals(accountString[j].trim())) {
                                 if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup() != null &&
                                     partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size() > 0) {
                                     for (int k = 0; k < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size(); k++) {
@@ -2231,7 +2219,8 @@ public class TransactionOverviewBean implements Serializable {
             XLS_SH_R = XLS_SH.createRow(Constants.NINE);
             int cellValueSpace = 0;
             for (int col = 0; col < headerDataValues.length; col++) {
-                if ("Total Amount".equalsIgnoreCase(headerDataValues[col]) || "ForeginGrossAmount".equalsIgnoreCase(headerDataValues[col].trim()) ||
+                if (Constants.TOTAL_AMOUNT_LITERAL.equalsIgnoreCase(headerDataValues[col]) ||
+                    "ForeginGrossAmount".equalsIgnoreCase(headerDataValues[col].trim()) ||
                     Constants.VAT_LITERAL.equalsIgnoreCase(headerDataValues[col].trim()) ||
                     Constants.NET_LITERAL.equalsIgnoreCase(headerDataValues[col].trim())) {
                     cellValueSpace = 1;
@@ -2259,7 +2248,7 @@ public class TransactionOverviewBean implements Serializable {
             int valForeignLoc = 0;
             int valVatLoc = 0;
             int valNetLoc = 0;
-            ViewObject prtCardTransactionOverViewRVO = ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");
+            ViewObject prtCardTransactionOverViewRVO = ADFUtils.getViewObject(PRTCARDTRANSACTIONOVERVIEWRVO1ITERATORLITRERAL);
             RowSetIterator iterator = prtCardTransactionOverViewRVO.createRowSetIterator(null);
             iterator.reset();
             while (iterator.hasNext()) {
@@ -2351,7 +2340,7 @@ public class TransactionOverviewBean implements Serializable {
                                 XLS_SH_R_C.setCellStyle(csRight);
                                 XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getCurrencyGrossAmount().toString())), locale));
                             }
-                        } else if ("Total Amount".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if (Constants.TOTAL_AMOUNT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getInvoicedGrossAmountRebated() != null) {
                                 val = true;
                                 valLoc = dataColumn;
@@ -2535,7 +2524,7 @@ public class TransactionOverviewBean implements Serializable {
                 }
             }
             out.println();
-            ViewObject prtCardTransactionOverViewRVO = ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");
+            ViewObject prtCardTransactionOverViewRVO = ADFUtils.getViewObject(PRTCARDTRANSACTIONOVERVIEWRVO1ITERATORLITRERAL);
             RowSetIterator iterator = prtCardTransactionOverViewRVO.createRowSetIterator(null);
             iterator.reset();
             while (iterator.hasNext()) {
@@ -2633,7 +2622,7 @@ public class TransactionOverviewBean implements Serializable {
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Total Amount".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if (Constants.TOTAL_AMOUNT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getInvoicedNetAmountRebated() != null) {
                                 out.print(formatConversion(row.getInvoicedNetAmountRebated(), locale));
                             }
@@ -2783,7 +2772,7 @@ public class TransactionOverviewBean implements Serializable {
                     }
                 }
                 out.println();
-                ViewObject prtCardTransactionOverViewRVO = ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");
+                ViewObject prtCardTransactionOverViewRVO = ADFUtils.getViewObject(PRTCARDTRANSACTIONOVERVIEWRVO1ITERATORLITRERAL);
                 RowSetIterator iterator = prtCardTransactionOverViewRVO.createRowSetIterator(null);
                 iterator.reset();
                 while (iterator.hasNext()) {
@@ -2904,7 +2893,7 @@ public class TransactionOverviewBean implements Serializable {
                                 if (cellValue != headerValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Total Amount".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            } else if (Constants.TOTAL_AMOUNT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getInvoicedNetAmountRebated() != null) {
                                     out.print(formatConversion(row.getInvoicedNetAmountRebated(), locale));
                                 }
@@ -3431,7 +3420,7 @@ public class TransactionOverviewBean implements Serializable {
     public void queryListener(QueryEvent queryEvent) {
 
         invokeEL("#{bindings.PrtCardTransactionOverviewRVO12Query.processQuery}", new Class[] { QueryEvent.class }, new Object[] { queryEvent });
-        ViewObject prtCardTransactionOverViewRVO = ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");
+        ViewObject prtCardTransactionOverViewRVO = ADFUtils.getViewObject(PRTCARDTRANSACTIONOVERVIEWRVO1ITERATORLITRERAL);
         RowSetIterator iterator = prtCardTransactionOverViewRVO.createRowSetIterator(null);
         iterator.reset();
         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Estimated Row Count =" + prtCardTransactionOverViewRVO.getEstimatedRowCount());
@@ -3747,8 +3736,8 @@ public class TransactionOverviewBean implements Serializable {
         private RichOutputText noteInternationalText;
         private RichTable searchResultsTB;
 
-        public void setOdometerPopUp(RichPopup odometer_PopUp) {
-            this.odometerPopUp = odometer_PopUp;
+        public void setOdometerPopUp(RichPopup odometerPopUp) {
+            this.odometerPopUp = odometerPopUp;
         }
 
         public RichPopup getOdometerPopUp() {

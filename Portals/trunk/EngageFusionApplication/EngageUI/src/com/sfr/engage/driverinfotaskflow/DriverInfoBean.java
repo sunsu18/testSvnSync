@@ -105,7 +105,8 @@ public class DriverInfoBean implements Serializable {
     private static final String NO_DELETE_DRIVER_LITRERAL = "NO_DELETE_DRIVER";
     private static final String CHECKBOXPRIMARYKEY_LITRERAL = "checkBoxPrimaryKey";
     private static final String DRIVER_NAME_LITRERAL = "driverName";
-
+    private static final String AFMANDATORYFIELDLITERAL = "af_mandatoryfield";
+    private static final String AFNONMANDATORYFIELDLITERAL = "af_nonmandatoryfield";
     /**
      * @return bindings Object
      */
@@ -1643,14 +1644,16 @@ public class DriverInfoBean implements Serializable {
             if (component instanceof RichSelectManyChoice) {
                 soc = (RichSelectManyChoice)component;
                 if (status) {
-                    soc.setStyleClass("af_mandatoryfield");
-                    if (component.getId().contains("smc1"))
-                        soc.setStyleClass("af_mandatoryfield");
+                    soc.setStyleClass(AFMANDATORYFIELDLITERAL);
+                    if (component.getId().contains("smc1")) {
+                        soc.setStyleClass(AFMANDATORYFIELDLITERAL);
+                    }
 
                 } else {
-                    soc.setStyleClass("af_nonmandatoryfield");
-                    if (component.getId().contains("smc1"))
-                        soc.setStyleClass("af_nonmandatoryfield");
+                    soc.setStyleClass(AFNONMANDATORYFIELDLITERAL);
+                    if (component.getId().contains("smc1")) {
+                        soc.setStyleClass(AFNONMANDATORYFIELDLITERAL);
+                    }
                 }
                 AdfFacesContext.getCurrentInstance().addPartialTarget(soc);
             }
@@ -1658,16 +1661,18 @@ public class DriverInfoBean implements Serializable {
             else if (component instanceof RichSelectOneChoice) {
                 soc1 = (RichSelectOneChoice)component;
                 if (status) {
-                    soc1.setStyleClass("af_mandatoryfield");
+                    soc1.setStyleClass(AFMANDATORYFIELDLITERAL);
                     if (component.getId().contains("partnerSOC") || component.getId().contains("soc1") || component.getId().contains("soc5") ||
-                        component.getId().contains("soc6") || component.getId().contains("soc2"))
-                        soc1.setStyleClass("af_mandatoryfield");
+                        component.getId().contains("soc6") || component.getId().contains("soc2")) {
+                        soc1.setStyleClass(AFMANDATORYFIELDLITERAL);
+                    }
 
                 } else {
-                    soc1.setStyleClass("af_nonmandatoryfield");
+                    soc1.setStyleClass(AFNONMANDATORYFIELDLITERAL);
                     if (component.getId().contains("partnerSOC") || component.getId().contains("soc1") || component.getId().contains("soc5") ||
-                        component.getId().contains("soc6") || component.getId().contains("soc2"))
-                        soc1.setStyleClass("af_nonmandatoryfield");
+                        component.getId().contains("soc6") || component.getId().contains("soc2")) {
+                        soc1.setStyleClass(AFNONMANDATORYFIELDLITERAL);
+                    }
                 }
                 AdfFacesContext.getCurrentInstance().addPartialTarget(soc1);
             }

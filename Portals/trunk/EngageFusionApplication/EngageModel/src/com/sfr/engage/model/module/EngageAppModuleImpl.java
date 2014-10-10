@@ -56,7 +56,7 @@ import oracle.jbo.server.ViewObjectImpl;
 // ---------------------------------------------------------------------
 public class EngageAppModuleImpl extends ApplicationModuleImpl implements EngageAppModule {
     public static final ADFLogger LOGGER = AccessDataControl.getSFRLogger();
-    AccessDataControl accessDC = new AccessDataControl();
+   private  AccessDataControl accessDC = new AccessDataControl();
     private Date sysDate;
 
     /**
@@ -828,5 +828,13 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
      */
     public ViewLinkImpl getPrtCardUserRoleMappinFk1Link1() {
         return (ViewLinkImpl)findViewLink("PrtCardUserRoleMappinFk1Link1");
+    }
+
+    public void setAccessDC(AccessDataControl accessDC) {
+        this.accessDC = accessDC;
+    }
+
+    public AccessDataControl getAccessDC() {
+        return accessDC;
     }
 }

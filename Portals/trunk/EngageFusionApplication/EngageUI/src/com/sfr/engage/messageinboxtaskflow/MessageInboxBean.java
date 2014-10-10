@@ -91,14 +91,8 @@ public class MessageInboxBean implements Serializable {
         cardList = new ArrayList<SelectItem>();
         messageTypeValue = new ArrayList<String>();
         categoryValue = new ArrayList<String>();
-
-        //        if (resourceBundle.containsKey(Constants.ENGAGE_CATEGORY_ADMIN_LITERAL)) {
-        //            categoryValue = resourceBundle.getObject(Constants.ENGAGE_CATEGORY_ADMIN_LITERAL).toString();
-        //        } else {
-        //            categoryValue = "";
-        //        }
         categoryValue.add(resourceBundle.getObject("ENGAGE_CATEGORY_ADMIN").toString());
-        categoryValue.add(resourceBundle.getObject("ENGAGE_CATEGORY_NON_ADMIN").toString());
+        categoryValue.add(resourceBundle.getObject(Constants.ENGAGECATEGORYNONADMINLITERAL).toString());
         messageTypeValue.add("NO");
         messageTypeValue.add("YES");
         if (session != null) {
@@ -266,9 +260,9 @@ public class MessageInboxBean implements Serializable {
                 categoryList.add(selectItem);
             }
             SelectItem selectItem1 = new SelectItem();
-            if (resourceBundle.containsKey("ENGAGE_CATEGORY_NON_ADMIN")) {
-                selectItem1.setLabel(resourceBundle.getObject("ENGAGE_CATEGORY_NON_ADMIN").toString());
-                selectItem1.setValue(resourceBundle.getObject("ENGAGE_CATEGORY_NON_ADMIN").toString());
+            if (resourceBundle.containsKey(Constants.ENGAGECATEGORYNONADMINLITERAL)) {
+                selectItem1.setLabel(resourceBundle.getObject(Constants.ENGAGECATEGORYNONADMINLITERAL).toString());
+                selectItem1.setValue(resourceBundle.getObject(Constants.ENGAGECATEGORYNONADMINLITERAL).toString());
                 categoryList.add(selectItem1);
             }
 
@@ -300,18 +294,10 @@ public class MessageInboxBean implements Serializable {
         return messageTypeList;
     }
 
+
     public String[] stringSplitter(String passedVal) {
 
         return passedVal.split(",");
-    }
-
-    public String[] StringConversion(String passedVal) {
-
-        List<String> container;
-
-        String[] val = passedVal.split(",");
-
-        return val;
     }
 
     public void partnerValueChangeListener(ValueChangeEvent valueChangeEvent) {
@@ -324,7 +310,7 @@ public class MessageInboxBean implements Serializable {
             cardGroupValue = new ArrayList<String>();
             cardList = new ArrayList<SelectItem>();
             cardValue = new ArrayList<String>();
-            String[] partnerString = StringConversion(populateStringValues(valueChangeEvent.getNewValue().toString()));
+            String[] partnerString = stringSplitter(populateStringValues(valueChangeEvent.getNewValue().toString()));
             if (partnerString.length > 0) {
                 for (int i = 0; i < partnerInfoList.size(); i++) {
                     for (int p = 0; p < partnerString.length; p++) {
@@ -405,10 +391,8 @@ public class MessageInboxBean implements Serializable {
 
         LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside accountValueChangeListener method of Message Inbox");
         if (valueChangeEvent.getNewValue() != null) {
-            String[] accountString = StringConversion(populateStringValues(valueChangeEvent.getNewValue().toString()).replaceAll(" ", ""));
+            String[] accountString = stringSplitter(populateStringValues(valueChangeEvent.getNewValue().toString()).replaceAll(" ", ""));
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "accountlist");
-            for (int y = 0; y < accountString.length; y++)
-                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + accountString[y]);
             cardGroupList = new ArrayList<SelectItem>();
             cardGroupValue = new ArrayList<String>();
             cardList = new ArrayList<SelectItem>();
@@ -420,11 +404,14 @@ public class MessageInboxBean implements Serializable {
                         for (int j = 0; j < accountString.length; j++) {
                             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "accc frmo partnerlist " +
                                         partnerInfoList.get(z).getAccountList().get(i).getAccountNumber());
-                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "acc comparing " + accountString[j].substring(8, 18).trim());
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "acc comparing " +
+                                        accountString[j].substring(Constants.EIGHT, Constants.EIGHTEEN).trim());
                             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "checking bopolean " +
-                                        partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().equals(accountString[j].substring(8, 18).trim()));
+                                        partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().equals(accountString[j].substring(Constants.EIGHT,
+                                                                                                                                            Constants.EIGHTEEN).trim()));
                             if (partnerInfoList.get(z).getAccountList().get(i).getAccountNumber() != null &&
-                                partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().equals(accountString[j].substring(8, 18).trim())) {
+                                partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().equals(accountString[j].substring(Constants.EIGHT,
+                                                                                                                                    Constants.EIGHTEEN).trim())) {
                                 if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup() != null &&
                                     partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size() > 0) {
                                     for (int k = 0; k < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size(); k++) {
@@ -496,9 +483,7 @@ public class MessageInboxBean implements Serializable {
 
         LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside cardgroupValueChangeListener method of Message Inbox");
         if (valueChangeEvent.getNewValue() != null) {
-            String[] cardgroupString = StringConversion(populateStringValues(valueChangeEvent.getNewValue().toString()).replaceAll(" ", ""));
-            for (int y = 0; y < cardgroupString.length; y++)
-                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + cardgroupString[y]);
+            String[] cardgroupString = stringSplitter(populateStringValues(valueChangeEvent.getNewValue().toString()).replaceAll(" ", ""));
             cardList = new ArrayList<SelectItem>();
             cardValue = new ArrayList<String>();
             for (int z = 0; z < partnerInfoList.size(); z++) {
@@ -511,7 +496,7 @@ public class MessageInboxBean implements Serializable {
                                     LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "cardgrp from partnerlist  " +
                                                 partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCardGroupID().toString().trim());
                                     LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "comparing cardgrp " +
-                                                cardgroupString[cgs].substring(18, 29).trim());
+                                                cardgroupString[cgs].substring(Constants.EIGHTEEN, Constants.TWENTYNINE).trim());
                                     LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "checkin boolean " +
                                                 (partnerInfoList.get(z).getPartnerValue().toString().trim() +
                                                  partnerInfoList.get(z).getAccountList().get(i).getAccountNumber() +
@@ -615,7 +600,6 @@ public class MessageInboxBean implements Serializable {
 
         if (getBindings().getMessageType().getValue() != null) {
 
-            //        if (isMessageAdmin) {
             if (getBindings().getCategory().getValue() != null && getBindings().getMessageType().getValue() != null &&
                 getBindings().getFromDate().getValue() != null && getBindings().getToDate().getValue() != null) {
 
@@ -724,7 +708,7 @@ public class MessageInboxBean implements Serializable {
                     }
                 }
 
-                else if (selectedCategory.trim().equalsIgnoreCase(resourceBundle.getObject("ENGAGE_CATEGORY_NON_ADMIN").toString())) {
+                else if (selectedCategory.trim().equalsIgnoreCase(resourceBundle.getObject(Constants.ENGAGECATEGORYNONADMINLITERAL).toString())) {
 
                     if (getBindings().getPartnerNumber().getValue() != null && getBindings().getAccount().getValue() != null &&
                         getBindings().getCardGroup().getValue() != null && getBindings().getCard().getValue() != null) {
@@ -745,7 +729,7 @@ public class MessageInboxBean implements Serializable {
                             displayErrorComponent(getBindings().getCard(), true);
                         }
 
-                        showErrorMessage("ENGAGE_SELECT_TRANSACTION_MANDATORY");
+                        showErrorMessage(Constants.ENGAGE_SELECT_TRANSACTION_MANDATORY_LITERAL);
                         return;
                     }
 
@@ -773,7 +757,7 @@ public class MessageInboxBean implements Serializable {
                             displayErrorComponent(getBindings().getCard(), true);
                         }
 
-                        showErrorMessage("ENGAGE_SELECT_TRANSACTION_MANDATORY");
+                        showErrorMessage(Constants.ENGAGE_SELECT_TRANSACTION_MANDATORY_LITERAL);
                         return;
                     }
 
@@ -786,29 +770,16 @@ public class MessageInboxBean implements Serializable {
                 }
 
 
-                showErrorMessage("ENGAGE_SELECT_TRANSACTION_MANDATORY");
+                showErrorMessage(Constants.ENGAGE_SELECT_TRANSACTION_MANDATORY_LITERAL);
                 return;
             }
-            //        } else {
-            //            isSearchTableVisible = false;
-            //            if (resourceBundle.containsKey("ENG_NO_ADMIN_MSGS")) {
-            //                FacesMessage msg =
-            //                    new FacesMessage(FacesMessage.SEVERITY_INFO,
-            //                                     (String)resourceBundle.getObject("NO_DATA"),
-            //                                     "");
-            //                FacesContext.getCurrentInstance().addMessage(null,
-            //                                                             msg);
-            //            }
-            //            return;
-            //        }
 
         } else {
             displayErrorComponent(getBindings().getMessageType(), true);
-            showErrorMessage("ENGAGE_SELECT_TRANSACTION_MANDATORY");
+            showErrorMessage(Constants.ENGAGE_SELECT_TRANSACTION_MANDATORY_LITERAL);
         }
     }
 
-    // Sunsu component isd can be checked comminly and based on stauts content style can be set
 
     public void displayErrorComponent(UIComponent component, boolean status) {
 
@@ -819,14 +790,16 @@ public class MessageInboxBean implements Serializable {
             if (status) {
                 soc.setStyleClass("af_mandatoryfield");
                 if (component.getId().contains("selectManyChoice1") || component.getId().contains("smc1") || component.getId().contains("selectManyChoice3") ||
-                    component.getId().contains("selectManyChoice4") || component.getId().contains("smc4") || component.getId().contains("smc2"))
+                    component.getId().contains("selectManyChoice4") || component.getId().contains("smc4") || component.getId().contains("smc2")) {
                     soc.setStyleClass("af_mandatoryfield");
+                }
 
             } else {
                 soc.setStyleClass("af_nonmandatoryfield");
                 if (component.getId().contains("selectManyChoice1") || component.getId().contains("smc1") || component.getId().contains("selectManyChoice3") ||
-                    component.getId().contains("selectManyChoice4") || component.getId().contains("smc4") || component.getId().contains("smc2"))
+                    component.getId().contains("selectManyChoice4") || component.getId().contains("smc4") || component.getId().contains("smc2")) {
                     soc.setStyleClass("af_nonmandatoryfield");
+                }
             }
             AdfFacesContext.getCurrentInstance().addPartialTarget(soc);
         }
@@ -945,17 +918,17 @@ public class MessageInboxBean implements Serializable {
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().searchTablePanel);
         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "inside category VCE");
 
-        String categoryValue = "";
+        String categoryValueLocal = "";
         if (valueChangeEvent.getNewValue() != null) {
-            categoryValue = populateStringValues(valueChangeEvent.getNewValue().toString());
+            categoryValueLocal = populateStringValues(valueChangeEvent.getNewValue().toString());
         }
 
 
-        if (categoryValue.trim().equals(resourceBundle.getObject("ENGAGE_CATEGORY_ADMIN").toString())) {
+        if (categoryValueLocal.trim().equals(resourceBundle.getObject("ENGAGE_CATEGORY_ADMIN").toString())) {
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "inside category VCE for Admin ");
             isMessageAdmin = true;
 
-        } else if (categoryValue.trim().equals(resourceBundle.getObject("ENGAGE_CATEGORY_NON_ADMIN").toString())) {
+        } else if (categoryValueLocal.trim().equals(resourceBundle.getObject(Constants.ENGAGECATEGORYNONADMINLITERAL).toString())) {
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "inside category VCE for non-Admin ");
             isMessageAdmin = false;
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getPartnerNumber());
