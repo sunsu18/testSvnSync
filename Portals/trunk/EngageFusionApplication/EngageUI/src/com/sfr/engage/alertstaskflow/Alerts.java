@@ -133,7 +133,6 @@ public class Alerts {
     private Map<String, String> mapAccountListValue;
     private Map<String, String> mapCardGroupListValue;
     private Map<String, String> mapCardListValue;
-    private ValueListSplit valueList;
     private Boolean isTableVisible;
     private Boolean okVisibleForQuality;
     private Boolean editVisibleForQuality;
@@ -181,7 +180,6 @@ public class Alerts {
         cardNumberValue2 = new ArrayList<String>();
         suggestedCardNumberList = new ArrayList<String>();
         Conversion conv = new Conversion();
-        valueList = new ValueListSplit();
         isTableVisible = false;
         okVisibleForQuality = false;
         okVisibleForBusinessHr = false;
@@ -498,6 +496,13 @@ public class Alerts {
     public void configureBusinessHoursAlert(ActionEvent actionEvent) {
         LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside configureBusinessHoursAlert method of Alerts");
         isTableVisible = false;
+        getBindings().getAlertSuccessProperty().setVisible(false);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlertSuccessProperty());
+        getBindings().getAlert1ValidData().setVisible(false);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlert1ValidData());
+        displayErrorComponent(getBindings().getAlert1PartnerValues(), false);
+        getBindings().getMandatoryMsg1().setVisible(false);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getMandatoryMsg1());
         defaultTimings();
         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "fueltimings size " + fueltimings.size());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlert1Table());
@@ -631,11 +636,17 @@ public class Alerts {
     public void configureFuelCapacityAlert(ActionEvent actionEvent) {
         LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside configureFuelCapacityAlert method of Alerts");
         isTableVisible = false;
-        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "cardNumberValue +  cardNumberList" + cardNumberValue.size() + " " +
-                    cardNumberList.size());
-        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "cardGroupValue +  cardGroupList" + cardGroupValue.size() + " " + cardGroupList.size());
-        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "accountIdValue +  accountIdList" + accountIdValue.size() + " " + accountIdList.size());
-        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "partnerIdValue +  partnerIdList" + partnerIdValue.size() + " " + partnerIdList.size());
+        getBindings().getMandatoryMsg().setRendered(false);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getMandatoryMsg());
+        getBindings().getAlert2ValidData().setVisible(false);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlert2ValidData()); 
+        getBindings().getMandatoryMsg().setVisible(false);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getMandatoryMsg()); 
+        displayErrorComponent(getBindings().getPartnerDropdownAlert2(), false);
+        displayErrorComponent(getBindings().getAccountDropdwonAlert2(), false);
+        displayErrorComponent(getBindings().getCardGroupDowndownAlert2(), false);
+        displayErrorComponent(getBindings().getCardDropdownAlert2(), false);
+        displayErrorComponent(getBindings().getFuelCapacityAlert2(), false);
         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "populating default dropdown");
         partnerValue = new ArrayList<String>();
         partnerAlert1List = new ArrayList<SelectItem>();
@@ -855,12 +866,11 @@ public class Alerts {
             for (int i = 0; i < Constants.SEVEN; i++) {
                 o = rt.getRowData(i);
                 checkFuelTimings = (FuelTimings)o;
-                if (checkFuelTimings.getFromHh() != null && checkFuelTimings.getFromHh().toString().trim() != null && checkFuelTimings.getFromMm() != null &&
-                    checkFuelTimings.getFromMm().toString().trim() != null && checkFuelTimings.getToHh() != null &&
-                    checkFuelTimings.getToHh().toString().trim() != null && checkFuelTimings.getToMm() != null &&
-                    checkFuelTimings.getToMm().toString().trim() != null) {
-
                     String regex = "\\d+";
+                    if (checkFuelTimings.getFromHh() != null && !checkFuelTimings.getFromHh().equals("") && checkFuelTimings.getFromHh().toString().trim() != null &&
+                    checkFuelTimings.getFromMm() != null && checkFuelTimings.getFromMm().toString().trim() != null && !checkFuelTimings.getFromMm().equals("") &&
+                    checkFuelTimings.getToHh() != null && checkFuelTimings.getToHh().toString().trim() != null && !checkFuelTimings.getToHh().equals("") &&
+                    checkFuelTimings.getToMm() != null && checkFuelTimings.getToMm().toString().trim() != null && !checkFuelTimings.getToMm().equals("")) {
                     if (checkFuelTimings.getFromHh().toString().trim().matches(regex) && checkFuelTimings.getFromMm().toString().trim().matches(regex) &&
                         checkFuelTimings.getToHh().toString().trim().matches(regex) && checkFuelTimings.getToMm().toString().trim().matches(regex)) {
                         fromHh = Integer.parseInt(checkFuelTimings.getFromHh().toString().trim());
@@ -869,41 +879,61 @@ public class Alerts {
                         toMm = Integer.parseInt(checkFuelTimings.getToMm().toString().trim());
                         if (!(fromHh < Constants.TWENTYFOUR && toHh < Constants.TWENTYFOUR && fromMm < Constants.SIXTY && toMm < Constants.SIXTY)) {
                             validinput = false;
+                            if(flag1){
+                                getBindings().getAlert1ValidData().setVisible(true);
+                                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlert1ValidData());
+                            }else{
+                                getBindings().getInvalidInputMsg().setVisible(true);
+                                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvalidInputMsg());
+                            }
                             break;
                         }
                     } else {
                         validinput = false;
-                        if (flag1) {
-                            if (checkFuelTimings.getFromHh() == null && checkFuelTimings.getFromHh().toString().trim() == null) {
-                                displayErrorComponent(getBindings().getFromTimingsHh(), true);
-                            }
-                            if (checkFuelTimings.getFromMm() != null && checkFuelTimings.getFromMm().toString().trim() != null) {
-                                displayErrorComponent(getBindings().getFromTimingsMm(), true);
-                            }
-                            if (checkFuelTimings.getToHh() != null && checkFuelTimings.getToHh().toString().trim() != null) {
-                                displayErrorComponent(getBindings().getToTimingsHh(), true);
-                            }
-                            if (checkFuelTimings.getToMm() != null && checkFuelTimings.getToMm().toString().trim() != null) {
-                                displayErrorComponent(getBindings().getToTimingsMm(), true);
-                            }
-                        } else {
-                            if (checkFuelTimings.getFromHh().toString().trim().equals("")) {
-                                displayErrorComponent(getBindings().getConfigureFromTimingsHh(), true);
-                            }
-                            if (checkFuelTimings.getFromMm().toString().trim().equals("")) {
-                                displayErrorComponent(getBindings().getConfigureFromTimingsMm(), true);
-                            }
-                            if (checkFuelTimings.getToHh().toString().trim().equals("")) {
-                                displayErrorComponent(getBindings().getConfigureToTimingsHh(), true);
-                            }
-                            if (checkFuelTimings.getToMm().toString().trim().equals("")) {
-                                displayErrorComponent(getBindings().getConfigureToTimingsMm(), true);
-                            }
+                        if(flag1){
+                            getBindings().getAlert1ValidData().setVisible(true);
+                            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlert1ValidData());
+                        }else{
+                            getBindings().getInvalidInputMsg().setVisible(true);
+                            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvalidInputMsg());
                         }
+                        getBindings().getAlert1ValidData().setVisible(true);
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlert1ValidData());
                         break;
                     }
                 } else {
                     validinput = false;
+                    if(flag1){
+                        if(checkFuelTimings.getFromHh() == null && checkFuelTimings.getFromHh().toString().trim() == null){
+                            displayErrorComponent(getBindings().getFromTimingsHh(), true);
+                        }
+                        if(checkFuelTimings.getFromMm() != null && checkFuelTimings.getFromMm().toString().trim() != null){
+                            displayErrorComponent(getBindings().getFromTimingsMm(), true);
+                        }
+                        if(checkFuelTimings.getToHh() != null && checkFuelTimings.getToHh().toString().trim() != null){
+                            displayErrorComponent(getBindings().getToTimingsHh(), true);
+                        }
+                        if(checkFuelTimings.getToMm() != null && checkFuelTimings.getToMm().toString().trim() != null){
+                            displayErrorComponent(getBindings().getToTimingsMm(), true);
+                        }
+                        getBindings().getMandatoryMsg1().setVisible(true);
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getMandatoryMsg1());
+                    }else{
+                        if(checkFuelTimings.getFromHh().toString().trim().equals("")){
+                            displayErrorComponent(getBindings().getConfigureFromTimingsHh(), true);
+                        }
+                        if(checkFuelTimings.getFromMm().toString().trim().equals("")){
+                            displayErrorComponent(getBindings().getConfigureFromTimingsMm(), true);
+                        }
+                        if(checkFuelTimings.getToHh().toString().trim().equals("")){
+                            displayErrorComponent(getBindings().getConfigureToTimingsHh(), true);
+                        }
+                        if(checkFuelTimings.getToMm().toString().trim().equals("")){
+                            displayErrorComponent(getBindings().getConfigureToTimingsMm(), true);
+                        }
+                        getBindings().getMandatoryMsg4().setVisible(true);
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getMandatoryMsg4());
+                    }
                     break;
                 }
             }
@@ -1496,19 +1526,18 @@ public class Alerts {
                     localUserMobileNo = "9898989898";
                 }
             }
+            
             String cardListString = "";
             for (String s : initialCardValue) {
                 cardListString += s + ",";
             }
             cardListString = cardListString.substring(0, cardListString.length() - 1);
-
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "converted cardListString arraylist " + cardListString);
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "converted cardListString arraylist " +
                         populateStringValues(getBindings().getCardDropdownAlert2().getValue().toString().trim()));
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "length1 " + cardListString.length());
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "lenght2 " +
                         (populateStringValues(getBindings().getCardDropdownAlert2().getValue().toString().trim()).replaceAll(" ", "")).length());
-
 
             if (cardListString.length() ==
                 (populateStringValues(getBindings().getCardDropdownAlert2().getValue().toString().trim()).replaceAll(" ", "")).length()) {
@@ -1519,11 +1548,8 @@ public class Alerts {
             }
 
         } else {
-
             getBindings().getSuccessAlert2().setRendered(false);
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSuccessAlert2());
-            getBindings().getAlert2ValidData().setVisible(true);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlert2ValidData());
         }
         LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside setFuelCapacityAlert method of Alerts");
     }
@@ -1544,21 +1570,25 @@ public class Alerts {
             getBindings().getCardDropdownAlert2().getValue().toString().trim().replaceAll(" ", "") != null &&
             !getBindings().getCardDropdownAlert2().getValue().toString().trim().replaceAll(" ", "").equals("") &&
             getBindings().getFuelCapacityAlert2().getValue() != null && getBindings().getFuelCapacityAlert2().getValue().toString().trim() != null) {
-            displayErrorComponent(getBindings().getPartnerDropdownAlert2(), false);
-            displayErrorComponent(getBindings().getAccountDropdwonAlert2(), false);
-            displayErrorComponent(getBindings().getCardGroupDowndownAlert2(), false);
-            displayErrorComponent(getBindings().getCardDropdownAlert2(), false);
-            displayErrorComponent(getBindings().getFuelCapacityAlert2(), false);
-            displayErrorComponent(getBindings().getFuelCapacityAlert2(), false);
+//            displayErrorComponent(getBindings().getPartnerDropdownAlert2(), false);
+//            displayErrorComponent(getBindings().getAccountDropdwonAlert2(), false);
+//            displayErrorComponent(getBindings().getCardGroupDowndownAlert2(), false);
+//            displayErrorComponent(getBindings().getCardDropdownAlert2(), false);
+//            displayErrorComponent(getBindings().getFuelCapacityAlert2(), false);
             String regex = "\\d+";
             if (getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", "").matches(regex)) {
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "fuelCapacityAlert2 " +
                             getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
+                displayErrorComponent(getBindings().getFuelCapacityAlert2(), false);
             } else {
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "fuelCapacityAlert22 " +
                             getBindings().getFuelCapacityAlert2().getValue().toString().trim().replaceAll(" ", ""));
                 validinput2 = false;
                 displayErrorComponent(getBindings().getFuelCapacityAlert2(), true);
+                getBindings().getAlert2ValidData().setVisible(true);
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlert2ValidData());
+                getBindings().getMandatoryMsg().setRendered(false);
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getMandatoryMsg());
             }
         } else {
             validinput2 = false;
@@ -1582,7 +1612,15 @@ public class Alerts {
             } else {
                 displayErrorComponent(getBindings().getCardDropdownAlert2(), true);
             }
-
+            if(getBindings().getFuelCapacityAlert2().getValue() != null ){               
+                displayErrorComponent(getBindings().getFuelCapacityAlert2(), false);
+            }else{
+                displayErrorComponent(getBindings().getFuelCapacityAlert2(), true);
+            }
+            getBindings().getMandatoryMsg().setRendered(true);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getMandatoryMsg());
+            getBindings().getAlert2ValidData().setVisible(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlert2ValidData()); 
         }
         LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside validateinput2 method of Alerts");
         return validinput2;
@@ -2550,6 +2588,8 @@ public class Alerts {
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSuccessAlert4());
                 getBindings().getInvalidInputMsg().setVisible(false);
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvalidInputMsg());
+                getBindings().getMandatoryMsg4().setVisible(false);
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getMandatoryMsg4());
                 okVisibleForBusinessHr = false;
                 editVisibleForBusinessHr = true;
                 getBindings().getConfigureFromTimingsHh().setReadOnly(true);
@@ -2605,6 +2645,8 @@ public class Alerts {
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSuccessAlert3());
                 getBindings().getInvalidInputMsg3().setRendered(false);
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvalidInputMsg3());
+                getBindings().getMandatoryMsg3().setRendered(false);
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getMandatoryMsg3());
                 getBindings().getConfigureFuelCapacityAlert2().setDisabled(true);
                 getBindings().getConfigureLtrPerDayRadio().setDisabled(true);
                 getBindings().getConfigureLtrPerWeekRadio().setDisabled(true);
@@ -2766,8 +2808,8 @@ public class Alerts {
         } else {
             getBindings().getSuccessAlert4().setVisible(false);
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSuccessAlert4());
-            getBindings().getInvalidInputMsg().setVisible(true);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvalidInputMsg());
+//            getBindings().getInvalidInputMsg().setVisible(true);
+//            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvalidInputMsg());
         }
         LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside setBusinessHoursConfigureAlert method of Alerts");
     }
@@ -2918,10 +2960,16 @@ public class Alerts {
                 } else {
                     getBindings().getInvalidInputMsg3().setRendered(true);
                     AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvalidInputMsg3());
+                    getBindings().getMandatoryMsg3().setRendered(false);       
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getMandatoryMsg3());
                     displayErrorComponent(getBindings().getConfigureFuelCapacityAlert2(), true);
                 }
             } else {
                 displayErrorComponent(getBindings().getConfigureFuelCapacityAlert2(), true);
+                getBindings().getMandatoryMsg3().setRendered(true);       
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getMandatoryMsg3());
+                getBindings().getInvalidInputMsg3().setRendered(false);
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvalidInputMsg3());
             }
         }
     }
@@ -3311,7 +3359,7 @@ public class Alerts {
     public void createAccountQuery() {
         if (accountIdValue2.size() > Constants.ONEFIFTY) {
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 in Alerts");
-            mapAccountListValue = valueList.callValueList(accountIdValue2.size(), accountIdValue2);
+            mapAccountListValue = ValueListSplit.callValueList(accountIdValue2.size(), accountIdValue2);
             accountQuery = accountQuery + "(ACCOUNT_ID = 'ALL') OR ";
             for (int i = 0; i < mapAccountListValue.size(); i++) {
                 String values = "account" + i;
@@ -3331,7 +3379,7 @@ public class Alerts {
         if (cardGroupValue2.size() > Constants.ONEFIFTY) {
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 in Alerts");
             cardGroupQuery = cardGroupQuery + "((CARDGROUP_MAIN = 'ALL') AND (CARDGROUP_SUB = 'ALL') AND (CARDGROUP_SEQ = 'ALL')) OR ";
-            mapCardGroupListValue = valueList.callValueList(cardGroupValue2.size(), cardGroupValue2);
+            mapCardGroupListValue = ValueListSplit.callValueList(cardGroupValue2.size(), cardGroupValue2);
             for (int i = 0; i < mapCardGroupListValue.size(); i++) {
                 String values = "cardGroup" + i;
                 cardGroupQuery = cardGroupQuery + "INSTR(:" + values + ",CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ)<>0 OR ";
@@ -3351,7 +3399,7 @@ public class Alerts {
         if (cardNumberValue2.size() > Constants.ONEFIFTY) {
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 in Alerts");
             cardQuery = cardQuery + "(CARD_KSID = 'ALL') OR ";
-            mapCardListValue = valueList.callValueList(cardNumberValue2.size(), cardNumberValue2);
+            mapCardListValue = ValueListSplit.callValueList(cardNumberValue2.size(), cardNumberValue2);
             for (int i = 0; i < mapCardListValue.size(); i++) {
                 String values = "card" + i;
                 cardQuery = cardQuery + "INSTR(:" + values + ",CARD_KSID)<>0 OR ";
@@ -3369,7 +3417,7 @@ public class Alerts {
     public void addAccountQuery(ViewObject vo, String passingValue) {
         if (accountIdValue2.size() > Constants.ONEFIFTY) {
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 in Alerts");
-            mapAccountListValue = valueList.callValueList(accountIdValue2.size(), accountIdValue2);
+            mapAccountListValue = ValueListSplit.callValueList(accountIdValue2.size(), accountIdValue2);
             for (int i = 0; i < mapAccountListValue.size(); i++) {
                 String values = "account" + i;
                 String listName = "listName" + i;
@@ -3384,7 +3432,7 @@ public class Alerts {
     public void addCardGroupQuery(ViewObject vo, String passingValue) {
         if (cardGroupValue2.size() > Constants.ONEFIFTY) {
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 in Alerts");
-            mapCardGroupListValue = valueList.callValueList(cardGroupValue2.size(), cardGroupValue2);
+            mapCardGroupListValue = ValueListSplit.callValueList(cardGroupValue2.size(), cardGroupValue2);
             for (int i = 0; i < mapCardGroupListValue.size(); i++) {
                 String values = "cardGroup" + i;
                 String listName = "listName" + i;
@@ -3399,7 +3447,7 @@ public class Alerts {
     public void addCardQuery(ViewObject vo, String passingValue) {
         if (cardNumberValue2.size() > Constants.ONEFIFTY) {
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values > 150 in Alerts");
-            mapCardListValue = valueList.callValueList(cardNumberValue2.size(), cardNumberValue2);
+            mapCardListValue = ValueListSplit.callValueList(cardNumberValue2.size(), cardNumberValue2);
             for (int i = 0; i < mapCardListValue.size(); i++) {
                 String values = "card" + i;
                 String listName = "listName" + i;
@@ -3445,9 +3493,10 @@ public class Alerts {
 
     public void displayErrorComponent(UIComponent component, boolean status) {
 
-        RichSelectManyChoice soc = new RichSelectManyChoice();
+        RichSelectManyChoice smc = new RichSelectManyChoice();
         RichInputText rit = new RichInputText();
-
+        RichSelectOneChoice soc = new RichSelectOneChoice();
+        
         if (component instanceof RichInputText) {
             rit = (RichInputText)component;
             if (status) {
@@ -3455,46 +3504,56 @@ public class Alerts {
                 if (component.getId().contains("it19") || component.getId().contains("it3") || component.getId().contains("it10") ||
                     component.getId().contains("it6") || component.getId().contains("it7") || component.getId().contains("it8") ||
                     component.getId().contains("it9") || component.getId().contains("it1") || component.getId().contains("it4") ||
-                    component.getId().contains("it2") || component.getId().contains("it5")) {
+                    component.getId().contains("it2") || component.getId().contains("it5")){
                     rit.setStyleClass("af_mandatoryfield");
                 }
-
-
             } else {
                 rit.setStyleClass("af_nonmandatoryfield");
                 if (component.getId().contains("it19") || component.getId().contains("it3") || component.getId().contains("it10") ||
                     component.getId().contains("it6") || component.getId().contains("it7") || component.getId().contains("it8") ||
                     component.getId().contains("it9") || component.getId().contains("it1") || component.getId().contains("it4") ||
-                    component.getId().contains("it2") || component.getId().contains("it5")) {
+                    component.getId().contains("it2") || component.getId().contains("it5")){
                     rit.setStyleClass("af_nonmandatoryfield");
                 }
-
             }
             AdfFacesContext.getCurrentInstance().addPartialTarget(rit);
-
         } else if (component instanceof RichSelectManyChoice) {
-            soc = (RichSelectManyChoice)component;
+            smc = (RichSelectManyChoice)component;
             if (status) {
-                soc.setStyleClass("af_mandatoryfield");
+                smc.setStyleClass("af_mandatoryfield");
                 if (component.getId().contains("smc1") || component.getId().contains("smc4") || component.getId().contains("smc3") ||
                     component.getId().contains("soc3") || component.getId().contains("smc2") || component.getId().contains("smc5") ||
                     component.getId().contains("smc6") || component.getId().contains("smc7") || component.getId().contains("smc8") ||
                     component.getId().contains("smc9") || component.getId().contains("smc10") || component.getId().contains("smc11")) {
-                    soc.setStyleClass("af_mandatoryfield");
+                    smc.setStyleClass("af_mandatoryfield");
                 }
 
             } else {
-                soc.setStyleClass("af_nonmandatoryfield");
+                smc.setStyleClass("af_nonmandatoryfield");
                 if (component.getId().contains("smc1") || component.getId().contains("smc4") || component.getId().contains("smc3") ||
                     component.getId().contains("soc3") || component.getId().contains("smc2") || component.getId().contains("smc5") ||
                     component.getId().contains("smc6") || component.getId().contains("smc7") || component.getId().contains("smc8") ||
                     component.getId().contains("smc9") || component.getId().contains("smc10") || component.getId().contains("smc11")) {
-                    soc.setStyleClass("af_nonmandatoryfield");
+                    smc.setStyleClass("af_nonmandatoryfield");
                 }
             }
             AdfFacesContext.getCurrentInstance().addPartialTarget(soc);
         }
-
+        else if (component instanceof RichInputText) {
+            soc = (RichSelectOneChoice)component;
+            if (status) {
+                soc.setStyleClass("af_mandatoryfield");
+                if (component.getId().contains("soc1")){
+                    soc.setStyleClass("af_mandatoryfield");
+                }
+            } else {
+                soc.setStyleClass("af_nonmandatoryfield");
+                if (component.getId().contains("soc1")){
+                    soc.setStyleClass("af_nonmandatoryfield");
+                }
+            }
+            AdfFacesContext.getCurrentInstance().addPartialTarget(rit);
+        } 
     }
 
     private Boolean isComponentEmpty(UIComponent rit1) {
@@ -3592,7 +3651,6 @@ public class Alerts {
     }
 
     public void closeRemoveAlertPopup(ActionEvent actionEvent) {
-        // Add event code here...
         getBindings().getConfirmationPopup().hide();
     }
 
@@ -3686,8 +3744,12 @@ public class Alerts {
         private RichPanelGroupLayout successAlert3;
         private RichPanelGroupLayout successAlert4;
         private RichPanelGroupLayout invalidInputMsg;
+        private RichPanelGroupLayout mandatoryMsg;
+        private RichPanelGroupLayout mandatoryMsg4;
         private RichPanelGroupLayout invalidInputMsg3;
         private RichCommandButton closeButtonAlert2;
+        private RichPanelGroupLayout mandatoryMsg3;
+        private RichPanelGroupLayout mandatoryMsg1;
         private RichSelectManyChoice viewAlertDropdown;
         private RichSelectManyChoice viewAlertCardGroupDropdown;
         private RichSelectManyChoice viewAlertsPartnerDropdown;
@@ -4290,6 +4352,38 @@ public class Alerts {
 
         public RichPanelGroupLayout getInvalidInputMsg3() {
             return invalidInputMsg3;
+        }
+
+        public void setMandatoryMsg(RichPanelGroupLayout mandatoryMsg) {
+            this.mandatoryMsg = mandatoryMsg;
+        }
+
+        public RichPanelGroupLayout getMandatoryMsg() {
+            return mandatoryMsg;
+        }
+
+        public void setMandatoryMsg3(RichPanelGroupLayout mandatoryMsg3) {
+            this.mandatoryMsg3 = mandatoryMsg3;
+        }
+
+        public RichPanelGroupLayout getMandatoryMsg3() {
+            return mandatoryMsg3;
+        }
+
+        public void setMandatoryMsg4(RichPanelGroupLayout mandatoryMsg4) {
+            this.mandatoryMsg4 = mandatoryMsg4;
+        }
+
+        public RichPanelGroupLayout getMandatoryMsg4() {
+            return mandatoryMsg4;
+        }
+
+        public void setMandatoryMsg1(RichPanelGroupLayout mandatoryMsg1) {
+            this.mandatoryMsg1 = mandatoryMsg1;
+        }
+
+        public RichPanelGroupLayout getMandatoryMsg1() {
+            return mandatoryMsg1;
         }
     }
 }

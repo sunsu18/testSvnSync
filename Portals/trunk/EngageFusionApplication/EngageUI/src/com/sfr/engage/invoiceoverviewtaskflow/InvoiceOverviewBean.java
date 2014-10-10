@@ -142,7 +142,7 @@ public class InvoiceOverviewBean implements Serializable {
     private Map<String, String> mapCardGroupListValue;
     private Map<String, String> mapCardListValue;
     public static final ADFLogger LOGGER = AccessDataControl.getSFRLogger();
-    private ValueListSplit valueList;
+//    private ValueListSplit valueList;
     private RichOutputText mailResult;
     private RichOutputText mailResultInvoiceNotFound;
     private RichOutputText mailResultFailure;
@@ -204,7 +204,6 @@ public class InvoiceOverviewBean implements Serializable {
         cardGroupList = new ArrayList<SelectItem>();
         cardGroupValue = new ArrayList<String>();
         cardValue = new ArrayList<String>();
-        valueList = new ValueListSplit();
         cGCardVisible = true;
         invoiceType = null;
         LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside Constructor of Invoice overview bean");
@@ -496,7 +495,7 @@ public class InvoiceOverviewBean implements Serializable {
 
                     if (accountValue.size() > Constants.ONEFIFTY) {
                         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
-                        mapAccountListValue = valueList.callValueList(accountValue.size(), accountValue);
+                        mapAccountListValue = ValueListSplit.callValueList(accountValue.size(), accountValue);
                         for (int i = 0; i < mapAccountListValue.size(); i++) {
                             String values = Constants.ACCOUNT_LITERAL + i;
                             accountQuery = accountQuery + "INSTR(:" + values + ",ACCOUNT_ID)<>0 OR ";
@@ -517,7 +516,7 @@ public class InvoiceOverviewBean implements Serializable {
 
                             if (cardValue.size() > Constants.ONEFIFTY) {
                                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values > 150 ");
-                                mapCardListValue = valueList.callValueList(cardValue.size(), cardValue);
+                                mapCardListValue = ValueListSplit.callValueList(cardValue.size(), cardValue);
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
                                     String values = "card" + i;
                                     cardQuery = cardQuery + "INSTR(:" + values + ",INVOICED_CARD)<>0 OR ";
@@ -545,7 +544,7 @@ public class InvoiceOverviewBean implements Serializable {
 
                             if (cardGroupValue.size() > Constants.ONEFIFTY) {
                                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
-                                mapCardGroupListValue = valueList.callValueList(cardGroupValue.size(), cardGroupValue);
+                                mapCardGroupListValue = ValueListSplit.callValueList(cardGroupValue.size(), cardGroupValue);
                                 for (int i = 0; i < mapCardGroupListValue.size(); i++) {
                                     String values = "cardGroup" + i;
                                     cardGroupQuery =
@@ -574,7 +573,7 @@ public class InvoiceOverviewBean implements Serializable {
                     }
                     if (accountValue.size() > Constants.ONEFIFTY) {
                         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
-                        mapAccountListValue = valueList.callValueList(accountValue.size(), accountValue);
+                        mapAccountListValue = ValueListSplit.callValueList(accountValue.size(), accountValue);
                         for (int i = 0; i < mapAccountListValue.size(); i++) {
 
                             invoiceVO.defineNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i, mapAccountListValue.get(Constants.LISTNAME_LITERAL + i),
@@ -1485,7 +1484,7 @@ public class InvoiceOverviewBean implements Serializable {
 
             if (accountValue.size() > Constants.ONEFIFTY) {
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
-                mapAccountDetailListValue = valueList.callValueList(accountValue.size(), accountValue);
+                mapAccountDetailListValue = ValueListSplit.callValueList(accountValue.size(), accountValue);
                 for (int i = 0; i < mapAccountDetailListValue.size(); i++) {
                     String values = Constants.ACCOUNT_LITERAL + i;
                     accountQueryDetail = accountQueryDetail + "INSTR(:" + values + ",ACCOUNT_ID)<>0 OR ";
@@ -1504,7 +1503,7 @@ public class InvoiceOverviewBean implements Serializable {
 
             if (accountValue.size() > Constants.ONEFIFTY) {
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
-                mapAccountDetailListValue = valueList.callValueList(accountValue.size(), accountValue);
+                mapAccountDetailListValue = ValueListSplit.callValueList(accountValue.size(), accountValue);
                 for (int i = 0; i < mapAccountDetailListValue.size(); i++) {
 
                     invoiceDetailVO.defineNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i, mapAccountDetailListValue.get(Constants.LISTNAME_LITERAL + i),

@@ -93,7 +93,6 @@ public class UserInfoDisplayBean {
     private Map<String, String> mapAccountListValue;
     private Map<String, String> mapCardGroupListValue;
     private Map<String, String> mapCardListValue;
-    private ValueListSplit valueList;
 
     private List<SelectItem> addEditUserPartnerID;
     private List<SelectItem> addEditUserAccountID;
@@ -145,7 +144,6 @@ public class UserInfoDisplayBean {
 
         //        partnerIdValue = new ArrayList<String>();
         roleValue = new ArrayList<String>();
-        valueList = new ValueListSplit();
         roleValue.add("WCP_CARD_B2B_ADMIN");
         roleValue.add("WCP_CARD_B2B_MGR_AC");
         roleValue.add("WCP_CARD_B2B_MGR_CG");
@@ -1351,7 +1349,7 @@ public class UserInfoDisplayBean {
                         vo.setNamedWhereClauseParam("PID", populateStringValues(getBindings().getPartner().getValue().toString()));
                         if (accountIdValue.size() > 150) {
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
-                            mapAccountListValue = valueList.callValueList(accountIdValue.size(), accountIdValue);
+                            mapAccountListValue = ValueListSplit.callValueList(accountIdValue.size(), accountIdValue);
                             for (int i = 0; i < mapAccountListValue.size(); i++) {
                                 String values = "account" + i;
                                 accountQuery = accountQuery + "INSTR(:" + values + ",ACCOUNT_ID)<>0 OR ";
@@ -1369,7 +1367,7 @@ public class UserInfoDisplayBean {
 
                         if (accountIdValue.size() > 150) {
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
-                            mapAccountListValue = valueList.callValueList(accountIdValue.size(), accountIdValue);
+                            mapAccountListValue = ValueListSplit.callValueList(accountIdValue.size(), accountIdValue);
                             for (int i = 0; i < mapAccountListValue.size(); i++) {
                                 String values = "account" + i;
                                 String listName = "listName" + i;
@@ -1409,7 +1407,7 @@ public class UserInfoDisplayBean {
 
                         if (cardGroupValue.size() > 150) {
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
-                            mapCardGroupListValue = valueList.callValueList(cardGroupValue.size(), cardGroupValue);
+                            mapCardGroupListValue = ValueListSplit.callValueList(cardGroupValue.size(), cardGroupValue);
                             for (int i = 0; i < mapCardGroupListValue.size(); i++) {
                                 String values = "cardGroup" + i;
                                 cardGroupQuery = cardGroupQuery + "INSTR(:" + values + ",PARTNER_ID||CARD_GROUP)<>0 OR ";
@@ -1429,7 +1427,7 @@ public class UserInfoDisplayBean {
                         vo.setNamedWhereClauseParam("PID", populateStringValues(getBindings().getPartner().getValue().toString()));
                         if (cardGroupValue.size() > 150) {
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
-                            mapCardGroupListValue = valueList.callValueList(cardGroupValue.size(), cardGroupValue);
+                            mapCardGroupListValue = ValueListSplit.callValueList(cardGroupValue.size(), cardGroupValue);
                             for (int i = 0; i < mapCardGroupListValue.size(); i++) {
                                 String values = "cardGroup" + i;
                                 String listName = "listName" + i;
@@ -1469,7 +1467,7 @@ public class UserInfoDisplayBean {
 
                         if (cardNumberValue.size() > 150) {
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values > 150 ");
-                            mapCardListValue = valueList.callValueList(cardNumberValue.size(), cardNumberValue);
+                            mapCardListValue = ValueListSplit.callValueList(cardNumberValue.size(), cardNumberValue);
                             for (int i = 0; i < mapCardListValue.size(); i++) {
                                 String values = "card" + i;
                                 cardQuery = cardQuery + "INSTR(:" + values + ",CARD)<>0 OR ";
@@ -1488,7 +1486,7 @@ public class UserInfoDisplayBean {
                         vo.setNamedWhereClauseParam("PID", populateStringValues(getBindings().getPartner().getValue().toString()));
                         if (cardNumberValue.size() > 150) {
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values > 150 ");
-                            mapCardListValue = valueList.callValueList(cardNumberValue.size(), cardNumberValue);
+                            mapCardListValue = ValueListSplit.callValueList(cardNumberValue.size(), cardNumberValue);
                             for (int i = 0; i < mapCardListValue.size(); i++) {
                                 String values = "card" + i;
                                 String listName = "listName" + i;
