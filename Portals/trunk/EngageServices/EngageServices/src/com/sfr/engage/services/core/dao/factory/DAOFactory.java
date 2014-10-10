@@ -27,7 +27,6 @@ import weblogic.wsee.jws.jaxws.owsm.SecurityPoliciesFeature;
 
 public class DAOFactory {
 
-    //public static final ADFLogger log = AccessDataControl.getSFRLogger();
 
     public DAOFactory() {
         super();
@@ -62,7 +61,7 @@ public class DAOFactory {
             ((BindingProvider)uCMCustomWeb).getRequestContext().put(BindingProvider.PASSWORD_PROPERTY, ucmPassword);
 
         } catch (Exception e) {
-            //  log.severe(AccessDataControl.getDisplayRecord() + this.getClass() + ".getUCMService : " + "Exception");
+
         }
         return uCMCustomWeb;
     }
@@ -91,20 +90,20 @@ public class DAOFactory {
                 connection = datasource.getConnection();
 
             } else {
-                // log.severe(AccessDataControl.getDisplayRecord() + "getJNDIConnection : No data source");
+
             }
 
         } catch (SQLException e) {
-            //log.severe(e);
+
         } catch (NamingException e) {
-            //log.severe(e);
+
         } finally {
             try {
                 if (objinitialContext != null) {
                     objinitialContext.close();
                 }
             } catch (NamingException ne) {
-                // log.severe(ne);
+
             }
         }
         return connection;
@@ -112,7 +111,7 @@ public class DAOFactory {
 
 
     public Subscription getAlertSubscriptionService() {
-        //String wsdlUrl = new com.sfr.services.core.dao.factory.DAOFactory().getPropertyValue(Constants.ENGAGE_SUBSCRIBE_ALERT);
+
         String wsdlUrl = "http://10.24.240.15:7021/soa-infra/services/CommonUtilities/SOARuleEngineSubscription/subscription_client_ep?WSDL";
         String targetNamespace = "http://www.lntinfotech.com/integration/SOARuleEngineSubscription/Subscription";
         String serviceName = "subscription_client_ep";
@@ -124,7 +123,7 @@ public class DAOFactory {
             WebServiceProxy client = new WebServiceProxy(wsdlUrl, serviceName, targetNamespace);
             subscriberRegistration = client.getServicePort(portName, serviceEndPoint);
         } catch (MalformedURLException e) {
-            //log.severe(e);
+
         }
         return subscriberRegistration;
     }
