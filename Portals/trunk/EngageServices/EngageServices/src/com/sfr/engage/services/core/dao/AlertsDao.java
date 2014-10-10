@@ -26,12 +26,12 @@ import oracle.adf.share.logging.ADFLogger;
 
 public class AlertsDao {
 
-    public static final ADFLogger log = AccessDataControl.getSFRLogger();
+    public static final ADFLogger LOGGER = AccessDataControl.getSFRLogger();
 
     public AlertsDao() {
         super();
     }
-    //private SubscriberRegistration alertSubscriptionService;
+
     private Subscription alertSubscriptionService;
 
     public AlertsSubscribeResponse subscribeAlerts(AlertsSubscribeRequest subscribeRequest) {
@@ -44,7 +44,6 @@ public class AlertsDao {
 
             SubscribeFrequencyType subscribeFrequencyType = new SubscribeFrequencyType();
             CustomerType customerType = new CustomerType();
-            SubscribeRequestType subscribeRequestType = new SubscribeRequestType();
             SubscribeResponseType subscribeResponseType = null;
 
             if (subscribeRequest.getCustomer() != null) {
@@ -54,7 +53,7 @@ public class AlertsDao {
                 customerType.setLastName(subscribeRequest.getCustomer().getLastName());
                 customerType.setMobileNumber(subscribeRequest.getCustomer().getMobileNumber());
                 request.setCustomer(customerType);
-                //subscribeRequestType.setCustomer(customerType);
+
 
             }
             if (subscribeRequest.getSubscribeFrequency() != null) {
@@ -63,33 +62,34 @@ public class AlertsDao {
                 subscribeFrequencyType.setScheduleFrequency(subscribeRequest.getSubscribeFrequency().getScheduleFrequency());
                 subscribeFrequencyType.setScheduleMonth(subscribeRequest.getSubscribeFrequency().getScheduleMonth());
                 request.setSubscribeFrequency(subscribeFrequencyType);
-                //subscribeRequestType.setSubscribeFrequency(subscribeFrequencyType);
+
             }
             request.setNotificationChannel(subscribeRequest.getNotificationChannel());
             request.setNotificationFormat(subscribeRequest.getNotificationFormat());
             request.setRuleID(subscribeRequest.getRuleID());
             request.setIdentifier("1");
-            // subscribeRequestType.getSubscribeCollection().set(0, request);
+
             SubscribeRequestType newReq = new SubscribeRequestType();
 
             newReq.getSubscribeCollection().add(request);
 
-            //List<SubscribeCollectionType> collection = (List<SubscribeCollectionType>)subscribeRequestType.getSubscribeCollection().set(0, request);
+
             try {
                 subscribeResponseType = alertSubscriptionService.subscribe(newReq);
 
             } catch (Exception e) {
-                log.severe(e);
+                LOGGER.severe(e);
             }
             List<SubscribeResponseCollectionType> responseLIst = subscribeResponseType.getSubscribeCollection();
             for (int i = 0; i < responseLIst.size(); i++)
 
             {
-                System.out.println("subs id " + responseLIst.get(i).getSubscriptionID());
+                LOGGER.info("subs id " + responseLIst.get(i).getSubscriptionID());
                 serviceResponse.setSubscriptionID(responseLIst.get(i).getSubscriptionID());
                 break;
             }
-            //serviceResponse.setSubscriptionID(subscribeResponseType.getSubscribeCollection().get(0).getSubscriptionID());
+
+
         }
         return serviceResponse;
     }
@@ -99,7 +99,7 @@ public class AlertsDao {
         AlertsUnsubscribeResponse serviceResponse = new AlertsUnsubscribeResponse();
         UnsubscribeCollectionType requestCollection = new UnsubscribeCollectionType();
         UnsubscribeRequestType unsubRequest = new UnsubscribeRequestType();
-        UnsubscribeResponseType UnsubscribeResponseTypeObj = new UnsubscribeResponseType();
+        UnsubscribeResponseType unsubscribeResponseTypeObj = new UnsubscribeResponseType();
 
 
         if (unsubscribeRequest != null) {
@@ -117,26 +117,19 @@ public class AlertsDao {
 
 
             try {
-                UnsubscribeResponseTypeObj = alertSubscriptionService.unsubscribe(unsubRequest);
+                unsubscribeResponseTypeObj = alertSubscriptionService.unsubscribe(unsubRequest);
 
             } catch (Exception e) {
-                log.severe(e);
+                LOGGER.severe(e);
             }
-            List<UnsubscribeResponseCollectionType> responseUnsubscribe = UnsubscribeResponseTypeObj.getUnsubscribeCollection();
+            List<UnsubscribeResponseCollectionType> responseUnsubscribe = unsubscribeResponseTypeObj.getUnsubscribeCollection();
 
-            //List<SubscribeResponseCollectionType> responseLIst = UnsubscribeResponseTypeObj.getSubscribeCollection();
+
             for (int i = 0; i < responseUnsubscribe.size(); i++) {
-                System.out.println("status " + responseUnsubscribe.get(i).getStatus());
+                LOGGER.info("status " + responseUnsubscribe.get(i).getStatus());
                 serviceResponse.setStatus(responseUnsubscribe.get(i).getStatus());
             }
-//            for (int i = 0; i < responseLIst.size(); i++)
-            //
-            //            {
-            //                System.out.println("subs id " + responseLIst.get(i).getSubscriptionID());
-            //                serviceResponse.setSubscriptionID(responseLIst.get(i).getSubscriptionID());
-            //                break;
-            //            }
-            //serviceResponse.setSubscriptionID(subscribeResponseType.getSubscribeCollection().get(0).getSubscriptionID());
+
         }
         return serviceResponse;
     }
