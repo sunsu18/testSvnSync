@@ -689,9 +689,16 @@ public class Constants {
     public static final int EIGHT = 8;
     public static final int NINE = 9;
     public static final int TEN = 10;
+    public static final int ELEVEN = 11;
     public static final int TWELVE = 12;
+    public static final int EIGHTEEN = 18;
+    public static final int TWENTYFOUR = 24;
+    public static final int TWENTYNINE = 29;
     public static final int FIFTY = 50;
+    public static final int SIXTY = 60;
+    public static final int HUNDRED = 100;
     public static final int ONEFIFTY = 150;
+
 
     public static final String ACCOUNT_NUMER_LITERAL = "accountNumber";
     public static final String COUNTRY_CD_LITERAL = "countryCd";
