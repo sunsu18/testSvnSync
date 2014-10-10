@@ -45,8 +45,9 @@
                                  binding="#{pageFlowScope.AlertsBean.bindings.alert1ValidData}">
               <af:outputText id="ot64" value="#{sfr.INVALID_INPUT_ALERT}" styleClass="infoOutputText" noWrap="true"/>
             </af:panelGroupLayout>
-            <af:panelGroupLayout id="pgl61" styleClass="errorPanel" layout="horizontal" visible="false" rendered="false">
-              <af:outputText id="ot65" value="#{sfr.FAILURE_ALERT}" noWrap="true" styleClass="errorOutputText" rendered="false"/>
+            <af:panelGroupLayout id="pgl61" styleClass="infoPanel" layout="horizontal" visible="false" inlineStyle="width:320.0px;"
+                                    binding="#{pageFlowScope.AlertsBean.bindings.mandatoryMsg1}">
+              <af:outputText id="ot65" value="#{sfr.ENTER_MANDATORY_FIELD}" noWrap="true" styleClass="infoOutputText"/>
             </af:panelGroupLayout>
             <af:panelGroupLayout id="pgl64" layout="horizontal" visible="true">
               <h:panelGrid columns="3" id="pg2" cellpadding="3" cellspacing="2" width="275">
@@ -126,6 +127,10 @@
                                  binding="#{pageFlowScope.AlertsBean.bindings.alert2ValidData}">
               <af:outputText id="ot7" value="#{sfr.INVALID_INPUT_ALERT}" styleClass="infoOutputText" noWrap="true"/>
             </af:panelGroupLayout>
+            <af:panelGroupLayout id="pgl52" styleClass="infoPanel" layout="horizontal" rendered="false" inlineStyle="width:610.0px;"
+                                 binding="#{pageFlowScope.AlertsBean.bindings.mandatoryMsg}">
+              <af:outputText id="ot74" value="#{sfr.ENTER_MANDATORY_FIELD}" styleClass="infoOutputText" noWrap="true"/>
+            </af:panelGroupLayout>
             <af:panelGroupLayout id="pgl11" styleClass="errorPanel" layout="horizontal" visible="false" inlineStyle="width:325.0px;" rendered="false">
               <af:outputText id="ot9" value="#{sfr.FAILURE_ALERT}" noWrap="true" styleClass="errorOutputText" rendered="false"/>
             </af:panelGroupLayout>
@@ -134,13 +139,6 @@
                 <h:panelGrid columns="3" id="pg3" cellpadding="3" cellspacing="2" width="275">
                   <af:outputText value="#{sfr.PARTNER_ENG}" id="ot10"/>
                   <af:spacer width="10" height="30" id="s12"/>
-                  <!--<af:selectManyChoice id="smc1" contentStyle="width: 175px;"
-                                       autoSubmit="true"
-
-
-                                      >
-
-                  </af:selectManyChoice>-->
                   <af:selectManyChoice id="smc1" contentStyle="width: 175px;" autoSubmit="true"
                                        valueChangeListener="#{pageFlowScope.AlertsBean.partnerValueChangeListener}"
                                        binding="#{pageFlowScope.AlertsBean.bindings.partnerDropdownAlert2}" value="#{pageFlowScope.AlertsBean.partnerIdValue}">
@@ -331,7 +329,7 @@
         <af:separator id="separator1" inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
       </af:panelGroupLayout>
       <af:spacer width="10" height="10" id="s81"/>
-      <af:outputText value="#{sfr.ALERT_DETAILS}" id="ot68"/>
+      <af:outputText value="#{sfr.ALERT_DETAILS}" id="ot68" styleClass="subheading"/>
       <af:spacer height="10" id="s82"/>
       <af:panelGroupLayout id="panelGroupLayout3" layout="horizontal" inlineStyle="width:940.0px; height:25.0px;" halign="right">
         <af:panelGroupLayout id="pgl54" layout="horizontal">
@@ -441,8 +439,9 @@
                                binding="#{pageFlowScope.AlertsBean.bindings.invalidInputMsg}">
             <af:outputText id="ot61" value="#{sfr.INVALID_INPUT_ALERT}" styleClass="infoOutputText" noWrap="true"/>
           </af:panelGroupLayout>
-          <af:panelGroupLayout id="pgl43" styleClass="errorPanel" layout="horizontal" visible="false" rendered="false">
-            <af:outputText id="ot57" value="#{sfr.FAILURE_ALERT}" noWrap="true" styleClass="errorOutputText" rendered="false"/>
+          <af:panelGroupLayout id="pgl43" styleClass="infoPanel" layout="horizontal" visible="false" inlineStyle="width:320.0px;"
+                                binding="#{pageFlowScope.AlertsBean.bindings.mandatoryMsg4}">
+            <af:outputText id="ot57" value="#{sfr.ENTER_MANDATORY_FIELD}" noWrap="true" styleClass="infoOutputText"/>
           </af:panelGroupLayout>
           <af:panelGroupLayout id="pgl44" layout="horizontal" visible="true">
             <h:panelGrid columns="3" id="pg6" cellpadding="3" cellspacing="2" width="275">
@@ -526,8 +525,9 @@
                                binding="#{pageFlowScope.AlertsBean.bindings.invalidInputMsg3}">
             <af:outputText id="ot46" value="#{sfr.INVALID_INPUT_ALERT}" styleClass="infoOutputText" noWrap="true"/>
           </af:panelGroupLayout>
-          <af:panelGroupLayout id="pgl37" styleClass="errorPanel" layout="horizontal" visible="false" inlineStyle="width:325.0px;" rendered="false">
-            <af:outputText id="ot47" value="#{sfr.FAILURE_ALERT}" noWrap="true" styleClass="errorOutputText" rendered="false"/>
+          <af:panelGroupLayout id="pgl37" styleClass="infoPanel" layout="horizontal" inlineStyle="width:610.0px;" rendered="false"
+                                binding="#{pageFlowScope.AlertsBean.bindings.mandatoryMsg3}">
+                <af:outputText id="ot47" value="#{sfr.ENTER_MANDATORY_FIELD}" noWrap="true" styleClass="infoOutputText"/>
           </af:panelGroupLayout>
           <af:panelGroupLayout id="pgl70" layout="horizontal" inlineStyle="margin-top:10px;">
             <af:panelGroupLayout id="pgl71" layout="vertical" inlineStyle="width:350.0px;" visible="true">

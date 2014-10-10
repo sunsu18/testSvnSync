@@ -1587,8 +1587,8 @@ public class Alerts {
                 displayErrorComponent(getBindings().getFuelCapacityAlert2(), true);
                 getBindings().getAlert2ValidData().setVisible(true);
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlert2ValidData());
-                getBindings().getMandatoryMsg().setRendered(false);
-                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getMandatoryMsg());
+                getBindings().getMandatoryMsg3().setRendered(false);
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getMandatoryMsg3());
             }
         } else {
             validinput2 = false;
@@ -1617,8 +1617,8 @@ public class Alerts {
             }else{
                 displayErrorComponent(getBindings().getFuelCapacityAlert2(), true);
             }
-            getBindings().getMandatoryMsg().setRendered(true);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getMandatoryMsg());
+            getBindings().getMandatoryMsg3().setRendered(true);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getMandatoryMsg3());
             getBindings().getAlert2ValidData().setVisible(false);
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlert2ValidData()); 
         }
