@@ -4,6 +4,10 @@
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html">
  <af:panelGroupLayout id="pgl2">
+  <!--<af:selectOneChoice value="#{bindings.PrtNotificationVO1.inputValue}" label="#{bindings.PrtNotificationVO1.label}"
+                      required="#{bindings.PrtNotificationVO1.hints.mandatory}" shortDesc="#{bindings.PrtNotificationVO1.hints.tooltip}" id="soc1">
+   <f:selectItems value="#{bindings.PrtNotificationVO1.items}" id="si3"/>
+  </af:selectOneChoice>-->
   <af:panelGroupLayout id="pgl1" layout="vertical" styleClass="spacerStyle">
  
    <af:spacer width="10" height="20" id="s10"/>
@@ -248,7 +252,7 @@
      <!--Space for table
      -->
 
-     <af:table value="#{bindings.PrtPcmFeedsRVO1.collectionModel}" var="row"
+     <!--<af:table value="#{bindings.PrtPcmFeedsRVO1.collectionModel}" var="row"
                rows="#{bindings.PrtPcmFeedsRVO1.rangeSize}" 
                 autoHeightRows="15"  contentDelivery="immediate"
                 inlineStyle="height:auto;"
@@ -265,9 +269,9 @@
                  
                  id="c2">
        <af:selectBooleanCheckbox value="#{row.readFlag}"   id="sbc1"/>
-       <!--<af:outputText value="#{row.readFlag}" id="ot11"/>-->
-         <!--<af:selectBooleanCheckbox value="#{row.readFlag}"
-                                    />-->
+       --><!--<af:outputText value="#{row.readFlag}" id="ot11"/>--><!--
+         --><!--<af:selectBooleanCheckbox value="#{row.readFlag}"
+                                    />--><!--
       </af:column>
       <af:column sortProperty="EffectiveDate" filterable="true" sortable="true" width="150" 
                  headerText="#{sfr.ENGAGE_DATE}" inlineStyle="#{(row.readFlag)=='false' ? 'font-weight:bold;' : 'font-weight:normal;'}"
@@ -290,23 +294,68 @@
       <af:column sortProperty="MessageEnglish" filterable="true" sortable="true" width="550"
                  headerText="#{sfr.ENGAGE_MESSAGE}" inlineStyle="#{(row.readFlag)=='false' ? 'font-weight:bold;' : 'font-weight:normal;'}"
                  id="c1" noWrap="false">
-      
   <af:outputText value="#{row.MessageLang eq null? row.MessageEnglish : row.MessageLang}" id="ot3"
          escape="false" styleClass="contenttext"
          />
-      
-  <!--<af:panelGroupLayout id="pgl19"
-                                   inlineStyle="width:350px;" layout="horizontal"
-                                   >
-          <af:outputText value="#{row.MessageLang eq null? row.MessageEnglish : row.MessageLang}" escape="false"  inlineStyle="white-space: -moz-pre-wrap"
-                        id="it1">
-            
-          </af:outputText>
-          </af:panelGroupLayout>-->
-        
+      </af:column>
+      <af:column width="150"
+                 headerText="VIEW MORE" 
+                 id="c4" >
+ <af:commandButton text="VIEW DETAILS" id="cb01" actionListener="#{pageFlowScope.MessageInboxBean.viewMessageDetails}"/>
 
       </af:column>
+      
      
+     </af:table>-->
+     <af:table value="#{bindings.PrtNotificationVO1.collectionModel}" var="row" rows="#{bindings.PrtNotificationVO1.rangeSize}" inlineStyle="height:auto;"
+               emptyText="#{bindings.PrtNotificationVO1.viewable ? 'No data to display.' : 'Access Denied.'}" autoHeightRows="15"  contentDelivery="immediate"
+               fetchSize="#{bindings.PrtNotificationVO1.rangeSize}" rowBandingInterval="0" filterModel="#{bindings.PrtNotificationVO11Query.queryDescriptor}"
+               queryListener="#{bindings.PrtNotificationVO11Query.processQuery}" filterVisible="true" varStatus="vs"
+               selectionListener="#{bindings.PrtNotificationVO1.collectionModel.makeCurrent}" rowSelection="multiple" id="t1" width="900" >
+      <!--<af:column sortProperty="readFlag" filterable="true" sortable="true" headerText="#{bindings.PrtNotificationVO1.hints.readFlag.label}" id="c2">
+        <af:selectBooleanCheckbox value="#{row.bindings.readFlag.inputValue}"   id="sbc1"/>
+      </af:column>-->
+      <af:column headerText="#{bindings.PrtNotificationVO1.hints.readFlag.label}" id="c2">
+       <af:selectBooleanCheckbox value="#{row.bindings.readFlag.inputValue}" label="#{row.bindings.readFlag.label}"
+                                 shortDesc="#{bindings.PrtNotificationVO1.hints.readFlag.tooltip}" id="sbc1"/>
+      </af:column>
+      <af:column sortProperty="NotiCreated" filterable="true" sortable="true" headerText="#{bindings.PrtNotificationVO1.hints.NotiCreated.label}" id="c4">
+       <f:facet name="filter">
+        <af:inputDate value="#{vs.filterCriteria.NotiCreated}" id="id2"/>
+       </f:facet>
+       <af:inputDate value="#{row.bindings.NotiCreated.inputValue}" label="#{bindings.PrtNotificationVO1.hints.NotiCreated.label}" readOnly="true"
+                     required="#{bindings.PrtNotificationVO1.hints.NotiCreated.mandatory}" shortDesc="#{bindings.PrtNotificationVO1.hints.NotiCreated.tooltip}"
+                     id="id3">
+        
+         <af:convertDateTime pattern="dd.MM.yyyy"/>
+       </af:inputDate>
+      </af:column>
+      <af:column sortProperty="NotiSubcategory" filterable="true" sortable="true" headerText="#{bindings.PrtNotificationVO1.hints.NotiSubcategory.label}"
+                 id="c3">
+       <af:inputText value="#{row.bindings.NotiSubcategory.inputValue}" label="#{bindings.PrtNotificationVO1.hints.NotiSubcategory.label}" readOnly="true"
+                     required="#{bindings.PrtNotificationVO1.hints.NotiSubcategory.mandatory}"
+                     columns="#{bindings.PrtNotificationVO1.hints.NotiSubcategory.displayWidth}"
+                     maximumLength="#{bindings.PrtNotificationVO1.hints.NotiSubcategory.precision}"
+                     shortDesc="#{bindings.PrtNotificationVO1.hints.NotiSubcategory.tooltip}" id="it1">
+        <f:validator binding="#{row.bindings.NotiSubcategory.validator}"/>
+       </af:inputText>
+      </af:column>
+      <af:column sortProperty="NotiDescription" filterable="true" sortable="true" headerText="#{bindings.PrtNotificationVO1.hints.NotiDescription.label}" noWrap="false"
+                 id="c1">
+       <af:inputText value="#{row.bindings.NotiDescription.inputValue}" label="#{bindings.PrtNotificationVO1.hints.NotiDescription.label}" readOnly="true"
+                     required="#{bindings.PrtNotificationVO1.hints.NotiDescription.mandatory}" 
+                     columns="#{bindings.PrtNotificationVO1.hints.NotiDescription.displayWidth}"
+                     maximumLength="#{bindings.PrtNotificationVO1.hints.NotiDescription.precision}"
+                     shortDesc="#{bindings.PrtNotificationVO1.hints.NotiDescription.tooltip}" id="it2">
+        <f:validator binding="#{row.bindings.NotiDescription.validator}"/>
+       </af:inputText>
+      </af:column>
+        <af:column width="150"
+                 headerText="VIEW MORE" 
+                 id="c5" >
+ <af:commandButton text="VIEW DETAILS" id="cb01" actionListener="#{pageFlowScope.MessageInboxBean.viewMessageDetails}"/>
+
+      </af:column>
      </af:table>
      <af:spacer width="10" height="20" id="s59"/>
     </af:panelGroupLayout>
@@ -315,4 +364,29 @@
  
   </af:panelGroupLayout>
  </af:panelGroupLayout>
+ <af:popup id="messageInboxPopUp" contentDelivery="immediate" autoCancel="disabled" animate="false"
+                binding="#{pageFlowScope.MessageInboxBean.bindings.messageInboxPopUp}">
+        <af:dialog id="d1" title="CARD XX fueled outside of business hours" shortDesc="CARD XX fueled outside of business hours" styleClass="textDialogs" type="none"
+                   closeIconVisible="true" partialTriggers="" >
+          <af:panelGroupLayout id="pgl19" inlineStyle="width: 350px; height:350px;">
+            <af:separator id="s24" inlineStyle="width: 320px; margin-left: 0px!important;"/>
+          </af:panelGroupLayout>
+          <af:panelGroupLayout id="pgl63">
+           
+               
+          </af:panelGroupLayout>
+         
+            <af:spacer width="10" height="2" id="s6"/>
+          
+          <af:panelGroupLayout id="pgl50" layout="horizontal" halign="right" inlineStyle="width: 320px;">
+            <af:commandButton text="CARD OVERVIEW" id="cb3" actionListener="#{pageFlowScope.MessageInboxBean.goToCardOverview}"/>
+            <af:spacer width="20" id="s61"/>
+            <af:commandButton text="TRANSACTION OVERVIEW" id="cb5" actionListener="#{pageFlowScope.MessageInboxBean.goToTransaction}" partialSubmit="true"/>
+            
+            <af:spacer width="20" id="s9"/>
+            <af:commandButton text="#{sfr.CANCEL}" id="cb4" actionListener="#{pageFlowScope.MessageInboxBean.closeMessagePopup}"/>
+          
+          </af:panelGroupLayout>
+        </af:dialog>
+      </af:popup>
 </jsp:root>

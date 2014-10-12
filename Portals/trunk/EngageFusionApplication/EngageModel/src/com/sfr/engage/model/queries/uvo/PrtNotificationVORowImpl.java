@@ -1,5 +1,6 @@
 package com.sfr.engage.model.queries.uvo;
 
+
 import com.sfr.engage.model.entities.PrtNotificationEOImpl;
 
 import oracle.jbo.domain.Number;
@@ -236,6 +237,16 @@ public class PrtNotificationVORowImpl extends ViewRowImpl {
                 obj.setNotiDescriptionLocalised((String)value);
             }
         }
+        ,
+        readFlag {
+            public Object get(PrtNotificationVORowImpl obj) {
+                return obj.getreadFlag();
+            }
+
+            public void put(PrtNotificationVORowImpl obj, Object value) {
+                obj.setreadFlag((Boolean)value);
+            }
+        }
         ;
         private static AttributesEnum[] vals = null;
         private static int firstIndex = 0;
@@ -263,6 +274,8 @@ public class PrtNotificationVORowImpl extends ViewRowImpl {
             return vals;
         }
     }
+
+
     public static final int COUNTRYCODE = AttributesEnum.CountryCode.index();
     public static final int NOTIID = AttributesEnum.NotiId.index();
     public static final int RULEID = AttributesEnum.RuleId.index();
@@ -285,6 +298,7 @@ public class PrtNotificationVORowImpl extends ViewRowImpl {
     public static final int MODIFIEDBY = AttributesEnum.ModifiedBy.index();
     public static final int MODIFIEDDATE = AttributesEnum.ModifiedDate.index();
     public static final int NOTIDESCRIPTIONLOCALISED = AttributesEnum.NotiDescriptionLocalised.index();
+    public static final int READFLAG = AttributesEnum.readFlag.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -586,7 +600,10 @@ public class PrtNotificationVORowImpl extends ViewRowImpl {
      */
     public void setShowFlag(String value) {
         setAttributeInternal(SHOWFLAG, value);
+      
+    
     }
+   
 
     /**
      * Gets the attribute value for NOTI_DESCRIPTION using the alias name NotiDescription.
@@ -650,6 +667,34 @@ public class PrtNotificationVORowImpl extends ViewRowImpl {
      */
     public void setNotiDescriptionLocalised(String value) {
         setAttributeInternal(NOTIDESCRIPTIONLOCALISED, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute readFlag.
+     * @return the readFlag
+     */
+    public Boolean getreadFlag() {
+        if(this.getShowFlag()!=null && this.getShowFlag().trim().equalsIgnoreCase("NO")){
+            return true;  
+        }
+        else{
+            return false;
+        }
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute readFlag.
+     * @param value value to set the  readFlag
+     */
+    public void setreadFlag(Boolean value) {
+   
+    if(value){
+      this.setShowFlag("NO");  
+    }
+    else{
+        this.setShowFlag("YES");    
+    }
+          
     }
 
     /**

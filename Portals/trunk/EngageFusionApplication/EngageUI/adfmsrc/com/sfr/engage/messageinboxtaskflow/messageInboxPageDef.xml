@@ -14,6 +14,8 @@
     <searchRegion Binds="PrtPcmFeedsRVO1Iterator" Criteria=""
                   Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
                   id="PrtPcmFeedsRVO11Query"/>
+    <iterator Binds="PrtNotificationVO1" RangeSize="25" DataControl="EngageAppModuleDataControl" id="PrtNotificationVO1Iterator"/>
+    <searchRegion Binds="PrtNotificationVO1Iterator" Criteria="" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="PrtNotificationVO11Query"/>
   </executables>
   <bindings>
     <list IterBinding="PrtCustomerCardMapRVO1_1Iterator"
@@ -46,5 +48,15 @@
         <Item Value="NO"/>
       </ValueList>
     </button>
+    <tree IterBinding="PrtNotificationVO1Iterator" id="PrtNotificationVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtNotificationVO" Name="PrtNotificationVO10">
+        <AttrNames>
+          <Item Value="readFlag"/>
+          <Item Value="NotiCreated"/>
+          <Item Value="NotiSubcategory"/>
+          <Item Value="NotiDescription"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
   </bindings>
 </pageDefinition>

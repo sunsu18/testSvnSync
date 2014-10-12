@@ -6,7 +6,43 @@
   Name="PrtNotificationVO"
   Version="11.1.1.61.92"
   InheritPersonalization="true"
-  SelectList="PrtNotificationEO.COUNTRY_CODE, 
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.sfr.engage.model.queries.uvo.PrtNotificationVORowImpl"
+  ComponentClass="com.sfr.engage.model.queries.uvo.PrtNotificationVOImpl"
+  PageIterMode="Full"
+  UseGlueCode="false">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Variable
+    Name="userId"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="countryCode"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="showFlag"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="categoryValue"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="fromDate"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="toDate"
+    Kind="where"
+    Type="java.lang.String"/>
+  <SQLQuery>
+    <![CDATA[SELECT PrtNotificationEO.COUNTRY_CODE, 
        PrtNotificationEO.NOTI_ID, 
        PrtNotificationEO.RULE_ID, 
        PrtNotificationEO.RULE_ISENABLED, 
@@ -27,18 +63,11 @@
        PrtNotificationEO.NOTI_DESCRIPTION, 
        PrtNotificationEO.MODIFIED_BY, 
        PrtNotificationEO.MODIFIED_DATE, 
-       PrtNotificationEO.NOTI_DESCRIPTION_LOCALISED"
-  FromList="PRT_CARD_NOTIFICATIONS PrtNotificationEO"
-  BindingStyle="OracleName"
-  CustomQuery="false"
-  RowClass="com.sfr.engage.model.queries.uvo.PrtNotificationVORowImpl"
-  ComponentClass="com.sfr.engage.model.queries.uvo.PrtNotificationVOImpl"
-  PageIterMode="Full"
-  UseGlueCode="false">
-  <DesignTime>
-    <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess"/>
-    <Attr Name="_isCodegen" Value="true"/>
-  </DesignTime>
+       PrtNotificationEO.NOTI_DESCRIPTION_LOCALISED
+FROM PRT_CARD_NOTIFICATIONS PrtNotificationEO
+WHERE PrtNotificationEO.user_id =:userId AND PrtNotificationEO.COUNTRY_CODE =:countryCode AND (INSTR(:showFlag,PrtNotificationEO.SHOW_FLAG)<>0)
+and (INSTR(:categoryValue,PrtNotificationEO.NOTI_CATEGORY)<>0) and (PrtNotificationEO.NOTI_CREATED >= :fromDate and PrtNotificationEO.NOTI_CREATED <= : toDate)]]>
+  </SQLQuery>
   <EntityUsage
     Name="PrtNotificationEO"
     Entity="com.sfr.engage.model.entities.PrtNotificationEO"/>
@@ -183,4 +212,21 @@
     EntityAttrName="NotiDescriptionLocalised"
     EntityUsage="PrtNotificationEO"
     AliasName="NOTI_DESCRIPTION_LOCALISED"/>
+  <ViewAttribute
+    Name="readFlag"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Boolean"
+    ColumnType="NUMBER"
+    AliasName="VIEW_ATTR"
+    SQLType="BIT">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="check_box"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
 </ViewObject>
