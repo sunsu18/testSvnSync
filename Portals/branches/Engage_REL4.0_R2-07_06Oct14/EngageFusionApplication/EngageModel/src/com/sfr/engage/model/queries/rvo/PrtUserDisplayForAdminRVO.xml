@@ -103,13 +103,13 @@ AND (ROLEMAP.ASSOCIATION_TYPE = 'PP' AND INSTR(:PID,USER_ASSOCIATION)<>0)]]>
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
     AliasName="USER_PHONE_NO"
     Expression="USER_PHONE_NO"
-    SQLType="NUMERIC">
+    SQLType="VARCHAR">
     <DesignTime>
-      <Attr Name="_DisplaySize" Value="39"/>
+      <Attr Name="_DisplaySize" Value="20"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute

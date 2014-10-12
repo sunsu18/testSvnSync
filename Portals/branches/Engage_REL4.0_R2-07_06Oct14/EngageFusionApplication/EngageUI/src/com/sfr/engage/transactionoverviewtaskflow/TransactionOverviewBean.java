@@ -362,6 +362,8 @@ public class TransactionOverviewBean implements Serializable {
             partnerIdValues = (ArrayList<String>)valueChangeEvent.getNewValue();
             accountIdList = new ArrayList<SelectItem>();
             accountIdValue = new ArrayList<String>();
+            cardGroupList = new ArrayList<SelectItem>();
+            cardGroupValue = new ArrayList<String>();
 
             if (partnerInfoList != null) {
                 for (int i = 0; i < partnerIdValues.size(); i++) {
@@ -376,7 +378,33 @@ public class TransactionOverviewBean implements Serializable {
                                     selectItem.setValue(partnerInfoList.get(k).getAccountList().get(ac).getAccountNumber().toString());
                                     accountIdList.add(selectItem);
                                     accountIdValue.add(partnerInfoList.get(k).getAccountList().get(ac).getAccountNumber().toString());
+
+                                    if (partnerInfoList.get(k).getAccountList().get(ac).getCardGroup() != null &&
+                                        partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().size() > 0) {
+                                        cardIdPGL = false;
+                                        cardGPGL = true;
+                                        vNumberPGL = false;
+                                        dNamePGL = false;
+
+                                        for (int cg = 0; cg < partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().size(); cg++) {
+
+                                            SelectItem selectItemCardGroup = new SelectItem();
+                                            selectItemCardGroup.setLabel(partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getDisplayCardGroupIdName().toString());
+                                            selectItemCardGroup.setValue(partnerInfoList.get(k).getPartnerValue().toString().trim() +
+                                                                         partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID().toString());
+                                            cardGroupList.add(selectItemCardGroup);
+                                            cardGroupValue.add(partnerInfoList.get(k).getPartnerValue().toString().trim() +
+                                                               partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID().toString());
+                                            cardIdPGL = false;
+                                            cardGPGL = true;
+                                            vNumberPGL = false;
+                                            dNamePGL = false;
+
+                                        }
+                                    }
                                 }
+
+
                             }
 
                         }
@@ -394,13 +422,17 @@ public class TransactionOverviewBean implements Serializable {
             vehicleNumberValue = new ArrayList<String>();
             driverNameList = new ArrayList<SelectItem>();
             driverNameValue = new ArrayList<String>();
+
         }
-        getBindings().getCardCardGrpDrVhOneRadio().setValue(null);
+        //        getBindings().getCardCardGrpDrVhOneRadio().setValue(null);
+        //        getBindings().getCardCardGrpDrVhOneRadio().setSubmittedValue(null);
+
         cardIdPGL = false;
-        cardGPGL = false;
+        cardGPGL = true;
         vNumberPGL = false;
         dNamePGL = false;
-        cardGroupRadio = null;
+        getBindings().getCardCardGrpDrVhOneRadio().setValue("CardGroup");
+        //        cardGroupRadio = null;
         if (isTableVisible) {
             isTableVisible = false;
         }
@@ -411,10 +443,14 @@ public class TransactionOverviewBean implements Serializable {
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDriverNamePGL());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardCardGrpDrVhOneRadio());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccount());
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "account list is created");
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());
 
+
+        Collections.sort(cardGroupList, comparator);
         Collections.sort(partnerIdList, comparator);
         Collections.sort(accountIdList, comparator);
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "account list is created");
+
     }
 
     public void radioButtonValueChangeListener(ValueChangeEvent valueChangeEvent) {
@@ -422,7 +458,7 @@ public class TransactionOverviewBean implements Serializable {
             if (valueChangeEvent.getNewValue() != null) {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "value of radioButon value change event======>" +
                              valueChangeEvent.getNewValue());
-               if (valueChangeEvent.getNewValue().equals("CardGroup")) {
+                if (valueChangeEvent.getNewValue().equals("CardGroup")) {
                     cardGPGL = true;
                     cardIdPGL = false;
                     dNamePGL = false;
@@ -493,7 +529,7 @@ public class TransactionOverviewBean implements Serializable {
         return cardGPGL;
     }
 
-   public void setDNamePGL(boolean dNamePGL) {
+    public void setDNamePGL(boolean dNamePGL) {
         this.dNamePGL = dNamePGL;
     }
 
@@ -538,7 +574,7 @@ public class TransactionOverviewBean implements Serializable {
                     langDB = langDB.substring(langDB.length() - 2, langDB.length());
                     langDB = langDB.toUpperCase();
                 }
-               if ("CardGroup".equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
+                if ("CardGroup".equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
                     shuttleValue = new ArrayList();
                     ViewObject prtExportInfoRVO = ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
                     prtExportInfoRVO.setNamedWhereClauseParam("country_Code", langDB);
@@ -714,7 +750,7 @@ public class TransactionOverviewBean implements Serializable {
             } else if (paramType.equals("Card")) {
                 cardNumberList = new ArrayList<SelectItem>();
                 cardNumberValue = new ArrayList<String>();
-               if (partnerInfoList != null) {
+                if (partnerInfoList != null) {
                     for (int i = 0; i < partnerIdValues.size(); i++) {
                         for (int k = 0; k < partnerInfoList.size(); k++) {
                             if (partnerIdValues.get(i).equalsIgnoreCase(partnerInfoList.get(k).getPartnerValue().toString())) {
@@ -799,7 +835,7 @@ public class TransactionOverviewBean implements Serializable {
 
                         if (accountIdValue.size() > 150) {
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle/driver > 150 ");
-                           mapAccountVehicleListValue = ValueListSplit.callValueList(accountIdValue.size(), accountIdValue);
+                            mapAccountVehicleListValue = ValueListSplit.callValueList(accountIdValue.size(), accountIdValue);
                             for (int i = 0; i < mapAccountVehicleListValue.size(); i++) {
                                 String values = "account" + i;
                                 accountQueryVehicle = accountQueryVehicle + "INSTR(:" + values + ",ACCOUNT_NUMBER)<>0 OR ";
@@ -942,7 +978,7 @@ public class TransactionOverviewBean implements Serializable {
                                             selectItem.setValue(currRow.getAttribute("PrtCardPk").toString());
                                             driverNameList.add(selectItem);
                                             driverNameValue.add(currRow.getAttribute("PrtCardPk").toString());
-                                       } else {
+                                        } else {
                                             if (currRow.getReferenceNumber() != null) {
                                                 SelectItem selectItem = new SelectItem();
                                                 selectItem.setLabel(currRow.getAttribute("DriverName").toString());
@@ -984,7 +1020,7 @@ public class TransactionOverviewBean implements Serializable {
         if (getBindings().getPartner().getValue() != null && getBindings().getReportFormat().getValue() != null &&
             getBindings().getFromDate().getValue() != null && getBindings().getToDate().getValue() != null &&
             getBindings().getCardCardGrpDrVhOneRadio().getValue() != null && getBindings().getAccount().getValue() != null) {
-        
+
 
             if (getBindings().getTransationType().getValue() != null) {
                 displayErrorComponent(getBindings().getTransationType(), false);
@@ -1020,7 +1056,7 @@ public class TransactionOverviewBean implements Serializable {
                     populateCardGroupValues(cardGroupPassingValues);
                 } else {
                     displayErrorComponent(getBindings().getTransationType(), true);
-                   showErrorMessage("ENGAGE_NO_CARD_GROUP");
+                    showErrorMessage("ENGAGE_NO_CARD_GROUP");
                     return null;
                 }
             }
@@ -1310,7 +1346,7 @@ public class TransactionOverviewBean implements Serializable {
                                     String values = "card" + i;
                                     cardQuery = cardQuery + "INSTR(:" + values + ",KSID)<>0 OR ";
                                 }
-                               cardQuery = cardQuery.substring(0, cardQuery.length() - 3);
+                                cardQuery = cardQuery.substring(0, cardQuery.length() - 3);
                                 cardQuery = cardQuery + ") OR (";
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
                                     String values = "card2id" + i;
@@ -1595,11 +1631,11 @@ public class TransactionOverviewBean implements Serializable {
             }
         } else {
             showErrorMessage("ENGAGE_SELECT_TRANSACTION_MANDATORY");
-            if(getBindings().getPartner().getValue() == null){
-            displayErrorComponent(getBindings().getPartner(), true);
+            if (getBindings().getPartner().getValue() == null) {
+                displayErrorComponent(getBindings().getPartner(), true);
             }
-            if(getBindings().getAccount().getValue() == null){
-            displayErrorComponent(getBindings().getAccount(), true);
+            if (getBindings().getAccount().getValue() == null) {
+                displayErrorComponent(getBindings().getAccount(), true);
             }
             return null;
         }
@@ -1799,47 +1835,45 @@ public class TransactionOverviewBean implements Serializable {
     public void accountValueChangeListener(ValueChangeEvent valueChangeEvent) {
 
         if (valueChangeEvent.getNewValue() != null) {
-            /* String[] accountString = populateStringValues(valueChangeEvent.getNewValue().toString()).split(",");
+            String[] accountString = populateStringValues(valueChangeEvent.getNewValue().toString()).split(",");
             cardGroupList = new ArrayList<SelectItem>();
             cardGroupValue = new ArrayList<String>();
 
             for (int z = 0; z < partnerInfoList.size(); z++) {
-                if (partnerInfoList.get(z).getAccountList() != null &&
-                    partnerInfoList.get(z).getAccountList().size() > 0) {
-                    for (int i = 0;
-                         i < partnerInfoList.get(z).getAccountList().size();
-                         i++) {
+                if (partnerInfoList.get(z).getAccountList() != null && partnerInfoList.get(z).getAccountList().size() > 0) {
+                    for (int i = 0; i < partnerInfoList.get(z).getAccountList().size(); i++) {
                         for (int j = 0; j < accountString.length; j++) {
-                           if (partnerInfoList.get(z).getAccountList().get(i).getAccountNumber() != null &&
+                            if (partnerInfoList.get(z).getAccountList().get(i).getAccountNumber() != null &&
                                 partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString().trim().equals(accountString[j].toString().trim())) {
                                 if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup() != null &&
                                     partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size() > 0) {
-                                    for (int k = 0;
-                                         k < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size();
-                                         k++) {
+                                    for (int k = 0; k < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size(); k++) {
                                         if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID() != null) {
                                             SelectItem selectItem = new SelectItem();
                                             selectItem.setLabel(partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getDisplayCardGroupIdName().toString());
-                                            selectItem.setValue(partnerInfoList.get(z).getPartnerValue().toString().trim()+partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
+                                            selectItem.setValue(partnerInfoList.get(z).getPartnerValue().toString().trim() +
+                                                                partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
                                             cardGroupList.add(selectItem);
-                                            cardGroupValue.add(partnerInfoList.get(z).getPartnerValue().toString().trim()+partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
+                                            cardGroupValue.add(partnerInfoList.get(z).getPartnerValue().toString().trim() +
+                                                               partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
                                         }
                                     }
                                 }
                             }
                         }
                     }
-                    Collections.sort (accountIdList,comparator);
-                    Collections.sort (cardGroupList,comparator);
+                    Collections.sort(accountIdList, comparator);
+                    Collections.sort(cardGroupList, comparator);
                 }
-            }*/
+            }
 
-            getBindings().getCardCardGrpDrVhOneRadio().setValue(null);
-            cardGPGL = false;
+
+            cardGPGL = true;
             cardIdPGL = false;
             dNamePGL = false;
             vNumberPGL = false;
-            cardGroupRadio = null;
+            getBindings().getCardCardGrpDrVhOneRadio().setValue("CardGroup"); //for setting radio button to defult
+
             if (isTableVisible) {
                 isTableVisible = false;
             }
@@ -1850,6 +1884,37 @@ public class TransactionOverviewBean implements Serializable {
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDriverNamePGL());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVhNumberPGL());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardCardGrpDrVhOneRadio());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());
+        }
+
+
+        else {
+            //            getBindings().getCardCardGrpDrVhOneRadio().setValue(null);
+            //            getBindings().getCardCardGrpDrVhOneRadio().setSubmittedValue(null);
+            getBindings().getCardCardGrpDrVhOneRadio().setValue("CardGroup");
+            cardNumberList = new ArrayList<SelectItem>();
+            cardNumberValue = new ArrayList<String>();
+            cardGroupList = new ArrayList<SelectItem>();
+            cardGroupValue = new ArrayList<String>();
+            vehicleNumberList = new ArrayList<SelectItem>();
+            vehicleNumberValue = new ArrayList<String>();
+            driverNameList = new ArrayList<SelectItem>();
+            driverNameValue = new ArrayList<String>();
+            cardGPGL = true;
+            cardIdPGL = false;
+            dNamePGL = false;
+            vNumberPGL = false;
+            if (isTableVisible) {
+                isTableVisible = false;
+            }
+
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowSearchResultPG());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardNoPGL());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDriverNamePGL());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVhNumberPGL());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardCardGrpDrVhOneRadio());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());
         }
     }
 
@@ -2260,7 +2325,7 @@ public class TransactionOverviewBean implements Serializable {
                             }
                         } else if ("Account".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getAccountId() != null) {
-                               XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
+                                XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getAccountId().toString());
                             }
@@ -2589,7 +2654,7 @@ public class TransactionOverviewBean implements Serializable {
                             }
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
-                           }
+                            }
                         } else if ("Unit price, purchase currency".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getCurrencyUnitPrice() != null) {
                                 out.print(formatConversion((Float.parseFloat(row.getCurrencyUnitPrice().toString())), locale));
@@ -3071,7 +3136,7 @@ public class TransactionOverviewBean implements Serializable {
                     shuttleList.add(selectItem);
                 }
             }
-       } else if ("Vehicle".equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
+        } else if ("Vehicle".equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
             ViewObject prtExportInfoRVO = ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
             prtExportInfoRVO.setNamedWhereClauseParam("country_Code", langDB);
             prtExportInfoRVO.setNamedWhereClauseParam("report_Page", "TRANSACTION");
@@ -3227,52 +3292,44 @@ public class TransactionOverviewBean implements Serializable {
 
     public void displayErrorComponent(UIComponent component, boolean status) {
 
-            RichSelectManyChoice soc = new RichSelectManyChoice();
+        RichSelectManyChoice soc = new RichSelectManyChoice();
 
-             if (component instanceof RichSelectManyChoice) {
-                soc = (RichSelectManyChoice)component;
-                if (status) {
+        if (component instanceof RichSelectManyChoice) {
+            soc = (RichSelectManyChoice)component;
+            if (status) {
+                soc.setStyleClass("af_mandatoryfield");
+                if (component.getId().contains("smc1") || component.getId().contains("soc3") || component.getId().contains("smc2") ||
+                    component.getId().contains("smc3") || component.getId().contains("smc4") || component.getId().contains("smc5") ||
+                    component.getId().contains("smc6"))
                     soc.setStyleClass("af_mandatoryfield");
-                    if (component.getId().contains("smc1") ||
-                        component.getId().contains("soc3") ||
-                        component.getId().contains("smc2") ||
-                        component.getId().contains("smc3") ||
-                        component.getId().contains("smc4") ||
-                        component.getId().contains("smc5") ||
-                        component.getId().contains("smc6"))
-                        soc.setStyleClass("af_mandatoryfield");
 
-                } else {
+            } else {
+                soc.setStyleClass("af_nonmandatoryfield");
+                if (component.getId().contains("smc1") || component.getId().contains("soc3") || component.getId().contains("smc2") ||
+                    component.getId().contains("smc3") || component.getId().contains("smc4") || component.getId().contains("smc5") ||
+                    component.getId().contains("smc6"))
                     soc.setStyleClass("af_nonmandatoryfield");
-                    if (component.getId().contains("smc1") ||
-                        component.getId().contains("soc3") ||
-                        component.getId().contains("smc2") ||
-                        component.getId().contains("smc3") ||
-                        component.getId().contains("smc4") ||
-                        component.getId().contains("smc5") ||
-                        component.getId().contains("smc6"))
-                        soc.setStyleClass("af_nonmandatoryfield");
-                }
-                AdfFacesContext.getCurrentInstance().addPartialTarget(soc);
             }
-          
+            AdfFacesContext.getCurrentInstance().addPartialTarget(soc);
         }
 
-        private Boolean isComponentEmpty(UIComponent rit1) {
+    }
 
-            RichSelectManyChoice soc = new RichSelectManyChoice();
-            if (rit1 instanceof RichSelectManyChoice) {
-                soc = (RichSelectManyChoice)rit1;
-                if (soc.getValue() == null || soc.getValue().equals("")) {              
-                    displayErrorComponent(soc, true);
-                    return true;
-                } else {              
-                    displayErrorComponent(soc, false);
-                    return false;
-                }
+    private Boolean isComponentEmpty(UIComponent rit1) {
+
+        RichSelectManyChoice soc = new RichSelectManyChoice();
+        if (rit1 instanceof RichSelectManyChoice) {
+            soc = (RichSelectManyChoice)rit1;
+            if (soc.getValue() == null || soc.getValue().equals("")) {
+                displayErrorComponent(soc, true);
+                return true;
+            } else {
+                displayErrorComponent(soc, false);
+                return false;
             }
-            return true;
         }
+        return true;
+    }
 
     public String odometerEditAction() {
         if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("vnumberkey") != null) {
@@ -3304,7 +3361,7 @@ public class TransactionOverviewBean implements Serializable {
     }
 
     public String editOdometerSave() {
-       User user = null;
+        User user = null;
         String modifiedBy = null;
         user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
         modifiedBy = user.getFirstName().concat(" ").concat(user.getLastName());
@@ -3710,7 +3767,7 @@ public class TransactionOverviewBean implements Serializable {
         private RichPanelGroupLayout selectedPGL;
         private RichPopup editOdometerPopup;
         private RichInputText odometerPortalValue;
-       private RichPopup odometer_PopUp;
+        private RichPopup odometer_PopUp;
         private RichTable searchTable;
         private RichOutputText noteText;
         private RichOutputText noteInternationalText;
@@ -3740,7 +3797,7 @@ public class TransactionOverviewBean implements Serializable {
                 gc.setTime(dateNow);
                 gc.add(GregorianCalendar.MONTH, -1);
                 Date dateBefore = gc.getTime();
-               SimpleDateFormat dateformat = new SimpleDateFormat("dd.MM.yyyy");
+                SimpleDateFormat dateformat = new SimpleDateFormat("dd.MM.yyyy");
                 String tmp = dateformat.format(dateBefore);
                 fromDate.setValue(tmp);
                 fromDateInitial = false;

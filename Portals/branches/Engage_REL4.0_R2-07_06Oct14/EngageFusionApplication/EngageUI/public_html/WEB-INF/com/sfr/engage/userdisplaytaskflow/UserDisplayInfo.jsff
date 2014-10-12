@@ -193,7 +193,7 @@
             </af:column>
             <af:column sortProperty="UserPhoneNo" filterable="true" sortable="true" headerText="#{sfr.PHONE_NO}" id="c6">
               <af:outputText value="#{row.UserPhoneNo}" id="ot9">
-                <af:convertNumber groupingUsed="false" pattern="#{bindings.PrtUserDisplayForAdminRVO1.hints.UserPhoneNo.format}"/>
+                <!--<af:convertNumber groupingUsed="false" pattern="#{bindings.PrtUserDisplayForAdminRVO1.hints.UserPhoneNo.format}"/>-->
               </af:outputText>
             </af:column>
             <af:column sortProperty="PartnerId" filterable="true" sortable="true" headerText="#{sfr.PARTNER_ENG}" id="c3">
@@ -232,7 +232,7 @@
             </af:column>
             <af:column headerText="#{sfr.PHONE_NO}" sortProperty="UserPhoneNo" filterable="true" sortable="true" id="c34">
               <af:outputText value="#{row.UserPhoneNo}" id="ot47">
-                <af:convertNumber groupingUsed="false" pattern="#{bindings.PrtUserDisplayForAccMgrRVO1.hints.UserPhoneNo.format}"/>
+                <!--<af:convertNumber groupingUsed="false" pattern="#{bindings.PrtUserDisplayForAccMgrRVO1.hints.UserPhoneNo.format}"/>-->
               </af:outputText>
             </af:column>
             <af:column sortProperty="PartnerId" filterable="true" sortable="true" headerText="#{sfr.PARTNER_ENG}" id="c7">
@@ -271,7 +271,7 @@
             </af:column>
             <af:column sortProperty="UserPhoneNo" filterable="true" sortable="true" headerText="#{sfr.PHONE_NO}" id="c20">
               <af:outputText value="#{row.UserPhoneNo}" id="ot39">
-                <af:convertNumber groupingUsed="false" pattern="#{bindings.PrtUserDisplayForCgMgrRVO1.hints.UserPhoneNo.format}"/>
+                <!--<af:convertNumber groupingUsed="false" pattern="#{bindings.PrtUserDisplayForCgMgrRVO1.hints.UserPhoneNo.format}"/>-->
               </af:outputText>
             </af:column>
             <af:column sortProperty="PartnerId" filterable="true" sortable="true" headerText="#{sfr.PARTNER_ENG}" id="c15">
@@ -310,7 +310,7 @@
             </af:column>
             <af:column sortProperty="UserPhoneNo" filterable="true" sortable="true" headerText="#{sfr.PHONE_NO}" id="c30">
               <af:outputText value="#{row.UserPhoneNo}" id="ot48">
-                <af:convertNumber groupingUsed="false" pattern="#{bindings.PrtUserDisplayForEmpRVO1.hints.UserPhoneNo.format}"/>
+                <!--<af:convertNumber groupingUsed="false" pattern="#{bindings.PrtUserDisplayForEmpRVO1.hints.UserPhoneNo.format}"/>-->
               </af:outputText>
             </af:column>
             <af:column sortProperty="PartnerId" filterable="true" sortable="true" headerText="#{sfr.PARTNER_ENG}" id="c26">
