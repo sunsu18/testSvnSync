@@ -459,7 +459,7 @@
                 <invoke name="InvokeMergeInvalidDataSOAErrorDBAdapter" inputVariable="InvokeInsertInvalidDataSOAErrorDBAdapter_insert_InputVariable" partnerLink="SOAErrorDBAdapter" portType="ns11:SOAErrorDBAdapter_ptt" operation="merge" bpelx:invokeAsDetail="no" id="BpInv7"/>
                 <assign name="AssignErrorFlag" id="BpAss16">
                   <copy>
-                    <from expression="'YES'"/>
+                    <from expression="'yes'"/>
                     <to variable="ErrorFlag"/>
                   </copy>
                 </assign>
@@ -616,6 +616,10 @@
             <from variable="AccountSummaryReqMsg" part="payload" query="/client:invocationMsg/client:InterfaceID"/>
             <to variable="InvokeMergeDeltaTSSOADBAdapterV1_merge_InputVariable" part="EngageSoaDeltatableCollection" query="/ns8:EngageSoaDeltatableCollection/ns8:EngageSoaDeltatable/ns8:interfaceid"/>
           </copy>
+          <copy bpelx:ignoreMissingFromData="yes">
+            <from variable="InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_OutputVariable" part="EngageSoaDeltatableCollection" query="/ns2:EngageSoaDeltatableCollection/ns2:EngageSoaDeltatable/ns2:errorflag"/>
+            <to variable="InvokeMergeDeltaTSSOADBAdapterV1_merge_InputVariable" part="EngageSoaDeltatableCollection" query="/ns8:EngageSoaDeltatableCollection/ns8:EngageSoaDeltatable/ns8:errorflag"/>
+          </copy>
           <copy>
             <from variable="AccountSummaryReqMsg" part="payload" query="/client:invocationMsg/client:CountryCode"/>
             <to variable="InvokeMergeDeltaTSSOADBAdapterV1_merge_InputVariable" part="EngageSoaDeltatableCollection" query="/ns8:EngageSoaDeltatableCollection/ns8:EngageSoaDeltatable/ns8:countrycode"/>
@@ -631,6 +635,10 @@
           <copy>
             <from expression="xp20:current-dateTime()"/>
             <to variable="InvokeMergeDeltaTSSOADBAdapterV1_merge_InputVariable" part="EngageSoaDeltatableCollection" query="/ns8:EngageSoaDeltatableCollection/ns8:EngageSoaDeltatable/ns8:modifiedbytimestamp"/>
+          </copy>
+          <copy>
+            <from expression="bpws:getVariableData('InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OutputVariable','Cc071Vs1CssktoDtaCollection','/ns9:Cc071Vs1CssktoDtaCollection/ns9:Cc071Vs1CssktoDta[$DataCount]/ns9:deltaTs')"/>
+            <to variable="DeltaTS"/>
           </copy>
         </assign>
         <invoke name="InvokeMergeDeltaTSSOADBAdapterV1" bpelx:invokeAsDetail="no" inputVariable="InvokeMergeDeltaTSSOADBAdapterV1_merge_InputVariable" partnerLink="MergeDeltaTSSOADBAdapterV1" portType="ns7:MergeDeltaTSSOADBAdapterV1_ptt" operation="merge" id="BpInv16"/>
@@ -727,6 +735,33 @@
             </copy>
           </assign>
           <invoke name="InvokeUpdateSOAErrorDBAdapter" bpelx:invokeAsDetail="no" inputVariable="InvokeUpdateSOAErrorDBAdapter_update_InputVariable" partnerLink="UpdateSOAErrorDBAdapter" portType="ns25:UpdateSOAErrorDBAdapter_ptt" operation="update" id="BpInv19"/>
+          <assign name="AssignUpdateErrorFlag" id="BpAss29">
+            <copy>
+              <from variable="AccountSummaryReqMsg" part="payload" query="/client:invocationMsg/client:InterfaceID"/>
+              <to variable="InvokeMergeDeltaTSSOADBAdapterV1_merge_InputVariable" part="EngageSoaDeltatableCollection" query="/ns8:EngageSoaDeltatableCollection/ns8:EngageSoaDeltatable/ns8:interfaceid"/>
+            </copy>
+            <copy>
+              <from variable="AccountSummaryReqMsg" part="payload" query="/client:invocationMsg/client:CountryCode"/>
+              <to variable="InvokeMergeDeltaTSSOADBAdapterV1_merge_InputVariable" part="EngageSoaDeltatableCollection" query="/ns8:EngageSoaDeltatableCollection/ns8:EngageSoaDeltatable/ns8:countrycode"/>
+            </copy>
+            <copy>
+              <from variable="AccountSummaryReqMsg" part="payload" query="/client:invocationMsg/client:UserName"/>
+              <to variable="InvokeMergeDeltaTSSOADBAdapterV1_merge_InputVariable" part="EngageSoaDeltatableCollection" query="/ns8:EngageSoaDeltatableCollection/ns8:EngageSoaDeltatable/ns8:updatedby"/>
+            </copy>
+            <copy>
+              <from expression="bpws:getVariableData('DeltaTS')"/>
+              <to variable="InvokeMergeDeltaTSSOADBAdapterV1_merge_InputVariable" part="EngageSoaDeltatableCollection" query="/ns8:EngageSoaDeltatableCollection/ns8:EngageSoaDeltatable/ns8:palsDeltaTimestamp"/>
+            </copy>
+            <copy>
+              <from expression="'E'"/>
+              <to variable="InvokeMergeDeltaTSSOADBAdapterV1_merge_InputVariable" part="EngageSoaDeltatableCollection" query="/ns8:EngageSoaDeltatableCollection/ns8:EngageSoaDeltatable/ns8:errorflag"/>
+            </copy>
+            <copy>
+              <from expression="xp20:current-dateTime()"/>
+              <to variable="InvokeMergeDeltaTSSOADBAdapterV1_merge_InputVariable" part="EngageSoaDeltatableCollection" query="/ns8:EngageSoaDeltatableCollection/ns8:EngageSoaDeltatable/ns8:modifiedbytimestamp"/>
+            </copy>
+          </assign>
+        <invoke name="InvokeUpdateErrorFlagMergeDeltaTSSOADBAdapterV1" bpelx:invokeAsDetail="no" inputVariable="InvokeMergeDeltaTSSOADBAdapterV1_merge_InputVariable" partnerLink="MergeDeltaTSSOADBAdapterV1" portType="ns7:MergeDeltaTSSOADBAdapterV1_ptt" operation="merge" id="BpInv20"/>
         </sequence>
       </case>
       <otherwise>
@@ -756,10 +791,14 @@
                         <bpelx:property name="userLabel">DataCountGreaterthanZero</bpelx:property>
                       </bpelx:general>
                     </bpelx:annotation>
-                    <assign name="AssignSOAPALSNotificationData" id="BpAss29">
+                    <assign name="AssignSOAPALSNotificationData" id="BpAss30">
                       <copy>
                         <from variable="AccountSummaryReqMsg" part="payload" query="/client:invocationMsg/client:SenderSystem"/>
                         <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV" part="body" query="/ns27:Notification/ns27:SourceSystem"/>
+                      </copy>
+                      <copy>
+                        <from expression="'ACCOUNT'"/>
+                        <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV" part="body" query="/ns27:Notification/ns27:ObjectName"/>
                       </copy>
                       <copy>
                         <from expression="'Success'"/>
@@ -800,10 +839,14 @@
                     </assign>
                   </case>
                   <otherwise>
-                    <assign name="AssignSOAPALSNotificationDataOtherwise" id="BpAss30">
+                    <assign name="AssignSOAPALSNotificationDataOtherwise" id="BpAss31">
                       <copy>
                         <from variable="AccountSummaryReqMsg" part="payload" query="/client:invocationMsg/client:SenderSystem"/>
                         <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV" part="body" query="/ns27:Notification/ns27:SourceSystem"/>
+                      </copy>
+                      <copy>
+                        <from expression="'ACCOUNT'"/>
+                        <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV" part="body" query="/ns27:Notification/ns27:ObjectName"/>
                       </copy>
                       <copy>
                         <from expression="'Success'"/>
@@ -851,9 +894,9 @@
                         <bpelx:property name="userLabel">CheckFlag</bpelx:property>
                       </bpelx:general>
                     </bpelx:annotation>
-                    <assign name="AssignPALSNotificationForError" id="BpAss31">
+                    <assign name="AssignPALSNotificationForError" id="BpAss32">
                       <copy>
-                        <from expression="'Failure'"/>
+                        <from expression="'Error'"/>
                         <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV" part="body" query="/ns27:Notification/ns27:ErrorFlag"/>
                       </copy>
                     </assign>
@@ -862,12 +905,12 @@
                     <empty name="Empty" id="BpEmp2"/>
                   </otherwise>
                 </switch>
-                <invoke name="InvokeSOAPALSNotificationJMSAdapter" inputVariable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV" partnerLink="SOAPALSNotificationJMSAdapter" portType="ns26:Produce_Message_ptt" operation="Produce_Message" bpelx:invokeAsDetail="no" id="BpInv20"/>
+                <invoke name="InvokeSOAPALSNotificationJMSAdapter" inputVariable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV" partnerLink="SOAPALSNotificationJMSAdapter" portType="ns26:Produce_Message_ptt" operation="Produce_Message" bpelx:invokeAsDetail="no" id="BpInv21"/>
               </sequence>
             </case>
             <otherwise>
               <sequence name="ErrorCompletionSequence" id="BpSeq16">
-                <assign name="AssignStandardErrorData" id="BpAss32">
+                <assign name="AssignStandardErrorData" id="BpAss33">
                   <copy>
                     <from expression="ora:getCompositeInstanceId()"/>
                     <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:CommonErrorData/ns21:InstanceID"/>
@@ -921,7 +964,7 @@
                     <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:ErrorNotification/ns21:Subject"/>
                   </copy>
                 </assign>
-                <invoke name="InvokeSOAErrorHandlerJMSAdapter" inputVariable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" partnerLink="SOAErrorHandlerJMSAdapter" portType="ns22:Produce_Message_ptt" operation="Produce_Message" bpelx:invokeAsDetail="no" id="BpInv21"/>
+                <invoke name="InvokeSOAErrorHandlerJMSAdapter" inputVariable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" partnerLink="SOAErrorHandlerJMSAdapter" portType="ns22:Produce_Message_ptt" operation="Produce_Message" bpelx:invokeAsDetail="no" id="BpInv22"/>
               </sequence>
             </otherwise>
           </switch>

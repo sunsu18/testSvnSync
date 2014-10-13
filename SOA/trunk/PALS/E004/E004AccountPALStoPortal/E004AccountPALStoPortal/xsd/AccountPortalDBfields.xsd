@@ -14,28 +14,32 @@
           <xsd:simpleType>
             <xsd:restriction base="xsd:string">
             <xsd:maxLength value="2"/>
-            </xsd:restriction>
+                    <xsd:minLength value="1"/>
+                  </xsd:restriction>
           </xsd:simpleType>
         </xsd:element>
         <xsd:element name="ACCOUNT_ID">
           <xsd:simpleType>
             <xsd:restriction base="xsd:string">
               <xsd:maxLength value="10"/>
-            </xsd:restriction>
+                    <xsd:minLength value="1"/>
+                  </xsd:restriction>
           </xsd:simpleType>
         </xsd:element>
         <xsd:element name="PARTNER_ID">
           <xsd:simpleType>
             <xsd:restriction base="xsd:string">
               <xsd:maxLength value="8"/>
-            </xsd:restriction>
+                    <xsd:minLength value="1"/>
+                  </xsd:restriction>
           </xsd:simpleType>
         </xsd:element>
         <xsd:element name="CUSTOMER_GROUP">
           <xsd:simpleType>
             <xsd:restriction base="xsd:string">
               <xsd:maxLength value="2"/>
-            </xsd:restriction>
+                    <xsd:minLength value="1"/>
+                  </xsd:restriction>
           </xsd:simpleType>
         </xsd:element>
         <xsd:element name="MDOFIED_BY">

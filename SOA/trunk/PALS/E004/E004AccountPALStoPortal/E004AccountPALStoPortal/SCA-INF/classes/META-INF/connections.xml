@@ -1,32 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <References xmlns="http://xmlns.oracle.com/adf/jndi">
-   <Reference name="soacustom_DEV" className="oracle.jdeveloper.db.adapter.DatabaseProvider" credentialStoreKey="soacustom_DEV" xmlns="">
-      <Factory className="oracle.jdeveloper.db.adapter.DatabaseProviderFactory"/>
-      <RefAddresses>
-         <StringRefAddr addrType="subtype">
-            <Contents>oraJDBC</Contents>
-         </StringRefAddr>
-         <StringRefAddr addrType="port">
-            <Contents>1521</Contents>
-         </StringRefAddr>
-         <StringRefAddr addrType="user">
-            <Contents>soacustom</Contents>
-         </StringRefAddr>
-         <StringRefAddr addrType="hostname">
-            <Contents>10.24.237.66</Contents>
-         </StringRefAddr>
-         <SecureRefAddr addrType="password"/>
-         <StringRefAddr addrType="serviceName">
-            <Contents>soa001d.statoilfuelretail.com</Contents>
-         </StringRefAddr>
-         <StringRefAddr addrType="DeployPassword">
-            <Contents>true</Contents>
-         </StringRefAddr>
-         <StringRefAddr addrType="oraDriverType">
-            <Contents>thin</Contents>
-         </StringRefAddr>
-      </RefAddresses>
-   </Reference>
    <Reference name="AccountSummary" className="oracle.jdeveloper.db.adapter.DatabaseProvider" credentialStoreKey="AccountSummary" xmlns="">
       <Factory className="oracle.jdeveloper.db.adapter.DatabaseProviderFactory"/>
       <RefAddresses>
@@ -73,6 +46,33 @@
             <Contents>1521</Contents>
          </StringRefAddr>
          <SecureRefAddr addrType="password"/>
+         <StringRefAddr addrType="DeployPassword">
+            <Contents>true</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="oraDriverType">
+            <Contents>thin</Contents>
+         </StringRefAddr>
+      </RefAddresses>
+   </Reference>
+   <Reference name="soacustom_DEV" className="oracle.jdeveloper.db.adapter.DatabaseProvider" credentialStoreKey="soacustom_DEV" xmlns="">
+      <Factory className="oracle.jdeveloper.db.adapter.DatabaseProviderFactory"/>
+      <RefAddresses>
+         <StringRefAddr addrType="subtype">
+            <Contents>oraJDBC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="port">
+            <Contents>1521</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="hostname">
+            <Contents>10.24.237.66</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="user">
+            <Contents>engsoacustom</Contents>
+         </StringRefAddr>
+         <SecureRefAddr addrType="password"/>
+         <StringRefAddr addrType="serviceName">
+            <Contents>soa001d.statoilfuelretail.com</Contents>
+         </StringRefAddr>
          <StringRefAddr addrType="DeployPassword">
             <Contents>true</Contents>
          </StringRefAddr>
