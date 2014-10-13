@@ -6,6 +6,7 @@ import com.sfr.engage.core.Messages;
 import com.sfr.engage.core.PartnerInfo;
 import com.sfr.engage.model.queries.rvo.PrtCustomerCardMapRVO1RowImpl;
 import com.sfr.engage.model.queries.rvo.PrtPcmFeedsRVORowImpl;
+import com.sfr.engage.model.queries.uvo.PrtNotificationVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtUserPreferredLangVORowImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.util.ADFUtils;
@@ -42,6 +43,9 @@ import oracle.adf.view.rich.component.rich.data.RichTree;
 import oracle.adf.view.rich.component.rich.layout.RichPanelGroupLayout;
 import oracle.adf.view.rich.component.rich.output.RichOutputText;
 
+import oracle.binding.OperationBinding;
+
+import oracle.jbo.Row;
 import oracle.jbo.ViewObject;
 
 
@@ -175,15 +179,21 @@ public class AuthenticatedHomeBean implements Serializable {
                     PrtCustomerCardMapRVO1RowImpl currRow = (PrtCustomerCardMapRVO1RowImpl)prtCustomerCardMapVO.next();
                     if (currRow != null) {
                         customerTypeList.add(currRow.getCustomerType());
+                        System.out.println("currRow.getCustomerType() " + currRow.getCustomerType());
                         customerTypeValue = customerTypeList.toString().substring(1, customerTypeList.toString().length() - 1).replace("", "");
                     }
                 }
+                System.out.println("customerTypeValue " + customerTypeValue);
                 customerTypeValue = customerTypeValue + ",ALL";
+                System.out.println("customerTypeValue ALL " + customerTypeValue);
             }
             //TODO : This block could be surrounded by try catch block.
             //TODO : Check if the below queries can be merged and make it one, otherwise okay.
 
             try {
+                DCBindingContainer bindings2 = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+                DCIteratorBinding PrtCardNotificationsVOIter = bindings2.findIteratorBinding("PrtNotificationVO1Iterator");
+                ViewObject cardNotificationVO = PrtCardNotificationsVOIter.getViewObject();
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " lang passed in PRTPCMFEEDS is " +
                             conversionUtility.getCustomerCountryCode(langSession));
                 if (customerTypeValue != null) {
@@ -238,11 +248,15 @@ public class AuthenticatedHomeBean implements Serializable {
                         infoPanelVisible = true;
                         infoFromStatoil = new ArrayList<Messages>();
                         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "coming inside INFORMATION block");
+
                         while (prtPCMFeedsVO.hasNext()) {
 
                             PrtPcmFeedsRVORowImpl currRow = (PrtPcmFeedsRVORowImpl)prtPCMFeedsVO.next();
 
                             if (currRow != null) {
+                               
+                               
+                               
                                 Messages infovalue = new Messages();
                                 if (preferredLang.equalsIgnoreCase(userCountryLang) && currRow.getMessageLang() != null) {
                                     if (currRow.getTitle() != null) {
@@ -267,8 +281,12 @@ public class AuthenticatedHomeBean implements Serializable {
                                 if (infovalue.getMessage() != null) {
                                     infoFromStatoil.add(infovalue);
                                 }
-                            }
+                                
+
                         }
+                        }
+                        
+                     
                     }
                     if (infoValue == null) {
                         infoPanelVisible = false;
@@ -284,6 +302,7 @@ public class AuthenticatedHomeBean implements Serializable {
                     if (prtPCMFeedsVO.getEstimatedRowCount() != 0) {
                         messages = new ArrayList<Messages>();
                         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "coming inside MESSAGE block");
+
                         while (prtPCMFeedsVO.hasNext()) {
                             PrtPcmFeedsRVORowImpl currRow = (PrtPcmFeedsRVORowImpl)prtPCMFeedsVO.next();
                             if (currRow != null) {
@@ -314,8 +333,75 @@ public class AuthenticatedHomeBean implements Serializable {
                                 if (message.getMessage() != null) {
                                     messages.add(message);
                                 }
+                                
+                                //                                //TODO : HITK : LOGIC to insert in prt_card_notification table
+                                                                if(customerTypeValue.contains(currRow.getCustomerType()))
+                                                                {
+                                                                    
+                                                                    //TODO: HITK : Logic to check & update 
+
+                                //                                    DCBindingContainer bindings2 = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+                                //                                    DCIteratorBinding PrtCardNotificationsVOIter = bindings2.findIteratorBinding("PrtNotificationVO1Iterator");
+                                                                    if(PrtCardNotificationsVOIter != null) 
+                                                                    {
+                                                                    
+                                                                    cardNotificationVO.setWhereClause("RULE_ID =: pcmFeedsPk AND SUB_ID =: pcmFeedsPk AND NOTI_CATEGORY =: Msg AND USER_ID =: UseridMail");
+                                                                    cardNotificationVO.defineNamedWhereClauseParam("pcmFeedsPk", currRow.getPrtPcmFeedsPk().toString(), null);                                 
+                                                                    cardNotificationVO.defineNamedWhereClauseParam("Msg", "MESSAGES", null);
+                                                                    cardNotificationVO.defineNamedWhereClauseParam("UseridMail", userEmail, null);
+                                                                    
+                                                                    cardNotificationVO.executeQuery();
+                                                                    if (cardNotificationVO.getEstimatedRowCount() != 0) 
+                                                                    {
+                                                                        while(cardNotificationVO.hasNext()) 
+                                                                        {
+                                                                        
+                                                                        PrtNotificationVORowImpl currRowcardNotification = (PrtNotificationVORowImpl)cardNotificationVO.next();
+                                                                        currRowcardNotification.setNotiCategory(currRow.getInformationType());
+                                                                        currRowcardNotification.setNotiDescriptionLocalised(currRow.getMessageLang());
+                                                                        oracle.jbo.domain.Date dbDate = new oracle.jbo.domain.Date(currRow.getEffectiveDate());
+                                                                        currRowcardNotification.setNotiCreated(dbDate);
+                                                                        currRowcardNotification.setNotiDescription(currRow.getMessageEnglish());
+                                                                        currRowcardNotification.setNotiSubcategory(currRow.getTitle());
+                                                                        
+                                                                        
+                                                                        
+                                                                        }
+                                                                        
+                                                                        
+                                                                    }
+                                                                    else {
+                                                                        ViewObject cardNotification = PrtCardNotificationsVOIter.getViewObject();
+                                                                        Row cardNotificationRow = cardNotification.createRow();
+                                                                        cardNotificationRow.setAttribute("UserId", userEmail);
+                                                                        cardNotificationRow.setAttribute("NotiCategory", currRow.getInformationType());
+                                                                        cardNotificationRow.setAttribute("RuleId", currRow.getPrtPcmFeedsPk().toString());
+                                                                        cardNotificationRow.setAttribute("SubId", currRow.getPrtPcmFeedsPk().toString());
+                                                                        oracle.jbo.domain.Date dbDate = new oracle.jbo.domain.Date(currRow.getEffectiveDate());
+                                                                        cardNotificationRow.setAttribute("NotiCreated", dbDate);
+                                                                        cardNotificationRow.setAttribute("NotiDescriptionLocalised", currRow.getMessageLang());
+                                                                        cardNotificationRow.setAttribute("NotiDescription", currRow.getMessageEnglish());
+                                                                        cardNotificationRow.setAttribute("CountryCode", currRow.getCountryCode().substring(currRow.getCountryCode().length()-2, currRow.getCountryCode().length()));
+                                                                        cardNotificationRow.setAttribute("NotiSubcategory", currRow.getTitle());
+                                                                        cardNotificationRow.setAttribute("ShowFlag", currRow.getShowFlag());
+                                                                        cardNotificationRow.setAttribute("RuleIsenabled", currRow.getShowFlag());
+                                                                        cardNotificationRow.setAttribute("ModifiedBy", userEmail);
+                                                                       // cardNotificationRow.setAttribute("", userEmail);
+                                                                        
+                                                                    }
+
+                                                                    
+                                                                    }
+                                                                    
+
+
+                                                                
+                                                            }
                             }
                         }
+                        
+                        OperationBinding operationBinding = bindings2.getOperationBinding(Constants.COMMIT_LITERAL);
+                        operationBinding.execute();
                     }
 
                     if ("INSTR(:customerType,CUSTOMER_TYPE)<>0 AND INFORMATION_TYPE =:infoType AND COUNTRY_CODE=:countryCode AND EFFECTIVE_DATE <=:fromDate AND END_DATE >=:toDate".equalsIgnoreCase(prtPCMFeedsVO.getWhereClause())) {
@@ -326,6 +412,17 @@ public class AuthenticatedHomeBean implements Serializable {
                         prtPCMFeedsVO.removeNamedWhereClauseParam(Constants.TO_DATE_LITERAL);
                         prtPCMFeedsVO.setWhereClause("");
                         prtPCMFeedsVO.executeQuery();
+                    }
+                    
+
+                    if ("RULE_ID =: pcmFeedsPk AND SUB_ID =: pcmFeedsPk AND NOTI_CATEGORY =: Msg AND USER_ID =: UseridMail".equalsIgnoreCase(cardNotificationVO.getWhereClause())) {
+
+                        cardNotificationVO.removeNamedWhereClauseParam("pcmFeedsPk");
+                        cardNotificationVO.removeNamedWhereClauseParam("Msg");
+                        cardNotificationVO.removeNamedWhereClauseParam("UseridMail");
+                        cardNotificationVO.setWhereClause("");
+                        cardNotificationVO.executeQuery();
+
                     }
 
                 }
