@@ -879,40 +879,52 @@
               </sequence>
             </scope>
             <assign name="AssignInvokeMergeDeltaTSIV">
-              <copy>
-                <from variable="ReceiveInvocationMsg_IV" part="part1"
-                      query="/ns5:invocationMsg/ns5:InterfaceID"/>
-                <to variable="InvokeMergeDeltaTSDDBAdapter_IV"
-                    part="EngageSoaDeltatableCollection"
-                    query="/ns10:EngageSoaDeltatableCollection/ns10:EngageSoaDeltatable/ns10:interfaceid"/>
-              </copy>
-              <copy>
-                <from variable="ReceiveInvocationMsg_IV" part="part1"
-                      query="/ns5:invocationMsg/ns5:CountryCode"/>
-                <to variable="InvokeMergeDeltaTSDDBAdapter_IV"
-                    part="EngageSoaDeltatableCollection"
-                    query="/ns10:EngageSoaDeltatableCollection/ns10:EngageSoaDeltatable/ns10:countrycode"/>
-              </copy>
-              <copy>
-                <from variable="ReceiveInvocationMsg_IV" part="part1"
-                      query="/ns5:invocationMsg/ns5:UserName"/>
-                <to variable="InvokeMergeDeltaTSDDBAdapter_IV"
-                    part="EngageSoaDeltatableCollection"
-                    query="/ns10:EngageSoaDeltatableCollection/ns10:EngageSoaDeltatable/ns10:updatedby"/>
-              </copy>
-              <copy>
-                <from expression="xp20:current-dateTime()"/>
-                <to variable="InvokeMergeDeltaTSDDBAdapter_IV"
-                    part="EngageSoaDeltatableCollection"
-                    query="/ns10:EngageSoaDeltatableCollection/ns10:EngageSoaDeltatable/ns10:modifiedbytimestamp"/>
-              </copy>
-              <copy>
-                <from expression="bpws:getVariableData('InvokeSelectPALSDB2Adapter_OV','Cc072Vs1CssffoDtaCollection','/ns9:Cc072Vs1CssffoDtaCollection/ns9:Cc072Vs1CssffoDta[$DataCount]/ns9:deltaTs')"/>
-                <to variable="InvokeMergeDeltaTSDDBAdapter_IV"
-                    part="EngageSoaDeltatableCollection"
-                    query="/ns10:EngageSoaDeltatableCollection/ns10:EngageSoaDeltatable/ns10:palsDeltaTimestamp"/>
-              </copy>
-            </assign>
+          <copy>
+            <from variable="ReceiveInvocationMsg_IV" part="part1"
+                  query="/ns5:invocationMsg/ns5:InterfaceID"/>
+            <to variable="InvokeMergeDeltaTSDDBAdapter_IV"
+                part="EngageSoaDeltatableCollection"
+                query="/ns10:EngageSoaDeltatableCollection/ns10:EngageSoaDeltatable/ns10:interfaceid"/>
+          </copy>
+          <copy bpelx:ignoreMissingFromData="yes">
+            <from variable="InvokeSelectSOADeltaTS_OV"
+                  part="EngageSoaDeltatableCollection"
+                  query="/ns6:EngageSoaDeltatableCollection/ns6:EngageSoaDeltatable/ns6:errorflag"/>
+            <to variable="InvokeMergeDeltaTSDDBAdapter_IV"
+                part="EngageSoaDeltatableCollection"
+                query="/ns10:EngageSoaDeltatableCollection/ns10:EngageSoaDeltatable/ns10:errorflag"/>
+          </copy>
+          <copy>
+            <from variable="ReceiveInvocationMsg_IV" part="part1"
+                  query="/ns5:invocationMsg/ns5:CountryCode"/>
+            <to variable="InvokeMergeDeltaTSDDBAdapter_IV"
+                part="EngageSoaDeltatableCollection"
+                query="/ns10:EngageSoaDeltatableCollection/ns10:EngageSoaDeltatable/ns10:countrycode"/>
+          </copy>
+          <copy>
+            <from variable="ReceiveInvocationMsg_IV" part="part1"
+                  query="/ns5:invocationMsg/ns5:UserName"/>
+            <to variable="InvokeMergeDeltaTSDDBAdapter_IV"
+                part="EngageSoaDeltatableCollection"
+                query="/ns10:EngageSoaDeltatableCollection/ns10:EngageSoaDeltatable/ns10:updatedby"/>
+          </copy>
+          <copy>
+            <from expression="xp20:current-dateTime()"/>
+            <to variable="InvokeMergeDeltaTSDDBAdapter_IV"
+                part="EngageSoaDeltatableCollection"
+                query="/ns10:EngageSoaDeltatableCollection/ns10:EngageSoaDeltatable/ns10:modifiedbytimestamp"/>
+          </copy>
+          <copy>
+            <from expression="bpws:getVariableData('InvokeSelectPALSDB2Adapter_OV','Cc072Vs1CssffoDtaCollection','/ns9:Cc072Vs1CssffoDtaCollection/ns9:Cc072Vs1CssffoDta[$DataCount]/ns9:deltaTs')"/>
+            <to variable="InvokeMergeDeltaTSDDBAdapter_IV"
+                part="EngageSoaDeltatableCollection"
+                query="/ns10:EngageSoaDeltatableCollection/ns10:EngageSoaDeltatable/ns10:palsDeltaTimestamp"/>
+          </copy>
+          <copy>
+            <from expression="bpws:getVariableData('InvokeSelectPALSDB2Adapter_OV','Cc072Vs1CssffoDtaCollection','/ns9:Cc072Vs1CssffoDtaCollection/ns9:Cc072Vs1CssffoDta[$DataCount]/ns9:deltaTs')"/>
+            <to variable="DeltaTS"/>
+          </copy>
+        </assign>
             <invoke name="InvokeMergeDeltaTSDDBAdapter"
                     partnerLink="MergeDeltaTSDatabaseAdapterV1"
                     portType="ns4:MergeDeltaTSDatabaseAdapterV1_ptt"
@@ -1061,6 +1073,53 @@
                       partnerLink="UpdateEmailFlagErrorLogDatabaseAdapterV1"
                       portType="ns24:UpdateEmailFlagErrorLogDatabaseAdapterV1_ptt"
                       operation="update" bpelx:invokeAsDetail="no"/>
+                <assign name="AssignUpdateErrorFlag">
+                <copy>
+                  <from variable="ReceiveInvocationMsg_IV" part="part1"
+                        query="/ns5:invocationMsg/ns5:InterfaceID"/>
+                  <to variable="InvokeMergeDeltaTSDDBAdapter_IV"
+                      part="EngageSoaDeltatableCollection"
+                      query="/ns10:EngageSoaDeltatableCollection/ns10:EngageSoaDeltatable/ns10:interfaceid"/>
+                </copy>
+                <copy>
+                  <from variable="ReceiveInvocationMsg_IV" part="part1"
+                        query="/ns5:invocationMsg/ns5:CountryCode"/>
+                  <to variable="InvokeMergeDeltaTSDDBAdapter_IV"
+                      part="EngageSoaDeltatableCollection"
+                      query="/ns10:EngageSoaDeltatableCollection/ns10:EngageSoaDeltatable/ns10:countrycode"/>
+                </copy>
+                <copy>
+                  <from variable="ReceiveInvocationMsg_IV" part="part1"
+                        query="/ns5:invocationMsg/ns5:UserName"/>
+                  <to variable="InvokeMergeDeltaTSDDBAdapter_IV"
+                      part="EngageSoaDeltatableCollection"
+                      query="/ns10:EngageSoaDeltatableCollection/ns10:EngageSoaDeltatable/ns10:updatedby"/>
+                </copy>
+                <copy>
+                  <from expression="xp20:current-dateTime()"/>
+                  <to variable="InvokeMergeDeltaTSDDBAdapter_IV"
+                      part="EngageSoaDeltatableCollection"
+                      query="/ns10:EngageSoaDeltatableCollection/ns10:EngageSoaDeltatable/ns10:modifiedbytimestamp"/>
+                </copy>
+                <copy>
+                  <from variable="DeltaTS"/>
+                  <to variable="InvokeMergeDeltaTSDDBAdapter_IV"
+                      part="EngageSoaDeltatableCollection"
+                      query="/ns10:EngageSoaDeltatableCollection/ns10:EngageSoaDeltatable/ns10:palsDeltaTimestamp"/>
+                </copy>
+                <copy>
+                  <from expression="'E'"/>
+                  <to variable="InvokeMergeDeltaTSDDBAdapter_IV"
+                      part="EngageSoaDeltatableCollection"
+                      query="/ns10:EngageSoaDeltatableCollection/ns10:EngageSoaDeltatable/ns10:errorflag"/>
+                </copy>
+              </assign>
+            <invoke name="InvokeUpdateErrorFlagMergeDeltaTSDDBAdapter"
+                    partnerLink="MergeDeltaTSDatabaseAdapterV1"
+                    portType="ns4:MergeDeltaTSDatabaseAdapterV1_ptt"
+                    operation="merge"
+                    inputVariable="InvokeMergeDeltaTSDDBAdapter_IV"
+                    bpelx:invokeAsDetail="no"/>
             </sequence>
           </case>
         </switch>
@@ -1188,6 +1247,12 @@
                             <to variable="InvokeSOAPALSNotificationJMSAdapterV1_IV"
                                 part="body"
                                 query="/ns26:Notification/ns26:SourceSystem"/>
+                          </copy>
+                          <copy>
+                            <from expression="'INTEGRMGMT'"/>
+                            <to variable="InvokeSOAPALSNotificationJMSAdapterV1_IV"
+                                part="body"
+                                query="/ns26:Notification/ns26:ObjectName"/>
                           </copy>
                           <copy>
                             <from expression="'Success'"/>

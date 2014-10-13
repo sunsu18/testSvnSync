@@ -13,24 +13,6 @@
          <querying>
             <queries>
                <query name="SelectDeltaTSDBAdapterV1Select" xsi:type="read-all-query">
-                  <criteria operator="and" xsi:type="logic-expression">
-                     <left operator="equal" xsi:type="relation-expression">
-                        <left name="interfaceid" xsi:type="query-key-expression">
-                           <base xsi:type="base-expression"/>
-                        </left>
-                        <right xsi:type="parameter-expression">
-                           <parameter name="interfaceid" xsi:type="column"/>
-                        </right>
-                     </left>
-                     <right operator="equal" xsi:type="relation-expression">
-                        <left name="countrycode" xsi:type="query-key-expression">
-                           <base xsi:type="base-expression"/>
-                        </left>
-                        <right xsi:type="parameter-expression">
-                           <parameter name="countrycode" xsi:type="column"/>
-                        </right>
-                     </right>
-                  </criteria>
                   <arguments>
                      <argument name="countrycode">
                         <type>java.lang.String</type>
@@ -39,6 +21,9 @@
                         <type>java.lang.String</type>
                      </argument>
                   </arguments>
+                  <call xsi:type="sql-call">
+                     <sql>SELECT INTERFACEID, COUNTRYCODE, PALS_DELTA_TIMESTAMP, UPDATEDBY, MODIFIEDBYTIMESTAMP, ERRORFLAG, CUSTOM1, CUSTOM2, CUSTOM3, CUSTOM4, CUSTOM5 FROM ENGAGE_SOA_DELTATABLE WHERE ((INTERFACEID = #interfaceid) AND (COUNTRYCODE = #countrycode))</sql>
+                  </call>
                   <reference-class>SelectDeltaTSDBAdapterV1.EngageSoaDeltatable</reference-class>
                   <container xsi:type="list-container-policy">
                      <collection-type>java.util.Vector</collection-type>
@@ -64,23 +49,43 @@
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>updatedby</attribute-name>
-               <properties>
-                  <property name="enabled">
-                     <value>false</value>
-                  </property>
-               </properties>
                <field table="ENGAGE_SOA_DELTATABLE" name="UPDATEDBY" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>modifiedbytimestamp</attribute-name>
-               <properties>
-                  <property name="enabled">
-                     <value>false</value>
-                  </property>
-               </properties>
                <field table="ENGAGE_SOA_DELTATABLE" name="MODIFIEDBYTIMESTAMP" xsi:type="column"/>
                <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>errorflag</attribute-name>
+               <field table="ENGAGE_SOA_DELTATABLE" name="ERRORFLAG" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>custom1</attribute-name>
+               <field table="ENGAGE_SOA_DELTATABLE" name="CUSTOM1" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>custom2</attribute-name>
+               <field table="ENGAGE_SOA_DELTATABLE" name="CUSTOM2" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>custom3</attribute-name>
+               <field table="ENGAGE_SOA_DELTATABLE" name="CUSTOM3" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>custom4</attribute-name>
+               <field table="ENGAGE_SOA_DELTATABLE" name="CUSTOM4" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>custom5</attribute-name>
+               <field table="ENGAGE_SOA_DELTATABLE" name="CUSTOM5" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
          </attribute-mappings>
          <descriptor-type>independent</descriptor-type>

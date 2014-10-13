@@ -38,6 +38,16 @@
       <file>E005CardGroupPALStoPortalBPEL.bpel</file>
       <name>E005CardGroupPALStoPortalBPEL.bpel</name>
       <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
+      <msg>&lt;from> value type "{http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectDeltaTSDBAdapterV1}errorflag anonymous type" is not compatible with &lt;to> value type "{http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeDeltaTSDatabaseAdapterV1}errorflag anonymous type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>881</line>
+      <col/>
+      <file>E005CardGroupPALStoPortalBPEL.bpel</file>
+      <name>E005CardGroupPALStoPortalBPEL.bpel</name>
+      <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
       <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}string" is not compatible with &lt;to> value type "{http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeDeltaTSDatabaseAdapterV1}countrycode anonymous type"</msg>
    </Fault>
    <Fault>
@@ -49,5 +59,45 @@
       <name>E005CardGroupPALStoPortalBPEL.bpel</name>
       <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
       <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}string" is not compatible with &lt;to> value type "{http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeDeltaTSDatabaseAdapterV1}updatedby anonymous type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>1076</line>
+      <col/>
+      <file>E005CardGroupPALStoPortalBPEL.bpel</file>
+      <name>E005CardGroupPALStoPortalBPEL.bpel</name>
+      <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
+      <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}string" is not compatible with &lt;to> value type "{http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeDeltaTSDatabaseAdapterV1}interfaceid anonymous type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>1076</line>
+      <col/>
+      <file>E005CardGroupPALStoPortalBPEL.bpel</file>
+      <name>E005CardGroupPALStoPortalBPEL.bpel</name>
+      <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
+      <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}string" is not compatible with &lt;to> value type "{http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeDeltaTSDatabaseAdapterV1}countrycode anonymous type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>1076</line>
+      <col/>
+      <file>E005CardGroupPALStoPortalBPEL.bpel</file>
+      <name>E005CardGroupPALStoPortalBPEL.bpel</name>
+      <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
+      <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}string" is not compatible with &lt;to> value type "{http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeDeltaTSDatabaseAdapterV1}updatedby anonymous type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>1076</line>
+      <col/>
+      <file>E005CardGroupPALStoPortalBPEL.bpel</file>
+      <name>E005CardGroupPALStoPortalBPEL.bpel</name>
+      <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
+      <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}string" is not compatible with &lt;to> value type "{http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeDeltaTSDatabaseAdapterV1}palsDeltaTimestamp anonymous type"</msg>
    </Fault>
 </Faults>

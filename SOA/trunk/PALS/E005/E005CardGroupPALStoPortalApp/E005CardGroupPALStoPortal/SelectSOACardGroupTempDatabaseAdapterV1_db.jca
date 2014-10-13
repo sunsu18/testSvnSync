@@ -3,7 +3,7 @@
   <connection-factory location="eis/DB/PORTALNXA" UIConnectionName="PortalQAT" adapterRef=""/>
   <endpoint-interaction portType="SelectSOACardGroupTempDatabaseAdapterV1_ptt" operation="SelectSOACardGroupTempDatabaseAdapterV1">
     <interaction-spec className="oracle.tip.adapter.db.DBPureSQLInteractionSpec">
-      <property name="SqlString" value="SELECT t1.COUNTRY_CODE, t1.ACCOUNT_ID, t1.PARTNER_ID, t1.CARDGROUP_MAIN_TYPE,t1.CARDGROUP_SUB_TYPE,t1.CARDGROUP_SEQ,t1.CARDGROUP_DESCRIPTION, t1.MODIFIED_BY,t1.MODIFIED_DATE,t1.DELTA_TS FROM SOA_CARDGROUP_TEMP t1 where T1.ACCOUNT_ID NOT IN ( select t2.ACCOUNT_ID from PRT_ACCOUNT t2) OR T1.COUNTRY_CODE NOT IN ( select t2.COUNTRY_CODE from PRT_ACCOUNT t2)"/>
+      <property name="SqlString" value="SELECT t1.COUNTRY_CODE, t1.ACCOUNT_ID, t1.PARTNER_ID, t1.CARDGROUP_MAIN_TYPE,t1.CARDGROUP_SUB_TYPE,t1.CARDGROUP_SEQ,t1.CARDGROUP_DESCRIPTION, t1.MODIFIED_BY,t1.MODIFIED_DATE,t1.DELTA_TS FROM SOA_CARDGROUP_TEMP t1 where not exists(select t2.ACCOUNT_ID from PRT_ACCOUNT t2 where t1.ACCOUNT_ID = t2.ACCOUNT_ID AND t1.COUNTRY_CODE = t2.COUNTRY_CODE AND t1.PARTNER_ID = t2.PARTNER_ID)"/>
       <property name="GetActiveUnitOfWork" value="false"/>
     </interaction-spec>
     <input/>
