@@ -32,13 +32,16 @@
   </Attribute>
   <Attribute
     Name="NotiId"
-    IsNotNull="true"
     ColumnName="NOTI_ID"
     SQLType="NUMERIC"
-    Type="oracle.jbo.domain.Number"
+    Type="oracle.jbo.domain.DBSequence"
     ColumnType="NUMBER"
     TableName="PRT_CARD_NOTIFICATIONS"
-    PrimaryKey="true">
+    PrimaryKey="true"
+    IsUpdateable="while_insert"
+    DefaultValue="@0"
+    Domain="oracle.jbo.domain.DBSequence"
+    RetrievedOnInsert="true">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="39"/>
     </DesignTime>
@@ -196,8 +199,8 @@
     Name="NotiCreated"
     ColumnName="NOTI_CREATED"
     SQLType="TIMESTAMP"
-    Type="oracle.jbo.domain.Timestamp"
-    ColumnType="TIMESTAMP"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
     TableName="PRT_CARD_NOTIFICATIONS">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="11"/>
@@ -244,7 +247,7 @@
   </Attribute>
   <Attribute
     Name="NotiDescription"
-    Precision="50"
+    Precision="1024"
     ColumnName="NOTI_DESCRIPTION"
     SQLType="VARCHAR"
     Type="java.lang.String"
@@ -274,7 +277,8 @@
     SQLType="TIMESTAMP"
     Type="oracle.jbo.domain.Timestamp"
     ColumnType="TIMESTAMP"
-    TableName="PRT_CARD_NOTIFICATIONS">
+    TableName="PRT_CARD_NOTIFICATIONS"
+    HistoryColumn="DateHistory">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="11"/>
     </DesignTime>
@@ -319,9 +323,7 @@
       <Attr Name="_checkCondition" Value='"NOTI_ID" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
-    <AttrArray Name="Attributes">
-      <Item Value="com.sfr.engage.model.entities.PrtNotificationEO.NotiId"/>
-    </AttrArray>
+    <AttrArray Name="Attributes"/>
   </Key>
   <Key
     Name="SysC0062938">

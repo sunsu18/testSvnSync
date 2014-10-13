@@ -8,13 +8,13 @@
   InheritPersonalization="true"
   BindingStyle="OracleName"
   CustomQuery="true"
-  RowClass="com.sfr.engage.model.queries.uvo.PrtNotificationVORowImpl"
-  ComponentClass="com.sfr.engage.model.queries.uvo.PrtNotificationVOImpl"
   PageIterMode="Full"
-  UseGlueCode="false">
+  UseGlueCode="false"
+  RowClass="com.sfr.engage.model.queries.uvo.PrtNotificationVORowImpl"
+  ComponentClass="com.sfr.engage.model.queries.uvo.PrtNotificationVOImpl">
   <DesignTime>
-    <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess"/>
     <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess"/>
     <Attr Name="_isCodegen" Value="true"/>
   </DesignTime>
   <Variable
@@ -84,7 +84,8 @@ and (INSTR(:categoryValue,PrtNotificationEO.NOTI_CATEGORY)<>0) and (PrtNotificat
     PrecisionRule="true"
     EntityAttrName="NotiId"
     EntityUsage="PrtNotificationEO"
-    AliasName="NOTI_ID"/>
+    AliasName="NOTI_ID"
+    IsUpdateable="while_insert"/>
   <ViewAttribute
     Name="RuleId"
     IsNotNull="true"
@@ -205,7 +206,8 @@ and (INSTR(:categoryValue,PrtNotificationEO.NOTI_CATEGORY)<>0) and (PrtNotificat
     PrecisionRule="true"
     EntityAttrName="ModifiedDate"
     EntityUsage="PrtNotificationEO"
-    AliasName="MODIFIED_DATE"/>
+    AliasName="MODIFIED_DATE"
+    IsUpdateable="false"/>
   <ViewAttribute
     Name="NotiDescriptionLocalised"
     PrecisionRule="true"

@@ -1,6 +1,8 @@
 package com.sfr.engage.model.entities;
 
 import oracle.jbo.Key;
+import oracle.jbo.domain.DBSequence;
+import oracle.jbo.domain.Date;
 import oracle.jbo.domain.Number;
 import oracle.jbo.domain.Timestamp;
 import oracle.jbo.server.AttributeDefImpl;
@@ -35,7 +37,7 @@ public class PrtNotificationEOImpl extends EntityImpl {
             }
 
             public void put(PrtNotificationEOImpl obj, Object value) {
-                obj.setNotiId((Number)value);
+                obj.setNotiId((DBSequence)value);
             }
         }
         ,
@@ -165,7 +167,7 @@ public class PrtNotificationEOImpl extends EntityImpl {
             }
 
             public void put(PrtNotificationEOImpl obj, Object value) {
-                obj.setNotiCreated((Timestamp)value);
+                obj.setNotiCreated((Date)value);
             }
         }
         ,
@@ -225,7 +227,7 @@ public class PrtNotificationEOImpl extends EntityImpl {
             }
 
             public void put(PrtNotificationEOImpl obj, Object value) {
-                obj.setModifiedDate((Timestamp)value);
+                obj.setAttributeInternal(index(), value);
             }
         }
         ,
@@ -265,6 +267,8 @@ public class PrtNotificationEOImpl extends EntityImpl {
             return vals;
         }
     }
+
+
     public static final int COUNTRYCODE = AttributesEnum.CountryCode.index();
     public static final int NOTIID = AttributesEnum.NotiId.index();
     public static final int RULEID = AttributesEnum.RuleId.index();
@@ -294,6 +298,17 @@ public class PrtNotificationEOImpl extends EntityImpl {
     public PrtNotificationEOImpl() {
     }
 
+
+    /**
+     * @return the definition object for this instance class.
+     */
+    public static synchronized EntityDefImpl getDefinitionObject() {
+        if (mDefinitionObject == null) {
+            mDefinitionObject = EntityDefImpl.findDefObject("com.sfr.engage.model.entities.PrtNotificationEO");
+        }
+        return mDefinitionObject;
+    }
+
     /**
      * Gets the attribute value for CountryCode, using the alias name CountryCode.
      * @return the CountryCode
@@ -314,15 +329,15 @@ public class PrtNotificationEOImpl extends EntityImpl {
      * Gets the attribute value for NotiId, using the alias name NotiId.
      * @return the NotiId
      */
-    public Number getNotiId() {
-        return (Number)getAttributeInternal(NOTIID);
+    public DBSequence getNotiId() {
+        return (DBSequence)getAttributeInternal(NOTIID);
     }
 
     /**
      * Sets <code>value</code> as the attribute value for NotiId.
      * @param value value to set the NotiId
      */
-    public void setNotiId(Number value) {
+    public void setNotiId(DBSequence value) {
         setAttributeInternal(NOTIID, value);
     }
 
@@ -522,15 +537,15 @@ public class PrtNotificationEOImpl extends EntityImpl {
      * Gets the attribute value for NotiCreated, using the alias name NotiCreated.
      * @return the NotiCreated
      */
-    public Timestamp getNotiCreated() {
-        return (Timestamp)getAttributeInternal(NOTICREATED);
+    public Date getNotiCreated() {
+        return (Date)getAttributeInternal(NOTICREATED);
     }
 
     /**
      * Sets <code>value</code> as the attribute value for NotiCreated.
      * @param value value to set the NotiCreated
      */
-    public void setNotiCreated(Timestamp value) {
+    public void setNotiCreated(Date value) {
         setAttributeInternal(NOTICREATED, value);
     }
 
@@ -622,13 +637,6 @@ public class PrtNotificationEOImpl extends EntityImpl {
         return (Timestamp)getAttributeInternal(MODIFIEDDATE);
     }
 
-    /**
-     * Sets <code>value</code> as the attribute value for ModifiedDate.
-     * @param value value to set the ModifiedDate
-     */
-    public void setModifiedDate(Timestamp value) {
-        setAttributeInternal(MODIFIEDDATE, value);
-    }
 
     /**
      * Gets the attribute value for NotiDescriptionLocalised, using the alias name NotiDescriptionLocalised.
@@ -682,17 +690,9 @@ public class PrtNotificationEOImpl extends EntityImpl {
 
      * @return a Key object based on given key constituents.
      */
-    public static Key createPrimaryKey(Number notiId) {
+    public static Key createPrimaryKey(DBSequence notiId) {
         return new Key(new Object[]{notiId});
     }
 
-    /**
-     * @return the definition object for this instance class.
-     */
-    public static synchronized EntityDefImpl getDefinitionObject() {
-        if (mDefinitionObject == null) {
-            mDefinitionObject = EntityDefImpl.findDefObject("com.sfr.engage.model.entities.PrtNotificationEO");
-        }
-        return mDefinitionObject;
-    }
+
 }
