@@ -24,6 +24,7 @@ import com.sfr.engage.model.queries.uvo.PrtDriverInformationVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtInvoiceDetailVoImpl;
 import com.sfr.engage.model.queries.uvo.PrtInvoiceVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtNewInvoiceVOImpl;
+import com.sfr.engage.model.queries.uvo.PrtNotifiacationCopyPcmVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtNotificationVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtPartnerVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtTruckInformationVOImpl;
@@ -851,5 +852,13 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
      */
     public PrtNotificationVOImpl getPrtNotificationVO1() {
         return (PrtNotificationVOImpl)findViewObject("PrtNotificationVO1");
+    }
+
+    /**
+     * Container's getter for PrtNotifiacationCopyPcm1.
+     * @return PrtNotifiacationCopyPcm1
+     */
+    public PrtNotifiacationCopyPcmVOImpl getPrtNotifiacationCopyPcm1() {
+        return (PrtNotifiacationCopyPcmVOImpl)findViewObject("PrtNotifiacationCopyPcm1");
     }
 }

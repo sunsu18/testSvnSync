@@ -6,7 +6,7 @@ import com.sfr.engage.core.Messages;
 import com.sfr.engage.core.PartnerInfo;
 import com.sfr.engage.model.queries.rvo.PrtCustomerCardMapRVO1RowImpl;
 import com.sfr.engage.model.queries.rvo.PrtPcmFeedsRVORowImpl;
-import com.sfr.engage.model.queries.uvo.PrtNotificationVORowImpl;
+import com.sfr.engage.model.queries.uvo.PrtNotifiacationCopyPcmVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtUserPreferredLangVORowImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.util.ADFUtils;
@@ -98,6 +98,9 @@ public class AuthenticatedHomeBean implements Serializable {
     }
 
     public AuthenticatedHomeBean() {
+        
+        
+        
         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " constructor of AuthenticatedHomeBean");
         Conversion conversionUtility = new Conversion();
         ectx = FacesContext.getCurrentInstance().getExternalContext();
@@ -158,7 +161,7 @@ public class AuthenticatedHomeBean implements Serializable {
                 vo.executeQuery();
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Top products count is " + vo.getEstimatedRowCount());
             }
-
+            
             resourceBundle = new EngageResourceBundle();
             Date date = new Date();
             java.sql.Date passedDate = new java.sql.Date(date.getTime());
@@ -190,10 +193,21 @@ public class AuthenticatedHomeBean implements Serializable {
             //TODO : This block could be surrounded by try catch block.
             //TODO : Check if the below queries can be merged and make it one, otherwise okay.
 
+           
             try {
-                DCBindingContainer bindings2 = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
-                DCIteratorBinding PrtCardNotificationsVOIter = bindings2.findIteratorBinding("PrtNotificationVO1Iterator");
+                DCBindingContainer bindings2 = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry().get("pageTemplateBinding");
+               
+                
+                
+
+                if (bindings2 == null || bindings2.findIteratorBinding("PrtNotifiacationCopyPcm1Iterator") == null) {
+                    bindings2 = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+                }
+                
+                DCIteratorBinding PrtCardNotificationsVOIter = bindings2.findIteratorBinding("PrtNotifiacationCopyPcm1Iterator");
                 ViewObject cardNotificationVO = PrtCardNotificationsVOIter.getViewObject();
+                
+                
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " lang passed in PRTPCMFEEDS is " +
                             conversionUtility.getCustomerCountryCode(langSession));
                 if (customerTypeValue != null) {
@@ -333,7 +347,8 @@ public class AuthenticatedHomeBean implements Serializable {
                                 if (message.getMessage() != null) {
                                     messages.add(message);
                                 }
-                                
+                                if(!(session.getAttribute("PrtPCMCoptToNotification")!=null))
+                                {
                                 //                                //TODO : HITK : LOGIC to insert in prt_card_notification table
                                                                 if(customerTypeValue.contains(currRow.getCustomerType()))
                                                                 {
@@ -356,7 +371,7 @@ public class AuthenticatedHomeBean implements Serializable {
                                                                         while(cardNotificationVO.hasNext()) 
                                                                         {
                                                                         
-                                                                        PrtNotificationVORowImpl currRowcardNotification = (PrtNotificationVORowImpl)cardNotificationVO.next();
+                                                                        PrtNotifiacationCopyPcmVORowImpl currRowcardNotification = (PrtNotifiacationCopyPcmVORowImpl)cardNotificationVO.next();
                                                                         currRowcardNotification.setNotiCategory(currRow.getInformationType());
                                                                         currRowcardNotification.setNotiDescriptionLocalised(currRow.getMessageLang());
                                                                         oracle.jbo.domain.Date dbDate = new oracle.jbo.domain.Date(currRow.getEffectiveDate());
@@ -397,11 +412,18 @@ public class AuthenticatedHomeBean implements Serializable {
 
                                                                 
                                                             }
+                                                                
+                            }
                             }
                         }
                         
+                        if(!(session.getAttribute("PrtPCMCoptToNotification")!=null))
+                        {
                         OperationBinding operationBinding = bindings2.getOperationBinding(Constants.COMMIT_LITERAL);
                         operationBinding.execute();
+                        session.setAttribute("PrtPCMCoptToNotification", "true");
+                        }
+                        
                     }
 
                     if ("INSTR(:customerType,CUSTOMER_TYPE)<>0 AND INFORMATION_TYPE =:infoType AND COUNTRY_CODE=:countryCode AND EFFECTIVE_DATE <=:fromDate AND END_DATE >=:toDate".equalsIgnoreCase(prtPCMFeedsVO.getWhereClause())) {
@@ -495,10 +517,11 @@ public class AuthenticatedHomeBean implements Serializable {
 
                 LOGGER.severe(e);
             }
-        }
+        
+        
 
         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " exiting constructor of AuthenticatedHomeBean");
-
+    }
     }
 
 

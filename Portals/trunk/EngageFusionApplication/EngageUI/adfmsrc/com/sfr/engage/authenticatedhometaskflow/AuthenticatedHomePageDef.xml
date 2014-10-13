@@ -38,6 +38,7 @@
               DataControl="EngageAppModuleDataControl"
               id="PrtUserPreferredLangVO1Iterator"/>
     <iterator Binds="PrtNotificationVO1" RangeSize="25" DataControl="EngageAppModuleDataControl" id="PrtNotificationVO1Iterator"/>
+    <iterator Binds="PrtNotifiacationCopyPcm1" RangeSize="25" DataControl="EngageAppModuleDataControl" id="PrtNotifiacationCopyPcm1Iterator"/>
   </executables>
   <bindings>
     <tree IterBinding="PrtInvoiceVO1Iterator" id="PrtInvoiceVO1">
@@ -196,5 +197,33 @@
       </nodeDefinition>
     </tree>
     <action id="Commit" DataControl="EngageAppModuleDataControl" RequiresUpdateModel="true" Action="commitTransaction"/>
+    <tree IterBinding="PrtNotifiacationCopyPcm1Iterator" id="PrtNotifiacationCopyPcm1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtNotifiacationCopyPcmVO" Name="PrtNotifiacationCopyPcm10">
+        <AttrNames>
+          <Item Value="CountryCode"/>
+          <Item Value="NotiId"/>
+          <Item Value="RuleId"/>
+          <Item Value="RuleIsenabled"/>
+          <Item Value="SubId"/>
+          <Item Value="UserId"/>
+          <Item Value="Partner"/>
+          <Item Value="AccountId"/>
+          <Item Value="CardgroupMain"/>
+          <Item Value="CardgroupSub"/>
+          <Item Value="CardgroupSeq"/>
+          <Item Value="CardPk"/>
+          <Item Value="EmbossCardNum"/>
+          <Item Value="TransactionTime"/>
+          <Item Value="NotiCreated"/>
+          <Item Value="NotiCategory"/>
+          <Item Value="NotiSubcategory"/>
+          <Item Value="ShowFlag"/>
+          <Item Value="NotiDescription"/>
+          <Item Value="ModifiedBy"/>
+          <Item Value="ModifiedDate"/>
+          <Item Value="NotiDescriptionLocalised"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
   </bindings>
 </pageDefinition>
