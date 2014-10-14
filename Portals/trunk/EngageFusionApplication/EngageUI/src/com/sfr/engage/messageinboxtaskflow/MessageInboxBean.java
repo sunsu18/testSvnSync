@@ -4,6 +4,7 @@ package com.sfr.engage.messageinboxtaskflow;
 import com.sfr.core.bean.User;
 import com.sfr.engage.core.PartnerInfo;
 import com.sfr.engage.model.queries.rvo.PrtCustomerCardMapRVO1RowImpl;
+import com.sfr.engage.model.queries.uvo.PrtNotificationVOImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.util.ADFUtils;
 import com.sfr.util.AccessDataControl;
@@ -37,6 +38,8 @@ import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import oracle.adf.model.BindingContext;
+import oracle.adf.model.binding.DCIteratorBinding;
 import oracle.adf.share.logging.ADFLogger;
 import oracle.adf.view.rich.component.rich.RichPopup;
 import oracle.adf.view.rich.component.rich.input.RichInputDate;
@@ -44,7 +47,13 @@ import oracle.adf.view.rich.component.rich.input.RichSelectManyChoice;
 import oracle.adf.view.rich.component.rich.layout.RichPanelGroupLayout;
 import oracle.adf.view.rich.context.AdfFacesContext;
 
+import oracle.binding.BindingContainer;
+import oracle.binding.OperationBinding;
+
+import oracle.jbo.Key;
+import oracle.jbo.Row;
 import oracle.jbo.ViewObject;
+import oracle.jbo.domain.Number;
 
 
 public class MessageInboxBean implements Serializable {
@@ -323,11 +332,9 @@ public class MessageInboxBean implements Serializable {
                                     if (partnerInfoList.get(i).getAccountList().get(j).getAccountNumber() != null) {
                                         SelectItem selectItem = new SelectItem();
                                         selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
-                                        selectItem.setValue(partnerInfoList.get(i).getPartnerValue().toString() +
-                                                            partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+                                        selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
                                         accountList.add(selectItem);
-                                        accountValue.add(partnerInfoList.get(i).getPartnerValue().toString() +
-                                                         partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+                                        accountValue.add(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
                                     }
 
                                     for (int k = 0; k < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().size(); k++) {
@@ -335,12 +342,9 @@ public class MessageInboxBean implements Serializable {
                                             SelectItem selectItem = new SelectItem();
                                             selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getDisplayCardGroupIdName().toString());
                                             selectItem.setValue(partnerInfoList.get(i).getPartnerValue().toString().trim() +
-                                                                partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString() +
                                                                 partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
                                             cardGroupList.add(selectItem);
-                                            cardGroupValue.add(partnerInfoList.get(i).getPartnerValue().toString().trim() +
-                                                               partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString() +
-                                                               partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
+                                            cardGroupValue.add(partnerInfoList.get(i).getPartnerValue().toString().trim() + partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
                                         }
 
                                         for (int cc = 0; cc < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().size(); cc++) {
@@ -349,15 +353,9 @@ public class MessageInboxBean implements Serializable {
                                                 null) {
                                                 SelectItem selectItem = new SelectItem();
                                                 selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString());
-                                                selectItem.setValue(partnerInfoList.get(i).getPartnerValue().toString().trim() +
-                                                                    partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString() +
-                                                                    partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString() +
-                                                                    partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
+                                                selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
                                                 cardList.add(selectItem);
-                                                cardValue.add(partnerInfoList.get(i).getPartnerValue().toString().trim() +
-                                                              partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString() +
-                                                              partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString() +
-                                                              partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
+                                                cardValue.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
                                             }
                                         }
                                     }
@@ -426,7 +424,6 @@ public class MessageInboxBean implements Serializable {
                                                                 partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
                                             cardGroupList.add(selectItem);
                                             cardGroupValue.add(partnerInfoList.get(z).getPartnerValue().toString().trim() +
-                                                               partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString() +
                                                                partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
                                             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() +
                                                         partnerInfoList.get(z).getPartnerValue().toString().trim() +
@@ -445,10 +442,7 @@ public class MessageInboxBean implements Serializable {
                                                                     partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString() +
                                                                     partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
                                                 cardList.add(selectItem);
-                                                cardValue.add(partnerInfoList.get(z).getPartnerValue().toString().trim() +
-                                                              partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString() +
-                                                              partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString() +
-                                                              partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
+                                                cardValue.add(partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
                                                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() +
                                                             partnerInfoList.get(z).getPartnerValue().toString().trim() +
                                                             partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString() +
@@ -1096,25 +1090,54 @@ public class MessageInboxBean implements Serializable {
     
     
     public void viewMessageDetails(ActionEvent actionEvent) {
+        String categoryType="";
         
+        String showFlag="";
         
-        String partnerId = "";
-        String accountId = "";
-        String cardGroupId = "";
-        String cardId = "";
-        String type = "";
+        BindingContainer localBinding = BindingContext.getCurrent().getCurrentBindingsEntry();
+        DCIteratorBinding itr = (DCIteratorBinding)localBinding.get("PrtNotificationVO1Iterator");
+        Row row = itr.getCurrentRow();
+        if (row != null) {
+
+            categoryType = (String)row.getAttribute("NotiCategory");
+            oracle.jbo.domain.Number notiId = (Number)row.getAttribute("NotiId");
+            showFlag= (String)row.getAttribute("ShowFlag");
+            
+            ViewObject prtNotificationVO = ADFUtils.getViewObject("PrtNotificationVO1Iterator");
+            // create the key object
+            Key key = new Key(new Object[] { notiId });
+            PrtNotificationVOImpl vo = (PrtNotificationVOImpl)prtNotificationVO;
+            //find the row using key reference in View Object.
+            Row k=vo.getRow(key);
+            //using this method we can set the new value to FirstName 
+            
+            if(showFlag.equalsIgnoreCase("YES")){
+            
+            k.setAttribute("ShowFlag", "NO");
+            
+                BindingContainer bindings =  BindingContext.getCurrent().getCurrentBindingsEntry();
+                    OperationBinding operationBinding = bindings.getOperationBinding("Commit");
+                    operationBinding.execute();
+            
+            }
+            
+        }
+
         
-        
-        
-        
-        
-        
-        
+        if(categoryType.equalsIgnoreCase("Alerts")){
         LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside viewMessageDetails method of Message Inbox");
         RichPopup.PopupHints ps = new RichPopup.PopupHints();
         getBindings().getMessageInboxPopUp().show(ps);
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getMessageInboxPopUp());
         LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside viewMessageDetails method of Message Inbox");
+        }
+        else{
+            LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside viewMessageDetails method of Message Inbox");
+            RichPopup.PopupHints ps = new RichPopup.PopupHints();
+            getBindings().getMessageInboxPopUp2().show(ps);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getMessageInboxPopUp2());
+            LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside viewMessageDetails method of Message Inbox");
+        }
     
     }
 
@@ -1162,6 +1185,7 @@ public class MessageInboxBean implements Serializable {
         private RichSelectManyChoice messageType;
         private RichPanelGroupLayout searchTablePanel;
         private RichPopup messageInboxPopUp;
+        private RichPopup messageInboxPopUp2;
         
         
      
@@ -1268,6 +1292,14 @@ public class MessageInboxBean implements Serializable {
 
         public RichPopup getMessageInboxPopUp() {
             return messageInboxPopUp;
+        }
+        
+        public void setMessageInboxPopUp2(RichPopup messageInboxPopUp2) {
+            this.messageInboxPopUp2 = messageInboxPopUp2;
+        }
+
+        public RichPopup getMessageInboxPopUp2() {
+            return messageInboxPopUp2;
         }
     }
 }

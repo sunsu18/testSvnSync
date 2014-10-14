@@ -669,7 +669,12 @@ public class PrtNotificationVORowImpl extends ViewRowImpl {
      * @return the readFlag
      */
     public Boolean getreadFlag() {
-        return (Boolean) getAttributeInternal(READFLAG);
+        if(this.getShowFlag()!=null && this.getShowFlag().trim().equalsIgnoreCase("NO")){
+            return true;  
+    }
+        else{
+            return false;
+        }
     }
 
     /**

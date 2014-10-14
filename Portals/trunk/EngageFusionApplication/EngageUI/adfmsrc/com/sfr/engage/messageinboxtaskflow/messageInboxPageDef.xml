@@ -55,8 +55,51 @@
           <Item Value="NotiCreated"/>
           <Item Value="NotiSubcategory"/>
           <Item Value="NotiDescription"/>
+          <Item Value="NotiCategory"/>
+          <Item Value="ShowFlag"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
+    <attributeValues IterBinding="PrtNotificationVO1Iterator" id="NotiDescription">
+      <AttrNames>
+        <Item Value="NotiDescription"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtNotificationVO1Iterator" id="NotiSubcategory">
+      <AttrNames>
+        <Item Value="NotiSubcategory"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtNotificationVO1Iterator" id="Partner">
+      <AttrNames>
+        <Item Value="Partner"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtNotificationVO1Iterator" id="AccountId">
+      <AttrNames>
+        <Item Value="AccountId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtNotificationVO1Iterator" id="CardgroupMain">
+      <AttrNames>
+        <Item Value="CardgroupMain"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtNotificationVO1Iterator" id="CardgroupSub">
+      <AttrNames>
+        <Item Value="CardgroupSub"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtNotificationVO1Iterator" id="CardgroupSeq">
+      <AttrNames>
+        <Item Value="CardgroupSeq"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtNotificationVO1Iterator" id="EmbossCardNum">
+      <AttrNames>
+        <Item Value="EmbossCardNum"/>
+      </AttrNames>
+    </attributeValues>
+    <action id="Commit" DataControl="EngageAppModuleDataControl" RequiresUpdateModel="true" Action="commitTransaction"/>
   </bindings>
 </pageDefinition>

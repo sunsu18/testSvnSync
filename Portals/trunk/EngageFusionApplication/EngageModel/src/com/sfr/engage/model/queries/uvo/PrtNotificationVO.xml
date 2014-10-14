@@ -65,7 +65,7 @@
        PrtNotificationEO.MODIFIED_DATE, 
        PrtNotificationEO.NOTI_DESCRIPTION_LOCALISED
 FROM PRT_CARD_NOTIFICATIONS PrtNotificationEO
-WHERE PrtNotificationEO.user_id =:userId AND PrtNotificationEO.COUNTRY_CODE =:countryCode AND (INSTR(:showFlag,PrtNotificationEO.SHOW_FLAG)<>0)
+WHERE PrtNotificationEO.user_id =:userId AND PrtNotificationEO.COUNTRY_CODE =:countryCode AND (INSTR(:showFlag,trim(PrtNotificationEO.SHOW_FLAG))<>0)
 and (INSTR(:categoryValue,PrtNotificationEO.NOTI_CATEGORY)<>0) and (PrtNotificationEO.NOTI_CREATED >= :fromDate and PrtNotificationEO.NOTI_CREATED <= : toDate)]]>
   </SQLQuery>
   <EntityUsage
