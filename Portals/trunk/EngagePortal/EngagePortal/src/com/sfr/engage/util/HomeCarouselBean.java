@@ -113,11 +113,11 @@ public class HomeCarouselBean {
         if (session != null) {
             wsPortalCatalogLink =
                     "https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog?lang=" + session.getAttribute(Constants.LANG_LITERAL) + "&profile=" +
-                    session.getAttribute("profile");
+                    session.getAttribute(Constants.PROFILE_LITERAL);
         }
         Conversion conv = new Conversion();
         lang = (String)session.getAttribute(Constants.LANG_LITERAL);
-        profile = (String)session.getAttribute("profile");
+        profile = (String)session.getAttribute(Constants.PROFILE_LITERAL);
         if (profile.equalsIgnoreCase("business")) {
             customerType = "B2B";
         } else {
@@ -181,7 +181,7 @@ public class HomeCarouselBean {
     public String getCard1() {
 
         lang = (String)session.getAttribute(Constants.LANG_LITERAL);
-        profile = (String)session.getAttribute("profile");
+        profile = (String)session.getAttribute(Constants.PROFILE_LITERAL);
 
         // TODO : ASHTHA - 02, May, 2014 : Move the logic into newly added Image Map table
         if (profile.equalsIgnoreCase("private")) {
@@ -226,7 +226,7 @@ public class HomeCarouselBean {
 
 
         lang = (String)session.getAttribute(Constants.LANG_LITERAL);
-        profile = (String)session.getAttribute("profile");
+        profile = (String)session.getAttribute(Constants.PROFILE_LITERAL);
 
         // TODO : ASHTHA - 02, May, 2014 : Move the logic into newly added Image Map table
         if (profile.equalsIgnoreCase("private")) {
@@ -429,7 +429,7 @@ public class HomeCarouselBean {
         try {
 
             ectx.redirect("https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog?lang=" + session.getAttribute(Constants.LANG_LITERAL) +
-                          "&profile=" + session.getAttribute("profile"));
+                          "&profile=" + session.getAttribute(Constants.PROFILE_LITERAL));
 
         } catch (IOException e) {
             LOGGER.severe(AccessDataControl.getDisplayRecord() + this.getClass() + " Error : while redirecting to Product Catalog overview page");

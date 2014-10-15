@@ -61,7 +61,6 @@ public class ImageMapServlet extends HttpServlet {
                     "Param5 = " + request.getParameter("param5"));
         String featureName = request.getParameter("param1");
         String featureValue = request.getParameter("param2");
-        String controlAttr = request.getParameter("param3");
         String attrValue = request.getParameter("param4");
         String controlAttrValue;
         if (featureName.equalsIgnoreCase("LISTPRICE")) {
@@ -72,9 +71,6 @@ public class ImageMapServlet extends HttpServlet {
         }
 
         //TODO : Hiten - 09, May, 2014 : This is kept for future use.
-        String lang = request.getParameter("param5");
-
-
         try {
             if (featureName != null && featureValue != null && controlAttrValue != null) {
                 connection1 = DAOFactory.getJNDIConnection();
@@ -106,7 +102,7 @@ public class ImageMapServlet extends HttpServlet {
                             if (rs2.next()) {
                                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Record image found for " + imgId);
 
-                                Blob blob = rs2.getBlob("prt_img");
+                                Blob blob = rs2.getBlob(Constants.PTRIMGLITERAL);
                                 BufferedInputStream in = new BufferedInputStream(blob.getBinaryStream());
                                 int b;
                                 byte[] buffer = new byte[Constants.TENKB];
@@ -129,7 +125,7 @@ public class ImageMapServlet extends HttpServlet {
                             if (rs2.next()) {
                                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Record image found for " + imgId);
 
-                                Blob blob = rs2.getBlob("prt_img");
+                                Blob blob = rs2.getBlob(Constants.PTRIMGLITERAL);
                                 BufferedInputStream in = new BufferedInputStream(blob.getBinaryStream());
                                 int b;
                                 byte[] buffer = new byte[Constants.TENKB];

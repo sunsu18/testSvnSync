@@ -56,7 +56,7 @@ public class ImageServlet extends HttpServlet {
         String imageId = "";
         String categId = "";
         int imageId2 = 0;
-        int categId2 = 99;
+        int categId2 = Constants.NINETYNINE;
         if (request.getParameter("id") != null) {
             imageId = request.getParameter("id").trim();
         }
@@ -84,7 +84,7 @@ public class ImageServlet extends HttpServlet {
 
                 ResultSet rs = statement.executeQuery();
                 if (rs.next()) {
-                    Blob blob = rs.getBlob("prt_img");
+                    Blob blob = rs.getBlob(Constants.PTRIMGLITERAL);
                     BufferedInputStream in = new BufferedInputStream(blob.getBinaryStream());
                     int b;
                     byte[] buffer = new byte[Constants.TENKB];
@@ -94,7 +94,7 @@ public class ImageServlet extends HttpServlet {
                     os.close();
                 } else {
                     PreparedStatement statementDefault = connection1.prepareStatement("SELECT image_id,prt_img from PRT_GEN_IMAGE where  image_id=?");
-                    if (categId2 != 99) {
+                    if (categId2 != Constants.NINETYNINE) {
                         statementDefault.setInt(1, categId2);
                     } else {
                         statementDefault.setInt(1, Constants.DEFAULTIMGCATID99999);
