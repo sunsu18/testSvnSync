@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import oracle.adf.share.logging.ADFLogger;
+
 import oracle.security.idm.IdentityStore;
 import oracle.security.idm.Role;
 import oracle.security.idm.RoleManager;
@@ -36,7 +38,9 @@ import org.apache.myfaces.trinidad.util.Service;
  */
 public class LoginBean extends LoginBackingBean {
     @SuppressWarnings("compatibility")
+
     private static final long serialVersionUID = 1L;
+    public static final ADFLogger LOGGER = AccessDataControl.getSFRLogger();
 
     /**
      */
@@ -48,14 +52,14 @@ public class LoginBean extends LoginBackingBean {
      * @return
      */
     public String sfrLogout() {
-        
+
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
         HttpSession session = request.getSession(false);
 
         // TODO : ASHTHA - 02, May, 2014 : Use from sesion
         String lang = DAOFactory.getDefaultLanguage();
-        
+
         if (session.getAttribute(Constants.SESSION_LANGUAGE) != null) {
             lang = (String)session.getAttribute(Constants.SESSION_LANGUAGE);
         }
@@ -68,7 +72,8 @@ public class LoginBean extends LoginBackingBean {
             HttpServletResponse response = (HttpServletResponse)ectx.getResponse();
             delete(request, response);
             // TODO : ASHTHA - 02, May, 2014 : Use CP_LOGOUT_REDIRECT_URL instead of PP_LOGOUT_REDIRECT_URL
-            temp = getLogoutURL("LOGOUT_URL") + "/oam/server/logout?end_url=" + getLogoutURL("PP_LOGOUT_REDIRECT_URL") + "/sfrCommon/faces/logout?lang=" + lang;
+            temp =
+getLogoutURL("LOGOUT_URL") + "/oam/server/logout?end_url=" + getLogoutURL("PP_LOGOUT_REDIRECT_URL") + "/sfrCommon/faces/logout?lang=" + lang;
         }
         try {
             ectx.redirect(temp);
@@ -190,7 +195,7 @@ public class LoginBean extends LoginBackingBean {
             rm.grantRole(r, p);
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.severe(e);
             return false;
         }
     }

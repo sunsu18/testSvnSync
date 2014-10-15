@@ -34,30 +34,31 @@ import oracle.jbo.ViewObject;
  */
 public class HomeCarouselBean {
 
-    String customerType = "B2B";
-    String lang = "SE";
-    String profile = "private";
+    private String customerType = "B2B";
+    private String lang = "SE";
+    private String profile = "private";
     private RichSpacer testSpacer;
-    String banner;
-    String card1;
-    String card2;
+    private String banner;
+    private String card1;
+    private String card2;
     // TODO : ASHTHA - 02, May, 2014 : Shouldn't all params have same standard as card1/card2
-    String cardName1;
-    String cardName2;
-    String cardDesc1;
-    String cardDesc2;
-    String card1LearnMore;
-    String card2LearnMore;
-     ResourceBundle resourceBundle = new EngageResourceBundle();
-     AccessDataControl accessDC = new AccessDataControl();
-     static final ADFLogger log = AccessDataControl.getSFRLogger();
-     ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
-     HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
-     HttpSession session = request.getSession(false); 
-    
-    
-
-    String wsPortalCatalogLink = "";
+    private String cardName1;
+    private String cardName2;
+    private String cardDesc1;
+    private String cardDesc2;
+    private String card1LearnMore;
+    private String card2LearnMore;
+    private ResourceBundle resourceBundle = new EngageResourceBundle();
+    private AccessDataControl accessDC = new AccessDataControl();
+    private static final ADFLogger LOGGER = AccessDataControl.getSFRLogger();
+    private ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
+    private HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
+    private HttpSession session = request.getSession(false);
+    private String wsPortalCatalogLink = "";
+    private static final String STATOILCOMMERCIALCARDSLITRERAL = "Statoil-Commercial-Cards";
+    private static final String STATOILBUSINESSCARDSLITRERAL = "Statoil-Business-Cards";
+    private static final String STATOILMASTERCARDSLITRERAL = "Statoil-MasterCard";
+    private static final String EUROPECARDLITRERAL = "Europe-Card";
 
     /**
      * Default Constructor : initialized UI components
@@ -66,7 +67,6 @@ public class HomeCarouselBean {
 
     }
 
-  
 
     /**
      * @param customerType
@@ -110,15 +110,19 @@ public class HomeCarouselBean {
      */
     public RichSpacer getTestSpacer() {
 
-        if(session!=null)
-        { wsPortalCatalogLink = "https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog?lang="+ session.getAttribute("lang")+"&profile="+session.getAttribute("profile");}
+        if (session != null) {
+            wsPortalCatalogLink =
+                    "https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog?lang=" + session.getAttribute(Constants.LANG_LITERAL) + "&profile=" +
+                    session.getAttribute("profile");
+        }
         Conversion conv = new Conversion();
-        lang = (String)session.getAttribute("lang");
+        lang = (String)session.getAttribute(Constants.LANG_LITERAL);
         profile = (String)session.getAttribute("profile");
-        if(profile.equalsIgnoreCase("business"))
-            { customerType = "B2B";}
-        else
-            { customerType = "B2C";}
+        if (profile.equalsIgnoreCase("business")) {
+            customerType = "B2B";
+        } else {
+            customerType = "B2C";
+        }
 
         DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
         DCIteratorBinding iter;
@@ -126,7 +130,7 @@ public class HomeCarouselBean {
             iter = bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
 
         } else {
-                 log.severe(accessDC.getDisplayRecord() + this.getClass() + " Error : ProductsDisplayRVO1Iterator bindings is null");
+            LOGGER.severe(accessDC.getDisplayRecord() + this.getClass() + " Error : ProductsDisplayRVO1Iterator bindings is null");
             iter = null;
         }
         ViewObject vo = iter.getViewObject();
@@ -135,7 +139,7 @@ public class HomeCarouselBean {
 
         vo.setNamedWhereClauseParam("catalogType", "PP");
         vo.setNamedWhereClauseParam("customerType", customerType);
-        log.info(accessDC.getDisplayRecord() + this.getClass() + "countryCode + customerType" + conv.getLangForWERCSURL((lang)) + ","+customerType);
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "countryCode + customerType" + conv.getLangForWERCSURL((lang)) + "," + customerType);
         vo.executeQuery();
 
         return testSpacer;
@@ -163,7 +167,6 @@ public class HomeCarouselBean {
     }
 
 
-
     /**
      * @param card1
      */
@@ -174,34 +177,35 @@ public class HomeCarouselBean {
     /**
      * @return
      */
+    // Sunsu check values are set same for both business and profile so can be merged
     public String getCard1() {
-        
-        lang = (String)session.getAttribute("lang");
+
+        lang = (String)session.getAttribute(Constants.LANG_LITERAL);
         profile = (String)session.getAttribute("profile");
 
         // TODO : ASHTHA - 02, May, 2014 : Move the logic into newly added Image Map table
         if (profile.equalsIgnoreCase("private")) {
-            if (lang.equalsIgnoreCase("se_SE")) {
-                card1 = "Statoil-Commercial-Cards";
-            } else if (lang.equalsIgnoreCase("en_US")) {
-                card1 = "Statoil-Commercial-Cards";   
+            if (lang.equalsIgnoreCase(Constants.LANGUAGE_SWEDISH)) {
+                card1 = STATOILCOMMERCIALCARDSLITRERAL;
+            } else if (lang.equalsIgnoreCase(Constants.LANGUAGE_ENGLISH)) {
+                card1 = STATOILCOMMERCIALCARDSLITRERAL;
                 // To be changed later
-            } else if (lang.equalsIgnoreCase("da_DK")) {
-                card1 = "Statoil-Business-Cards";
-            } else if (lang.equalsIgnoreCase("no_NO")) {
-                card1 = "Statoil-Business-Cards";   
+            } else if (lang.equalsIgnoreCase(Constants.LANGUAGE_DANISH)) {
+                card1 = STATOILBUSINESSCARDSLITRERAL;
+            } else if (lang.equalsIgnoreCase(Constants.LANGUAGE_NORWEGIAN)) {
+                card1 = STATOILBUSINESSCARDSLITRERAL;
                 //To be changed later
             }
         } else if (profile.equalsIgnoreCase("business")) {
-            if (lang.equalsIgnoreCase("se_SE")) {
-                card1 = "Statoil-Commercial-Cards";
-                } else if (lang.equalsIgnoreCase("en_US")) {
-                card1 = "Statoil-Commercial-Cards";   
+            if (lang.equalsIgnoreCase(Constants.LANGUAGE_SWEDISH)) {
+                card1 = STATOILCOMMERCIALCARDSLITRERAL;
+            } else if (lang.equalsIgnoreCase(Constants.LANGUAGE_ENGLISH)) {
+                card1 = STATOILCOMMERCIALCARDSLITRERAL;
                 // To be changed later
-                } else if (lang.equalsIgnoreCase("da_DK")) {
-                card1 = "Statoil-Business-Cards";
-                } else if (lang.equalsIgnoreCase("no_NO")) {
-                card1 = "Statoil-Business-Cards";   
+            } else if (lang.equalsIgnoreCase(Constants.LANGUAGE_DANISH)) {
+                card1 = STATOILBUSINESSCARDSLITRERAL;
+            } else if (lang.equalsIgnoreCase(Constants.LANGUAGE_NORWEGIAN)) {
+                card1 = STATOILBUSINESSCARDSLITRERAL;
                 //To be changed later
             }
         }
@@ -220,33 +224,33 @@ public class HomeCarouselBean {
      */
     public String getCard2() {
 
-        
-        lang = (String)session.getAttribute("lang");
+
+        lang = (String)session.getAttribute(Constants.LANG_LITERAL);
         profile = (String)session.getAttribute("profile");
 
         // TODO : ASHTHA - 02, May, 2014 : Move the logic into newly added Image Map table
         if (profile.equalsIgnoreCase("private")) {
-            if (lang.equalsIgnoreCase("se_SE")) {
-                card2 = "Statoil-MasterCard";
-            } else if (lang.equalsIgnoreCase("en_US")) {
-                card2 = "Statoil-MasterCard";   
+            if (lang.equalsIgnoreCase(Constants.LANGUAGE_SWEDISH)) {
+                card2 = STATOILMASTERCARDSLITRERAL;
+            } else if (lang.equalsIgnoreCase(Constants.LANGUAGE_ENGLISH)) {
+                card2 = STATOILMASTERCARDSLITRERAL;
                 //To be changed later
-            } else if (lang.equalsIgnoreCase("da_DK")) {
-                card2 = "Europe-Card";
-            } else if (lang.equalsIgnoreCase("no_NO")) {
-                card2 = "Europe-Card";  
+            } else if (lang.equalsIgnoreCase(Constants.LANGUAGE_DANISH)) {
+                card2 = EUROPECARDLITRERAL;
+            } else if (lang.equalsIgnoreCase(Constants.LANGUAGE_NORWEGIAN)) {
+                card2 = EUROPECARDLITRERAL;
                 //To be changed later
             }
         } else if (profile.equalsIgnoreCase("business")) {
-            if (lang.equalsIgnoreCase("se_SE")) {
-                card2 = "Statoil-MasterCard";
-                } else if (lang.equalsIgnoreCase("en_US")) {
-                card2 = "Statoil-MasterCard";   
+            if (lang.equalsIgnoreCase(Constants.LANGUAGE_SWEDISH)) {
+                card2 = STATOILMASTERCARDSLITRERAL;
+            } else if (lang.equalsIgnoreCase(Constants.LANGUAGE_ENGLISH)) {
+                card2 = STATOILMASTERCARDSLITRERAL;
                 //To be changed later
-                } else if (lang.equalsIgnoreCase("da_DK")) {
-                card2 = "Europe-Card";
-                } else if (lang.equalsIgnoreCase("no_NO")) {
-                card2 = "Europe-Card"; 
+            } else if (lang.equalsIgnoreCase(Constants.LANGUAGE_DANISH)) {
+                card2 = EUROPECARDLITRERAL;
+            } else if (lang.equalsIgnoreCase(Constants.LANGUAGE_NORWEGIAN)) {
+                card2 = EUROPECARDLITRERAL;
                 //To be changed later
             }
         }
@@ -266,13 +270,13 @@ public class HomeCarouselBean {
             }
          */
 
-        if (card1.equalsIgnoreCase("Statoil-Commercial-Cards")) {
-            cardName1 = "STATOIL_COMMERCIAL_CARD"; 
+        if (card1.equalsIgnoreCase(STATOILCOMMERCIALCARDSLITRERAL)) {
+            cardName1 = "STATOIL_COMMERCIAL_CARD";
             // TODO : ASHTHA - 02, May, 2014 : Is this needed. If not remove from all the below.
             if (resourceBundle.containsKey("STATOIL_COMMERCIAL_CARD")) {
                 cardName1 = (String)resourceBundle.getObject("STATOIL_COMMERCIAL_CARD");
             }
-        } else if (card1.equalsIgnoreCase("Statoil-Business-Cards")) {
+        } else if (card1.equalsIgnoreCase(STATOILBUSINESSCARDSLITRERAL)) {
 
             cardName1 = "STATOIL_BUSINESS_CARD";
             if (resourceBundle.containsKey("STATOIL_BUSINESS_CARD")) {
@@ -295,12 +299,12 @@ public class HomeCarouselBean {
      */
     public String getcardName2() {
 
-        if (card2.equalsIgnoreCase("Statoil-MasterCard")) {
+        if (card2.equalsIgnoreCase(STATOILMASTERCARDSLITRERAL)) {
             cardName2 = "STATOIL_MASTER_CARD";
             if (resourceBundle.containsKey("STATOIL_MASTER_CARD")) {
                 cardName2 = (String)resourceBundle.getObject("STATOIL_MASTER_CARD");
             }
-        } else if (card2.equalsIgnoreCase("Europe-Card")) {
+        } else if (card2.equalsIgnoreCase(EUROPECARDLITRERAL)) {
 
             cardName2 = "STATOIL_EUROPE_CARD";
             if (resourceBundle.containsKey("STATOIL_EUROPE_CARD")) {
@@ -331,14 +335,14 @@ public class HomeCarouselBean {
      */
     public String getcardDesc1() {
 
-        if (card1.equalsIgnoreCase("Statoil-Commercial-Cards")) {
+        if (card1.equalsIgnoreCase(STATOILCOMMERCIALCARDSLITRERAL)) {
             if (resourceBundle.containsKey("STATOIL_COMMERCIAL_CARD_TEXT")) {
                 cardDesc1 = (String)resourceBundle.getObject("STATOIL_COMMERCIAL_CARD_TEXT");
             }
-        } else if (card1.equalsIgnoreCase("Statoil-Business-Cards")) {
-            if (resourceBundle.containsKey("STATOIL_BUSINESS_CARD_TEXT")) {
-                cardDesc1 = (String)resourceBundle.getObject("STATOIL_BUSINESS_CARD_TEXT");
-            }
+        } else if (card1.equalsIgnoreCase(STATOILBUSINESSCARDSLITRERAL) && resourceBundle.containsKey("STATOIL_BUSINESS_CARD_TEXT")) {
+
+            cardDesc1 = (String)resourceBundle.getObject("STATOIL_BUSINESS_CARD_TEXT");
+
         }
 
         return cardDesc1;
@@ -356,14 +360,13 @@ public class HomeCarouselBean {
      */
     public String getcardDesc2() {
 
-        if (card2.equalsIgnoreCase("Statoil-MasterCard")) {
+        if (card2.equalsIgnoreCase(STATOILMASTERCARDSLITRERAL)) {
             if (resourceBundle.containsKey("STATOIL_MASTER_CARD_TEXT")) {
                 cardDesc2 = (String)resourceBundle.getObject("STATOIL_MASTER_CARD_TEXT");
             }
-        } else if (card2.equalsIgnoreCase("Europe-Card")) {
-            if (resourceBundle.containsKey("STATOIL_EUROPE_CARD_TEXT")) {
-                cardDesc2 = (String)resourceBundle.getObject("STATOIL_EUROPE_CARD_TEXT");
-            }
+        } else if (card2.equalsIgnoreCase(EUROPECARDLITRERAL) && resourceBundle.containsKey("STATOIL_EUROPE_CARD_TEXT")) {
+
+            cardDesc2 = (String)resourceBundle.getObject("STATOIL_EUROPE_CARD_TEXT");
         }
 
         return cardDesc2;
@@ -382,14 +385,14 @@ public class HomeCarouselBean {
      */
     public String getcard1LearnMore() {
 
-        if (card1.equalsIgnoreCase("Statoil-Commercial-Cards")) {
+        if (card1.equalsIgnoreCase(STATOILCOMMERCIALCARDSLITRERAL)) {
             if (resourceBundle.containsKey("STATOIL_COMMERCIAL_CARD_LINK")) {
                 card1LearnMore = (String)resourceBundle.getObject("STATOIL_COMMERCIAL_CARD_LINK");
             }
-        } else if (card1.equalsIgnoreCase("Statoil-Business-Cards")) {
-            if (resourceBundle.containsKey("STATOIL_BUSINESS_CARD_LINK")) {
-                card1LearnMore = (String)resourceBundle.getObject("STATOIL_BUSINESS_CARD_LINK");
-            }
+        } else if (card1.equalsIgnoreCase(STATOILBUSINESSCARDSLITRERAL) && resourceBundle.containsKey("STATOIL_BUSINESS_CARD_LINK")) {
+
+            card1LearnMore = (String)resourceBundle.getObject("STATOIL_BUSINESS_CARD_LINK");
+
         }
 
         return card1LearnMore;
@@ -406,35 +409,30 @@ public class HomeCarouselBean {
      * @return
      */
     public String getcard2LearnMore() {
-        if (card2.equalsIgnoreCase("Statoil-MasterCard")) {
+        if (card2.equalsIgnoreCase(STATOILMASTERCARDSLITRERAL)) {
             if (resourceBundle.containsKey("STATOIL_MASTER_CARD_LINK")) {
                 card2LearnMore = (String)resourceBundle.getObject("STATOIL_MASTER_CARD_LINK");
             }
-        } else if (card2.equalsIgnoreCase("Europe-Card")) {
-            if (resourceBundle.containsKey("STATOIL_EUROPE_CARD_LINK")) {
-                card2LearnMore = (String)resourceBundle.getObject("STATOIL_EUROPE_CARD_LINK");
-            }
+        } else if (card2.equalsIgnoreCase(EUROPECARDLITRERAL) && resourceBundle.containsKey("STATOIL_EUROPE_CARD_LINK")) {
+
+            card2LearnMore = (String)resourceBundle.getObject("STATOIL_EUROPE_CARD_LINK");
+
         }
 
         return card2LearnMore;
     }
 
 
-
-
     public void goProductCatalog(ActionEvent actionEvent) {
-    
-        
 
 
         try {
-          
-            ectx.redirect("https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog?lang="+ session.getAttribute("lang")+"&profile="+session.getAttribute("profile"));
 
-
+            ectx.redirect("https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog?lang=" + session.getAttribute(Constants.LANG_LITERAL) +
+                          "&profile=" + session.getAttribute("profile"));
 
         } catch (IOException e) {
-            log.severe(AccessDataControl.getDisplayRecord() + this.getClass() +" Error : while redirecting to Product Catalog overview page");
+            LOGGER.severe(AccessDataControl.getDisplayRecord() + this.getClass() + " Error : while redirecting to Product Catalog overview page");
         }
     }
 
@@ -447,18 +445,14 @@ public class HomeCarouselBean {
     }
 
     public String redirectToSelectAssociate() {
-       
-       
-        session.setAttribute(Constants.SESSION_PRIMARY_REQUEST_PAGE_ID,
-                             "/faces/selectAssociation");
-        log.info(AccessDataControl.getDisplayRecord() + this.getClass() + " redirect to select association");
-        String requestedPage =
-            (String)session.getAttribute(Constants.SESSION_PRIMARY_REQUEST_PAGE_ID);
+
+        session.setAttribute(Constants.SESSION_PRIMARY_REQUEST_PAGE_ID, "/faces/selectAssociation");
+        LOGGER.info(AccessDataControl.getDisplayRecord() + this.getClass() + " redirect to select association");
+        String requestedPage = (String)session.getAttribute(Constants.SESSION_PRIMARY_REQUEST_PAGE_ID);
         try {
-            ectx.redirect(ectx.getRequestContextPath() +
-                      requestedPage);
+            ectx.redirect(ectx.getRequestContextPath() + requestedPage);
         } catch (IOException e) {
-            log.severe(AccessDataControl.getDisplayRecord() + this.getClass() + " cannot redirect to select association page");
+            LOGGER.severe(AccessDataControl.getDisplayRecord() + this.getClass() + " cannot redirect to select association page");
         }
         return null;
     }
@@ -501,5 +495,13 @@ public class HomeCarouselBean {
 
     public AccessDataControl getAccessDC() {
         return accessDC;
+    }
+
+    public String getBanner() {
+        return banner;
+    }
+
+    public static ADFLogger getLOGGER() {
+        return LOGGER;
     }
 }
