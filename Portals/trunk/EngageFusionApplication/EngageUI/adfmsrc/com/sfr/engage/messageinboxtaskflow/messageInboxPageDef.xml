@@ -101,5 +101,10 @@
       </AttrNames>
     </attributeValues>
     <action id="Commit" DataControl="EngageAppModuleDataControl" RequiresUpdateModel="true" Action="commitTransaction"/>
+    <attributeValues IterBinding="PrtNotificationVO1Iterator" id="encodedCard">
+      <AttrNames>
+        <Item Value="encodedCard"/>
+      </AttrNames>
+    </attributeValues>
   </bindings>
 </pageDefinition>

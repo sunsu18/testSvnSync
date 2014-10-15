@@ -378,7 +378,7 @@
  </af:panelGroupLayout>
  <af:popup id="messageInboxPopUp" contentDelivery="immediate" autoCancel="disabled" animate="false"
                 binding="#{pageFlowScope.MessageInboxBean.bindings.messageInboxPopUp}">
-        <af:dialog id="d1" title="CARD XX fueled outside of business hours" shortDesc="CARD XX fueled outside of business hours" styleClass="textDialogs" type="none"
+        <af:dialog id="d1" title="#{sfr.ENGAGE_CARD} : #{bindings.encodedCard.inputValue}  #{sfr.FUELING_OUTSIDE_BUSINESS_HOURS}" shortDesc="{sfr.ENGAGE_CARD}#{bindings.EmbossCardNum.inputValue}#{sfr.FUELING_OUTSIDE_BUSINESS_HOURS}" styleClass="textDialogs" type="none"
                    closeIconVisible="true" contentWidth="500">
    <af:panelGroupLayout id="pgl0" styleClass="WCPanelMargin" inlineStyle="margin:5px;">
    <af:panelGroupLayout id="pgl19" inlineStyle="width: 490px; height:350px;">
@@ -450,12 +450,12 @@
            
           
          
-            <af:spacer width="10" height="2" id="s6"/>
+            <af:spacer width="10" height="10" id="s6"/>
           
           <af:panelGroupLayout id="pgl50" layout="horizontal" halign="right" inlineStyle="width: 320px;">
-            <af:commandButton text="CARD OVERVIEW" id="cb3" actionListener="#{pageFlowScope.MessageInboxBean.goToCardOverview}"/>
+            <af:commandButton text="#{sfr.CARD_OVERVIEW}" id="cb3" actionListener="#{pageFlowScope.MessageInboxBean.goToCardOverview}"/>
             <af:spacer width="20" id="s61"/>
-            <af:commandButton text="TRANSACTION OVERVIEW" id="cb5" actionListener="#{pageFlowScope.MessageInboxBean.goToTransaction}" partialSubmit="true"/>
+            <af:commandButton text="#{sfr.TRANSACTION_OVERVIEW}" id="cb5" actionListener="#{pageFlowScope.MessageInboxBean.goToTransaction}" partialSubmit="true"/>
             
             <af:spacer width="20" id="s9"/>
             <af:commandButton text="#{sfr.CANCEL}" id="cb4" actionListener="#{pageFlowScope.MessageInboxBean.closeMessagePopup}"/>

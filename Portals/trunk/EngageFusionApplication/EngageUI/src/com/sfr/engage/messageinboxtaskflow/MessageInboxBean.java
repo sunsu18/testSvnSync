@@ -53,7 +53,7 @@ import oracle.binding.OperationBinding;
 import oracle.jbo.Key;
 import oracle.jbo.Row;
 import oracle.jbo.ViewObject;
-import oracle.jbo.domain.Number;
+import oracle.jbo.domain.DBSequence;
 
 
 public class MessageInboxBean implements Serializable {
@@ -1100,7 +1100,7 @@ public class MessageInboxBean implements Serializable {
         if (row != null) {
 
             categoryType = (String)row.getAttribute("NotiCategory");
-            oracle.jbo.domain.Number notiId = (Number)row.getAttribute("NotiId");
+            oracle.jbo.domain.DBSequence notiId = (DBSequence)row.getAttribute("NotiId");
             showFlag= (String)row.getAttribute("ShowFlag");
             
             ViewObject prtNotificationVO = ADFUtils.getViewObject("PrtNotificationVO1Iterator");
