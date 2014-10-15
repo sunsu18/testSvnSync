@@ -288,6 +288,8 @@
                 <to variable="emailVar"/>
               </copy>
             </assign>
+            
+<!--            
             <assign name="Transform1">
               <bpelx:annotation>
                 <bpelx:pattern>transformation</bpelx:pattern>
@@ -304,6 +306,7 @@
                     partnerLink="LogDeltaReceiptPalsMQEnqueueDequeueV1"
                     portType="ns12:EnqueueDequeue_ptt"
                     operation="EnqueueDequeue" bpelx:invokeAsDetail="no"/>
+-->
           </sequence>
         </scope>
       </otherwise>
