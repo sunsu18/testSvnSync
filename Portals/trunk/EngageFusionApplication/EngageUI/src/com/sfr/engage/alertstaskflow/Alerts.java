@@ -820,8 +820,11 @@ public class Alerts {
         } else {
             getBindings().getAlertSuccessProperty().setVisible(false);
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlertSuccessProperty());
-            getBindings().getAlert1ValidData().setVisible(true);
+            getBindings().getAlert1ValidData().setVisible(false);
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlert1ValidData());
+            getBindings().getMandatoryMsg1().setVisible(true);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getMandatoryMsg1());
+                
         }
         LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside setBusinessHoursAlert method of Alerts");
     }
@@ -872,7 +875,7 @@ public class Alerts {
                 o = rt.getRowData(i);
                 checkFuelTimings = (FuelTimings)o;
                 String regex = "\\d+";
-                if (checkFuelTimings.getFromHh() != null && !checkFuelTimings.getFromHh().equals("") &&
+                if (checkFuelTimings != null && checkFuelTimings.getFromHh() != null && !checkFuelTimings.getFromHh().equals("") &&
                     checkFuelTimings.getFromHh().toString().trim() != null && checkFuelTimings.getFromMm() != null &&
                     checkFuelTimings.getFromMm().toString().trim() != null && !checkFuelTimings.getFromMm().equals("") && checkFuelTimings.getToHh() != null &&
                     checkFuelTimings.getToHh().toString().trim() != null && !checkFuelTimings.getToHh().equals("") && checkFuelTimings.getToMm() != null &&
@@ -888,9 +891,17 @@ public class Alerts {
                             if (flag1) {
                                 getBindings().getAlert1ValidData().setVisible(true);
                                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlert1ValidData());
+                                getBindings().getAlertSuccessProperty().setVisible(false);
+                                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlertSuccessProperty());
+                                getBindings().getMandatoryMsg1().setVisible(false);
+                                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getMandatoryMsg1());
                             } else {
                                 getBindings().getInvalidInputMsg().setVisible(true);
                                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvalidInputMsg());
+                                getBindings().getMandatoryMsg4().setVisible(false);
+                                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getMandatoryMsg4());
+                                getBindings().getSuccessAlert4().setVisible(false);
+                                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSuccessAlert4());
                             }
                             break;
                         }
@@ -899,46 +910,62 @@ public class Alerts {
                         if (flag1) {
                             getBindings().getAlert1ValidData().setVisible(true);
                             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlert1ValidData());
+                            getBindings().getAlertSuccessProperty().setVisible(false);
+                            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlertSuccessProperty());
+                            getBindings().getMandatoryMsg1().setVisible(false);
+                            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getMandatoryMsg1());
                         } else {
                             getBindings().getInvalidInputMsg().setVisible(true);
                             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvalidInputMsg());
+                            getBindings().getMandatoryMsg4().setVisible(false);
+                            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getMandatoryMsg4());
+                            getBindings().getSuccessAlert4().setVisible(false);
+                            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSuccessAlert4());
                         }
-                        getBindings().getAlert1ValidData().setVisible(true);
-                        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlert1ValidData());
                         break;
                     }
                 } else {
                     validinput = false;
-                    if (flag1) {
-                        if (checkFuelTimings.getFromHh() == null && checkFuelTimings.getFromHh().toString().trim() == null) {
-                            displayErrorComponent(getBindings().getFromTimingsHh(), true);
+                    if(checkFuelTimings != null){
+                        if (flag1) {
+                            if (checkFuelTimings.getFromHh() == null && checkFuelTimings.getFromHh().toString().trim() == null) {
+                                displayErrorComponent(getBindings().getFromTimingsHh(), true);
+                            }
+                            if (checkFuelTimings.getFromMm() != null && checkFuelTimings.getFromMm().toString().trim() != null) {
+                                displayErrorComponent(getBindings().getFromTimingsMm(), true);
+                            }
+                            if (checkFuelTimings.getToHh() != null && checkFuelTimings.getToHh().toString().trim() != null) {
+                                displayErrorComponent(getBindings().getToTimingsHh(), true);
+                            }
+                            if (checkFuelTimings.getToMm() != null && checkFuelTimings.getToMm().toString().trim() != null) {
+                                displayErrorComponent(getBindings().getToTimingsMm(), true);
+                            }
+                            getBindings().getMandatoryMsg1().setVisible(true);
+                            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getMandatoryMsg1());
+                            getBindings().getAlert1ValidData().setVisible(false);
+                            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlert1ValidData());
+                            getBindings().getAlertSuccessProperty().setVisible(false);
+                            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAlertSuccessProperty());
+                        } else {
+                            if (checkFuelTimings.getFromHh().toString().trim().equals("")) {
+                                displayErrorComponent(getBindings().getConfigureFromTimingsHh(), true);
+                            }
+                            if (checkFuelTimings.getFromMm().toString().trim().equals("")) {
+                                displayErrorComponent(getBindings().getConfigureFromTimingsMm(), true);
+                            }
+                            if (checkFuelTimings.getToHh().toString().trim().equals("")) {
+                                displayErrorComponent(getBindings().getConfigureToTimingsHh(), true);
+                            }
+                            if (checkFuelTimings.getToMm().toString().trim().equals("")) {
+                                displayErrorComponent(getBindings().getConfigureToTimingsMm(), true);
+                            }
+                            getBindings().getMandatoryMsg4().setVisible(true);
+                            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getMandatoryMsg4());
+                            getBindings().getInvalidInputMsg().setVisible(false);
+                            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvalidInputMsg());
+                            getBindings().getSuccessAlert4().setVisible(false);
+                            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSuccessAlert4());
                         }
-                        if (checkFuelTimings.getFromMm() != null && checkFuelTimings.getFromMm().toString().trim() != null) {
-                            displayErrorComponent(getBindings().getFromTimingsMm(), true);
-                        }
-                        if (checkFuelTimings.getToHh() != null && checkFuelTimings.getToHh().toString().trim() != null) {
-                            displayErrorComponent(getBindings().getToTimingsHh(), true);
-                        }
-                        if (checkFuelTimings.getToMm() != null && checkFuelTimings.getToMm().toString().trim() != null) {
-                            displayErrorComponent(getBindings().getToTimingsMm(), true);
-                        }
-                        getBindings().getMandatoryMsg1().setVisible(true);
-                        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getMandatoryMsg1());
-                    } else {
-                        if (checkFuelTimings.getFromHh().toString().trim().equals("")) {
-                            displayErrorComponent(getBindings().getConfigureFromTimingsHh(), true);
-                        }
-                        if (checkFuelTimings.getFromMm().toString().trim().equals("")) {
-                            displayErrorComponent(getBindings().getConfigureFromTimingsMm(), true);
-                        }
-                        if (checkFuelTimings.getToHh().toString().trim().equals("")) {
-                            displayErrorComponent(getBindings().getConfigureToTimingsHh(), true);
-                        }
-                        if (checkFuelTimings.getToMm().toString().trim().equals("")) {
-                            displayErrorComponent(getBindings().getConfigureToTimingsMm(), true);
-                        }
-                        getBindings().getMandatoryMsg4().setVisible(true);
-                        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getMandatoryMsg4());
                     }
                     break;
                 }
@@ -2792,6 +2819,10 @@ public class Alerts {
                     operationBinding.execute();
                     getBindings().getSuccessAlert4().setVisible(true);
                     AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSuccessAlert4());
+                    getBindings().getInvalidInputMsg().setVisible(false);
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvalidInputMsg());
+                    getBindings().getMandatoryMsg4().setVisible(false);
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getMandatoryMsg4());
                     okVisibleForBusinessHr = false;
                     editVisibleForBusinessHr = true;
                     getBindings().getConfigureFromTimingsHh().setReadOnly(true);
