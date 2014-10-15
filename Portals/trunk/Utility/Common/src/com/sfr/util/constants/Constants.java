@@ -174,11 +174,6 @@ public class Constants {
     public static final String CANCEL_DIBS_WSDL_URL = "CANCEL_DIBS_WSDL_URL";
     public static final String REFUND_DIBS_WSDL_URL = "REFUND_DIBS_WSDL_URL";
 
-
-    //public static final String LANGUAGE_EN = "en_US";
-    //public static final String LANGUAGE_EN = "en_US";
-    //public static final String LANGUAGE_EN = "en_US";
-
     public static final String LOV_INVOICE_SEARCH_CRITERIA = "INV_SEARCH_CRT";
     public static final String LOV_ORDER_SEARCH_CRITERIA = "ORD_SEARCH_CRT";
     public static final String LOV_LEDGER_SEARCH_CRITERIA = "LEDG_SEARCH_CRT";
@@ -698,6 +693,10 @@ public class Constants {
     public static final int SIXTY = 60;
     public static final int HUNDRED = 100;
     public static final int ONEFIFTY = 150;
+    public static final int NINETYNINE = 99;
+    public static final int TENKB = 10240;
+    public static final int DEFAULTIMGCATID99999 = 99999;
+    public static final int DEFAULTIMGCATID88888 = 88888;
 
 
     public static final String ACCOUNT_NUMER_LITERAL = "accountNumber";
@@ -812,5 +811,12 @@ public class Constants {
     public static final String STATUSLITERAL = "Status";
     public static final String CONTAINLITERAL = "CONTAIN";
     public static final String ENGAGECATEGORYNONADMINLITERAL = "ENGAGE_CATEGORY_NON_ADMIN";
+    public static final String PORTALLITERAL = "portal";
+    public static final String USEREMAILLITERAL = "userEmail";
+    public static final String PTRIMGLITERAL = "prt_img";
+    public static final String EXECUTEPARTNEROBJLOGICLITERAL = "executePartnerObjLogic";
+    public static final String PAGETEPLATEBIDINGLITERAL = "pageTemplateBinding";
+    public static final String CGIDLITERAL = "cgid";
+    public static final String CGMAINLITERAL = "cgmain";
 
 }
