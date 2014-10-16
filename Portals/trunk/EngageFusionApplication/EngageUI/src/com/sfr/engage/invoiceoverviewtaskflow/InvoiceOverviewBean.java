@@ -137,6 +137,7 @@ public class InvoiceOverviewBean implements Serializable {
     private String accountQuery = "(";
     private String cardGroupQuery = "(";
     private String cardQuery = "(";
+    private String generalQuery = "";
     private Map<String, String> mapAccountDetailListValue;
     private Map<String, String> mapAccountListValue;
     private Map<String, String> mapCardGroupListValue;
@@ -279,6 +280,13 @@ public class InvoiceOverviewBean implements Serializable {
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "account Query & mapAccountList is found");
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "account " + accountQuery);
             }
+            
+            if (session.getAttribute("generalQuery_Invoice_overview") != null) {
+                generalQuery = session.getAttribute("generalQuery_Invoice_overview").toString().trim();
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "generalQuery is found");
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "generalQuery " + generalQuery);
+            } 
+            
             if (session.getAttribute("account_Query_Invoice_detail_overview") != null) {
                 accountQueryDetail = session.getAttribute("account_Query_Invoice_detail_overview").toString().trim();
                 mapAccountDetailListValue = (Map<String, String>)session.getAttribute("map_Account_List_Invoice_detail_overview");
@@ -427,8 +435,8 @@ public class InvoiceOverviewBean implements Serializable {
 
                     if (cardQuery.length() > 1 && cardQuery != null && cardGroupQuery.length() <= 2) {
 
-                        if (((accountQuery + "AND " + cardQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim())) ||
-                            ((accountQuery + " AND " + cardQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim()))) {
+                            if (((accountQuery + "AND " + cardQuery + "AND " + generalQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim())) ||
+                                ((accountQuery + " AND " + cardQuery + "AND " + generalQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim()))) {
                             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "inside  card with out purchase code where removal class");
                             if (mapAccountListValue != null) {
                                 for (int i = 0; i < mapAccountListValue.size(); i++) {
@@ -446,14 +454,18 @@ public class InvoiceOverviewBean implements Serializable {
                             } else {
                                 invoiceVO.removeNamedWhereClauseParam(Constants.CARDLITERAL);
                             }
+                            invoiceVO.removeNamedWhereClauseParam("ccode");
+                            invoiceVO.removeNamedWhereClauseParam("partner_id");
+                            invoiceVO.removeNamedWhereClauseParam("fromDateBV");
+                            invoiceVO.removeNamedWhereClauseParam("toDateBV");
                             invoiceVO.setWhereClause("");
                             invoiceVO.executeQuery();
                         }
                     } else {
                         if (cardGroupQuery.length() > 1 && cardGroupQuery != null && cardQuery.length() <= 1) {
 
-                            if (((accountQuery + "AND " + cardGroupQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim())) ||
-                                ((accountQuery + " AND " + cardGroupQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim()))) {
+                            if (((accountQuery + "AND " + cardGroupQuery + "AND " + generalQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim())) ||
+                                ((accountQuery + " AND " + cardGroupQuery + "AND " + generalQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim()))) {
                                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " +
                                             "inside  cardGroup with out purchase code where removal class");
                                 if (mapAccountListValue != null) {
@@ -471,6 +483,10 @@ public class InvoiceOverviewBean implements Serializable {
                                 } else {
                                     invoiceVO.removeNamedWhereClauseParam(Constants.CARDGROUPLITERAL);
                                 }
+                                invoiceVO.removeNamedWhereClauseParam("ccode");
+                                invoiceVO.removeNamedWhereClauseParam("partner_id");
+                                invoiceVO.removeNamedWhereClauseParam("fromDateBV");
+                                invoiceVO.removeNamedWhereClauseParam("toDateBV");
                                 invoiceVO.setWhereClause("");
                                 invoiceVO.executeQuery();
                             }
@@ -484,11 +500,12 @@ public class InvoiceOverviewBean implements Serializable {
                     cardQuery = "(";
                     LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Value of account Id=================>" +
                                 populateStringValues(getBindings().getAccount().getValue().toString()));
-
-                    invoiceVO.setNamedWhereClauseParam("countryCode", lang);
-                    invoiceVO.setNamedWhereClauseParam("partnerId", populateStringValues(getBindings().getPartnerNumber().getValue().toString()));
-                    invoiceVO.setNamedWhereClauseParam("fromDateBV", newFromDate);
-                    invoiceVO.setNamedWhereClauseParam("toDateBV", newToDate);
+                    
+                    generalQuery= "INSTR(:partner_id,partner_id)<>0  AND COUNTRY_CODE =:ccode AND INVOICING_DATE >=:fromDateBV AND INVOICING_DATE <=:toDateBV";
+                    invoiceVO.defineNamedWhereClauseParam("ccode", lang,null);
+                    invoiceVO.defineNamedWhereClauseParam("partner_id", populateStringValues(getBindings().getPartnerNumber().getValue().toString()),null);
+                    invoiceVO.defineNamedWhereClauseParam("fromDateBV", newFromDate,null);
+                    invoiceVO.defineNamedWhereClauseParam("toDateBV", newToDate,null);
 
                     if (accountValue.size() > Constants.ONEFIFTY) {
                         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
@@ -522,7 +539,7 @@ public class InvoiceOverviewBean implements Serializable {
                                 cardQuery = cardQuery + ")";
 
                                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
-                                invoiceVO.setWhereClause(accountQuery + "AND " + cardQuery);
+                                invoiceVO.setWhereClause(accountQuery + "AND " + cardQuery + "AND " + generalQuery);
                                 for (int i = 0; i < mapCardListValue.size(); i++) {
                                     invoiceVO.defineNamedWhereClauseParam(Constants.CARDLITERAL + i, mapCardListValue.get(Constants.LISTNAME_LITERAL + i),
                                                                           null);
@@ -532,7 +549,7 @@ public class InvoiceOverviewBean implements Serializable {
                                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CARD Values < 150 ");
                                 mapCardListValue = null;
                                 cardQuery = "(INSTR(:card,INVOICED_CARD)<>0)";
-                                invoiceVO.setWhereClause(accountQuery + "AND " + cardQuery);
+                                invoiceVO.setWhereClause(accountQuery + "AND " + cardQuery + "AND " + generalQuery);
                                 String cardValuesList = populateStringValues(getBindings().getCard().getValue().toString());
                                 invoiceVO.defineNamedWhereClauseParam(Constants.CARDLITERAL, cardValuesList, null);
                             }
@@ -549,7 +566,7 @@ public class InvoiceOverviewBean implements Serializable {
                                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARDGROUP Query Values =" + cardGroupQuery);
                                 cardGroupQuery = cardGroupQuery.substring(0, cardGroupQuery.length() - Constants.THREE);
                                 cardGroupQuery = cardGroupQuery + ")";
-                                invoiceVO.setWhereClause(accountQuery + "AND " + cardGroupQuery);
+                                invoiceVO.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + generalQuery);
                                 for (int i = 0; i < mapCardGroupListValue.size(); i++) {
                                     invoiceVO.defineNamedWhereClauseParam(Constants.CARDGROUPLITERAL + i,
                                                                           mapCardGroupListValue.get(Constants.LISTNAME_LITERAL + i), null);
@@ -559,7 +576,7 @@ public class InvoiceOverviewBean implements Serializable {
                                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CARD Values < 150 ");
                                 mapCardGroupListValue = null;
                                 cardGroupQuery = "INSTR(:cardGroup,PARTNER_ID||CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 ";
-                                invoiceVO.setWhereClause(accountQuery + "AND " + cardGroupQuery);
+                                invoiceVO.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + generalQuery);
                                 invoiceVO.defineNamedWhereClauseParam(Constants.CARDGROUPLITERAL,
                                                                       populateStringValues(getBindings().getCardGroup().getValue().toString()), null);
 
@@ -583,6 +600,7 @@ public class InvoiceOverviewBean implements Serializable {
                     LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Query Formed is=" + invoiceVO.getQuery());
                     invoiceVO.executeQuery();
                     session.setAttribute("account_Query_Invoice_overview", accountQuery);
+                    session.setAttribute("generalQuery_Invoice_overview", generalQuery);
                     session.setAttribute("map_Account_List_Invoice_overview", mapAccountListValue);
                     session.setAttribute("cardGroup_Query_Invoice_overview", cardGroupQuery);
                     session.setAttribute("map_CardGroup_List_Invoice_overview", mapCardGroupListValue);
