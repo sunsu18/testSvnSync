@@ -217,7 +217,7 @@
                         
       actionListener="#{pageFlowScope.MessageInboxBean.searchResultsListener}"/>
       <af:spacer width="10" height="10" id="s11"/>
-      <af:commandButton text="#{sfr.CLEAR}" id="cb2" actionListener="#{pageFlowScope.MessageInboxBean.clearSearchListener}"/>
+      <af:commandButton text="#{sfr.RESET}" id="cb2" actionListener="#{pageFlowScope.MessageInboxBean.clearSearchListener}"/>
                        
       <af:spacer width="28" height="10" id="s33"/>
      </af:panelGroupLayout>
@@ -318,7 +318,7 @@
                fetchSize="#{bindings.PrtNotificationVO1.rangeSize}" rowBandingInterval="1" filterModel="#{bindings.PrtNotificationVO11Query.queryDescriptor}"
                queryListener="#{bindings.PrtNotificationVO11Query.processQuery}" filterVisible="true" varStatus="vs"
                selectionListener="#{bindings.PrtNotificationVO1.collectionModel.makeCurrent}" rowSelection="multiple" id="t1" width="700"
-               disableColumnReordering="true">
+               disableColumnReordering="true" binding="#{pageFlowScope.MessageInboxBean.bindings.messageTablePopup}">
       <!--<af:column sortProperty="readFlag" filterable="true" sortable="true" headerText="#{bindings.PrtNotificationVO1.hints.readFlag.label}" id="c2">
         <af:selectBooleanCheckbox value="#{row.bindings.readFlag.inputValue}"   id="sbc1"/>
       </af:column>-->
@@ -334,7 +334,7 @@
        </f:facet>
        <af:inputDate value="#{row.bindings.NotiCreated.inputValue}" label="#{bindings.PrtNotificationVO1.hints.NotiCreated.label}" readOnly="true"
                      required="#{bindings.PrtNotificationVO1.hints.NotiCreated.mandatory}" shortDesc="#{bindings.PrtNotificationVO1.hints.NotiCreated.tooltip}"
-                     id="id3" inlineStyle="#{(row.ShowFlag) eq 'YES' ? 'font-weight:bold;' : 'font-weight:normal;'}">
+                     id="id3" contentStyle="#{(row.ShowFlag) eq 'YES' ? 'font-weight:bold;' : 'font-weight:normal;'}">
         
          <af:convertDateTime pattern="dd.MM.yyyy"/>
        </af:inputDate>
@@ -343,7 +343,7 @@
       <af:column sortProperty="NotiSubcategory" filterable="true" sortable="true" headerText="#{sfr.ENGAGE_TITLE}" width="150" align="center"
                  id="c3" noWrap="false">
        <af:inputText value="#{row.bindings.NotiSubcategory.inputValue}" label="#{bindings.PrtNotificationVO1.hints.NotiSubcategory.label}" readOnly="true"
-                     required="#{bindings.PrtNotificationVO1.hints.NotiSubcategory.mandatory}" inlineStyle="#{(row.ShowFlag)=='YES' ? 'font-weight:bold;' : 'font-weight:normal;'}"
+                     required="#{bindings.PrtNotificationVO1.hints.NotiSubcategory.mandatory}" contentStyle="#{(row.ShowFlag)=='YES' ? 'font-weight:bold;' : 'font-weight:normal;'}"
                      columns="#{bindings.PrtNotificationVO1.hints.NotiSubcategory.displayWidth}"
                      maximumLength="#{bindings.PrtNotificationVO1.hints.NotiSubcategory.precision}"
                      shortDesc="#{bindings.PrtNotificationVO1.hints.NotiSubcategory.tooltip}" id="it1">
@@ -355,7 +355,7 @@
                  id="c1">
      
        <af:inputText value="#{row.bindings.NotiCategory.inputValue}" simple="true" required="#{bindings.PrtNotificationVO1.hints.NotiCategory.mandatory}"
-                     columns="#{bindings.PrtNotificationVO1.hints.NotiCategory.displayWidth}" readOnly="true" inlineStyle="#{(row.ShowFlag)=='YES' ? 'font-weight:bold;' : 'font-weight:normal;'}"
+                     columns="#{bindings.PrtNotificationVO1.hints.NotiCategory.displayWidth}" readOnly="true" contentStyle="#{(row.ShowFlag)=='YES' ? 'font-weight:bold;' : 'font-weight:normal;'}"
                      maximumLength="#{bindings.PrtNotificationVO1.hints.NotiCategory.precision}"
                      shortDesc="#{bindings.PrtNotificationVO1.hints.NotiCategory.tooltip}" id="it2">
         <f:validator binding="#{row.bindings.NotiCategory.validator}"/>

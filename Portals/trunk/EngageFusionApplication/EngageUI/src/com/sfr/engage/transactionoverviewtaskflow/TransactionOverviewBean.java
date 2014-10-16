@@ -355,43 +355,45 @@ public class TransactionOverviewBean implements Serializable {
             partnerIdValues = (ArrayList<String>)valueChangeEvent.getNewValue();
             accountIdList = new ArrayList<SelectItem>();
             accountIdValue = new ArrayList<String>();
+            cardGroupList = new ArrayList<SelectItem>();
+            cardGroupValue = new ArrayList<String>();
 
             if (partnerInfoList != null) {
                 for (int i = 0; i < partnerIdValues.size(); i++) {
                     for (int k = 0; k < partnerInfoList.size(); k++) {
-                        if (partnerIdValues.get(i).equalsIgnoreCase(partnerInfoList.get(k).getPartnerValue().toString()) &&
-                            partnerInfoList.get(k).getAccountList() != null && partnerInfoList.get(k).getAccountList().size() > 0) {
+                        if (partnerIdValues.get(i).equalsIgnoreCase(partnerInfoList.get(k).getPartnerValue().toString())) {
+                            if (partnerInfoList.get(k).getAccountList() != null && partnerInfoList.get(k).getAccountList().size() > 0) {
+                                for (int ac = 0; ac < partnerInfoList.get(k).getAccountList().size(); ac++) {
+                                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                                                partnerInfoList.get(k).getAccountList().get(ac).getAccountNumber().toString());
+                                    SelectItem selectItem = new SelectItem();
+                                    selectItem.setLabel(partnerInfoList.get(k).getAccountList().get(ac).getAccountNumber().toString());
+                                    selectItem.setValue(partnerInfoList.get(k).getAccountList().get(ac).getAccountNumber().toString());
+                                    accountIdList.add(selectItem);
+                                    accountIdValue.add(partnerInfoList.get(k).getAccountList().get(ac).getAccountNumber().toString());
 
-                            for (int ac = 0; ac < partnerInfoList.get(k).getAccountList().size(); ac++) {
-                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " +
-                                            partnerInfoList.get(k).getAccountList().get(ac).getAccountNumber().toString());
-                                SelectItem selectItem = new SelectItem();
-                                selectItem.setLabel(partnerInfoList.get(k).getAccountList().get(ac).getAccountNumber().toString());
-                                selectItem.setValue(partnerInfoList.get(k).getAccountList().get(ac).getAccountNumber().toString());
-                                accountIdList.add(selectItem);
-                                accountIdValue.add(partnerInfoList.get(k).getAccountList().get(ac).getAccountNumber().toString());
-
-                                if (partnerInfoList.get(k).getAccountList().get(ac).getCardGroup() != null &&
-                                    partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().size() > 0) {
-                                    cardIdPGL = false;
-                                    cardGPGL = true;
-                                    vNumberPGL = false;
-                                    dNamePGL = false;
-
-                                    for (int cg = 0; cg < partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().size(); cg++) {
-
-                                        SelectItem selectItemCardGroup = new SelectItem();
-                                        selectItemCardGroup.setLabel(partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getDisplayCardGroupIdName().toString());
-                                        selectItemCardGroup.setValue(partnerInfoList.get(k).getPartnerValue().toString().trim() +
-                                                                     partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID().toString());
-                                        cardGroupList.add(selectItemCardGroup);
-                                        cardGroupValue.add(partnerInfoList.get(k).getPartnerValue().toString().trim() +
-                                                           partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID().toString());
+                                    if (partnerInfoList.get(k).getAccountList().get(ac).getCardGroup() != null &&
+                                        partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().size() > 0) {
                                         cardIdPGL = false;
                                         cardGPGL = true;
                                         vNumberPGL = false;
                                         dNamePGL = false;
 
+                                        for (int cg = 0; cg < partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().size(); cg++) {
+
+                                            SelectItem selectItemCardGroup = new SelectItem();
+                                            selectItemCardGroup.setLabel(partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getDisplayCardGroupIdName().toString());
+                                            selectItemCardGroup.setValue(partnerInfoList.get(k).getPartnerValue().toString().trim() +
+                                                                         partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID().toString());
+                                            cardGroupList.add(selectItemCardGroup);
+                                            cardGroupValue.add(partnerInfoList.get(k).getPartnerValue().toString().trim() +
+                                                               partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID().toString());
+                                            cardIdPGL = false;
+                                            cardGPGL = true;
+                                            vNumberPGL = false;
+                                            dNamePGL = false;
+
+                                        }
                                     }
                                 }
 
@@ -401,45 +403,45 @@ public class TransactionOverviewBean implements Serializable {
                         }
                     }
                 }
-            } else {
-                accountIdList = new ArrayList<SelectItem>();
-                accountIdValue = new ArrayList<String>();
-                cardNumberList = new ArrayList<SelectItem>();
-                cardNumberValue = new ArrayList<String>();
-                cardGroupList = new ArrayList<SelectItem>();
-                cardGroupValue = new ArrayList<String>();
-                vehicleNumberList = new ArrayList<SelectItem>();
-                vehicleNumberValue = new ArrayList<String>();
-                driverNameList = new ArrayList<SelectItem>();
-                driverNameValue = new ArrayList<String>();
-
             }
-
-            cardIdPGL = false;
-            cardGPGL = true;
-            vNumberPGL = false;
-            dNamePGL = false;
-            getBindings().getCardCardGrpDrVhOneRadio().setValue("CardGroup");
-            if (isTableVisible) {
-                isTableVisible = false;
-            }
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowSearchResultPG());
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardNoPGL());
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVhNumberPGL());
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDriverNamePGL());
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardCardGrpDrVhOneRadio());
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccount());
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());
-            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "account list is created");
-
-
-            Collections.sort(cardGroupList, comparator);
-            Collections.sort(partnerIdList, comparator);
-            Collections.sort(accountIdList, comparator);
-            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "account list is created");
+        } else {
+            accountIdList = new ArrayList<SelectItem>();
+            accountIdValue = new ArrayList<String>();
+            cardNumberList = new ArrayList<SelectItem>();
+            cardNumberValue = new ArrayList<String>();
+            cardGroupList = new ArrayList<SelectItem>();
+            cardGroupValue = new ArrayList<String>();
+            vehicleNumberList = new ArrayList<SelectItem>();
+            vehicleNumberValue = new ArrayList<String>();
+            driverNameList = new ArrayList<SelectItem>();
+            driverNameValue = new ArrayList<String>();
 
         }
+
+
+        cardIdPGL = false;
+        cardGPGL = true;
+        vNumberPGL = false;
+        dNamePGL = false;
+        getBindings().getCardCardGrpDrVhOneRadio().setValue("CardGroup");
+        if (isTableVisible) {
+            isTableVisible = false;
+        }
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowSearchResultPG());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardNoPGL());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVhNumberPGL());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDriverNamePGL());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardCardGrpDrVhOneRadio());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccount());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());
+
+
+        Collections.sort(cardGroupList, comparator);
+        Collections.sort(partnerIdList, comparator);
+        Collections.sort(accountIdList, comparator);
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "account list is created");
+
     }
 
     public void radioButtonValueChangeListener(ValueChangeEvent valueChangeEvent) {
