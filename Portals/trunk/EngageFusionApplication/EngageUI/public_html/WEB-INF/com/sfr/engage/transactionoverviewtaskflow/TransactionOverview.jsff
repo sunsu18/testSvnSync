@@ -89,7 +89,8 @@
                                 value="#{pageFlowScope.TransactionOverviewBean.accountIdValue}"
                                 binding="#{pageFlowScope.TransactionOverviewBean.bindings.account}"
                                 autoSubmit="true"
-                                valueChangeListener="#{pageFlowScope.TransactionOverviewBean.accountValueChangeListener}">
+                                valueChangeListener="#{pageFlowScope.TransactionOverviewBean.accountValueChangeListener}"
+                            partialTriggers="cb3">
                 <af:forEach items="#{pageFlowScope.TransactionOverviewBean.accountIdList}"
                     var="listItem">
                 <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
@@ -99,7 +100,8 @@
        <af:spacer width="20" height="20" id="s54"/>
        <af:selectManyChoice id="smc2" contentStyle="width:175px; height:14px;"
                                  value="#{pageFlowScope.TransactionOverviewBean.typeValue}"
-                                 binding="#{pageFlowScope.TransactionOverviewBean.bindings.transationType}">
+                                 binding="#{pageFlowScope.TransactionOverviewBean.bindings.transationType}"
+                            partialTriggers="cb3">
               <af:forEach items="#{pageFlowScope.TransactionOverviewBean.typeList}"
                     var="listItem">
                 <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
@@ -175,7 +177,8 @@
               <af:inputDate id="id1"
                             binding="#{pageFlowScope.TransactionOverviewBean.bindings.fromDate}"
                                 inlineStyle="margin-left: 13px"
-                                contentStyle="width: 175px;">
+                                contentStyle="width: 175px;"
+                            partialTriggers="cb3">
               <af:convertDateTime pattern="dd.MM.yyyy"/>
               </af:inputDate>
             <af:spacer width="20" height="20"
@@ -183,7 +186,8 @@
             <af:inputDate id="id2"
                             binding="#{pageFlowScope.TransactionOverviewBean.bindings.toDate}"
                                 inlineStyle="margin-left: 13px"
-                                contentStyle="width: 175px;">
+                                contentStyle="width: 175px;"
+                          partialTriggers="cb3">
               <af:convertDateTime pattern="dd.MM.yyyy"/>
               </af:inputDate>
             <af:spacer width="20" height="20" id="s42"/>
@@ -191,7 +195,8 @@
                                valueChangeListener="#{pageFlowScope.TransactionOverviewBean.radioButtonValueChangeListener}"
                                binding="#{pageFlowScope.TransactionOverviewBean.bindings.cardCardGrpDrVhOneRadio}"
                                contentStyle="margin-left: -5px;"
-                               value="#{pageFlowScope.TransactionOverviewBean.cardGroupRadio}">
+                               value="#{pageFlowScope.TransactionOverviewBean.cardGroupRadio}"
+                                partialTriggers="cb3">
               <af:selectItem label="#{sfr.CARDGROUP}" value="CardGroup" id="si10"/>
               <af:selectItem label="#{sfr.CARD}" value="Card" id="si13"/>
               <af:selectItem label="#{sfr.VEHICLE}" value="Vehicle"
@@ -272,7 +277,8 @@
                                    binding="#{pageFlowScope.TransactionOverviewBean.bindings.cardGroup}"
                                    valuePassThru="true"
                                    value="#{pageFlowScope.TransactionOverviewBean.cardGroupValue}"
-                                   contentStyle="width:175px;height:14px;">
+                                   contentStyle="width:175px;height:14px;"
+                                   partialTriggers="cb3">
                 <af:forEach items="#{pageFlowScope.TransactionOverviewBean.cardGroupList}"
                     var="listItem">
                 <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
@@ -371,7 +377,7 @@
               actionListener="#{pageFlowScope.TransactionOverviewBean.searchTransactionActionEvent}">
               </af:commandButton>
               <af:spacer width="20" height="10" id="s23"/>
-              <af:commandButton text="#{sfr.CLEAR}" id="cb3" partialSubmit="true"
+              <af:commandButton text="#{sfr.RESET}" id="cb3" partialSubmit="true"
                                 actionListener="#{pageFlowScope.TransactionOverviewBean.clearSearchListener}"/>
             </af:panelGroupLayout>
           </af:panelGroupLayout>

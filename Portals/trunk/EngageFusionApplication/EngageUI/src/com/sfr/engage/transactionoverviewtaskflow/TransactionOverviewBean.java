@@ -109,10 +109,10 @@ public class TransactionOverviewBean implements Serializable {
     private List<String> vehicleNumberValue;
     private List<SelectItem> driverNameList;
     private List<String> driverNameValue;
-    private boolean cardIdPGL = false;
-    private boolean cardGPGL = true;
-    private boolean dNamePGL = false;
-    private boolean vNumberPGL = false;
+    private boolean cardIdPGL;
+    private boolean cardGPGL;
+    private boolean dNamePGL;
+    private boolean vNumberPGL;
     private boolean reportDefault = false;
     private boolean reportRawData = false;
     private boolean filterValue = false;
@@ -121,7 +121,7 @@ public class TransactionOverviewBean implements Serializable {
     private boolean noteInternational = false;
     private HttpSession session;
     private List<PartnerInfo> partnerInfoList;
-    private Boolean isTableVisible = false;
+    private Boolean isTableVisible;
     private Boolean value = false;
     private ResourceBundle resourceBundle;
     private Float sum = 0.00f;
@@ -152,7 +152,6 @@ public class TransactionOverviewBean implements Serializable {
     private String strVehicle;
     private String strDriver;
     private String noteInternationalVal;
-
     private String strCardGroupPrePopulated;
     private String strCardPrePopulated;
     private String strVehiclePrePopulated;
@@ -163,8 +162,8 @@ public class TransactionOverviewBean implements Serializable {
     private String strDriverExtra;
     private boolean shuttleStatus = false;
     private boolean noteVisible = true;
-    private boolean fromDateInitial = true;
-    private boolean toDateInitial = true;
+    private boolean fromDateInitial;
+    private boolean toDateInitial;
     private boolean vehicleName = false;
     private String vehicleNumberOdometer = "";
     private String odometerPartner = "";
@@ -183,20 +182,24 @@ public class TransactionOverviewBean implements Serializable {
     private static final String PURCHASECOUNTRYCODELITRERAL = "purchaseCountryCode";
     private boolean showDriverCode = false;
 
-
-    public TransactionOverviewBean() {
-        Conversion conversionUtility = new Conversion();
-
-        ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
-        HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
-        session = request.getSession(false);
-        conversionUtility = new Conversion();
-        accountIdList = new ArrayList<SelectItem>();
+    public void defaultPopulateDropdown(){
+        isTableVisible = false;
+        cardIdPGL = false;
+        cardGPGL = true;
+        vNumberPGL = false;
+        dNamePGL = false;
+        reportFormatValue = Constants.DEFAULT_LITERAL;
+        cardGroupRadio = Constants.CARD_GROUP_LITERAL;
         terminalValue = new ArrayList<String>();
         typeValue = new ArrayList<String>();
+        terminalValue.add("HOME");
+        terminalValue.add("EXTERNAL");
+        typeValue.add("PRE");
+        typeValue.add("PRI");
+        typeValue.add("FAK");
+        fromDateInitial = true;
+        toDateInitial = true;
         partnerId = null;
-        cardGroupRadio = Constants.CARD_GROUP_LITERAL;
-
         if (session.getAttribute("Partner_Object_List") != null) {
             partnerInfoList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
             if (partnerInfoList != null) {
@@ -242,6 +245,15 @@ public class TransactionOverviewBean implements Serializable {
             Collections.sort(accountIdList, comparator);
             Collections.sort(cardGroupList, comparator);
         }
+    }
+
+    public TransactionOverviewBean() {
+        Conversion conversionUtility = new Conversion();
+        ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
+        HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
+        session = request.getSession(false);
+        conversionUtility = new Conversion();
+        defaultPopulateDropdown();
         if (session != null) {
             if (session.getAttribute("account_Query") != null) {
                 accountQuery = session.getAttribute("account_Query").toString().trim();
@@ -275,16 +287,7 @@ public class TransactionOverviewBean implements Serializable {
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Query Vehicle & map_Account_List_Vehicle is found");
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Query Vehicle " + accountQueryVehicle);
             }
-
-
         }
-
-
-        terminalValue.add("HOME");
-        terminalValue.add("EXTERNAL");
-        typeValue.add("PRE");
-        typeValue.add("PRI");
-        typeValue.add("FAK");
 
         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Language :" + lang);
 
@@ -299,8 +302,6 @@ public class TransactionOverviewBean implements Serializable {
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Default:currencyCode :" + currencyCode);
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Default:Locale :" + locale);
         }
-
-        reportFormatValue = Constants.DEFAULT_LITERAL;
 
     }
 
@@ -346,7 +347,6 @@ public class TransactionOverviewBean implements Serializable {
     public List<String> getAccountIdValue() {
         return accountIdValue;
     }
-
 
     public void partnerIdValueChangeListener(ValueChangeEvent valueChangeEvent) {
         if (valueChangeEvent.getNewValue() != null) {
@@ -1679,38 +1679,15 @@ public class TransactionOverviewBean implements Serializable {
     }
 
     public void clearSearchListener(ActionEvent actionEvent) {
-
-        getBindings().getPartner().setValue(null);
-        this.accountIdValue = null;
-        accountIdList = new ArrayList<SelectItem>();
-        this.accountIdValue = null;
-        this.partnerIdValue = null;
-        this.reportFormatValue = Constants.DEFAULT_LITERAL;
-        getBindings().getCardCardGrpDrVhOneRadio().setValue(null);
-        getBindings().getFromDate().setValue(null);
-        getBindings().getToDate().setValue(null);
+        defaultPopulateDropdown();
+        getBindings().setFromDate(getBindings().getFromDate());
+        getBindings().setToDate(getBindings().getToDate());
         displayErrorComponent(getBindings().getPartner(), false);
         displayErrorComponent(getBindings().getAccount(), false);
         displayErrorComponent(getBindings().getCardGroup(), false);
         displayErrorComponent(getBindings().getCard(), false);
         displayErrorComponent(getBindings().getVehicleNumber(), false);
         displayErrorComponent(getBindings().getDriverName(), false);
-        isTableVisible = false;
-        cardIdPGL = false;
-        cardGPGL = false;
-        vNumberPGL = false;
-        dNamePGL = false;
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getPartner());
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccount());
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardCardGrpDrVhOneRadio());
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardNoPGL());
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVhNumberPGL());
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDriverNamePGL());
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getReportFormat());
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getFromDate());
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getToDate());
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowSearchResultPG());
     }
 
     public String showErrorMessage(String errorVar) {
