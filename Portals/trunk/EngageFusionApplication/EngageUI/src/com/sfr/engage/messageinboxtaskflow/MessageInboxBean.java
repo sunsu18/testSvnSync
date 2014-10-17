@@ -1185,7 +1185,7 @@ public class MessageInboxBean implements Serializable {
                 }
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "Account Query Values =" + accountQuery);
                 accountQuery = accountQuery.substring(0, accountQuery.length() - Constants.THREE);
-                accountQuery = accountQuery + " ACCOUNT_ID is null )";
+                accountQuery = accountQuery + "OR ACCOUNT_ID is null )";
 
             } else {
                 mapAccountListValue = null;
@@ -1203,7 +1203,7 @@ public class MessageInboxBean implements Serializable {
                 }
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARDGROUP Query Values =" + cardGroupQuery);
                 cardGroupQuery = cardGroupQuery.substring(0, cardGroupQuery.length() - Constants.THREE);
-                cardGroupQuery = cardGroupQuery + "PARTNER||CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ is null)";
+                cardGroupQuery = cardGroupQuery + "OR PARTNER||CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ is null)";
                 
             } else {
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CARDGroup Values < 150 ");
@@ -1223,7 +1223,7 @@ public class MessageInboxBean implements Serializable {
                     cardQuery = cardQuery + "INSTR(:" + values + ", CARD_PK)<>0 OR ";
                 }
                 cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
-                cardQuery = cardQuery + ") OR CARD_PK is null ";
+                cardQuery = cardQuery + " OR CARD_PK is null ) ";
 
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
                 
