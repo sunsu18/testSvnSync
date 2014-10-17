@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.1.61.92" id="admintoolPageDef"
+                Package="oracle.webcenter.portalapp.engagepages.menus">
+  <parameters>
+    <parameter id="page_title" value="admintool"/>
+    <parameter id="page_info"
+               value="title=admintool;desc=;keywords=;createdBy=weblogic;createDate=2014-03-11T15:44:36;lastUpdatedBy=weblogic;lastUpdateDate=2014-03-11T15:44:36;permissionClass=oracle.webcenter.security.auth.HierarchicalResourcePermission;target=serviceID=oracle.webcenter.page,scopeID=s8bba98ff_4cbb_40b8_beee_296c916a23ed,resourceID=/oracle/webcenter/portalapp/engagepages/menus/admintool.jspx;excluded=false;style="/>
+  </parameters>
+  <executables>
+    <variableIterator id="variables"/>
+    <page viewId="${preferenceBean.defaultPageTemplate}" id="pageTemplateBinding" Refresh="ifNeeded"/>
+    <taskFlow id="pageeditorpanel" taskFlowId="#{pageEditorBean.pageEditorPanel}" xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+  </executables>
+  <bindings/>
+</pageDefinition>

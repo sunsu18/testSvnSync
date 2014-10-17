@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE Association SYSTEM "jbo_03_01.dtd">
+<!---->
+<Association
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="PrtCardgroupPrtPartnerFk1Assoc"
+  Version="11.1.1.61.92"
+  InheritPersonalization="true">
+  <DesignTime>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <AssociationEnd
+    Name="PrtPartnerEO2"
+    Cardinality="1"
+    Source="true"
+    Owner="com.sfr.engage.model.entities.PrtPartnerEO">
+    <DesignTime>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="PrtPartnerEO2"/>
+      <Attr Name="_foreignKey"
+        Value="com.sfr.engage.model.entities.PrtPartnerEO.PrtPartnerPk"/>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_minCardinality" Value="1"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtPartnerEO.CountryCode"/>
+      <Item Value="com.sfr.engage.model.entities.PrtPartnerEO.PartnerId"/>
+    </AttrArray>
+  </AssociationEnd>
+  <AssociationEnd
+    Name="PrtCardgroupEO2"
+    Cardinality="-1"
+    Owner="com.sfr.engage.model.entities.PrtCardgroupEO">
+    <DesignTime>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="PrtCardgroupEO2"/>
+      <Attr Name="_foreignKey"
+        Value="com.sfr.engage.model.entities.PrtCardgroupEO.PrtCardgroupPrtPartnerFk1"/>
+      <Attr Name="_isUpdateable" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtCardgroupEO.CountryCode"/>
+      <Item Value="com.sfr.engage.model.entities.PrtCardgroupEO.PartnerId"/>
+    </AttrArray>
+  </AssociationEnd>
+</Association>

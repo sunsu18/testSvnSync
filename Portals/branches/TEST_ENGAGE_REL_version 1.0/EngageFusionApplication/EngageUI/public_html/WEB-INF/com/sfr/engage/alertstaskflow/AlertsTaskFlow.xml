@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="AlertsTaskFlow">
+    <default-activity id="__1">Alerts</default-activity>
+    <managed-bean id="__4">
+      <managed-bean-name id="__2">AlertsBean</managed-bean-name>
+      <managed-bean-class id="__5">com.sfr.engage.alertstaskflow.Alerts</managed-bean-class>
+      <managed-bean-scope id="__3">pageFlow</managed-bean-scope>
+    </managed-bean>
+    <view id="Alerts">
+      <page>/WEB-INF/com/sfr/engage/alertstaskflow/Alerts.jsff</page>
+    </view>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>
