@@ -14,8 +14,8 @@
       </af:panelGroupLayout>
       <af:spacer height="15" width="10" id="s13"/>
       <af:panelGroupLayout id="pgl17" valign="top" layout="horizontal" halign="start">
-        <af:selectBooleanRadio text="" id="multiplecard" group="A" selected="true" autoSubmit="true"
-                               binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.multipleCardRadio}"
+        <af:selectBooleanRadio text="" id="multiplecard" group="A" value="#{pageFlowScope.UserInfoDisplayManagedBean.radioPanelSelection}" autoSubmit="true"
+                               binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.multipleCardRadio}" partialTriggers="cb3"
                                valueChangeListener="#{pageFlowScope.UserInfoDisplayManagedBean.multicardRadioValueChangeListener}"/>
         <af:spacer height="18" width="10" id="s24"/>
         <af:outputText value="#{sfr.SEARCH_TEXT}" id="ot29"/>
@@ -138,13 +138,13 @@
       </af:panelGroupLayout>
       <af:spacer height="50" width="20" id="s10"/>
       <af:panelGroupLayout id="pgl15" valign="top" layout="horizontal" halign="start">
-        <af:selectBooleanRadio text="" label="" group="A" id="singlecard"
+        <af:selectBooleanRadio text="" label="" group="A" id="singlecard" partialTriggers="cb3"
                                valueChangeListener="#{pageFlowScope.UserInfoDisplayManagedBean.singlecardRadioValueChangeListener}"
                                binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.singleCardRadio}" autoSubmit="true"/>
         <af:spacer height="18" width="10" id="s17"/>
         <af:outputText id="ot6" value="#{sfr.SEARCH_BY_INPUT}"/>
         <af:outputText value=":" id="ot8"/>
-        <af:inputText id="it1" value="#{pageFlowScope.UserInfoDisplayManagedBean.searchString}"
+        <af:inputText id="it1" value="#{pageFlowScope.UserInfoDisplayManagedBean.searchString}" partialTriggers="cb3"
                       binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.searchStringInputtext}" disabled="true">
           <af:autoSuggestBehavior suggestedItems="#{pageFlowScope.UserInfoDisplayManagedBean.suggestedSearchString}"/>
         </af:inputText>
@@ -154,7 +154,7 @@
         <af:spacer width="10" height="10" id="s151"/>
         <af:commandButton text="#{sfr.SEARCH}" id="cb2" actionListener="#{pageFlowScope.UserInfoDisplayManagedBean.searchResult}"/>
         <af:spacer width="10" height="10" id="s15"/>
-        <af:commandButton text="#{sfr.CLEAR}" id="cb3" actionListener="#{pageFlowScope.UserInfoDisplayManagedBean.clearSearchListener}"/>
+        <af:commandButton text="#{sfr.RESET}" id="cb3" actionListener="#{pageFlowScope.UserInfoDisplayManagedBean.clearSearchListener}"/>
         <af:spacer width="24" height="10" id="s23"/>
       </af:panelGroupLayout>
     </af:panelGroupLayout>

@@ -80,7 +80,7 @@ public class UserInfoDisplayBean {
     private String lang;
     private transient Bindings bindings;
     private ResourceBundle resourceBundle;
-    private Boolean isTableVisible = false;
+    private Boolean isTableVisible;
     private Boolean isCgMgrVisible = false;
     private Boolean isEmpVisible = false;
     private Boolean isAccMgrVisible = false;
@@ -116,7 +116,6 @@ public class UserInfoDisplayBean {
     private String showPopUpTableheading = null;
 
     private Map<String, String> partnerIdMap;
-    //private Map<String, String> accountIdMap;
     private Map<String, String> cardGroupIdMap;
     private Map<String, String> cardIdMap;
 
@@ -132,27 +131,19 @@ public class UserInfoDisplayBean {
     private String rolesToCreate = "";
     private String warningMsg = "";
     private String emailValue = null;
+    private Boolean radioPanelSelection;
 
-
-    public UserInfoDisplayBean() {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside Constructor of User Display");
-        resourceBundle = new EngageResourceBundle();
-        ectx = FacesContext.getCurrentInstance().getExternalContext();
-        request = (HttpServletRequest)ectx.getRequest();
-        session = request.getSession(false);
-
-
-        //        partnerIdValue = new ArrayList<String>();
+    public void defaultPopulateDropdown(){
+        searchString = null;
         roleValue = new ArrayList<String>();
         roleValue.add("WCP_CARD_B2B_ADMIN");
         roleValue.add("WCP_CARD_B2B_MGR_AC");
         roleValue.add("WCP_CARD_B2B_MGR_CG");
         roleValue.add("WCP_CARD_B2B_EMP");
-
-        userEmail = "";
-
+        isTableVisible = true;
+        radioPanelSelection = true;
+        
         partnerIdMap = new HashMap<String, String>();
-        //        accountIdMap = new HashMap<String, String>();
         cardGroupIdMap = new HashMap<String, String>();
         cardIdMap = new HashMap<String, String>();
 
@@ -163,9 +154,20 @@ public class UserInfoDisplayBean {
         partnerNameMap = new HashMap<String, String>();
         cardGroupDescMap = new HashMap<String, String>();
         cardEmbossMap = new HashMap<String, String>();
+        populateCustomerData("Default");
+    }
+
+    public UserInfoDisplayBean() {
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside Constructor of User Display");
+        resourceBundle = new EngageResourceBundle();
+        ectx = FacesContext.getCurrentInstance().getExternalContext();
+        request = (HttpServletRequest)ectx.getRequest();
+        session = request.getSession(false);
+        defaultPopulateDropdown();
+        userEmail = "";
 
         populateCustomerData("Default");
-
+        search(partnerIdValue.toString(), accountIdValue.toString(), cardGroupValue.toString(), cardNumberValue.toString(), roleValue.toString());
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting Constructor of User Display");
     }
 
@@ -187,7 +189,7 @@ public class UserInfoDisplayBean {
     }
 
     public void populateCustomerData(String changeValues) {
-
+        
         if (session.getAttribute("Partner_Object_List") != null) {
             partnerInfoList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
             if (partnerInfoList != null && partnerInfoList.size() > 0) {
@@ -244,15 +246,10 @@ public class UserInfoDisplayBean {
                                     accountIdValue.add(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
                                     accountToPartnermap.put(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString(),
                                                             partnerInfoList.get(i).getPartnerValue().toString());
-
-                                    //                                accountIdMap.put(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString(),
-                                    //                                                 partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
                                 } else {
                                     addEditUserAccountID.add(selectItem);
                                     addEditAccountValue.add(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
-
                                 }
-
                             }
                             for (int k = 0; k < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().size(); k++) {
                                 if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID() != null) {
@@ -858,421 +855,198 @@ public class UserInfoDisplayBean {
     public void searchResult(ActionEvent actionEvent) {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside searchResult method of User Display");
         showSearchResults();
-        //        isTableVisible = true;
-        //        isCgMgrVisible = false;
-        //        isEmpVisible = false;
-        //        isAccMgrVisible = false;
-        //        isAdminVisible = false;
-        //        boolean resultDisplay = false;
-        //
-        //        try {
-        //            if (getBindings().getMultipleCardRadio().getValue().equals(true) && getBindings().getSingleCardRadio().getValue().equals(false)) {
-        //                if (getBindings().getPartner().getValue() != null) {
-        //                    if (getBindings().getAccount().getValue() != null) {
-        //                    } else {
-        //                        showErrorMessage("ENGAGE_NO_ACCOUNT");
-        //                    }
-        //
-        //                    if (getBindings().getCardGroup().getValue() != null) {
-        //                    } else {
-        //                        showErrorMessage("ENGAGE_NO_CARD_GROUP");
-        //                    }
-        //
-        //                    if (getBindings().getCard().getValue() != null) {
-        //                    } else {
-        //                        showErrorMessage("ENGAGE_NO_CARD");
-        //                    }
-        //
-        //                    if (getBindings().getRole().getValue() != null) {
-        //                    } else {
-        //                        showErrorMessage("ENGAGE_NO_ROLE");
-        //                    }
-        //
-        //                    if (getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_ADMIN")) {
-        //                        ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForAdminRVO1Iterator");
-        //                        vo.setNamedWhereClauseParam("cc", lang);
-        //                        vo.setNamedWhereClauseParam("roleName", Constants.ROLE_WCP_CARD_B2B_ADMIN);
-        //                        vo.setNamedWhereClauseParam("PID", populateStringValues(getBindings().getPartner().getValue().toString().trim()));
-        //                        vo.executeQuery();
-        //                        isTableVisible = true;
-        //                        resultDisplay = true;
-        //                    }
-        //                    if (getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_MGR_AC")) {
-        //                        ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForAccMgrRVO1Iterator");
-        //                        if (accountQuery.length() > 1 && accountQuery != null) {
-        //                            if (vo.getWhereClause() != null) {
-        //                                if (accountQuery.trim().equalsIgnoreCase(vo.getWhereClause().trim())) {
-        //                                    if (mapAccountListValue != null) {
-        //                                        for (int i = 0; i < mapAccountListValue.size(); i++) {
-        //                                            String values = "account" + i;
-        //                                            vo.removeNamedWhereClauseParam(values);
-        //                                        }
-        //                                    } else {
-        //                                        vo.removeNamedWhereClauseParam("account");
-        //                                    }
-        //                                    vo.setWhereClause("");
-        //                                    vo.executeQuery();
-        //                                }
-        //                            }
-        //                        }
-        //                        accountQuery = "(";
-        //                        vo.setNamedWhereClauseParam("cc", lang);
-        //                        vo.setNamedWhereClauseParam("roleName", Constants.ROLE_WCP_CARD_B2B_MGR);
-        //                        vo.setNamedWhereClauseParam("PID", populateStringValues(getBindings().getPartner().getValue().toString()));
-        //                        if (accountIdValue.size() > 150) {
-        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
-        //                            mapAccountListValue = valueList.callValueList(accountIdValue.size(), accountIdValue);
-        //                            for (int i = 0; i < mapAccountListValue.size(); i++) {
-        //                                String values = "account" + i;
-        //                                accountQuery = accountQuery + "INSTR(:" + values + ",ACCOUNT_ID)<>0 OR ";
-        //                            }
-        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Account Query Values =" + accountQuery);
-        //                            accountQuery = accountQuery.substring(0, accountQuery.length() - 3);
-        //                            accountQuery = accountQuery + ")";
-        //                        } else {
-        //                            mapAccountListValue = null;
-        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
-        //                            accountQuery = "INSTR(:account,ACCOUNT_ID)<>0  ";
-        //                        }
-        //                        vo.setWhereClause(accountQuery);
-        //                        String passingRole = "WCP_CARD_B2B_MGR";
-        //
-        //                        if (accountIdValue.size() > 150) {
-        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
-        //                            mapAccountListValue = valueList.callValueList(accountIdValue.size(), accountIdValue);
-        //                            for (int i = 0; i < mapAccountListValue.size(); i++) {
-        //                                String values = "account" + i;
-        //                                String listName = "listName" + i;
-        //                                vo.defineNamedWhereClauseParam(values, mapAccountListValue.get(listName), null);
-        //                            }
-        //                        } else {
-        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
-        //                            vo.defineNamedWhereClauseParam("account", populateStringValues(getBindings().getAccount().getValue().toString()), null);
-        //                        }
-        //
-        //                        vo.executeQuery();
-        //                        session.setAttribute("user_display_account_Query", accountQuery);
-        //                        session.setAttribute("user_display_map_Account_List", mapAccountListValue);
-        //                        isTableVisible = true;
-        //                        resultDisplay = true;
-        //                    }
-        //                    if (getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_MGR_CG")) {
-        //
-        //                        ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForCgMgrRVO1Iterator");
-        //                        if (cardGroupQuery.length() > 1 && cardGroupQuery != null) {
-        //                            if (vo.getWhereClause() != null) {
-        //                                if (cardGroupQuery.trim().equalsIgnoreCase(vo.getWhereClause().trim())) {
-        //                                    if (mapCardGroupListValue != null) {
-        //                                        for (int i = 0; i < mapCardGroupListValue.size(); i++) {
-        //                                            String values = "cardGroup" + i;
-        //                                            vo.removeNamedWhereClauseParam(values);
-        //                                        }
-        //                                    } else {
-        //                                        vo.removeNamedWhereClauseParam("cardGroup");
-        //                                    }
-        //                                    vo.setWhereClause("");
-        //                                    vo.executeQuery();
-        //                                }
-        //                            }
-        //                        }
-        //                        cardGroupQuery = "(";
-        //
-        //                        if (cardGroupValue.size() > 150) {
-        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
-        //                            mapCardGroupListValue = valueList.callValueList(cardGroupValue.size(), cardGroupValue);
-        //                            for (int i = 0; i < mapCardGroupListValue.size(); i++) {
-        //                                String values = "cardGroup" + i;
-        //                                cardGroupQuery = cardGroupQuery + "INSTR(:" + values + ",PARTNER_ID||CARD_GROUP)<>0 OR ";
-        //                            }
-        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "CARDGROUP Query Values =" + cardGroupQuery);
-        //                            cardGroupQuery = cardGroupQuery.substring(0, cardGroupQuery.length() - 3);
-        //                            cardGroupQuery = cardGroupQuery + ")";
-        //                        } else {
-        //                            mapCardGroupListValue = null;
-        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values < 150 ");
-        //                            cardGroupQuery = "INSTR(:cardGroup,PARTNER_ID||CARD_GROUP)<>0 ";
-        //                        }
-        //
-        //                        vo.setWhereClause(cardGroupQuery);
-        //                        vo.setNamedWhereClauseParam("cc", lang);
-        //                        vo.setNamedWhereClauseParam("roleName", Constants.ROLE_WCP_CARD_B2B_MGR);
-        //                        vo.setNamedWhereClauseParam("PID", populateStringValues(getBindings().getPartner().getValue().toString()));
-        //                        if (cardGroupValue.size() > 150) {
-        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
-        //                            mapCardGroupListValue = valueList.callValueList(cardGroupValue.size(), cardGroupValue);
-        //                            for (int i = 0; i < mapCardGroupListValue.size(); i++) {
-        //                                String values = "cardGroup" + i;
-        //                                String listName = "listName" + i;
-        //                                vo.defineNamedWhereClauseParam(values, mapCardGroupListValue.get(listName), null);
-        //                            }
-        //                        } else {
-        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values < 150 ");
-        //                            vo.defineNamedWhereClauseParam("cardGroup", populateStringValues(getBindings().getCardGroup().getValue().toString()), null);
-        //                        }
-        //
-        //                        vo.executeQuery();
-        //                        session.setAttribute("user_display_cardGroup_Query", cardGroupQuery);
-        //                        session.setAttribute("user_display_map_CardGroup_List", mapCardGroupListValue);
-        //                        isTableVisible = true;
-        //                        resultDisplay = true;
-        //                    }
-        //                    if (getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_EMP")) {
-        //
-        //                        ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForEmpRVO1Iterator");
-        //                        if (cardQuery.length() > 1 && cardQuery != null) {
-        //                            if (vo.getWhereClause() != null) {
-        //                                if (cardQuery.trim().equalsIgnoreCase(vo.getWhereClause().trim())) {
-        //                                    if (mapCardListValue != null) {
-        //                                        for (int i = 0; i < mapCardListValue.size(); i++) {
-        //                                            String values = "card" + i;
-        //                                            vo.removeNamedWhereClauseParam(values);
-        //                                        }
-        //                                    } else {
-        //                                        vo.removeNamedWhereClauseParam("card");
-        //                                    }
-        //                                    vo.setWhereClause("");
-        //                                    vo.executeQuery();
-        //                                }
-        //                            }
-        //                        }
-        //                        cardQuery = "(";
-        //
-        //                        if (cardNumberValue.size() > 150) {
-        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values > 150 ");
-        //                            mapCardListValue = valueList.callValueList(cardNumberValue.size(), cardNumberValue);
-        //                            for (int i = 0; i < mapCardListValue.size(); i++) {
-        //                                String values = "card" + i;
-        //                                cardQuery = cardQuery + "INSTR(:" + values + ",CARD)<>0 OR ";
-        //                            }
-        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
-        //                            cardQuery = cardQuery.substring(0, cardQuery.length() - 3);
-        //                            cardQuery = cardQuery + ")";
-        //                        } else {
-        //                            mapCardListValue = null;
-        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values < 150 ");
-        //                            cardQuery = "INSTR(:card,CARD)<>0 ";
-        //                        }
-        //                        vo.setWhereClause(cardQuery);
-        //                        vo.setNamedWhereClauseParam("cc", lang);
-        //                        vo.setNamedWhereClauseParam("roleName", Constants.ROLE_WCP_CARD_B2B_EMP);
-        //                        vo.setNamedWhereClauseParam("PID", populateStringValues(getBindings().getPartner().getValue().toString()));
-        //                        if (cardNumberValue.size() > 150) {
-        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values > 150 ");
-        //                            mapCardListValue = valueList.callValueList(cardNumberValue.size(), cardNumberValue);
-        //                            for (int i = 0; i < mapCardListValue.size(); i++) {
-        //                                String values = "card" + i;
-        //                                String listName = "listName" + i;
-        //                                vo.defineNamedWhereClauseParam(values, mapCardListValue.get(listName), null);
-        //                            }
-        //                        } else {
-        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values < 150 ");
-        //                            vo.defineNamedWhereClauseParam("card", populateStringValues(getBindings().getCard().getValue().toString()), null);
-        //                        }
-        //
-        //                        vo.executeQuery();
-        //                        session.setAttribute("user_display_card_Query", cardQuery);
-        //                        session.setAttribute("user_display_map_Card_List", mapCardListValue);
-        //                        isTableVisible = true;
-        //                        resultDisplay = true;
-        //                    }
-        //
-        //                } else {
-        //                    showErrorMessage("ENGAGE_NO_PARTNER");
-        //                }
-        //            } else if (getBindings().getSingleCardRadio().getValue().equals(true) && getBindings().getMultipleCardRadio().getValue().equals(false)) {
-        //                if (getBindings().getSearchStringInputtext().getValue() != null) {
-        //                    String enteredCard = getBindings().getSearchStringInputtext().getValue().toString();
-        //                    String passingPartner = "", passingAccount = "", passingCardgroup = "", passingCard = "", passingRole =
-        //                        "WCP_CARD_B2B_ADMIN,WCP_CARD_B2B_MGR_AC,WCP_CARD_B2B_MGR_CG,WCP_CARD_B2B_EMP";
-        //                    for (int i = 0; i < partnerInfoList.size(); i++) {
-        //                        if (partnerInfoList.get(i).getAccountList() != null && partnerInfoList.get(i).getAccountList().size() > 0) {
-        //                            for (int j = 0; j < partnerInfoList.get(i).getAccountList().size(); j++) {
-        //                                for (int k = 0; k < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().size(); k++) {
-        //                                    for (int cc = 0; cc < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().size(); cc++) {
-        //                                        if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID() != null &&
-        //                                            partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID() !=
-        //                                            null &&
-        //                                            partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().equalsIgnoreCase(enteredCard)) {
-        //                                            passingCard = partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID();
-        //                                            passingCardgroup =
-        //                                                    partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString();
-        //                                            passingAccount = partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString();
-        //                                            passingPartner = partnerInfoList.get(i).getPartnerValue().toString();
-        //                                        }
-        //                                    }
-        //                                }
-        //                            }
-        //                        }
-        //                    }
-        //
-        //                    //execute query
-        //                    if (session != null) {
-        //                        if (session.getAttribute("user_display_account_Query") != null) {
-        //                            accountQuery = session.getAttribute("user_display_account_Query").toString().trim();
-        //                            mapAccountListValue = (Map<String, String>)session.getAttribute("user_display_map_Account_List");
-        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "account Query & mapAccountList is found");
-        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "account " + accountQuery);
-        //                        }
-        //                        if (session.getAttribute("user_display_cardGroup_Query") != null) {
-        //                            cardGroupQuery = session.getAttribute("user_display_cardGroup_Query").toString().trim();
-        //                            mapCardGroupListValue = (Map<String, String>)session.getAttribute("user_display_map_CardGroup_List");
-        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Query & mapCardGroupList is found");
-        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup " + cardGroupQuery);
-        //                        }
-        //                        if (session.getAttribute("user_display_card_Query") != null) {
-        //                            cardQuery = session.getAttribute("user_display_card_Query").toString().trim();
-        //                            mapCardListValue = (Map<String, String>)session.getAttribute("user_display_map_Card_List");
-        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Query & mapCardList is found");
-        //                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card " + cardQuery);
-        //                        }
-        //                    }
-        //
-        //                    if (getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_ADMIN")) {
-        //                        ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForAdminRVO1Iterator");
-        //                        vo.setNamedWhereClauseParam("cc", lang);
-        //                        vo.setNamedWhereClauseParam("roleName", Constants.ROLE_WCP_CARD_B2B_ADMIN);
-        //                        vo.setNamedWhereClauseParam("PID", passingPartner);
-        //                        vo.executeQuery();
-        //                        isTableVisible = true;
-        //                        resultDisplay = true;
-        //                    }
-        //                    if (getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_MGR_AC")) {
-        //                        ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForAccMgrRVO1Iterator");
-        //                        if (accountQuery.length() > 1 && accountQuery != null) {
-        //                            if (vo.getWhereClause() != null) {
-        //                                if (accountQuery.trim().equalsIgnoreCase(vo.getWhereClause().trim())) {
-        //                                    if (mapAccountListValue != null) {
-        //                                        for (int i = 0; i < mapAccountListValue.size(); i++) {
-        //                                            String values = "account" + i;
-        //                                            vo.removeNamedWhereClauseParam(values);
-        //                                        }
-        //                                    } else {
-        //                                        vo.removeNamedWhereClauseParam("account");
-        //                                    }
-        //                                    vo.setWhereClause("");
-        //                                    vo.executeQuery();
-        //                                }
-        //                            }
-        //                        }
-        //                        accountQuery = "(";
-        //
-        //                        mapAccountListValue = null;
-        //                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
-        //                        accountQuery = "INSTR(:account,ACCOUNT_ID)<>0 ";
-        //                        vo.setWhereClause(accountQuery);
-        //                        vo.setNamedWhereClauseParam("cc", lang);
-        //                        vo.setNamedWhereClauseParam("roleName", Constants.ROLE_WCP_CARD_B2B_MGR);
-        //                        vo.setNamedWhereClauseParam("PID", passingPartner);
-        //                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
-        //                        vo.defineNamedWhereClauseParam("account", passingAccount, null);
-        //                        vo.executeQuery();
-        //                        session.setAttribute("user_display_account_Query", accountQuery);
-        //                        isAccMgrVisible = true;
-        //                    }
-        //                    if (getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_MGR_CG")) {
-        //
-        //                        ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForCgMgrRVO1Iterator");
-        //                        if (cardGroupQuery.length() > 1 && cardGroupQuery != null) {
-        //                            if (vo.getWhereClause() != null) {
-        //                                if (cardGroupQuery.trim().equalsIgnoreCase(vo.getWhereClause().trim())) {
-        //                                    if (mapCardGroupListValue != null) {
-        //                                        for (int i = 0; i < mapCardGroupListValue.size(); i++) {
-        //                                            String values = "cardGroup" + i;
-        //                                            vo.removeNamedWhereClauseParam(values);
-        //                                        }
-        //                                    } else {
-        //                                        vo.removeNamedWhereClauseParam("cardGroup");
-        //                                    }
-        //                                    vo.setWhereClause("");
-        //                                    vo.executeQuery();
-        //                                }
-        //                            }
-        //                        }
-        //                        cardGroupQuery = "(";
-        //
-        //                        mapCardGroupListValue = null;
-        //                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values < 150 ");
-        //                        cardGroupQuery = "INSTR(:cardGroup,PARTNER_ID||CARD_GROUP)<>0 ";
-        //
-        //                        vo.setWhereClause(cardGroupQuery);
-        //                        vo.setNamedWhereClauseParam("cc", lang);
-        //                        vo.setNamedWhereClauseParam("roleName", Constants.ROLE_WCP_CARD_B2B_MGR);
-        //                        vo.setNamedWhereClauseParam("PID", passingPartner);
-        //                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values < 150 ");
-        //                        vo.defineNamedWhereClauseParam("cardGroup", passingPartner + passingCardgroup, null);
-        //
-        //                        vo.executeQuery();
-        //                        session.setAttribute("user_display_cardGroup_Query", cardGroupQuery);
-        //                        session.setAttribute("user_display_map_CardGroup_List", mapCardGroupListValue);
-        //                        isTableVisible = true;
-        //                        resultDisplay = true;
-        //                    }
-        //                    if (getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_EMP")) {
-        //
-        //                        ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForEmpRVO1Iterator");
-        //                        if (cardQuery.length() > 1 && cardQuery != null) {
-        //                            if (vo.getWhereClause() != null) {
-        //                                if (cardQuery.trim().equalsIgnoreCase(vo.getWhereClause().trim())) {
-        //                                    if (mapCardListValue != null) {
-        //                                        for (int i = 0; i < mapCardListValue.size(); i++) {
-        //                                            String values = "card" + i;
-        //                                            vo.removeNamedWhereClauseParam(values);
-        //                                        }
-        //                                    } else {
-        //                                        vo.removeNamedWhereClauseParam("card");
-        //                                    }
-        //                                    vo.setWhereClause("");
-        //                                    vo.executeQuery();
-        //                                }
-        //                            }
-        //                        }
-        //                        cardQuery = "(";
-        //
-        //                        mapCardListValue = null;
-        //                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values < 150 ");
-        //                        cardQuery = "INSTR(:card,CARD)<>0 ";
-        //                        vo.setWhereClause(cardQuery);
-        //                        vo.setNamedWhereClauseParam("cc", lang);
-        //                        vo.setNamedWhereClauseParam("roleName", Constants.ROLE_WCP_CARD_B2B_EMP);
-        //                        vo.setNamedWhereClauseParam("PID", passingPartner);
-        //                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values < 150 ");
-        //                        vo.defineNamedWhereClauseParam("card", passingCard, null);
-        //
-        //                        vo.executeQuery();
-        //                        session.setAttribute("user_display_card_Query", cardQuery);
-        //                        session.setAttribute("user_display_map_Card_List", mapCardListValue);
-        //                        isTableVisible = true;
-        //                        resultDisplay = true;
-        //                    }
-        //                } else {
-        //                    showErrorMessage("ENGAGE_NO_CARD");
-        //                }
-        //            }
-        //            if (resultDisplay) {
-        //                if (getBindings().getSearchStringInputtext().getValue() != null && getBindings().getSearchStringInputtext().getValue().equals(true)) {
-        //                    isCgMgrVisible = true;
-        //                    isEmpVisible = true;
-        //                    isAccMgrVisible = true;
-        //                    isAdminVisible = true;
-        //                } else {
-        //                    if (getBindings().getRole().getValue().toString().contains("WCP_CARD_B2B_ADMIN")) {
-        //                        isAdminVisible = true;
-        //                    }
-        //                    if (getBindings().getRole().getValue().toString().contains("WCP_CARD_B2B_MGR_AC")) {
-        //                        isAccMgrVisible = true;
-        //                    }
-        //                    if (getBindings().getRole().getValue().toString().contains("WCP_CARD_B2B_MGR_CG")) {
-        //                        isCgMgrVisible = true;
-        //                    }
-        //                    if (getBindings().getRole().getValue().toString().contains("WCP_CARD_B2B_EMP")) {
-        //                        isEmpVisible = true;
-        //                    }
-        //                }
-        //            }
-        //        } catch (Exception e) {
-        //            e.printStackTrace();
-        //        }
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside searchResult method of User Display");
+    }
+
+    public void search(String partnerPV, String accountPV, String cardgroupPV, String cardPV, String rolePV){
+        String partner = partnerPV, account = accountPV, cardgroup = cardgroupPV, card = cardPV, role = rolePV;
+        if (role.contains("WCP_CARD_B2B_ADMIN")) {
+            ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForAdminRVO1Iterator");
+            vo.setNamedWhereClauseParam("cc", lang);
+            vo.setNamedWhereClauseParam("roleName", Constants.ROLE_WCP_CARD_B2B_ADMIN);
+            vo.setNamedWhereClauseParam("PID", partner);
+            vo.executeQuery();
+            isTableVisible = true;
+            isAdminVisible = true;
+        }
+        if (role.contains("WCP_CARD_B2B_MGR_AC")) {
+            ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForAccMgrRVO1Iterator");
+            if (accountQuery.length() > 1 && accountQuery != null) {
+                if (vo.getWhereClause() != null) {
+                    if (accountQuery.trim().equalsIgnoreCase(vo.getWhereClause().trim())) {
+                        if (mapAccountListValue != null) {
+                            for (int i = 0; i < mapAccountListValue.size(); i++) {
+                                String values = "account" + i;
+                                vo.removeNamedWhereClauseParam(values);
+                            }
+                        } else {
+                            vo.removeNamedWhereClauseParam("account");
+                        }
+                        vo.setWhereClause("");
+                        vo.executeQuery();
+                    }
+                }
+            }
+            accountQuery = "(";
+            vo.setNamedWhereClauseParam("cc", lang);
+            vo.setNamedWhereClauseParam("roleName", Constants.ROLE_WCP_CARD_B2B_MGR);
+            vo.setNamedWhereClauseParam("PID", partner);
+            if (accountIdValue.size() > 150) {
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
+                mapAccountListValue = ValueListSplit.callValueList(accountIdValue.size(), accountIdValue);
+                for (int i = 0; i < mapAccountListValue.size(); i++) {
+                    String values = "account" + i;
+                    accountQuery = accountQuery + "INSTR(:" + values + ",ACCOUNT_ID)<>0 OR ";
+                }
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Account Query Values =" + accountQuery);
+                accountQuery = accountQuery.substring(0, accountQuery.length() - 3);
+                accountQuery = accountQuery + ")";
+            } else {
+                mapAccountListValue = null;
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
+                accountQuery = "INSTR(:account,ACCOUNT_ID)<>0  ";
+            }
+            vo.setWhereClause(accountQuery);
+            String passingRole = "WCP_CARD_B2B_MGR";
+
+            if (accountIdValue.size() > 150) {
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
+                mapAccountListValue = ValueListSplit.callValueList(accountIdValue.size(), accountIdValue);
+                for (int i = 0; i < mapAccountListValue.size(); i++) {
+                    String values = "account" + i;
+                    String listName = "listName" + i;
+                    vo.defineNamedWhereClauseParam(values, mapAccountListValue.get(listName), null);
+                }
+            } else {
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
+                vo.defineNamedWhereClauseParam("account", account, null);
+            }
+
+            vo.executeQuery();
+            session.setAttribute("user_display_account_Query", accountQuery);
+            session.setAttribute("user_display_map_Account_List", mapAccountListValue);
+            isTableVisible = true;
+            isAccMgrVisible = true;
+        }
+        if (role.contains("WCP_CARD_B2B_MGR_CG")) {
+
+            ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForCgMgrRVO1Iterator");
+            if (cardGroupQuery.length() > 1 && cardGroupQuery != null) {
+                if (vo.getWhereClause() != null) {
+                    if (cardGroupQuery.trim().equalsIgnoreCase(vo.getWhereClause().trim())) {
+                        if (mapCardGroupListValue != null) {
+                            for (int i = 0; i < mapCardGroupListValue.size(); i++) {
+                                String values = "cardGroup" + i;
+                                vo.removeNamedWhereClauseParam(values);
+                            }
+                        } else {
+                            vo.removeNamedWhereClauseParam("cardGroup");
+                        }
+                        vo.setWhereClause("");
+                        vo.executeQuery();
+                    }
+                }
+            }
+            cardGroupQuery = "(";
+
+            if (cardGroupValue.size() > 150) {
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
+                mapCardGroupListValue = ValueListSplit.callValueList(cardGroupValue.size(), cardGroupValue);
+                for (int i = 0; i < mapCardGroupListValue.size(); i++) {
+                    String values = "cardGroup" + i;
+                    cardGroupQuery = cardGroupQuery + "INSTR(:" + values + ",PARTNER_ID||CARD_GROUP)<>0 OR ";
+                }
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + "CARDGROUP Query Values =" + cardGroupQuery);
+                cardGroupQuery = cardGroupQuery.substring(0, cardGroupQuery.length() - 3);
+                cardGroupQuery = cardGroupQuery + ")";
+            } else {
+                mapCardGroupListValue = null;
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values < 150 ");
+                cardGroupQuery = "INSTR(:cardGroup,PARTNER_ID||CARD_GROUP)<>0 ";
+            }
+
+            vo.setWhereClause(cardGroupQuery);
+            vo.setNamedWhereClauseParam("cc", lang);
+            vo.setNamedWhereClauseParam("roleName", Constants.ROLE_WCP_CARD_B2B_MGR);
+            vo.setNamedWhereClauseParam("PID", partner);
+            if (cardGroupValue.size() > 150) {
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
+                mapCardGroupListValue = ValueListSplit.callValueList(cardGroupValue.size(), cardGroupValue);
+                for (int i = 0; i < mapCardGroupListValue.size(); i++) {
+                    String values = "cardGroup" + i;
+                    String listName = "listName" + i;
+                    vo.defineNamedWhereClauseParam(values, mapCardGroupListValue.get(listName), null);
+                }
+            } else {
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values < 150 ");
+                vo.defineNamedWhereClauseParam("cardGroup", cardgroup, null);
+            }
+
+            vo.executeQuery();
+            session.setAttribute("user_display_cardGroup_Query", cardGroupQuery);
+            session.setAttribute("user_display_map_CardGroup_List", mapCardGroupListValue);
+            isTableVisible = true;
+            isCgMgrVisible = true;
+        }
+        if (role.contains("WCP_CARD_B2B_EMP")) {
+
+            ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForEmpRVO1Iterator");
+            if (cardQuery.length() > 1 && cardQuery != null) {
+                if (vo.getWhereClause() != null) {
+                    if (cardQuery.trim().equalsIgnoreCase(vo.getWhereClause().trim())) {
+                        if (mapCardListValue != null) {
+                            for (int i = 0; i < mapCardListValue.size(); i++) {
+                                String values = "card" + i;
+                                vo.removeNamedWhereClauseParam(values);
+                            }
+                        } else {
+                            vo.removeNamedWhereClauseParam("card");
+                        }
+                        vo.setWhereClause("");
+                        vo.executeQuery();
+                    }
+                }
+            }
+            cardQuery = "(";
+
+            if (cardNumberValue.size() > 150) {
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values > 150 ");
+                mapCardListValue = ValueListSplit.callValueList(cardNumberValue.size(), cardNumberValue);
+                for (int i = 0; i < mapCardListValue.size(); i++) {
+                    String values = "card" + i;
+                    cardQuery = cardQuery + "INSTR(:" + values + ",CARD)<>0 OR ";
+                }
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
+                cardQuery = cardQuery.substring(0, cardQuery.length() - 3);
+                cardQuery = cardQuery + ")";
+            } else {
+                mapCardListValue = null;
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values < 150 ");
+                cardQuery = "INSTR(:card,CARD)<>0 ";
+            }
+            vo.setWhereClause(cardQuery);
+            vo.setNamedWhereClauseParam("cc", lang);
+            vo.setNamedWhereClauseParam("roleName", Constants.ROLE_WCP_CARD_B2B_EMP);
+            vo.setNamedWhereClauseParam("PID", partner);
+            if (cardNumberValue.size() > 150) {
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values > 150 ");
+                mapCardListValue = ValueListSplit.callValueList(cardNumberValue.size(), cardNumberValue);
+                for (int i = 0; i < mapCardListValue.size(); i++) {
+                    String values = "card" + i;
+                    String listName = "listName" + i;
+                    vo.defineNamedWhereClauseParam(values, mapCardListValue.get(listName), null);
+                }
+            } else {
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values < 150 ");
+                vo.defineNamedWhereClauseParam("card", card, null);
+            }
+
+            vo.executeQuery();
+            session.setAttribute("user_display_card_Query", cardQuery);
+            session.setAttribute("user_display_map_Card_List", mapCardListValue);
+            isTableVisible = true;
+            isEmpVisible = true;
+        }
     }
 
     public void showSearchResults() {
@@ -1315,195 +1089,13 @@ public class UserInfoDisplayBean {
                         displayErrorComponent(getBindings().getRole(), false);
                         showErrorMessage("ENGAGE_NO_ROLE");
                     }
-
-                    if (getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_ADMIN")) {
-                        ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForAdminRVO1Iterator");
-                        vo.setNamedWhereClauseParam("cc", lang);
-                        vo.setNamedWhereClauseParam("roleName", Constants.ROLE_WCP_CARD_B2B_ADMIN);
-                        vo.setNamedWhereClauseParam("PID", populateStringValues(getBindings().getPartner().getValue().toString().trim()));
-                        vo.executeQuery();
-                        isTableVisible = true;
-                        resultDisplay = true;
-                    }
-                    if (getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_MGR_AC")) {
-                        ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForAccMgrRVO1Iterator");
-                        if (accountQuery.length() > 1 && accountQuery != null) {
-                            if (vo.getWhereClause() != null) {
-                                if (accountQuery.trim().equalsIgnoreCase(vo.getWhereClause().trim())) {
-                                    if (mapAccountListValue != null) {
-                                        for (int i = 0; i < mapAccountListValue.size(); i++) {
-                                            String values = "account" + i;
-                                            vo.removeNamedWhereClauseParam(values);
-                                        }
-                                    } else {
-                                        vo.removeNamedWhereClauseParam("account");
-                                    }
-                                    vo.setWhereClause("");
-                                    vo.executeQuery();
-                                }
-                            }
-                        }
-                        accountQuery = "(";
-                        vo.setNamedWhereClauseParam("cc", lang);
-                        vo.setNamedWhereClauseParam("roleName", Constants.ROLE_WCP_CARD_B2B_MGR);
-                        vo.setNamedWhereClauseParam("PID", populateStringValues(getBindings().getPartner().getValue().toString()));
-                        if (accountIdValue.size() > 150) {
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
-                            mapAccountListValue = ValueListSplit.callValueList(accountIdValue.size(), accountIdValue);
-                            for (int i = 0; i < mapAccountListValue.size(); i++) {
-                                String values = "account" + i;
-                                accountQuery = accountQuery + "INSTR(:" + values + ",ACCOUNT_ID)<>0 OR ";
-                            }
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Account Query Values =" + accountQuery);
-                            accountQuery = accountQuery.substring(0, accountQuery.length() - 3);
-                            accountQuery = accountQuery + ")";
-                        } else {
-                            mapAccountListValue = null;
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
-                            accountQuery = "INSTR(:account,ACCOUNT_ID)<>0  ";
-                        }
-                        vo.setWhereClause(accountQuery);
-                        String passingRole = "WCP_CARD_B2B_MGR";
-
-                        if (accountIdValue.size() > 150) {
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
-                            mapAccountListValue = ValueListSplit.callValueList(accountIdValue.size(), accountIdValue);
-                            for (int i = 0; i < mapAccountListValue.size(); i++) {
-                                String values = "account" + i;
-                                String listName = "listName" + i;
-                                vo.defineNamedWhereClauseParam(values, mapAccountListValue.get(listName), null);
-                            }
-                        } else {
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
-                            vo.defineNamedWhereClauseParam("account", populateStringValues(getBindings().getAccount().getValue().toString()), null);
-                        }
-
-                        vo.executeQuery();
-                        session.setAttribute("user_display_account_Query", accountQuery);
-                        session.setAttribute("user_display_map_Account_List", mapAccountListValue);
-                        isTableVisible = true;
-                        resultDisplay = true;
-                    }
-                    if (getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_MGR_CG")) {
-
-                        ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForCgMgrRVO1Iterator");
-                        if (cardGroupQuery.length() > 1 && cardGroupQuery != null) {
-                            if (vo.getWhereClause() != null) {
-                                if (cardGroupQuery.trim().equalsIgnoreCase(vo.getWhereClause().trim())) {
-                                    if (mapCardGroupListValue != null) {
-                                        for (int i = 0; i < mapCardGroupListValue.size(); i++) {
-                                            String values = "cardGroup" + i;
-                                            vo.removeNamedWhereClauseParam(values);
-                                        }
-                                    } else {
-                                        vo.removeNamedWhereClauseParam("cardGroup");
-                                    }
-                                    vo.setWhereClause("");
-                                    vo.executeQuery();
-                                }
-                            }
-                        }
-                        cardGroupQuery = "(";
-
-                        if (cardGroupValue.size() > 150) {
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
-                            mapCardGroupListValue = ValueListSplit.callValueList(cardGroupValue.size(), cardGroupValue);
-                            for (int i = 0; i < mapCardGroupListValue.size(); i++) {
-                                String values = "cardGroup" + i;
-                                cardGroupQuery = cardGroupQuery + "INSTR(:" + values + ",PARTNER_ID||CARD_GROUP)<>0 OR ";
-                            }
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "CARDGROUP Query Values =" + cardGroupQuery);
-                            cardGroupQuery = cardGroupQuery.substring(0, cardGroupQuery.length() - 3);
-                            cardGroupQuery = cardGroupQuery + ")";
-                        } else {
-                            mapCardGroupListValue = null;
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values < 150 ");
-                            cardGroupQuery = "INSTR(:cardGroup,PARTNER_ID||CARD_GROUP)<>0 ";
-                        }
-
-                        vo.setWhereClause(cardGroupQuery);
-                        vo.setNamedWhereClauseParam("cc", lang);
-                        vo.setNamedWhereClauseParam("roleName", Constants.ROLE_WCP_CARD_B2B_MGR);
-                        vo.setNamedWhereClauseParam("PID", populateStringValues(getBindings().getPartner().getValue().toString()));
-                        if (cardGroupValue.size() > 150) {
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
-                            mapCardGroupListValue = ValueListSplit.callValueList(cardGroupValue.size(), cardGroupValue);
-                            for (int i = 0; i < mapCardGroupListValue.size(); i++) {
-                                String values = "cardGroup" + i;
-                                String listName = "listName" + i;
-                                vo.defineNamedWhereClauseParam(values, mapCardGroupListValue.get(listName), null);
-                            }
-                        } else {
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values < 150 ");
-                            vo.defineNamedWhereClauseParam("cardGroup", populateStringValues(getBindings().getCardGroup().getValue().toString()), null);
-                        }
-
-                        vo.executeQuery();
-                        session.setAttribute("user_display_cardGroup_Query", cardGroupQuery);
-                        session.setAttribute("user_display_map_CardGroup_List", mapCardGroupListValue);
-                        isTableVisible = true;
-                        resultDisplay = true;
-                    }
-                    if (getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_EMP")) {
-
-                        ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForEmpRVO1Iterator");
-                        if (cardQuery.length() > 1 && cardQuery != null) {
-                            if (vo.getWhereClause() != null) {
-                                if (cardQuery.trim().equalsIgnoreCase(vo.getWhereClause().trim())) {
-                                    if (mapCardListValue != null) {
-                                        for (int i = 0; i < mapCardListValue.size(); i++) {
-                                            String values = "card" + i;
-                                            vo.removeNamedWhereClauseParam(values);
-                                        }
-                                    } else {
-                                        vo.removeNamedWhereClauseParam("card");
-                                    }
-                                    vo.setWhereClause("");
-                                    vo.executeQuery();
-                                }
-                            }
-                        }
-                        cardQuery = "(";
-
-                        if (cardNumberValue.size() > 150) {
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values > 150 ");
-                            mapCardListValue = ValueListSplit.callValueList(cardNumberValue.size(), cardNumberValue);
-                            for (int i = 0; i < mapCardListValue.size(); i++) {
-                                String values = "card" + i;
-                                cardQuery = cardQuery + "INSTR(:" + values + ",CARD)<>0 OR ";
-                            }
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
-                            cardQuery = cardQuery.substring(0, cardQuery.length() - 3);
-                            cardQuery = cardQuery + ")";
-                        } else {
-                            mapCardListValue = null;
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values < 150 ");
-                            cardQuery = "INSTR(:card,CARD)<>0 ";
-                        }
-                        vo.setWhereClause(cardQuery);
-                        vo.setNamedWhereClauseParam("cc", lang);
-                        vo.setNamedWhereClauseParam("roleName", Constants.ROLE_WCP_CARD_B2B_EMP);
-                        vo.setNamedWhereClauseParam("PID", populateStringValues(getBindings().getPartner().getValue().toString()));
-                        if (cardNumberValue.size() > 150) {
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values > 150 ");
-                            mapCardListValue = ValueListSplit.callValueList(cardNumberValue.size(), cardNumberValue);
-                            for (int i = 0; i < mapCardListValue.size(); i++) {
-                                String values = "card" + i;
-                                String listName = "listName" + i;
-                                vo.defineNamedWhereClauseParam(values, mapCardListValue.get(listName), null);
-                            }
-                        } else {
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values < 150 ");
-                            vo.defineNamedWhereClauseParam("card", populateStringValues(getBindings().getCard().getValue().toString()), null);
-                        }
-
-                        vo.executeQuery();
-                        session.setAttribute("user_display_card_Query", cardQuery);
-                        session.setAttribute("user_display_map_Card_List", mapCardListValue);
-                        isTableVisible = true;
-                        resultDisplay = true;
-                    }
-
+                    
+                    search(populateStringValues(getBindings().getPartner().getValue().toString().trim()),
+                           populateStringValues(getBindings().getAccount().getValue().toString()),
+                           populateStringValues(getBindings().getCardGroup().getValue().toString()),
+                           populateStringValues(getBindings().getCard().getValue().toString()),
+                           getBindings().getRole().getValue().toString().trim());
+                    resultDisplay = true;
                 } else {
                     displayErrorComponent(getBindings().getPartner(), true);
                     showErrorMessage("ENGAGE_NO_PARTNER");
@@ -1703,30 +1295,21 @@ public class UserInfoDisplayBean {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     public void clearSearchListener(ActionEvent actionEvent) {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside clearSearchListener method of User Display");
-        getBindings().getPartner().setValue(null);
-        getBindings().getAccount().setValue(null);
-        getBindings().getCardGroup().setValue(null);
-        getBindings().getCard().setValue(null);
-        getBindings().getSearchStringInputtext().resetValue();
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchStringInputtext());
-        this.partnerIdValue = null;
-        this.accountIdValue = null;
-        accountIdList = new ArrayList<SelectItem>();
-        this.cardGroupValue = null;
-        cardGroupList = new ArrayList<SelectItem>();
-        this.cardNumberValue = null;
-        cardNumberList = new ArrayList<SelectItem>();
-        roleValue = new ArrayList<String>();
-        roleValue.add("WCP_CARD_B2B_ADMIN");
-        roleValue.add("WCP_CARD_B2B_MGR_AC");
-        roleValue.add("WCP_CARD_B2B_MGR_CG");
-        roleValue.add("WCP_CARD_B2B_EMP");
-        isTableVisible = false;
+        getBindings().getMultipleCardRadio().setValue(true);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getMultipleCardRadio());
+        getBindings().getSingleCardRadio().setValue(false);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSingleCardRadio());
+        getBindings().getPartner().setDisabled(false);
+        getBindings().getAccount().setDisabled(false);
+        getBindings().getCardGroup().setDisabled(false);
+        getBindings().getCard().setDisabled(false);
+        getBindings().getRole().setDisabled(false);
+        getBindings().getSearchStringInputtext().setDisabled(true);
+        defaultPopulateDropdown();
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside clearSearchListener method of User Display");
     }
 
@@ -2041,35 +1624,23 @@ public class UserInfoDisplayBean {
             if (selectedRow.getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_ADMIN)) {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside manageUserCommandLinkAction for B2B admin");
                 isCreateAdmin = true;
-                //                isCreateACMgr = false;
-                //                isCreateCGMgr = false;
-                //                isCreateEmployee = false;
                 showSelectManyChoiceOnRole(selectedRow.getRoleName());
                 showPopUpHeading = fetchAddEditPopUpHeading(selectedRow.getRoleName());
                 showPopUpTableheading = fetchAddEditPopUpTableHeading(selectedRow.getRoleName());
             } else if (selectedRow.getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR_AC)) {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside manageUserCommandLinkAction for B2B mgr AC");
-                //                isCreateAdmin = false;
                 isCreateACMgr = true;
-                //                isCreateCGMgr = false;
-                //                isCreateEmployee = false;
                 showSelectManyChoiceOnRole(selectedRow.getRoleName());
                 showPopUpHeading = fetchAddEditPopUpHeading(selectedRow.getRoleName());
                 showPopUpTableheading = fetchAddEditPopUpTableHeading(selectedRow.getRoleName());
             } else if (selectedRow.getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR_CG)) {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside manageUserCommandLinkAction for B2B mgr CG");
-                //                isCreateAdmin = false;
-                //                isCreateACMgr = false;
                 isCreateCGMgr = true;
-                //                isCreateEmployee = false;
                 showSelectManyChoiceOnRole(selectedRow.getRoleName());
                 showPopUpHeading = fetchAddEditPopUpHeading(selectedRow.getRoleName());
                 showPopUpTableheading = fetchAddEditPopUpTableHeading(selectedRow.getRoleName());
             } else {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside manageUserCommandLinkAction for B2B card employee");
-                //                isCreateAdmin = false;
-                //                isCreateACMgr = false;
-                //                isCreateCGMgr = false;
                 isCreateEmployee = true;
                 showSelectManyChoiceOnRole(selectedRow.getRoleName());
                 showPopUpHeading = fetchAddEditPopUpHeading(selectedRow.getRoleName());
@@ -2805,14 +2376,6 @@ public class UserInfoDisplayBean {
         return partnerIdMap;
     }
 
-    //    public void setAccountIdMap(Map<String, String> accountIdMap) {
-    //        this.accountIdMap = accountIdMap;
-    //    }
-    //
-    //    public Map<String, String> getAccountIdMap() {
-    //        return accountIdMap;
-    //    }
-
     public void setCardGroupIdMap(Map<String, String> cardGroupIdMap) {
         this.cardGroupIdMap = cardGroupIdMap;
     }
@@ -2985,6 +2548,14 @@ public class UserInfoDisplayBean {
             }
         }
         return true;
+    }
+
+    public void setRadioPanelSelection(Boolean radioPanelSelection) {
+        this.radioPanelSelection = radioPanelSelection;
+    }
+
+    public Boolean getRadioPanelSelection() {
+        return radioPanelSelection;
     }
 
 
