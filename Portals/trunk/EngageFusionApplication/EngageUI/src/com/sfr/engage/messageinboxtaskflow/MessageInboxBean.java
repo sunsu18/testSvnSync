@@ -1181,11 +1181,11 @@ public class MessageInboxBean implements Serializable {
                 mapAccountListValue = ValueListSplit.callValueList(accountValue.size(), accountValue);
                 for (int i = 0; i < mapAccountListValue.size(); i++) {
                     String values = Constants.ACCOUNT_LITERAL + i;
-                    accountQuery = accountQuery + "INSTR(:" + values + ",ACCOUNT_ID)<>0 ";
+                    accountQuery = accountQuery + "INSTR(:" + values + ",ACCOUNT_ID)<>0 OR ";
                 }
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "Account Query Values =" + accountQuery);
                 accountQuery = accountQuery.substring(0, accountQuery.length() - Constants.THREE);
-                accountQuery = accountQuery + "OR ACCOUNT_ID is null )";
+                accountQuery = accountQuery + " ACCOUNT_ID is null )";
 
             } else {
                 mapAccountListValue = null;
@@ -1199,11 +1199,11 @@ public class MessageInboxBean implements Serializable {
                 for (int i = 0; i < mapCardGroupListValue.size(); i++) {
                     String values = Constants.CARDGROUPLITERAL + i;
                     cardGroupQuery =
-                            cardGroupQuery + "INSTR(:" + values + ",PARTNER||CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ)<>0 ";
+                            cardGroupQuery + "INSTR(:" + values + ",PARTNER||CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ)<>0 OR ";
                 }
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARDGROUP Query Values =" + cardGroupQuery);
                 cardGroupQuery = cardGroupQuery.substring(0, cardGroupQuery.length() - Constants.THREE);
-                cardGroupQuery = cardGroupQuery + "OR PARTNER||CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ is null)";
+                cardGroupQuery = cardGroupQuery + "PARTNER||CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ is null)";
                 
             } else {
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CARDGroup Values < 150 ");
@@ -1219,7 +1219,7 @@ public class MessageInboxBean implements Serializable {
                 mapCardListValue = ValueListSplit.callValueList(cardValue.size(), cardValue);
                 for (int i = 0; i < mapCardListValue.size(); i++) {
                     String values = Constants.CARDLITERAL + i;
-                    cardQuery = cardQuery + "INSTR(:" + values + ",INSTR(:card,CARD_PK)<>0 ";
+                    cardQuery = cardQuery + "INSTR(:" + values + ",INSTR(:card,CARD_PK)<>0 OR ";
                 }
                 cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
                 cardQuery = cardQuery + ") OR CARD_PK is null ";
