@@ -1219,7 +1219,8 @@ public class MessageInboxBean implements Serializable {
                 mapCardListValue = ValueListSplit.callValueList(cardValue.size(), cardValue);
                 for (int i = 0; i < mapCardListValue.size(); i++) {
                     String values = Constants.CARDLITERAL + i;
-                    cardQuery = cardQuery + "INSTR(:" + values + ",INSTR(:card,CARD_PK)<>0 OR ";
+                    
+                    cardQuery = cardQuery + "INSTR(:" + values + ", CARD_PK)<>0 OR ";
                 }
                 cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
                 cardQuery = cardQuery + ") OR CARD_PK is null ";
