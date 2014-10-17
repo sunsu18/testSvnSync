@@ -21,7 +21,7 @@
                      </argument>
                   </arguments>
                   <call xsi:type="sql-call">
-                     <sql>Select DELTA_TS, PARTNER_ID, PARTNER_TP, REDIGERT_NV, FODSEL_DT, PERSON_NR, ORGANISASJON_NR, KJONN, MVAREG_NR, PRIADRESSE_1, PRIADRESSE_2, PRIADRPOST_NR, PRIADRPOSTSTED, PRIADRLOPE_NR, PRIADRLAND_KD, PRIADRNIVA_KD, PRIADRESSE_TP from (SELECT DELTA_TS, PARTNER_ID, PARTNER_TP, REDIGERT_NV, FODSEL_DT, PERSON_NR, ORGANISASJON_NR, KJONN, MVAREG_NR, PRIADRESSE_1, PRIADRESSE_2, PRIADRPOST_NR, PRIADRPOSTSTED, PRIADRLOPE_NR, PRIADRLAND_KD, PRIADRNIVA_KD, PRIADRESSE_TP, ROW_NUMBER() OVER() as rownumber FROM (SELECT DELTA_TS, PARTNER_ID, PARTNER_TP, REDIGERT_NV, FODSEL_DT, PERSON_NR, ORGANISASJON_NR, KJONN, MVAREG_NR, PRIADRESSE_1, PRIADRESSE_2, PRIADRPOST_NR, PRIADRPOSTSTED, PRIADRLOPE_NR, PRIADRLAND_KD, PRIADRNIVA_KD, PRIADRESSE_TP FROM CC070VS1_CSSPAR_DTA ORDER BY DELTA_TS ASC) T1 WHERE (DELTA_TS > #DeltaTimeStamp)) T2 WHERE(rownumber &lt;= cast(#BatchSize as INTEGER))</sql>
+                     <sql>Select DELTA_TS, PARTNER_ID, PARTNER_TP, REDIGERT_NV, FODSEL_DT, PERSON_NR, ORGANISASJON_NR, KJONN, MVAREG_NR, PRIADRESSE_1, PRIADRESSE_2, PRIADRPOST_NR, PRIADRPOSTSTED, PRIADRLAND_KD, PRIADRESSE_TP from (SELECT DELTA_TS, PARTNER_ID, PARTNER_TP, REDIGERT_NV, FODSEL_DT, PERSON_NR, ORGANISASJON_NR, KJONN, MVAREG_NR, PRIADRESSE_1, PRIADRESSE_2, PRIADRPOST_NR, PRIADRPOSTSTED, PRIADRLAND_KD, PRIADRESSE_TP, ROW_NUMBER() OVER() as rownumber FROM (SELECT DELTA_TS, PARTNER_ID, PARTNER_TP, REDIGERT_NV, FODSEL_DT, PERSON_NR, ORGANISASJON_NR, KJONN, MVAREG_NR, PRIADRESSE_1, PRIADRESSE_2, PRIADRPOST_NR, PRIADRPOSTSTED, PRIADRLAND_KD, PRIADRESSE_TP FROM CC070VS1_CSSPAR_DTA ORDER BY DELTA_TS ASC) T1 WHERE (DELTA_TS > #DeltaTimeStamp)) T2 WHERE(rownumber &lt;= cast(#BatchSize as INTEGER))</sql>
                   </call>
                   <reference-class>SelectPALSDB2DBAdapterV1.Cc070Vs1CssparDta</reference-class>
                   <container xsi:type="list-container-policy">
@@ -98,6 +98,11 @@
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>priadrlopeNr</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="CC070VS1_CSSPAR_DTA" name="PRIADRLOPE_NR" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
@@ -108,6 +113,11 @@
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>priadrnivaKd</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="CC070VS1_CSSPAR_DTA" name="PRIADRNIVA_KD" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>

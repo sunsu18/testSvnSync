@@ -87,24 +87,10 @@
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="priadrlopeNr" minOccurs="0">
-            <xs:simpleType>
-               <xs:restriction base="xs:string">
-                  <xs:maxLength value="5"/>
-               </xs:restriction>
-            </xs:simpleType>
-         </xs:element>
          <xs:element name="priadrlandKd" minOccurs="0">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="2"/>
-               </xs:restriction>
-            </xs:simpleType>
-         </xs:element>
-         <xs:element name="priadrnivaKd" minOccurs="0">
-            <xs:simpleType>
-               <xs:restriction base="xs:string">
-                  <xs:maxLength value="3"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>

@@ -407,7 +407,7 @@
                     <bpelx:pattern>transformation</bpelx:pattern>
                   </bpelx:annotation>
                   <copy>
-                    <from expression="ora:doXSLTransformForDoc('xsl/ValidationPayload_to_SOAPartnerErrorLoag.xsl', $ValidationPayload)"/>
+                    <from expression="ora:doXSLTransformForDoc('xsl/ValidationPayload_to_SOAPartnerErrorLog.xsl', $ValidationPayload)"/>
                     <to variable="InvokeSOAPartnerrErrorLogDBAdapter_IV" part="EngageSoaPartnerErrorlogCollection"/>
                   </copy>
                 </assign>

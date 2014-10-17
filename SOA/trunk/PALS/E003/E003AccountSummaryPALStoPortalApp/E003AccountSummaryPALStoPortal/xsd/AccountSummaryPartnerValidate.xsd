@@ -63,11 +63,7 @@
                            minOccurs="0"/>
               <xsd:element name="PARTNER_CITY" type="xsd:normalizedString"
                            minOccurs="0"/>
-              <xsd:element name="PARTNER_ADDR_SEQ" type="xsd:normalizedString"
-                           minOccurs="0"/>
               <xsd:element name="PARTNER_COUNTRY" type="xsd:normalizedString"
-                           minOccurs="0"/>
-              <xsd:element name="PARTNER_ADDR_LEVEL" type="xsd:normalizedString"
                            minOccurs="0"/>
                <xsd:element name="PARTNER_ADDR_TYPE" type="xsd:normalizedString"
                            minOccurs="0"/>

@@ -103,7 +103,7 @@
              ui:wsdlLocation="MergePortalDataDBAdapterV1.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/MergePortalDataDBAdapterV1#wsdl.interface(MergePortalDataDBAdapterV1_ptt)"/>
     <binding.jca config="MergePortalDataDBAdapterV1_db.jca"/>
-    <property name="jca.retry.count" type="xs:int" many="false" override="may">2</property>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">3</property>
     <property name="jca.retry.interval" type="xs:int" many="false"
               override="may">1</property>
     <property name="jca.retry.backoff" type="xs:int" many="false"
