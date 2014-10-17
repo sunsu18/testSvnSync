@@ -56,9 +56,6 @@
           <top:partnerId>
             <xsl:value-of select="db:PARTNER_ID"/>
           </top:partnerId>
-          <top:customerGroup>
-            <xsl:value-of select="db:CUSTOMER_GROUP"/>
-          </top:customerGroup>
           <top:modifiedBy>
             <xsl:value-of select="db:MODIFIED_BY"/>
           </top:modifiedBy>

@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<?oracle-xsl-mapper
-  <!-- SPECIFICATION OF MAP SOURCES AND TARGETS, DO NOT MODIFY. -->
+<?oracle-xsl-mapper <!-- SPECIFICATION OF MAP SOURCES AND TARGETS, DO NOT MODIFY. -->
   <mapSources>
     <source type="WSDL">
       <schema location="../../../../../SFR%20work/SVN-Code/E004AccountPALStoPortal/E004AccountPALStoPortal/SOAErrorLogDBAdapter.wsdl"/>
+
       <rootElement name="EngagePalsAccDtaErrorlogCollection" namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/SOAErrorLogDBAdapter"/>
     </source>
   </mapSources>
   <mapTargets>
     <target type="WSDL">
       <schema location="../../../../../SFR%20work/SVN-Code/E004AccountPALStoPortal/E004AccountPALStoPortal/UpdateSOAErrorDBAdapter.wsdl"/>
+
       <rootElement name="EngagePalsAccDtaErrorlogCollection" namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/UpdateSOAErrorDBAdapter"/>
     </target>
   </mapTargets>

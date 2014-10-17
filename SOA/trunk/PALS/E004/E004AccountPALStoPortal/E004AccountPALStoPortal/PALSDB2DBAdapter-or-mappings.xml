@@ -4,12 +4,9 @@
    <class-mapping-descriptors>
       <class-mapping-descriptor xsi:type="object-relational-class-mapping-descriptor">
          <class>PALSDB2DBAdapter.Cc071Vs1CssktoDta</class>
-         <alias>CC071VS1_CSSKTO_DTA</alias>
+         <alias>DHDTOCSS.CC071VS1_CSSKTO_DTA</alias>
          <primary-key>
             <field table="CC071VS1_CSSKTO_DTA" name="DELTA_TS" xsi:type="column"/>
-            <field table="CC071VS1_CSSKTO_DTA" name="KONTO_ID" xsi:type="column"/>
-            <field table="CC071VS1_CSSKTO_DTA" name="PARTNER_ID" xsi:type="column"/>
-            <field table="CC071VS1_CSSKTO_DTA" name="KUNDE_GRP" xsi:type="column"/>
          </primary-key>
          <events/>
          <querying>
@@ -51,6 +48,11 @@
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>kundeGrp</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="CC071VS1_CSSKTO_DTA" name="KUNDE_GRP" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
@@ -68,7 +70,7 @@
          <instantiation/>
          <copying xsi:type="instantiation-copy-policy"/>
          <tables>
-            <table name="CC071VS1_CSSKTO_DTA"/>
+            <table name="DHDTOCSS.CC071VS1_CSSKTO_DTA"/>
          </tables>
          <structure>structureName</structure>
       </class-mapping-descriptor>

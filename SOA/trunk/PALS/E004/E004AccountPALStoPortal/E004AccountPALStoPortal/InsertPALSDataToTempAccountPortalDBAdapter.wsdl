@@ -14,7 +14,7 @@
         <wsdl:part name="SoaAccountTempCollection" element="top:SoaAccountTempCollection"/>
     </wsdl:message>
     <wsdl:portType name="InsertPALSDataToTempAccountPortalDBAdapter_ptt">
-        <wsdl:operation name="insert">
+        <wsdl:operation name="merge">
             <wsdl:input message="tns:SoaAccountTempCollection_msg"/>
         </wsdl:operation>
     </wsdl:portType>

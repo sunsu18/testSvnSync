@@ -79,18 +79,9 @@
     <partnerLink name="MergeDeltaTSSOADBAdapterV1"
                  partnerLinkType="ns7:MergeDeltaTSSOADBAdapterV1_plt"
                  partnerRole="MergeDeltaTSSOADBAdapterV1_role"/>
-    <partnerLink name="PALSDB2DBAdapter"
-                 partnerLinkType="ns5:PALSDB2DBAdapter_plt"
-                 partnerRole="PALSDB2DBAdapter_role"/>
     <partnerLink name="SOAErrorDBAdapter"
                  partnerLinkType="ns11:SOAErrorDBAdapter_plt"
                  partnerRole="SOAErrorDBAdapter_role"/>
-    <partnerLink name="MergeAccountPortalDBAdapter"
-                 partnerLinkType="ns13:MergeAccountPortalDBAdapter_plt"
-                 partnerRole="MergeAccountPortalDBAdapter_role"/>
-    <partnerLink name="InsertPALSDataToTempAccountPortalDBAdapter"
-                 partnerLinkType="ns17:InsertPALSDataToTempAccountPortalDBAdapter_plt"
-                 partnerRole="InsertPALSDataToTempAccountPortalDBAdapter_role"/>
     <partnerLink name="SelectValidDataTempAccountPortalDBAdapter"
                  partnerLinkType="ns18:SelectValidDataTempAccountPortalDBAdapter_plt"
                  partnerRole="SelectValidDataTempAccountPortalDBAdapter_role"/>
@@ -112,6 +103,15 @@
     <partnerLink name="SOAPALSNotificationJMSAdapter"
                  partnerLinkType="ns26:Produce_Message_plt"
                  partnerRole="Produce_Message_role"/>
+    <partnerLink name="PALSDB2DBAdapter"
+                 partnerLinkType="ns5:PALSDB2DBAdapter_plt"
+                 partnerRole="PALSDB2DBAdapter_role"/>
+    <partnerLink name="InsertPALSDataToTempAccountPortalDBAdapter"
+                 partnerLinkType="ns17:InsertPALSDataToTempAccountPortalDBAdapter_plt"
+                 partnerRole="InsertPALSDataToTempAccountPortalDBAdapter_role"/>
+    <partnerLink name="MergeAccountPortalDBAdapter"
+                 partnerLinkType="ns13:MergeAccountPortalDBAdapter_plt"
+                 partnerRole="MergeAccountPortalDBAdapter_role"/>
   </partnerLinks>
   <variables>
     <variable name="AccountSummaryReqMsg"
@@ -761,7 +761,7 @@
                             inputVariable="InvokeInsertPALSDataToTempAccountPortal_insert_InputVariable"
                             partnerLink="InsertPALSDataToTempAccountPortalDBAdapter"
                             portType="ns17:InsertPALSDataToTempAccountPortalDBAdapter_ptt"
-                            operation="insert" bpelx:invokeAsDetail="no"/>
+                            operation="merge" bpelx:invokeAsDetail="no"/>
                     <invoke name="InvokeSelectValidDataTempAccountPortal"
                             bpelx:invokeAsDetail="no"
                             inputVariable="InvokeSelectValidDataTempAccountPortal_SelectValidDataTempAccountPortalDBAdapter_InputVariable"

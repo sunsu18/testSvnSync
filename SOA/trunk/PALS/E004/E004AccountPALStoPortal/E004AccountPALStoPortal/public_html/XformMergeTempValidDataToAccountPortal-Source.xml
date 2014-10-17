@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<SelectValidDataTempAccountPortalDBAdapterOutputCollection xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/SelectValidDataTempAccountPortalDBAdapter">
+   <SelectValidDataTempAccountPortalDBAdapterOutput>
+      <COUNTRY_CODE>COUNTRY_CODE1</COUNTRY_CODE>
+      <ACCOUNT_ID>ACCOUNT_ID2</ACCOUNT_ID>
+      <PARTNER_ID>PARTNER_ID3</PARTNER_ID>
+      <MODIFIED_BY>MODIFIED_BY4</MODIFIED_BY>
+      <MODIFIED_DATE>2014-10-17T15:48:43.078</MODIFIED_DATE>
+      <DELTA_TS>DELTA_TS5</DELTA_TS>
+   </SelectValidDataTempAccountPortalDBAdapterOutput>
+   <SelectValidDataTempAccountPortalDBAdapterOutput>
+      <COUNTRY_CODE>COUNTRY_CODE6</COUNTRY_CODE>
+      <ACCOUNT_ID>ACCOUNT_ID7</ACCOUNT_ID>
+      <PARTNER_ID>PARTNER_ID8</PARTNER_ID>
+      <MODIFIED_BY>MODIFIED_BY9</MODIFIED_BY>
+      <MODIFIED_DATE>2014-10-17T15:48:43.079</MODIFIED_DATE>
+      <DELTA_TS>DELTA_TS10</DELTA_TS>
+   </SelectValidDataTempAccountPortalDBAdapterOutput>
+   <SelectValidDataTempAccountPortalDBAdapterOutput>
+      <COUNTRY_CODE>COUNTRY_CODE11</COUNTRY_CODE>
+      <ACCOUNT_ID>ACCOUNT_ID12</ACCOUNT_ID>
+      <PARTNER_ID>PARTNER_ID13</PARTNER_ID>
+      <MODIFIED_BY>MODIFIED_BY14</MODIFIED_BY>
+      <MODIFIED_DATE>2014-10-17T15:48:43.079</MODIFIED_DATE>
+      <DELTA_TS>DELTA_TS15</DELTA_TS>
+   </SelectValidDataTempAccountPortalDBAdapterOutput>
+</SelectValidDataTempAccountPortalDBAdapterOutputCollection>

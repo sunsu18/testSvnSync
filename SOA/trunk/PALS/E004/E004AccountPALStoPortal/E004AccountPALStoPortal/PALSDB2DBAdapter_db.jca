@@ -1,6 +1,6 @@
 <adapter-config name="PALSDB2DBAdapter" adapter="Database Adapter" wsdlLocation="PALSDB2DBAdapter.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
   
-  <connection-factory location="eis/DB/PALSDB2DNXADS" UIConnectionName="AccountSummary" adapterRef=""/>
+  <connection-factory location="DynamicJNDI" UIConnectionName="AccountSummary" adapterRef=""/>
   <endpoint-interaction portType="PALSDB2DBAdapter_ptt" operation="PALSDB2DBAdapterSelect">
     <interaction-spec className="oracle.tip.adapter.db.DBReadInteractionSpec">
       <property name="DescriptorName" value="PALSDB2DBAdapter.Cc071Vs1CssktoDta"/>

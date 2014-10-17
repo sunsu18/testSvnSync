@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<object-persistence xmlns="http://www.eclipse.org/eclipselink/xsds/persistence" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:eclipselink="http://www.eclipse.org/eclipselink/xsds/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="Eclipse Persistence Services - 2.1.3.v20110304-r9073">
+<object-persistence xmlns="http://www.eclipse.org/eclipselink/xsds/persistence" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:eclipselink="http://www.eclipse.org/eclipselink/xsds/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="Eclipse Persistence Services - 2.3.1.v20111018-r10243">
    <name>InsertPALSDataToTempAccountPortalDBAdapter-OR</name>
    <class-mapping-descriptors>
       <class-mapping-descriptor xsi:type="object-relational-class-mapping-descriptor">
          <class>InsertPALSDataToTempAccountPortalDBAdapter.SoaAccountTemp</class>
          <alias>SOA_ACCOUNT_TEMP</alias>
          <primary-key>
-            <field table="SOA_ACCOUNT_TEMP" name="COUNTRY_CODE" xsi:type="column"/>
             <field table="SOA_ACCOUNT_TEMP" name="DELTA_TS" xsi:type="column"/>
-            <field table="SOA_ACCOUNT_TEMP" name="ACCOUNT_ID" xsi:type="column"/>
-            <field table="SOA_ACCOUNT_TEMP" name="PARTNER_ID" xsi:type="column"/>
-            <field table="SOA_ACCOUNT_TEMP" name="CUSTOMER_GROUP" xsi:type="column"/>
-            <field table="SOA_ACCOUNT_TEMP" name="MODIFIED_DATE" xsi:type="column"/>
-            <field table="SOA_ACCOUNT_TEMP" name="MODIFIED_BY" xsi:type="column"/>
          </primary-key>
          <events/>
          <querying>
@@ -48,6 +42,11 @@
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>customerGroup</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="SOA_ACCOUNT_TEMP" name="CUSTOMER_GROUP" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
@@ -82,7 +81,6 @@
    </class-mapping-descriptors>
    <login xsi:type="database-login">
       <platform-class>org.eclipse.persistence.platform.database.oracle.Oracle9Platform</platform-class>
-      <user-name></user-name>
       <connection-url></connection-url>
    </login>
 </object-persistence>

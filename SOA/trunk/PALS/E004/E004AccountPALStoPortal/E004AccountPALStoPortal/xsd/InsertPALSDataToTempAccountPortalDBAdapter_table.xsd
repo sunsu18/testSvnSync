@@ -8,7 +8,7 @@
    </xs:complexType>
    <xs:complexType name="SoaAccountTemp">
       <xs:sequence>
-         <xs:element name="countryCode" nillable="true">
+         <xs:element name="countryCode" minOccurs="0" nillable="true">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="2"/>
@@ -22,35 +22,28 @@
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="accountId" nillable="true">
+         <xs:element name="accountId" minOccurs="0" nillable="true">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="10"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="partnerId" nillable="true">
+         <xs:element name="partnerId" minOccurs="0" nillable="true">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="8"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="customerGroup" nillable="true">
-            <xs:simpleType>
-               <xs:restriction base="xs:string">
-                  <xs:maxLength value="2"/>
-               </xs:restriction>
-            </xs:simpleType>
-         </xs:element>
-         <xs:element name="modifiedBy" nillable="true">
+         <xs:element name="modifiedBy" minOccurs="0" nillable="true">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="50"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="modifiedDate" type="xs:dateTime" nillable="true"/>
+         <xs:element name="modifiedDate" type="xs:dateTime" minOccurs="0" nillable="true"/>
       </xs:sequence>
    </xs:complexType>
 </xs:schema>

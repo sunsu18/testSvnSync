@@ -9,24 +9,17 @@
    <xs:complexType name="Cc071Vs1CssktoDta">
       <xs:sequence>
          <xs:element name="deltaTs" type="xs:dateTime"/>
-         <xs:element name="kontoId">
+         <xs:element name="kontoId" minOccurs="0">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="10"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="partnerId">
+         <xs:element name="partnerId" minOccurs="0">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="8"/>
-               </xs:restriction>
-            </xs:simpleType>
-         </xs:element>
-         <xs:element name="kundeGrp">
-            <xs:simpleType>
-               <xs:restriction base="xs:string">
-                  <xs:maxLength value="2"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>

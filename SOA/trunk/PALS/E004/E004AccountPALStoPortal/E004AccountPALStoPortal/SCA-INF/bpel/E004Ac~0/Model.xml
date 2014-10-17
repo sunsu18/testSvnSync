@@ -17,10 +17,7 @@
     <partnerLink name="SelectDeltaTSDBAdapter" partnerLinkType="ns1:SelectDeltaTSDBAdapter_plt" partnerRole="SelectDeltaTSDBAdapter_role"/>
     <partnerLink name="GetPALSDB2CountDBAdapter" partnerLinkType="ns3:GetPALSDB2CountDBAdapter_plt" partnerRole="GetPALSDB2CountDBAdapter_role"/>
     <partnerLink name="MergeDeltaTSSOADBAdapterV1" partnerLinkType="ns7:MergeDeltaTSSOADBAdapterV1_plt" partnerRole="MergeDeltaTSSOADBAdapterV1_role"/>
-    <partnerLink name="PALSDB2DBAdapter" partnerLinkType="ns5:PALSDB2DBAdapter_plt" partnerRole="PALSDB2DBAdapter_role"/>
     <partnerLink name="SOAErrorDBAdapter" partnerLinkType="ns11:SOAErrorDBAdapter_plt" partnerRole="SOAErrorDBAdapter_role"/>
-    <partnerLink name="MergeAccountPortalDBAdapter" partnerLinkType="ns13:MergeAccountPortalDBAdapter_plt" partnerRole="MergeAccountPortalDBAdapter_role"/>
-    <partnerLink name="InsertPALSDataToTempAccountPortalDBAdapter" partnerLinkType="ns17:InsertPALSDataToTempAccountPortalDBAdapter_plt" partnerRole="InsertPALSDataToTempAccountPortalDBAdapter_role"/>
     <partnerLink name="SelectValidDataTempAccountPortalDBAdapter" partnerLinkType="ns18:SelectValidDataTempAccountPortalDBAdapter_plt" partnerRole="SelectValidDataTempAccountPortalDBAdapter_role"/>
     <partnerLink name="SelectInValidDataTempAccountPortalDBAdapter" partnerLinkType="ns19:SelectInValidDataTempAccountPortalDBAdapter_plt" partnerRole="SelectInValidDataTempAccountPortalDBAdapter_role"/>
     <partnerLink name="TruncateTempAccountPortalDBAdapter" partnerLinkType="ns20:TruncateTempAccountPortalDBAdapter_plt" partnerRole="TruncateTempAccountPortalDBAdapter_role"/>
@@ -28,6 +25,9 @@
     <partnerLink name="SOAErrorLogDBAdapter" partnerLinkType="ns23:SOAErrorLogDBAdapter_plt" partnerRole="SOAErrorLogDBAdapter_role"/>
     <partnerLink name="UpdateSOAErrorDBAdapter" partnerLinkType="ns25:UpdateSOAErrorDBAdapter_plt" partnerRole="UpdateSOAErrorDBAdapter_role"/>
     <partnerLink name="SOAPALSNotificationJMSAdapter" partnerLinkType="ns26:Produce_Message_plt" partnerRole="Produce_Message_role"/>
+    <partnerLink name="PALSDB2DBAdapter" partnerLinkType="ns5:PALSDB2DBAdapter_plt" partnerRole="PALSDB2DBAdapter_role"/>
+    <partnerLink name="InsertPALSDataToTempAccountPortalDBAdapter" partnerLinkType="ns17:InsertPALSDataToTempAccountPortalDBAdapter_plt" partnerRole="InsertPALSDataToTempAccountPortalDBAdapter_role"/>
+    <partnerLink name="MergeAccountPortalDBAdapter" partnerLinkType="ns13:MergeAccountPortalDBAdapter_plt" partnerRole="MergeAccountPortalDBAdapter_role"/>
   </partnerLinks>
   <variables>
     <variable name="AccountSummaryReqMsg" messageType="client:E004AccountPALStoPortalRequestMessage"/>
@@ -504,7 +504,7 @@
                         <to variable="InvokeInsertPALSDataToTempAccountPortal_insert_InputVariable" part="SoaAccountTempCollection"/>
                       </copy>
                     </assign>
-                    <invoke name="InvokeInsertPALSDataToTempAccountPortal" inputVariable="InvokeInsertPALSDataToTempAccountPortal_insert_InputVariable" partnerLink="InsertPALSDataToTempAccountPortalDBAdapter" portType="ns17:InsertPALSDataToTempAccountPortalDBAdapter_ptt" operation="insert" bpelx:invokeAsDetail="no" id="BpInv8"/>
+                    <invoke name="InvokeInsertPALSDataToTempAccountPortal" inputVariable="InvokeInsertPALSDataToTempAccountPortal_insert_InputVariable" partnerLink="InsertPALSDataToTempAccountPortalDBAdapter" portType="ns17:InsertPALSDataToTempAccountPortalDBAdapter_ptt" operation="merge" bpelx:invokeAsDetail="no" id="BpInv8"/>
                     <invoke name="InvokeSelectValidDataTempAccountPortal" bpelx:invokeAsDetail="no" inputVariable="InvokeSelectValidDataTempAccountPortal_SelectValidDataTempAccountPortalDBAdapter_InputVariable" outputVariable="InvokeSelectValidDataTempAccountPortal_SelectValidDataTempAccountPortalDBAdapter_OutputVariable" partnerLink="SelectValidDataTempAccountPortalDBAdapter" portType="ns18:SelectValidDataTempAccountPortalDBAdapter_ptt" operation="SelectValidDataTempAccountPortalDBAdapter" id="BpInv9"/>
                     <assign name="XformMergeTempValidDataToAccountPortal" id="BpAss19">
                       <bpelx:annotation>

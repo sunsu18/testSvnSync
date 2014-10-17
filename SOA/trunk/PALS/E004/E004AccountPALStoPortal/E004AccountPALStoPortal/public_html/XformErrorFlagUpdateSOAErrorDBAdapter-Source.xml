@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<EngagePalsAccDtaErrorlogCollection xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/SOAErrorLogDBAdapter">
+   <EngagePalsAccDtaErrorlog>
+      <deltaTs>2014-10-17T16:06:51.985</deltaTs>
+      <accountId>string16</accountId>
+      <partnerId>string18</partnerId>
+      <soaErrorCode>string20</soaErrorCode>
+      <soaErrorDesc>string22</soaErrorDesc>
+      <emailFlag>24</emailFlag>
+   </EngagePalsAccDtaErrorlog>
+   <EngagePalsAccDtaErrorlog>
+      <deltaTs>2014-10-17T16:06:51.986</deltaTs>
+      <accountId>string25</accountId>
+      <partnerId>string27</partnerId>
+      <soaErrorCode>string29</soaErrorCode>
+      <soaErrorDesc>string31</soaErrorDesc>
+      <emailFlag>33</emailFlag>
+   </EngagePalsAccDtaErrorlog>
+   <EngagePalsAccDtaErrorlog>
+      <deltaTs>2014-10-17T16:06:51.986</deltaTs>
+      <accountId>string34</accountId>
+      <partnerId>string36</partnerId>
+      <soaErrorCode>string38</soaErrorCode>
+      <soaErrorDesc>string40</soaErrorDesc>
+      <emailFlag>42</emailFlag>
+   </EngagePalsAccDtaErrorlog>
+</EngagePalsAccDtaErrorlogCollection>

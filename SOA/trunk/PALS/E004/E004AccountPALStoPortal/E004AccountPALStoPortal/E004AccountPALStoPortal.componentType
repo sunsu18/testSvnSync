@@ -20,19 +20,8 @@
              ui:wsdlLocation="MergeDeltaTSSOADBAdapterV1.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/MergeDeltaTSSOADBAdapterV1#wsdl.interface(MergeDeltaTSSOADBAdapterV1_ptt)"/>
   </reference>
-  <reference name="PALSDB2DBAdapter" ui:wsdlLocation="PALSDB2DBAdapter.wsdl">
-    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/PALSDB2DBAdapter#wsdl.interface(PALSDB2DBAdapter_ptt)"/>
-  </reference>
   <reference name="SOAErrorDBAdapter" ui:wsdlLocation="SOAErrorDBAdapter.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/SOAErrorDBAdapter#wsdl.interface(SOAErrorDBAdapter_ptt)"/>
-  </reference>
-  <reference name="MergeAccountPortalDBAdapter"
-             ui:wsdlLocation="MergeAccountPortalDBAdapter.wsdl">
-    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/MergeAccountPortalDBAdapter#wsdl.interface(MergeAccountPortalDBAdapter_ptt)"/>
-  </reference>
-  <reference name="InsertPALSDataToTempAccountPortalDBAdapter"
-             ui:wsdlLocation="InsertPALSDataToTempAccountPortalDBAdapter.wsdl">
-    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/InsertPALSDataToTempAccountPortalDBAdapter#wsdl.interface(InsertPALSDataToTempAccountPortalDBAdapter_ptt)"/>
   </reference>
   <reference name="SelectValidDataTempAccountPortalDBAdapter"
              ui:wsdlLocation="SelectValidDataTempAccountPortalDBAdapter.wsdl">
@@ -61,5 +50,16 @@
   <reference name="SOAPALSNotificationJMSAdapter"
              ui:wsdlLocation="SOAPALSNotificationJMSAdapter.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E004AccountPALStoPortal/E004AccountPALStoPortal/SOAPALSNotificationJMSAdapter#wsdl.interface(Produce_Message_ptt)"/>
+  </reference>
+  <reference name="PALSDB2DBAdapter" ui:wsdlLocation="PALSDB2DBAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/PALSDB2DBAdapter#wsdl.interface(PALSDB2DBAdapter_ptt)"/>
+  </reference>
+  <reference name="InsertPALSDataToTempAccountPortalDBAdapter"
+             ui:wsdlLocation="InsertPALSDataToTempAccountPortalDBAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/InsertPALSDataToTempAccountPortalDBAdapter#wsdl.interface(InsertPALSDataToTempAccountPortalDBAdapter_ptt)"/>
+  </reference>
+  <reference name="MergeAccountPortalDBAdapter"
+             ui:wsdlLocation="MergeAccountPortalDBAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/MergeAccountPortalDBAdapter#wsdl.interface(MergeAccountPortalDBAdapter_ptt)"/>
   </reference>
 </componentType>

@@ -1,0 +1,18 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<ns1:EngagePalsAccDtaErrorlogCollection xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/top/UpdateSOAErrorDBAdapter">
+   <ns1:EngagePalsAccDtaErrorlog>
+      <ns1:deltaTs>2014-10-17T16:06:51.985</ns1:deltaTs>
+      <ns1:soaErrorCode>string20</ns1:soaErrorCode>
+      <ns1:emailFlag>1</ns1:emailFlag>
+   </ns1:EngagePalsAccDtaErrorlog>
+   <ns1:EngagePalsAccDtaErrorlog>
+      <ns1:deltaTs>2014-10-17T16:06:51.986</ns1:deltaTs>
+      <ns1:soaErrorCode>string29</ns1:soaErrorCode>
+      <ns1:emailFlag>1</ns1:emailFlag>
+   </ns1:EngagePalsAccDtaErrorlog>
+   <ns1:EngagePalsAccDtaErrorlog>
+      <ns1:deltaTs>2014-10-17T16:06:51.986</ns1:deltaTs>
+      <ns1:soaErrorCode>string38</ns1:soaErrorCode>
+      <ns1:emailFlag>1</ns1:emailFlag>
+   </ns1:EngagePalsAccDtaErrorlog>
+</ns1:EngagePalsAccDtaErrorlogCollection>

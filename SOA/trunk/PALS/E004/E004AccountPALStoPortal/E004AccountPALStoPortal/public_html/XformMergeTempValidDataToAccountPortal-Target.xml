@@ -1,0 +1,24 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<top:PrtAccountCollection xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeAccountPortalDBAdapter">
+   <top:PrtAccount>
+      <top:countryCode>COUNTRY_CODE1</top:countryCode>
+      <top:accountId>ACCOUNT_ID2</top:accountId>
+      <top:partnerId>PARTNER_ID3</top:partnerId>
+      <top:modifiedBy>MODIFIED_BY4</top:modifiedBy>
+      <top:modifiedDate>2014-10-17T15:48:43.078</top:modifiedDate>
+   </top:PrtAccount>
+   <top:PrtAccount>
+      <top:countryCode>COUNTRY_CODE6</top:countryCode>
+      <top:accountId>ACCOUNT_ID7</top:accountId>
+      <top:partnerId>PARTNER_ID8</top:partnerId>
+      <top:modifiedBy>MODIFIED_BY9</top:modifiedBy>
+      <top:modifiedDate>2014-10-17T15:48:43.079</top:modifiedDate>
+   </top:PrtAccount>
+   <top:PrtAccount>
+      <top:countryCode>COUNTRY_CODE11</top:countryCode>
+      <top:accountId>ACCOUNT_ID12</top:accountId>
+      <top:partnerId>PARTNER_ID13</top:partnerId>
+      <top:modifiedBy>MODIFIED_BY14</top:modifiedBy>
+      <top:modifiedDate>2014-10-17T15:48:43.079</top:modifiedDate>
+   </top:PrtAccount>
+</top:PrtAccountCollection>

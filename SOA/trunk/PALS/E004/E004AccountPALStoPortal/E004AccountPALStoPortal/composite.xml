@@ -18,15 +18,8 @@
           location="GetPALSDB2CountDBAdapter.wsdl" importType="wsdl"/>
   <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/MergeDeltaTSSOADBAdapterV1"
           location="MergeDeltaTSSOADBAdapterV1.wsdl" importType="wsdl"/>
-  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/PALSDB2DBAdapter"
-          location="PALSDB2DBAdapter.wsdl" importType="wsdl"/>
   <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/SOAErrorDBAdapter"
           location="SOAErrorDBAdapter.wsdl" importType="wsdl"/>
-  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/MergeAccountPortalDBAdapter"
-          location="MergeAccountPortalDBAdapter.wsdl" importType="wsdl"/>
-  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/InsertPALSDataToTempAccountPortalDBAdapter"
-          location="InsertPALSDataToTempAccountPortalDBAdapter.wsdl"
-          importType="wsdl"/>
   <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/SelectValidDataTempAccountPortalDBAdapter"
           location="SelectValidDataTempAccountPortalDBAdapter.wsdl"
           importType="wsdl"/>
@@ -43,6 +36,13 @@
           location="UpdateSOAErrorDBAdapter.wsdl" importType="wsdl"/>
   <import namespace="http://xmlns.oracle.com/pcbpel/adapter/jms/E004AccountPALStoPortal/E004AccountPALStoPortal/SOAPALSNotificationJMSAdapter"
           location="SOAPALSNotificationJMSAdapter.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/PALSDB2DBAdapter"
+          location="PALSDB2DBAdapter.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/InsertPALSDataToTempAccountPortalDBAdapter"
+          location="InsertPALSDataToTempAccountPortalDBAdapter.wsdl"
+          importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/MergeAccountPortalDBAdapter"
+          location="MergeAccountPortalDBAdapter.wsdl" importType="wsdl"/>
   <service name="e004accountpalstoportal_client_ep"
            ui:wsdlLocation="E004AccountPALStoPortal.wsdl">
     <interface.wsdl interface="http://www.statoilfuelretail.com/integration/engage/E004AccountPALStoPortal/E004AccountPALStoPortal/E004AccountPALStoPortal#wsdl.interface(E004AccountPALStoPortal)"/>
@@ -89,44 +89,9 @@
     <property name="jca.retry.maxInterval" type="xs:string" many="false"
               override="may">120</property>
   </reference>
-  <reference name="PALSDB2DBAdapter" ui:wsdlLocation="PALSDB2DBAdapter.wsdl">
-    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/PALSDB2DBAdapter#wsdl.interface(PALSDB2DBAdapter_ptt)"/>
-    <binding.jca config="PALSDB2DBAdapter_db.jca"/>
-    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
-    <property name="jca.retry.interval" type="xs:int" many="false"
-              override="may">1</property>
-    <property name="jca.retry.backoff" type="xs:int" many="false"
-              override="may">2</property>
-    <property name="jca.retry.maxInterval" type="xs:string" many="false"
-              override="may">120</property>
-  </reference>
   <reference name="SOAErrorDBAdapter" ui:wsdlLocation="SOAErrorDBAdapter.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/SOAErrorDBAdapter#wsdl.interface(SOAErrorDBAdapter_ptt)"/>
     <binding.jca config="SOAErrorDBAdapter_db.jca"/>
-    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
-    <property name="jca.retry.interval" type="xs:int" many="false"
-              override="may">1</property>
-    <property name="jca.retry.backoff" type="xs:int" many="false"
-              override="may">2</property>
-    <property name="jca.retry.maxInterval" type="xs:string" many="false"
-              override="may">120</property>
-  </reference>
-  <reference name="MergeAccountPortalDBAdapter"
-             ui:wsdlLocation="MergeAccountPortalDBAdapter.wsdl">
-    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/MergeAccountPortalDBAdapter#wsdl.interface(MergeAccountPortalDBAdapter_ptt)"/>
-    <binding.jca config="MergeAccountPortalDBAdapter_db.jca"/>
-    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
-    <property name="jca.retry.interval" type="xs:int" many="false"
-              override="may">1</property>
-    <property name="jca.retry.backoff" type="xs:int" many="false"
-              override="may">2</property>
-    <property name="jca.retry.maxInterval" type="xs:string" many="false"
-              override="may">120</property>
-  </reference>
-  <reference name="InsertPALSDataToTempAccountPortalDBAdapter"
-             ui:wsdlLocation="InsertPALSDataToTempAccountPortalDBAdapter.wsdl">
-    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/InsertPALSDataToTempAccountPortalDBAdapter#wsdl.interface(InsertPALSDataToTempAccountPortalDBAdapter_ptt)"/>
-    <binding.jca config="InsertPALSDataToTempAccountPortalDBAdapter_db.jca"/>
     <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
     <property name="jca.retry.interval" type="xs:int" many="false"
               override="may">1</property>
@@ -205,6 +170,41 @@
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E004AccountPALStoPortal/E004AccountPALStoPortal/SOAPALSNotificationJMSAdapter#wsdl.interface(Produce_Message_ptt)"/>
     <binding.jca config="SOAPALSNotificationJMSAdapter_jms.jca"/>
   </reference>
+  <reference name="PALSDB2DBAdapter" ui:wsdlLocation="PALSDB2DBAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/PALSDB2DBAdapter#wsdl.interface(PALSDB2DBAdapter_ptt)"/>
+    <binding.jca config="PALSDB2DBAdapter_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false"
+              override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false"
+              override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:string" many="false"
+              override="may">120</property>
+  </reference>
+  <reference name="InsertPALSDataToTempAccountPortalDBAdapter"
+             ui:wsdlLocation="InsertPALSDataToTempAccountPortalDBAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/InsertPALSDataToTempAccountPortalDBAdapter#wsdl.interface(InsertPALSDataToTempAccountPortalDBAdapter_ptt)"/>
+    <binding.jca config="InsertPALSDataToTempAccountPortalDBAdapter_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false"
+              override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false"
+              override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:string" many="false"
+              override="may">120</property>
+  </reference>
+  <reference name="MergeAccountPortalDBAdapter"
+             ui:wsdlLocation="MergeAccountPortalDBAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/MergeAccountPortalDBAdapter#wsdl.interface(MergeAccountPortalDBAdapter_ptt)"/>
+    <binding.jca config="MergeAccountPortalDBAdapter_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false"
+              override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false"
+              override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:string" many="false"
+              override="may">120</property>
+  </reference>
   <wire>
     <source.uri>e004accountpalstoportal_client_ep</source.uri>
     <target.uri>E004AccountPALStoPortal/e004accountpalstoportal_client</target.uri>
@@ -222,20 +222,8 @@
     <target.uri>MergeDeltaTSSOADBAdapterV1</target.uri>
   </wire>
   <wire>
-    <source.uri>E004AccountPALStoPortal/PALSDB2DBAdapter</source.uri>
-    <target.uri>PALSDB2DBAdapter</target.uri>
-  </wire>
-  <wire>
     <source.uri>E004AccountPALStoPortal/SOAErrorDBAdapter</source.uri>
     <target.uri>SOAErrorDBAdapter</target.uri>
-  </wire>
-  <wire>
-    <source.uri>E004AccountPALStoPortal/MergeAccountPortalDBAdapter</source.uri>
-    <target.uri>MergeAccountPortalDBAdapter</target.uri>
-  </wire>
-  <wire>
-    <source.uri>E004AccountPALStoPortal/InsertPALSDataToTempAccountPortalDBAdapter</source.uri>
-    <target.uri>InsertPALSDataToTempAccountPortalDBAdapter</target.uri>
   </wire>
   <wire>
     <source.uri>E004AccountPALStoPortal/SelectValidDataTempAccountPortalDBAdapter</source.uri>
@@ -264,5 +252,17 @@
   <wire>
     <source.uri>E004AccountPALStoPortal/SOAPALSNotificationJMSAdapter</source.uri>
     <target.uri>SOAPALSNotificationJMSAdapter</target.uri>
+  </wire>
+  <wire>
+    <source.uri>E004AccountPALStoPortal/PALSDB2DBAdapter</source.uri>
+    <target.uri>PALSDB2DBAdapter</target.uri>
+  </wire>
+  <wire>
+    <source.uri>E004AccountPALStoPortal/InsertPALSDataToTempAccountPortalDBAdapter</source.uri>
+    <target.uri>InsertPALSDataToTempAccountPortalDBAdapter</target.uri>
+  </wire>
+  <wire>
+    <source.uri>E004AccountPALStoPortal/MergeAccountPortalDBAdapter</source.uri>
+    <target.uri>MergeAccountPortalDBAdapter</target.uri>
   </wire>
 </composite>

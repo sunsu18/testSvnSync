@@ -38,6 +38,11 @@
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>accountCustomerGroup</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="ENGAGE_PALS_ACC_DTA_ERRORLOG" name="ACCOUNT_CUSTOMER_GROUP" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>

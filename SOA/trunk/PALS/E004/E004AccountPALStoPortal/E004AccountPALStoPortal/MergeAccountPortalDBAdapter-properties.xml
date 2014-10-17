@@ -55,8 +55,8 @@
    <entry key="PRT_ACCOUNT.INTEREST_CODE:db_column_not_null">false</entry>
    <entry key="PRT_ACCOUNT.CHANGE_BY:db_column_not_null">false</entry>
    <entry key="PRT_ACCOUNT.CREDIT_BLOCK_DATE:db_column_type">DATE</entry>
-   <entry key="PRT_ACCOUNT.ACCOUNT_STMT_CODE:db_column_size">1</entry>
    <entry key="root_descriptor_alias">PRT_ACCOUNT</entry>
+   <entry key="PRT_ACCOUNT.ACCOUNT_STMT_CODE:db_column_size">1</entry>
    <entry key="PRT_ACCOUNT.DUNNING_LEVEL_CODE:db_column_size">3</entry>
    <entry key="PRT_ACCOUNT.ACCOUNT_ID:db_column_not_null">true</entry>
    <entry key="PRT_ACCOUNT:db_column_24">GIRO_NUMBER</entry>
@@ -66,8 +66,8 @@
    <entry key="PRT_ACCOUNT:db_column_22">ACCOUNT_BLOCK_TIME</entry>
    <entry key="PRT_ACCOUNT:db_column_21">ACCOUNT_BLOCK_DATE</entry>
    <entry key="PRT_ACCOUNT.GIRO_NUMBER:db_column_size">16</entry>
-   <entry key="PRT_ACCOUNT:db_column_20">CREDIT_BLOCK_TIME</entry>
    <entry key="PRT_ACCOUNT.ACCOUNT_BLOCK_TIME:db_column_not_null">false</entry>
+   <entry key="PRT_ACCOUNT:db_column_20">CREDIT_BLOCK_TIME</entry>
    <entry key="PRT_ACCOUNT.CREATED_BY:db_column_type">VARCHAR2</entry>
    <entry key="PRT_ACCOUNT.COUNTRY_CODE:db_column_type">VARCHAR2</entry>
    <entry key="PRT_ACCOUNT.ACCOUNT_RECON_CODE:db_column_size">1</entry>

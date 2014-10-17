@@ -66,14 +66,6 @@
             </xsl:if>
             <xsl:value-of select="db:PARTNER_ID"/>
           </top:partnerId>
-          <top:accountCustomerGroup>
-            <xsl:if test="db:CUSTOMER_GROUP/@xsi:nil">
-              <xsl:attribute name="xsi:nil">
-                <xsl:value-of select="db:CUSTOMER_GROUP/@xsi:nil"/>
-              </xsl:attribute>
-            </xsl:if>
-            <xsl:value-of select="db:CUSTOMER_GROUP"/>
-          </top:accountCustomerGroup>
           <top:soaErrorCode>
             <xsl:text disable-output-escaping="no">'BE-026'</xsl:text>
           </top:soaErrorCode>

@@ -29,13 +29,6 @@
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="customerGroup" minOccurs="0">
-            <xs:simpleType>
-               <xs:restriction base="xs:string">
-                  <xs:maxLength value="2"/>
-               </xs:restriction>
-            </xs:simpleType>
-         </xs:element>
          <xs:element name="modifiedBy" minOccurs="0">
             <xs:simpleType>
                <xs:restriction base="xs:string">
