@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="PrtCardFuelCapacityPrFk1Link"
+  Version="11.1.1.61.92"
+  InheritPersonalization="true"
+  EntityAssociation="com.sfr.engage.model.associations.PrtCardFuelCapacityPrFk1Assoc">
+  <DesignTime>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <ViewLinkDefEnd
+    Name="PrtCardRuleSubscriptionVO"
+    Cardinality="1"
+    Owner="com.sfr.engage.model.queries.uvo.PrtCardRuleSubscriptionVO"
+    Source="true">
+    <DesignTime>
+      <Attr Name="_finderName" Value="PrtCardRuleSubscriptionVO"/>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_minCardinality" Value="1"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="com.sfr.engage.model.queries.uvo.PrtCardRuleSubscriptionVO.SubscrId"/>
+      <Item
+        Value="com.sfr.engage.model.queries.uvo.PrtCardRuleSubscriptionVO.CountryCode"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ViewLinkDefEnd
+    Name="PrtCardFuelCapacityVO"
+    Cardinality="-1"
+    Owner="com.sfr.engage.model.queries.uvo.PrtCardFuelCapacityVO">
+    <DesignTime>
+      <Attr Name="_finderName" Value="PrtCardFuelCapacityVO"/>
+      <Attr Name="_isUpdateable" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="com.sfr.engage.model.queries.uvo.PrtCardFuelCapacityVO.SubscrId"/>
+      <Item
+        Value="com.sfr.engage.model.queries.uvo.PrtCardFuelCapacityVO.CountryCode"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+</ViewLink>

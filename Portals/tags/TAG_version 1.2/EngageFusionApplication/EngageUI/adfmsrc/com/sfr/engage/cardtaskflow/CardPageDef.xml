@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.61.92" id="CardPageDef"
+                Package="com.sfr.engage.cardtaskflow">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="PrtViewCardsVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtViewCardsVO1Iterator"/>
+    <searchRegion Binds="PrtViewCardsVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="PrtViewCardsVO11Query"/>
+    <iterator Binds="PrtViewVehicleDriverVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtViewVehicleDriverVO1Iterator"/>
+ <iterator Binds="PrtViewVehicleDriverVO2" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtViewVehicleDriverVO2Iterator"/>
+ <iterator Binds="PrtPartnerVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtPartnerVO1Iterator"/>
+    <iterator Binds="PrtCardgroupVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtCardgroupVO1Iterator"/>
+    <iterator id="PrtExportInfoRVO1Iterator" Binds="PrtExportInfoRVO1"
+              DataControl="EngageAppModuleDataControl" RangeSize="25"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="PrtViewCardsVO1Iterator" id="PrtViewCardsVO11">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtViewCardsVO"
+                      Name="PrtViewCardsVO110">
+        <AttrNames>
+          <Item Value="AccountId"/>
+          <Item Value="CardType"/>
+          <Item Value="CardEmbossNum"/>
+          <Item Value="VehicleNumber"/>
+          <Item Value="DriverName"/>
+          <Item Value="BlockCode"/>
+          <Item Value="CardExpiry"/>
+          <Item Value="CardIdentifier"/>
+          <Item Value="CardgroupDescription"/>
+          <Item Value="CardgroupId"/>
+          <Item Value="CardNumber"/>
+          <Item Value="PrtCardPk"/>
+          <Item Value="BlockAction"/>
+          <Item Value="InternalName"/>
+          <Item Value="DriverNumber"/>
+          <Item Value="ModifiedBy"/>
+          <Item Value="ModifiedDate"/>
+          <Item Value="VehicleModifiedBy"/>
+          <Item Value="VehicleModifiedDate"/>
+          <Item Value="Status"/>
+          <Item Value="CardTextline2"/>
+          <Item Value="TypeName"/>
+          <Item Value="LastUsed"/>
+          <Item Value="PartnerId"/>
+          <Item Value="QuaterlyFuelReportFuelThreeMonths3"/>
+          <Item Value="QuaterlyTxReportTxThreeMonths3"/>
+          <Item Value="QuaterlyTxReport"/>
+          <Item Value="QuaterlyFuelReport"/>
+          <Item Value="ManufacturedDate"/>
+          <Item Value="BlockTime"/>
+          <Item Value="CardExpiryDate"/>
+          <Item Value="BlockDate"/>
+          <Item Value="LastUsedDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="PrtViewVehicleDriverVO1Iterator"
+                     id="DriverName">
+      <AttrNames>
+        <Item Value="DriverName"/>
+      </AttrNames>
+    </attributeValues>
+<attributeValues IterBinding="PrtViewVehicleDriverVO2Iterator"
+                     id="CardNumber">
+      <AttrNames>
+        <Item Value="CardNumber"/>
+      </AttrNames>
+    </attributeValues>
+ <attributeValues IterBinding="PrtCardgroupVO1Iterator" id="AccountId">
+      <AttrNames>
+        <Item Value="AccountId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtViewVehicleDriverVO2Iterator"
+                     id="CardEmbossNum">
+      <AttrNames>
+        <Item Value="CardEmbossNum"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="updateVehicleDriver"
+                  InstanceName="EngageAppModuleDataControl.dataProvider"
+                  DataControl="EngageAppModuleDataControl"
+                  RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="updateVehicleDriver" IsViewObjectMethod="false"
+                  ReturnName="data.EngageAppModuleDataControl.methodResults.updateVehicleDriver_EngageAppModuleDataControl_dataProvider_updateVehicleDriver_result">
+      <NamedData NDName="cardNumber" NDType="java.lang.String"/>
+      <NamedData NDName="type" NDType="java.lang.String"/>
+      <NamedData NDName="countryCd" NDType="java.lang.String"/>
+      <NamedData NDName="vehicleDriverValue" NDType="java.lang.String"/>
+      <NamedData NDName="associatedAccount" NDType="java.lang.String"/>
+      <NamedData NDName="modifiedBy" NDType="java.lang.String"/>
+    </methodAction>
+    <tree IterBinding="PrtViewCardsVO1Iterator" id="PrtViewCardsVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtViewCardsVO"
+                      Name="PrtViewCardsVO10">
+        <AttrNames>
+          <Item Value="AccountId"/>
+          <Item Value="CardEmbossNum"/>
+          <Item Value="QuaterlyTxReportTxThreeMonths3"/>
+          <Item Value="QuaterlyFuelReportFuelThreeMonths3"/>
+          <Item Value="QuaterlyTxReport"/>
+          <Item Value="QuaterlyFuelReport"/>
+          <Item Value="LastUsed"/>
+          <Item Value="BlockAction"/>
+          <Item Value="CardExpiry"/>
+          <Item Value="VehicleNumber"/>
+          <Item Value="InternalName"/>
+          <Item Value="VehicleModifiedBy"/>
+          <Item Value="VehicleModifiedDate"/>
+          <Item Value="CardType"/>
+          <Item Value="DriverName"/>
+          <Item Value="DriverNumber"/>
+          <Item Value="ModifiedBy"/>
+          <Item Value="ModifiedDate"/>
+          <Item Value="CardgroupDescription"/>
+          <Item Value="PrtCardPk"/>
+          <Item Value="CardgroupMainType"/>
+          <Item Value="CardgroupSubType"/>
+          <Item Value="CardgroupSeq"/>
+          <Item Value="CardTextline2"/>
+          <Item Value="Country"/>
+          <Item Value="Type"/>
+          <Item Value="TypeName"/>
+          <Item Value="BlockCode"/>
+          <Item Value="Dummy"/>
+          <Item Value="CountryCode"/>
+          <Item Value="PartnerId"/>
+          <Item Value="CardIdentifier"/>
+          <Item Value="MagneticCode"/>
+          <Item Value="InvoiceInformation"/>
+          <Item Value="BlockType"/>
+          <Item Value="BlockDate"/>
+          <Item Value="BlockTime"/>
+          <Item Value="BlockLevel"/>
+          <Item Value="ManufacturedDate"/>
+          <Item Value="RoutexCustomerNumber"/>
+          <Item Value="InvoiceAddr1"/>
+          <Item Value="InvoiceAddr2"/>
+          <Item Value="InvoicePostalCode"/>
+          <Item Value="InvoiceCity"/>
+          <Item Value="AddrSeq"/>
+          <Item Value="InvoiceCountry"/>
+          <Item Value="InvoiceAddrLevel"/>
+          <Item Value="InvoiceAddrType"/>
+          <Item Value="CreatedDate"/>
+          <Item Value="CreatedBy"/>
+          <Item Value="ChangeDate"/>
+          <Item Value="ChangeBy"/>
+          <Item Value="VersionNumber"/>
+          <Item Value="CustomerGroup"/>
+          <Item Value="PrevCardId"/>
+          <Item Value="PhysicalCardId"/>
+          <Item Value="CardIssueDate"/>
+          <Item Value="CardReturnDate"/>
+          <Item Value="PurchaseProfileCode"/>
+          <Item Value="NumPrintlines"/>
+          <Item Value="CardAppId"/>
+          <Item Value="GeoUseRef"/>
+          <Item Value="CardStatusCode"/>
+          <Item Value="ExtCardNum"/>
+          <Item Value="CardRenewDate"/>
+          <Item Value="CardRenewBlock"/>
+          <Item Value="PinOffset"/>
+          <Item Value="CardDesignCode"/>
+          <Item Value="CardCreatedBy"/>
+          <Item Value="CardCopies"/>
+          <Item Value="CardSearchId"/>
+          <Item Value="DebitBankAccount"/>
+          <Item Value="DebitAgreeRef"/>
+          <Item Value="DeletionCode"/>
+          <Item Value="SperrebehKd"/>
+          <Item Value="SperrelisteDt"/>
+          <Item Value="SpesialbestJn"/>
+          <Item Value="PrtDriverInformationPk"/>
+          <Item Value="AccountNumber"/>
+          <Item Value="CardNumber"/>
+          <Item Value="Nationality"/>
+          <Item Value="MobileNumber"/>
+          <Item Value="Remarks"/>
+          <Item Value="PassportNumber"/>
+          <Item Value="PassportExpiry"/>
+          <Item Value="LicenseNumber"/>
+          <Item Value="LicenseExpiry"/>
+          <Item Value="EmployStart"/>
+          <Item Value="EmployEnd"/>
+          <Item Value="PrtTruckInformationPk"/>
+          <Item Value="RegistrationNumber"/>
+          <Item Value="Brand"/>
+          <Item Value="Year"/>
+          <Item Value="RegistrationDate"/>
+          <Item Value="Status"/>
+          <Item Value="CardgroupId"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>
