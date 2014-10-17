@@ -1,0 +1,24 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<SDM>
+   <OverallProperties
+      id="OverallProperties1"/>
+   <View
+      id="View2">
+      <property
+         name="activityId">InvoiceOverview</property>
+      <property
+         name="page">/WEB-INF/com/sfr/engage/invoiceoverviewtaskflow/InvoiceOverview.jsff</property>
+      <property
+         name="start">true</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>InvoiceOverview&lt;/b> (Default Activity)&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
+      <property
+         name="exceptionHandler">false</property>
+      <property
+         name="y">187.99414</property>
+      <property
+         name="pageFragment">true</property>
+      <property
+         name="x">291.01562</property>
+   </View>
+</SDM>

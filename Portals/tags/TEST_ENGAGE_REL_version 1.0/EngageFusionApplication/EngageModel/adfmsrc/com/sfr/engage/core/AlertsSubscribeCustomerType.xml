@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.61.92" id="AlertsSubscribeCustomerType" Package="com.sfr.engage.core"
+          BeanClass="com.sfr.engage.core.AlertsSubscribeCustomerType" isJavaBased="true">
+  <Attribute Name="customerID" Type="java.lang.String"/>
+  <Attribute Name="FIrstName" Type="java.lang.String"/>
+  <Attribute Name="lastName" Type="java.lang.String"/>
+  <Attribute Name="emailID" Type="java.lang.String"/>
+  <Attribute Name="mobileNumber" Type="java.math.BigInteger"/>
+  <ConstructorMethod IsCollection="true" Type="com.sfr.engage.core.AlertsSubscribeCustomerType" BeanClass="com.sfr.engage.core.AlertsSubscribeCustomerType"
+                     id="AlertsSubscribeCustomerType"/>
+</JavaBean>

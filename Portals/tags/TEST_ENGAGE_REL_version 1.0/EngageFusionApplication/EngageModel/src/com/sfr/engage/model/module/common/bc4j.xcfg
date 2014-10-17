@@ -1,0 +1,16 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<BC4JConfig version="11.1" xmlns="http://xmlns.oracle.com/bc4j/configuration">
+   <AppModuleConfigBag ApplicationName="com.sfr.engage.model.module.EngageAppModule">
+      <AppModuleConfig DeployPlatform="LOCAL" jbo.project="com.sfr.engage.model.EngageModel" name="EngageAppModuleLocal" ApplicationName="com.sfr.engage.model.module.EngageAppModule">
+         <Database jbo.locking.mode="optimistic"/>
+         <Security AppModuleJndiName="com.sfr.engage.model.module.EngageAppModule"/>
+         <Custom JDBCDataSource="jdbc/engagecustom"/>
+      </AppModuleConfig>
+      <AppModuleConfig DeployPlatform="LOCAL" jbo.project="com.sfr.engage.model.EngageModel" name="EngageAppModuleShared" ApplicationName="com.sfr.engage.model.module.EngageAppModule">
+         <AM-Pooling jbo.ampool.dynamicjdbccredentials="false" jbo.ampool.isuseexclusive="false" jbo.ampool.maxpoolsize="1" jbo.ampool.resetnontransactionalstate="false"/>
+         <Database jbo.locking.mode="optimistic"/>
+         <Security AppModuleJndiName="com.sfr.engage.model.module.EngageAppModule"/>
+         <Custom JDBCDataSource="jdbc/engagecustom"/>
+      </AppModuleConfig>
+   </AppModuleConfigBag>
+</BC4JConfig>

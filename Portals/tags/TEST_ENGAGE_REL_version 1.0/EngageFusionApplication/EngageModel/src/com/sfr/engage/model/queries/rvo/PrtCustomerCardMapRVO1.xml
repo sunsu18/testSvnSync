@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="PrtCustomerCardMapRVO1"
+  Version="11.1.1.61.92"
+  InheritPersonalization="true"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.sfr.engage.model.queries.rvo.PrtCustomerCardMapRVO1RowImpl"
+  ComponentClass="com.sfr.engage.model.queries.rvo.PrtCustomerCardMapRVO1Impl"
+  PageIterMode="Full"
+  UseGlueCode="false">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll|Prog|VarAccess"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.sfr.engage.model.queries.rvo.PrtCustomerCardMapRVO1_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="cardType"
+    Kind="where"
+    Type="java.lang.String"/>
+  <SQLQuery>
+    <![CDATA[SELECT DISTINCT CUSTOMER_TYPE FROM PRT_CUSTOMER_CARD_MAP WHERE INSTR(:cardType,CARD_TYPE)<>0]]>
+  </SQLQuery>
+  <ViewAttribute
+    Name="CustomerType"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    AliasName="CUSTOMER_TYPE"
+    Expression="CUSTOMER_TYPE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.sfr.engage.model.EngageModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.1.61.92" id="InvoiceOverviewPageDef"
+                Package="com.sfr.engage.invoiceoverviewtaskflow">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator id="PrtAccountRVO1Iterator" Binds="PrtAccountRVO1" DataControl="EngageAppModuleDataControl" RangeSize="25"/>
+    <iterator Binds="PrtInvoiceVO1" RangeSize="25" DataControl="EngageAppModuleDataControl" id="PrtInvoiceVO1Iterator"/>
+    <iterator Binds="PrtCardTransactionOverviewRVO1" RangeSize="25" DataControl="EngageAppModuleDataControl" id="PrtCardTransactionOverviewRVO1Iterator"/>
+    <iterator Binds="PrtInvoiceVO2" RangeSize="25" DataControl="EngageAppModuleDataControl" id="PrtInvoiceVO2Iterator"/>
+    <iterator Binds="PrtCardTransactionInvoiceRVO1" RangeSize="25" DataControl="EngageAppModuleDataControl" id="PrtCardTransactionInvoiceRVO1Iterator"/>
+    <iterator Binds="PrtNewInvoiceVO1" RangeSize="25" DataControl="EngageAppModuleDataControl" id="PrtNewInvoiceVO1Iterator"/>
+    <iterator Binds="PrtInvoiceDetailVo1" RangeSize="25" DataControl="EngageAppModuleDataControl" id="PrtInvoiceDetailVo1Iterator"/>
+    <searchRegion Binds="PrtNewInvoiceVO1Iterator" Criteria="" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="PrtNewInvoiceVO11Query"/>
+    <searchRegion Binds="PrtCardTransactionInvoiceRVO1Iterator" Criteria="" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="PrtCardTransactionInvoiceRVO1Query"/>
+    <iterator id="PrtExportInfoRVO1Iterator" Binds="PrtExportInfoRVO1" DataControl="EngageAppModuleDataControl" RangeSize="25"/>
+    <searchRegion Binds="PrtInvoiceDetailVo1Iterator" Criteria="" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="PrtInvoiceDetailVo1Query"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="PrtCardTransactionOverviewRVO1Iterator" id="PrtCardTransactionOverviewRVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtCardTransactionOverviewRVO" Name="PrtCardTransactionOverviewRVO10">
+        <AttrNames>
+          <Item Value="ProductName"/>
+          <Item Value="Quantity"/>
+          <Item Value="StationName"/>
+          <Item Value="RecieptNo"/>
+          <Item Value="Card1Id"/>
+          <Item Value="InvoicedNetAmount"/>
+          <Item Value="InvoicedGrossAmount"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="PrtNewInvoiceVO1Iterator" id="Finalinvoice1">
+      <AttrNames>
+        <Item Value="Finalinvoice"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtNewInvoiceVO1Iterator" id="InvoiceDate">
+      <AttrNames>
+        <Item Value="InvoiceDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtNewInvoiceVO1Iterator" id="netAmount">
+      <AttrNames>
+        <Item Value="netAmount"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtNewInvoiceVO1Iterator" id="InvVatAmt">
+      <AttrNames>
+        <Item Value="InvVatAmt"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtNewInvoiceVO1Iterator" id="InvGrossAmt">
+      <AttrNames>
+        <Item Value="InvGrossAmt"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtNewInvoiceVO1Iterator" id="InvoiceLevel">
+      <AttrNames>
+        <Item Value="InvoiceLevel"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtNewInvoiceVO1Iterator" id="InvoiceDocType">
+      <AttrNames>
+        <Item Value="InvoiceDocType"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtNewInvoiceVO1Iterator" id="InvoicingDate">
+      <AttrNames>
+        <Item Value="InvoicingDate"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="getTranslation" InstanceName="EngageAppModuleDataControl.dataProvider" DataControl="EngageAppModuleDataControl" RequiresUpdateModel="true"
+                  Action="invokeMethod" MethodName="getTranslation" IsViewObjectMethod="false"
+                  ReturnName="data.EngageAppModuleDataControl.methodResults.getTranslation_EngageAppModuleDataControl_dataProvider_getTranslation_result">
+      <NamedData NDName="translationkey" NDType="java.lang.String"/>
+      <NamedData NDName="ccCode" NDType="java.lang.String"/>
+    </methodAction>
+    <tree IterBinding="PrtNewInvoiceVO1Iterator" id="PrtNewInvoiceVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtNewInvoiceVO" Name="PrtNewInvoiceVO10">
+        <AttrNames>
+          <Item Value="Finalinvoice"/>
+          <Item Value="InvoiceDate"/>
+          <Item Value="InvoicingDueDate"/>
+          <Item Value="InvVatAmt"/>
+          <Item Value="InvGrossAmt"/>
+          <Item Value="netAmount"/>
+          <Item Value="InvoicingDate"/>
+          <Item Value="AccountId"/>
+          <Item Value="PartnerId"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="PrtCardTransactionInvoiceRVO1Iterator" id="PrtCardTransactionInvoiceRVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtCardTransactionInvoiceRVO" Name="PrtCardTransactionInvoiceRVO10">
+        <AttrNames>
+          <Item Value="UrefTransactionId"/>
+          <Item Value="AccountId"/>
+          <Item Value="Card1Id"/>
+          <Item Value="Card2Id"/>
+          <Item Value="CardgroupMainType"/>
+          <Item Value="CardgroupSeq"/>
+          <Item Value="CardgroupSubType"/>
+          <Item Value="CardId2Info"/>
+          <Item Value="CurrencyDiscountAmount"/>
+          <Item Value="CurrencyGrossAmount"/>
+          <Item Value="CurrencyGrossAmountRebated"/>
+          <Item Value="CurrencyNetAmount"/>
+          <Item Value="CurrencyUnitPrice"/>
+          <Item Value="CurrencyUnitPriceRebated"/>
+          <Item Value="CurrencyVat"/>
+          <Item Value="DriverName"/>
+          <Item Value="DriverNumber"/>
+          <Item Value="InternalName"/>
+          <Item Value="InvoicedGrossAmount"/>
+          <Item Value="InvoicedGrossAmountRebated"/>
+          <Item Value="InvoiceDiscountAmount"/>
+          <Item Value="InvoicedNetAmount"/>
+          <Item Value="InvoicedNetAmountRebated"/>
+          <Item Value="InvoicedUnitPrice"/>
+          <Item Value="InvoicedUnitPriceRebated"/>
+          <Item Value="InvoicedVat"/>
+          <Item Value="InvoiceNumberCollective"/>
+          <Item Value="InvoiceNumberNonCollective"/>
+          <Item Value="InvoivedVatRebated"/>
+          <Item Value="kmPerLt"/>
+          <Item Value="kmTotal"/>
+          <Item Value="Ksid"/>
+          <Item Value="ltPerHundred"/>
+          <Item Value="ModifiedBy"/>
+          <Item Value="Odometer"/>
+          <Item Value="OdometerPortal"/>
+          <Item Value="PalsCountryCode"/>
+          <Item Value="PartnerId"/>
+          <Item Value="PortalModifiedDate"/>
+          <Item Value="PreviousOdometer"/>
+          <Item Value="ProductName"/>
+          <Item Value="PurchaseCountryCode"/>
+          <Item Value="PurchaseCurrency"/>
+          <Item Value="Quantity"/>
+          <Item Value="StationName"/>
+          <Item Value="TransactionDt"/>
+          <Item Value="TransactionTime"/>
+          <Item Value="TransactionType"/>
+          <Item Value="UnitOfMeasure"/>
+          <Item Value="VehicleNumber"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="PrtInvoiceDetailVo1Iterator" id="PrtInvoiceDetailVo1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtInvoiceDetailVo" Name="PrtInvoiceDetailVo10">
+        <AttrNames>
+          <Item Value="CardEmbossNum"/>
+          <Item Value="CardTextline2"/>
+          <Item Value="InvTotalVatAmt"/>
+          <Item Value="InvNetAmount"/>
+          <Item Value="InvTotalGrossAmt"/>
+          <Item Value="SumPrdQuantity"/>
+          <Item Value="FuelingQty"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>
