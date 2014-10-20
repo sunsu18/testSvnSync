@@ -172,6 +172,30 @@
     <path refid="library.JAX-WS.Web.Services"/>
     <path refid="library.TopLink"/>
   </path>
+    <path id="project.classpath">
+  <pathelement location="${svnjavahl.jar}" />
+  <pathelement location="${svnant.jar}" />
+  <pathelement location="${svnClientAdapter.jar}" />
+  </path>
+  <taskdef resource="svntask.properties" classpathref="project.classpath"/>
+  <target name="tag"  depends="branch">
+
+
+    <svn javahl="${svnant.javahl}" username="${svn.username}" password="${svn.password}">
+    <copy srcUrl="${src.url}" destUrl="${tag.dest.url}/TEST_ENGAGE_REL_${version}" message="Tagging successful"/>
+    </svn>
+</target>
+ 
+ <target name="branch" >
+  
+     <propertyfile file="engageutil-build.properties">
+         <entry key="utility.version" type="int" operation="+" value="1" pattern="00" />
+         
+     </propertyfile>
+    <svn javahl="${svnant.javahl}" username="${svn.username}" password="${svn.password}">
+    <copy srcUrl="${src.url}" destUrl="${branch.dest.url}/TEST_ENGAGE_REL_${version}" message="Branching successful"/>
+    </svn>
+  </target>
   <target name="init">
     <tstamp/>
     <mkdir dir="${output.dir}"/>
