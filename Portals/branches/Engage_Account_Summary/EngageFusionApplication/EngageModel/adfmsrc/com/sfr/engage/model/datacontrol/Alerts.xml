@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.61.92" id="Alerts" Package="com.sfr.engage.model.datacontrol"
+          BeanClass="com.sfr.engage.model.datacontrol.Alerts" isJavaBased="true">
+  <MethodAccessor IsCollection="false" Type="com.sfr.engage.core.AlertsSubscribeResponse" BeanClass="com.sfr.engage.core.AlertsSubscribeResponse"
+                  id="subscribeAlerts" ReturnNodeName="AlertsSubscribeResponse">
+    <ParameterInfo id="subscribeRequest" Type="com.sfr.engage.core.AlertsSubscribeRequest" isStructured="true"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="com.sfr.engage.core.AlertsUnsubscribeResponse" BeanClass="com.sfr.engage.core.AlertsUnsubscribeResponse"
+                  id="unsubscribeAlerts" ReturnNodeName="AlertsUnsubscribeResponse">
+    <ParameterInfo id="unsubscribeRequest" Type="com.sfr.engage.core.AlertsUnsubscribeRequest" isStructured="true"/>
+  </MethodAccessor>
+  <ConstructorMethod IsCollection="true" Type="com.sfr.engage.model.datacontrol.Alerts" BeanClass="com.sfr.engage.model.datacontrol.Alerts" id="Alerts"/>
+</JavaBean>

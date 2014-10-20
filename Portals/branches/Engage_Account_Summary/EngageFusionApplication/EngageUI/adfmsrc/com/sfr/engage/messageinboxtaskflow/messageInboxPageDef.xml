@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.61.92" id="messageInboxPageDef"
+                Package="com.sfr.engage.messageinboxtaskflow">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="PrtPcmFeedsRVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtPcmFeedsRVO1Iterator"/>
+    <iterator Binds="PrtCustomerCardMapRVO1_1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtCustomerCardMapRVO1_1Iterator"/>
+    <searchRegion Binds="PrtPcmFeedsRVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="PrtPcmFeedsRVO11Query"/>
+    <iterator Binds="PrtNotificationVO1" RangeSize="25" DataControl="EngageAppModuleDataControl" id="PrtNotificationVO1Iterator"/>
+    <searchRegion Binds="PrtNotificationVO1Iterator" Criteria="" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="PrtNotificationVO11Query"/>
+  </executables>
+  <bindings>
+    <list IterBinding="PrtCustomerCardMapRVO1_1Iterator"
+          ListOperMode="navigation" ListIter="PrtCustomerCardMapRVO1_1Iterator"
+          id="PrtCustomerCardMapRVO1_1" DTSupportsMRU="true">
+      <AttrNames>
+        <Item Value="CustomerType"/>
+      </AttrNames>
+    </list>
+    <tree IterBinding="PrtPcmFeedsRVO1Iterator" id="PrtPcmFeedsRVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtPcmFeedsRVO"
+                      Name="PrtPcmFeedsRVO10">
+        <AttrNames>
+          <Item Value="readFlag" Binds="readFlag"/>
+          <Item Value="EffectiveDate"/>
+          <Item Value="InformationType"/>
+          <Item Value="Title"/>
+          <Item Value="MessageEnglish"/>
+          <Item Value="MessageLang"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <button IterBinding="PrtPcmFeedsRVO1Iterator" id="readFlag"
+            DTSupportsMRU="false" StaticList="true">
+      <AttrNames>
+        <Item Value="readFlag"/>
+      </AttrNames>
+      <ValueList>
+        <Item Value="YES"/>
+        <Item Value="NO"/>
+      </ValueList>
+    </button>
+    <tree IterBinding="PrtNotificationVO1Iterator" id="PrtNotificationVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtNotificationVO" Name="PrtNotificationVO10">
+        <AttrNames>
+          <Item Value="readFlag"/>
+          <Item Value="NotiCreated"/>
+          <Item Value="NotiSubcategory"/>
+          <Item Value="NotiDescription"/>
+          <Item Value="NotiCategory"/>
+          <Item Value="ShowFlag"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="PrtNotificationVO1Iterator" id="NotiDescription">
+      <AttrNames>
+        <Item Value="NotiDescription"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtNotificationVO1Iterator" id="NotiSubcategory">
+      <AttrNames>
+        <Item Value="NotiSubcategory"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtNotificationVO1Iterator" id="Partner">
+      <AttrNames>
+        <Item Value="Partner"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtNotificationVO1Iterator" id="AccountId">
+      <AttrNames>
+        <Item Value="AccountId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtNotificationVO1Iterator" id="CardgroupMain">
+      <AttrNames>
+        <Item Value="CardgroupMain"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtNotificationVO1Iterator" id="CardgroupSub">
+      <AttrNames>
+        <Item Value="CardgroupSub"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtNotificationVO1Iterator" id="CardgroupSeq">
+      <AttrNames>
+        <Item Value="CardgroupSeq"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtNotificationVO1Iterator" id="EmbossCardNum">
+      <AttrNames>
+        <Item Value="EmbossCardNum"/>
+      </AttrNames>
+    </attributeValues>
+    <action id="Commit" DataControl="EngageAppModuleDataControl" RequiresUpdateModel="true" Action="commitTransaction"/>
+    <attributeValues IterBinding="PrtNotificationVO1Iterator" id="encodedCard">
+      <AttrNames>
+        <Item Value="encodedCard"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>
