@@ -3,7 +3,6 @@
 <!--Generated May 5, 2014 4:43:49 PM-->
 <project name="Common" default="all" basedir=".">
   <property file="engageutil-build.properties"/>
-  <property name="version" value="${utility.version}"/>
   <path id="library.ADF.Model.Generic.Runtime">
     <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.share_11.1.1\adf-share-support.jar"/>
     <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.share.ca_11.1.1\adf-share-ca.jar"/>
@@ -172,36 +171,12 @@
     <path refid="library.JAX-WS.Web.Services"/>
     <path refid="library.TopLink"/>
   </path>
-    <path id="project.classpath">
-  <pathelement location="${svnjavahl.jar}" />
-  <pathelement location="${svnant.jar}" />
-  <pathelement location="${svnClientAdapter.jar}" />
-  </path>
-  <taskdef resource="svntask.properties" classpathref="project.classpath"/>
-  <target name="tag"  depends="branch">
-
-
-    <svn javahl="${svnant.javahl}" username="${svn.username}" password="${svn.password}">
-    <copy srcUrl="${src.url}" destUrl="${tag.dest.url}/TEST_ENGAGE_REL_${version}" message="Tagging successful"/>
-    </svn>
-</target>
- 
- <target name="branch" >
-  
-     <propertyfile file="engageutil-build.properties">
-         <entry key="utility.version" type="int" operation="+" value="1" pattern="00" />
-         
-     </propertyfile>
-    <svn javahl="${svnant.javahl}" username="${svn.username}" password="${svn.password}">
-    <copy srcUrl="${src.url}" destUrl="${branch.dest.url}/TEST_ENGAGE_REL_${version}" message="Branching successful"/>
-    </svn>
-  </target>
   <target name="init">
     <tstamp/>
     <mkdir dir="${output.dir}"/>
   </target>
   <target name="all" description="Build the project"
-          depends="clean,deploy,compile,copy,checksum"/>
+          depends="clean,deploy,compile,copy"/>
   <target name="clean" description="Clean the project">
   <echo>${utility.deploy.outputdir}</echo>
     <delete includeemptydirs="true" quiet="true">
@@ -268,8 +243,5 @@
         <patternset refid="copy.patterns"/>
       </fileset>
     </copy>
-  </target>
-   <target name="checksum" depends="compile">
-      <checksum file="${oracle.jdeveloper.deploy.outputfile}" forceOverwrite="yes"/>
   </target>
 </project>
