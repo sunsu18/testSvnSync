@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="PrtDriverInformationEO"
+  Version="11.1.1.61.92"
+  InheritPersonalization="true"
+  DBObjectType="table"
+  DBObjectName="PRT_DRIVER_INFORMATION"
+  AliasName="PrtDriverInformationEO"
+  BindingStyle="OracleName"
+  UseGlueCode="false"
+  RowClass="com.sfr.engage.model.entities.PrtDriverInformationEOImpl">
+  <DesignTime>
+    <AttrArray Name="_publishEvents"/>
+    <Attr Name="_codeGenFlag2" Value="Init|Access|DML"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Attribute
+    Name="PrtDriverInformationPk"
+    Precision="20"
+    ColumnName="PRT_DRIVER_INFORMATION_PK"
+    SQLType="VARCHAR"
+    Type="oracle.jbo.domain.DBSequence"
+    ColumnType="VARCHAR2"
+    TableName="PRT_DRIVER_INFORMATION"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="AccountNumber"
+    Precision="10"
+    ColumnName="ACCOUNT_NUMBER"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_DRIVER_INFORMATION">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CardNumber"
+    Precision="30"
+    ColumnName="CARD_NUMBER"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_DRIVER_INFORMATION">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="DriverNumber"
+    Precision="20"
+    ColumnName="DRIVER_NUMBER"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_DRIVER_INFORMATION">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="DriverName"
+    Precision="30"
+    ColumnName="DRIVER_NAME"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_DRIVER_INFORMATION">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Nationality"
+    Precision="15"
+    ColumnName="NATIONALITY"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_DRIVER_INFORMATION">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="15"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="MobileNumber"
+    ColumnName="MOBILE_NUMBER"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="PRT_DRIVER_INFORMATION">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Remarks"
+    Precision="30"
+    ColumnName="REMARKS"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_DRIVER_INFORMATION">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="PassportNumber"
+    Precision="20"
+    ColumnName="PASSPORT_NUMBER"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_DRIVER_INFORMATION">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="PassportExpiry"
+    ColumnName="PASSPORT_EXPIRY"
+    SQLType="TIMESTAMP"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    TableName="PRT_DRIVER_INFORMATION">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="com.sfr.engage.model.entities.PrtDriverInformationEO.PassportExpiry_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="com.sfr.engage.model.entities.PrtDriverInformationEO.PassportExpiry_FMT_FORMAT"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute
+    Name="LicenseNumber"
+    Precision="20"
+    ColumnName="LICENSE_NUMBER"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_DRIVER_INFORMATION">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="LicenseExpiry"
+    ColumnName="LICENSE_EXPIRY"
+    SQLType="TIMESTAMP"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    TableName="PRT_DRIVER_INFORMATION">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="com.sfr.engage.model.entities.PrtDriverInformationEO.LicenseExpiry_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="com.sfr.engage.model.entities.PrtDriverInformationEO.LicenseExpiry_FMT_FORMAT"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute
+    Name="EmployStart"
+    ColumnName="EMPLOY_START"
+    SQLType="TIMESTAMP"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    TableName="PRT_DRIVER_INFORMATION">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="com.sfr.engage.model.entities.PrtDriverInformationEO.EmployStart_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="com.sfr.engage.model.entities.PrtDriverInformationEO.EmployStart_FMT_FORMAT"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute
+    Name="EmployEnd"
+    ColumnName="EMPLOY_END"
+    SQLType="TIMESTAMP"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    TableName="PRT_DRIVER_INFORMATION">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="com.sfr.engage.model.entities.PrtDriverInformationEO.EmployEnd_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="com.sfr.engage.model.entities.PrtDriverInformationEO.EmployEnd_FMT_FORMAT"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute
+    Name="ModifiedBy"
+    DefaultValue="Siddharth"
+    Precision="50"
+    ColumnName="MODIFIED_BY"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_DRIVER_INFORMATION">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ModifiedDate"
+    IsNotNull="true"
+    ColumnName="MODIFIED_DATE"
+    SQLType="TIMESTAMP"
+    Type="oracle.jbo.domain.Timestamp"
+    ColumnType="TIMESTAMP"
+    TableName="PRT_DRIVER_INFORMATION"
+    HistoryColumn="DateHistory">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="11"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CountryCode"
+    Precision="2"
+    ColumnName="COUNTRY_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_DRIVER_INFORMATION">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="8"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ReferenceNumber"
+    Precision="10"
+    ColumnName="REFERENCE_NUMBER"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_DRIVER_INFORMATION">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <AccessorAttribute
+    Name="PrtAccountEO"
+    Association="com.sfr.engage.model.associations.PrtDriverInformationPrFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.associations.PrtDriverInformationPrFk1Assoc.PrtAccountEO"
+    AssociationOtherEnd="com.sfr.engage.model.associations.PrtDriverInformationPrFk1Assoc.PrtDriverInformationEO"
+    Type="com.sfr.engage.model.entities.PrtAccountEOImpl"
+    IsUpdateable="true"/>
+  <!--<AccessorAttribute
+    Name="PrtAccountEO1"
+    Association="com.sfr.engage.model.entities.PrtDriverInformationPrFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.entities.PrtDriverInformationPrFk1Assoc.PrtAccountEO1"
+    AssociationOtherEnd="com.sfr.engage.model.entities.PrtDriverInformationPrFk1Assoc.PrtDriverInformationEO1"
+    Type="com.sfr.engage.model.entities.PrtAccountEOImpl"
+    IsUpdateable="true"/>-->
+  <Key
+    Name="PrtDriverInformationPk1"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="PRT_DRIVER_INFORMATION_PK"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="com.sfr.engage.model.entities.PrtDriverInformationEO.PrtDriverInformationPk"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0055832">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0055832"/>
+      <Attr Name="_checkCondition"
+        Value='"PRT_DRIVER_INFORMATION_PK" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="com.sfr.engage.model.entities.PrtDriverInformationEO.PrtDriverInformationPk"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0055833">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0055833"/>
+      <Attr Name="_checkCondition" Value='"COUNTRY_CODE" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes"/>
+  </Key>
+  <Key
+    Name="SysC0055834">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0055834"/>
+      <Attr Name="_checkCondition" Value='"ACCOUNT_NUMBER" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes"/>
+  </Key>
+  <Key
+    Name="SysC0055835">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0055835"/>
+      <Attr Name="_checkCondition" Value='"DRIVER_NUMBER" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes"/>
+  </Key>
+  <Key
+    Name="SysC0055836">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0055836"/>
+      <Attr Name="_checkCondition" Value='"DRIVER_NAME" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes"/>
+  </Key>
+  <Key
+    Name="SysC0055837">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0055837"/>
+      <Attr Name="_checkCondition" Value='"MODIFIED_BY" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes"/>
+  </Key>
+  <Key
+    Name="SysC0055838">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0055838"/>
+      <Attr Name="_checkCondition" Value='"MODIFIED_DATE" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="com.sfr.engage.model.entities.PrtDriverInformationEO.ModifiedDate"/>
+    </AttrArray>
+  </Key>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.sfr.engage.model.EngageModelBundle"/>
+  </ResourceBundle>
+</Entity>

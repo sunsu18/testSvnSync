@@ -1,0 +1,33 @@
+<?xml version = '1.0' encoding = 'windows-1252'?>
+<weblogic-web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://www.bea.com/ns/weblogic/weblogic-web-app http://www.bea.com/ns/weblogic/weblogic-web-app/1.0/weblogic-web-app.xsd"
+                  xmlns="http://www.bea.com/ns/weblogic/weblogic-web-app">
+  <security-role-assignment>
+    <role-name>valid-users</role-name>
+    <principal-name>users</principal-name>
+  </security-role-assignment>
+  <resource-description>
+    <res-ref-name>jdbc/WebCenterDS</res-ref-name>
+    <jndi-name>jdbc/webcenter/CustomPortalDS</jndi-name>
+  </resource-description>
+  <resource-description>
+    <res-ref-name>jdbc/ActivitiesDS</res-ref-name>
+    <jndi-name>jdbc/activities/CustomPortalDS</jndi-name>
+  </resource-description>
+  <session-descriptor>
+    <timeout-secs>14400</timeout-secs>
+    <invalidation-interval-secs>600</invalidation-interval-secs>   
+    <cookie-name>/CustomerPortal</cookie-name>
+    <cookie-max-age-secs>43200</cookie-max-age-secs>
+    <persistent-store-type>MEMORY</persistent-store-type>
+	<url-rewriting-enabled>true</url-rewriting-enabled>
+    <sharing-enabled>true</sharing-enabled>
+  </session-descriptor>
+  <library-ref>
+    <library-name>oracle.webcenter.framework.view</library-name>
+    <specification-version>11.1.1</specification-version>
+  </library-ref>
+  <library-ref>
+    <library-name>jaxrs-framework-web-lib</library-name>
+  </library-ref>
+</weblogic-web-app>

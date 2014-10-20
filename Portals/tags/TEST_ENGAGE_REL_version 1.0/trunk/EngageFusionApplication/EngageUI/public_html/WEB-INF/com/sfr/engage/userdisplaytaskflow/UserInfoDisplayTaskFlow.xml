@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="UserInfoDisplayTaskFlow">
+    <default-activity id="__1">UserDisplayInfo</default-activity>
+    <managed-bean id="__5">
+      <managed-bean-name id="__3">UserInfoDisplayManagedBean</managed-bean-name>
+      <managed-bean-class id="__4">com.sfr.engage.userdisplaytaskflow.UserInfoDisplayBean</managed-bean-class>
+      <managed-bean-scope id="__2">pageFlow</managed-bean-scope>
+    </managed-bean>
+    <view id="UserDisplayInfo">
+      <page>/WEB-INF/com/sfr/engage/userdisplaytaskflow/UserDisplayInfo.jsff</page>
+    </view>
+    <view id="AddEditUserInfo">
+      <page>/WEB-INF/com/sfr/engage/userdisplaytaskflow/AddEditUserInfo.jsff</page>
+    </view>
+    <control-flow-rule id="__6">
+      <from-activity-id id="__7">UserDisplayInfo</from-activity-id>
+      <control-flow-case id="__8">
+        <from-outcome id="__10">goToAddEdit</from-outcome>
+        <to-activity-id id="__9">AddEditUserInfo</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__11">
+      <from-activity-id id="__12">AddEditUserInfo</from-activity-id>
+      <control-flow-case id="__13">
+        <from-outcome id="__15">addEditToSearch</from-outcome>
+        <to-activity-id id="__14">UserDisplayInfo</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

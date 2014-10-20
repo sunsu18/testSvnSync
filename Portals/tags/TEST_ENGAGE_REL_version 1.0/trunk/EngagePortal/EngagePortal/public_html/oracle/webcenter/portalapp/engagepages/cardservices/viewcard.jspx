@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich" xmlns:pe="http://xmlns.oracle.com/adf/pageeditor"
+          xmlns:cust="http://xmlns.oracle.com/adf/faces/customizable">
+  <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+  <f:view locale="#{SkinHelper.locale}">
+    <af:document id="d1" title="#{sfr.VIEW_CARDS}">
+    <af:resource type="javascript">
+        function exitFromPopup(event) {
+        var popup = AdfPage.PAGE.findComponent("pt1:r1:0:show_columns");
+         popup.hide();
+        }
+         function exitFromPopupConfirmation(event) {
+        var popup = AdfPage.PAGE.findComponent("pt1:r1:0:confirmation_columns");
+         popup.hide();
+        }
+
+        exitFromPopupConfirmation
+      </af:resource>
+      <af:form id="f1">
+        <af:pageTemplate value="#{bindings.pageTemplateBinding}" id="pt1"
+                         viewId="/oracle/webcenter/portalapp/pagetemplates/engageTemplate.jspx">
+          <f:facet name="content">
+            <pe:pageCustomizable id="hm_pgc1">
+              <cust:panelCustomizable id="hm_pnc1" layout="vertical">
+                <af:panelGroupLayout id="pgl_01" layout="vertical" inlineStyle="width:962px; height:830px;" styleClass="portalbackground">
+                  <af:region value="#{bindings.CardTaskFlow1.regionModel}" id="r1"/>
+                </af:panelGroupLayout>
+              </cust:panelCustomizable>
+            </pe:pageCustomizable>
+          </f:facet>
+        </af:pageTemplate>
+      </af:form>
+    </af:document>
+  </f:view>
+</jsp:root>

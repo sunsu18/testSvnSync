@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <managed-bean id="__1">
+    <managed-bean-name id="__2">SkinHelper</managed-bean-name>
+    <managed-bean-class id="__4">com.sfr.engage.util.SkinHelper</managed-bean-class>
+    <managed-bean-scope id="__3">session</managed-bean-scope>
+  </managed-bean>
+  <managed-bean id="__8">
+    <managed-bean-name id="__6">homeCarousalBean</managed-bean-name>
+    <managed-bean-class id="__7">com.sfr.engage.util.HomeCarouselBean</managed-bean-class>
+    <managed-bean-scope id="__5">request</managed-bean-scope>
+  </managed-bean>
+  <managed-bean id="__11">
+    <managed-bean-name id="__12">MenuVisibleHelperBean</managed-bean-name>
+    <managed-bean-class id="__10">com.sfr.engage.util.MenuVisibleHelper</managed-bean-class>
+    <managed-bean-scope id="__9">session</managed-bean-scope>
+  </managed-bean>
+</adfc-config>

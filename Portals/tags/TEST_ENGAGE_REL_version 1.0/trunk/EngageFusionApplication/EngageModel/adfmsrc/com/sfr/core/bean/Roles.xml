@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.61.92" id="Roles" Package="com.sfr.core.bean" BeanClass="com.sfr.core.bean.Roles"
+          isJavaBased="true">
+  <Attribute Name="roleName" Type="java.lang.String"/>
+  <Attribute Name="engageRoleTypeAssociation" Type="java.lang.String"/>
+  <AccessorAttribute id="customerID" IsCollection="true" Type="java.util.List" CollectionBeanClass="UpdateableCollection">
+    <Attribute Name="element" Type="java.lang.Integer"/>
+  </AccessorAttribute>
+  <AccessorAttribute id="idString" IsCollection="true" Type="java.util.List" CollectionBeanClass="UpdateableCollection">
+    <Attribute Name="element" Type="java.lang.String"/>
+  </AccessorAttribute>
+  <MethodAccessor IsCollection="false" Type="void" id="setAssigned" ReturnNodeName="Return">
+    <ParameterInfo id="p0" Type="boolean" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="boolean" id="isAssigned" ReturnNodeName="Return"/>
+  <MethodAccessor IsCollection="false" Type="java.lang.String" id="toString" ReturnNodeName="Return"/>
+  <ConstructorMethod IsCollection="true" Type="com.sfr.core.bean.Roles" BeanClass="com.sfr.core.bean.Roles" id="Roles">
+    <ParameterInfo id="p0" Type="com.sfr.core.bean.Roles" isStructured="true"/>
+  </ConstructorMethod>
+  <ConstructorMethod IsCollection="true" Type="com.sfr.core.bean.Roles" BeanClass="com.sfr.core.bean.Roles" id="Roles"/>
+</JavaBean>
