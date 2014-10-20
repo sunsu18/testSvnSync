@@ -183,7 +183,7 @@ public class TransactionOverviewBean implements Serializable {
     private boolean showDriverCode = false;
 
     public void defaultPopulateDropdown(){
-        isTableVisible = false;
+        
         cardIdPGL = false;
         cardGPGL = true;
         vNumberPGL = false;
@@ -302,7 +302,26 @@ public class TransactionOverviewBean implements Serializable {
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Default:currencyCode :" + currencyCode);
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Default:Locale :" + locale);
         }
-
+        reportRawData = false;
+        reportInternationalTx = false;
+        reportPriceSpecification = false;
+        reportDefault = true;
+        displayCol(reportFormatValue);
+        ViewObject vo =ADFUtils.getViewObject(PRTCARDTRANSACTIONOVERVIEWRVO1ITERATORLITRERAL);
+        Date dateNow = new java.util.Date();
+        GregorianCalendar gc = new GregorianCalendar();
+        gc.setTime(dateNow);
+        gc.add(GregorianCalendar.MONTH, -1);
+        Date dateBefore = gc.getTime();
+        SimpleDateFormat dateformat = new SimpleDateFormat("dd-MMM-yyyy");
+        String fromDate = dateformat.format(dateBefore);
+        String toDate = dateformat.format(dateNow);
+        removeDynamicWhereClause(vo, true, partnerIdValue.toString(), accountIdValue.toString(), cardGroupValue.toString(), "", typeValue.toString(), reportFormatValue, fromDate, toDate);
+        if(vo.getEstimatedRowCount() != 0){
+            isTableVisible = true;
+        }else{
+            isTableVisible = false;
+        }
     }
 
     /**
@@ -992,10 +1011,517 @@ public class TransactionOverviewBean implements Serializable {
             getBindings().getSearchResultsTB().queueEvent(new QueryEvent(getBindings().getSearchResultsTB(), queryDescriptor));
         }
     }
+    
+    public void removeDynamicWhereClause(ViewObject voPV, boolean onPageLoadPV, String partnerPV, String accountPV, String cgPV, String cardPV, String typePV, String reportPV, String fromDatePV, String toDatePV){
+        String partner = partnerPV;
+        String account = accountPV;
+        String cg = cgPV;
+        String card = cardPV;
+        String type = typePV;
+        String report = reportPV;
+        String fromDate = fromDatePV;
+        String toDate = toDatePV;
+        boolean onPageLoad =onPageLoadPV;
+        ViewObject vo = voPV;
+        if (cardQuery.length() > 2 && cardQuery != null && cardGroupQuery.length() <= 2) {
+            if (((accountQuery + "AND " + cardQuery +
+                  "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)").trim().equalsIgnoreCase(vo.getWhereClause().trim())) ||
+                ((accountQuery + " AND " + cardQuery +
+                  "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)").trim().equalsIgnoreCase(vo.getWhereClause().trim()))) {
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "inside  card where removal with purchase code class");
+                if (mapAccountListValue != null) {
+                    for (int i = 0; i < mapAccountListValue.size(); i++) {
 
+                        vo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i);
+                    }
+                } else {
+                    vo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL);
+                }
+
+                if (mapCardListValue != null) {
+                    for (int i = 0; i < mapCardListValue.size(); i++) {
+                        vo.removeNamedWhereClauseParam(Constants.CARDLITERAL + i);
+                    }
+                    for (int i = 0; i < mapCardListValue.size(); i++) {
+
+                        vo.removeNamedWhereClauseParam(Constants.CARD2ID_LITERAL + i);
+                    }
+                } else {
+                    vo.removeNamedWhereClauseParam(Constants.CARDLITERAL);
+                    vo.removeNamedWhereClauseParam(Constants.CARD2ID_LITERAL);
+                }
+                vo.removeNamedWhereClauseParam(PURCHASECOUNTRYCODELITRERAL);
+                vo.setWhereClause("");
+                vo.executeQuery();
+            } else {
+                if (((accountQuery + "AND " + cardQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim())) ||
+                    ((accountQuery + " AND " + cardQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim()))) {
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "inside  card with out purchase code where removal class");
+                    if (mapAccountListValue != null) {
+                        for (int i = 0; i < mapAccountListValue.size(); i++) {
+
+                            vo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i);
+                        }
+                    } else {
+                        vo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL);
+                    }
+                    if (mapCardListValue != null) {
+                        for (int i = 0; i < mapCardListValue.size(); i++) {
+                            vo.removeNamedWhereClauseParam(Constants.CARDLITERAL + i);
+                        }
+                        for (int i = 0; i < mapCardListValue.size(); i++) {
+
+                            vo.removeNamedWhereClauseParam(Constants.CARD2ID_LITERAL + i);
+                        }
+                    } else {
+                        vo.removeNamedWhereClauseParam(Constants.CARDLITERAL);
+                        vo.removeNamedWhereClauseParam(Constants.CARD2ID_LITERAL);
+                    }
+                    vo.setWhereClause("");
+                    vo.executeQuery();
+                }
+            }
+        } else {
+            if (cardGroupQuery.length() > 1 && cardGroupQuery != null && cardQuery.length() <= 2) {
+                if (((accountQuery + "AND " + cardGroupQuery +
+                      "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)").trim().equalsIgnoreCase(vo.getWhereClause().trim())) ||
+                    ((accountQuery + " AND " + cardGroupQuery +
+                      "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)").trim().equalsIgnoreCase(vo.getWhereClause().trim()))) {
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "inside cardGroup with purchase code where removal class");
+                    if (mapAccountListValue != null) {
+                        for (int i = 0; i < mapAccountListValue.size(); i++) {
+
+                            vo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i);
+                        }
+                    } else {
+                        vo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL);
+                    }
+                    if (mapCardGroupListValue != null) {
+                        for (int i = 0; i < mapCardGroupListValue.size(); i++) {
+
+                            vo.removeNamedWhereClauseParam(Constants.CARDGROUPLITERAL + i);
+                        }
+                    } else {
+                        vo.removeNamedWhereClauseParam(Constants.CARDGROUPLITERAL);
+                    }
+                    vo.removeNamedWhereClauseParam(PURCHASECOUNTRYCODELITRERAL);
+                    vo.setWhereClause("");
+                    vo.executeQuery();
+                } else {
+                    if (((accountQuery + "AND " + cardGroupQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim())) ||
+                        ((accountQuery + " AND " + cardGroupQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim()))) {
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "inside  cardGroup with out purchase code where removal class");
+                        if (mapAccountListValue != null) {
+                            for (int i = 0; i < mapAccountListValue.size(); i++) {
+
+                                vo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i);
+                            }
+                        } else {
+                            vo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL);
+                        }
+                        if (mapCardGroupListValue != null) {
+                            for (int i = 0; i < mapCardGroupListValue.size(); i++) {
+
+                                vo.removeNamedWhereClauseParam(Constants.CARDGROUPLITERAL + i);
+                            }
+                        } else {
+                            vo.removeNamedWhereClauseParam(Constants.CARDGROUPLITERAL);
+                        }
+                        vo.setWhereClause("");
+                        vo.executeQuery();
+                    }
+                }
+            }
+
+        }
+        accountQuery = "(";
+        cardGroupQuery = "(";
+        cardQuery = "((";
+
+        vo.setNamedWhereClauseParam(Constants.COUNTRY_CD_LITERAL, lang);
+        vo.setNamedWhereClauseParam("partnerId", partner);
+        vo.setNamedWhereClauseParam("type", type);
+        vo.setNamedWhereClauseParam("fromDate", fromDate);
+        vo.setNamedWhereClauseParam("toDate", toDate);
+        if (accountIdValue.size() > Constants.ONEFIFTY) {
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
+            mapAccountListValue = ValueListSplit.callValueList(accountIdValue.size(), accountIdValue);
+            for (int i = 0; i < mapAccountListValue.size(); i++) {
+                String values = Constants.ACCOUNT_LITERAL + i;
+                accountQuery = accountQuery + "INSTR(:" + values + ",ACCOUNT_ID)<>0 OR ";
+            }
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "Account Query Values =" + accountQuery);
+            accountQuery = accountQuery.substring(0, accountQuery.length() - Constants.THREE);
+            accountQuery = accountQuery + ")";
+
+        } else {
+            mapAccountListValue = null;
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
+            accountQuery = "(INSTR(:account,ACCOUNT_ID)<>0 ) ";
+        }
+
+        if ((cardIdPGL || vNumberPGL || dNamePGL) && onPageLoad) {
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Inside block for card");
+            if (getBindings().getReportFormat().getValue() != null) {
+                if (Constants.CARD_LITERAL.equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
+                    if (Constants.INTERNATIONAL_LITERAL.equalsIgnoreCase(getBindings().getReportFormat().getValue().toString().trim())) {
+                        if (cardNumberValue.size() > Constants.ONEFIFTY) {
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values > 150 ");
+                            mapCardListValue = ValueListSplit.callValueList(cardNumberValue.size(), cardNumberValue);
+                            for (int i = 0; i < mapCardListValue.size(); i++) {
+                                String values = Constants.CARDLITERAL + i;
+                                cardQuery = cardQuery + "INSTR(:" + values + ",KSID)<>0 OR ";
+                            }
+                            cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
+                            cardQuery = cardQuery + ") OR (";
+                            for (int i = 0; i < mapCardListValue.size(); i++) {
+                                String values = Constants.CARD2ID_LITERAL + i;
+                                cardQuery = cardQuery + "INSTR(:" + values + ",CARD_2_ID)<>0 OR ";
+                            }
+                            cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
+                            cardQuery =
+                                    cardQuery + ") AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
+                            vo.setWhereClause(accountQuery + "AND " + cardQuery + "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
+                            for (int i = 0; i < mapCardListValue.size(); i++) {
+                                vo.defineNamedWhereClauseParam(Constants.CARDLITERAL + i, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
+                            }
+                            for (int i = 0; i < mapCardListValue.size(); i++) {
+
+                                vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL + i, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
+                            }
+
+                        } else {
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CARD Values < 150 ");
+                            mapCardListValue = null;
+                            cardQuery =
+                                    "((INSTR(:card,KSID)<>0 OR INSTR(:card2id,CARD_2_ID)<>0) AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
+                            vo.setWhereClause(accountQuery + "AND " + cardQuery + "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
+                            vo.defineNamedWhereClauseParam(Constants.CARDLITERAL, card, null);
+                            vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL, card, null);
+                        }
+                        vo.defineNamedWhereClauseParam(PURCHASECOUNTRYCODELITRERAL, lang, null);
+                    } else {
+                        if (cardNumberValue.size() > Constants.ONEFIFTY) {
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values > 150 ");
+                            mapCardListValue = ValueListSplit.callValueList(cardNumberValue.size(), cardNumberValue);
+                            for (int i = 0; i < mapCardListValue.size(); i++) {
+                                String values = Constants.CARDLITERAL + i;
+                                cardQuery = cardQuery + "INSTR(:" + values + ",KSID)<>0 OR ";
+                            }
+                            cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
+                            cardQuery = cardQuery + ") OR (";
+                            for (int i = 0; i < mapCardListValue.size(); i++) {
+                                String values = Constants.CARD2ID_LITERAL + i;
+                                cardQuery = cardQuery + "INSTR(:" + values + ",CARD_2_ID)<>0 OR ";
+                            }
+                            cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
+                            cardQuery =
+                                    cardQuery + ") AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
+                            vo.setWhereClause(accountQuery + "AND " + cardQuery);
+                            for (int i = 0; i < mapCardListValue.size(); i++) {
+                                vo.defineNamedWhereClauseParam(Constants.CARDLITERAL + i, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
+                            }
+                            for (int i = 0; i < mapCardListValue.size(); i++) {
+
+
+                                vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL + i, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
+                            }
+
+                        } else {
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CARD Values < 150 ");
+                            mapCardListValue = null;
+                            cardQuery =
+                                    "((INSTR(:card,KSID)<>0 OR INSTR(:card2id,CARD_2_ID)<>0) AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
+                            vo.setWhereClause(accountQuery + "AND " + cardQuery);
+                            vo.defineNamedWhereClauseParam(Constants.CARDLITERAL, card, null);
+                            vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL, card, null);
+                        }
+                    }
+                } else if (Constants.VEHICLE_LITERAL.equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + Constants.VEHICLE_LITERAL);
+                    if (Constants.INTERNATIONAL_LITERAL.equalsIgnoreCase(getBindings().getReportFormat().getValue().toString().trim())) {
+                        if (vehicleNumberValue.size() > Constants.ONEFIFTY) {
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Vehicle Values > 150 ");
+                            mapCardListValue = ValueListSplit.callValueList(vehicleNumberValue.size(), vehicleNumberValue);
+                            for (int i = 0; i < mapCardListValue.size(); i++) {
+                                String values = Constants.CARDLITERAL + i;
+                                cardQuery = cardQuery + "INSTR(:" + values + ",KSID)<>0 OR ";
+                            }
+                            cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
+                            cardQuery = cardQuery + ") OR (";
+                            for (int i = 0; i < mapCardListValue.size(); i++) {
+                                String values = Constants.CARD2ID_LITERAL + i;
+                                cardQuery = cardQuery + "INSTR(:" + values + ",CARD_2_ID)<>0 OR ";
+                            }
+                            cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
+                            cardQuery =
+                                    cardQuery + ") AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
+                            vo.setWhereClause(accountQuery + "AND " + cardQuery + "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
+                            for (int i = 0; i < mapCardListValue.size(); i++) {
+                                vo.defineNamedWhereClauseParam(Constants.CARDLITERAL + i, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
+                            }
+                            for (int i = 0; i < mapCardListValue.size(); i++) {
+
+                                vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL + i, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
+                            }
+
+                        } else {
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Vehicle Values < 150 ");
+                            mapCardListValue = null;
+                            cardQuery =
+                                    "((INSTR(:card,KSID)<>0 OR INSTR(:card2id,CARD_2_ID)<>0) AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
+                            vo.setWhereClause(accountQuery + "AND " + cardQuery + "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
+                            vo.defineNamedWhereClauseParam(Constants.CARDLITERAL, card, null);
+                            vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL, card, null);
+                        }
+                        vo.defineNamedWhereClauseParam(PURCHASECOUNTRYCODELITRERAL, lang, null);
+                    } else {
+                        if (vehicleNumberValue.size() > Constants.ONEFIFTY) {
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Vehicle Values > 150 ");
+                            mapCardListValue = ValueListSplit.callValueList(vehicleNumberValue.size(), vehicleNumberValue);
+                            for (int i = 0; i < mapCardListValue.size(); i++) {
+                                String values = Constants.CARDLITERAL + i;
+                                cardQuery = cardQuery + "INSTR(:" + values + ",KSID)<>0 OR ";
+                            }
+                            cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
+                            cardQuery = cardQuery + ") OR (";
+                            for (int i = 0; i < mapCardListValue.size(); i++) {
+                                String values = Constants.CARD2ID_LITERAL + i;
+                                cardQuery = cardQuery + "INSTR(:" + values + ",CARD_2_ID)<>0 OR ";
+                            }
+                            cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
+                            cardQuery =
+                                    cardQuery + ") AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
+                            vo.setWhereClause(accountQuery + "AND " + cardQuery);
+                            for (int i = 0; i < mapCardListValue.size(); i++) {
+                                vo.defineNamedWhereClauseParam(Constants.CARDLITERAL + i, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
+                            }
+                            for (int i = 0; i < mapCardListValue.size(); i++) {
+
+                                vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL + i, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
+                            }
+
+
+                        } else {
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Vehicle Values < 150 ");
+                            mapCardListValue = null;
+                            cardQuery =
+                                    "((INSTR(:card,KSID)<>0 OR INSTR(:card2id,CARD_2_ID)<>0) AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
+                            vo.setWhereClause(accountQuery + "AND " + cardQuery);
+                            vo.defineNamedWhereClauseParam(Constants.CARDLITERAL, card, null);
+                            vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL, card, null);
+                        }
+                    }
+                } else {
+                    if ("Driver".equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "Driver");
+                        if (Constants.INTERNATIONAL_LITERAL.equalsIgnoreCase(getBindings().getReportFormat().getValue().toString().trim())) {
+                            if (driverNameValue.size() > Constants.ONEFIFTY) {
+                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Driver Values > 150 ");
+                                mapCardListValue = ValueListSplit.callValueList(driverNameValue.size(), driverNameValue);
+                                for (int i = 0; i < mapCardListValue.size(); i++) {
+                                    String values = Constants.CARDLITERAL + i;
+                                    cardQuery = cardQuery + "INSTR(:" + values + ",KSID)<>0 OR ";
+                                }
+                                cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
+                                cardQuery = cardQuery + ") OR (";
+                                for (int i = 0; i < mapCardListValue.size(); i++) {
+                                    String values = Constants.CARD2ID_LITERAL + i;
+                                    cardQuery = cardQuery + "INSTR(:" + values + ",CARD_2_ID)<>0 OR ";
+                                }
+                                cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
+                                cardQuery =
+                                        cardQuery + ") AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
+                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
+                                vo.setWhereClause(accountQuery + "AND " + cardQuery + "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
+                                for (int i = 0; i < mapCardListValue.size(); i++) {
+                                    vo.defineNamedWhereClauseParam(Constants.CARDLITERAL + i, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
+                                }
+                                for (int i = 0; i < mapCardListValue.size(); i++) {
+
+
+                                    vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL + i, mapCardListValue.get(Constants.LISTNAME_LITERAL + i),
+                                                                   null);
+                                }
+
+                            } else {
+                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Driver Values < 150 ");
+                                mapCardListValue = null;
+                                cardQuery =
+                                        "((INSTR(:card,KSID)<>0 OR INSTR(:card2id,CARD_2_ID)<>0) AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
+                                vo.setWhereClause(accountQuery + "AND " + cardQuery + "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
+                                vo.defineNamedWhereClauseParam(Constants.CARDLITERAL, card, null);
+                                vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL, card, null);
+                            }
+                            vo.defineNamedWhereClauseParam(PURCHASECOUNTRYCODELITRERAL, lang, null);
+                        } else {
+                            if (driverNameValue.size() > Constants.ONEFIFTY) {
+                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Driver Values > 150 ");
+                                mapCardListValue = ValueListSplit.callValueList(driverNameValue.size(), driverNameValue);
+                                for (int i = 0; i < mapCardListValue.size(); i++) {
+                                    String values = Constants.CARDLITERAL + i;
+                                    cardQuery = cardQuery + "INSTR(:" + values + ",KSID)<>0 OR ";
+                                }
+                                cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
+                                cardQuery = cardQuery + ") OR (";
+                                for (int i = 0; i < mapCardListValue.size(); i++) {
+                                    String values = Constants.CARD2ID_LITERAL + i;
+                                    cardQuery = cardQuery + "INSTR(:" + values + ",CARD_2_ID)<>0 OR ";
+                                }
+                                cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
+                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
+                                cardQuery =
+                                        cardQuery + ") AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
+                                vo.setWhereClause(accountQuery + "AND " + cardQuery);
+                                for (int i = 0; i < mapCardListValue.size(); i++) {
+                                    vo.defineNamedWhereClauseParam(Constants.CARDLITERAL + i, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
+                                }
+                                for (int i = 0; i < mapCardListValue.size(); i++) {
+
+                                    vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
+                                }
+
+                            } else {
+                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Driver Values < 150 ");
+                                mapCardListValue = null;
+                                cardQuery =
+                                        "((INSTR(:card,KSID)<>0 OR INSTR(:card2id,CARD_2_ID)<>0) AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
+                                vo.setWhereClause(accountQuery + "AND " + cardQuery);
+                                vo.defineNamedWhereClauseParam(Constants.CARDLITERAL, card, null);
+                                vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL, card, null);
+                            }
+                        }
+                    }
+                }
+            }
+
+        } else {
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Coming inside card group block");
+            if (report != null) {
+                if (Constants.INTERNATIONAL_LITERAL.equalsIgnoreCase(report)) {
+                    if (cardGroupValue.size() > Constants.ONEFIFTY) {
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
+                        mapCardGroupListValue = ValueListSplit.callValueList(cardGroupValue.size(), cardGroupValue);
+                        for (int i = 0; i < mapCardGroupListValue.size(); i++) {
+                            String values = Constants.CARDGROUPLITERAL + i;
+                            cardGroupQuery =
+                                    cardGroupQuery + "INSTR(:" + values + ",PARTNER_ID||CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 OR ";
+                        }
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARDGROUP Query Values =" + cardGroupQuery);
+                        cardGroupQuery = cardGroupQuery.substring(0, cardGroupQuery.length() - Constants.THREE);
+                        cardGroupQuery = cardGroupQuery + ")";
+                        vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
+                        for (int i = 0; i < mapCardGroupListValue.size(); i++) {
+                            vo.defineNamedWhereClauseParam(Constants.CARDGROUPLITERAL + i, mapCardGroupListValue.get(Constants.LISTNAME_LITERAL + i),
+                                                           null);
+                        }
+
+                    } else {
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CARD Values < 150 ");
+                        mapCardGroupListValue = null;
+                        cardGroupQuery = "INSTR(:cardGroup,PARTNER_ID||CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 ";
+                        vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
+                        vo.defineNamedWhereClauseParam(Constants.CARDGROUPLITERAL,
+                                                       cg, null);
+                    }
+                    vo.defineNamedWhereClauseParam(PURCHASECOUNTRYCODELITRERAL, lang, null);
+
+                } else {
+                    if (cardGroupValue.size() > Constants.ONEFIFTY) {
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
+                        mapCardGroupListValue = ValueListSplit.callValueList(cardGroupValue.size(), cardGroupValue);
+                        for (int i = 0; i < mapCardGroupListValue.size(); i++) {
+                            String values = Constants.CARDGROUPLITERAL + i;
+                            cardGroupQuery =
+                                    cardGroupQuery + "INSTR(:" + values + ",PARTNER_ID||CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 OR ";
+                        }
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
+                        cardGroupQuery = cardGroupQuery.substring(0, cardGroupQuery.length() - Constants.THREE);
+                        cardGroupQuery = cardGroupQuery + ")";
+                        vo.setWhereClause(accountQuery + "AND " + cardGroupQuery);
+                        for (int i = 0; i < mapCardGroupListValue.size(); i++) {
+                            vo.defineNamedWhereClauseParam(Constants.CARDGROUPLITERAL + i, mapCardGroupListValue.get(Constants.LISTNAME_LITERAL + i),
+                                                           null);
+                        }
+
+                    } else {
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CARD Values < 150 ");
+                        mapCardGroupListValue = null;
+                        cardGroupQuery = "(INSTR(:cardGroup,PARTNER_ID||CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0) ";
+                        vo.setWhereClause(accountQuery + "AND " + cardGroupQuery);
+                        vo.defineNamedWhereClauseParam(Constants.CARDGROUPLITERAL,
+                                                       cg, null);
+                    }
+                }
+            }
+        }
+
+
+        if (accountIdValue.size() > Constants.ONEFIFTY) {
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
+            mapAccountListValue = ValueListSplit.callValueList(accountIdValue.size(), accountIdValue);
+            for (int i = 0; i < mapAccountListValue.size(); i++) {
+
+                vo.defineNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i, mapAccountListValue.get(Constants.LISTNAME_LITERAL + i), null);
+            }
+
+        } else {
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < oneFifty ");
+            vo.defineNamedWhereClauseParam(Constants.ACCOUNT_LITERAL, account, null);
+        }
+
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "where clause of view object=====>" + vo.getQuery());
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "where clause of view object=====>" + vo.getWhereClause());
+        vo.executeQuery();
+        session.setAttribute("account_Query", accountQuery);
+        session.setAttribute("map_Account_List", mapAccountListValue);
+        session.setAttribute("cardGroup_Query", cardGroupQuery);
+        session.setAttribute("map_CardGroup_List", mapCardGroupListValue);
+        session.setAttribute("card_Query", cardQuery);
+        session.setAttribute("map_Card_List", mapCardListValue);
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Queries are saved in session");
+
+        value = true;
+        sum = 0.00f;
+        foreignGrossAmountSum = 0.00f;
+        vatSum = 0.00f;
+        netAmountSum = 0.00f;
+        RowSetIterator iterator = vo.createRowSetIterator(null);
+        iterator.reset();
+        if (vo.getEstimatedRowCount() != 0) {
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Inside Estimated row count" + vo.getEstimatedRowCount());
+            while (iterator.hasNext()) {
+                PrtCardTransactionOverviewRVORowImpl row = (PrtCardTransactionOverviewRVORowImpl)iterator.next();
+                if (row.getInvoicedGrossAmountRebated() != null) {
+                    Float tempTotal = row.getInvoicedGrossAmountRebated().floatValue();
+                    sum = sum + tempTotal;
+                }
+                if (row.getCurrencyGrossAmount() != null) {
+                    Float tempForeignTotal = row.getCurrencyGrossAmount().floatValue();
+                    foreignGrossAmountSum = foreignGrossAmountSum + tempForeignTotal;
+                }
+                if (row.getInvoivedVatRebated() != null) {
+                    Float tempVatTotal = row.getInvoivedVatRebated().floatValue();
+                    vatSum = vatSum + tempVatTotal;
+                }
+                if (row.getInvoicedNetAmountRebated() != null) {
+                    Float tempNetTotal = row.getInvoicedNetAmountRebated().floatValue();
+                    netAmountSum = netAmountSum + tempNetTotal;
+                }
+            }
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "sum =" + sum);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "foreignGrossAmountSum =" + foreignGrossAmountSum);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "vatSum =" + vatSum);
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "netAmountSum =" + netAmountSum);
+        }
+    }
+    
     public String searchResults() {
         sum = 0.00f;
-
         String transTypePassingValues = null;
         String cardNumberPasingValues = null;
         String cardGroupPassingValues = null;
@@ -1096,503 +1622,14 @@ public class TransactionOverviewBean implements Serializable {
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values ================>" + getBindings().getAccount().getValue());
 
             isTableVisible = false;
-
             ViewObject vo = ADFUtils.getViewObject(PRTCARDTRANSACTIONOVERVIEWRVO1ITERATORLITRERAL);
-            if (cardQuery.length() > 2 && cardQuery != null && cardGroupQuery.length() <= 2) {
-                if (((accountQuery + "AND " + cardQuery +
-                      "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)").trim().equalsIgnoreCase(vo.getWhereClause().trim())) ||
-                    ((accountQuery + " AND " + cardQuery +
-                      "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)").trim().equalsIgnoreCase(vo.getWhereClause().trim()))) {
-                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "inside  card where removal with purchase code class");
-                    if (mapAccountListValue != null) {
-                        for (int i = 0; i < mapAccountListValue.size(); i++) {
-
-                            vo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i);
-                        }
-                    } else {
-                        vo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL);
-                    }
-
-                    if (mapCardListValue != null) {
-                        for (int i = 0; i < mapCardListValue.size(); i++) {
-                            vo.removeNamedWhereClauseParam(Constants.CARDLITERAL + i);
-                        }
-                        for (int i = 0; i < mapCardListValue.size(); i++) {
-
-                            vo.removeNamedWhereClauseParam(Constants.CARD2ID_LITERAL + i);
-                        }
-                    } else {
-                        vo.removeNamedWhereClauseParam(Constants.CARDLITERAL);
-                        vo.removeNamedWhereClauseParam(Constants.CARD2ID_LITERAL);
-                    }
-                    vo.removeNamedWhereClauseParam(PURCHASECOUNTRYCODELITRERAL);
-                    vo.setWhereClause("");
-                    vo.executeQuery();
-                } else {
-                    if (((accountQuery + "AND " + cardQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim())) ||
-                        ((accountQuery + " AND " + cardQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim()))) {
-                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "inside  card with out purchase code where removal class");
-                        if (mapAccountListValue != null) {
-                            for (int i = 0; i < mapAccountListValue.size(); i++) {
-
-                                vo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i);
-                            }
-                        } else {
-                            vo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL);
-                        }
-                        if (mapCardListValue != null) {
-                            for (int i = 0; i < mapCardListValue.size(); i++) {
-                                vo.removeNamedWhereClauseParam(Constants.CARDLITERAL + i);
-                            }
-                            for (int i = 0; i < mapCardListValue.size(); i++) {
-
-                                vo.removeNamedWhereClauseParam(Constants.CARD2ID_LITERAL + i);
-                            }
-                        } else {
-                            vo.removeNamedWhereClauseParam(Constants.CARDLITERAL);
-                            vo.removeNamedWhereClauseParam(Constants.CARD2ID_LITERAL);
-                        }
-                        vo.setWhereClause("");
-                        vo.executeQuery();
-                    }
-                }
-            } else {
-                if (cardGroupQuery.length() > 1 && cardGroupQuery != null && cardQuery.length() <= 2) {
-                    if (((accountQuery + "AND " + cardGroupQuery +
-                          "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)").trim().equalsIgnoreCase(vo.getWhereClause().trim())) ||
-                        ((accountQuery + " AND " + cardGroupQuery +
-                          "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)").trim().equalsIgnoreCase(vo.getWhereClause().trim()))) {
-                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "inside cardGroup with purchase code where removal class");
-                        if (mapAccountListValue != null) {
-                            for (int i = 0; i < mapAccountListValue.size(); i++) {
-
-                                vo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i);
-                            }
-                        } else {
-                            vo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL);
-                        }
-                        if (mapCardGroupListValue != null) {
-                            for (int i = 0; i < mapCardGroupListValue.size(); i++) {
-
-                                vo.removeNamedWhereClauseParam(Constants.CARDGROUPLITERAL + i);
-                            }
-                        } else {
-                            vo.removeNamedWhereClauseParam(Constants.CARDGROUPLITERAL);
-                        }
-                        vo.removeNamedWhereClauseParam(PURCHASECOUNTRYCODELITRERAL);
-                        vo.setWhereClause("");
-                        vo.executeQuery();
-                    } else {
-                        if (((accountQuery + "AND " + cardGroupQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim())) ||
-                            ((accountQuery + " AND " + cardGroupQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim()))) {
-                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "inside  cardGroup with out purchase code where removal class");
-                            if (mapAccountListValue != null) {
-                                for (int i = 0; i < mapAccountListValue.size(); i++) {
-
-                                    vo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i);
-                                }
-                            } else {
-                                vo.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL);
-                            }
-                            if (mapCardGroupListValue != null) {
-                                for (int i = 0; i < mapCardGroupListValue.size(); i++) {
-
-                                    vo.removeNamedWhereClauseParam(Constants.CARDGROUPLITERAL + i);
-                                }
-                            } else {
-                                vo.removeNamedWhereClauseParam(Constants.CARDGROUPLITERAL);
-                            }
-                            vo.setWhereClause("");
-                            vo.executeQuery();
-                        }
-                    }
-                }
-
-            }
             resetTableFilter();
-            accountQuery = "(";
-            cardGroupQuery = "(";
-            cardQuery = "((";
-
-            vo.setNamedWhereClauseParam(Constants.COUNTRY_CD_LITERAL, lang);
-            vo.setNamedWhereClauseParam("partnerId", populateStringValues(getBindings().getPartner().getValue().toString()));
-            vo.setNamedWhereClauseParam("type", transTypePassingValues);
-            vo.setNamedWhereClauseParam("fromDate", newFromDate);
-            vo.setNamedWhereClauseParam("toDate", newToDate);
-            if (accountIdValue.size() > Constants.ONEFIFTY) {
-                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
-                mapAccountListValue = ValueListSplit.callValueList(accountIdValue.size(), accountIdValue);
-                for (int i = 0; i < mapAccountListValue.size(); i++) {
-                    String values = Constants.ACCOUNT_LITERAL + i;
-                    accountQuery = accountQuery + "INSTR(:" + values + ",ACCOUNT_ID)<>0 OR ";
-                }
-                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "Account Query Values =" + accountQuery);
-                accountQuery = accountQuery.substring(0, accountQuery.length() - Constants.THREE);
-                accountQuery = accountQuery + ")";
-
-            } else {
-                mapAccountListValue = null;
-                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
-                accountQuery = "(INSTR(:account,ACCOUNT_ID)<>0 ) ";
-            }
-
-            if (cardIdPGL || vNumberPGL || dNamePGL) {
-                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Inside block for card");
-                if (getBindings().getReportFormat().getValue() != null) {
-                    if (Constants.CARD_LITERAL.equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
-                        if (Constants.INTERNATIONAL_LITERAL.equalsIgnoreCase(getBindings().getReportFormat().getValue().toString().trim())) {
-                            if (cardNumberValue.size() > Constants.ONEFIFTY) {
-                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values > 150 ");
-                                mapCardListValue = ValueListSplit.callValueList(cardNumberValue.size(), cardNumberValue);
-                                for (int i = 0; i < mapCardListValue.size(); i++) {
-                                    String values = Constants.CARDLITERAL + i;
-                                    cardQuery = cardQuery + "INSTR(:" + values + ",KSID)<>0 OR ";
-                                }
-                                cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
-                                cardQuery = cardQuery + ") OR (";
-                                for (int i = 0; i < mapCardListValue.size(); i++) {
-                                    String values = Constants.CARD2ID_LITERAL + i;
-                                    cardQuery = cardQuery + "INSTR(:" + values + ",CARD_2_ID)<>0 OR ";
-                                }
-                                cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
-                                cardQuery =
-                                        cardQuery + ") AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
-                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
-                                vo.setWhereClause(accountQuery + "AND " + cardQuery + "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
-                                for (int i = 0; i < mapCardListValue.size(); i++) {
-                                    vo.defineNamedWhereClauseParam(Constants.CARDLITERAL + i, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
-                                }
-                                for (int i = 0; i < mapCardListValue.size(); i++) {
-
-                                    vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL + i, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
-                                }
-
-                            } else {
-                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CARD Values < 150 ");
-                                mapCardListValue = null;
-                                cardQuery =
-                                        "((INSTR(:card,KSID)<>0 OR INSTR(:card2id,CARD_2_ID)<>0) AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
-                                vo.setWhereClause(accountQuery + "AND " + cardQuery + "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
-                                vo.defineNamedWhereClauseParam(Constants.CARDLITERAL, cardNumberPasingValues, null);
-                                vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL, cardNumberPasingValues, null);
-                            }
-                            vo.defineNamedWhereClauseParam(PURCHASECOUNTRYCODELITRERAL, lang, null);
-                        } else {
-                            if (cardNumberValue.size() > Constants.ONEFIFTY) {
-                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values > 150 ");
-                                mapCardListValue = ValueListSplit.callValueList(cardNumberValue.size(), cardNumberValue);
-                                for (int i = 0; i < mapCardListValue.size(); i++) {
-                                    String values = Constants.CARDLITERAL + i;
-                                    cardQuery = cardQuery + "INSTR(:" + values + ",KSID)<>0 OR ";
-                                }
-                                cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
-                                cardQuery = cardQuery + ") OR (";
-                                for (int i = 0; i < mapCardListValue.size(); i++) {
-                                    String values = Constants.CARD2ID_LITERAL + i;
-                                    cardQuery = cardQuery + "INSTR(:" + values + ",CARD_2_ID)<>0 OR ";
-                                }
-                                cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
-                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
-                                cardQuery =
-                                        cardQuery + ") AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
-                                vo.setWhereClause(accountQuery + "AND " + cardQuery);
-                                for (int i = 0; i < mapCardListValue.size(); i++) {
-                                    vo.defineNamedWhereClauseParam(Constants.CARDLITERAL + i, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
-                                }
-                                for (int i = 0; i < mapCardListValue.size(); i++) {
-
-
-                                    vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL + i, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
-                                }
-
-                            } else {
-                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CARD Values < 150 ");
-                                mapCardListValue = null;
-                                cardQuery =
-                                        "((INSTR(:card,KSID)<>0 OR INSTR(:card2id,CARD_2_ID)<>0) AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
-                                vo.setWhereClause(accountQuery + "AND " + cardQuery);
-                                vo.defineNamedWhereClauseParam(Constants.CARDLITERAL, cardNumberPasingValues, null);
-                                vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL, cardNumberPasingValues, null);
-                            }
-                        }
-                    } else if (Constants.VEHICLE_LITERAL.equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
-                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + Constants.VEHICLE_LITERAL);
-                        if (Constants.INTERNATIONAL_LITERAL.equalsIgnoreCase(getBindings().getReportFormat().getValue().toString().trim())) {
-                            if (vehicleNumberValue.size() > Constants.ONEFIFTY) {
-                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Vehicle Values > 150 ");
-                                mapCardListValue = ValueListSplit.callValueList(vehicleNumberValue.size(), vehicleNumberValue);
-                                for (int i = 0; i < mapCardListValue.size(); i++) {
-                                    String values = Constants.CARDLITERAL + i;
-                                    cardQuery = cardQuery + "INSTR(:" + values + ",KSID)<>0 OR ";
-                                }
-                                cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
-                                cardQuery = cardQuery + ") OR (";
-                                for (int i = 0; i < mapCardListValue.size(); i++) {
-                                    String values = Constants.CARD2ID_LITERAL + i;
-                                    cardQuery = cardQuery + "INSTR(:" + values + ",CARD_2_ID)<>0 OR ";
-                                }
-                                cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
-                                cardQuery =
-                                        cardQuery + ") AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
-                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
-                                vo.setWhereClause(accountQuery + "AND " + cardQuery + "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
-                                for (int i = 0; i < mapCardListValue.size(); i++) {
-                                    vo.defineNamedWhereClauseParam(Constants.CARDLITERAL + i, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
-                                }
-                                for (int i = 0; i < mapCardListValue.size(); i++) {
-
-                                    vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL + i, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
-                                }
-
-                            } else {
-                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Vehicle Values < 150 ");
-                                mapCardListValue = null;
-                                cardQuery =
-                                        "((INSTR(:card,KSID)<>0 OR INSTR(:card2id,CARD_2_ID)<>0) AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
-                                vo.setWhereClause(accountQuery + "AND " + cardQuery + "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
-                                vo.defineNamedWhereClauseParam(Constants.CARDLITERAL, cardNumberPasingValues, null);
-                                vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL, cardNumberPasingValues, null);
-                            }
-                            vo.defineNamedWhereClauseParam(PURCHASECOUNTRYCODELITRERAL, lang, null);
-                        } else {
-                            if (vehicleNumberValue.size() > Constants.ONEFIFTY) {
-                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Vehicle Values > 150 ");
-                                mapCardListValue = ValueListSplit.callValueList(vehicleNumberValue.size(), vehicleNumberValue);
-                                for (int i = 0; i < mapCardListValue.size(); i++) {
-                                    String values = Constants.CARDLITERAL + i;
-                                    cardQuery = cardQuery + "INSTR(:" + values + ",KSID)<>0 OR ";
-                                }
-                                cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
-                                cardQuery = cardQuery + ") OR (";
-                                for (int i = 0; i < mapCardListValue.size(); i++) {
-                                    String values = Constants.CARD2ID_LITERAL + i;
-                                    cardQuery = cardQuery + "INSTR(:" + values + ",CARD_2_ID)<>0 OR ";
-                                }
-                                cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
-                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
-                                cardQuery =
-                                        cardQuery + ") AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
-                                vo.setWhereClause(accountQuery + "AND " + cardQuery);
-                                for (int i = 0; i < mapCardListValue.size(); i++) {
-                                    vo.defineNamedWhereClauseParam(Constants.CARDLITERAL + i, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
-                                }
-                                for (int i = 0; i < mapCardListValue.size(); i++) {
-
-                                    vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL + i, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
-                                }
-
-
-                            } else {
-                                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Vehicle Values < 150 ");
-                                mapCardListValue = null;
-                                cardQuery =
-                                        "((INSTR(:card,KSID)<>0 OR INSTR(:card2id,CARD_2_ID)<>0) AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
-                                vo.setWhereClause(accountQuery + "AND " + cardQuery);
-                                vo.defineNamedWhereClauseParam(Constants.CARDLITERAL, cardNumberPasingValues, null);
-                                vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL, cardNumberPasingValues, null);
-                            }
-                        }
-                    } else {
-                        if ("Driver".equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
-                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "Driver");
-                            if (Constants.INTERNATIONAL_LITERAL.equalsIgnoreCase(getBindings().getReportFormat().getValue().toString().trim())) {
-                                if (driverNameValue.size() > Constants.ONEFIFTY) {
-                                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Driver Values > 150 ");
-                                    mapCardListValue = ValueListSplit.callValueList(driverNameValue.size(), driverNameValue);
-                                    for (int i = 0; i < mapCardListValue.size(); i++) {
-                                        String values = Constants.CARDLITERAL + i;
-                                        cardQuery = cardQuery + "INSTR(:" + values + ",KSID)<>0 OR ";
-                                    }
-                                    cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
-                                    cardQuery = cardQuery + ") OR (";
-                                    for (int i = 0; i < mapCardListValue.size(); i++) {
-                                        String values = Constants.CARD2ID_LITERAL + i;
-                                        cardQuery = cardQuery + "INSTR(:" + values + ",CARD_2_ID)<>0 OR ";
-                                    }
-                                    cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
-                                    cardQuery =
-                                            cardQuery + ") AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
-                                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
-                                    vo.setWhereClause(accountQuery + "AND " + cardQuery + "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
-                                    for (int i = 0; i < mapCardListValue.size(); i++) {
-                                        vo.defineNamedWhereClauseParam(Constants.CARDLITERAL + i, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
-                                    }
-                                    for (int i = 0; i < mapCardListValue.size(); i++) {
-
-
-                                        vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL + i, mapCardListValue.get(Constants.LISTNAME_LITERAL + i),
-                                                                       null);
-                                    }
-
-                                } else {
-                                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Driver Values < 150 ");
-                                    mapCardListValue = null;
-                                    cardQuery =
-                                            "((INSTR(:card,KSID)<>0 OR INSTR(:card2id,CARD_2_ID)<>0) AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
-                                    vo.setWhereClause(accountQuery + "AND " + cardQuery + "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
-                                    vo.defineNamedWhereClauseParam(Constants.CARDLITERAL, cardNumberPasingValues, null);
-                                    vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL, cardNumberPasingValues, null);
-                                }
-                                vo.defineNamedWhereClauseParam(PURCHASECOUNTRYCODELITRERAL, lang, null);
-                            } else {
-                                if (driverNameValue.size() > Constants.ONEFIFTY) {
-                                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Driver Values > 150 ");
-                                    mapCardListValue = ValueListSplit.callValueList(driverNameValue.size(), driverNameValue);
-                                    for (int i = 0; i < mapCardListValue.size(); i++) {
-                                        String values = Constants.CARDLITERAL + i;
-                                        cardQuery = cardQuery + "INSTR(:" + values + ",KSID)<>0 OR ";
-                                    }
-                                    cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
-                                    cardQuery = cardQuery + ") OR (";
-                                    for (int i = 0; i < mapCardListValue.size(); i++) {
-                                        String values = Constants.CARD2ID_LITERAL + i;
-                                        cardQuery = cardQuery + "INSTR(:" + values + ",CARD_2_ID)<>0 OR ";
-                                    }
-                                    cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
-                                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
-                                    cardQuery =
-                                            cardQuery + ") AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
-                                    vo.setWhereClause(accountQuery + "AND " + cardQuery);
-                                    for (int i = 0; i < mapCardListValue.size(); i++) {
-                                        vo.defineNamedWhereClauseParam(Constants.CARDLITERAL + i, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
-                                    }
-                                    for (int i = 0; i < mapCardListValue.size(); i++) {
-
-                                        vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL, mapCardListValue.get(Constants.LISTNAME_LITERAL + i), null);
-                                    }
-
-                                } else {
-                                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Driver Values < 150 ");
-                                    mapCardListValue = null;
-                                    cardQuery =
-                                            "((INSTR(:card,KSID)<>0 OR INSTR(:card2id,CARD_2_ID)<>0) AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
-                                    vo.setWhereClause(accountQuery + "AND " + cardQuery);
-                                    vo.defineNamedWhereClauseParam(Constants.CARDLITERAL, cardNumberPasingValues, null);
-                                    vo.defineNamedWhereClauseParam(Constants.CARD2ID_LITERAL, cardNumberPasingValues, null);
-                                }
-                            }
-                        }
-                    }
-                }
-
-            } else {
-                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Coming inside card group block");
-                if (getBindings().getReportFormat().getValue() != null) {
-                    if (Constants.INTERNATIONAL_LITERAL.equalsIgnoreCase(getBindings().getReportFormat().getValue().toString().trim())) {
-                        if (cardGroupValue.size() > Constants.ONEFIFTY) {
-                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
-                            mapCardGroupListValue = ValueListSplit.callValueList(cardGroupValue.size(), cardGroupValue);
-                            for (int i = 0; i < mapCardGroupListValue.size(); i++) {
-                                String values = Constants.CARDGROUPLITERAL + i;
-                                cardGroupQuery =
-                                        cardGroupQuery + "INSTR(:" + values + ",PARTNER_ID||CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 OR ";
-                            }
-                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARDGROUP Query Values =" + cardGroupQuery);
-                            cardGroupQuery = cardGroupQuery.substring(0, cardGroupQuery.length() - Constants.THREE);
-                            cardGroupQuery = cardGroupQuery + ")";
-                            vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
-                            for (int i = 0; i < mapCardGroupListValue.size(); i++) {
-                                vo.defineNamedWhereClauseParam(Constants.CARDGROUPLITERAL + i, mapCardGroupListValue.get(Constants.LISTNAME_LITERAL + i),
-                                                               null);
-                            }
-
-                        } else {
-                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CARD Values < 150 ");
-                            mapCardGroupListValue = null;
-                            cardGroupQuery = "INSTR(:cardGroup,PARTNER_ID||CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 ";
-                            vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
-                            vo.defineNamedWhereClauseParam(Constants.CARDGROUPLITERAL,
-                                                           populateStringValues(getBindings().getCardGroup().getValue().toString()), null);
-                        }
-                        vo.defineNamedWhereClauseParam(PURCHASECOUNTRYCODELITRERAL, lang, null);
-
-                    } else {
-                        if (cardGroupValue.size() > Constants.ONEFIFTY) {
-                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
-                            mapCardGroupListValue = ValueListSplit.callValueList(cardGroupValue.size(), cardGroupValue);
-                            for (int i = 0; i < mapCardGroupListValue.size(); i++) {
-                                String values = Constants.CARDGROUPLITERAL + i;
-                                cardGroupQuery =
-                                        cardGroupQuery + "INSTR(:" + values + ",PARTNER_ID||CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 OR ";
-                            }
-                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
-                            cardGroupQuery = cardGroupQuery.substring(0, cardGroupQuery.length() - Constants.THREE);
-                            cardGroupQuery = cardGroupQuery + ")";
-                            vo.setWhereClause(accountQuery + "AND " + cardGroupQuery);
-                            for (int i = 0; i < mapCardGroupListValue.size(); i++) {
-                                vo.defineNamedWhereClauseParam(Constants.CARDGROUPLITERAL + i, mapCardGroupListValue.get(Constants.LISTNAME_LITERAL + i),
-                                                               null);
-                            }
-
-                        } else {
-                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CARD Values < 150 ");
-                            mapCardGroupListValue = null;
-                            cardGroupQuery = "(INSTR(:cardGroup,PARTNER_ID||CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0) ";
-                            vo.setWhereClause(accountQuery + "AND " + cardGroupQuery);
-                            vo.defineNamedWhereClauseParam(Constants.CARDGROUPLITERAL,
-                                                           populateStringValues(getBindings().getCardGroup().getValue().toString()), null);
-                        }
-                    }
-                }
-            }
-
-
-            if (accountIdValue.size() > Constants.ONEFIFTY) {
-                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
-                mapAccountListValue = ValueListSplit.callValueList(accountIdValue.size(), accountIdValue);
-                for (int i = 0; i < mapAccountListValue.size(); i++) {
-
-                    vo.defineNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i, mapAccountListValue.get(Constants.LISTNAME_LITERAL + i), null);
-                }
-
-            } else {
-                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < oneFifty ");
-                vo.defineNamedWhereClauseParam(Constants.ACCOUNT_LITERAL, populateStringValues(getBindings().getAccount().getValue().toString()), null);
-            }
-
-            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "where clause of view object=====>" + vo.getQuery());
-            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "where clause of view object=====>" + vo.getWhereClause());
-            vo.executeQuery();
-            session.setAttribute("account_Query", accountQuery);
-            session.setAttribute("map_Account_List", mapAccountListValue);
-            session.setAttribute("cardGroup_Query", cardGroupQuery);
-            session.setAttribute("map_CardGroup_List", mapCardGroupListValue);
-            session.setAttribute("card_Query", cardQuery);
-            session.setAttribute("map_Card_List", mapCardListValue);
-            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Queries are saved in session");
-
-            value = true;
-            sum = 0.00f;
-            foreignGrossAmountSum = 0.00f;
-            vatSum = 0.00f;
-            netAmountSum = 0.00f;
-            RowSetIterator iterator = vo.createRowSetIterator(null);
-            iterator.reset();
-            if (vo.getEstimatedRowCount() != 0) {
-                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Inside Estimated row count" + vo.getEstimatedRowCount());
-                while (iterator.hasNext()) {
-                    PrtCardTransactionOverviewRVORowImpl row = (PrtCardTransactionOverviewRVORowImpl)iterator.next();
-                    if (row.getInvoicedGrossAmountRebated() != null) {
-                        Float tempTotal = row.getInvoicedGrossAmountRebated().floatValue();
-                        sum = sum + tempTotal;
-                    }
-                    if (row.getCurrencyGrossAmount() != null) {
-                        Float tempForeignTotal = row.getCurrencyGrossAmount().floatValue();
-                        foreignGrossAmountSum = foreignGrossAmountSum + tempForeignTotal;
-                    }
-                    if (row.getInvoivedVatRebated() != null) {
-                        Float tempVatTotal = row.getInvoivedVatRebated().floatValue();
-                        vatSum = vatSum + tempVatTotal;
-                    }
-                    if (row.getInvoicedNetAmountRebated() != null) {
-                        Float tempNetTotal = row.getInvoicedNetAmountRebated().floatValue();
-                        netAmountSum = netAmountSum + tempNetTotal;
-                    }
-                }
-                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "sum =" + sum);
-                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "foreignGrossAmountSum =" + foreignGrossAmountSum);
-                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "vatSum =" + vatSum);
-                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "netAmountSum =" + netAmountSum);
+            if(getBindings().getReportFormat().getValue() != null){
+                removeDynamicWhereClause(vo, false, populateStringValues(getBindings().getPartner().getValue().toString()),
+                                         populateStringValues(getBindings().getAccount().getValue().toString()),
+                                         populateStringValues(getBindings().getCardGroup().getValue().toString()),
+                                         cardNumberPasingValues, transTypePassingValues, getBindings().getReportFormat().getValue().toString().trim(),
+                                         newFromDate, newToDate);
             }
         } else {
             showErrorMessage("ENGAGE_SELECT_TRANSACTION_MANDATORY");
@@ -1607,33 +1644,8 @@ public class TransactionOverviewBean implements Serializable {
         return null;
     }
 
-    public String searchTransactionActionEvent(ActionEvent actionEvent) {
-        if (getBindings().getReportFormat().getValue() != null) {
-            if ("Raw Data".equalsIgnoreCase(getBindings().getReportFormat().getValue().toString())) {
-                reportRawData = true;
-                reportInternationalTx = false;
-                reportPriceSpecification = false;
-                reportDefault = false;
-            } else if (Constants.INTERNATIONAL_LITERAL.equalsIgnoreCase(getBindings().getReportFormat().getValue().toString())) {
-                reportRawData = false;
-                reportInternationalTx = true;
-                reportPriceSpecification = false;
-                reportDefault = false;
-            } else if (Constants.DEFAULT_LITERAL.equalsIgnoreCase(getBindings().getReportFormat().getValue().toString())) {
-                reportRawData = false;
-                reportInternationalTx = false;
-                reportPriceSpecification = false;
-                reportDefault = true;
-            } else {
-                if ("Price Specification".equalsIgnoreCase(getBindings().getReportFormat().getValue().toString())) {
-                    reportRawData = false;
-                    reportInternationalTx = false;
-                    reportPriceSpecification = true;
-                    reportDefault = false;
-                }
-            }
-        }
-        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Partner ID 2-Card" + partnerInfoList.get(0).isConsistsTwoCard());
+    public void displayCol(String reportPV){
+        String report = reportPV;
         if (lang.equals("SE") || "SE".equalsIgnoreCase(lang.trim())) {
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " Inside Partner ID 2-Card");
             for (int i = 0; i < partnerIdValues.size(); i++) {
@@ -1641,7 +1653,7 @@ public class TransactionOverviewBean implements Serializable {
                     if (partnerIdValues.get(i).equalsIgnoreCase(partnerInfoList.get(k).getPartnerValue().toString())) {
                         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Partner ID 2-Card" + partnerInfoList.get(k).isConsistsTwoCard());
                         if (partnerInfoList.get(k).isConsistsTwoCard()) {
-                            if (Constants.DEFAULT_LITERAL.equalsIgnoreCase(getBindings().getReportFormat().getValue().toString())) {
+                            if (Constants.DEFAULT_LITERAL.equalsIgnoreCase(report)) {
                                 vehicleName = true;
                             } else {
                                 vehicleName = false;
@@ -1675,6 +1687,36 @@ public class TransactionOverviewBean implements Serializable {
             showDriverCode = false;
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Flag of Partner for 2 In 1 card" + showDriverCode);
         }
+    }
+
+    public String searchTransactionActionEvent(ActionEvent actionEvent) {
+        if (getBindings().getReportFormat().getValue() != null) {
+            if ("Raw Data".equalsIgnoreCase(getBindings().getReportFormat().getValue().toString())) {
+                reportRawData = true;
+                reportInternationalTx = false;
+                reportPriceSpecification = false;
+                reportDefault = false;
+            } else if (Constants.INTERNATIONAL_LITERAL.equalsIgnoreCase(getBindings().getReportFormat().getValue().toString())) {
+                reportRawData = false;
+                reportInternationalTx = true;
+                reportPriceSpecification = false;
+                reportDefault = false;
+            } else if (Constants.DEFAULT_LITERAL.equalsIgnoreCase(getBindings().getReportFormat().getValue().toString())) {
+                reportRawData = false;
+                reportInternationalTx = false;
+                reportPriceSpecification = false;
+                reportDefault = true;
+            } else {
+                if ("Price Specification".equalsIgnoreCase(getBindings().getReportFormat().getValue().toString())) {
+                    reportRawData = false;
+                    reportInternationalTx = false;
+                    reportPriceSpecification = true;
+                    reportDefault = false;
+                }
+            }
+        }
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Partner ID 2-Card" + partnerInfoList.get(0).isConsistsTwoCard());
+        displayCol(getBindings().getReportFormat().getValue().toString());
 
         searchResults();
         return null;
