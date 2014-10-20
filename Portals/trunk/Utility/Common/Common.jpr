@@ -237,7 +237,6 @@
       </hash>
       <list n="profileList">
          <string v="utilityJAR"/>
-         <string v="OIMUserManagermentImpl-Client"/>
       </list>
    </hash>
    <hash n="oracle.jdeveloper.model.J2eeSettings">
