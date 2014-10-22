@@ -318,7 +318,7 @@
     <af:panelGroupLayout id="pgal1" halign="right" layout="horizontal" inlineStyle="width:962px;">
       <af:commandButton text="#{sfr.SEARCH}" actionListener="#{pageFlowScope.AlertsBean.viewSubscribedAlerts}" id="cb8"/>
       <af:spacer width="10" height="10" id="s33"/>
-      <af:commandButton text="#{sfr.CLEAR}" id="cb9" actionListener="#{pageFlowScope.AlertsBean.clearSearchListener}"
+      <af:commandButton text="#{sfr.RESET}" id="cb9" actionListener="#{pageFlowScope.AlertsBean.clearSearchListener}"
                         partialTriggers="smc2 smc5 smc6 smc7 it19 sbr42 sbr41"/>
       <af:spacer width="24" height="10" id="s47"/>
     </af:panelGroupLayout>
@@ -498,11 +498,6 @@
           <af:spacer width="10" id="s63"/>
           <af:commandButton text="#{sfr.CANCEL}" id="cb14" actionListener="#{pageFlowScope.AlertsBean.claoseConfigureAlert1Popup}"
                             binding="#{pageFlowScope.AlertsBean.bindings.cancelButtonConfigureAlert1}"/>
-          <!--<af:commandButton text="Close" id="cb15" rendered="false"
-                              binding="#{pageFlowScope.AlertsBean.closeButtonConfigureAlert1}"
-                              actionListener="#{pageFlowScope.AlertsBean.closeConfigureAlert1Popup}"/>-->
-          <!--<af:spacer width="20" height="20" id="s64"
-                       inlineStyle="margin-top: 13px;"/>-->
         </af:panelGroupLayout>
       </af:dialog>
     </af:popup>
