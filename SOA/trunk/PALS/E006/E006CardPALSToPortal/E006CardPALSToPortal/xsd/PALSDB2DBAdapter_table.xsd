@@ -9,165 +9,137 @@
    <xs:complexType name="Cc073Vs1CssksiDta">
       <xs:sequence>
          <xs:element name="deltaTs" type="xs:dateTime"/>
-         <xs:element name="kjopsalgId">
+         <xs:element name="kjopsalgId" minOccurs="0">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="10"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="partnerId">
+         <xs:element name="partnerId" minOccurs="0">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="8"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="fForholdHtp">
+         <xs:element name="fForholdHtp" minOccurs="0">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="3"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="fForholdUtp">
+         <xs:element name="fForholdUtp" minOccurs="0">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="3"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="fForholdLnr">
+         <xs:element name="fForholdLnr" minOccurs="0">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="5"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="kjopsalgTp">
+         <xs:element name="bevisTp" minOccurs="0">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="3"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="bevisTp">
-            <xs:simpleType>
-               <xs:restriction base="xs:string">
-                  <xs:maxLength value="3"/>
-               </xs:restriction>
-            </xs:simpleType>
-         </xs:element>
-         <xs:element name="eksternId">
+         <xs:element name="pregeId" minOccurs="0">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="20"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="pregeId">
-            <xs:simpleType>
-               <xs:restriction base="xs:string">
-                  <xs:maxLength value="20"/>
-               </xs:restriction>
-            </xs:simpleType>
-         </xs:element>
-         <xs:element name="fakturaTx">
+         <xs:element name="fakturaTx" minOccurs="0">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="90"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="gyldigtomDt" type="xs:date"/>
-         <xs:element name="bevsperreTp">
+         <xs:element name="gyldigtomDt" type="xs:date" minOccurs="0"/>
+         <xs:element name="bevsperreTp" minOccurs="0">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="3"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="bevsperreKd">
+         <xs:element name="bevsperreKd" minOccurs="0">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="3"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="bevsperreaksjon">
+         <xs:element name="bevsperreaksjon" minOccurs="0">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="1"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="bevsperreDt" type="xs:date"/>
-         <xs:element name="bevsperreTid" type="xs:time"/>
-         <xs:element name="bevsperrenivaKd">
+         <xs:element name="bevsperreDt" type="xs:date" minOccurs="0"/>
+         <xs:element name="bevsperreTid" type="xs:time" minOccurs="0"/>
+         <xs:element name="bevsperrenivaKd" minOccurs="0">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="3"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="produsertDt" type="xs:date"/>
-         <xs:element name="rtxkndNr">
-            <xs:simpleType>
-               <xs:restriction base="xs:string">
-                  <xs:maxLength value="6"/>
-               </xs:restriction>
-            </xs:simpleType>
-         </xs:element>
-         <xs:element name="fakadresse1">
+         <xs:element name="produsertDt" type="xs:date" minOccurs="0"/>
+         <xs:element name="fakadresse1" minOccurs="0">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="60"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="fakadresse2">
+         <xs:element name="fakadresse2" minOccurs="0">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="60"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="fakadrpostNr">
+         <xs:element name="fakadrpostNr" minOccurs="0">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="10"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="fakadrpoststed">
+         <xs:element name="fakadrpoststed" minOccurs="0">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="60"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="fakadrlopeNr">
-            <xs:simpleType>
-               <xs:restriction base="xs:string">
-                  <xs:maxLength value="5"/>
-               </xs:restriction>
-            </xs:simpleType>
-         </xs:element>
-         <xs:element name="fakadrlandKd">
+         <xs:element name="fakadrlandKd" minOccurs="0">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="2"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="fakadrnivaKd">
+         <xs:element name="fakadrnivaKd" minOccurs="0">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="3"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="fakadresseTp">
+         <xs:element name="fakadresseTp" minOccurs="0">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="3"/>
@@ -180,7 +152,7 @@
    <xs:complexType name="PALSDB2DBAdapterSelect_DeltaTimeStamp_BatchSize">
       <xs:sequence>
          <xs:element name="DeltaTimeStamp" type="xs:string" minOccurs="1" maxOccurs="1"/>
-         <xs:element name="BatchSize" type="xs:string" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="BatchSize" type="xs:integer" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
    </xs:complexType>
 </xs:schema>

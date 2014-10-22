@@ -3,17 +3,7 @@
    <Fault>
       <severity>warning</severity>
       <loc/>
-      <line>659</line>
-      <col/>
-      <file>E006CardPALSToPortal.bpel</file>
-      <name>E006CardPALSToPortal.bpel</name>
-      <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
-      <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}integer" is not compatible with &lt;to> value type "{http://www.w3.org/2001/XMLSchema}string"</msg>
-   </Fault>
-   <Fault>
-      <severity>warning</severity>
-      <loc/>
-      <line>1396</line>
+      <line>1348</line>
       <col/>
       <file>E006CardPALSToPortal.bpel</file>
       <name>E006CardPALSToPortal.bpel</name>
@@ -23,7 +13,7 @@
    <Fault>
       <severity>warning</severity>
       <loc/>
-      <line>1396</line>
+      <line>1348</line>
       <col/>
       <file>E006CardPALSToPortal.bpel</file>
       <name>E006CardPALSToPortal.bpel</name>
@@ -33,7 +23,7 @@
    <Fault>
       <severity>warning</severity>
       <loc/>
-      <line>1396</line>
+      <line>1348</line>
       <col/>
       <file>E006CardPALSToPortal.bpel</file>
       <name>E006CardPALSToPortal.bpel</name>

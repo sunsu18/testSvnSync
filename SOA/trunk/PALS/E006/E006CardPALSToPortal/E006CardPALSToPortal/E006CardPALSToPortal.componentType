@@ -16,9 +16,6 @@
              ui:wsdlLocation="GetPALSDB2CountDBAdapter.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/GetPALSDB2CountDBAdapter#wsdl.interface(GetPALSDB2CountDBAdapter_ptt)"/>
   </reference>
-  <reference name="PALSDB2DBAdapter" ui:wsdlLocation="PALSDB2DBAdapter.wsdl">
-    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/PALSDB2DBAdapter#wsdl.interface(PALSDB2DBAdapter_ptt)"/>
-  </reference>
   <reference name="MergeCardPortalDBAdapter"
              ui:wsdlLocation="MergeCardPortalDBAdapter.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/MergeCardPortalDBAdapter#wsdl.interface(MergeCardPortalDBAdapter_ptt)"/>
@@ -50,20 +47,23 @@
              ui:wsdlLocation="SOAErrorHandlerJMSAdapter.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E006CardPALSToPortal/E006CardPALSToPortal/SOAErrorHandlerJMSAdapter#wsdl.interface(Produce_Message_ptt)"/>
   </reference>
-  <reference name="SOAErrorLogDBAdapter"
-             ui:wsdlLocation="SOAErrorLogDBAdapter.wsdl">
-    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/SOAErrorLogDBAdapter#wsdl.interface(SOAErrorLogDBAdapter_ptt)"/>
-  </reference>
   <reference name="UpdateSOAErrorDBAdapter"
              ui:wsdlLocation="UpdateSOAErrorDBAdapter.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/UpdateSOAErrorDBAdapter#wsdl.interface(UpdateSOAErrorDBAdapter_ptt)"/>
+  </reference>
+  <reference name="SOAPALSNotificationJMSAdapter"
+             ui:wsdlLocation="SOAPALSNotificationJMSAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E006CardPALSToPortal/E006CardPALSToPortal/SOAPALSNotificationJMSAdapter#wsdl.interface(Produce_Message_ptt)"/>
+  </reference>
+  <reference name="PALSDB2DBAdapter" ui:wsdlLocation="PALSDB2DBAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/PALSDB2DBAdapter#wsdl.interface(PALSDB2DBAdapter_ptt)"/>
   </reference>
   <reference name="CardPortalProcDBAdapter"
              ui:wsdlLocation="CardPortalProcDBAdapter.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/CardPortalProcDBAdapter#wsdl.interface(CardPortalProcDBAdapter_ptt)"/>
   </reference>
-  <reference name="SOAPALSNotificationJMSAdapter"
-             ui:wsdlLocation="SOAPALSNotificationJMSAdapter.wsdl">
-    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E006CardPALSToPortal/E006CardPALSToPortal/SOAPALSNotificationJMSAdapter#wsdl.interface(Produce_Message_ptt)"/>
+  <reference name="SOAErrorLogDBAdapter"
+             ui:wsdlLocation="SOAErrorLogDBAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/SOAErrorLogDBAdapter#wsdl.interface(SOAErrorLogDBAdapter_ptt)"/>
   </reference>
 </componentType>

@@ -59,24 +59,10 @@
                   </xsd:restriction>
                 </xsd:simpleType>
               </xsd:element>
-              <xsd:element name="cardIdentifier" nillable="true">
-                <xsd:simpleType>
-                  <xsd:restriction base="xsd:string">
-                    <xsd:maxLength value="3"/>
-                  </xsd:restriction>
-                </xsd:simpleType>
-              </xsd:element>
               <xsd:element name="cardType">
                 <xsd:simpleType>
                   <xsd:restriction base="xsd:string">
                     <xsd:maxLength value="3"/>
-                  </xsd:restriction>
-                </xsd:simpleType>
-              </xsd:element>
-              <xsd:element name="magneticCode" nillable="true">
-                <xsd:simpleType>
-                  <xsd:restriction base="xsd:string">
-                    <xsd:maxLength value="20"/>
                   </xsd:restriction>
                 </xsd:simpleType>
               </xsd:element>
@@ -127,13 +113,6 @@
       </xsd:simpleType>
      </xsd:element>
      <xsd:element name="manufacturedDate" type="xsd:date" nillable="true"/>
-              <xsd:element name="routexCustomerNumber" nillable="true">
-      <xsd:simpleType>
-        <xsd:restriction base="xsd:string">
-         <xsd:maxLength value="6"/>
-        </xsd:restriction>
-      </xsd:simpleType>
-     </xsd:element>
      <xsd:element name="invoiceAddr1" nillable="true">
       <xsd:simpleType>
         <xsd:restriction base="xsd:string">
@@ -159,13 +138,6 @@
       <xsd:simpleType>
         <xsd:restriction base="xsd:string">
          <xsd:maxLength value="60"/>
-        </xsd:restriction>
-      </xsd:simpleType>
-     </xsd:element>
-     <xsd:element name="addrSeq" nillable="true">
-      <xsd:simpleType>
-        <xsd:restriction base="xsd:string">
-         <xsd:maxLength value="5"/>
         </xsd:restriction>
       </xsd:simpleType>
      </xsd:element>
