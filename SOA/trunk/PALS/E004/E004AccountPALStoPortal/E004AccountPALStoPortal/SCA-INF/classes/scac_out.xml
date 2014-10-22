@@ -3,16 +3,6 @@
    <Fault>
       <severity>warning</severity>
       <loc/>
-      <line>656</line>
-      <col/>
-      <file>E004AccountPALStoPortal.bpel</file>
-      <name>E004AccountPALStoPortal.bpel</name>
-      <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
-      <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}integer" is not compatible with &lt;to> value type "{http://www.w3.org/2001/XMLSchema}string"</msg>
-   </Fault>
-   <Fault>
-      <severity>warning</severity>
-      <loc/>
       <line>936</line>
       <col/>
       <file>E004AccountPALStoPortal.bpel</file>
