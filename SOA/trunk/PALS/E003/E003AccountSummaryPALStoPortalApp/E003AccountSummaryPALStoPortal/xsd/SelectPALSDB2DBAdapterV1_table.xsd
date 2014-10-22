@@ -107,7 +107,7 @@
    <xs:complexType name="SelectPALSDB2DBAdapterV1Select_DeltaTimeStamp_BatchSize">
       <xs:sequence>
          <xs:element name="DeltaTimeStamp" type="xs:string" minOccurs="1" maxOccurs="1"/>
-         <xs:element name="BatchSize" type="xs:string" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="BatchSize" type="xs:integer" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
    </xs:complexType>
 </xs:schema>
