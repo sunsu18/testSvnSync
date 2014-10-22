@@ -176,7 +176,7 @@
     <mkdir dir="${output.dir}"/>
   </target>
   <target name="all" description="Build the project"
-          depends="clean,deploy,compile,copy"/>
+          depends="clean,deploy,compile,copy,major"/>
   <target name="clean" description="Clean the project">
   <echo>${utility.deploy.outputdir}</echo>
     <delete includeemptydirs="true" quiet="true">
@@ -244,4 +244,11 @@
       </fileset>
     </copy>
   </target>
-</project>
+   <target name="major" description="Update the Major Number of Realse">
+    <propertyfile  file="engageutil-build.properties">
+            <entry key="build.major.number" type="int" operation="+" value="1" pattern="00"/>
+            <entry key="build.minor.number" type="int" value="0" pattern="00"/>
+            <!--<entry key="build.revision.number" type="int" value="0" pattern="00"/>-->
+    </propertyfile>
+  </target>
+  </project>
