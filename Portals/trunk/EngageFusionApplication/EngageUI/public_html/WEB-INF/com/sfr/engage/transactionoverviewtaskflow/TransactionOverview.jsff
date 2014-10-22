@@ -211,9 +211,10 @@
 
          <af:spacer width="10" height="10" id="spacer7"/>
             <af:panelGroupLayout id="pgl27" layout="horizontal">
-            <af:panelGroupLayout id="pgl10"
+            <af:panelGroupLayout id="pgl10" 
                                  visible="#{pageFlowScope.TransactionOverviewBean.cardIdPGL}"
-                                 binding="#{pageFlowScope.TransactionOverviewBean.bindings.cardNoPGL}">
+                                 binding="#{pageFlowScope.TransactionOverviewBean.bindings.cardNoPGL}"
+                                 partialTriggers="cb3">
             <h:panelGrid columns="4" id="pg3">
                <af:panelGroupLayout id="pgl72"
                       inlineStyle="height:auto; text-align:justify; width:10.0px;overflow:hidden;"
@@ -251,7 +252,8 @@
               </af:panelGroupLayout>
                <af:panelGroupLayout id="pgl11"
                                     visible="#{pageFlowScope.TransactionOverviewBean.cardGPGL}"
-                                    binding="#{pageFlowScope.TransactionOverviewBean.bindings.cardGroupPGL}">
+                                    binding="#{pageFlowScope.TransactionOverviewBean.bindings.cardGroupPGL}"
+                                    partialTriggers="cb3">
               <h:panelGrid columns="4" id="pg5">
               <af:panelGroupLayout id="pgl74"
                       inlineStyle="height:auto; text-align:justify; width:10.0px;overflow:hidden;"
@@ -290,7 +292,8 @@
               </af:panelGroupLayout>
               <af:panelGroupLayout id="pgl19"
                                    visible="#{pageFlowScope.TransactionOverviewBean.DNamePGL}"
-                                   binding="#{pageFlowScope.TransactionOverviewBean.bindings.driverNamePGL}">
+                                   binding="#{pageFlowScope.TransactionOverviewBean.bindings.driverNamePGL}"
+                                   partialTriggers="cb3">
               <h:panelGrid columns="4" id="pg6">
          <af:panelGroupLayout id="pgl71"
                       inlineStyle="height:auto; text-align:justify; width:10.0px;overflow:hidden;"
@@ -330,7 +333,8 @@
 
               <af:panelGroupLayout id="pgl13"
                                    visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}"
-                                   binding="#{pageFlowScope.TransactionOverviewBean.bindings.vhNumberPGL}">
+                                   binding="#{pageFlowScope.TransactionOverviewBean.bindings.vhNumberPGL}"
+                                   partialTriggers="cb3">
               <h:panelGrid columns="4" id="pg7">
                <af:panelGroupLayout id="pgl76"
                       inlineStyle="height:auto; text-align:justify; width:10.0px;overflow:hidden;"
