@@ -250,5 +250,10 @@
             <entry key="build.minor.number" type="int" value="0" pattern="00"/>
             <!--<entry key="build.revision.number" type="int" value="0" pattern="00"/>-->
     </propertyfile>
+		<svn javahl="${svnant.javahl}" username="${svn.username}" password="${svn.password}">
+
+    <commit file="engageutil-build.properties" message="Committed"/>
+
+    </svn>
   </target>
   </project>
