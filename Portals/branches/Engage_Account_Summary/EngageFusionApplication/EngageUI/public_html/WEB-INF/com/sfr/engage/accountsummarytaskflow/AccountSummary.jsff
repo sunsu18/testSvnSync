@@ -180,7 +180,7 @@
     <af:commandImageLink icon="/images/filter_business.png" id="cb11" actionListener="#{pageFlowScope.AccountSummaryBean.hideBlockedCards}"/>
    </af:panelGroupLayout>
   </af:panelGroupLayout>
-  <af:panelGroupLayout id="Both" layout="horizontal" rendered="false">
+  <af:panelGroupLayout id="Both" layout="horizontal">
    <af:panelGroupLayout id="Tree" layout="vertical" inlineStyle="width:240px; height:480px" valign="top"
                         binding="#{pageFlowScope.AccountSummaryBean.treePanel}">
     <af:tree value="#{bindings.partnerlist.treeModel}" var="node" selectionListener="#{pageFlowScope.AccountSummaryBean.treeListner}" rowSelection="single"
@@ -233,7 +233,7 @@
      </f:facet>
      <af:clientListener method="expandNode" type="click"/>
     </af:tree>
-    <af:tree value="#{bindings.partnerlist1.treeModel}" var="node" selectionListener="#{pageFlowScope.AccountSummaryBean.treeListner}" rowSelection="single"
+    <!--<af:tree value="#{bindings.partnerlist1.treeModel}" var="node" selectionListener="#{pageFlowScope.AccountSummaryBean.treeListner}" rowSelection="single"
              id="t2" summary="Partner_Tree" contentDelivery="immediate" immediate="true" contextMenuSelect="false" fetchSize="500" partialTriggers="::cb10"
              rendered="#{pageFlowScope.AccountSummaryBean.hideblockedcards}" binding="#{pageFlowScope.AccountSummaryBean.blockcardshiddentree}">
      <f:facet name="contextMenu">
@@ -267,7 +267,7 @@
        </f:facet>
        <f:facet name="com.sfr.engage.core.CardInfo">
         <af:group id="g8">
-         <!--<af:image shortDesc="" id="i4" source="/images/business_card.png" rendered="#{(node.blockAction)=='0'}"/>-->
+         --><!--<af:image shortDesc="" id="i4" source="/images/business_card.png" rendered="#{(node.blockAction)=='0'}"/>--><!--
          <af:image shortDesc="" id="i17" source="/images/business_card_temp.png" rendered="#{(node.blockAction)=='1'}"/>
          <af:image shortDesc="" id="i18" source="/images/business_card_perm.png" rendered="#{(node.blockAction)=='2'}"/>
          <af:image shortDesc="" id="i19" source="/images/business_card.png"
@@ -282,11 +282,11 @@
       </af:switcher>
      </f:facet>
      <af:clientListener method="expandNode" type="click"/>
-     <!--<f:facet name="nodeStamp">
+     --><!--<f:facet name="nodeStamp">
             <af:outputText value="#{node}" id="ot127"/>
-          </f:facet>-->
-    </af:tree>
-    <af:tree value="#{bindings.partnerlist2.treeModel}" var="node" selectionListener="#{pageFlowScope.AccountSummaryBean.treeListner}" rowSelection="single"
+          </f:facet>--><!--
+    </af:tree>-->
+    <!--<af:tree value="#{bindings.partnerlist2.treeModel}" var="node" selectionListener="#{pageFlowScope.AccountSummaryBean.treeListner}" rowSelection="single"
              id="active" summary="activecardsonly" contentDelivery="immediate" immediate="true" contextMenuSelect="false" fetchSize="500"
              partialTriggers="::cb10" rendered="#{pageFlowScope.AccountSummaryBean.displayactivecards}"
              binding="#{pageFlowScope.AccountSummaryBean.onlyactivecardstree}">
@@ -321,7 +321,7 @@
        </f:facet>
        <f:facet name="com.sfr.engage.core.CardInfo">
         <af:group id="g12">
-         <!--<af:image shortDesc="" id="i4" source="/images/business_card.png" rendered="#{(node.blockAction)=='0'}"/>-->
+         --><!--<af:image shortDesc="" id="i4" source="/images/business_card.png" rendered="#{(node.blockAction)=='0'}"/>--><!--
          <af:image shortDesc="" id="i27" source="/images/business_card_temp.png" rendered="#{(node.blockAction)=='1'}"/>
          <af:image shortDesc="" id="i28" source="/images/business_card_perm.png" rendered="#{(node.blockAction)=='2'}"/>
          <af:image shortDesc="" id="i29" source="/images/business_card.png"
@@ -336,8 +336,8 @@
       </af:switcher>
      </f:facet>
      <af:clientListener method="expandNode" type="click"/>
-    </af:tree>
-    <af:tree value="#{bindings.partnerlist3.treeModel}" var="node" selectionListener="#{pageFlowScope.AccountSummaryBean.treeListner}" rowSelection="single"
+    </af:tree>-->
+    <!--<af:tree value="#{bindings.partnerlist3.treeModel}" var="node" selectionListener="#{pageFlowScope.AccountSummaryBean.treeListner}" rowSelection="single"
              id="temp" summary="tempblockedcardsonly" contentDelivery="immediate" immediate="true" contextMenuSelect="false" fetchSize="500"
              partialTriggers="::cb10" rendered="#{pageFlowScope.AccountSummaryBean.displaytempblockedcards}"
              binding="#{pageFlowScope.AccountSummaryBean.onlytempblockedcardstree}">
@@ -372,7 +372,7 @@
        </f:facet>
        <f:facet name="com.sfr.engage.core.CardInfo">
         <af:group id="g16">
-         <!--<af:image shortDesc="" id="i4" source="/images/business_card.png" rendered="#{(node.blockAction)=='0'}"/>-->
+         --><!--<af:image shortDesc="" id="i4" source="/images/business_card.png" rendered="#{(node.blockAction)=='0'}"/>--><!--
          <af:image shortDesc="" id="i37" source="/images/business_card_temp.png" rendered="#{(node.blockAction)=='1'}"/>
          <af:image shortDesc="" id="i38" source="/images/business_card_perm.png" rendered="#{(node.blockAction)=='2'}"/>
          <af:image shortDesc="" id="i39" source="/images/business_card.png"
@@ -387,8 +387,8 @@
       </af:switcher>
      </f:facet>
      <af:clientListener method="expandNode" type="click"/>
-    </af:tree>
-    <af:tree value="#{bindings.partnerlist4.treeModel}" var="node" selectionListener="#{pageFlowScope.AccountSummaryBean.treeListner}" rowSelection="single"
+    </af:tree>-->
+    <!--<af:tree value="#{bindings.partnerlist4.treeModel}" var="node" selectionListener="#{pageFlowScope.AccountSummaryBean.treeListner}" rowSelection="single"
              id="perbl" summary="permblockedcardsonly" contentDelivery="immediate" immediate="true" contextMenuSelect="false" fetchSize="500"
              partialTriggers="::cb10" rendered="#{pageFlowScope.AccountSummaryBean.displayperblockedcards}"
              binding="#{pageFlowScope.AccountSummaryBean.onlyblockedcardstree}">
@@ -423,7 +423,7 @@
        </f:facet>
        <f:facet name="com.sfr.engage.core.CardInfo">
         <af:group id="g20">
-         <!--<af:image shortDesc="" id="i4" source="/images/business_card.png" rendered="#{(node.blockAction)=='0'}"/>-->
+         --><!--<af:image shortDesc="" id="i4" source="/images/business_card.png" rendered="#{(node.blockAction)=='0'}"/>--><!--
          <af:image shortDesc="" id="i47" source="/images/business_card_temp.png" rendered="#{(node.blockAction)=='1'}"/>
          <af:image shortDesc="" id="i48" source="/images/business_card_perm.png" rendered="#{(node.blockAction)=='2'}"/>
          <af:image shortDesc="" id="i49" source="/images/business_card.png"
@@ -438,8 +438,8 @@
       </af:switcher>
      </f:facet>
      <af:clientListener method="expandNode" type="click"/>
-    </af:tree>
-    <af:tree value="#{bindings.partnerlist5.treeModel}" var="node" selectionListener="#{pageFlowScope.AccountSummaryBean.treeListner}" rowSelection="single"
+    </af:tree>-->
+    <!--<af:tree value="#{bindings.partnerlist5.treeModel}" var="node" selectionListener="#{pageFlowScope.AccountSummaryBean.treeListner}" rowSelection="single"
              id="blact" summary="perblockedandactivecards" contentDelivery="immediate" immediate="true" contextMenuSelect="false" fetchSize="500"
              partialTriggers="::cb10" rendered="#{pageFlowScope.AccountSummaryBean.displayperblockedandactivecards}"
              binding="#{pageFlowScope.AccountSummaryBean.permblockedandactivecardstree}">
@@ -474,7 +474,7 @@
        </f:facet>
        <f:facet name="com.sfr.engage.core.CardInfo">
         <af:group id="g24">
-         <!--<af:image shortDesc="" id="i4" source="/images/business_card.png" rendered="#{(node.blockAction)=='0'}"/>-->
+         --><!--<af:image shortDesc="" id="i4" source="/images/business_card.png" rendered="#{(node.blockAction)=='0'}"/>--><!--
          <af:image shortDesc="" id="i56" source="/images/business_card_temp.png" rendered="#{(node.blockAction)=='1'}"/>
          <af:image shortDesc="" id="i57" source="/images/business_card_perm.png" rendered="#{(node.blockAction)=='2'}"/>
          <af:image shortDesc="" id="i58" source="/images/business_card.png"
@@ -489,8 +489,8 @@
       </af:switcher>
      </f:facet>
      <af:clientListener method="expandNode" type="click"/>
-    </af:tree>
-    <af:tree value="#{bindings.partnerlist6.treeModel}" var="node" selectionListener="#{pageFlowScope.AccountSummaryBean.treeListner}" rowSelection="single"
+    </af:tree>-->
+    <!--<af:tree value="#{bindings.partnerlist6.treeModel}" var="node" selectionListener="#{pageFlowScope.AccountSummaryBean.treeListner}" rowSelection="single"
              id="bltemp" summary="perblockedandtempblockedcards" contentDelivery="immediate" immediate="true" contextMenuSelect="false" fetchSize="500"
              partialTriggers="::cb10" rendered="#{pageFlowScope.AccountSummaryBean.displayperblockedandtempcards}"
              binding="#{pageFlowScope.AccountSummaryBean.permblockedandtempblockedcardstree}">
@@ -525,7 +525,7 @@
        </f:facet>
        <f:facet name="com.sfr.engage.core.CardInfo">
         <af:group id="g28">
-         <!--<af:image shortDesc="" id="i4" source="/images/business_card.png" rendered="#{(node.blockAction)=='0'}"/>-->
+         --><!--<af:image shortDesc="" id="i4" source="/images/business_card.png" rendered="#{(node.blockAction)=='0'}"/>--><!--
          <af:image shortDesc="" id="i67" source="/images/business_card_temp.png" rendered="#{(node.blockAction)=='1'}"/>
          <af:image shortDesc="" id="i68" source="/images/business_card_perm.png" rendered="#{(node.blockAction)=='2'}"/>
          <af:image shortDesc="" id="i69" source="/images/business_card.png"
@@ -540,7 +540,7 @@
       </af:switcher>
      </f:facet>
      <af:clientListener method="expandNode" type="click"/>
-    </af:tree>
+    </af:tree>-->
    </af:panelGroupLayout>
    <af:panelGroupLayout id="pgl13">
     <af:separator id="s324" styleClass="vertical_seperator_account" inlineStyle="opacity:0.30;"/>
