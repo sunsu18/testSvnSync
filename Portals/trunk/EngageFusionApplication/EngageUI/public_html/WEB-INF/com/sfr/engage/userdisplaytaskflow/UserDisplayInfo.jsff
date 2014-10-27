@@ -150,7 +150,7 @@
         </af:inputText>
       </af:panelGroupLayout>
       <af:panelGroupLayout id="pgal1" halign="right" layout="horizontal" inlineStyle="width:962px;">
-        <af:commandButton text="#{sfr.ADD}" id="cb21" action="#{pageFlowScope.UserInfoDisplayManagedBean.goToAddEditButtonAction}"/>
+        <af:commandButton text="#{sfr.ADD} / #{ sfr.EDIT}" id="cb21" action="#{pageFlowScope.UserInfoDisplayManagedBean.goToAddEditButtonAction}"/>
         <af:spacer width="10" height="10" id="s151"/>
         <af:commandButton text="#{sfr.SEARCH}" id="cb2" actionListener="#{pageFlowScope.UserInfoDisplayManagedBean.searchResult}"/>
         <af:spacer width="10" height="10" id="s15"/>

@@ -16,6 +16,8 @@ import com.sfr.util.constants.Constants;
 import com.sfr.util.validations.Conversion;
 import com.sfr.util.validations.Validations;
 
+import java.sql.SQLException;
+
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
@@ -1474,10 +1476,19 @@ public class UserInfoDisplayBean {
                         getBindings().getUserPhoneNumber().setValue(userInfoRow.getAttribute("UserPhoneNo").toString());
                     }
                     if (userInfoRow.getAttribute("UserDob") != null) {
-//                        String DOBDate = "";
-//                        SimpleDateFormat dateformat = new SimpleDateFormat("dd.MM.yyyy");
-//                        Date birthdate = (Date) userInfoRow.getAttribute("UserDob");
+                        System.out.println("DOB " + userInfoRow.getAttribute("UserDob"));
+                        String DOBDate = "";
+                        SimpleDateFormat dateformat = new SimpleDateFormat("dd.MM.yyyy");
+                        oracle.jbo.domain.Date domainDate;
+                        
+                        //Date birthdate = getUtilDateFromJboDate(userInfoRow.getAttribute("UserDob"));
+                        //System.out.println("Birth Date " + birthdate);
 //                        DOBDate = dateformat.format(birthdate);
+                        try {
+                            domainDate = (new oracle.jbo.domain.Date(userInfoRow.getAttribute("UserDob")));
+                        } catch (SQLException e) {
+                            System.out.println("Exception " +e.getMessage());
+                        }
                         getBindings().getDateOfBirth().setSubmittedValue(userInfoRow.getAttribute("UserDob"));
                         getBindings().getDateOfBirth().setValue(userInfoRow.getAttribute("UserDob"));
                     }
@@ -1498,7 +1509,15 @@ public class UserInfoDisplayBean {
         }
 
         populateRoleAssociationTable(isCreateUser);
-        showEmailpanel = true;
+        if(userRoleDeatils.get(0).getAssociationValue() != null && userRoleDeatils.get(0).getAssociationValue().length() > 0)
+        {
+            System.out.println("showEmailpanel true");
+            showEmailpanel = true;
+        }
+        else {
+            System.out.println("showEmailpanel false");
+            showEmailpanel = false;
+        }
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getUserFirstName());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getUserMiddleName());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getUserLastName());
@@ -1508,6 +1527,13 @@ public class UserInfoDisplayBean {
 
         return null;
     }
+    public java.util.Date getUtilDateFromJboDate(oracle.jbo.domain.Date jboDate) {  
+        java.util.Date utilDate = null;  
+        if (jboDate != null) {  
+          utilDate = new java.util.Date(jboDate.dateValue().getTime());  
+        }  
+        return utilDate;  
+      }
 
     public void populateRoleAssociationTable(boolean flag) {
         System.out.println("inside populateRoleAssociationTable");
