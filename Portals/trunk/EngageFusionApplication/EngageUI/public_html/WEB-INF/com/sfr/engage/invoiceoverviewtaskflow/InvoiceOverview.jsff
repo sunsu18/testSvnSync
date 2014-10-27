@@ -78,9 +78,9 @@
         </af:panelGroupLayout>
         <af:panelGroupLayout id="pgl40" inlineStyle="height:auto; text-align:justify; width:200.0px;" layout="vertical">
          <af:spacer width="10" height="10" id="s35"/>
-         <af:selectManyChoice id="smc3" visible="#{pageFlowScope.InvoiceOverviewBean.cardGroupVisible}"
+         <af:selectManyChoice id="smc3" visible="#{pageFlowScope.InvoiceOverviewBean.cardGroupVisible}" valuePassThru="true"
                               binding="#{pageFlowScope.InvoiceOverviewBean.bindings.cardGroup}" value="#{pageFlowScope.InvoiceOverviewBean.cardGroupValue}"
-                              contentStyle="width: 175px;" valueChangeListener="#{pageFlowScope.InvoiceOverviewBean.cardGroupVCE}" autoSubmit="true">
+                              contentStyle="width: 175px;" autoSubmit="true">
           <af:forEach items="#{pageFlowScope.InvoiceOverviewBean.cardGroupList}" var="listItem">
            <af:selectItem label="#{listItem.label}" value="#{listItem.value}" id="si2"/>
           </af:forEach>
@@ -102,8 +102,8 @@
         </af:panelGroupLayout>
         <af:panelGroupLayout id="pgl45" inlineStyle="height:auto; text-align:justify; width:200.0px;margin-bottom: 9px !important;" layout="vertical">
          <af:selectManyChoice id="soc3" visible="#{pageFlowScope.InvoiceOverviewBean.cardVisible}" binding="#{pageFlowScope.InvoiceOverviewBean.bindings.card}"
-                              value="#{pageFlowScope.InvoiceOverviewBean.cardValue}" contentStyle="width: 175px;" autoSubmit="true"
-                              valueChangeListener="#{pageFlowScope.InvoiceOverviewBean.cardVCE}">
+                              value="#{pageFlowScope.InvoiceOverviewBean.cardValue}" contentStyle="width: 175px;" autoSubmit="true" valuePassThru="true"
+                              >
           <af:forEach items="#{pageFlowScope.InvoiceOverviewBean.cardList}" var="listItem">
            <af:selectItem label="#{listItem.label}" value="#{listItem.value}" id="si1"/>
           </af:forEach>
