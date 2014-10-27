@@ -257,10 +257,14 @@
             <entry key="build.minor.number" type="int" value="0" pattern="00"/>
             <!--<entry key="build.revision.number" type="int" value="0" pattern="00"/>-->
     </propertyfile>
-	<svn javahl="${svnant.javahl}" username="${svn.username}" password="${svn.password}">
+	<!--<svn javahl="${svnant.javahl}" username="${svn.username}" password="${svn.password}">
 
     <commit file="engageutil-build.properties" message="Committed"/>
 
-    </svn>
+    </svn>-->
+	<exec executable="svn" failonerror="true">
+      <arg line="--username ${svn.user}  --password ${svn.password}  --non-interactive"/>
+      <arg line="commit -m 'Committing Properties file'  --trust-server-cert engageutil-build.properties"/>
+    </exec>
   </target>
   </project>
