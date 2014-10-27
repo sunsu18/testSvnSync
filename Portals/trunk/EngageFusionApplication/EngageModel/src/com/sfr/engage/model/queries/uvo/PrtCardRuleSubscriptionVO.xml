@@ -19,7 +19,8 @@
        PrtCardRuleSubscriptionEO.CARDGROUP_SEQ, 
        PrtCardRuleSubscriptionEO.MODIFIED_BY, 
        PrtCardRuleSubscriptionEO.MODIFIED_DATE, 
-       PrtCardRuleSubscriptionEO.CARD_KSID"
+       PrtCardRuleSubscriptionEO.CARD_KSID, 
+       PrtCardRuleSubscriptionEO.ASSOCIATION_TYPE"
   FromList="PRT_CARD_RULE_SUBSCRIPTION PrtCardRuleSubscriptionEO"
   BindingStyle="OracleName"
   CustomQuery="false"
@@ -65,7 +66,8 @@
     PrecisionRule="true"
     EntityAttrName="SubscrDate"
     EntityUsage="PrtCardRuleSubscriptionEO"
-    AliasName="SUBSCR_DATE"/>
+    AliasName="SUBSCR_DATE"
+    IsUpdateable="false"/>
   <ViewAttribute
     Name="SubscrStatus"
     PrecisionRule="true"
@@ -115,13 +117,20 @@
     PrecisionRule="true"
     EntityAttrName="ModifiedDate"
     EntityUsage="PrtCardRuleSubscriptionEO"
-    AliasName="MODIFIED_DATE"/>
+    AliasName="MODIFIED_DATE"
+    IsUpdateable="false"/>
   <ViewAttribute
     Name="CardKsid"
     PrecisionRule="true"
     EntityAttrName="CardKsid"
     EntityUsage="PrtCardRuleSubscriptionEO"
     AliasName="CARD_KSID"/>
+  <ViewAttribute
+    Name="AssociationType"
+    PrecisionRule="true"
+    EntityAttrName="AssociationType"
+    EntityUsage="PrtCardRuleSubscriptionEO"
+    AliasName="ASSOCIATION_TYPE"/>
   <ViewLinkAccessor
     Name="PrtCardRuleBusinessHoursVO"
     ViewLink="com.sfr.engage.model.fklinks.PrtCardRuleBusinessHoFk1Link"
@@ -132,4 +141,12 @@
     ViewLink="com.sfr.engage.model.fklinks.PrtCardFuelCapacityPrFk1Link"
     Type="oracle.jbo.RowIterator"
     IsUpdateable="false"/>
+  <LOVUIHints
+    ListType="105"
+    MRUCount="0"
+    ListRangeSize="-1"
+    NullValueFlag="none"
+    NullValueId="LOVUIHints_NullValueId">
+    <DisplayCriteria/>
+  </LOVUIHints>
 </ViewObject>

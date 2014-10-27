@@ -116,6 +116,7 @@ public class Alerts {
     private String userEmail;
     private String userFirstName;
     private String userMobileNo;
+    private String userAssociationType;
     private String countryCode;
     private EngageResourceBundle resourceBundle;
     private List<String> suggestedCardNumberList;
@@ -185,6 +186,21 @@ public class Alerts {
             } else {
                 userMobileNo = "1234567890";
             }
+            if(user.getRoleList() != null && user.getRoleList().get(0) != null && user.getRoleList().get(0).getRoleName() != null){
+                            if(user.getRoleList().get(0).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_ADMIN)){
+                                userAssociationType = "PP";
+                            }else if(user.getRoleList().get(0).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_EMP)){
+                                userAssociationType = "CC";
+                            }else if(user.getRoleList().get(0).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR)){
+                                if(user.getRoleList().get(0).getIdString() != null && user.getRoleList().get(0).getIdString().get(0) != null){
+                                    if(user.getRoleList().get(0).getIdString().get(0).contains("AC")){
+                                        userAssociationType = "AC";
+                                    }else{
+                                        userAssociationType = "CG";
+                                    }
+                                }
+                            }
+                        }
         }
 
         if (session.getAttribute(Constants.PARTNER_LANG_LITERAL) != null) {
@@ -755,6 +771,7 @@ public class Alerts {
                             cardRuleSubscriptionRow.setAttribute(Constants.CARDGROUP_SEQ_LITERAL, Constants.ALL_LITERAL);
                             cardRuleSubscriptionRow.setAttribute(Constants.MODIFIEDBYLITERAL, userEmail);
                             cardRuleSubscriptionRow.setAttribute(Constants.CADRDKSID_LITERAL, Constants.ALL_LITERAL);
+                            cardRuleSubscriptionRow.setAttribute(Constants.ASSOCIATIONTYPELITERAL, userAssociationType);
                             cardRuleSubscription.insertRow(cardRuleSubscriptionRow);
                             RichTable rt = getBindings().getAlert1Table();
                             Object o;
@@ -1705,9 +1722,7 @@ public class Alerts {
                             response = (AlertsSubscribeResponse)operationBinding.execute();
                             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "response = " + response.getSubscriptionID());
 
-                            if (response.getSubscriptionID() != null)
-
-                            {
+                            if (response.getSubscriptionID() != null){
                                 Row cardRuleSubscriptionRow = cardRuleSubscription.createRow();
                                 cardRuleSubscriptionRow.setAttribute("CountryCode", countryCode);
                                 cardRuleSubscriptionRow.setAttribute(Constants.USER_ID_LITERAL, userEmail);
@@ -1724,6 +1739,7 @@ public class Alerts {
                                 cardRuleSubscriptionRow.setAttribute(Constants.CARDGROUP_SEQ_LITERAL, cardgroupId.substring(Constants.SIX));
                                 cardRuleSubscriptionRow.setAttribute(Constants.MODIFIEDBYLITERAL, userEmail);
                                 cardRuleSubscriptionRow.setAttribute(Constants.CADRDKSID_LITERAL, Constants.ALL_LITERAL);
+                                cardRuleSubscriptionRow.setAttribute(Constants.ASSOCIATIONTYPELITERAL, userAssociationType);
                                 cardRuleSubscription.insertRow(cardRuleSubscriptionRow);
                                 Row prtCardFuelCapacityRow = prtCardFuelCapacity.createRow();
                                 prtCardFuelCapacityRow.setAttribute("CountryCode", countryCode);
@@ -1857,6 +1873,7 @@ public class Alerts {
                             cardRuleSubscriptionRow.setAttribute(Constants.CARDGROUP_SEQ_LITERAL, cardgroupId.substring(Constants.SIX, Constants.ELEVEN));
                             cardRuleSubscriptionRow.setAttribute(Constants.MODIFIEDBYLITERAL, userEmail);
                             cardRuleSubscriptionRow.setAttribute(Constants.CADRDKSID_LITERAL, cardId);
+                            cardRuleSubscriptionRow.setAttribute(Constants.ASSOCIATIONTYPELITERAL, userAssociationType);
                             cardRuleSubscription.insertRow(cardRuleSubscriptionRow);
                             Row prtCardFuelCapacityRow = prtCardFuelCapacity.createRow();
                             prtCardFuelCapacityRow.setAttribute("CountryCode", countryCode);
@@ -1998,6 +2015,7 @@ public class Alerts {
                                 cardRuleSubscriptionRow.setAttribute(Constants.CARDGROUP_SEQ_LITERAL, Constants.ALL_LITERAL);
                                 cardRuleSubscriptionRow.setAttribute(Constants.MODIFIEDBYLITERAL, userEmail);
                                 cardRuleSubscriptionRow.setAttribute(Constants.CADRDKSID_LITERAL, Constants.ALL_LITERAL);
+                                cardRuleSubscriptionRow.setAttribute(Constants.ASSOCIATIONTYPELITERAL, userAssociationType);
                                 cardRuleSubscription.insertRow(cardRuleSubscriptionRow);
                                 Row prtCardFuelCapacityRow = prtCardFuelCapacity.createRow();
                                 prtCardFuelCapacityRow.setAttribute("CountryCode", countryCode);
@@ -2120,6 +2138,7 @@ public class Alerts {
                             cardRuleSubscriptionRow.setAttribute(Constants.CARDGROUP_SEQ_LITERAL, Constants.ALL_LITERAL);
                             cardRuleSubscriptionRow.setAttribute(Constants.MODIFIEDBYLITERAL, userEmail);
                             cardRuleSubscriptionRow.setAttribute(Constants.CADRDKSID_LITERAL, Constants.ALL_LITERAL);
+                            cardRuleSubscriptionRow.setAttribute(Constants.ASSOCIATIONTYPELITERAL, userAssociationType);
                             cardRuleSubscription.insertRow(cardRuleSubscriptionRow);
                             Row prtCardFuelCapacityRow = prtCardFuelCapacity.createRow();
                             prtCardFuelCapacityRow.setAttribute("CountryCode", countryCode);
@@ -3767,6 +3786,14 @@ public class Alerts {
 
     public Comparator<SelectItem> getComparator() {
         return comparator;
+    }
+
+    public void setUserAssociationType(String userAssociationType) {
+        this.userAssociationType = userAssociationType;
+    }
+
+    public String getUserAssociationType() {
+        return userAssociationType;
     }
 
     public class Bindings {

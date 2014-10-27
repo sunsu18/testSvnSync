@@ -818,5 +818,6 @@ public class Constants {
     public static final String PAGETEPLATEBIDINGLITERAL = "pageTemplateBinding";
     public static final String CGIDLITERAL = "cgid";
     public static final String CGMAINLITERAL = "cgmain";
+    public static final String ASSOCIATIONTYPELITERAL = "AssociationType";
 
 }

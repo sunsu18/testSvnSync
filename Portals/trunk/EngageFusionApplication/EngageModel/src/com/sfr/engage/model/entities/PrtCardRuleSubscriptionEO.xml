@@ -190,6 +190,18 @@
       <Attr Name="_DisplaySize" Value="10"/>
     </DesignTime>
   </Attribute>
+  <Attribute
+    Name="AssociationType"
+    Precision="20"
+    ColumnName="ASSOCIATION_TYPE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD_RULE_SUBSCRIPTION">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
   <AccessorAttribute
     Name="PrtCardRuleBusinessHoursEO"
     Association="com.sfr.engage.model.associations.PrtCardRuleBusinessHoFk1Assoc"
