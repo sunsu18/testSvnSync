@@ -131,10 +131,6 @@ public class DriverInfoBean implements Serializable {
         linkedAccountList = new ArrayList<SelectItem>();
         linkedAccountLOVValues = new ArrayList<String>();
 
-        if (session.getAttribute("Partner_Object_List") != null) {
-            partnerInfoList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
-        }
-
         if (user == null) {
             user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
         }
@@ -146,9 +142,27 @@ public class DriverInfoBean implements Serializable {
 
             isEditVisible = false;
             isEditDisable = true;
-
         }
 
+        resetValues();
+
+        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting from Constructor of Driver Info");
+    }
+
+
+    private void resetValues(){
+       
+        linkedCardValues = new ArrayList<String>();
+        linkedPartnerLOVValues = null;
+        linkedPartnerList = new ArrayList<SelectItem>();
+        linkedAccountList = new ArrayList<SelectItem>();
+        linkedAccountLOVValues = new ArrayList<String>();
+       
+       
+        if (session.getAttribute("Partner_Object_List") != null) {
+            partnerInfoList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
+        }
+       
         if (partnerInfoList != null && partnerInfoList.size() > 0) {
             for (int pa = 0; pa < partnerInfoList.size(); pa++) {
                 countryParam = partnerInfoList.get(0).getCountry().toString();
@@ -198,9 +212,7 @@ public class DriverInfoBean implements Serializable {
                 }
             }
         }
-        LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting from Constructor of Driver Info");
     }
-
 
     public List<SelectItem> getLinkedAccountList() {
         return linkedAccountList;
@@ -1167,22 +1179,9 @@ public class DriverInfoBean implements Serializable {
     public void searchCancel(ActionEvent actionEvent) {
         try {
             LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside Driver Search cancel method");
-            ViewObject vo = ADFUtils.getViewObject("PrtDriverInformationVO1Iterator");
-            if ("trim(ACCOUNT_ID) =: accountId AND trim(DRIVER_NAME) LIKE '%'||:driverName||'%'".equalsIgnoreCase(vo.getWhereClause())) {
-                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "Is it coming inside remove where clause");
-                vo.removeNamedWhereClauseParam(Constants.ACCOUNT_ID_LITERAL);
-                vo.removeNamedWhereClauseParam(DRIVER_NAME_LITRERAL);
-                vo.setWhereClause("");
-                vo.executeQuery();
-            }
+            
+            resetValues();
 
-            this.linkedPartnerLOVValues = null;
-            this.linkedAccountLOVValues = null;
-            linkedAccountList = new ArrayList<SelectItem>();
-            this.linkedAccountLOVValues = null;
-            getBindings().getLinkedPartner().setSubmittedValue(null);
-            getBindings().getLinkedPartner().setValue(null);
-            driverN = null;
             searchResultsShow = false;
             LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting Vehicle Search cancel method");
             AdfFacesContext.getCurrentInstance().addPartialTarget(this.getBindings().getLinkedPartner());
