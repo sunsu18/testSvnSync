@@ -238,7 +238,7 @@
       <af:outputText value="#{sfr.ENGAGE_MESSAGE_DETAILS} :" id="ot8"
                      styleClass="subheading" noWrap="true"/>
       <af:spacer width="10" height="10" id="spreport"/>
-       <af:panelGroupLayout id="pgl80" layout="horizontal" halign="start" inlineStyle="width: 150px;">
+       <af:panelGroupLayout id="pgl80" layout="horizontal" halign="start" inlineStyle="width: 150px;" visible="false">
             <af:commandButton text="#{sfr.MARK_READ}" id="cb13" disabled="true"/>
             <af:spacer width="10" id="s601"/>
             <af:commandButton text="#{sfr.MARK_UNREAD}" id="cb15" disabled="true"/>
@@ -317,15 +317,15 @@
                emptyText="#{bindings.PrtNotificationVO1.viewable ? 'No data to display.' : 'Access Denied.'}" autoHeightRows="15"  contentDelivery="immediate"
                fetchSize="#{bindings.PrtNotificationVO1.rangeSize}" rowBandingInterval="1" filterModel="#{bindings.PrtNotificationVO11Query.queryDescriptor}"
                queryListener="#{bindings.PrtNotificationVO11Query.processQuery}" filterVisible="true" varStatus="vs"
-               selectionListener="#{bindings.PrtNotificationVO1.collectionModel.makeCurrent}" rowSelection="multiple" id="t1" width="700"
+               selectionListener="#{bindings.PrtNotificationVO1.collectionModel.makeCurrent}" rowSelection="multiple" id="t1" width="650"
                disableColumnReordering="true" binding="#{pageFlowScope.MessageInboxBean.bindings.messageTablePopup}">
       <!--<af:column sortProperty="readFlag" filterable="true" sortable="true" headerText="#{bindings.PrtNotificationVO1.hints.readFlag.label}" id="c2">
         <af:selectBooleanCheckbox value="#{row.bindings.readFlag.inputValue}"   id="sbc1"/>
       </af:column>-->
-      <af:column width="50" align="center" id="c2">
+      <!--<af:column width="50" align="center" id="c2">
        <af:selectBooleanCheckbox value="#{row.bindings.readFlag.inputValue}" label="#{row.bindings.readFlag.label}"
                                  shortDesc="#{bindings.PrtNotificationVO1.hints.readFlag.tooltip}" id="sbc1"/>
-      </af:column>
+      </af:column>-->
       <af:column sortProperty="NotiCreated" filterable="true" sortable="true" headerText="#{sfr.ENGAGE_DATE}" id="c4" width="150" align="center">
        <f:facet name="filter">
         <af:inputDate value="#{vs.filterCriteria.NotiCreated}" id="id2">

@@ -406,7 +406,7 @@ public class InvoiceOverviewBean implements Serializable {
 
                     resetTableFilter();
                     long estimatedRowCount =
-                        applyWhereClause(true, newFromDate, newToDate); 
+                        applyWhereClause(false, newFromDate, newToDate); 
 
                     if (estimatedRowCount > 0) {
                         searchResults = true;
@@ -478,6 +478,7 @@ public class InvoiceOverviewBean implements Serializable {
         String cgTemp = "";
         String cardTemp = "";
         String partnerList = "";
+        String radioSelection="";
         partnerList = populateStringValues(getPartnerValue().toString());
         ViewObject invoiceVO = ADFUtils.getViewObject(PRTNEWINVOICEVO1ITERATORLITRERAL);
         accountQuery = "(";
@@ -488,10 +489,12 @@ public class InvoiceOverviewBean implements Serializable {
             accountTemp = populateStringValues(getAccountValue().toString());
             cgTemp = populateStringValues(getCardGroupValue().toString());
             cardTemp = populateStringValues(getCardValue().toString());
+            radioSelection = "Cardgroup";
         } else {
             accountTemp = populateStringValues(getBindings().getAccount().getValue().toString());
             cgTemp = populateStringValues(getBindings().getCardGroup().getValue().toString());
             cardTemp = populateStringValues(getBindings().getCard().getValue().toString());
+            radioSelection = getBindings().getCardGpCardList().getValue().toString();
         }
         
         generalQuery= "INSTR(:partner_id,partner_id)<>0  AND COUNTRY_CODE =:ccode AND INVOICING_DATE >=:fromDateBV AND INVOICING_DATE <=:toDateBV";
@@ -518,8 +521,8 @@ public class InvoiceOverviewBean implements Serializable {
         }
 
 
-        if (getCardGroupValue() != null) {
-            if (Constants.CARD_LITERAL.equalsIgnoreCase(getCardGroupValue().toString())) {
+        
+            if (Constants.CARD_LITERAL.equalsIgnoreCase(radioSelection)) {
 
                 if (cardValue.size() > Constants.ONEFIFTY) {
                     LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values > 150 ");
@@ -543,8 +546,8 @@ public class InvoiceOverviewBean implements Serializable {
                     mapCardListValue = null;
                     cardQuery = "(INSTR(:card,INVOICED_CARD)<>0)";
                     invoiceVO.setWhereClause(accountQuery + "AND " + cardQuery + "AND " + generalQuery);
-                    String cardValuesList = populateStringValues(cardTemp);
-                    invoiceVO.defineNamedWhereClauseParam(Constants.CARDLITERAL, cardValuesList, null);
+//                    String cardValuesList = populateStringValues(cardTemp);
+                    invoiceVO.defineNamedWhereClauseParam(Constants.CARDLITERAL, cardTemp, null);
                 }
             } else {
 
@@ -570,12 +573,11 @@ public class InvoiceOverviewBean implements Serializable {
                     mapCardGroupListValue = null;
                     cardGroupQuery = "INSTR(:cardGroup,PARTNER_ID||CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 ";
                     invoiceVO.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + generalQuery);
-                    invoiceVO.defineNamedWhereClauseParam(Constants.CARDGROUPLITERAL,
-                                                          populateStringValues(getCardValue().toString()), null);
+                    invoiceVO.defineNamedWhereClauseParam(Constants.CARDGROUPLITERAL,cgTemp, null);
 
                 }
             }
-        }
+       
         if (accountValue.size() > Constants.ONEFIFTY) {
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
             mapAccountListValue = ValueListSplit.callValueList(accountValue.size(), accountValue);
@@ -587,8 +589,7 @@ public class InvoiceOverviewBean implements Serializable {
 
         } else {
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
-            invoiceVO.defineNamedWhereClauseParam(Constants.ACCOUNT_LITERAL,
-                                                  populateStringValues(getAccountValue().toString()), null);
+            invoiceVO.defineNamedWhereClauseParam(Constants.ACCOUNT_LITERAL,accountTemp, null);
         }
         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Query Formed is=" + invoiceVO.getQuery());
         invoiceVO.executeQuery();
