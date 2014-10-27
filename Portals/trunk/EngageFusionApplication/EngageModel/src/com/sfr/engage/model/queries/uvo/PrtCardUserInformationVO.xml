@@ -22,9 +22,12 @@
   BindingStyle="OracleName"
   CustomQuery="false"
   PageIterMode="Full"
-  UseGlueCode="false">
+  UseGlueCode="false"
+  RowClass="com.sfr.engage.model.queries.uvo.PrtCardUserInformationVORowImpl"
+  ComponentClass="com.sfr.engage.model.queries.uvo.PrtCardUserInformationVOImpl">
   <DesignTime>
-    <Attr Name="_codeGenFlag2" Value="Access|VarAccess"/>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll|Prog|VarAccess"/>
+    <Attr Name="_isCodegen" Value="true"/>
   </DesignTime>
   <EntityUsage
     Name="PrtCardUserInformationEO"
@@ -66,7 +69,16 @@
     PrecisionRule="true"
     EntityAttrName="UserDob"
     EntityUsage="PrtCardUserInformationEO"
-    AliasName="USER_DOB"/>
+    AliasName="USER_DOB">
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="com.sfr.engage.model.queries.uvo.PrtCardUserInformationVO.UserDob_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="com.sfr.engage.model.queries.uvo.PrtCardUserInformationVO.UserDob_FMT_FORMAT"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
   <ViewAttribute
     Name="UserPhoneNo"
     PrecisionRule="true"
@@ -92,7 +104,8 @@
     PrecisionRule="true"
     EntityAttrName="ModifiedDate"
     EntityUsage="PrtCardUserInformationEO"
-    AliasName="MODIFIED_DATE"/>
+    AliasName="MODIFIED_DATE"
+    IsUpdateable="false"/>
   <ViewAttribute
     Name="UserShortname"
     PrecisionRule="true"
@@ -110,4 +123,8 @@
     ViewLink="com.sfr.engage.model.fklinks.PrtCardUserRoleMappinFk1Link"
     Type="oracle.jbo.RowIterator"
     IsUpdateable="false"/>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.sfr.engage.model.EngageModelBundle"/>
+  </ResourceBundle>
 </ViewObject>

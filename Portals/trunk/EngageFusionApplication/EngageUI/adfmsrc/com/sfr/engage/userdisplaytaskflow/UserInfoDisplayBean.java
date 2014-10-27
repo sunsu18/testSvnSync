@@ -7,6 +7,7 @@ import com.sfr.core.bean.User;
 import com.sfr.engage.core.PartnerInfo;
 import com.sfr.engage.core.UserInfoRolesDetails;
 import com.sfr.engage.core.ValueListSplit;
+import com.sfr.engage.model.queries.uvo.PrtCardUserRoleMappingVORowImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.util.ADFUtils;
 import com.sfr.util.AccessDataControl;
@@ -56,6 +57,8 @@ import oracle.binding.BindingContainer;
 import oracle.binding.OperationBinding;
 
 import oracle.jbo.Row;
+import oracle.jbo.ViewCriteria;
+import oracle.jbo.ViewCriteriaRow;
 import oracle.jbo.ViewObject;
 
 
@@ -67,13 +70,18 @@ public class UserInfoDisplayBean {
     private AccessDataControl accessDC = new AccessDataControl();
     private List<SelectItem> partnerIdList;
     private List<String> partnerIdValue;
+    private List<String> finalPartnerIdValue;
     private List<PartnerInfo> partnerInfoList;
     private List<SelectItem> accountIdList;
     private List<String> accountIdValue;
+    private List<String> finalAccountIdValue;
+    private List<String> finalCardGroupValue;
+    
     private List<SelectItem> cardGroupList;
     private List<String> cardGroupValue;
     private List<SelectItem> cardNumberList;
     private List<String> cardNumberValue;
+    private List<String> finalCardNumberValue;
     private List<String> suggestedCardNumberList;
     private List<SelectItem> roleList;
     private List<String> roleValue;
@@ -133,7 +141,10 @@ public class UserInfoDisplayBean {
     private String emailValue = null;
     private Boolean radioPanelSelection;
 
-    public void defaultPopulateDropdown(){
+    private boolean isCreateUser = false;
+
+
+    public void defaultPopulateDropdown() {
         searchString = null;
         roleValue = new ArrayList<String>();
         roleValue.add("WCP_CARD_B2B_ADMIN");
@@ -142,7 +153,7 @@ public class UserInfoDisplayBean {
         roleValue.add("WCP_CARD_B2B_EMP");
         isTableVisible = true;
         radioPanelSelection = true;
-        
+
         partnerIdMap = new HashMap<String, String>();
         cardGroupIdMap = new HashMap<String, String>();
         cardIdMap = new HashMap<String, String>();
@@ -189,19 +200,23 @@ public class UserInfoDisplayBean {
     }
 
     public void populateCustomerData(String changeValues) {
-        
+
         if (session.getAttribute("Partner_Object_List") != null) {
             partnerInfoList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
             if (partnerInfoList != null && partnerInfoList.size() > 0) {
                 if (changeValues.equals("Default")) {
                     partnerIdList = new ArrayList<SelectItem>();
                     partnerIdValue = new ArrayList<String>();
+                    finalPartnerIdValue = new ArrayList<String>();
                     accountIdList = new ArrayList<SelectItem>();
                     accountIdValue = new ArrayList<String>();
+                    finalAccountIdValue = new ArrayList<String>();
                     cardGroupList = new ArrayList<SelectItem>();
                     cardGroupValue = new ArrayList<String>();
+                    finalCardGroupValue = new ArrayList<String>();
                     cardNumberList = new ArrayList<SelectItem>();
                     cardNumberValue = new ArrayList<String>();
+                    finalCardNumberValue =  new ArrayList<String>();
                     suggestedCardNumberList = new ArrayList<String>();
                 } else {
 
@@ -226,6 +241,7 @@ public class UserInfoDisplayBean {
                         if (changeValues.equals("Default")) {
                             partnerIdList.add(selectItem);
                             partnerIdValue.add(partnerInfoList.get(i).getPartnerValue().toString());
+                            finalPartnerIdValue.add(partnerInfoList.get(i).getPartnerValue().toString());
                             partnerIdMap.put(partnerInfoList.get(i).getPartnerName().toString(), partnerInfoList.get(i).getPartnerValue().toString());
                             partnerNameMap.put(partnerInfoList.get(i).getPartnerValue().toString(), partnerInfoList.get(i).getPartnerName().toString());
                         } else {
@@ -243,6 +259,7 @@ public class UserInfoDisplayBean {
                                 selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
                                 if (changeValues.equals("Default")) {
                                     accountIdList.add(selectItem);
+                                    finalAccountIdValue.add(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
                                     accountIdValue.add(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
                                     accountToPartnermap.put(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString(),
                                                             partnerInfoList.get(i).getPartnerValue().toString());
@@ -260,6 +277,8 @@ public class UserInfoDisplayBean {
                                     if (changeValues.equals("Default")) {
                                         cardGroupList.add(selectItem);
                                         cardGroupValue.add(partnerInfoList.get(i).getPartnerValue().toString().trim() +
+                                                           partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
+                                        finalCardGroupValue.add(partnerInfoList.get(i).getPartnerValue().toString().trim() +
                                                            partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
                                         cardGroupIdMap.put(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getDisplayCardGroupIdName().toString(),
                                                            partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
@@ -285,6 +304,7 @@ public class UserInfoDisplayBean {
                                             cardNumberList.add(selectItem);
                                             suggestedCardNumberList.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString());
                                             cardNumberValue.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
+                                            finalCardNumberValue.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
                                             cardIdMap.put(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString(),
                                                           partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
                                             cardToPartnerMap.put(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString(),
@@ -858,7 +878,7 @@ public class UserInfoDisplayBean {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside searchResult method of User Display");
     }
 
-    public void search(String partnerPV, String accountPV, String cardgroupPV, String cardPV, String rolePV){
+    public void search(String partnerPV, String accountPV, String cardgroupPV, String cardPV, String rolePV) {
         String partner = partnerPV, account = accountPV, cardgroup = cardgroupPV, card = cardPV, role = rolePV;
         if (role.contains("WCP_CARD_B2B_ADMIN")) {
             ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForAdminRVO1Iterator");
@@ -1089,12 +1109,11 @@ public class UserInfoDisplayBean {
                         displayErrorComponent(getBindings().getRole(), false);
                         showErrorMessage("ENGAGE_NO_ROLE");
                     }
-                    
+
                     search(populateStringValues(getBindings().getPartner().getValue().toString().trim()),
                            populateStringValues(getBindings().getAccount().getValue().toString()),
                            populateStringValues(getBindings().getCardGroup().getValue().toString()),
-                           populateStringValues(getBindings().getCard().getValue().toString()),
-                           getBindings().getRole().getValue().toString().trim());
+                           populateStringValues(getBindings().getCard().getValue().toString()), getBindings().getRole().getValue().toString().trim());
                     resultDisplay = true;
                 } else {
                     displayErrorComponent(getBindings().getPartner(), true);
@@ -1149,7 +1168,7 @@ public class UserInfoDisplayBean {
                         }
                     }
 
-                    if (getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_ADMIN")) {
+                    if (passingRole.contains("WCP_CARD_B2B_ADMIN")) {
                         ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForAdminRVO1Iterator");
                         vo.setNamedWhereClauseParam("cc", lang);
                         vo.setNamedWhereClauseParam("roleName", Constants.ROLE_WCP_CARD_B2B_ADMIN);
@@ -1158,7 +1177,7 @@ public class UserInfoDisplayBean {
                         isTableVisible = true;
                         resultDisplay = true;
                     }
-                    if (getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_MGR_AC")) {
+                    if (passingRole.contains("WCP_CARD_B2B_MGR_AC")) {
                         ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForAccMgrRVO1Iterator");
                         if (accountQuery.length() > 1 && accountQuery != null) {
                             if (vo.getWhereClause() != null) {
@@ -1191,7 +1210,7 @@ public class UserInfoDisplayBean {
                         session.setAttribute("user_display_account_Query", accountQuery);
                         isAccMgrVisible = true;
                     }
-                    if (getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_MGR_CG")) {
+                    if (passingRole.contains("WCP_CARD_B2B_MGR_CG")) {
 
                         ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForCgMgrRVO1Iterator");
                         if (cardGroupQuery.length() > 1 && cardGroupQuery != null) {
@@ -1229,7 +1248,7 @@ public class UserInfoDisplayBean {
                         isTableVisible = true;
                         resultDisplay = true;
                     }
-                    if (getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_EMP")) {
+                    if (passingRole.contains("WCP_CARD_B2B_EMP")) {
 
                         ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForEmpRVO1Iterator");
                         if (cardQuery.length() > 1 && cardQuery != null) {
@@ -1310,20 +1329,21 @@ public class UserInfoDisplayBean {
         getBindings().getRole().setDisabled(false);
         getBindings().getSearchStringInputtext().setDisabled(true);
         defaultPopulateDropdown();
+        isTableVisible = false;
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside clearSearchListener method of User Display");
     }
 
     public String goToAddEditButtonAction() {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside goToAddEditButtonAction method of User Display");
-        ectx = FacesContext.getCurrentInstance().getExternalContext();
-        request = (HttpServletRequest)ectx.getRequest();
-        session = request.getSession(false);
+        //        ectx = FacesContext.getCurrentInstance().getExternalContext();
+        //        request = (HttpServletRequest)ectx.getRequest();
+        //        session = request.getSession(false);
 
-        User userInfo = new User();
-        userRoleDeatils = new ArrayList<UserInfoRolesDetails>();
+        //        User userInfo = new User();
+        //        userRoleDeatils = new ArrayList<UserInfoRolesDetails>();
         userEmail = "";
         showEmailpanel = false;
-        if (session != null && null != session.getAttribute(Constants.SESSION_USER_INFO)) {
+        /*if (session != null && null != session.getAttribute(Constants.SESSION_USER_INFO)) {
             userInfo = (User)session.getAttribute(Constants.SESSION_USER_INFO);
             if (null != userInfo) {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " checking user info is not null");
@@ -1392,10 +1412,670 @@ public class UserInfoDisplayBean {
                     }
                 }
             }
-            emailValue = null;
-        }
+
+        }*/
+        emailValue = null;
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting goToAddEditButtonAction method of User Display");
         return "goToAddEdit";
+    }
+
+    public String addEditSearchAction() {
+
+        if (getBindings().getUserEmailId().getValue() != null && getBindings().getUserEmailId().getValue().toString().length() > 0) {
+            displayErrorComponent(getBindings().getUserEmailId(), false);
+        } else {
+            displayErrorComponent(getBindings().getUserEmailId(), true);
+            showErrorMessage("ENTER_VALID_EMAIL_ID");
+            return null;
+        }
+        isCreateUser = false;
+
+        BindingContainer bc = BindingContext.getCurrent().getCurrentBindingsEntry();
+        DCIteratorBinding userValidationItr = (DCIteratorBinding)bc.get("PrtCardUserInformationValidationRVO2Iterator");
+        DCIteratorBinding userInfoItr = (DCIteratorBinding)bc.get("PrtCardUserInformationVO1Iterator");
+        ViewObject userInfoVO = ADFUtils.getViewObject("PrtCardUserInformationVO1Iterator");
+        OperationBinding operationBinding = bc.getOperationBinding("ExecuteWithParams1");
+        operationBinding.getParamsMap().put("userEmail", getBindings().getUserEmailId().getValue());
+        operationBinding.execute();
+        if (userValidationItr.getEstimatedRowCount() > 0) {
+            isCreateUser = false;
+
+            ViewCriteria userInfoVC = userInfoVO.createViewCriteria();
+            ViewCriteriaRow userInfoVCRow = userInfoVC.createViewCriteriaRow();
+            userInfoVCRow.setAttribute("UserEmail", getBindings().getUserEmailId().getValue().toString());
+            userInfoVCRow.setAttribute("CountryCode", lang);
+            userInfoVC.add(userInfoVCRow);
+            userInfoVO.applyViewCriteria(userInfoVC);
+            userInfoVO.executeQuery();
+
+            if (userInfoVO.getEstimatedRowCount() != 0) {
+                System.out.println("Is it coming inside getEstimated row count======>" + userInfoVO.getEstimatedRowCount());
+                Row userInfoRow = userInfoItr.getCurrentRow();
+                if (userInfoRow != null) {
+                    if (userInfoRow.getAttribute("UserFirstName") != null) {
+                        System.out.println("Is it coming inside getEstimated row count======>" + userInfoRow.getAttribute("UserFirstName"));
+                        getBindings().getUserFirstName().setSubmittedValue(userInfoRow.getAttribute("UserFirstName").toString());
+                        getBindings().getUserFirstName().setValue(userInfoRow.getAttribute("UserFirstName").toString());
+                    }
+
+                    if (userInfoRow.getAttribute("UserMiddleName") != null) {
+                        getBindings().getUserMiddleName().setSubmittedValue(userInfoRow.getAttribute("UserMiddleName").toString());
+                        getBindings().getUserMiddleName().setValue(userInfoRow.getAttribute("UserMiddleName").toString());
+                    } else {
+                        getBindings().getUserMiddleName().setSubmittedValue("");
+                        getBindings().getUserMiddleName().setValue("");
+                    }
+                    if (userInfoRow.getAttribute("UserLastName") != null) {
+                        getBindings().getUserLastName().setSubmittedValue(userInfoRow.getAttribute("UserLastName").toString());
+                        getBindings().getUserLastName().setValue(userInfoRow.getAttribute("UserLastName").toString());
+                    }
+                    if (userInfoRow.getAttribute("UserPhoneNo") != null) {
+                        getBindings().getUserPhoneNumber().setSubmittedValue(userInfoRow.getAttribute("UserPhoneNo").toString());
+                        getBindings().getUserPhoneNumber().setValue(userInfoRow.getAttribute("UserPhoneNo").toString());
+                    }
+                    if (userInfoRow.getAttribute("UserDob") != null) {
+//                        String DOBDate = "";
+//                        SimpleDateFormat dateformat = new SimpleDateFormat("dd.MM.yyyy");
+//                        Date birthdate = (Date) userInfoRow.getAttribute("UserDob");
+//                        DOBDate = dateformat.format(birthdate);
+                        getBindings().getDateOfBirth().setSubmittedValue(userInfoRow.getAttribute("UserDob"));
+                        getBindings().getDateOfBirth().setValue(userInfoRow.getAttribute("UserDob"));
+                    }
+                }
+            }
+        } else {
+            isCreateUser = true;
+            getBindings().getUserFirstName().setSubmittedValue("");
+            getBindings().getUserFirstName().setValue("");
+            getBindings().getUserMiddleName().setSubmittedValue("");
+            getBindings().getUserMiddleName().setValue("");
+            getBindings().getUserLastName().setSubmittedValue("");
+            getBindings().getUserLastName().setValue("");
+            getBindings().getUserPhoneNumber().setSubmittedValue("");
+            getBindings().getUserPhoneNumber().setValue("");
+            getBindings().getDateOfBirth().setSubmittedValue("");
+            getBindings().getDateOfBirth().setValue("");
+        }
+
+        populateRoleAssociationTable(isCreateUser);
+        showEmailpanel = true;
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getUserFirstName());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getUserMiddleName());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getUserLastName());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getUserPhoneNumber());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDateOfBirth());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
+
+        return null;
+    }
+
+    public void populateRoleAssociationTable(boolean flag) {
+        System.out.println("inside populateRoleAssociationTable");
+        ectx = FacesContext.getCurrentInstance().getExternalContext();
+        request = (HttpServletRequest)ectx.getRequest();
+        session = request.getSession(false);
+
+        User userInfo = new User();
+        userRoleDeatils = new ArrayList<UserInfoRolesDetails>();
+        userEmail = "";
+
+        if (session != null && null != session.getAttribute(Constants.SESSION_USER_INFO)) {
+            userInfo = (User)session.getAttribute(Constants.SESSION_USER_INFO);
+            if (null != userInfo) {
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " checking user info is not null");
+                userEmail = userInfo.getEmailID();
+                //                BindingContainer bc = BindingContext.getCurrent().getCurrentBindingsEntry();
+                //                DCIteratorBinding userRoleMapItr = (DCIteratorBinding)bc.get("PrtCardUserRoleMappingVO1Iterator");
+                //                ViewObject userRoleMapVO = ADFUtils.getViewObject("PrtCardUserRoleMappingVO1Iterator");
+                //                ViewCriteria userRoleMapVC = userRoleMapVO.createViewCriteria();
+                //                ViewCriteriaRow userInfoVCRow = userRoleMapVC.createViewCriteriaRow();
+                //                userInfoVCRow.setAttribute("UserEmail", getBindings().getUserEmailId().getValue().toString());
+                //                userInfoVCRow.setAttribute("CountryCode", lang);
+                //                userRoleMapVC.add(userInfoVCRow);
+                //                userRoleMapVO.applyViewCriteria(userRoleMapVC);
+                //                userRoleMapVO.executeQuery();
+
+                String[] associatesRoleName = null;
+                if (userInfo.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN)) {
+                    String UserAssociation = "";
+                    String partnerId = "";
+                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside B2b Admin");
+                    associatesRoleName = StringConversion(Constants.ENGAGE_B2B_ADMIN_USER);
+
+                    for (int count = 0; count < associatesRoleName.length; count++) {
+
+                        UserInfoRolesDetails userInfoDetails = new UserInfoRolesDetails();
+                        userInfoDetails.setRoleName(associatesRoleName[count]);
+                        userInfoDetails.setCheckUserRole(false);
+                        if (flag) {
+                            userInfoDetails.setAssociationValue("");
+                            userInfoDetails.setPartnerId("");
+                        } else {
+
+
+                            if (associatesRoleName[count].equalsIgnoreCase("WCP_CARD_B2B_ADMIN")) {
+                                //TODO : hitk - populate data from userInfoRow's corresponding role mapping table after validation ?
+
+                                DCBindingContainer bindings2 = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+                                DCIteratorBinding prtCardUsrRoleMapping = bindings2.findIteratorBinding("PrtCardUserRoleMappingVO1Iterator");
+                                ViewObject vo3 = prtCardUsrRoleMapping.getViewObject();
+                                vo3.setWhereClause("USER_EMAIL =: emailId AND COUNTRY_CODE =: cc AND USER_ROLE=: userRole");
+
+                                vo3.defineNamedWhereClauseParam("emailId", getBindings().getUserEmailId().getValue(), null);
+                                vo3.defineNamedWhereClauseParam("cc", lang, null);
+                                vo3.defineNamedWhereClauseParam("userRole", associatesRoleName[count], null);
+                                vo3.executeQuery();
+
+                                System.out.println((accessDC.getDisplayRecord() + this.getClass() + "row count from UserRoleMapping vo" +
+                                                    vo3.getEstimatedRowCount()));
+
+                                if (vo3.getEstimatedRowCount() != 0) {
+                                    //TODO : hitk - partner id problem to be check
+
+
+                                    while (vo3.hasNext()) {
+                                        PrtCardUserRoleMappingVORowImpl currRowcard = (PrtCardUserRoleMappingVORowImpl)vo3.next();
+                                        if (currRowcard.getAssociationType() != null && finalPartnerIdValue.contains(currRowcard.getUserAssociation())) {
+                                            
+                                            UserAssociation = UserAssociation + currRowcard.getUserAssociation() + ",";
+                                            partnerId = currRowcard.getPartnerId().toString();
+
+                                        }
+                                        else {
+                                            System.out.println("searched users partner ids not in context of logged in user partner's ");
+                                        }
+
+
+                                    }
+
+                                    userInfoDetails.setPartnerId(partnerId);
+                                    if (UserAssociation.length() > 0) {
+                                        userInfoDetails.setAssociationValue(UserAssociation.substring(0, UserAssociation.length() - 1));
+                                    } else {
+                                        userInfoDetails.setAssociationValue("");
+                                    }
+                                }
+                            }
+                            else if (associatesRoleName[count].equalsIgnoreCase("WCP_CARD_B2B_MGR_AC")) {
+                                UserAssociation = "";
+                                partnerId = "";
+                                //TODO : hitk - populate data from userInfoRow's corresponding role mapping table after validation ?
+
+                                DCBindingContainer bindings2 = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+                                DCIteratorBinding prtCardUsrRoleMapping = bindings2.findIteratorBinding("PrtCardUserRoleMappingVO1Iterator");
+                                ViewObject vo3 = prtCardUsrRoleMapping.getViewObject();
+                                System.out.println("role to be passed is " + associatesRoleName[count].substring(0, associatesRoleName[count].length()-3));
+                                vo3.setWhereClause("USER_EMAIL =: emailId AND COUNTRY_CODE =: cc AND USER_ROLE=: userRole");
+
+                                vo3.defineNamedWhereClauseParam("emailId", getBindings().getUserEmailId().getValue(), null);
+                                vo3.defineNamedWhereClauseParam("cc", lang, null);
+                                vo3.defineNamedWhereClauseParam("userRole", associatesRoleName[count].substring(0, associatesRoleName[count].length()-3), null);
+                                vo3.executeQuery();
+
+                                System.out.println((accessDC.getDisplayRecord() + this.getClass() + "row count from UserRoleMapping vo" +
+                                                    vo3.getEstimatedRowCount()));
+
+                                if (vo3.getEstimatedRowCount() != 0) {
+                                    //TODO : hitk - partner id problem to be check
+
+
+                                    while (vo3.hasNext()) {
+                                        PrtCardUserRoleMappingVORowImpl currRowcard = (PrtCardUserRoleMappingVORowImpl)vo3.next();
+                                        if (currRowcard.getAssociationType() != null && currRowcard.getAssociationType().equalsIgnoreCase("AC") && finalPartnerIdValue.contains(currRowcard.getPartnerId()) && finalAccountIdValue.contains(currRowcard.getUserAssociation())) {
+                                            //TODO : HITK - Use map instead of Arraylist
+                                            UserAssociation = UserAssociation + currRowcard.getUserAssociation() + ",";
+                                            partnerId = currRowcard.getPartnerId().toString();
+
+                                        }
+                                        else {
+                                            System.out.println("searched users partner ids not in context of logged in user partner's ");
+                                        }
+
+
+                                    }
+
+                                    userInfoDetails.setPartnerId(partnerId);
+                                    if(UserAssociation.length() > 0)
+                                    { userInfoDetails.setAssociationValue(UserAssociation.substring(0, UserAssociation.length() - 1)); }
+                                    else
+                                    { userInfoDetails.setAssociationValue(""); }
+                                        
+
+
+                                }
+
+
+                            }
+                            else
+                            if (associatesRoleName[count].equalsIgnoreCase("WCP_CARD_B2B_MGR_CG")) {
+                                //TODO : hitk - populate data from userInfoRow's corresponding role mapping table after validation ?
+                                UserAssociation = "";
+                                partnerId = "";
+                                
+                                DCBindingContainer bindings2 = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+                                DCIteratorBinding prtCardUsrRoleMapping = bindings2.findIteratorBinding("PrtCardUserRoleMappingVO1Iterator");
+                                ViewObject vo3 = prtCardUsrRoleMapping.getViewObject();
+                                vo3.setWhereClause("USER_EMAIL =: emailId AND COUNTRY_CODE =: cc AND USER_ROLE=: userRole");
+
+                                vo3.defineNamedWhereClauseParam("emailId", getBindings().getUserEmailId().getValue(), null);
+                                vo3.defineNamedWhereClauseParam("cc", lang, null);
+                                vo3.defineNamedWhereClauseParam("userRole", associatesRoleName[count].substring(0, associatesRoleName[count].length()-3), null);
+                                System.out.println("role to be passed is " + associatesRoleName[count].substring(0, associatesRoleName[count].length()-3));
+                                vo3.executeQuery();
+
+                                System.out.println((accessDC.getDisplayRecord() + this.getClass() + "row count from UserRoleMapping vo" +
+                                                    vo3.getEstimatedRowCount()));
+
+                                if (vo3.getEstimatedRowCount() != 0) {
+                                    //TODO : hitk - partner id problem to be check
+
+
+                                    while (vo3.hasNext()) {
+                                        PrtCardUserRoleMappingVORowImpl currRowcard = (PrtCardUserRoleMappingVORowImpl)vo3.next();
+                                        if (currRowcard.getAssociationType() != null && currRowcard.getAssociationType().equalsIgnoreCase("CG") && finalPartnerIdValue.contains(currRowcard.getPartnerId()) &&  finalCardGroupValue.contains(currRowcard.getPartnerId()+currRowcard.getUserAssociation())) {
+                                            
+                                            UserAssociation = UserAssociation + currRowcard.getUserAssociation() + ",";
+                                            partnerId = currRowcard.getPartnerId().toString();
+
+                                        }
+                                        else {
+                                            System.out.println("searched users partner ids not in context of logged in user partner's ");
+                                        }
+
+
+                                    }
+
+                                    userInfoDetails.setPartnerId(partnerId);
+                                    if(UserAssociation.length() > 0)
+                                    userInfoDetails.setAssociationValue(UserAssociation.substring(0, UserAssociation.length() - 1));
+                                    else
+                                    userInfoDetails.setAssociationValue("");
+                                        
+
+
+                                }
+
+
+                            }
+                            else
+                            if (associatesRoleName[count].equalsIgnoreCase("WCP_CARD_B2B_EMP")) {
+                                //TODO : hitk - populate data from userInfoRow's corresponding role mapping table after validation ?
+                                UserAssociation = "";
+                                partnerId = "";
+                                
+                                DCBindingContainer bindings2 = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+                                DCIteratorBinding prtCardUsrRoleMapping = bindings2.findIteratorBinding("PrtCardUserRoleMappingVO1Iterator");
+                                ViewObject vo3 = prtCardUsrRoleMapping.getViewObject();
+                                vo3.setWhereClause("USER_EMAIL =: emailId AND COUNTRY_CODE =: cc AND USER_ROLE=: userRole");
+
+                                vo3.defineNamedWhereClauseParam("emailId", getBindings().getUserEmailId().getValue(), null);
+                                vo3.defineNamedWhereClauseParam("cc", lang, null);
+                                vo3.defineNamedWhereClauseParam("userRole", associatesRoleName[count], null);
+                                System.out.println("role to be passed for emp " + associatesRoleName[count]);
+                                vo3.executeQuery();
+
+                                System.out.println((accessDC.getDisplayRecord() + this.getClass() + "row count from UserRoleMapping vo" +
+                                                    vo3.getEstimatedRowCount()));
+
+                                if (vo3.getEstimatedRowCount() != 0) {
+                                    //TODO : hitk - partner id problem to be check
+
+
+                                    while (vo3.hasNext()) {
+                                        PrtCardUserRoleMappingVORowImpl currRowcard = (PrtCardUserRoleMappingVORowImpl)vo3.next();
+                                        if (currRowcard.getAssociationType() != null && finalPartnerIdValue.contains(currRowcard.getPartnerId()) && finalCardNumberValue.contains(currRowcard.getUserAssociation())) {
+                                            
+                                            UserAssociation = UserAssociation + currRowcard.getUserAssociation() + ",";
+                                            partnerId = currRowcard.getPartnerId().toString();
+
+                                        }
+                                        else {
+                                            System.out.println("searched users partner ids not in context of logged in user partner's ");
+                                        }
+
+
+                                    }
+
+                                    userInfoDetails.setPartnerId(partnerId);
+                                    if(UserAssociation.length() > 0)
+                                    userInfoDetails.setAssociationValue(UserAssociation.substring(0, UserAssociation.length() - 1));
+                                    else
+                                    userInfoDetails.setAssociationValue("");
+                                        
+
+
+                                }
+
+
+                            }
+                        }
+                        userRoleDeatils.add(userInfoDetails);
+                        /*if (userRoleDeatils.size())
+
+
+                        {
+                            // TODO : validation check for users
+
+                        }*/
+                    }
+                } else if (userInfo.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR)) {
+                    String UserAssociation = "";
+                    String partnerId = "";
+                    
+                    if (userInfo.getRoleList() != null && userInfo.getRoleList().size() > 0) {
+                        for (int check = 0; check < userInfo.getRoleList().size(); check++) {
+                            for (int i = 0; i < userInfo.getRoleList().get(check).getIdString().size(); i++) {
+                                if (userInfo.getRoleList().get(check).getIdString().get(i).contains("AC")) {
+                                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside B2b Mgr Ac");
+                                    System.out.println((accessDC.getDisplayRecord() + this.getClass() + " Inside B2b Mgr Ac"));
+                                    associatesRoleName = StringConversion(Constants.ENGAGE_B2B_MGR_AC_USER);
+                                    for (int count = 0; count < associatesRoleName.length; count++) {
+                                        UserInfoRolesDetails userInfoDetails = new UserInfoRolesDetails();
+
+                                        userInfoDetails.setRoleName(associatesRoleName[count]);
+                                        userInfoDetails.setCheckUserRole(false);
+                                        if (flag) {
+                                            userInfoDetails.setAssociationValue("");
+                                            userInfoDetails.setPartnerId("");
+                                        } else {
+
+                                            if (associatesRoleName[count].equalsIgnoreCase("WCP_CARD_B2B_MGR_AC")) {
+                                                UserAssociation = "";
+                                                partnerId = "";
+                                                //TODO : hitk - populate data from userInfoRow's corresponding role mapping table after validation ?
+
+                                                DCBindingContainer bindings2 = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+                                                DCIteratorBinding prtCardUsrRoleMapping = bindings2.findIteratorBinding("PrtCardUserRoleMappingVO1Iterator");
+                                                ViewObject vo3 = prtCardUsrRoleMapping.getViewObject();
+                                                System.out.println("role to be passed is " + associatesRoleName[count].substring(0, associatesRoleName[count].length()-3));
+                                                vo3.setWhereClause("USER_EMAIL =: emailId AND COUNTRY_CODE =: cc AND USER_ROLE=: userRole");
+
+                                                vo3.defineNamedWhereClauseParam("emailId", getBindings().getUserEmailId().getValue(), null);
+                                                vo3.defineNamedWhereClauseParam("cc", lang, null);
+                                                vo3.defineNamedWhereClauseParam("userRole", associatesRoleName[count].substring(0, associatesRoleName[count].length()-3), null);
+                                                vo3.executeQuery();
+
+                                                System.out.println((accessDC.getDisplayRecord() + this.getClass() + "row count from UserRoleMapping vo" +
+                                                                    vo3.getEstimatedRowCount()));
+
+                                                if (vo3.getEstimatedRowCount() != 0) {
+                                                    //TODO : hitk - partner id problem to be check
+
+
+                                                    while (vo3.hasNext()) {
+                                                        PrtCardUserRoleMappingVORowImpl currRowcard = (PrtCardUserRoleMappingVORowImpl)vo3.next();
+                                                        if (currRowcard.getAssociationType() != null && currRowcard.getAssociationType().equalsIgnoreCase("AC") && finalPartnerIdValue.contains(currRowcard.getPartnerId()) && finalAccountIdValue.contains(currRowcard.getUserAssociation())) {
+                                                            //TODO : HITK - Use map instead of Arraylist
+                                                            UserAssociation = UserAssociation + currRowcard.getUserAssociation() + ",";
+                                                            partnerId = currRowcard.getPartnerId().toString();
+
+                                                        }
+                                                        else {
+                                                            System.out.println("searched users partner ids not in context of logged in user partner's ");
+                                                        }
+
+
+                                                    }
+
+                                                    userInfoDetails.setPartnerId(partnerId);
+                                                    if(UserAssociation.length() > 0)
+                                                    { userInfoDetails.setAssociationValue(UserAssociation.substring(0, UserAssociation.length() - 1)); }
+                                                    else
+                                                    { userInfoDetails.setAssociationValue(""); }
+                                                        
+
+
+                                                }
+
+
+                                            }
+                                            else
+                                            if (associatesRoleName[count].equalsIgnoreCase("WCP_CARD_B2B_MGR_CG")) {
+                                                //TODO : hitk - populate data from userInfoRow's corresponding role mapping table after validation ?
+                                                UserAssociation = "";
+                                                partnerId = "";
+                                                
+                                                DCBindingContainer bindings2 = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+                                                DCIteratorBinding prtCardUsrRoleMapping = bindings2.findIteratorBinding("PrtCardUserRoleMappingVO1Iterator");
+                                                ViewObject vo3 = prtCardUsrRoleMapping.getViewObject();
+                                                vo3.setWhereClause("USER_EMAIL =: emailId AND COUNTRY_CODE =: cc AND USER_ROLE=: userRole");
+
+                                                vo3.defineNamedWhereClauseParam("emailId", getBindings().getUserEmailId().getValue(), null);
+                                                vo3.defineNamedWhereClauseParam("cc", lang, null);
+                                                vo3.defineNamedWhereClauseParam("userRole", associatesRoleName[count].substring(0, associatesRoleName[count].length()-3), null);
+                                                System.out.println("role to be passed is " + associatesRoleName[count].substring(0, associatesRoleName[count].length()-3));
+                                                vo3.executeQuery();
+
+                                                System.out.println((accessDC.getDisplayRecord() + this.getClass() + "row count from UserRoleMapping vo" +
+                                                                    vo3.getEstimatedRowCount()));
+
+                                                if (vo3.getEstimatedRowCount() != 0) {
+                                                    //TODO : hitk - partner id problem to be check
+
+
+                                                    while (vo3.hasNext()) {
+                                                        PrtCardUserRoleMappingVORowImpl currRowcard = (PrtCardUserRoleMappingVORowImpl)vo3.next();
+                                                        if (currRowcard.getAssociationType() != null && currRowcard.getAssociationType().equalsIgnoreCase("CG") && finalPartnerIdValue.contains(currRowcard.getPartnerId()) &&  finalCardGroupValue.contains(currRowcard.getPartnerId()+currRowcard.getUserAssociation())) {
+                                                            
+                                                            UserAssociation = UserAssociation + currRowcard.getUserAssociation() + ",";
+                                                            partnerId = currRowcard.getPartnerId().toString();
+
+                                                        }
+                                                        else {
+                                                            System.out.println("searched users partner ids not in context of logged in user partner's ");
+                                                        }
+
+
+                                                    }
+
+                                                    userInfoDetails.setPartnerId(partnerId);
+                                                    if(UserAssociation.length() > 0)
+                                                    userInfoDetails.setAssociationValue(UserAssociation.substring(0, UserAssociation.length() - 1));
+                                                    else
+                                                    userInfoDetails.setAssociationValue("");
+                                                        
+
+
+                                                }
+
+
+                                            }
+                                            else
+                                            if (associatesRoleName[count].equalsIgnoreCase("WCP_CARD_B2B_EMP")) {
+                                                //TODO : hitk - populate data from userInfoRow's corresponding role mapping table after validation ?
+                                                UserAssociation = "";
+                                                partnerId = "";
+                                                
+                                                DCBindingContainer bindings2 = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+                                                DCIteratorBinding prtCardUsrRoleMapping = bindings2.findIteratorBinding("PrtCardUserRoleMappingVO1Iterator");
+                                                ViewObject vo3 = prtCardUsrRoleMapping.getViewObject();
+                                                vo3.setWhereClause("USER_EMAIL =: emailId AND COUNTRY_CODE =: cc AND USER_ROLE=: userRole");
+
+                                                vo3.defineNamedWhereClauseParam("emailId", getBindings().getUserEmailId().getValue(), null);
+                                                vo3.defineNamedWhereClauseParam("cc", lang, null);
+                                                vo3.defineNamedWhereClauseParam("userRole", associatesRoleName[count], null);
+                                                System.out.println("role to be passed for emp " + associatesRoleName[count]);
+                                                vo3.executeQuery();
+
+                                                System.out.println((accessDC.getDisplayRecord() + this.getClass() + "row count from UserRoleMapping vo" +
+                                                                    vo3.getEstimatedRowCount()));
+
+                                                if (vo3.getEstimatedRowCount() != 0) {
+                                                    //TODO : hitk - partner id problem to be check
+
+
+                                                    while (vo3.hasNext()) {
+                                                        PrtCardUserRoleMappingVORowImpl currRowcard = (PrtCardUserRoleMappingVORowImpl)vo3.next();
+                                                        if (currRowcard.getAssociationType() != null && finalPartnerIdValue.contains(currRowcard.getPartnerId()) && finalCardNumberValue.contains(currRowcard.getUserAssociation())) {
+                                                            
+                                                            UserAssociation = UserAssociation + currRowcard.getUserAssociation() + ",";
+                                                            partnerId = currRowcard.getPartnerId().toString();
+
+                                                        }
+                                                        else {
+                                                            System.out.println("searched users partner ids not in context of logged in user partner's ");
+                                                        }
+
+
+                                                    }
+
+                                                    userInfoDetails.setPartnerId(partnerId);
+                                                    if(UserAssociation.length() > 0)
+                                                    userInfoDetails.setAssociationValue(UserAssociation.substring(0, UserAssociation.length() - 1));
+                                                    else
+                                                    userInfoDetails.setAssociationValue("");
+                                                        
+
+
+                                                }
+
+
+                                            }
+                                        }
+                                        userRoleDeatils.add(userInfoDetails);
+                                    }
+                                    break;
+                                }
+
+                                if (userInfo.getRoleList().get(check).getIdString().get(i).contains("CG")) {
+                                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside B2b Mgr CG");
+                                    associatesRoleName = StringConversion(Constants.ENGAGE_B2B_MGR_CG_USER);
+                                    for (int count = 0; count < associatesRoleName.length; count++) {
+                                        UserInfoRolesDetails userInfoDetails = new UserInfoRolesDetails();
+
+                                        userInfoDetails.setRoleName(associatesRoleName[count]);
+                                        userInfoDetails.setCheckUserRole(false);
+                                        if (flag) {
+                                            userInfoDetails.setAssociationValue("");
+                                            userInfoDetails.setPartnerId("");
+                                        } else {
+                                            
+                                            if (associatesRoleName[count].equalsIgnoreCase("WCP_CARD_B2B_MGR_CG"))
+                                            {
+                                            //TODO : hitk - populate data from userInfoRow's corresponding role mapping table after validation ?
+                                            UserAssociation = "";
+                                            partnerId = "";
+                                            
+                                            DCBindingContainer bindings2 = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+                                            DCIteratorBinding prtCardUsrRoleMapping = bindings2.findIteratorBinding("PrtCardUserRoleMappingVO1Iterator");
+                                            ViewObject vo3 = prtCardUsrRoleMapping.getViewObject();
+                                            vo3.setWhereClause("USER_EMAIL =: emailId AND COUNTRY_CODE =: cc AND USER_ROLE=: userRole");
+
+                                            vo3.defineNamedWhereClauseParam("emailId", getBindings().getUserEmailId().getValue(), null);
+                                            vo3.defineNamedWhereClauseParam("cc", lang, null);
+                                            vo3.defineNamedWhereClauseParam("userRole", associatesRoleName[count].substring(0, associatesRoleName[count].length()-3), null);
+                                            System.out.println("role to be passed is " + associatesRoleName[count].substring(0, associatesRoleName[count].length()-3));
+                                            vo3.executeQuery();
+
+                                            System.out.println((accessDC.getDisplayRecord() + this.getClass() + "row count from UserRoleMapping vo" +
+                                                                vo3.getEstimatedRowCount()));
+
+                                            if (vo3.getEstimatedRowCount() != 0) {
+                                                //TODO : hitk - partner id problem to be check
+
+
+                                                while (vo3.hasNext()) {
+                                                    PrtCardUserRoleMappingVORowImpl currRowcard = (PrtCardUserRoleMappingVORowImpl)vo3.next();
+                                                    if (currRowcard.getAssociationType() != null && currRowcard.getAssociationType().equalsIgnoreCase("CG") && finalPartnerIdValue.contains(currRowcard.getPartnerId()) &&  finalCardGroupValue.contains(currRowcard.getPartnerId()+currRowcard.getUserAssociation())) {
+                                                        
+                                                        UserAssociation = UserAssociation + currRowcard.getUserAssociation() + ",";
+                                                        partnerId = currRowcard.getPartnerId().toString();
+
+                                                    }
+                                                    else {
+                                                        System.out.println("searched users partner ids not in context of logged in user partner's ");
+                                                    }
+
+
+                                                }
+
+                                                userInfoDetails.setPartnerId(partnerId);
+                                                if(UserAssociation.length() > 0)
+                                                userInfoDetails.setAssociationValue(UserAssociation.substring(0, UserAssociation.length() - 1));
+                                                else
+                                                userInfoDetails.setAssociationValue("");
+                                                    
+
+
+                                            }
+                                        }
+                                            else
+                                                if(associatesRoleName[count].equalsIgnoreCase("WCP_CARD_B2B_EMP")) {
+                                                //TODO : hitk - populate data from userInfoRow's corresponding role mapping table after validation ?
+                                                UserAssociation = "";
+                                                partnerId = "";
+                                                
+                                                DCBindingContainer bindings2 = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+                                                DCIteratorBinding prtCardUsrRoleMapping = bindings2.findIteratorBinding("PrtCardUserRoleMappingVO1Iterator");
+                                                ViewObject vo3 = prtCardUsrRoleMapping.getViewObject();
+                                                vo3.setWhereClause("USER_EMAIL =: emailId AND COUNTRY_CODE =: cc AND USER_ROLE=: userRole");
+
+                                                vo3.defineNamedWhereClauseParam("emailId", getBindings().getUserEmailId().getValue(), null);
+                                                vo3.defineNamedWhereClauseParam("cc", lang, null);
+                                                vo3.defineNamedWhereClauseParam("userRole", associatesRoleName[count], null);
+                                                System.out.println("role to be passed for emp " + associatesRoleName[count]);
+                                                vo3.executeQuery();
+
+                                                System.out.println((accessDC.getDisplayRecord() + this.getClass() + "row count from UserRoleMapping vo" +
+                                                                    vo3.getEstimatedRowCount()));
+
+                                                if (vo3.getEstimatedRowCount() != 0) {
+                                                    //TODO : hitk - partner id problem to be check
+
+
+                                                    while (vo3.hasNext()) {
+                                                        PrtCardUserRoleMappingVORowImpl currRowcard = (PrtCardUserRoleMappingVORowImpl)vo3.next();
+                                                        if (currRowcard.getAssociationType() != null && finalPartnerIdValue.contains(currRowcard.getPartnerId()) && finalCardNumberValue.contains(currRowcard.getUserAssociation())) {
+                                                            
+                                                            UserAssociation = UserAssociation + currRowcard.getUserAssociation() + ",";
+                                                            partnerId = currRowcard.getPartnerId().toString();
+
+                                                        }
+                                                        else {
+                                                            System.out.println("searched users partner ids not in context of logged in user partner's ");
+                                                        }
+
+
+                                                    }
+
+                                                    userInfoDetails.setPartnerId(partnerId);
+                                                    if(UserAssociation.length() > 0)
+                                                    userInfoDetails.setAssociationValue(UserAssociation.substring(0, UserAssociation.length() - 1));
+                                                    else
+                                                    userInfoDetails.setAssociationValue("");
+                                                        
+
+
+                                                }
+                                            }
+                                        }
+                                        userRoleDeatils.add(userInfoDetails);
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside B2b card employee");
+                    associatesRoleName = StringConversion(Constants.ENGAGE_B2B_EMP_USER);
+                    for (int count = 0; count < associatesRoleName.length; count++) {
+                        UserInfoRolesDetails userInfoDetails = new UserInfoRolesDetails();
+
+                        userInfoDetails.setRoleName(associatesRoleName[count]);
+                        userInfoDetails.setCheckUserRole(false);
+                        if (flag) {
+                            userInfoDetails.setAssociationValue("");
+                            userInfoDetails.setPartnerId("");
+                        } else {
+                            userInfoDetails.setAssociationValue("");
+                            userInfoDetails.setPartnerId("");
+                        }
+                        userRoleDeatils.add(userInfoDetails);
+                    }
+                }
+            }
+        }
     }
 
     public void emailIdValueChangeListener(ValueChangeEvent valueChangeEvent) {
@@ -1404,29 +2084,30 @@ public class UserInfoDisplayBean {
             boolean validEmail = false;
             Validations emailCheck = new Validations();
             validEmail = emailCheck.validateEmail(valueChangeEvent.getNewValue().toString().trim());
-            if (validEmail) {
+            if (!validEmail) {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " email id validated");
-                showEmailpanel = true;
-                getBindings().getUserFirstName().setSubmittedValue("");
-                getBindings().getUserFirstName().setValue("");
-                getBindings().getUserMiddleName().setSubmittedValue("");
-                getBindings().getUserMiddleName().setValue("");
-                getBindings().getUserLastName().setSubmittedValue("");
-                getBindings().getUserLastName().setValue("");
-                getBindings().getUserPhoneNumber().setSubmittedValue("");
-                getBindings().getUserPhoneNumber().setValue("");
-                getBindings().getDateOfBirth().setSubmittedValue("");
-                getBindings().getDateOfBirth().setValue("");
-
-                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getUserFirstName());
-                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getUserMiddleName());
-                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getUserLastName());
-                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getUserPhoneNumber());
-                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDateOfBirth());
-                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
+                //                showEmailpanel = true;
+                //                getBindings().getUserFirstName().setSubmittedValue("");
+                //                getBindings().getUserFirstName().setValue("");
+                //                getBindings().getUserMiddleName().setSubmittedValue("");
+                //                getBindings().getUserMiddleName().setValue("");
+                //                getBindings().getUserLastName().setSubmittedValue("");
+                //                getBindings().getUserLastName().setValue("");
+                //                getBindings().getUserPhoneNumber().setSubmittedValue("");
+                //                getBindings().getUserPhoneNumber().setValue("");
+                //                getBindings().getDateOfBirth().setSubmittedValue("");
+                //                getBindings().getDateOfBirth().setValue("");
+                //
+                //                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getUserFirstName());
+                //                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getUserMiddleName());
+                //                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getUserLastName());
+                //                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getUserPhoneNumber());
+                //                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDateOfBirth());
+                //                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
+                showErrorMessage("ENTER_VALID_EMAIL");
             } else {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " invalid email id entered");
-                showErrorMessage("ENTER_VALID_EMAIL");
+                //                showErrorMessage("ENTER_VALID_EMAIL");
             }
 
         }
@@ -2558,6 +3239,37 @@ public class UserInfoDisplayBean {
         return radioPanelSelection;
     }
 
+    public void setIsCreateUser(boolean isCreateUser) {
+        this.isCreateUser = isCreateUser;
+    }
+
+    public boolean isIsCreateUser() {
+        return isCreateUser;
+    }
+
+    public void setFinalPartnerIdValue(List<String> finalPartnerIdValue) {
+        this.finalPartnerIdValue = finalPartnerIdValue;
+    }
+
+    public List<String> getFinalPartnerIdValue() {
+        return finalPartnerIdValue;
+    }
+
+    public void setFinalCardGroupValue(List<String> finalCardGroupValue) {
+        this.finalCardGroupValue = finalCardGroupValue;
+    }
+
+    public List<String> getFinalCardGroupValue() {
+        return finalCardGroupValue;
+    }
+
+    public void setFinalCardNumberValue(List<String> finalCardNumberValue) {
+        this.finalCardNumberValue = finalCardNumberValue;
+    }
+
+    public List<String> getFinalCardNumberValue() {
+        return finalCardNumberValue;
+    }
 
     public class Bindings {
 

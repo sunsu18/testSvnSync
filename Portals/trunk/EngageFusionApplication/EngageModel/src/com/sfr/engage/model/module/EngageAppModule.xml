@@ -129,13 +129,12 @@
     Name="PrtUserDisplayForEmpRVO1"
     ViewObjectName="com.sfr.engage.model.queries.rvo.PrtUserDisplayForEmpRVO"/>
   <ViewUsage
-    Name="PrtCardFuelCapacityVO1"
-    ViewObjectName="com.sfr.engage.model.queries.uvo.PrtCardFuelCapacityVO"/>
-  <ViewUsage
     Name="PrtCardRuleBusinessHoursVO1"
     ViewObjectName="com.sfr.engage.model.queries.uvo.PrtCardRuleBusinessHoursVO"/>
   <ViewUsage
-    Name="PrtCardRuleSubscriptionRVO1"
+Name="PrtCardRuleSubscriptionVO1"
+    ViewObjectName="com.sfr.engage.model.queries.uvo.PrtCardRuleSubscriptionVO"/>
+  <ViewUsage    Name="PrtCardRuleSubscriptionRVO1"
     ViewObjectName="com.sfr.engage.model.queries.rvo.PrtCardRuleSubscriptionRVO"/>
   <ViewUsage
     Name="PrtCardFuelCapacityRVO1"
@@ -167,6 +166,15 @@
   <ViewUsage
     Name="PrtNotifiacationCopyPcm1"
     ViewObjectName="com.sfr.engage.model.queries.uvo.PrtNotifiacationCopyPcmVO"/>
+ <!-- <ViewUsage
+    Name="PrtCardUserInformationValidationRVO1"
+    ViewObjectName="PrtCardUserInformationValidationRVO"/> -->
+  <ViewUsage
+    Name="PrtCardRuleSubscriptionVO2"
+    ViewObjectName="com.sfr.engage.model.queries.uvo.PrtCardRuleSubscriptionVO"/>
+  <ViewUsage
+    Name="PrtCardUserInformationValidationRVO2"
+    ViewObjectName="com.sfr.engage.model.queries.rvo.PrtCardUserInformationValidationRVO"/>
   <ViewUsage
     Name="PrtCardRuleSubscriptionVO1"
     ViewObjectName="com.sfr.engage.model.queries.uvo.PrtCardRuleSubscriptionVO"/>

@@ -9,6 +9,7 @@ import com.sfr.engage.model.queries.rvo.PrtCardTransactionInvoiceRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtCardTransactionOverviewRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtCardTransactionVehicleInfoRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtCardTypeNameMapVOImpl;
+import com.sfr.engage.model.queries.rvo.PrtCardUserInformationValidationRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtCustomerCardMapRVO1Impl;
 import com.sfr.engage.model.queries.rvo.PrtExportInfoRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtGenHelpRVOImpl;
@@ -18,6 +19,8 @@ import com.sfr.engage.model.queries.rvo.PrtPcmFeedsRVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtAccountVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtCardTransactionHeaderVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtCardTransactionHeaderVORowImpl;
+import com.sfr.engage.model.queries.uvo.PrtCardUserInformationVOImpl;
+import com.sfr.engage.model.queries.uvo.PrtCardUserRoleMappingVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtCardVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtCardgroupVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtDriverInformationVOImpl;
@@ -820,6 +823,30 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
      */
     public PrtNotifiacationCopyPcmVOImpl getPrtNotifiacationCopyPcm1() {
         return (PrtNotifiacationCopyPcmVOImpl)findViewObject("PrtNotifiacationCopyPcm1");
+    }
+
+    /**
+     * Container's getter for PrtCardUserInformationValidationRVO1.
+     * @return PrtCardUserInformationValidationRVO1
+     */
+    public ViewObjectImpl getPrtCardUserInformationValidationRVO1() {
+        return (ViewObjectImpl)findViewObject("PrtCardUserInformationValidationRVO1");
+    }
+
+    /**
+     * Container's getter for PrtCardRuleSubscriptionVO2.
+     * @return PrtCardRuleSubscriptionVO2
+     */
+    public ViewObjectImpl getPrtCardRuleSubscriptionVO2() {
+        return (ViewObjectImpl)findViewObject("PrtCardRuleSubscriptionVO2");
+    }
+
+    /**
+     * Container's getter for PrtCardUserInformationValidationRVO2.
+     * @return PrtCardUserInformationValidationRVO2
+     */
+    public PrtCardUserInformationValidationRVOImpl getPrtCardUserInformationValidationRVO2() {
+        return (PrtCardUserInformationValidationRVOImpl)findViewObject("PrtCardUserInformationValidationRVO2");
     }
 
     /**

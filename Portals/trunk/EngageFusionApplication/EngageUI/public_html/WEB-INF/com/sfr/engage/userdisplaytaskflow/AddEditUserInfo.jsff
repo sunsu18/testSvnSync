@@ -13,24 +13,32 @@
         <af:separator id="s4"/>
       </af:panelGroupLayout>
       <af:spacer width="5" height="10" id="s44"/>
-      <af:panelGroupLayout id="pgl3" layout="vertical" inlineStyle="width:440.0px;">
-        <af:panelGroupLayout id="pgl10">
-          <h:panelGrid columns="3" id="pg1" cellpadding="3" cellspacing="2" style="text-align:left; vertical-align:top;">
-            <af:panelGroupLayout id="pgl36" inlineStyle="height:auto; text-align:justify; width:150.0px;overflow:hidden;" layout="vertical">
-              <af:outputText value="#{sfr.ENTER_EMAIL_ID}" id="gff"/>
-              <af:spacer width="20" height="20" id="s45"/>
-            </af:panelGroupLayout>
-            <af:panelGroupLayout id="pgl12" inlineStyle="height:auto; text-align:justify; width:10.0px;" layout="vertical">
-              <af:outputText value=":" id="col"/>
-              <af:spacer width="20" height="20" id="s21"/>
-            </af:panelGroupLayout>
-            <af:panelGroupLayout id="pgl13" inlineStyle="height:auto; text-align:justify; width:200.0px;" layout="vertical">
-              <af:inputText id="it7" contentStyle="width: 265px;" binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.userEmailId}"
-                            valueChangeListener="#{pageFlowScope.UserInfoDisplayManagedBean.emailIdValueChangeListener}" autoSubmit="true"
-                            value="#{pageFlowScope.UserInfoDisplayManagedBean.emailValue}"/>
-              <af:spacer width="20" height="20" id="s41"/>
-            </af:panelGroupLayout>
-          </h:panelGrid>
+      <af:panelGroupLayout id="pgl3" layout="vertical" inlineStyle="width:630.0px;">
+        <af:panelGroupLayout id="pgl10" layout="horizontal" inlineStyle="width:630.0px;">
+          <af:panelGroupLayout id="pgl0">
+            <h:panelGrid columns="3" id="pg1" cellpadding="3" cellspacing="2" style="text-align:left; vertical-align:top;">
+              <af:panelGroupLayout id="pgl36" inlineStyle="height:auto; text-align:justify; width:150.0px;overflow:hidden;" layout="vertical">
+                <af:outputText value="#{sfr.ENTER_EMAIL_ID}" id="gff"/>
+                <af:spacer width="20" height="20" id="s45"/>
+              </af:panelGroupLayout>
+              <af:panelGroupLayout id="pgl12" inlineStyle="height:auto; text-align:justify; width:10.0px;" layout="vertical">
+                <af:outputText value=":" id="col"/>
+                <af:spacer width="20" height="20" id="s21"/>
+              </af:panelGroupLayout>
+              <af:panelGroupLayout id="pgl13" inlineStyle="height:auto; text-align:justify; width:200.0px;" layout="vertical">
+                <af:inputText id="it7" contentStyle="width: 265px;" binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.userEmailId}"
+                              valueChangeListener="#{pageFlowScope.UserInfoDisplayManagedBean.emailIdValueChangeListener}" autoSubmit="true"
+                              value="#{pageFlowScope.UserInfoDisplayManagedBean.emailValue}"/>
+                <af:spacer width="20" height="20" id="s41"/>
+              </af:panelGroupLayout>
+            </h:panelGrid>
+          </af:panelGroupLayout>
+          <af:spacer id="s47" width="10"/>
+          <af:panelGroupLayout id="pgl8" layout="horizontal">
+            <af:commandButton id="cb1" text="Search" action="#{pageFlowScope.UserInfoDisplayManagedBean.addEditSearchAction}"/>
+            <af:spacer id="s48" width="10"/>
+            <af:commandButton id="cb2" text="Back"/>
+          </af:panelGroupLayout>
         </af:panelGroupLayout>
         <af:spacer width="12" height="10" id="s15"/>
       </af:panelGroupLayout>

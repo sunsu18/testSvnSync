@@ -1673,8 +1673,8 @@
     </af:panelGroupLayout>
     <af:panelGroupLayout id="pgl14" layout="vertical" binding="#{pageFlowScope.AccountSummaryBean.bindings.restrictedAccess}" visible="false">
      <af:panelGroupLayout id="pgl15" layout="horizontal">
-      <af:outputText value="You are not authorized to view this page!" id="ot119" styleClass="heading heading_account"/>
-      <!--<af:outputText value="#{sfr.RESTRICTED_ACCESS}" id="ot119" styleClass="heading"/>-->
+      <!--<af:outputText value="You are not authorized to view this page!" id="ot119" styleClass="heading heading_account"/>-->
+      <af:outputText value="#{sfr.RESTRICTED_ACCESS}" id="ot119" styleClass="heading heading_account"/>
      </af:panelGroupLayout>
     </af:panelGroupLayout>
     <af:panelGroupLayout id="pgl34" layout="vertical" visible="false" binding="#{pageFlowScope.AccountSummaryBean.noSearchResults}">
