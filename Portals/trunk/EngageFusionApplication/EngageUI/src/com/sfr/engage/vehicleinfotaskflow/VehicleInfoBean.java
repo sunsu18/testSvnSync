@@ -131,10 +131,6 @@ public class VehicleInfoBean implements Serializable {
         linkedAccountList = new ArrayList<SelectItem>();
         linkedAccountLOVValues = new ArrayList<String>();
 
-        if (session.getAttribute("Partner_Object_List") != null) {
-            partnerInfoList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
-        }
-
         if (user == null) {
             user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
         }
@@ -148,32 +144,47 @@ public class VehicleInfoBean implements Serializable {
                 isEditDisable = true;
             }
 
-            if (partnerInfoList != null && partnerInfoList.size() > 0) {
-                for (int pa = 0; pa < partnerInfoList.size(); pa++) {
-                    countryParam = partnerInfoList.get(0).getCountry().toString().trim();
-                    SelectItem selectItemPartner = new SelectItem();
-                    if (partnerInfoList.get(pa).getPartnerName() != null && partnerInfoList.get(pa).getPartnerValue() != null) {
-                        selectItemPartner.setLabel(partnerInfoList.get(pa).getPartnerName().toString().trim());
-                        selectItemPartner.setValue(partnerInfoList.get(pa).getPartnerValue().toString().trim());
-                        linkedPartnerList.add(selectItemPartner);
-                    }
-                    if (partnerInfoList.get(pa).getAccountList() != null && partnerInfoList.get(pa).getAccountList().size() > 0) {
-                        for (int ac = 0; ac < partnerInfoList.get(pa).getAccountList().size(); ac++) {
-                            if (partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup() != null &&
-                                partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().size() > 0) {
-                                for (int cg = 0; cg < partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().size(); cg++) {
-                                    if (partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard() != null &&
-                                        partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().size() > 0) {
-                                        for (int cc = 0; cc < partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().size(); cc++) {
-                                            if (partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID() !=
-                                                null &&
-                                                partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getExternalCardID() !=
-                                                null) {
-                                                linkedCardValues.add(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID().toString().trim());
-                                                cardNumberMap.put(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID().toString().trim(),
-                                                                  partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getExternalCardID().toString().trim());
+            LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting from Constructor of Vehicle Info");
+        }
+    }
 
-                                            }
+    private void resetValues(){
+        
+        linkedCardValues = new ArrayList<String>();
+        linkedPartnerLOVValues = null;
+        linkedPartnerList = new ArrayList<SelectItem>();
+        linkedAccountList = new ArrayList<SelectItem>();
+        linkedAccountLOVValues = new ArrayList<String>();
+        
+        if (session.getAttribute("Partner_Object_List") != null) {
+            partnerInfoList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
+        }
+        
+        if (partnerInfoList != null && partnerInfoList.size() > 0) {
+            for (int pa = 0; pa < partnerInfoList.size(); pa++) {
+                countryParam = partnerInfoList.get(0).getCountry().toString().trim();
+                SelectItem selectItemPartner = new SelectItem();
+                if (partnerInfoList.get(pa).getPartnerName() != null && partnerInfoList.get(pa).getPartnerValue() != null) {
+                    selectItemPartner.setLabel(partnerInfoList.get(pa).getPartnerName().toString().trim());
+                    selectItemPartner.setValue(partnerInfoList.get(pa).getPartnerValue().toString().trim());
+                    linkedPartnerList.add(selectItemPartner);
+                }
+                if (partnerInfoList.get(pa).getAccountList() != null && partnerInfoList.get(pa).getAccountList().size() > 0) {
+                    for (int ac = 0; ac < partnerInfoList.get(pa).getAccountList().size(); ac++) {
+                        if (partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup() != null &&
+                            partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().size() > 0) {
+                            for (int cg = 0; cg < partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().size(); cg++) {
+                                if (partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard() != null &&
+                                    partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().size() > 0) {
+                                    for (int cc = 0; cc < partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().size(); cc++) {
+                                        if (partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID() !=
+                                            null &&
+                                            partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getExternalCardID() !=
+                                            null) {
+                                            linkedCardValues.add(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID().toString().trim());
+                                            cardNumberMap.put(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID().toString().trim(),
+                                                              partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getExternalCardID().toString().trim());
+
                                         }
                                     }
                                 }
@@ -181,27 +192,28 @@ public class VehicleInfoBean implements Serializable {
                         }
                     }
                 }
-                if (partnerInfoList.size() == 1 && partnerInfoList.get(0).getPartnerValue() != null) {
-                    linkedPartnerLOVValues = partnerInfoList.get(0).getPartnerValue().toString().trim();
-                    for (int pa = 0; pa < partnerInfoList.size(); pa++) {
-                        if (partnerInfoList.get(pa).getAccountList() != null && partnerInfoList.get(pa).getAccountList().size() > 0) {
-                            for (int ac = 0; ac < partnerInfoList.get(pa).getAccountList().size(); ac++) {
-                                if (partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber() != null) {
-                                    SelectItem selectItemAccount = new SelectItem();
-                                    selectItemAccount.setLabel(partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber().toString());
-                                    selectItemAccount.setValue(partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber().toString());
-                                    linkedAccountList.add(selectItemAccount);
-                                    linkedAccountLOVValues.add(partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber().toString());
-                                }
+            }
+            if (partnerInfoList.size() == 1 && partnerInfoList.get(0).getPartnerValue() != null) {
+                linkedPartnerLOVValues = partnerInfoList.get(0).getPartnerValue().toString().trim();
+                for (int pa = 0; pa < partnerInfoList.size(); pa++) {
+                    if (partnerInfoList.get(pa).getAccountList() != null && partnerInfoList.get(pa).getAccountList().size() > 0) {
+                        for (int ac = 0; ac < partnerInfoList.get(pa).getAccountList().size(); ac++) {
+                            if (partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber() != null) {
+                                SelectItem selectItemAccount = new SelectItem();
+                                selectItemAccount.setLabel(partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber().toString());
+                                selectItemAccount.setValue(partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber().toString());
+                                linkedAccountList.add(selectItemAccount);
+                                linkedAccountLOVValues.add(partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber().toString());
                             }
                         }
-
                     }
+
                 }
             }
-            LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting from Constructor of Vehicle Info");
         }
+        
     }
+
 
     public List<SelectItem> getLinkedAccountList() {
         return linkedAccountList;
@@ -1119,28 +1131,7 @@ public class VehicleInfoBean implements Serializable {
      */
     public void searchCancel(ActionEvent actionEvent) {
         LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside Vehicle Search cancel method");
-        ViewObject vo = ADFUtils.getViewObject("PrtTruckInformationVO1Iterator");
-
-        if ("trim(ACCOUNT_NUMBER) =: accountNumber AND trim(REGISTRATION_NUMBER) like '%'||:registrationNumber||'%'".equalsIgnoreCase(vo.getWhereClause())) {
-            vo.removeNamedWhereClauseParam(Constants.ACCOUNT_NUMER_LITERAL);
-            vo.removeNamedWhereClauseParam("registrationNumber");
-            vo.setWhereClause("");
-            vo.executeQuery();
-        }
-
-        if ("trim(ACCOUNT_NUMBER) =: accountNumber".equalsIgnoreCase(vo.getWhereClause())) {
-            vo.removeNamedWhereClauseParam(Constants.ACCOUNT_NUMER_LITERAL);
-            vo.setWhereClause("");
-            vo.executeQuery();
-        }
-        this.linkedPartnerLOVValues = null;
-        this.linkedAccountLOVValues = null;
-        linkedAccountList = new ArrayList<SelectItem>();
-        this.linkedAccountLOVValues = null;
-        this.registrationNumber = null;
-        getBindings().getLinkedPartner().setSubmittedValue(null);
-        getBindings().getLinkedPartner().setValue(null);
-        getBindings().getRegisterNumber().setValue(null);
+        resetValues();
         searchResultsShow = false;
         LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting Vehicle Search cancel method");
         AdfFacesContext.getCurrentInstance().addPartialTarget(this.getBindings().getLinkedPartner());
