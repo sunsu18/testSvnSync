@@ -1732,6 +1732,8 @@ public class TransactionOverviewBean implements Serializable {
         displayErrorComponent(getBindings().getCard(), false);
         displayErrorComponent(getBindings().getVehicleNumber(), false);
         displayErrorComponent(getBindings().getDriverName(), false);
+        isTableVisible = false;
+        
     }
 
     public String showErrorMessage(String errorVar) {

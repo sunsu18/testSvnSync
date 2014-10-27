@@ -393,10 +393,10 @@
                       inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
       </af:panelGroupLayout>
     <af:spacer width="10" height="10" id="s16"/>
-    <af:panelGroupLayout id="pgl0"
-	 visible="#{pageFlowScope.TransactionOverviewBean.isTableVisible}"
-                           layout="vertical"
-                           binding="#{pageFlowScope.TransactionOverviewBean.bindings.showSearchResultPG}">
+    <af:panelGroupLayout id="pgl0" partialTriggers="cb3"
+                         visible="#{pageFlowScope.TransactionOverviewBean.isTableVisible}"
+                         layout="vertical"
+                         binding="#{pageFlowScope.TransactionOverviewBean.bindings.showSearchResultPG}">
         <af:panelGroupLayout id="pgl15" layout="vertical">
          <af:panelGroupLayout id="panelGroupLayout2" layout="horizontal">
           <af:spacer height="10" id="spacer18" width="0"/>
