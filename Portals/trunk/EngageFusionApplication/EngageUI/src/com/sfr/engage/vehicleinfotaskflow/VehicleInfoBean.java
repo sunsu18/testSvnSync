@@ -144,6 +144,7 @@ public class VehicleInfoBean implements Serializable {
                 isEditDisable = true;
             }
 
+            resetValues();
             LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting from Constructor of Vehicle Info");
         }
     }
