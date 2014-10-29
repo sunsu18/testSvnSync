@@ -88,7 +88,7 @@
                             action="#{pageFlowScope.VehicleInfoBean.newVehicleAddAction}"
                             styleClass="buttonback buttontext"></af:commandButton>
           <af:spacer width="12" height="10" id="s33" rendered="#{pageFlowScope.VehicleInfoBean.isEditVisible}"/>
-          <af:commandButton text="#{sfr.CLEAR}" id="cb2"
+          <af:commandButton text="#{sfr.RESET}" id="cb2"
                             actionListener="#{pageFlowScope.VehicleInfoBean.searchCancel}"></af:commandButton>
           <af:spacer width="7" height="10" id="s17"/>
         </af:panelGroupLayout>

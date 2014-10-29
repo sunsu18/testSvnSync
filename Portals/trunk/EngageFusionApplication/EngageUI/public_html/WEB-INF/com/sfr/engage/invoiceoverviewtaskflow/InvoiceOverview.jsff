@@ -166,7 +166,7 @@
      <af:panelGroupLayout id="pgal1" halign="right" layout="horizontal">
       <af:commandButton text="#{sfr.SEARCH}" id="cb1" actionListener="#{pageFlowScope.InvoiceOverviewBean.searchResultsListener}"/>
       <af:spacer width="10" height="10" id="s11"/>
-      <af:commandButton text="#{sfr.CLEAR}" id="cb2" actionListener="#{pageFlowScope.InvoiceOverviewBean.clearSearchListener}"/>
+      <af:commandButton text="#{sfr.RESET}" id="cb2" actionListener="#{pageFlowScope.InvoiceOverviewBean.clearSearchListener}"/>
       <af:spacer width="28" height="10" id="s33"/>
      </af:panelGroupLayout>
     </af:panelGroupLayout>

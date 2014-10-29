@@ -90,7 +90,7 @@
                             action="#{pageFlowScope.DriverInfoBean.newDriverAddAction}"
                             styleClass="buttonback buttontext"></af:commandButton>
           <af:spacer width="12" height="10" id="s23" rendered="#{pageFlowScope.DriverInfoBean.isEditVisible}"/>
-          <af:commandButton text="#{sfr.CLEAR}" id="cb2"
+          <af:commandButton text="#{sfr.RESET}" id="cb2"
                             actionListener="#{pageFlowScope.DriverInfoBean.searchCancel}"></af:commandButton>
         </af:panelGroupLayout>
       </af:panelGroupLayout>
