@@ -1509,7 +1509,10 @@ public class UserInfoDisplayBean {
         }
 
         populateRoleAssociationTable(isCreateUser);
-        if(userRoleDeatils.get(0).getAssociationValue() != null && userRoleDeatils.get(0).getAssociationValue().length() > 0)
+        
+        if(!isCreateUser)
+        {
+            if(userRoleDeatils.get(0).getAssociationValue() != null && userRoleDeatils.get(0).getAssociationValue().length() > 0)
         {
             _logger.info("showEmailpanel true");
             showEmailpanel = true;
@@ -1522,6 +1525,10 @@ public class UserInfoDisplayBean {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("RESTRICTED_USER_INFO_ACCESS"), "");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             }
+        }
+        }
+        else {
+            showEmailpanel = true;
         }
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getUserFirstName());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getUserMiddleName());
