@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-template id="exceptionHandlingtemplateTaskFlow">
+    <default-activity id="__1">ExceptionHandler</default-activity>
+    <managed-bean id="__5">
+      <managed-bean-name id="__3">ExceptionHandlerBean</managed-bean-name>
+      <managed-bean-class id="__4">com.sfr.engage.templatetaskflow.ExceptionHandler</managed-bean-class>
+      <managed-bean-scope id="__2">pageFlow</managed-bean-scope>
+    </managed-bean>
+    <exception-handler id="__6">ExceptionHandler</exception-handler>
+    <method-call id="ExceptionHandler">
+      <method>#{pageFlowScope.ExceptionHandlerBean.controllerExceptionHandler}</method>
+    </method-call>
+    <use-page-fragments/>
+  </task-flow-template>
+</adfc-config>

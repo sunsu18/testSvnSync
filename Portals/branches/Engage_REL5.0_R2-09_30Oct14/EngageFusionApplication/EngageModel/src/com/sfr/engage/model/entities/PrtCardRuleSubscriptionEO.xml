@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="PrtCardRuleSubscriptionEO"
+  Version="11.1.1.61.92"
+  InheritPersonalization="true"
+  DBObjectType="table"
+  DBObjectName="PRT_CARD_RULE_SUBSCRIPTION"
+  AliasName="PrtCardRuleSubscriptionEO"
+  BindingStyle="OracleName"
+  UseGlueCode="false">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access"/>
+    <AttrArray Name="_publishEvents"/>
+  </DesignTime>
+  <Attribute
+    Name="CountryCode"
+    IsNotNull="true"
+    Precision="2"
+    ColumnName="COUNTRY_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD_RULE_SUBSCRIPTION"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="2"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="UserId"
+    IsNotNull="true"
+    Precision="100"
+    ColumnName="USER_ID"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD_RULE_SUBSCRIPTION">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="SubscrId"
+    IsNotNull="true"
+    ColumnName="SUBSCR_ID"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="PRT_CARD_RULE_SUBSCRIPTION"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="RuleId"
+    IsNotNull="true"
+    ColumnName="RULE_ID"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="PRT_CARD_RULE_SUBSCRIPTION">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="SubscrDate"
+    IsNotNull="true"
+    ColumnName="SUBSCR_DATE"
+    SQLType="TIMESTAMP"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    TableName="PRT_CARD_RULE_SUBSCRIPTION"
+    HistoryColumn="DateHistory">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="SubscrStatus"
+    Precision="20"
+    ColumnName="SUBSCR_STATUS"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD_RULE_SUBSCRIPTION">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="PartnerId"
+    Precision="8"
+    ColumnName="PARTNER_ID"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD_RULE_SUBSCRIPTION">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="8"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="AccountId"
+    Precision="10"
+    ColumnName="ACCOUNT_ID"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD_RULE_SUBSCRIPTION">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CardgroupMain"
+    Precision="3"
+    ColumnName="CARDGROUP_MAIN"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD_RULE_SUBSCRIPTION">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CardgroupSub"
+    Precision="3"
+    ColumnName="CARDGROUP_SUB"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD_RULE_SUBSCRIPTION">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CardgroupSeq"
+    Precision="5"
+    ColumnName="CARDGROUP_SEQ"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD_RULE_SUBSCRIPTION">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ModifiedBy"
+    IsNotNull="true"
+    Precision="50"
+    ColumnName="MODIFIED_BY"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD_RULE_SUBSCRIPTION">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ModifiedDate"
+    IsNotNull="true"
+    ColumnName="MODIFIED_DATE"
+    SQLType="TIMESTAMP"
+    Type="oracle.jbo.domain.Timestamp"
+    ColumnType="TIMESTAMP"
+    TableName="PRT_CARD_RULE_SUBSCRIPTION"
+    HistoryColumn="DateHistory">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="11"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CardKsid"
+    Precision="10"
+    ColumnName="CARD_KSID"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD_RULE_SUBSCRIPTION">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="AssociationType"
+    Precision="20"
+    ColumnName="ASSOCIATION_TYPE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD_RULE_SUBSCRIPTION">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <AccessorAttribute
+    Name="PrtCardRuleBusinessHoursEO"
+    Association="com.sfr.engage.model.associations.PrtCardRuleBusinessHoFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.associations.PrtCardRuleBusinessHoFk1Assoc.PrtCardRuleBusinessHoursEO"
+    AssociationOtherEnd="com.sfr.engage.model.associations.PrtCardRuleBusinessHoFk1Assoc.PrtCardRuleSubscriptionEO"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="PrtCardFuelCapacityEO"
+    Association="com.sfr.engage.model.associations.PrtCardFuelCapacityPrFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.associations.PrtCardFuelCapacityPrFk1Assoc.PrtCardFuelCapacityEO"
+    AssociationOtherEnd="com.sfr.engage.model.associations.PrtCardFuelCapacityPrFk1Assoc.PrtCardRuleSubscriptionEO"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <Key
+    Name="PrtCardRuleSubscriptioPk"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="PRT_CARD_RULE_SUBSCRIPTIO_PK"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="com.sfr.engage.model.entities.PrtCardRuleSubscriptionEO.SubscrId"/>
+      <Item
+        Value="com.sfr.engage.model.entities.PrtCardRuleSubscriptionEO.CountryCode"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0062397">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0062397"/>
+      <Attr Name="_checkCondition" Value='"COUNTRY_CODE" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="com.sfr.engage.model.entities.PrtCardRuleSubscriptionEO.CountryCode"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0062398">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0062398"/>
+      <Attr Name="_checkCondition" Value='"USER_ID" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="com.sfr.engage.model.entities.PrtCardRuleSubscriptionEO.UserId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0062399">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0062399"/>
+      <Attr Name="_checkCondition" Value='"SUBSCR_ID" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="com.sfr.engage.model.entities.PrtCardRuleSubscriptionEO.SubscrId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0062400">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0062400"/>
+      <Attr Name="_checkCondition" Value='"RULE_ID" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="com.sfr.engage.model.entities.PrtCardRuleSubscriptionEO.RuleId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0062401">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0062401"/>
+      <Attr Name="_checkCondition" Value='"SUBSCR_DATE" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="com.sfr.engage.model.entities.PrtCardRuleSubscriptionEO.SubscrDate"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0062402">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0062402"/>
+      <Attr Name="_checkCondition" Value='"MODIFIED_BY" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="com.sfr.engage.model.entities.PrtCardRuleSubscriptionEO.ModifiedBy"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0062403">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0062403"/>
+      <Attr Name="_checkCondition" Value='"MODIFIED_DATE" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="com.sfr.engage.model.entities.PrtCardRuleSubscriptionEO.ModifiedDate"/>
+    </AttrArray>
+  </Key>
+</Entity>

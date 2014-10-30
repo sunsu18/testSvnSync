@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.1.61.92" id="testPageDef" Package="com.sfr.engage.view.pageDefs">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <taskFlow id="PriceListTaskflow1" taskFlowId="/WEB-INF/com/sfr/engage/pricelisttaskflow/PriceListTaskflow.xml#PriceListTaskflow" activation="deferred"
+              xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+    <taskFlow id="PriceListTaskflow2" taskFlowId="/WEB-INF/com/sfr/engage/pricelisttaskflow/PriceListTaskflow.xml#PriceListTaskflow" activation="deferred"
+              xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+    <taskFlow id="VehicleInfoTaskFlow1"
+              taskFlowId="/WEB-INF/com/sfr/engage/vehicleinfotaskflow/VehicleInfoTaskFlow.xml#VehicleInfoTaskFlow"
+              activation="deferred"
+              xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+    <taskFlow id="DriverInfoTaskFlow1"
+              taskFlowId="/WEB-INF/com/sfr/engage/driverinfotaskflow/DriverInfoTaskFlow.xml#DriverInfoTaskFlow"
+              activation="deferred"
+              xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+  </executables>
+  <bindings/>
+</pageDefinition>

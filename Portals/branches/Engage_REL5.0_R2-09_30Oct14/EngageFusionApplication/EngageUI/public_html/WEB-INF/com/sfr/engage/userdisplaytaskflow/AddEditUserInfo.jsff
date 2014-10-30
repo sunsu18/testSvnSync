@@ -1,0 +1,247 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich" xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelGroupLayout id="pgl1" styleClass="spacerStyle" layout="vertical">
+    <af:panelGroupLayout id="pgl2">
+      <af:spacer width="10" height="20" id="s9ghghg"/>
+      <af:panelGroupLayout id="printPanel1" layout="horizontal">
+        <af:outputText value="#{sfr.ENGAGE_ADD_USER_INFO}" id="ot1" styleClass="heading"/>
+        <af:spacer width="20" height="1" id="s1"/>
+      </af:panelGroupLayout>
+      <af:spacer width="5" height="10" id="s11"/>
+      <af:panelGroupLayout id="pgl9" layout="horizontal">
+        <af:separator id="s4"/>
+      </af:panelGroupLayout>
+      <af:spacer width="5" height="10" id="s44"/>
+      <af:panelGroupLayout id="pgl3" layout="vertical" inlineStyle="width:630.0px;">
+        <af:panelGroupLayout id="pgl10" layout="horizontal" inlineStyle="width:630.0px;">
+       
+           
+              <af:panelGroupLayout id="pgl36" inlineStyle="height:auto; text-align:justify; width:150.0px;overflow:hidden;" layout="vertical">
+                <af:outputText value="#{sfr.ENTER_EMAIL_ID}" id="gff"/>
+                <!--<af:spacer width="20" height="20" id="s45"/>-->
+              </af:panelGroupLayout>
+              <af:panelGroupLayout id="pgl12" inlineStyle="height:auto; text-align:justify; width:10.0px;" layout="vertical">
+                <af:outputText value=":" id="col"/>
+                <!--<af:spacer width="20" height="20" id="s21"/>-->
+              </af:panelGroupLayout>
+              <af:panelGroupLayout id="pgl13" inlineStyle="height:auto; text-align:justify; width:200.0px;" layout="vertical">
+                <af:inputText id="it7" contentStyle="width: 265px;" binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.userEmailId}"
+                              valueChangeListener="#{pageFlowScope.UserInfoDisplayManagedBean.emailIdValueChangeListener}" autoSubmit="true"
+                              value="#{pageFlowScope.UserInfoDisplayManagedBean.emailValue}"/>
+                <!--<af:spacer width="20" height="20" id="s41"/>-->
+              </af:panelGroupLayout>
+           
+           <af:spacer width="60" height="20" id="s41"/>
+          <af:spacer id="s47" width="10"/>
+          <af:panelGroupLayout id="pgl8" layout="horizontal">
+            <af:commandButton id="cb1" text="#{sfr.SEARCH}" styleClass="buttonback buttontext" action="#{pageFlowScope.UserInfoDisplayManagedBean.addEditSearchAction}"/>
+            <af:spacer id="s48" width="10"/>
+            <af:commandButton id="cb2" text="#{sfr.ENGAGE_BACK}" styleClass="buttonback buttontext" action="addEditToSearch"/>
+          </af:panelGroupLayout>
+        </af:panelGroupLayout>
+        <af:spacer width="12" height="10" id="s15"/>
+      </af:panelGroupLayout>
+    </af:panelGroupLayout>
+    <af:spacer width="10" height="10" id="s10"/>
+
+    <af:panelGroupLayout id="pgl23" binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.searchResults}"
+                         visible="#{pageFlowScope.UserInfoDisplayManagedBean.showEmailpanel}">
+      <af:spacer width="10" height="10" id="s13"/>
+      <af:panelGroupLayout id="pgl16" layout="vertical">
+        <af:panelGroupLayout id="pgl14">
+          <af:outputText value="#{sfr.USER_DISP_MESSAGE}" id="ot13" styleClass="subheading"/>
+          <af:spacer width="20" height="1" id="s2"/>
+        </af:panelGroupLayout>
+        <af:spacer width="5" height="10" id="s18"/>
+        <af:panelGroupLayout id="pgl19" layout="vertical" inlineStyle="width:440.0px;">
+          <h:panelGrid columns="3" id="pg2" cellpadding="3" cellspacing="2" style="text-align:left; vertical-align:top;">
+            <af:panelGroupLayout id="pgl20" inlineStyle="height:auto; text-align:justify; width:150.0px;overflow:hidden;" layout="vertical">
+              <af:outputText value="*#{sfr.ENAGE_USER_FIRST_NAME}" id="ot4"/>
+              <af:spacer width="20" height="25" id="s6"/>
+              <af:outputText value="#{sfr.ENAGE_USER_MIDDLE_NAME}" id="ot11"/>
+              <af:spacer width="20" height="25" id="s16"/>
+              <af:outputText value="*#{sfr.ENAGE_USER_LAST_NAME}" id="ot12"/>
+              <af:spacer width="20" height="25" id="s17"/>
+              <af:outputText value="*#{sfr.ENAGE_USER_PHONE_NO}" id="ot18"/>
+              <af:spacer width="20" height="25" id="s20"/>
+              <af:outputText value="*#{sfr.DATE_OF_BIRTH}" id="ot14"/>
+              <af:spacer width="20" height="25" id="s19"/>
+            </af:panelGroupLayout>
+            <af:panelGroupLayout id="pgl21" inlineStyle="height:auto; text-align:justify; width:10.0px;" layout="vertical">
+              <af:outputText value=":" id="ot5"/>
+              <af:spacer width="20" height="25" id="s8"/>
+              <af:outputText value=":" id="ot15"/>
+              <af:spacer width="20" height="25" id="s29"/>
+              <af:outputText value=":" id="ot16"/>
+              <af:spacer width="20" height="25" id="s30"/>
+              <af:outputText value=":" id="ot17"/>
+              <af:spacer width="20" height="25" id="s22"/>
+              <af:outputText value=":" id="ot20"/>
+              <af:spacer width="20" height="25" id="s23"/>
+            </af:panelGroupLayout>
+            <af:panelGroupLayout id="pgl22" inlineStyle="height:auto; text-align:justify; width:200.0px;" layout="vertical">
+              <af:inputText id="it1" contentStyle="width: 165px;" binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.userFirstName}"/>
+              <af:spacer width="20" height="20" id="s9"/>
+              <af:inputText id="it3" contentStyle="width: 165px;" binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.userMiddleName}"/>
+              <af:spacer width="20" height="20" id="s24"/>
+              <af:inputText id="it2" contentStyle="width: 165px;" binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.userLastName}"/>
+              <af:spacer width="20" height="20" id="s25"/>
+              <af:inputText id="it4" contentStyle="width: 165px;" binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.userPhoneNumber}"/>
+              <af:spacer width="20" height="20" id="s26"/>
+              <!--<af:inputText id="it5" contentStyle="width: 165px;"/>-->
+              <af:inputDate id="id1" contentStyle="width:150px;height:14.0px;padding-top: 4px"
+                            binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.dateOfBirth}">
+                <af:convertDateTime pattern="dd.MM.yyyy"/>
+              </af:inputDate>
+              <af:spacer width="20" height="20" id="s27"/>
+            </af:panelGroupLayout>
+          </h:panelGrid>
+        </af:panelGroupLayout>
+        <af:spacer width="12" height="10" id="s37"/>
+        <af:panelGroupLayout id="pgl5" layout="horizontal" inlineStyle="width:948.0px;">
+          <af:outputText value="#{sfr.ROLE_ASSOCIATION} :" id="ot9" styleClass="subheading"/>
+          <af:spacer width="10" height="10" id="s36"/>
+        </af:panelGroupLayout>
+        <af:separator id="s3" inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
+        <af:spacer width="10" height="20" id="s38"/>
+        <af:panelGroupLayout id="pgl6" inlineStyle="width:972px; margin:-15px;">
+          <af:spacer width="10" height="15" id="s12"/>
+          <af:table var="row" rowBandingInterval="1" id="t1" width="962px" value="#{pageFlowScope.UserInfoDisplayManagedBean.userRoleDeatils}"
+                    emptyText="#{not empty var.userRoleDeatils ? (sfr.ACCESS_DENIED_ENG) : (sfr.NO_DATA)}" fetchSize="-1" columnResizing="disabled"
+                    disableColumnReordering="true" autoHeightRows="10" rowSelection="single"
+                    binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.userRoleInfoTable}" inlineStyle="width:940px; margin:-15px;">
+            <af:column sortable="false" headerText="#{sfr.ROLE}" id="c3" width="200px">
+              <!--<af:outputText value="#{row.roleName}" id="ot2"/>-->
+              <af:selectOneChoice id="soc1" readOnly="true" contentStyle="width: 155px;" showRequired="false" value="#{row.roleName}">
+                <af:forEach items="#{pageFlowScope.UserInfoDisplayManagedBean.roleList}" var="listItem">
+                  <af:selectItem label="#{listItem.label}" value="#{listItem.value}" id="si2"/>
+                </af:forEach>
+              </af:selectOneChoice>
+            </af:column>
+            <af:column sortable="false" headerText="#{sfr.USER_ASSOCIATION}" id="c1" width="640px">
+              <af:inputText value="#{row.associationValue}" id="ot7" disabled="true"/>
+            </af:column>
+            <af:column sortable="false" headerText="#{sfr.MANAGE_USER}" id="c4" width="100px" align="center">
+              <af:commandImageLink id="cl1" icon="/images/edit.png" action="#{pageFlowScope.UserInfoDisplayManagedBean.manageUserCommandLinkAction}"/>
+            </af:column>
+          </af:table>
+          <af:spacer width="10" height="30" id="s7"/>
+          <af:panelGroupLayout id="pgl15" halign="right">
+            <af:spacer width="875" id="s46" height="50px"/>
+            <af:commandButton text="#{sfr.SAVE}" id="cb6" styleClass="buttonback buttontext"
+                              action="#{pageFlowScope.UserInfoDisplayManagedBean.SaveUserInfoAction}"></af:commandButton>
+            <!--<af:spacer width="5" height="5" id="s391"/>-->
+            <!--<af:commandButton text="#{sfr.ENGAGE_BACK}" id="cb61" styleClass="buttonback buttontext" action="addEditToSearch"></af:commandButton>-->
+          </af:panelGroupLayout>
+        </af:panelGroupLayout>
+        <af:spacer width="10" height="30" id="s39"/>
+        <af:panelGroupLayout id="pgl7" layout="horizontal" inlineStyle="width:948.0px;">
+          <af:spacer width="220" height="10" id="s40"/>
+        </af:panelGroupLayout>
+      </af:panelGroupLayout>
+    </af:panelGroupLayout>
+    <af:popup id="add_edit_user" contentDelivery="immediate" binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.addEditUserPopUp}"
+              autoCancel="disabled">
+      <af:dialog id="newDriver" type="none" closeIconVisible="false" title="#{pageFlowScope.UserInfoDisplayManagedBean.showPopUpHeading}">
+        <af:panelStretchLayout id="psl6" dimensionsFrom="children">
+          <f:facet name="bottom">
+            <af:toolbar id="new_driver_panel_toolbar" styleClass="WCPanelColor">
+              <af:panelGroupLayout id="new_footer_panel" layout="vertical" halign="right">
+                <af:spacer width="100" height="10" id="s5"/>
+                <af:panelGroupLayout id="pgl11" halign="right" layout="horizontal">
+                  <af:commandButton text="#{sfr.ENGAGE_ASSOCIATE}" id="save" action="#{pageFlowScope.UserInfoDisplayManagedBean.addEditUserPopUpSaveAction}"
+                                    styleClass="buttonback buttontext"/>
+                  <af:spacer width="10" height="10" id="s28"/>
+                  <af:commandButton text="#{sfr.CANCEL}" id="ccb11" action="#{pageFlowScope.UserInfoDisplayManagedBean.addEditUserPopUpCloseAction}"
+                                    styleClass="buttonback buttontext"></af:commandButton>
+                </af:panelGroupLayout>
+              </af:panelGroupLayout>
+            </af:toolbar>
+          </f:facet>
+          <f:facet name="center">
+            <af:panelGroupLayout id="pgl17" styleClass="WCPanelMargin">
+              <af:separator id="s14" inlineStyle="width:auto; height:1px; background-color:Scrollbar;margin-left: 0 !important;"/>
+              <af:panelGroupLayout id="pgl61" styleClass="errorPanel" layout="horizontal" visible="false"
+                                   binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.showErrorMsg}">
+                <af:outputText value="#{pageFlowScope.UserInfoDisplayManagedBean.warningMsg}" id="ot101" styleClass="errorOutputText" partialTriggers="soc3"/>
+              </af:panelGroupLayout>
+              <af:panelGroupLayout id="addEditUser_scroll" layout="vertical">
+                <af:panelGroupLayout id="pgl18" layout="vertical">
+                  <h:panelGrid columns="4" id="popupGrid">
+                    <af:outputText value="*#{sfr.PARTNER_ENG}" rendered="false" id="partnerid"
+                                   binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.popUpPartnerId}"/>
+                    <af:outputText value=":" id="colonpartner" rendered="false"
+                                   binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.popUpPartnerColun}"/>
+                    <af:spacer width="15" height="10" id="s31" rendered="false"
+                               binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.popUpPartnerSpacer}"/>
+                    <af:selectManyChoice id="smc1" contentStyle="width: 175px;" autoSubmit="true" rendered="false"
+                                         value="#{pageFlowScope.UserInfoDisplayManagedBean.addEditPartnerValue}"
+                                         binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.addEditPartnerId}"
+                                         valueChangeListener="#{pageFlowScope.UserInfoDisplayManagedBean.popUpPartnerValueChangeListener}">
+                      <f:selectItems value="#{pageFlowScope.UserInfoDisplayManagedBean.addEditUserPartnerID}" id="si1"/>
+                    </af:selectManyChoice>
+                    <af:outputText value="#{sfr.ACCOUNT_ID}" rendered="false" id="Acctid"
+                                   binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.popUpAccountId}"/>
+                    <af:outputText value=":" id="colonpop" rendered="false" binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.popUpAccountColon}"/>
+                    <af:spacer width="15" height="10" id="s32" rendered="false"
+                               binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.popUpAccountSpacer}"/>
+                    <af:selectManyChoice id="smc4" autoSubmit="true" contentStyle="width: 175px;" rendered="false"
+                                         value="#{pageFlowScope.UserInfoDisplayManagedBean.addEditAccountValue}"
+                                         binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.addEditAccountId}"
+                                         valueChangeListener="#{pageFlowScope.UserInfoDisplayManagedBean.popUpAccountValueChangeListener}"
+                                         partialTriggers="smc1">
+                      <f:selectItems value="#{pageFlowScope.UserInfoDisplayManagedBean.addEditUserAccountID}" id="si4"/>
+                    </af:selectManyChoice>
+                    <af:outputText value="#{sfr.CARDGROUP}" rendered="false" id="ot8"
+                                   binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.popUpCardGroupId}"/>
+                    <af:outputText value=":" id="ot10" rendered="false" binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.popUpCardGroupColon}"/>
+                    <af:spacer width="15" height="10" id="s33" rendered="false"
+                               binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.popUpCardGroupSpacer}"/>
+                    <af:selectManyChoice id="smc3" contentStyle="width: 175px;" value="#{pageFlowScope.UserInfoDisplayManagedBean.addEditCardGroupValue}"
+                                         autoSubmit="true" rendered="false" binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.addEditCardGroupId}"
+                                         valueChangeListener="#{pageFlowScope.UserInfoDisplayManagedBean.popUpCardgroupValueChangeListener}"
+                                         partialTriggers="smc1 smc4">
+                      <f:selectItems value="#{pageFlowScope.UserInfoDisplayManagedBean.addEditUserCardGroupID}" id="si5"/>
+                    </af:selectManyChoice>
+                    <af:outputText value="#{sfr.CARD}" id="ot19" rendered="false" binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.popUpCardId}"/>
+                    <af:outputText value=":" id="ot21" rendered="false" binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.popUpCardColon}"/>
+                    <af:spacer width="15" height="10" id="s34" rendered="false" binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.popUpCardSpacer}"/>
+                    <af:selectManyChoice id="soc3" contentStyle="width: 175px;" value="#{pageFlowScope.UserInfoDisplayManagedBean.addEditCardValue}"
+                                         autoSubmit="true" rendered="false" binding="#{pageFlowScope.UserInfoDisplayManagedBean.bindings.addEditCardId}"
+                                         partialTriggers="smc1 smc4 smc3">
+                      <f:selectItems value="#{pageFlowScope.UserInfoDisplayManagedBean.addEditCardID}" id="si3"/>
+                    </af:selectManyChoice>
+                  </h:panelGrid>
+                </af:panelGroupLayout>
+              </af:panelGroupLayout>
+              <af:spacer width="12" height="10" id="s35"/>
+              <af:panelGroupLayout id="pgl26" layout="horizontal">
+                <af:outputText value="#{pageFlowScope.UserInfoDisplayManagedBean.showPopUpTableheading}:" id="ot22" styleClass="subheading"/>
+                <af:spacer width="10" height="10" id="s42"/>
+              </af:panelGroupLayout>
+              <af:separator id="s43" inlineStyle="width:auto; height:1px; background-color:Scrollbar;margin-left: 0 !important;"/>
+              <af:panelGroupLayout id="pgl27">
+                <af:table var="row" rowBandingInterval="1" id="t2" emptyText="#{not empty var.driverInfoList ? (sfr.ACCESS_DENIED_ENG) : (sfr.NO_DATA)}"
+                          fetchSize="-1" columnResizing="disabled" disableColumnReordering="true" autoHeightRows="10">
+                  <af:column sortable="false" headerText="col2" id="c5">
+                    <af:outputText value="#{row.col2}" id="ot23"/>
+                  </af:column>
+                  <af:column sortable="false" headerText="col3" id="c6">
+                    <af:outputText value="#{row.col3}" id="ot24"/>
+                  </af:column>
+                  <af:column sortable="false" headerText="col4" id="c7">
+                    <af:outputText value="#{row.col4}" id="ot26"/>
+                  </af:column>
+                  <af:column sortable="false" headerText="col5" id="c8">
+                    <af:outputText value="#{row.col5}" id="ot25"/>
+                  </af:column>
+                </af:table>
+              </af:panelGroupLayout>
+            </af:panelGroupLayout>
+          </f:facet>
+        </af:panelStretchLayout>
+      </af:dialog>
+    </af:popup>
+  </af:panelGroupLayout>
+</jsp:root>

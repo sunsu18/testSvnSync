@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="PrtExportInfoRVO"
+  Version="11.1.1.61.92"
+  InheritPersonalization="true"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  PageIterMode="Full"
+  UseGlueCode="false"
+  RowClass="com.sfr.engage.model.queries.rvo.PrtExportInfoRVORowImpl"
+  ComponentClass="com.sfr.engage.model.queries.rvo.PrtExportInfoRVOImpl">
+  <DesignTime>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll|Prog|VarAccess"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.sfr.engage.model.queries.rvo.PrtExportInfoRVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="country_Code"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="report_Page"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="report_Type"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="select_Criteria"
+    Kind="where"
+    Type="java.lang.String"/>
+  <SQLQuery>
+    <![CDATA[SELECT PrtExportInformation.TOTAL_COLUMNS,
+       PrtExportInformation.PRE_POPULATED_COLUMNS,
+       PrtExportInformation.EXTRA_COLUMNS       
+FROM  PRT_EXPORT_INFORMATION PrtExportInformation
+where PrtExportInformation.COUNTRY_CODE=: country_Code and PrtExportInformation.REPORT_PAGE =: report_Page and PrtExportInformation.REPORT_TYPE =: report_Type and
+PrtExportInformation.SELECT_CRITERIA =: select_Criteria]]>
+  </SQLQuery>
+  <ViewAttribute
+    Name="TotalColumns"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="4000"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TOTAL_COLUMNS"
+    Expression="TOTAL_COLUMNS"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="4000"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PrePopulatedColumns"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PRE_POPULATED_COLUMNS"
+    Expression="PRE_POPULATED_COLUMNS"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="4000"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ExtraColumns"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="3000"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="EXTRA_COLUMNS"
+    Expression="EXTRA_COLUMNS"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3000"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.sfr.engage.model.EngageModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="PrtCardUserRoleMappingEO"
+  Version="11.1.1.61.92"
+  InheritPersonalization="true"
+  DBObjectType="table"
+  DBObjectName="PRT_CARD_USER_ROLE_MAPPING"
+  AliasName="PrtCardUserRoleMappingEO"
+  BindingStyle="OracleName"
+  UseGlueCode="false">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access"/>
+    <AttrArray Name="_publishEvents"/>
+  </DesignTime>
+  <Attribute
+    Name="UsRoleId"
+    IsUpdateable="while_insert"
+    DefaultValue="@0"
+    ColumnName="US_ROLE_ID"
+    SQLType="NUMERIC"
+    Domain="oracle.jbo.domain.DBSequence"
+    Type="oracle.jbo.domain.DBSequence"
+    ColumnType="NUMBER"
+    TableName="PRT_CARD_USER_ROLE_MAPPING"
+    PrimaryKey="true"
+    RetrievedOnInsert="true">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CountryCode"
+    Precision="2"
+    ColumnName="COUNTRY_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD_USER_ROLE_MAPPING">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="2"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="UserEmail"
+    Precision="100"
+    ColumnName="USER_EMAIL"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD_USER_ROLE_MAPPING">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="UserRole"
+    IsNotNull="true"
+    Precision="25"
+    ColumnName="USER_ROLE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD_USER_ROLE_MAPPING">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="25"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="AssociationType"
+    IsNotNull="true"
+    Precision="20"
+    ColumnName="ASSOCIATION_TYPE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD_USER_ROLE_MAPPING">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="UserAssociation"
+    IsNotNull="true"
+    Precision="20"
+    ColumnName="USER_ASSOCIATION"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD_USER_ROLE_MAPPING">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="PartnerId"
+    Precision="8"
+    ColumnName="PARTNER_ID"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD_USER_ROLE_MAPPING">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="8"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ModifiedBy"
+    IsNotNull="true"
+    Precision="50"
+    ColumnName="MODIFIED_BY"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD_USER_ROLE_MAPPING">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ModifiedDate"
+    IsNotNull="true"
+    ColumnName="MODIFIED_DATE"
+    SQLType="TIMESTAMP"
+    Type="oracle.jbo.domain.Timestamp"
+    ColumnType="TIMESTAMP"
+    TableName="PRT_CARD_USER_ROLE_MAPPING"
+    HistoryColumn="DateHistory">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="11"/>
+    </DesignTime>
+  </Attribute>
+  <AccessorAttribute
+    Name="PrtCardUserInformationEO"
+    Association="com.sfr.engage.model.associations.PrtCardUserRoleMappinFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.associations.PrtCardUserRoleMappinFk1Assoc.PrtCardUserInformationEO"
+    AssociationOtherEnd="com.sfr.engage.model.associations.PrtCardUserRoleMappinFk1Assoc.PrtCardUserRoleMappingEO"
+    Type="oracle.jbo.server.EntityImpl"
+    IsUpdateable="true"/>
+  <Key
+    Name="PrtCardUserRoleMappinPk"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="PRT_CARD_USER_ROLE_MAPPIN_PK"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtCardUserRoleMappingEO.UsRoleId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0062426">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0062426"/>
+      <Attr Name="_checkCondition" Value='"US_ROLE_ID" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes"/>
+  </Key>
+  <Key
+    Name="SysC0062427">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0062427"/>
+      <Attr Name="_checkCondition" Value='"USER_ROLE" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtCardUserRoleMappingEO.UserRole"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0062428">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0062428"/>
+      <Attr Name="_checkCondition" Value='"ASSOCIATION_TYPE" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtCardUserRoleMappingEO.AssociationType"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0062429">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0062429"/>
+      <Attr Name="_checkCondition" Value='"USER_ASSOCIATION" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtCardUserRoleMappingEO.UserAssociation"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0062430">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0062430"/>
+      <Attr Name="_checkCondition" Value='"MODIFIED_BY" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtCardUserRoleMappingEO.ModifiedBy"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0062431">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0062431"/>
+      <Attr Name="_checkCondition" Value='"MODIFIED_DATE" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtCardUserRoleMappingEO.ModifiedDate"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="PrtCardUserRoleMappinFk1">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="PRT_CARD_USER_INFORMATION_PK"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="PRT_CARD_USER_ROLE_MAPPIN_FK1"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtCardUserRoleMappingEO.UserEmail"/>
+      <Item Value="com.sfr.engage.model.entities.PrtCardUserRoleMappingEO.CountryCode"/>
+    </AttrArray>
+  </Key>
+</Entity>

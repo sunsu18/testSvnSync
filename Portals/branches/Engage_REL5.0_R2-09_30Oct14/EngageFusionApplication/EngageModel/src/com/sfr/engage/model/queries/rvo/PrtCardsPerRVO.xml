@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="PrtCardsPerRVO"
+  Version="11.1.1.61.92"
+  InheritPersonalization="true"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  PageIterMode="Full"
+  UseGlueCode="false">
+  <DesignTime>
+    <Attr Name="_isExpertMode" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.sfr.engage.model.queries.rvo.PrtCardsPerRVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="partnerid"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="countryCode"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="paramValue"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="currentDate"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="nextMonth"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="accountid"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="cgid"
+    Kind="where"
+    Type="java.lang.String"/>
+  <SQLQuery>
+    <![CDATA[select partner_id,account_id,CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ,
+    (select count(block_action)
+    from prt_card 
+    where country_code = :countryCode
+    and block_action = '0'
+    and card_expiry > = :currentDate
+    and (partner_id = :partnerid
+    or account_id = :accountid
+    or CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ = :cgid)) as active,
+    (select count(block_action)
+    from prt_card 
+    where country_code = :countryCode
+    and block_action = '1'
+    and card_expiry > = :currentDate
+    and (partner_id = :partnerid
+    or account_id = :accountid
+    or CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ = :cgid)) as tempBlock,
+    (select count(block_action)
+    from prt_card 
+    where country_code = :countryCode
+    and block_action in (0,1,2)
+    and card_expiry >= :currentDate
+    and card_expiry <= :nextMonth
+    and (partner_id = :partnerid
+    or account_id = :accountid
+    or CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ = :cgid)) as expired
+from prt_card
+where partner_id = :partnerid
+and :paramValue = 'partner'
+group by partner_id,account_id,CARDGROUP_MAIN_TYPE,CARDGROUP_SUB_TYPE,CARDGROUP_SEQ
+
+union
+
+select partner_id,account_id,CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ,
+    (select count(block_action) 
+    from prt_card 
+    where country_code = :countryCode
+    and block_action = '0'
+    and card_expiry > = :currentDate
+    and partner_id = :partnerid
+    and account_id = :accountid
+    or CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ = :cgid) as active,
+    (select count(block_action)
+    from prt_card 
+    where country_code = :countryCode
+    and block_action = '1'
+    and card_expiry > = :currentDate
+    and partner_id = :partnerid
+    and account_id = :accountid
+    or CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ = :cgid) as tempBlock,
+    (select count(block_action)
+    from prt_card 
+    where country_code = :countryCode
+    and block_action in (0,1,2)
+    and card_expiry >= :currentDate
+    and card_expiry <= :nextMonth
+    and partner_id = :partnerid
+    and account_id = :accountid
+    or CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ = :cgid) as expired
+from prt_card
+where partner_id = :partnerid
+and account_id = :accountid
+and :paramValue = 'account'
+group by partner_id,account_id,CARDGROUP_MAIN_TYPE,CARDGROUP_SUB_TYPE,CARDGROUP_SEQ
+
+union
+
+select partner_id,account_id,CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ,
+    (select count(block_action) 
+    from prt_card 
+    where country_code = :countryCode
+    and block_action = '0'
+    and card_expiry > = :currentDate
+    and partner_id = :partnerid
+    and account_id = :accountid
+    and CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ = :cgid) as active,
+    (select count(block_action)
+    from prt_card 
+    where country_code = :countryCode
+    and block_action = '1'
+    and card_expiry > = :currentDate
+    and partner_id = :partnerid
+    and account_id = :accountid
+    and CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ = :cgid) as tempBlock,
+    (select count(block_action)
+    from prt_card 
+    where country_code = :countryCode
+    and block_action in (0,1,2)
+    and card_expiry >= :currentDate
+    and card_expiry <= :nextMonth
+    and partner_id = :partnerid
+    and account_id = :accountid
+    and CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ = :cgid) as expired
+from prt_card
+where partner_id = :partnerid
+and account_id = :accountid
+and CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ = :cgid
+and :paramValue = 'cardgroup'
+group by partner_id,account_id,CARDGROUP_MAIN_TYPE,CARDGROUP_SUB_TYPE,CARDGROUP_SEQ]]>
+  </SQLQuery>
+  <ViewAttribute
+    Name="PartnerId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PARTNER_ID"
+    Expression="PARTNER_ID"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="8"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="AccountId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="10"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="ACCOUNT_ID"
+    Expression="ACCOUNT_ID"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CardgroupMainTypeCardgroupSubTypeCardgroupSeq"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="11"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ"
+    Expression="CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="11"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Active"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="ACTIVE"
+    Expression="ACTIVE"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Tempblock"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="TEMPBLOCK"
+    Expression="TEMPBLOCK"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Expired"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="EXPIRED"
+    Expression="EXPIRED"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CardgroupMainType"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="3"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CARDGROUP_MAIN_TYPE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CardgroupSubType"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="3"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CARDGROUP_SUB_TYPE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CardgroupSeq"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="5"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CARDGROUP_SEQ"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="5"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.sfr.engage.model.EngageModelBundle"/>
+  </ResourceBundle>
+</ViewObject>
