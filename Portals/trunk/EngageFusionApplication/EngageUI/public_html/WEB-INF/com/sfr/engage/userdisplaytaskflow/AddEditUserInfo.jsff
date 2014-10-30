@@ -35,9 +35,9 @@
            <af:spacer width="60" height="20" id="s41"/>
           <af:spacer id="s47" width="10"/>
           <af:panelGroupLayout id="pgl8" layout="horizontal">
-            <af:commandButton id="cb1" text="Search" action="#{pageFlowScope.UserInfoDisplayManagedBean.addEditSearchAction}"/>
+            <af:commandButton id="cb1" text="#{sfr.SEARCH}" styleClass="buttonback buttontext" action="#{pageFlowScope.UserInfoDisplayManagedBean.addEditSearchAction}"/>
             <af:spacer id="s48" width="10"/>
-            <af:commandButton id="cb2" text="Back"/>
+            <af:commandButton id="cb2" text="#{sfr.ENGAGE_BACK}" styleClass="buttonback buttontext" action="addEditToSearch"/>
           </af:panelGroupLayout>
         </af:panelGroupLayout>
         <af:spacer width="12" height="10" id="s15"/>
@@ -128,11 +128,11 @@
           </af:table>
           <af:spacer width="10" height="30" id="s7"/>
           <af:panelGroupLayout id="pgl15" halign="right">
-            <af:spacer width="815" id="s46" height="50px"/>
+            <af:spacer width="875" id="s46" height="50px"/>
             <af:commandButton text="#{sfr.SAVE}" id="cb6" styleClass="buttonback buttontext"
                               action="#{pageFlowScope.UserInfoDisplayManagedBean.SaveUserInfoAction}"></af:commandButton>
-            <af:spacer width="5" height="5" id="s391"/>
-            <af:commandButton text="#{sfr.ENGAGE_BACK}" id="cb61" styleClass="buttonback buttontext" action="addEditToSearch"></af:commandButton>
+            <!--<af:spacer width="5" height="5" id="s391"/>-->
+            <!--<af:commandButton text="#{sfr.ENGAGE_BACK}" id="cb61" styleClass="buttonback buttontext" action="addEditToSearch"></af:commandButton>-->
           </af:panelGroupLayout>
         </af:panelGroupLayout>
         <af:spacer width="10" height="30" id="s39"/>

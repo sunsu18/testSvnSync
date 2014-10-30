@@ -1477,20 +1477,17 @@ public class UserInfoDisplayBean {
                     }
                     if (userInfoRow.getAttribute("UserDob") != null) {
                         _logger.info("DOB " + userInfoRow.getAttribute("UserDob"));
-                        String DOBDate = "";
-                        SimpleDateFormat dateformat = new SimpleDateFormat("dd.MM.yyyy");
-                        oracle.jbo.domain.Date domainDate;
-                        
-                        //Date birthdate = getUtilDateFromJboDate(userInfoRow.getAttribute("UserDob"));
-                        //_logger.info("Birth Date " + birthdate);
-//                        DOBDate = dateformat.format(birthdate);
-                        try {
-                            domainDate = (new oracle.jbo.domain.Date(userInfoRow.getAttribute("UserDob")));
-                        } catch (SQLException e) {
-                            _logger.info("Exception " +e.getMessage());
-                        }
-                        getBindings().getDateOfBirth().setSubmittedValue(userInfoRow.getAttribute("UserDob"));
-                        getBindings().getDateOfBirth().setValue(userInfoRow.getAttribute("UserDob"));
+                       
+                        java.util.Date newDob = null;
+                        java.sql.Date sqlDateDob = ((oracle.jbo.domain.Date)userInfoRow.getAttribute("UserDob")).dateValue();
+                        newDob = new Date(sqlDateDob.getTime());
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+                        String convertedDob = dateFormat.format(newDob);
+
+                        //                        getBindings().getDateOfBirth().setSubmittedValue(userInfoRow.getAttribute("UserDob"));
+                        //                        getBindings().getDateOfBirth().setValue(userInfoRow.getAttribute("UserDob"));
+                        getBindings().getDateOfBirth().setSubmittedValue(convertedDob);
+                        getBindings().getDateOfBirth().setValue(convertedDob);
                     }
                 }
             }
