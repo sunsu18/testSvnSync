@@ -8,6 +8,7 @@ import com.sfr.engage.core.ReportBundle;
 import com.sfr.engage.core.ValueListSplit;
 import com.sfr.engage.model.queries.rvo.PrtCardTransactionInvoiceRVORowImpl;
 import com.sfr.engage.model.queries.rvo.PrtExportInfoRVORowImpl;
+import com.sfr.engage.model.queries.uvo.PrtNewInvoiceCardVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtNewInvoiceVORowImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.engage.services.client.ucm.UCMCustomWeb;
@@ -176,8 +177,11 @@ public class InvoiceOverviewBean implements Serializable {
     private String transactionStandardExtraTransaction;
     private boolean showNonCollectiveInvoicePanel = false;
     private String invoiceType;
+    private boolean isCardGroup=true;
+    private boolean isCard=false;
     private final int minusThree = -3;
     private static final String PRTNEWINVOICEVO1ITERATORLITRERAL = "PrtNewInvoiceVO1Iterator";
+    private static final String PRTNEWINVOICECARDVO1ITERATORLITRERAL = "PrtNewInvoiceCardVO1Iterator";
     private static final String PRTCARDTRANSACTIONINVOICERVO1ITERATORLITRERAL = "PrtCardTransactionInvoiceRVO1Iterator";
     private static final String PRTEXPORTINFORVO1ITERATORLITRERAL = "PrtExportInfoRVO1Iterator";
     private static final String SELECT_CRITERIALITRERAL = "select_Criteria";
@@ -188,6 +192,9 @@ public class InvoiceOverviewBean implements Serializable {
     private static final String LANGREPORTLITRERAL = "langReport";
     private static final String TRANSACTIONSPECIFICERRORDBLITRERAL = "TRANSACTION_SPECIFIC_ERROR_DB";
     private static final String INVOICECONTENTLISTLITRERAL = "ucmInvoiceContentList";
+    private String accountQuery2 = "(";
+    private String generalQuery2 = "";
+    private Map<String, String> mapAccountListValue2;
 
 
     public InvoiceOverviewBean() {
@@ -230,10 +237,23 @@ public class InvoiceOverviewBean implements Serializable {
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "account " + accountQuery);
             }
             
+            if (session.getAttribute("account_Query_Card_Invoice_overview") != null) {
+                accountQuery2 = session.getAttribute("account_Query_Card_Invoice_overview").toString().trim();
+                mapAccountListValue2 = (Map<String, String>)session.getAttribute("map_Account_List_Card_Invoice_overview");
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "account Query2 & mapAccountList2 is found");
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "account2 " + accountQuery2);
+            }
+            
             if (session.getAttribute("generalQuery_Invoice_overview") != null) {
                 generalQuery = session.getAttribute("generalQuery_Invoice_overview").toString().trim();
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "generalQuery is found");
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "generalQuery " + generalQuery);
+            } 
+            
+            if (session.getAttribute("generalQuery_Card_Invoice_overview") != null) {
+                generalQuery2 = session.getAttribute("generalQuery_Card_Invoice_overview").toString().trim();
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "generalQuery2 is found");
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "generalQuery2 " + generalQuery2);
             } 
             
             if (session.getAttribute("account_Query_Invoice_detail_overview") != null) {
@@ -273,6 +293,7 @@ public class InvoiceOverviewBean implements Serializable {
 
                     if (estimatedRowCount > 0) {
                         searchResults = true;
+                        isCardGroup=true;
                     } else {
                         searchResults = false;
                     }
@@ -399,42 +420,91 @@ public class InvoiceOverviewBean implements Serializable {
                     LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "getCard=" + getBindings().getCard().getValue());
                     LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "ToDate=" + getBindings().getToDate().getValue());
                     LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "FromDate =" + newFromDate + "To Date = " + newToDate);
-                    ViewObject invoiceVO = ADFUtils.getViewObject(PRTNEWINVOICEVO1ITERATORLITRERAL);
-                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Before Query=" + invoiceVO.getQuery());
                     
+                    
+                    if(isCardGroup)  {   
+                    ViewObject invoiceVO = ADFUtils.getViewObject(PRTNEWINVOICEVO1ITERATORLITRERAL);
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Before Query=" + invoiceVO.getQuery());                   
+                    
+                                   
                     removeWhereClause();
 
                     resetTableFilter();
                     long estimatedRowCount =
                         applyWhereClause(false, newFromDate, newToDate); 
 
-                    if (estimatedRowCount > 0) {
-                        searchResults = true;
-                    } else {
-                        searchResults = false;
-
-                    }
-                    
                     session.setAttribute("account_Query_Invoice_overview", accountQuery);
                     session.setAttribute("generalQuery_Invoice_overview", generalQuery);
                     session.setAttribute("map_Account_List_Invoice_overview", mapAccountListValue);
                     session.setAttribute("cardGroup_Query_Invoice_overview", cardGroupQuery);
                     session.setAttribute("map_CardGroup_List_Invoice_overview", mapCardGroupListValue);
-                    session.setAttribute("card_Query_Invoice_overview", cardQuery);
-                    session.setAttribute("map_Card_List_Invoice_overview", mapCardListValue);
+                    
+                    
                     LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Queries are saved in session");
                     LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Estimated Row count==" + invoiceVO.getEstimatedRowCount());
-                    if (invoiceVO.getEstimatedRowCount() > 0) {
+                    if (estimatedRowCount > 0) {
                         searchResults = true;
+                        isCardGroup=true;
+                        isCard=false;
+                        
                     } else {
                         searchResults = false;
+                        isCardGroup=false;
+                        isCard=false;
                         if (resourceBundle.containsKey("NO_RECORDS_FOUND_DRIVER")) {
                             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("NO_RECORDS_FOUND_DRIVER"), "");
                             FacesContext.getCurrentInstance().addMessage(null, msg);
                         }
+                        
+                       
                     }
                     AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
                     LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Where condition:" + invoiceVO.getWhereClause());
+                    }
+                    
+                    else{
+                      
+                        ViewObject invoiceCardVO = ADFUtils.getViewObject(PRTNEWINVOICECARDVO1ITERATORLITRERAL);
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Before Query=" + invoiceCardVO.getQuery());                   
+                        
+                                       
+                        removeWhereClauseForCardInvoice();
+
+                        resetTableFilter();
+                        long estimatedRowCount =
+                            applyWhereClauseForCardInvoice(false, newFromDate, newToDate); 
+
+                        session.setAttribute("account_Query_Card_Invoice_overview", accountQuery2);
+                        session.setAttribute("generalQuery_Card_Invoice_overview", generalQuery2);
+                        session.setAttribute("map_Account_List_Card_Invoice_overview", mapAccountListValue2);                      
+                        session.setAttribute("card_Query_Invoice_overview", cardQuery);
+                        session.setAttribute("map_Card_List_Invoice_overview", mapCardListValue);
+                        
+                        
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Queries are saved in session");
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Estimated Row count==" + invoiceCardVO.getEstimatedRowCount());
+                        if (estimatedRowCount > 0) {
+                            searchResults = true;
+                            isCard=true;
+                            isCardGroup=false;
+                            
+                        } else {
+                            searchResults = false;
+                            isCard=false;
+                            isCardGroup=false;                    
+                            if (resourceBundle.containsKey("NO_RECORDS_FOUND_DRIVER")) {
+                                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("NO_RECORDS_FOUND_DRIVER"), "");
+                                FacesContext.getCurrentInstance().addMessage(null, msg);
+                            }
+                           
+                        }
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Where condition:" + invoiceCardVO.getWhereClause());                        
+                        
+                        
+                        
+                        
+                    }
                 }
             } else {
                 if (getBindings().getCard().getValue() == null) {
@@ -476,28 +546,23 @@ public class InvoiceOverviewBean implements Serializable {
     private Long applyWhereClause( boolean onPageLoad,String newFromDate, String newToDate) {
         String accountTemp = "";
         String cgTemp = "";
-        String cardTemp = "";
         String partnerList = "";
-        String radioSelection="";
         partnerList = populateStringValues(getPartnerValue().toString());
         ViewObject invoiceVO = ADFUtils.getViewObject(PRTNEWINVOICEVO1ITERATORLITRERAL);
         accountQuery = "(";
         cardGroupQuery = "(";
-        cardQuery = "(";
       
         if (onPageLoad) {
             accountTemp = populateStringValues(getAccountValue().toString());
             cgTemp = populateStringValues(getCardGroupValue().toString());
-            cardTemp = populateStringValues(getCardValue().toString());
-            radioSelection = "Cardgroup";
+            
         } else {
             accountTemp = populateStringValues(getBindings().getAccount().getValue().toString());
             cgTemp = populateStringValues(getBindings().getCardGroup().getValue().toString());
-            cardTemp = populateStringValues(getBindings().getCard().getValue().toString());
-            radioSelection = getBindings().getCardGpCardList().getValue().toString();
+            
         }
         
-        generalQuery= "INSTR(:partner_id,partner_id)<>0  AND COUNTRY_CODE =:ccode AND INVOICING_DATE >=:fromDateBV AND INVOICING_DATE <=:toDateBV";
+        generalQuery= "INSTR(:partner_id,partner_id)<>0  AND COUNTRY_CODE =:ccode AND INVOICING_DATE >=:fromDateBV AND INVOICING_DATE <=:toDateBV AND invoice_level is not null";
         invoiceVO.defineNamedWhereClauseParam("ccode", lang,null);
         invoiceVO.defineNamedWhereClauseParam("partner_id",partnerList,null);
         invoiceVO.defineNamedWhereClauseParam("fromDateBV", newFromDate,null);
@@ -519,38 +584,7 @@ public class InvoiceOverviewBean implements Serializable {
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
             accountQuery = "(INSTR(:account,ACCOUNT_ID)<>0 ) ";
         }
-
-
-        
-            if (Constants.CARD_LITERAL.equalsIgnoreCase(radioSelection)) {
-
-                if (cardValue.size() > Constants.ONEFIFTY) {
-                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values > 150 ");
-                    mapCardListValue = ValueListSplit.callValueList(cardValue.size(), cardValue);
-                    for (int i = 0; i < mapCardListValue.size(); i++) {
-                        String values = Constants.CARDLITERAL + i;
-                        cardQuery = cardQuery + "INSTR(:" + values + ",INVOICED_CARD)<>0 OR ";
-                    }
-                    cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
-                    cardQuery = cardQuery + ")";
-
-                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
-                    invoiceVO.setWhereClause(accountQuery + "AND " + cardQuery + "AND " + generalQuery);
-                    for (int i = 0; i < mapCardListValue.size(); i++) {
-                        invoiceVO.defineNamedWhereClauseParam(Constants.CARDLITERAL + i, mapCardListValue.get(Constants.LISTNAME_LITERAL + i),
-                                                              null);
-                    }
-
-                } else {
-                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CARD Values < 150 ");
-                    mapCardListValue = null;
-                    cardQuery = "(INSTR(:card,INVOICED_CARD)<>0)";
-                    invoiceVO.setWhereClause(accountQuery + "AND " + cardQuery + "AND " + generalQuery);
-//                    String cardValuesList = populateStringValues(cardTemp);
-                    invoiceVO.defineNamedWhereClauseParam(Constants.CARDLITERAL, cardTemp, null);
-                }
-            } else {
-
+         
                 if (cardGroupValue.size() > Constants.ONEFIFTY) {
                     LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
                     mapCardGroupListValue = ValueListSplit.callValueList(cardGroupValue.size(), cardGroupValue);
@@ -576,8 +610,7 @@ public class InvoiceOverviewBean implements Serializable {
                     invoiceVO.defineNamedWhereClauseParam(Constants.CARDGROUPLITERAL,cgTemp, null);
 
                 }
-            }
-       
+         
         if (accountValue.size() > Constants.ONEFIFTY) {
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
             mapAccountListValue = ValueListSplit.callValueList(accountValue.size(), accountValue);
@@ -603,36 +636,8 @@ public class InvoiceOverviewBean implements Serializable {
     private void removeWhereClause() {
         System.out.println("Entering the Invoice removeWhereClause::::::::::::");
         ViewObject invoiceVO = ADFUtils.getViewObject(PRTNEWINVOICEVO1ITERATORLITRERAL);
-        if (cardQuery.length() > 1 && cardQuery != null && cardGroupQuery.length() <= 2) {
-
-                if (((accountQuery + "AND " + cardQuery + "AND " + generalQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause())) ||
-                    ((accountQuery + " AND " + cardQuery + "AND " + generalQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause()))) {
-                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "inside  card with out purchase code where removal class");
-                if (mapAccountListValue != null) {
-                    for (int i = 0; i < mapAccountListValue.size(); i++) {
-
-                        invoiceVO.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i);
-                    }
-                } else {
-                    invoiceVO.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL);
-                }
-                if (mapCardListValue != null) {
-                    for (int i = 0; i < mapCardListValue.size(); i++) {
-                        invoiceVO.removeNamedWhereClauseParam(Constants.CARDLITERAL + i);
-                    }
-
-                } else {
-                    invoiceVO.removeNamedWhereClauseParam(Constants.CARDLITERAL);
-                }
-                invoiceVO.removeNamedWhereClauseParam("ccode");
-                invoiceVO.removeNamedWhereClauseParam("partner_id");
-                invoiceVO.removeNamedWhereClauseParam("fromDateBV");
-                invoiceVO.removeNamedWhereClauseParam("toDateBV");
-                invoiceVO.setWhereClause("");
-                invoiceVO.executeQuery();
-            }
-        } else {
-            if (cardGroupQuery.length() > 1 && cardGroupQuery != null && cardQuery.length() <= 1) {
+        
+            if (cardGroupQuery.length() > 1 && cardGroupQuery != null) {
 
                 if (((accountQuery + "AND " + cardGroupQuery + "AND " + generalQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause())) ||
                     ((accountQuery + " AND " + cardGroupQuery + "AND " + generalQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause()))) {
@@ -662,7 +667,7 @@ public class InvoiceOverviewBean implements Serializable {
                 }
             }
 
-        }
+       
         
     }
     
@@ -808,9 +813,18 @@ public class InvoiceOverviewBean implements Serializable {
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRadioBtnPopUp());
         isTransactionVisible = true;
         invoiceType = null;
+        Row row = null;
+        if(isCardGroup){
         BindingContainer localBinding = BindingContext.getCurrent().getCurrentBindingsEntry();
         DCIteratorBinding itr = (DCIteratorBinding)localBinding.get(PRTNEWINVOICEVO1ITERATORLITRERAL);
-        Row row = itr.getCurrentRow();
+        row = itr.getCurrentRow();
+        
+    }
+    else{
+        BindingContainer localBinding = BindingContext.getCurrent().getCurrentBindingsEntry();
+        DCIteratorBinding itr = (DCIteratorBinding)localBinding.get(PRTNEWINVOICECARDVO1ITERATORLITRERAL);
+        row = itr.getCurrentRow();
+    }
         if (row != null) {
 
             invoiceGroupingValue = (String)row.getAttribute("InvoiceDocType");
@@ -919,6 +933,8 @@ public class InvoiceOverviewBean implements Serializable {
                 if (valueChangeEvent.getNewValue() != null && accountCount > 0) {
                     for (int acCount = 0; acCount < accountCount; acCount++) {
                         if (valueChangeEvent.getNewValue().equals(Constants.CARD_GROUP_LITERAL)) {
+                            isCardGroup=true;
+                            isCard=false;
                             populateValue(valueChangeEvent.getNewValue().toString(), accountNumberValues[acCount].trim());
                             cGCardVisible = true;
                             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());
@@ -926,7 +942,11 @@ public class InvoiceOverviewBean implements Serializable {
                             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());
                             cardVisible = false;
                             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCard());
+                            
+                            
                         } else {
+                            isCard=true;
+                            isCardGroup=false;
                             populateValue(valueChangeEvent.getNewValue().toString(), accountNumberValues[acCount].trim());
                             cGCardVisible = true;
                             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());
@@ -934,6 +954,7 @@ public class InvoiceOverviewBean implements Serializable {
                             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCard());
                             cardGroupVisible = false;
                             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());
+                            
                         }
                     }
                 }
@@ -1266,12 +1287,23 @@ public class InvoiceOverviewBean implements Serializable {
 
     public void getUCMService(FacesContext facesContext, OutputStream outputStream) throws IOException {
         LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside getUCMService for Invoices");
+        String invoiceNumberValuePdf = "";
+        String partnerNumberValuePdf ="";
+        if(isCardGroup){
         ViewObject invoiceVO = ADFUtils.getViewObject(PRTNEWINVOICEVO1ITERATORLITRERAL);
         PrtNewInvoiceVORowImpl row = (PrtNewInvoiceVORowImpl)invoiceVO.getCurrentRow();
-        String invoiceNumberValuePdf = row.getFinalinvoice();
-        String partnerNumberValuePdf = row.getPartnerId();
+         invoiceNumberValuePdf = row.getFinalinvoice();
+         partnerNumberValuePdf = row.getPartnerId();
+        }
+        else{
+            ViewObject invoiceVO = ADFUtils.getViewObject(PRTNEWINVOICECARDVO1ITERATORLITRERAL);
+            PrtNewInvoiceCardVORowImpl row = (PrtNewInvoiceCardVORowImpl)invoiceVO.getCurrentRow();
+             invoiceNumberValuePdf = row.getFinalinvoice();
+             partnerNumberValuePdf = row.getPartnerId();  
+        }
         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "invoice number" + invoiceNumberValuePdf);
         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "PartnerId " + partnerId);
+        
         byte[] responseByteArr = null;
         Boolean isError = false;
         UCMCustomWeb uCMCustomWeb = null;
@@ -1336,16 +1368,24 @@ public class InvoiceOverviewBean implements Serializable {
 
     public String openPopup() {
         LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside open_popup(Email functionality) for Invoices");
-
+        String invoiceNumberValuePdf="";
         successResult = false;
         invoiceNotFound = false;
         failureResult = false;
         String partnerNumberValuePdf = "";
-
+        
+        if(isCardGroup){
         ViewObject invoiceVO = ADFUtils.getViewObject(PRTNEWINVOICEVO1ITERATORLITRERAL);
         PrtNewInvoiceVORowImpl row = (PrtNewInvoiceVORowImpl)invoiceVO.getCurrentRow();
-        String invoiceNumberValuePdf = row.getFinalinvoice();
+        invoiceNumberValuePdf = row.getFinalinvoice();
         partnerNumberValuePdf = row.getPartnerId();
+    }
+    else{
+        ViewObject invoiceVO = ADFUtils.getViewObject(PRTNEWINVOICECARDVO1ITERATORLITRERAL);
+        PrtNewInvoiceCardVORowImpl row = (PrtNewInvoiceCardVORowImpl)invoiceVO.getCurrentRow();
+        invoiceNumberValuePdf = row.getFinalinvoice();
+        partnerNumberValuePdf = row.getPartnerId();
+    }
         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "invoice number" + invoiceNumberValuePdf);
 
         if (invoiceNumberValuePdf != null && partnerNumberValuePdf != null) {
@@ -3233,77 +3273,153 @@ public class InvoiceOverviewBean implements Serializable {
             }
 
             int rowVal = Constants.EIGHT;
-
+            RowSetIterator iterator = null;
+            if(isCardGroup){
             ViewObject prtNewInvoiceVO = ADFUtils.getViewObject(PRTNEWINVOICEVO1ITERATORLITRERAL);
-            RowSetIterator iterator = prtNewInvoiceVO.createRowSetIterator(null);
+            iterator = prtNewInvoiceVO.createRowSetIterator(null);
             iterator.reset();
-            while (iterator.hasNext()) {
-                PrtNewInvoiceVORowImpl row = (PrtNewInvoiceVORowImpl)iterator.next();
-                rowVal = rowVal + 1;
-                XLS_SH_R = XLS_SH.createRow(rowVal);
-                if (row != null) {
-                    for (int cellValue = 0; cellValue < headerDataValues.length; cellValue++) {
-                        if (Constants.PARTNER_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
-                            if (row.getPartnerId() != null) {
-                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
-                                XLS_SH_R_C.setCellStyle(csData);
-                                XLS_SH_R_C.setCellValue(row.getPartnerId().toString());
-                            }
-                        } else if (Constants.ACCOUNT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
-                            if (row.getAccountId() != null) {
-                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
-                                XLS_SH_R_C.setCellStyle(csData);
-                                XLS_SH_R_C.setCellValue(row.getAccountId().toString());
-                            }
-                        } else if ("Invoice Number".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
-                            if (row.getFinalinvoice() != null) {
-                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
-                                XLS_SH_R_C.setCellStyle(csData);
-                                XLS_SH_R_C.setCellValue(row.getFinalinvoice().toString());
-                            }
-                        } else if ("Invoice Date".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
-                            if (row.getInvoicingDate() != null) {
-                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
-                                XLS_SH_R_C.setCellStyle(csData);
-                                java.sql.Date date = row.getInvoicingDate().dateValue();
-                                Date passedDate = new Date(date.getTime());
-                                XLS_SH_R_C.setCellValue(formatConversion(passedDate));
+                while (iterator.hasNext()) {
+                    PrtNewInvoiceVORowImpl row = (PrtNewInvoiceVORowImpl)iterator.next();
+                    rowVal = rowVal + 1;
+                    XLS_SH_R = XLS_SH.createRow(rowVal);
+                    if (row != null) {
+                        for (int cellValue = 0; cellValue < headerDataValues.length; cellValue++) {
+                            if (Constants.PARTNER_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                if (row.getPartnerId() != null) {
+                                    XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                    XLS_SH_R_C.setCellStyle(csData);
+                                    XLS_SH_R_C.setCellValue(row.getPartnerId().toString());
+                                }
+                            } else if (Constants.ACCOUNT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                if (row.getAccountId() != null) {
+                                    XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                    XLS_SH_R_C.setCellStyle(csData);
+                                    XLS_SH_R_C.setCellValue(row.getAccountId().toString());
+                                }
+                            } else if ("Invoice No".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                if (row.getFinalinvoice() != null) {
+                                    XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                    XLS_SH_R_C.setCellStyle(csData);
+                                    XLS_SH_R_C.setCellValue(row.getFinalinvoice().toString());
+                                }
+                            } else if ("Invoice Date".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                if (row.getInvoicingDate() != null) {
+                                    XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                    XLS_SH_R_C.setCellStyle(csData);
+                                    java.sql.Date date = row.getInvoicingDate().dateValue();
+                                    Date passedDate = new Date(date.getTime());
+                                    XLS_SH_R_C.setCellValue(formatConversion(passedDate));
 
+                                }
+                            } else if ("Due Date".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                if (row.getInvoicingDueDate() != null) {
+                                    XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                    XLS_SH_R_C.setCellStyle(csData);
+                                    java.sql.Date date = row.getInvoicingDueDate().dateValue();
+                                    Date passedDate = new Date(date.getTime());
+                                    XLS_SH_R_C.setCellValue(formatConversion(passedDate));
+
+                                }
                             }
-                        } else if ("Due Date".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
-                            if (row.getInvoicingDueDate() != null) {
+
+                            else if (Constants.NET_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                if (row.getnetAmount() != null) {
+                                    XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                    XLS_SH_R_C.setCellStyle(csRight);
+                                    XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getnetAmount().toString())), locale));
+                                }
+                            } else if (Constants.VAT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                if (row.getInvVatAmt() != null) {
+                                    XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                    XLS_SH_R_C.setCellStyle(csRight);
+                                    XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getInvVatAmt().toString())), locale));
+                                }
+                            } else if (Constants.TOTAL_AMOUNT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim()) && row.getInvGrossAmt() != null) {
+
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
-                                XLS_SH_R_C.setCellStyle(csData);
-                                java.sql.Date date = row.getInvoicingDueDate().dateValue();
-                                Date passedDate = new Date(date.getTime());
-                                XLS_SH_R_C.setCellValue(formatConversion(passedDate));
+                                XLS_SH_R_C.setCellStyle(csRight);
+                                XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getInvGrossAmt().toString())), locale));
 
                             }
                         }
 
-                        else if (Constants.NET_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
-                            if (row.getnetAmount() != null) {
-                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
-                                XLS_SH_R_C.setCellStyle(csRight);
-                                XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getnetAmount().toString())), locale));
-                            }
-                        } else if (Constants.VAT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
-                            if (row.getInvVatAmt() != null) {
-                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
-                                XLS_SH_R_C.setCellStyle(csRight);
-                                XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getInvVatAmt().toString())), locale));
-                            }
-                        } else if (Constants.TOTAL_AMOUNT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim()) && row.getInvGrossAmt() != null) {
-
-                            XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
-                            XLS_SH_R_C.setCellStyle(csRight);
-                            XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getInvGrossAmt().toString())), locale));
-
-                        }
                     }
-
                 }
             }
+            
+            else{
+                ViewObject prtNewInvoiceCardVO = ADFUtils.getViewObject(PRTNEWINVOICECARDVO1ITERATORLITRERAL);
+                iterator = prtNewInvoiceCardVO.createRowSetIterator(null);
+                iterator.reset();
+                while (iterator.hasNext()) {
+                    PrtNewInvoiceCardVORowImpl row = (PrtNewInvoiceCardVORowImpl)iterator.next();
+                    rowVal = rowVal + 1;
+                    XLS_SH_R = XLS_SH.createRow(rowVal);
+                    if (row != null) {
+                        for (int cellValue = 0; cellValue < headerDataValues.length; cellValue++) {
+                            if (Constants.PARTNER_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                if (row.getPartnerId() != null) {
+                                    XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                    XLS_SH_R_C.setCellStyle(csData);
+                                    XLS_SH_R_C.setCellValue(row.getPartnerId().toString());
+                                }
+                            } else if (Constants.ACCOUNT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                if (row.getAccountId() != null) {
+                                    XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                    XLS_SH_R_C.setCellStyle(csData);
+                                    XLS_SH_R_C.setCellValue(row.getAccountId().toString());
+                                }
+                            } else if ("Invoice No".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                if (row.getFinalinvoice() != null) {
+                                    XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                    XLS_SH_R_C.setCellStyle(csData);
+                                    XLS_SH_R_C.setCellValue(row.getFinalinvoice().toString());
+                                }
+                            } else if ("Invoice Date".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                if (row.getInvoicingDate() != null) {
+                                    XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                    XLS_SH_R_C.setCellStyle(csData);
+                                    java.sql.Date date = row.getInvoicingDate().dateValue();
+                                    Date passedDate = new Date(date.getTime());
+                                    XLS_SH_R_C.setCellValue(formatConversion(passedDate));
+
+                                }
+                            } else if ("Due Date".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                if (row.getInvoicingDueDate() != null) {
+                                    XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                    XLS_SH_R_C.setCellStyle(csData);
+                                    java.sql.Date date = row.getInvoicingDueDate().dateValue();
+                                    Date passedDate = new Date(date.getTime());
+                                    XLS_SH_R_C.setCellValue(formatConversion(passedDate));
+
+                                }
+                            }
+
+                            else if (Constants.NET_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                if (row.getnetAmount() != null) {
+                                    XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                    XLS_SH_R_C.setCellStyle(csRight);
+                                    XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getnetAmount().toString())), locale));
+                                }
+                            } else if (Constants.VAT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                if (row.getInvVatAmt() != null) {
+                                    XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                    XLS_SH_R_C.setCellStyle(csRight);
+                                    XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getInvVatAmt().toString())), locale));
+                                }
+                            } else if (Constants.TOTAL_AMOUNT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim()) && row.getInvGrossAmt() != null) {
+
+                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C.setCellStyle(csRight);
+                                XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getInvGrossAmt().toString())), locale));
+
+                            }
+                        }
+
+                    }
+                }
+            }
+            
             iterator.closeRowSetIterator();
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Printing excel Data completed");
             XLS.write(outputStream);
@@ -3321,86 +3437,172 @@ public class InvoiceOverviewBean implements Serializable {
                 }
             }
             out.println();
+            RowSetIterator iterator = null;
+            if(isCardGroup){
             ViewObject prtNewInvoiceVO = ADFUtils.getViewObject(PRTNEWINVOICEVO1ITERATORLITRERAL);
-            RowSetIterator iterator = prtNewInvoiceVO.createRowSetIterator(null);
+            iterator = prtNewInvoiceVO.createRowSetIterator(null);
             iterator.reset();
-            while (iterator.hasNext()) {
-                PrtNewInvoiceVORowImpl row = (PrtNewInvoiceVORowImpl)iterator.next();
-                if (row != null) {
-                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + PRINTINGDATALITRERAL);
-                    for (int cellValue = 0; cellValue < headerDataValues.length; cellValue++) {
+                while (iterator.hasNext()) {
+                    PrtNewInvoiceVORowImpl row = (PrtNewInvoiceVORowImpl)iterator.next();
+                    if (row != null) {
+                        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + PRINTINGDATALITRERAL);
+                        for (int cellValue = 0; cellValue < headerDataValues.length; cellValue++) {
 
-                        if (Constants.PARTNER_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
-                            if (row.getPartnerId() != null) {
-                                out.print(row.getPartnerId().toString());
+                            if (Constants.PARTNER_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                if (row.getPartnerId() != null) {
+                                    out.print(row.getPartnerId().toString());
+                                }
+                                if (cellValue != headerDataValues.length - 1) {
+                                    out.print(";");
+                                }
                             }
-                            if (cellValue != headerDataValues.length - 1) {
-                                out.print(";");
+
+                            else if (Constants.ACCOUNT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                if (row.getAccountId() != null) {
+                                    out.print(row.getAccountId().toString());
+                                }
+                                if (cellValue != headerDataValues.length - 1) {
+                                    out.print(";");
+                                }
+                            }
+
+                            else if ("Invoice No".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                if (row.getFinalinvoice() != null) {
+                                    out.print(row.getFinalinvoice().toString());
+                                }
+                                if (cellValue != headerDataValues.length - 1) {
+                                    out.print(";");
+                                }
+                            } else if ("Invoice Date".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                if (row.getInvoiceDate() != null) {
+                                    java.sql.Date date = row.getInvoiceDate().dateValue();
+                                    Date passedDate = new Date(date.getTime());
+                                    out.print(formatConversion(passedDate));
+                                }
+                                if (cellValue != headerDataValues.length - 1) {
+                                    out.print(";");
+                                }
+                            } else if ("Due Date".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                if (row.getInvoicingDueDate() != null) {
+                                    java.sql.Date date = row.getInvoicingDueDate().dateValue();
+                                    Date passedDate = new Date(date.getTime());
+                                    out.print(formatConversion(passedDate));
+                                }
+                                if (cellValue != headerDataValues.length - 1) {
+                                    out.print(";");
+                                }
+                            }
+
+                            else if (Constants.NET_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                if (row.getnetAmount() != null) {
+                                    out.print(row.getnetAmount().toString());
+                                }
+                                if (cellValue != headerDataValues.length - 1) {
+                                    out.print(";");
+                                }
+                            } else if (Constants.VAT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                if (row.getInvVatAmt() != null) {
+                                    out.print(row.getInvVatAmt().toString());
+                                }
+                                if (cellValue != headerDataValues.length - 1) {
+                                    out.print(";");
+                                }
+                            } else if (Constants.TOTAL_AMOUNT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                if (row.getInvGrossAmt() != null) {
+                                    out.print(row.getInvGrossAmt().toString());
+                                }
+                                if (cellValue != headerValues.length - 1) {
+                                    out.print(";");
+                                }
                             }
                         }
-
-                        else if (Constants.ACCOUNT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
-                            if (row.getAccountId() != null) {
-                                out.print(row.getAccountId().toString());
-                            }
-                            if (cellValue != headerDataValues.length - 1) {
-                                out.print(";");
-                            }
-                        }
-
-                        else if ("Invoice Number".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
-                            if (row.getFinalinvoice() != null) {
-                                out.print(row.getFinalinvoice().toString());
-                            }
-                            if (cellValue != headerDataValues.length - 1) {
-                                out.print(";");
-                            }
-                        } else if ("Invoice Date".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
-                            if (row.getInvoiceDate() != null) {
-                                java.sql.Date date = row.getInvoiceDate().dateValue();
-                                Date passedDate = new Date(date.getTime());
-                                out.print(formatConversion(passedDate));
-                            }
-                            if (cellValue != headerDataValues.length - 1) {
-                                out.print(";");
-                            }
-                        } else if ("Due Date".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
-                            if (row.getInvoicingDueDate() != null) {
-                                java.sql.Date date = row.getInvoicingDueDate().dateValue();
-                                Date passedDate = new Date(date.getTime());
-                                out.print(formatConversion(passedDate));
-                            }
-                            if (cellValue != headerDataValues.length - 1) {
-                                out.print(";");
-                            }
-                        }
-
-                        else if (Constants.NET_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
-                            if (row.getnetAmount() != null) {
-                                out.print(row.getnetAmount().toString());
-                            }
-                            if (cellValue != headerDataValues.length - 1) {
-                                out.print(";");
-                            }
-                        } else if (Constants.VAT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
-                            if (row.getInvVatAmt() != null) {
-                                out.print(row.getInvVatAmt().toString());
-                            }
-                            if (cellValue != headerDataValues.length - 1) {
-                                out.print(";");
-                            }
-                        } else if (Constants.TOTAL_AMOUNT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
-                            if (row.getInvGrossAmt() != null) {
-                                out.print(row.getInvGrossAmt().toString());
-                            }
-                            if (cellValue != headerValues.length - 1) {
-                                out.print(";");
-                            }
-                        }
+                        out.println();
                     }
-                    out.println();
                 }
             }
+            else{
+                ViewObject prtNewInvoiceCardVO = ADFUtils.getViewObject(PRTNEWINVOICECARDVO1ITERATORLITRERAL);
+                iterator = prtNewInvoiceCardVO.createRowSetIterator(null);
+                iterator.reset();
+                    while (iterator.hasNext()) {
+                        PrtNewInvoiceCardVORowImpl row = (PrtNewInvoiceCardVORowImpl)iterator.next();
+                        if (row != null) {
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + PRINTINGDATALITRERAL);
+                            for (int cellValue = 0; cellValue < headerDataValues.length; cellValue++) {
+
+                                if (Constants.PARTNER_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                    if (row.getPartnerId() != null) {
+                                        out.print(row.getPartnerId().toString());
+                                    }
+                                    if (cellValue != headerDataValues.length - 1) {
+                                        out.print(";");
+                                    }
+                                }
+
+                                else if (Constants.ACCOUNT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                    if (row.getAccountId() != null) {
+                                        out.print(row.getAccountId().toString());
+                                    }
+                                    if (cellValue != headerDataValues.length - 1) {
+                                        out.print(";");
+                                    }
+                                }
+
+                                else if ("Invoice No".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                    if (row.getFinalinvoice() != null) {
+                                        out.print(row.getFinalinvoice().toString());
+                                    }
+                                    if (cellValue != headerDataValues.length - 1) {
+                                        out.print(";");
+                                    }
+                                } else if ("Invoice Date".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                    if (row.getInvoiceDate() != null) {
+                                        java.sql.Date date = row.getInvoiceDate().dateValue();
+                                        Date passedDate = new Date(date.getTime());
+                                        out.print(formatConversion(passedDate));
+                                    }
+                                    if (cellValue != headerDataValues.length - 1) {
+                                        out.print(";");
+                                    }
+                                } else if ("Due Date".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                    if (row.getInvoicingDueDate() != null) {
+                                        java.sql.Date date = row.getInvoicingDueDate().dateValue();
+                                        Date passedDate = new Date(date.getTime());
+                                        out.print(formatConversion(passedDate));
+                                    }
+                                    if (cellValue != headerDataValues.length - 1) {
+                                        out.print(";");
+                                    }
+                                }
+
+                                else if (Constants.NET_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                    if (row.getnetAmount() != null) {
+                                        out.print(row.getnetAmount().toString());
+                                    }
+                                    if (cellValue != headerDataValues.length - 1) {
+                                        out.print(";");
+                                    }
+                                } else if (Constants.VAT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                    if (row.getInvVatAmt() != null) {
+                                        out.print(row.getInvVatAmt().toString());
+                                    }
+                                    if (cellValue != headerDataValues.length - 1) {
+                                        out.print(";");
+                                    }
+                                } else if (Constants.TOTAL_AMOUNT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                    if (row.getInvGrossAmt() != null) {
+                                        out.print(row.getInvGrossAmt().toString());
+                                    }
+                                    if (cellValue != headerValues.length - 1) {
+                                        out.print(";");
+                                    }
+                                }
+                            }
+                            out.println();
+                        }
+                    }
+            }
+
             out.println();
             iterator.closeRowSetIterator();
             out.close();
@@ -3417,8 +3619,10 @@ public class InvoiceOverviewBean implements Serializable {
                     }
                 }
                 out.println();
+                RowSetIterator iterator = null;
+                if(isCardGroup){
                 ViewObject prtNewInvoiceVO = ADFUtils.getViewObject(PRTNEWINVOICEVO1ITERATORLITRERAL);
-                RowSetIterator iterator = prtNewInvoiceVO.createRowSetIterator(null);
+                iterator = prtNewInvoiceVO.createRowSetIterator(null);
                 iterator.reset();
                 while (iterator.hasNext()) {
                     PrtNewInvoiceVORowImpl row = (PrtNewInvoiceVORowImpl)iterator.next();
@@ -3444,7 +3648,7 @@ public class InvoiceOverviewBean implements Serializable {
                                 }
                             }
 
-                            else if ("Invoice Number".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            else if ("Invoice No".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getFinalinvoice() != null) {
                                     out.print(row.getFinalinvoice().toString());
                                 }
@@ -3495,6 +3699,89 @@ public class InvoiceOverviewBean implements Serializable {
                             }
                         }
                         out.println();
+                    }
+                }
+            }
+                else{
+                    ViewObject prtNewInvoiceCardVO = ADFUtils.getViewObject(PRTNEWINVOICECARDVO1ITERATORLITRERAL);
+                    iterator = prtNewInvoiceCardVO.createRowSetIterator(null);
+                    iterator.reset();
+                    while (iterator.hasNext()) {
+                        PrtNewInvoiceCardVORowImpl row = (PrtNewInvoiceCardVORowImpl)iterator.next();
+                        if (row != null) {
+                            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + PRINTINGDATALITRERAL);
+                            for (int cellValue = 0; cellValue < headerValues.length; cellValue++) {
+
+                                if (Constants.PARTNER_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                    if (row.getPartnerId() != null) {
+                                        out.print(row.getPartnerId().toString());
+                                    }
+                                    if (cellValue != headerDataValues.length - 1) {
+                                        out.print("|");
+                                    }
+                                }
+
+                                else if (Constants.ACCOUNT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                    if (row.getAccountId() != null) {
+                                        out.print(row.getAccountId().toString());
+                                    }
+                                    if (cellValue != headerDataValues.length - 1) {
+                                        out.print("|");
+                                    }
+                                }
+
+                                else if ("Invoice No".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                    if (row.getFinalinvoice() != null) {
+                                        out.print(row.getFinalinvoice().toString());
+                                    }
+                                    if (cellValue != headerDataValues.length - 1) {
+                                        out.print("|");
+                                    }
+                                } else if ("Invoice Date".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                    if (row.getInvoiceDate() != null) {
+                                        java.sql.Date date = row.getInvoiceDate().dateValue();
+                                        Date passedDate = new Date(date.getTime());
+                                        out.print(formatConversion(passedDate));
+                                    }
+                                    if (cellValue != headerDataValues.length - 1) {
+                                        out.print("|");
+                                    }
+                                } else if ("Due Date".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                    if (row.getInvoicingDueDate() != null) {
+                                        java.sql.Date date = row.getInvoicingDueDate().dateValue();
+                                        Date passedDate = new Date(date.getTime());
+                                        out.print(formatConversion(passedDate));
+                                    }
+                                    if (cellValue != headerDataValues.length - 1) {
+                                        out.print("|");
+                                    }
+                                }
+
+                                else if (Constants.NET_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                    if (row.getnetAmount() != null) {
+                                        out.print(row.getnetAmount().toString());
+                                    }
+                                    if (cellValue != headerDataValues.length - 1) {
+                                        out.print("|");
+                                    }
+                                } else if (Constants.VAT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                    if (row.getInvVatAmt() != null) {
+                                        out.print(row.getInvVatAmt().toString());
+                                    }
+                                    if (cellValue != headerDataValues.length - 1) {
+                                        out.print("|");
+                                    }
+                                } else if (Constants.TOTAL_AMOUNT_LITERAL.equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                    if (row.getInvGrossAmt() != null) {
+                                        out.print(row.getInvGrossAmt().toString());
+                                    }
+                                    if (cellValue != headerDataValues.length - 1) {
+                                        out.print("|");
+                                    }
+                                }
+                            }
+                            out.println();
+                        }
                     }
                 }
                 out.println();
@@ -3556,6 +3843,20 @@ public class InvoiceOverviewBean implements Serializable {
         getBindings().getInvoiceResultsCollection().queueEvent(queryEvent3);
 
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceResultsCollection());
+        
+        
+        FilterableQueryDescriptor qd3 =
+
+            (FilterableQueryDescriptor)getBindings().getInvoiceResultsCards().getFilterModel();
+
+
+        QueryEvent queryEvent4 =
+
+            new QueryEvent(getBindings().getInvoiceResultsCards(), qd3);
+
+        getBindings().getInvoiceResultsCards().queueEvent(queryEvent4);
+
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceResultsCards());
 
 
     }
@@ -3596,9 +3897,19 @@ public class InvoiceOverviewBean implements Serializable {
             queryDescriptor3.getFilterCriteria().clear();
             getBindings().getInvoiceResultsCollection().queueEvent(new QueryEvent(getBindings().getInvoiceResultsCollection(), queryDescriptor3));
         }
+        
+        
+            
+        FilterableQueryDescriptor queryDescriptor4 =   (FilterableQueryDescriptor)getBindings().getInvoiceResultsCards().getFilterModel();
 
+        if (queryDescriptor4 != null && queryDescriptor4.getFilterCriteria() != null) {
+            queryDescriptor4.getFilterCriteria().clear();
+            getBindings().getInvoiceResultsCollection().queueEvent(new QueryEvent(getBindings().getInvoiceResultsCards(), queryDescriptor4));
+        }
+        
 
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceResults());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceResultsCards());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceResultsPopup());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceResultsCollection());
 
@@ -3949,6 +4260,144 @@ public class InvoiceOverviewBean implements Serializable {
         return comparator;
     }
 
+    public void setIsCardGroup(boolean isCardGroup) {
+        this.isCardGroup = isCardGroup;
+    }
+
+    public boolean isIsCardGroup() {
+        return isCardGroup;
+    }
+
+    private void removeWhereClauseForCardInvoice() {
+        System.out.println("Entering the Invoice removeWhereClause::::::::::::");
+        ViewObject invoiceCardVO = ADFUtils.getViewObject(PRTNEWINVOICECARDVO1ITERATORLITRERAL);
+        if (cardQuery.length() > 1 && cardQuery != null) {
+
+                if (((accountQuery2 + "AND " + cardQuery + "AND " + generalQuery2).trim().equalsIgnoreCase(invoiceCardVO.getWhereClause())) ||
+                    ((accountQuery2 + " AND " + cardQuery + "AND " + generalQuery2).trim().equalsIgnoreCase(invoiceCardVO.getWhereClause()))) {
+                LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "inside  card with out purchase code where removal class");
+                if (mapAccountListValue2 != null) {
+                    for (int i = 0; i < mapAccountListValue2.size(); i++) {
+
+                        invoiceCardVO.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i);
+                    }
+                } else {
+                    invoiceCardVO.removeNamedWhereClauseParam(Constants.ACCOUNT_LITERAL);
+                }
+                if (mapCardListValue != null) {
+                    for (int i = 0; i < mapCardListValue.size(); i++) {
+                        invoiceCardVO.removeNamedWhereClauseParam(Constants.CARDLITERAL + i);
+                    }
+
+                } else {
+                    invoiceCardVO.removeNamedWhereClauseParam(Constants.CARDLITERAL);
+                }
+                invoiceCardVO.removeNamedWhereClauseParam("ccode");
+                invoiceCardVO.removeNamedWhereClauseParam("partner_id");
+                invoiceCardVO.removeNamedWhereClauseParam("fromDateBV");
+                invoiceCardVO.removeNamedWhereClauseParam("toDateBV");
+                invoiceCardVO.setWhereClause("");
+                invoiceCardVO.executeQuery();
+            }
+        }
+    }
+
+    private long applyWhereClauseForCardInvoice(boolean b, String newFromDate, String newToDate) {
+        String accountTemp = "";
+        String cardTemp = "";
+        String partnerList = "";
+        partnerList = populateStringValues(getPartnerValue().toString());
+        ViewObject invoiceCardVO = ADFUtils.getViewObject(PRTNEWINVOICECARDVO1ITERATORLITRERAL);
+        accountQuery2 = "(";
+        cardQuery = "(";
+        
+        accountTemp = populateStringValues(getBindings().getAccount().getValue().toString());
+        cardTemp = populateStringValues(getBindings().getCard().getValue().toString());
+        
+        
+        generalQuery2= "INSTR(:partner_id,partner_id)<>0  AND COUNTRY_CODE =:ccode AND INVOICING_DATE >=:fromDateBV AND INVOICING_DATE <=:toDateBV AND invoice_level is not null";
+        invoiceCardVO.defineNamedWhereClauseParam("ccode", lang,null);
+        invoiceCardVO.defineNamedWhereClauseParam("partner_id",partnerList,null);
+        invoiceCardVO.defineNamedWhereClauseParam("fromDateBV", newFromDate,null);
+        invoiceCardVO.defineNamedWhereClauseParam("toDateBV", newToDate,null);
+
+        if (accountValue.size() > Constants.ONEFIFTY) {
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
+            mapAccountListValue2 = ValueListSplit.callValueList(accountValue.size(), accountValue);
+            for (int i = 0; i < mapAccountListValue2.size(); i++) {
+                String values = Constants.ACCOUNT_LITERAL + i;
+                accountQuery2 = accountQuery2 + "INSTR(:" + values + ",ACCOUNT_ID)<>0 OR ";
+            }
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "Account Query Values =" + accountQuery);
+            accountQuery2 = accountQuery2.substring(0, accountQuery2.length() - Constants.THREE);
+            accountQuery2 = accountQuery2 + ")";
+
+        } else {
+            mapAccountListValue2 = null;
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
+            accountQuery2 = "(INSTR(:account,ACCOUNT_ID)<>0 ) ";
+        }
+
+
+        
+
+                if (cardValue.size() > Constants.ONEFIFTY) {
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values > 150 ");
+                    mapCardListValue = ValueListSplit.callValueList(cardValue.size(), cardValue);
+                    for (int i = 0; i < mapCardListValue.size(); i++) {
+                        String values = Constants.CARDLITERAL + i;
+                        cardQuery = cardQuery + "INSTR(:" + values + ",INVOICED_CARD)<>0 OR ";
+                    }
+                    cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
+                    cardQuery = cardQuery + ")";
+
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
+                    invoiceCardVO.setWhereClause(accountQuery + "AND " + cardQuery + "AND " + generalQuery);
+                    for (int i = 0; i < mapCardListValue.size(); i++) {
+                        invoiceCardVO.defineNamedWhereClauseParam(Constants.CARDLITERAL + i, mapCardListValue.get(Constants.LISTNAME_LITERAL + i),
+                                                              null);
+                    }
+
+                } else {
+                    LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CARD Values < 150 ");
+                    mapCardListValue = null;
+                    cardQuery = "(INSTR(:card,INVOICED_CARD)<>0)";
+                    invoiceCardVO.setWhereClause(accountQuery + "AND " + cardQuery + "AND " + generalQuery);
+        //                    String cardValuesList = populateStringValues(cardTemp);
+                    invoiceCardVO.defineNamedWhereClauseParam(Constants.CARDLITERAL, cardTemp, null);
+                }
+            
+        
+        if (accountValue.size() > Constants.ONEFIFTY) {
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
+            mapAccountListValue2 = ValueListSplit.callValueList(accountValue.size(), accountValue);
+            for (int i = 0; i < mapAccountListValue2.size(); i++) {
+
+                invoiceCardVO.defineNamedWhereClauseParam(Constants.ACCOUNT_LITERAL + i, mapAccountListValue2.get(Constants.LISTNAME_LITERAL + i),
+                                                      null);
+            }
+
+        } else {
+            LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
+            invoiceCardVO.defineNamedWhereClauseParam(Constants.ACCOUNT_LITERAL,accountTemp, null);
+        }
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Query Formed is=" + invoiceCardVO.getQuery());
+        invoiceCardVO.executeQuery();
+        
+        System.out.println("estimatedRowCount in ApplyWhereCaluse:::"+invoiceCardVO.getEstimatedRowCount());
+        
+        return invoiceCardVO.getEstimatedRowCount();
+    }
+
+    public void setIsCard(boolean isCard) {
+        this.isCard = isCard;
+    }
+
+    public boolean isIsCard() {
+        return isCard;
+    }
+
+
     public class Bindings {
         private RichSelectManyChoice account;
         private RichSelectOneChoice invoiceType;
@@ -3985,6 +4434,7 @@ public class InvoiceOverviewBean implements Serializable {
         private RichOutputText popUpInvNet;
         private RichOutputText popUpInvVat;
         private RichOutputText popUpInvGross;
+        private RichTable invoiceResultsCards;
 
         public void setPopUpInvoiceDate(RichOutputText popUpInvoiceDate) {
             this.popUpInvoiceDate = popUpInvoiceDate;
@@ -4320,5 +4770,15 @@ public class InvoiceOverviewBean implements Serializable {
         public RichInputText getEmailRecipientPopup() {
             return emailRecipientPopup;
         }
+
+        public void setInvoiceResultsCards(RichTable invoiceResultsCards) {
+            this.invoiceResultsCards = invoiceResultsCards;
+        }
+
+        public RichTable getInvoiceResultsCards() {
+            return invoiceResultsCards;
+        }
+
+
     }
 }
