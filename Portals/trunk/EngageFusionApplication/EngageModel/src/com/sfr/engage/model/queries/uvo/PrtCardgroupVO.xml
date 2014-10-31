@@ -35,7 +35,8 @@
        PrtCardgroupEO.BLOCK_TIME, 
        PrtCardgroupEO.MODIFIED_BY, 
        PrtCardgroupEO.MODIFIED_DATE, 
-       PrtCardgroupEO.CARDGROUP_DESCRIPTION"
+       PrtCardgroupEO.CARDGROUP_DESCRIPTION, 
+       PrtCardgroupEO.ROUTEX_CUSTOMER_NUMBER"
   FromList="PRT_CARDGROUP PrtCardgroupEO"
   BindingStyle="OracleName"
   CustomQuery="false"
@@ -252,6 +253,12 @@
     EntityAttrName="CardgroupDescription"
     EntityUsage="PrtCardgroupEO"
     AliasName="CARDGROUP_DESCRIPTION"/>
+  <ViewAttribute
+    Name="RoutexCustomerNumber"
+    PrecisionRule="true"
+    EntityAttrName="RoutexCustomerNumber"
+    EntityUsage="PrtCardgroupEO"
+    AliasName="ROUTEX_CUSTOMER_NUMBER"/>
   <ViewLinkAccessor
     Name="PrtCardVO"
     ViewLink="com.sfr.engage.model.fklinks.PrtCardPrtCardgroupFk1Link"

@@ -457,18 +457,7 @@
       <Attr Name="_DisplaySize" Value="20"/>
     </DesignTime>
   </Attribute>
-  <Attribute
-    Name="MagneticCode"
-    Precision="3"
-    ColumnName="MAGNETIC_CODE"
-    SQLType="VARCHAR"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    TableName="PRT_CARD">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="3"/>
-    </DesignTime>
-  </Attribute>
+  
   <Attribute
     Name="DebitBankAccount"
     Precision="16"
@@ -562,30 +551,7 @@
       <Attr Name="_DisplaySize" Value="1"/>
     </DesignTime>
   </Attribute>
-  <Attribute
-    Name="CardRemarks"
-    IsPersistent="false"
-    Precision="255"
-    ColumnName='"Synchronize:Fix_SQL"'
-    SQLType="VARCHAR"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="255"/>
-    </DesignTime>
-  </Attribute>
-  <Attribute
-    Name="CardIdentifier"
-    Precision="3"
-    ColumnName="CARD_IDENTIFIER"
-    SQLType="VARCHAR"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    TableName="PRT_CARD">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="3"/>
-    </DesignTime>
-  </Attribute>
+  
   <Attribute
     Name="InvoiceInformation"
     Precision="90"
@@ -653,18 +619,7 @@
       </SchemaBasedProperties>
     </Properties>
   </Attribute>
-  <Attribute
-    Name="RoutexCustomerNumber"
-    Precision="6"
-    ColumnName="ROUTEX_CUSTOMER_NUMBER"
-    SQLType="VARCHAR"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    TableName="PRT_CARD">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="6"/>
-    </DesignTime>
-  </Attribute>
+  
   <Attribute
     Name="InvoiceAddr1"
     Precision="60"
@@ -713,18 +668,7 @@
       <Attr Name="_DisplaySize" Value="60"/>
     </DesignTime>
   </Attribute>
-  <Attribute
-    Name="AddrSeq"
-    Precision="5"
-    ColumnName="ADDR_SEQ"
-    SQLType="VARCHAR"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    TableName="PRT_CARD">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="5"/>
-    </DesignTime>
-  </Attribute>
+  
   <Attribute
     Name="InvoiceCountry"
     Precision="2"
@@ -763,7 +707,7 @@
   </Attribute>
   <Attribute
     Name="CardTextline2"
-    Precision="30"
+    Precision="45"
     ColumnName="CARD_TEXTLINE_2"
     SQLType="VARCHAR"
     Type="java.lang.String"
@@ -771,6 +715,78 @@
     TableName="PRT_CARD">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="LastUsed"
+    ColumnName="LAST_USED"
+    SQLType="TIMESTAMP"
+    Type="oracle.jbo.domain.Timestamp"
+    ColumnType="TIMESTAMP"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="11"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="LastOneMonthUse"
+    Precision="126"
+    ColumnName="LAST_ONE_MONTH_USE"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="LastThreeMonthsUse"
+    Precision="126"
+    ColumnName="LAST_THREE_MONTHS_USE"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CardPurchaseProfile"
+    Precision="3"
+    ColumnName="CARD_PURCHASE_PROFILE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CardTextline1"
+    Precision="30"
+    ColumnName="CARD_TEXTLINE1"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  
+  <Attribute
+    Name="CardInvoiceEmail"
+    Precision="50"
+    ColumnName="CARD_INVOICE_EMAIL"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
     </DesignTime>
   </Attribute>
   <AccessorAttribute

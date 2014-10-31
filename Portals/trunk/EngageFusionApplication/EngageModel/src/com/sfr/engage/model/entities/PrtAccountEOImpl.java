@@ -273,6 +273,36 @@ public class PrtAccountEOImpl extends EntityImpl {
             }
         }
         ,
+        AccountType {
+            public Object get(PrtAccountEOImpl obj) {
+                return obj.getAccountType();
+            }
+
+            public void put(PrtAccountEOImpl obj, Object value) {
+                obj.setAccountType((String)value);
+            }
+        }
+        ,
+        CustomerSegment {
+            public Object get(PrtAccountEOImpl obj) {
+                return obj.getCustomerSegment();
+            }
+
+            public void put(PrtAccountEOImpl obj, Object value) {
+                obj.setCustomerSegment((String)value);
+            }
+        }
+        ,
+        AccountName {
+            public Object get(PrtAccountEOImpl obj) {
+                return obj.getAccountName();
+            }
+
+            public void put(PrtAccountEOImpl obj, Object value) {
+                obj.setAccountName((String)value);
+            }
+        }
+        ,
         PrtDriverInformationEO {
             public Object get(PrtAccountEOImpl obj) {
                 return obj.getPrtDriverInformationEO();
@@ -303,16 +333,6 @@ public class PrtAccountEOImpl extends EntityImpl {
             }
         }
         ,
-        PrtDriverInformationEO1 {
-            public Object get(PrtAccountEOImpl obj) {
-                return obj.getPrtDriverInformationEO1();
-            }
-
-            public void put(PrtAccountEOImpl obj, Object value) {
-                obj.setAttributeInternal(index(), value);
-            }
-        }
-        ,
         PrtCardgroupEO {
             public Object get(PrtAccountEOImpl obj) {
                 return obj.getPrtCardgroupEO();
@@ -329,7 +349,7 @@ public class PrtAccountEOImpl extends EntityImpl {
             }
 
             public void put(PrtAccountEOImpl obj, Object value) {
-                obj.setPrtPartnerEO1((EntityImpl)value);
+                obj.setAttributeInternal(index(), value);
             }
         }
         ,
@@ -344,6 +364,16 @@ public class PrtAccountEOImpl extends EntityImpl {
         }
         ,
         PrtDriverInformationEO2 {
+            public Object get(PrtAccountEOImpl obj) {
+                return obj.getPrtDriverInformationEO2();
+            }
+
+            public void put(PrtAccountEOImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
+        PrtDriverInformationEO1 {
             public Object get(PrtAccountEOImpl obj) {
                 return obj.getPrtDriverInformationEO2();
             }
@@ -391,6 +421,8 @@ public class PrtAccountEOImpl extends EntityImpl {
     }
 
 
+    public static final int PRTDRIVERINFORMATIONEO1 = AttributesEnum.PrtDriverInformationEO1.index();
+
     public static final int COUNTRYCODE = AttributesEnum.CountryCode.index();
     public static final int ACCOUNTID = AttributesEnum.AccountId.index();
     public static final int PARTNERID = AttributesEnum.PartnerId.index();
@@ -416,10 +448,12 @@ public class PrtAccountEOImpl extends EntityImpl {
     public static final int MODIFIEDBY = AttributesEnum.ModifiedBy.index();
     public static final int MODIFIEDDATE = AttributesEnum.ModifiedDate.index();
     public static final int CUSTOMERGROUP = AttributesEnum.CustomerGroup.index();
+    public static final int ACCOUNTTYPE = AttributesEnum.AccountType.index();
+    public static final int CUSTOMERSEGMENT = AttributesEnum.CustomerSegment.index();
+    public static final int ACCOUNTNAME = AttributesEnum.AccountName.index();
     public static final int PRTDRIVERINFORMATIONEO = AttributesEnum.PrtDriverInformationEO.index();
     public static final int PRTPARTNEREO = AttributesEnum.PrtPartnerEO.index();
     public static final int PRTCARDEO = AttributesEnum.PrtCardEO.index();
-    public static final int PRTDRIVERINFORMATIONEO1 = AttributesEnum.PrtDriverInformationEO1.index();
     public static final int PRTCARDGROUPEO = AttributesEnum.PrtCardgroupEO.index();
     public static final int PRTPARTNEREO1 = AttributesEnum.PrtPartnerEO1.index();
     public static final int PRTCARDEO1 = AttributesEnum.PrtCardEO1.index();
@@ -844,6 +878,54 @@ public class PrtAccountEOImpl extends EntityImpl {
     }
 
     /**
+     * Gets the attribute value for AccountType, using the alias name AccountType.
+     * @return the AccountType
+     */
+    public String getAccountType() {
+        return (String)getAttributeInternal(ACCOUNTTYPE);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for AccountType.
+     * @param value value to set the AccountType
+     */
+    public void setAccountType(String value) {
+        setAttributeInternal(ACCOUNTTYPE, value);
+    }
+
+    /**
+     * Gets the attribute value for CustomerSegment, using the alias name CustomerSegment.
+     * @return the CustomerSegment
+     */
+    public String getCustomerSegment() {
+        return (String)getAttributeInternal(CUSTOMERSEGMENT);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for CustomerSegment.
+     * @param value value to set the CustomerSegment
+     */
+    public void setCustomerSegment(String value) {
+        setAttributeInternal(CUSTOMERSEGMENT, value);
+    }
+
+    /**
+     * Gets the attribute value for AccountName, using the alias name AccountName.
+     * @return the AccountName
+     */
+    public String getAccountName() {
+        return (String)getAttributeInternal(ACCOUNTNAME);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for AccountName.
+     * @param value value to set the AccountName
+     */
+    public void setAccountName(String value) {
+        setAttributeInternal(ACCOUNTNAME, value);
+    }
+
+    /**
      * getAttrInvokeAccessor: generated method. Do not modify.
      * @param index the index identifying the attribute
      * @param attrDef the attribute
@@ -884,6 +966,16 @@ public class PrtAccountEOImpl extends EntityImpl {
     }
 
     /**
+     * @param countryCode key constituent
+     * @param accountId key constituent
+
+     * @return a Key object based on given key constituents.
+     */
+    public static Key createPrimaryKey(String countryCode, String accountId) {
+        return new Key(new Object[]{countryCode, accountId});
+    }
+
+    /**
      * @return the associated entity oracle.jbo.server.EntityImpl.
      */
     public EntityImpl getPrtPartnerEO1() {
@@ -918,15 +1010,6 @@ public class PrtAccountEOImpl extends EntityImpl {
         return (RowIterator)getAttributeInternal(PRTCARDGROUPEO1);
     }
 
-    /**
-     * @param countryCode key constituent
-     * @param accountId key constituent
-
-     * @return a Key object based on given key constituents.
-     */
-    public static Key createPrimaryKey(String countryCode, String accountId) {
-        return new Key(new Object[]{countryCode, accountId});
-    }
 
     /**
      * @return the associated entity oracle.jbo.server.EntityImpl.

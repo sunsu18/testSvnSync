@@ -129,11 +129,7 @@
         <Item Value="CardgroupSubType"/>
       </AttrNames>
     </attributeValues>
-    <attributeValues IterBinding="PrtCardVO4Iterator" id="CardRemarks">
-      <AttrNames>
-        <Item Value="CardRemarks"/>
-      </AttrNames>
-    </attributeValues>
+    
     <attributeValues IterBinding="PrtPartnerVO1Iterator" id="PartnerAddr1">
       <AttrNames>
         <Item Value="PartnerAddr1"/>

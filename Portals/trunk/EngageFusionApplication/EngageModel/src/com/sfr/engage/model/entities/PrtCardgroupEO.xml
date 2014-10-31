@@ -408,6 +408,18 @@
       <Attr Name="_DisplaySize" Value="45"/>
     </DesignTime>
   </Attribute>
+  <Attribute
+    Name="RoutexCustomerNumber"
+    Precision="6"
+    ColumnName="ROUTEX_CUSTOMER_NUMBER"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARDGROUP">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="6"/>
+    </DesignTime>
+  </Attribute>
   <AccessorAttribute
     Name="PrtPartnerEO1"
     Association="com.sfr.engage.model.associations.PrtCardgroupPrtPartnerFk1Assoc"

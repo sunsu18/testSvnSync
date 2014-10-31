@@ -43,7 +43,6 @@
        PrtCardEO.CARD_CREATED_BY, 
        PrtCardEO.CARD_COPIES, 
        PrtCardEO.CARD_SEARCH_ID, 
-       PrtCardEO.MAGNETIC_CODE, 
        PrtCardEO.DEBIT_BANK_ACCOUNT, 
        PrtCardEO.DEBIT_AGREE_REF, 
        PrtCardEO.BLOCK_DATE, 
@@ -59,7 +58,13 @@
        PrtCardEO.INVOICE_POSTAL_CODE, 
        PrtCardEO.BLOCK_LEVEL, 
        PrtCardEO.BLOCK_ACTION, 
-       PrtCardEO.MANUFACTURED_DATE"
+       PrtCardEO.MANUFACTURED_DATE, 
+       PrtCardEO.CARD_PURCHASE_PROFILE, 
+       PrtCardEO.CARD_TEXTLINE1, 
+       PrtCardEO.CARD_INVOICE_EMAIL, 
+       PrtCardEO.LAST_USED, 
+       PrtCardEO.LAST_THREE_MONTHS_USE, 
+       PrtCardEO.LAST_ONE_MONTH_USE"
   FromList="PRT_CARD PrtCardEO"
   BindingStyle="OracleName"
   CustomQuery="false"
@@ -303,12 +308,7 @@
     EntityAttrName="CardSearchId"
     EntityUsage="PrtCardEO"
     AliasName="CARD_SEARCH_ID"/>
-  <ViewAttribute
-    Name="MagneticCode"
-    PrecisionRule="true"
-    EntityAttrName="MagneticCode"
-    EntityUsage="PrtCardEO"
-    AliasName="MAGNETIC_CODE"/>
+  
   <ViewAttribute
     Name="DebitBankAccount"
     PrecisionRule="true"
@@ -357,13 +357,7 @@
     EntityAttrName="SpesialbestJn"
     EntityUsage="PrtCardEO"
     AliasName="SPESIALBEST_JN"/>
-  <ViewAttribute
-    Name="CardRemarks"
-    IsPersistent="false"
-    PrecisionRule="true"
-    EntityAttrName="CardRemarks"
-    EntityUsage="PrtCardEO"
-    AliasName="CARD_REMARKS"/>
+  
   <ViewAttribute
     Name="InvoiceAddr1"
     PrecisionRule="true"
@@ -432,4 +426,40 @@
     EntityAttrName="ManufacturedDate"
     EntityUsage="PrtCardEO"
     AliasName="MANUFACTURED_DATE"/>
+  <ViewAttribute
+    Name="CardPurchaseProfile"
+    PrecisionRule="true"
+    EntityAttrName="CardPurchaseProfile"
+    EntityUsage="PrtCardEO"
+    AliasName="CARD_PURCHASE_PROFILE"/>
+  <ViewAttribute
+    Name="CardTextline1"
+    PrecisionRule="true"
+    EntityAttrName="CardTextline1"
+    EntityUsage="PrtCardEO"
+    AliasName="CARD_TEXTLINE1"/>
+  <ViewAttribute
+    Name="CardInvoiceEmail"
+    PrecisionRule="true"
+    EntityAttrName="CardInvoiceEmail"
+    EntityUsage="PrtCardEO"
+    AliasName="CARD_INVOICE_EMAIL"/>
+  <ViewAttribute
+    Name="LastUsed"
+    PrecisionRule="true"
+    EntityAttrName="LastUsed"
+    EntityUsage="PrtCardEO"
+    AliasName="LAST_USED"/>
+  <ViewAttribute
+    Name="LastThreeMonthsUse"
+    PrecisionRule="true"
+    EntityAttrName="LastThreeMonthsUse"
+    EntityUsage="PrtCardEO"
+    AliasName="LAST_THREE_MONTHS_USE"/>
+  <ViewAttribute
+    Name="LastOneMonthUse"
+    PrecisionRule="true"
+    EntityAttrName="LastOneMonthUse"
+    EntityUsage="PrtCardEO"
+    AliasName="LAST_ONE_MONTH_USE"/>
 </ViewObject>

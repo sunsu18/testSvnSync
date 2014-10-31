@@ -701,30 +701,7 @@
       <Attr Name="_DisplaySize" Value="60"/>
     </DesignTime>
   </Attribute>
-  <Attribute
-    Name="PartnerAddrSeq"
-    Precision="5"
-    ColumnName="PARTNER_ADDR_SEQ"
-    SQLType="VARCHAR"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    TableName="PRT_PARTNER">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="5"/>
-    </DesignTime>
-  </Attribute>
-  <Attribute
-    Name="PartnerAddrLevel"
-    Precision="3"
-    ColumnName="PARTNER_ADDR_LEVEL"
-    SQLType="VARCHAR"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    TableName="PRT_PARTNER">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="3"/>
-    </DesignTime>
-  </Attribute>
+  
   <Attribute
     Name="PartnerAddrType"
     Precision="3"
@@ -735,6 +712,30 @@
     TableName="PRT_PARTNER">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="PartnerTelephone"
+    Precision="25"
+    ColumnName="PARTNER_TELEPHONE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_PARTNER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="25"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="PartnerCreditLimit"
+    Precision="15"
+    ColumnName="PARTNER_CREDIT_LIMIT"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_PARTNER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="15"/>
     </DesignTime>
   </Attribute>
   <AccessorAttribute

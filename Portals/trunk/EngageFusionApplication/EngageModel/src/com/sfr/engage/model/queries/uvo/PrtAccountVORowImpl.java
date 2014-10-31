@@ -259,6 +259,36 @@ public class PrtAccountVORowImpl extends ViewRowImpl {
                 obj.setModifiedDate((Timestamp)value);
             }
         }
+        ,
+        AccountType {
+            public Object get(PrtAccountVORowImpl obj) {
+                return obj.getAccountType();
+            }
+
+            public void put(PrtAccountVORowImpl obj, Object value) {
+                obj.setAccountType((String)value);
+            }
+        }
+        ,
+        AccountName {
+            public Object get(PrtAccountVORowImpl obj) {
+                return obj.getAccountName();
+            }
+
+            public void put(PrtAccountVORowImpl obj, Object value) {
+                obj.setAccountName((String)value);
+            }
+        }
+        ,
+        CustomerSegment {
+            public Object get(PrtAccountVORowImpl obj) {
+                return obj.getCustomerSegment();
+            }
+
+            public void put(PrtAccountVORowImpl obj, Object value) {
+                obj.setCustomerSegment((String)value);
+            }
+        }
         ;
         private static AttributesEnum[] vals = null;
         private static int firstIndex = 0;
@@ -286,6 +316,7 @@ public class PrtAccountVORowImpl extends ViewRowImpl {
             return vals;
         }
     }
+
     public static final int COUNTRYCODE = AttributesEnum.CountryCode.index();
     public static final int ACCOUNTID = AttributesEnum.AccountId.index();
     public static final int PARTNERID = AttributesEnum.PartnerId.index();
@@ -310,6 +341,9 @@ public class PrtAccountVORowImpl extends ViewRowImpl {
     public static final int GIRONUMBER = AttributesEnum.GiroNumber.index();
     public static final int MODIFIEDBY = AttributesEnum.ModifiedBy.index();
     public static final int MODIFIEDDATE = AttributesEnum.ModifiedDate.index();
+    public static final int ACCOUNTTYPE = AttributesEnum.AccountType.index();
+    public static final int ACCOUNTNAME = AttributesEnum.AccountName.index();
+    public static final int CUSTOMERSEGMENT = AttributesEnum.CustomerSegment.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -707,6 +741,54 @@ public class PrtAccountVORowImpl extends ViewRowImpl {
      */
     public void setModifiedDate(Timestamp value) {
         setAttributeInternal(MODIFIEDDATE, value);
+    }
+
+    /**
+     * Gets the attribute value for ACCOUNT_TYPE using the alias name AccountType.
+     * @return the ACCOUNT_TYPE
+     */
+    public String getAccountType() {
+        return (String) getAttributeInternal(ACCOUNTTYPE);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for ACCOUNT_TYPE using the alias name AccountType.
+     * @param value value to set the ACCOUNT_TYPE
+     */
+    public void setAccountType(String value) {
+        setAttributeInternal(ACCOUNTTYPE, value);
+    }
+
+    /**
+     * Gets the attribute value for ACCOUNT_NAME using the alias name AccountName.
+     * @return the ACCOUNT_NAME
+     */
+    public String getAccountName() {
+        return (String) getAttributeInternal(ACCOUNTNAME);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for ACCOUNT_NAME using the alias name AccountName.
+     * @param value value to set the ACCOUNT_NAME
+     */
+    public void setAccountName(String value) {
+        setAttributeInternal(ACCOUNTNAME, value);
+    }
+
+    /**
+     * Gets the attribute value for CUSTOMER_SEGMENT using the alias name CustomerSegment.
+     * @return the CUSTOMER_SEGMENT
+     */
+    public String getCustomerSegment() {
+        return (String) getAttributeInternal(CUSTOMERSEGMENT);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for CUSTOMER_SEGMENT using the alias name CustomerSegment.
+     * @param value value to set the CUSTOMER_SEGMENT
+     */
+    public void setCustomerSegment(String value) {
+        setAttributeInternal(CUSTOMERSEGMENT, value);
     }
 
     /**

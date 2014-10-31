@@ -29,7 +29,10 @@
        PrtAccountEO.DUNNING_PROC_ID, 
        PrtAccountEO.GIRO_NUMBER, 
        PrtAccountEO.MODIFIED_BY, 
-       PrtAccountEO.MODIFIED_DATE"
+       PrtAccountEO.MODIFIED_DATE, 
+       PrtAccountEO.ACCOUNT_TYPE, 
+       PrtAccountEO.ACCOUNT_NAME, 
+       PrtAccountEO.CUSTOMER_SEGMENT"
   FromList="PRT_ACCOUNT PrtAccountEO"
   Where="PrtAccountEO.COUNTRY_CODE =: countryCode"
   BindingStyle="OracleName"
@@ -197,4 +200,22 @@
     EntityAttrName="ModifiedDate"
     EntityUsage="PrtAccountEO"
     AliasName="MODIFIED_DATE"/>
+  <ViewAttribute
+    Name="AccountType"
+    PrecisionRule="true"
+    EntityAttrName="AccountType"
+    EntityUsage="PrtAccountEO"
+    AliasName="ACCOUNT_TYPE"/>
+  <ViewAttribute
+    Name="AccountName"
+    PrecisionRule="true"
+    EntityAttrName="AccountName"
+    EntityUsage="PrtAccountEO"
+    AliasName="ACCOUNT_NAME"/>
+  <ViewAttribute
+    Name="CustomerSegment"
+    PrecisionRule="true"
+    EntityAttrName="CustomerSegment"
+    EntityUsage="PrtAccountEO"
+    AliasName="CUSTOMER_SEGMENT"/>
 </ViewObject>

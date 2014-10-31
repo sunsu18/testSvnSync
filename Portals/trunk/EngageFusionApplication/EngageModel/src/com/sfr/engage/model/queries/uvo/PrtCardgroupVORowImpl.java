@@ -340,6 +340,16 @@ public class PrtCardgroupVORowImpl extends ViewRowImpl {
             }
         }
         ,
+        RoutexCustomerNumber {
+            public Object get(PrtCardgroupVORowImpl obj) {
+                return obj.getRoutexCustomerNumber();
+            }
+
+            public void put(PrtCardgroupVORowImpl obj, Object value) {
+                obj.setRoutexCustomerNumber((String)value);
+            }
+        }
+        ,
         PrtCardVO {
             public Object get(PrtCardgroupVORowImpl obj) {
                 return obj.getPrtCardVO();
@@ -376,6 +386,7 @@ public class PrtCardgroupVORowImpl extends ViewRowImpl {
             return vals;
         }
     }
+
     public static final int COUNTRYCODE = AttributesEnum.CountryCode.index();
     public static final int PARTNERID = AttributesEnum.PartnerId.index();
     public static final int ACCOUNTID = AttributesEnum.AccountId.index();
@@ -408,6 +419,7 @@ public class PrtCardgroupVORowImpl extends ViewRowImpl {
     public static final int MODIFIEDBY = AttributesEnum.ModifiedBy.index();
     public static final int MODIFIEDDATE = AttributesEnum.ModifiedDate.index();
     public static final int CARDGROUPDESCRIPTION = AttributesEnum.CardgroupDescription.index();
+    public static final int ROUTEXCUSTOMERNUMBER = AttributesEnum.RoutexCustomerNumber.index();
     public static final int PRTCARDVO = AttributesEnum.PrtCardVO.index();
 
     /**
@@ -934,6 +946,22 @@ public class PrtCardgroupVORowImpl extends ViewRowImpl {
      */
     public void setCardgroupDescription(String value) {
         setAttributeInternal(CARDGROUPDESCRIPTION, value);
+    }
+
+    /**
+     * Gets the attribute value for ROUTEX_CUSTOMER_NUMBER using the alias name RoutexCustomerNumber.
+     * @return the ROUTEX_CUSTOMER_NUMBER
+     */
+    public String getRoutexCustomerNumber() {
+        return (String) getAttributeInternal(ROUTEXCUSTOMERNUMBER);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for ROUTEX_CUSTOMER_NUMBER using the alias name RoutexCustomerNumber.
+     * @param value value to set the ROUTEX_CUSTOMER_NUMBER
+     */
+    public void setRoutexCustomerNumber(String value) {
+        setAttributeInternal(ROUTEXCUSTOMERNUMBER, value);
     }
 
     /**

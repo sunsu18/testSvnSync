@@ -334,17 +334,41 @@
       <Attr Name="_DisplaySize" Value="11"/>
     </DesignTime>
   </Attribute>
+  
   <Attribute
-    Name="CustomerGroup"
-    IsNotNull="true"
-    Precision="2"
-    ColumnName="CUSTOMER_GROUP"
+    Name="AccountType"
+    Precision="20"
+    ColumnName="ACCOUNT_TYPE"
     SQLType="VARCHAR"
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     TableName="PRT_ACCOUNT">
     <DesignTime>
-      <Attr Name="_DisplaySize" Value="2"/>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CustomerSegment"
+    Precision="4"
+    ColumnName="CUSTOMER_SEGMENT"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_ACCOUNT">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="4"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="AccountName"
+    Precision="20"
+    ColumnName="ACCOUNT_NAME"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_ACCOUNT">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
     </DesignTime>
   </Attribute>
   <AccessorAttribute
@@ -452,17 +476,6 @@
     </DesignTime>
     <AttrArray Name="Attributes">
       <Item Value="com.sfr.engage.model.entities.PrtAccountEO.PartnerId"/>
-    </AttrArray>
-  </Key>
-  <Key
-    Name="SysC0055890">
-    <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0055890"/>
-      <Attr Name="_checkCondition" Value='"CUSTOMER_GROUP" IS NOT NULL'/>
-      <Attr Name="_isCheck" Value="true"/>
-    </DesignTime>
-    <AttrArray Name="Attributes">
-      <Item Value="com.sfr.engage.model.entities.PrtAccountEO.CustomerGroup"/>
     </AttrArray>
   </Key>
   <Key

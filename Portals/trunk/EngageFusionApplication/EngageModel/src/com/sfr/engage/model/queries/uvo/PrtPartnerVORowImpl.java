@@ -590,6 +590,26 @@ public class PrtPartnerVORowImpl extends ViewRowImpl {
             }
         }
         ,
+        PartnerTelephone {
+            public Object get(PrtPartnerVORowImpl obj) {
+                return obj.getPartnerTelephone();
+            }
+
+            public void put(PrtPartnerVORowImpl obj, Object value) {
+                obj.setPartnerTelephone((String)value);
+            }
+        }
+        ,
+        PartnerCreditLimit {
+            public Object get(PrtPartnerVORowImpl obj) {
+                return obj.getPartnerCreditLimit();
+            }
+
+            public void put(PrtPartnerVORowImpl obj, Object value) {
+                obj.setPartnerCreditLimit((String)value);
+            }
+        }
+        ,
         PrtCardgroupVO {
             public Object get(PrtPartnerVORowImpl obj) {
                 return obj.getPrtCardgroupVO();
@@ -636,6 +656,7 @@ public class PrtPartnerVORowImpl extends ViewRowImpl {
             return vals;
         }
     }
+
     public static final int COUNTRYCODE = AttributesEnum.CountryCode.index();
     public static final int PARTNERID = AttributesEnum.PartnerId.index();
     public static final int LASTNAME1 = AttributesEnum.Lastname1.index();
@@ -693,6 +714,8 @@ public class PrtPartnerVORowImpl extends ViewRowImpl {
     public static final int PARTNERCITY = AttributesEnum.PartnerCity.index();
     public static final int PARTNERCOUNTRY = AttributesEnum.PartnerCountry.index();
     public static final int COMPANYNAME = AttributesEnum.CompanyName.index();
+    public static final int PARTNERTELEPHONE = AttributesEnum.PartnerTelephone.index();
+    public static final int PARTNERCREDITLIMIT = AttributesEnum.PartnerCreditLimit.index();
     public static final int PRTCARDGROUPVO = AttributesEnum.PrtCardgroupVO.index();
     public static final int PRTCARDVO = AttributesEnum.PrtCardVO.index();
 
@@ -1620,6 +1643,38 @@ public class PrtPartnerVORowImpl extends ViewRowImpl {
      */
     public void setCompanyName(String value) {
         setAttributeInternal(COMPANYNAME, value);
+    }
+
+    /**
+     * Gets the attribute value for PARTNER_TELEPHONE using the alias name PartnerTelephone.
+     * @return the PARTNER_TELEPHONE
+     */
+    public String getPartnerTelephone() {
+        return (String) getAttributeInternal(PARTNERTELEPHONE);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for PARTNER_TELEPHONE using the alias name PartnerTelephone.
+     * @param value value to set the PARTNER_TELEPHONE
+     */
+    public void setPartnerTelephone(String value) {
+        setAttributeInternal(PARTNERTELEPHONE, value);
+    }
+
+    /**
+     * Gets the attribute value for PARTNER_CREDIT_LIMIT using the alias name PartnerCreditLimit.
+     * @return the PARTNER_CREDIT_LIMIT
+     */
+    public String getPartnerCreditLimit() {
+        return (String) getAttributeInternal(PARTNERCREDITLIMIT);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for PARTNER_CREDIT_LIMIT using the alias name PartnerCreditLimit.
+     * @param value value to set the PARTNER_CREDIT_LIMIT
+     */
+    public void setPartnerCreditLimit(String value) {
+        setAttributeInternal(PARTNERCREDITLIMIT, value);
     }
 
     /**

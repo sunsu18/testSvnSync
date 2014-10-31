@@ -62,7 +62,9 @@
        PrtPartnerEO.PARTNER_POSTAL_CODE, 
        PrtPartnerEO.PARTNER_CITY, 
        PrtPartnerEO.PARTNER_COUNTRY, 
-       PrtPartnerEO.COMPANY_NAME"
+       PrtPartnerEO.COMPANY_NAME, 
+       PrtPartnerEO.PARTNER_TELEPHONE, 
+       PrtPartnerEO.PARTNER_CREDIT_LIMIT"
   FromList="PRT_PARTNER PrtPartnerEO"
   BindingStyle="OracleName"
   CustomQuery="false"
@@ -421,6 +423,18 @@
     EntityAttrName="CompanyName"
     EntityUsage="PrtPartnerEO"
     AliasName="COMPANY_NAME"/>
+  <ViewAttribute
+    Name="PartnerTelephone"
+    PrecisionRule="true"
+    EntityAttrName="PartnerTelephone"
+    EntityUsage="PrtPartnerEO"
+    AliasName="PARTNER_TELEPHONE"/>
+  <ViewAttribute
+    Name="PartnerCreditLimit"
+    PrecisionRule="true"
+    EntityAttrName="PartnerCreditLimit"
+    EntityUsage="PrtPartnerEO"
+    AliasName="PARTNER_CREDIT_LIMIT"/>
   <ViewLinkAccessor
     Name="PrtCardgroupVO"
     ViewLink="com.sfr.engage.model.fklinks.PrtCardgroupPrtPartnerFk1Link"

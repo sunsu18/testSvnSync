@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 
 import java.util.ResourceBundle;
 
+import oracle.jbo.domain.Number;
 import oracle.jbo.server.AttributeDefImpl;
 import oracle.jbo.server.EntityImpl;
 import oracle.jbo.server.ViewRowImpl;
@@ -400,16 +401,6 @@ public class PrtCardVORowImpl extends ViewRowImpl {
             }
         }
         ,
-        MagneticCode {
-            public Object get(PrtCardVORowImpl obj) {
-                return obj.getMagneticCode();
-            }
-
-            public void put(PrtCardVORowImpl obj, Object value) {
-                obj.setMagneticCode((String)value);
-            }
-        }
-        ,
         DebitBankAccount {
             public Object get(PrtCardVORowImpl obj) {
                 return obj.getDebitBankAccount();
@@ -487,16 +478,6 @@ public class PrtCardVORowImpl extends ViewRowImpl {
 
             public void put(PrtCardVORowImpl obj, Object value) {
                 obj.setSpesialbestJn((String)value);
-            }
-        }
-        ,
-        CardRemarks {
-            public Object get(PrtCardVORowImpl obj) {
-                return obj.getCardRemarks();
-            }
-
-            public void put(PrtCardVORowImpl obj, Object value) {
-                obj.setCardRemarks((String)value);
             }
         }
         ,
@@ -599,6 +580,66 @@ public class PrtCardVORowImpl extends ViewRowImpl {
                 obj.setManufacturedDate((Date)value);
             }
         }
+        ,
+        CardPurchaseProfile {
+            public Object get(PrtCardVORowImpl obj) {
+                return obj.getCardPurchaseProfile();
+            }
+
+            public void put(PrtCardVORowImpl obj, Object value) {
+                obj.setCardPurchaseProfile((String)value);
+            }
+        }
+        ,
+        CardTextline1 {
+            public Object get(PrtCardVORowImpl obj) {
+                return obj.getCardTextline1();
+            }
+
+            public void put(PrtCardVORowImpl obj, Object value) {
+                obj.setCardTextline1((String)value);
+            }
+        }
+        ,
+        CardInvoiceEmail {
+            public Object get(PrtCardVORowImpl obj) {
+                return obj.getCardInvoiceEmail();
+            }
+
+            public void put(PrtCardVORowImpl obj, Object value) {
+                obj.setCardInvoiceEmail((String)value);
+            }
+        }
+        ,
+        LastUsed {
+            public Object get(PrtCardVORowImpl obj) {
+                return obj.getLastUsed();
+            }
+
+            public void put(PrtCardVORowImpl obj, Object value) {
+                obj.setLastUsed((Timestamp)value);
+            }
+        }
+        ,
+        LastThreeMonthsUse {
+            public Object get(PrtCardVORowImpl obj) {
+                return obj.getLastThreeMonthsUse();
+            }
+
+            public void put(PrtCardVORowImpl obj, Object value) {
+                obj.setLastThreeMonthsUse((Number)value);
+            }
+        }
+        ,
+        LastOneMonthUse {
+            public Object get(PrtCardVORowImpl obj) {
+                return obj.getLastOneMonthUse();
+            }
+
+            public void put(PrtCardVORowImpl obj, Object value) {
+                obj.setLastOneMonthUse((Number)value);
+            }
+        }
         ;
         private static AttributesEnum[] vals = null;
         private static int firstIndex = 0;
@@ -627,6 +668,8 @@ public class PrtCardVORowImpl extends ViewRowImpl {
         }
     }
 
+
+    
 
     public static final int COUNTRYCODE = AttributesEnum.CountryCode.index();
     public static final int PARTNERID = AttributesEnum.PartnerId.index();
@@ -665,7 +708,6 @@ public class PrtCardVORowImpl extends ViewRowImpl {
     public static final int CARDCREATEDBY = AttributesEnum.CardCreatedBy.index();
     public static final int CARDCOPIES = AttributesEnum.CardCopies.index();
     public static final int CARDSEARCHID = AttributesEnum.CardSearchId.index();
-    public static final int MAGNETICCODE = AttributesEnum.MagneticCode.index();
     public static final int DEBITBANKACCOUNT = AttributesEnum.DebitBankAccount.index();
     public static final int DEBITAGREEREF = AttributesEnum.DebitAgreeRef.index();
     public static final int BLOCKDATE = AttributesEnum.BlockDate.index();
@@ -674,7 +716,6 @@ public class PrtCardVORowImpl extends ViewRowImpl {
     public static final int SPERREBEHKD = AttributesEnum.SperrebehKd.index();
     public static final int SPERRELISTEDT = AttributesEnum.SperrelisteDt.index();
     public static final int SPESIALBESTJN = AttributesEnum.SpesialbestJn.index();
-    public static final int CARDREMARKS = AttributesEnum.CardRemarks.index();
     public static final int INVOICEADDR1 = AttributesEnum.InvoiceAddr1.index();
     public static final int INVOICEADDR2 = AttributesEnum.InvoiceAddr2.index();
     public static final int INVOICECITY = AttributesEnum.InvoiceCity.index();
@@ -685,6 +726,12 @@ public class PrtCardVORowImpl extends ViewRowImpl {
     public static final int STATUS = AttributesEnum.Status.index();
     public static final int EXPIRYDATE = AttributesEnum.Expirydate.index();
     public static final int MANUFACTUREDDATE = AttributesEnum.ManufacturedDate.index();
+    public static final int CARDPURCHASEPROFILE = AttributesEnum.CardPurchaseProfile.index();
+    public static final int CARDTEXTLINE1 = AttributesEnum.CardTextline1.index();
+    public static final int CARDINVOICEEMAIL = AttributesEnum.CardInvoiceEmail.index();
+    public static final int LASTUSED = AttributesEnum.LastUsed.index();
+    public static final int LASTTHREEMONTHSUSE = AttributesEnum.LastThreeMonthsUse.index();
+    public static final int LASTONEMONTHUSE = AttributesEnum.LastOneMonthUse.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -1292,21 +1339,7 @@ public class PrtCardVORowImpl extends ViewRowImpl {
         setAttributeInternal(CARDSEARCHID, value);
     }
 
-    /**
-     * Gets the attribute value for MAGNETIC_CODE using the alias name MagneticCode.
-     * @return the MAGNETIC_CODE
-     */
-    public String getMagneticCode() {
-        return (String) getAttributeInternal(MAGNETICCODE);
-    }
-
-    /**
-     * Sets <code>value</code> as attribute value for MAGNETIC_CODE using the alias name MagneticCode.
-     * @param value value to set the MAGNETIC_CODE
-     */
-    public void setMagneticCode(String value) {
-        setAttributeInternal(MAGNETICCODE, value);
-    }
+    
 
     /**
      * Gets the attribute value for DEBIT_BANK_ACCOUNT using the alias name DebitBankAccount.
@@ -1453,21 +1486,7 @@ public class PrtCardVORowImpl extends ViewRowImpl {
         setAttributeInternal(SPESIALBESTJN, value);
     }
 
-    /**
-     * Gets the attribute value for "Synchronize:Fix_SQL" using the alias name CardRemarks.
-     * @return the "Synchronize:Fix_SQL"
-     */
-    public String getCardRemarks() {
-        return (String) getAttributeInternal(CARDREMARKS);
-    }
-
-    /**
-     * Sets <code>value</code> as attribute value for "Synchronize:Fix_SQL" using the alias name CardRemarks.
-     * @param value value to set the "Synchronize:Fix_SQL"
-     */
-    public void setCardRemarks(String value) {
-        setAttributeInternal(CARDREMARKS, value);
-    }
+    
 
     /**
      * Gets the attribute value for INVOICE_ADDR1 using the alias name InvoiceAddr1.
@@ -1669,6 +1688,102 @@ public class PrtCardVORowImpl extends ViewRowImpl {
      */
     public void setManufacturedDate(Date value) {
         setAttributeInternal(MANUFACTUREDDATE, value);
+    }
+
+    /**
+     * Gets the attribute value for CARD_PURCHASE_PROFILE using the alias name CardPurchaseProfile.
+     * @return the CARD_PURCHASE_PROFILE
+     */
+    public String getCardPurchaseProfile() {
+        return (String) getAttributeInternal(CARDPURCHASEPROFILE);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for CARD_PURCHASE_PROFILE using the alias name CardPurchaseProfile.
+     * @param value value to set the CARD_PURCHASE_PROFILE
+     */
+    public void setCardPurchaseProfile(String value) {
+        setAttributeInternal(CARDPURCHASEPROFILE, value);
+    }
+
+    /**
+     * Gets the attribute value for CARD_TEXTLINE1 using the alias name CardTextline1.
+     * @return the CARD_TEXTLINE1
+     */
+    public String getCardTextline1() {
+        return (String) getAttributeInternal(CARDTEXTLINE1);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for CARD_TEXTLINE1 using the alias name CardTextline1.
+     * @param value value to set the CARD_TEXTLINE1
+     */
+    public void setCardTextline1(String value) {
+        setAttributeInternal(CARDTEXTLINE1, value);
+    }
+
+    /**
+     * Gets the attribute value for CARD_INVOICE_EMAIL using the alias name CardInvoiceEmail.
+     * @return the CARD_INVOICE_EMAIL
+     */
+    public String getCardInvoiceEmail() {
+        return (String) getAttributeInternal(CARDINVOICEEMAIL);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for CARD_INVOICE_EMAIL using the alias name CardInvoiceEmail.
+     * @param value value to set the CARD_INVOICE_EMAIL
+     */
+    public void setCardInvoiceEmail(String value) {
+        setAttributeInternal(CARDINVOICEEMAIL, value);
+    }
+
+    /**
+     * Gets the attribute value for LAST_USED using the alias name LastUsed.
+     * @return the LAST_USED
+     */
+    public Timestamp getLastUsed() {
+        return (Timestamp) getAttributeInternal(LASTUSED);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for LAST_USED using the alias name LastUsed.
+     * @param value value to set the LAST_USED
+     */
+    public void setLastUsed(Timestamp value) {
+        setAttributeInternal(LASTUSED, value);
+    }
+
+    /**
+     * Gets the attribute value for LAST_THREE_MONTHS_USE using the alias name LastThreeMonthsUse.
+     * @return the LAST_THREE_MONTHS_USE
+     */
+    public Number getLastThreeMonthsUse() {
+        return (Number) getAttributeInternal(LASTTHREEMONTHSUSE);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for LAST_THREE_MONTHS_USE using the alias name LastThreeMonthsUse.
+     * @param value value to set the LAST_THREE_MONTHS_USE
+     */
+    public void setLastThreeMonthsUse(Number value) {
+        setAttributeInternal(LASTTHREEMONTHSUSE, value);
+    }
+
+    /**
+     * Gets the attribute value for LAST_ONE_MONTH_USE using the alias name LastOneMonthUse.
+     * @return the LAST_ONE_MONTH_USE
+     */
+    public Number getLastOneMonthUse() {
+        return (Number) getAttributeInternal(LASTONEMONTHUSE);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for LAST_ONE_MONTH_USE using the alias name LastOneMonthUse.
+     * @param value value to set the LAST_ONE_MONTH_USE
+     */
+    public void setLastOneMonthUse(Number value) {
+        setAttributeInternal(LASTONEMONTHUSE, value);
     }
 
     /**
