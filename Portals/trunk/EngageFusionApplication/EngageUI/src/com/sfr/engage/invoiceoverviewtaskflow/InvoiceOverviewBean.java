@@ -449,8 +449,7 @@ public class InvoiceOverviewBean implements Serializable {
                         
                     } else {
                         searchResults = false;
-                        isCardGroup=false;
-                        isCard=false;
+                        
                         if (resourceBundle.containsKey("NO_RECORDS_FOUND_DRIVER")) {
                             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("NO_RECORDS_FOUND_DRIVER"), "");
                             FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -490,8 +489,7 @@ public class InvoiceOverviewBean implements Serializable {
                             
                         } else {
                             searchResults = false;
-                            isCard=false;
-                            isCardGroup=false;                    
+                                              
                             if (resourceBundle.containsKey("NO_RECORDS_FOUND_DRIVER")) {
                                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("NO_RECORDS_FOUND_DRIVER"), "");
                                 FacesContext.getCurrentInstance().addMessage(null, msg);
