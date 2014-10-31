@@ -544,12 +544,12 @@
       <af:panelGroupLayout id="pgl0" layout="horizontal" inlineStyle="font-size:15.0px;">
        <af:outputText value="#{sfr.ENGAGE_INVOICE_POPUP_1} :" id="ot3" styleClass="subheading"/>
        <af:spacer width="10" height="10" id="sa15"/>
-       <af:outputText value="#{bindings.Finalinvoice1.inputValue}" id="ot69" binding="#{pageFlowScope.InvoiceOverviewBean.bindings.collectiveInvoNoOt}"
+       <af:outputText value="#{pageFlowScope.InvoiceOverviewBean.popUpInvoice}" id="ot69" binding="#{pageFlowScope.InvoiceOverviewBean.bindings.collectiveInvoNoOt}"
                       inlineStyle="font-weight:bolder; font-size:15.0px;"/>
        <af:spacer width="30" height="10" id="ss15"/>
        <af:outputText value="#{sfr.ENGAGE_INVOICE_POPUP_2} :" id="ot28" styleClass="subheading"/>
        <af:spacer width="10" height="10" id="sd15"/>
-       <af:outputText value="#{bindings.InvoiceDate.inputValue}" id="ot19" inlineStyle="font-weight:bolder; font-size:15.0px;"
+       <af:outputText value="#{pageFlowScope.InvoiceOverviewBean.popUpInvoiceDate}" id="ot19" inlineStyle="font-weight:bolder; font-size:15.0px;"
                       binding="#{pageFlowScope.InvoiceOverviewBean.bindings.popUpInvoiceDate}">
         <af:convertDateTime pattern="dd.MM.yyyy"/>
        </af:outputText>
@@ -582,22 +582,22 @@
          <af:outputText value=":" id="ot32"/>
         </af:panelGroupLayout>
         <af:panelGroupLayout id="pgl47" inlineStyle="height:auto; text-align:justify; width:200.0px;" layout="vertical">
-         <af:outputText value="#{bindings.netAmount.inputValue}" id="ot62" binding="#{pageFlowScope.InvoiceOverviewBean.bindings.popUpInvNet}">
+         <af:outputText value="#{pageFlowScope.InvoiceOverviewBean.popUpInvoiceNet}" id="ot62" binding="#{pageFlowScope.InvoiceOverviewBean.bindings.popUpInvNet}">
           <af:convertNumber groupingUsed="true" pattern="##.##" locale="#{pageFlowScope.InvoiceOverviewBean.locale}" minFractionDigits="2"/>
          </af:outputText>
          <af:spacer width="20" height="20" id="s49"/>
-         <af:outputText value="#{bindings.InvVatAmt.inputValue}" id="ot36" binding="#{pageFlowScope.InvoiceOverviewBean.bindings.popUpInvVat}">
+         <af:outputText value="#{pageFlowScope.InvoiceOverviewBean.popUpInvoiceVat}" id="ot36" binding="#{pageFlowScope.InvoiceOverviewBean.bindings.popUpInvVat}">
           <af:convertNumber groupingUsed="true" pattern="##.##" locale="#{pageFlowScope.InvoiceOverviewBean.locale}" minFractionDigits="2"/>
          </af:outputText>
          <af:spacer width="20" height="20" id="s50"/>
-         <af:outputText value="#{bindings.InvGrossAmt.inputValue}" id="ot45" binding="#{pageFlowScope.InvoiceOverviewBean.bindings.popUpInvGross}">
+         <af:outputText value="#{pageFlowScope.InvoiceOverviewBean.popUpInvoiceGross}" id="ot45" binding="#{pageFlowScope.InvoiceOverviewBean.bindings.popUpInvGross}">
           <af:convertNumber groupingUsed="true" pattern="##.##" locale="#{pageFlowScope.InvoiceOverviewBean.locale}" minFractionDigits="2"/>
          </af:outputText>
          <af:spacer width="20" height="20" id="s51"/>
          <af:panelGroupLayout id="pgl48" layout="horizontal">
           <af:commandImageLink id="cil3" styleClass="pdf_icon" icon="/images/pdf1.jpg">
            <af:fileDownloadActionListener contentType="application/pdf" method="#{pageFlowScope.InvoiceOverviewBean.getUCMService}"
-                                          filename="#{bindings.Finalinvoice1.inputValue}.pdf"/>
+                                          filename="#{pageFlowScope.InvoiceOverviewBean.popUpInvoice}.pdf"/>
           </af:commandImageLink>
           <af:spacer width="10" height="10" id="s53"/>
           <af:commandImageLink id="cil4" styleClass="mail_icon" icon="/images/mail_send.png" action="#{pageFlowScope.InvoiceOverviewBean.openPopup}"/>

@@ -195,6 +195,11 @@ public class InvoiceOverviewBean implements Serializable {
     private String accountQuery2 = "(";
     private String generalQuery2 = "";
     private Map<String, String> mapAccountListValue2;
+    private String popUpInvoice = null;
+    private String popUpInvoiceDate = null;
+    private String popUpInvoiceNet = null;
+    private String popUpInvoiceVat = null;
+    private String popUpInvoiceGross = null;
 
 
     public InvoiceOverviewBean() {
@@ -823,8 +828,25 @@ public class InvoiceOverviewBean implements Serializable {
         DCIteratorBinding itr = (DCIteratorBinding)localBinding.get(PRTNEWINVOICECARDVO1ITERATORLITRERAL);
         row = itr.getCurrentRow();
     }
+        
+        
+        
         if (row != null) {
-
+            
+            popUpInvoice = (String)row.getAttribute("Finalinvoice");
+            
+            java.util.Date date = null;
+            java.sql.Date sqlDateDob  = ((oracle.jbo.domain.Date)row.getAttribute("InvoiceDate")).dateValue();
+            date = new Date(sqlDateDob.getTime());
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+            String invDate = dateFormat.format(date);
+           
+            popUpInvoiceDate = invDate;
+            
+            popUpInvoiceNet = popUpInvoiceNet.valueOf(row.getAttribute("netAmount"));
+            popUpInvoiceVat = popUpInvoiceVat.valueOf(row.getAttribute("InvVatAmt"));
+            popUpInvoiceGross = popUpInvoiceGross.valueOf(row.getAttribute("InvGrossAmt"));
+            
             invoiceGroupingValue = (String)row.getAttribute("InvoiceDocType");
         }
 
@@ -847,6 +869,10 @@ public class InvoiceOverviewBean implements Serializable {
         return null;
     }
 
+
+
+    
+    
     public void exportExcelSpecificActionTransactions(ActionEvent actionEvent) {
         resourceBundle = new EngageResourceBundle();
 
@@ -2321,12 +2347,12 @@ public class InvoiceOverviewBean implements Serializable {
                         XLS_SH_R_C.setCellStyle(cs);
                         if (resourceBundle.containsKey("ENGAGE_INVOICE_POPUP_1") && resourceBundle.containsKey("ENGAGE_INVOICE_POPUP_2")) {
 
-                            DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                            Date date = sdf.parse(getBindings().getPopUpInvoiceDate().getValue().toString());
+//                            DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//                            Date date = sdf.parse(getBindings().getPopUpInvoiceDate().getValue().toString());
 
                             XLS_SH_R_C.setCellValue((String)resourceBundle.getObject("ENGAGE_INVOICE_POPUP_1") + ": " +
                                                     getBindings().getCollectiveInvoNoOt().getValue().toString() + " " +
-                                                    (String)resourceBundle.getObject("ENGAGE_INVOICE_POPUP_2") + ": " + formatConversion(date));
+                                                    (String)resourceBundle.getObject("ENGAGE_INVOICE_POPUP_2") + ": " + getBindings().getPopUpInvoiceDate().getValue().toString());
 
                         }
 
@@ -4393,6 +4419,46 @@ public class InvoiceOverviewBean implements Serializable {
 
     public boolean isIsCard() {
         return isCard;
+    }
+
+    public void setPopUpInvoice(String popUpInvoice) {
+        this.popUpInvoice = popUpInvoice;
+    }
+
+    public String getPopUpInvoice() {
+        return popUpInvoice;
+    }
+
+    public void setPopUpInvoiceDate(String popUpInvoiceDate) {
+        this.popUpInvoiceDate = popUpInvoiceDate;
+    }
+
+    public String getPopUpInvoiceDate() {
+        return popUpInvoiceDate;
+    }
+
+    public void setPopUpInvoiceNet(String popUpInvoiceNet) {
+        this.popUpInvoiceNet = popUpInvoiceNet;
+    }
+
+    public String getPopUpInvoiceNet() {
+        return popUpInvoiceNet;
+    }
+
+    public void setPopUpInvoiceVat(String popUpInvoiceVat) {
+        this.popUpInvoiceVat = popUpInvoiceVat;
+    }
+
+    public String getPopUpInvoiceVat() {
+        return popUpInvoiceVat;
+    }
+
+    public void setPopUpInvoiceGross(String popUpInvoiceGross) {
+        this.popUpInvoiceGross = popUpInvoiceGross;
+    }
+
+    public String getPopUpInvoiceGross() {
+        return popUpInvoiceGross;
     }
 
 
