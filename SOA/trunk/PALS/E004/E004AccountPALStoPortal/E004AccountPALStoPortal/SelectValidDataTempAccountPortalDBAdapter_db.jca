@@ -1,9 +1,9 @@
 <adapter-config name="SelectValidDataTempAccountPortalDBAdapter" adapter="Database Adapter" wsdlLocation="SelectValidDataTempAccountPortalDBAdapter.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
   
-  <connection-factory location="eis/DB/PORTALNXA" UIConnectionName="Engage-PortalDB-QA" adapterRef=""/>
+  <connection-factory location="eis/DB/PORTALNXA" UIConnectionName="WebcenterDB(dev)" adapterRef=""/>
   <endpoint-interaction portType="SelectValidDataTempAccountPortalDBAdapter_ptt" operation="SelectValidDataTempAccountPortalDBAdapter">
     <interaction-spec className="oracle.tip.adapter.db.DBPureSQLInteractionSpec">
-      <property name="SqlString" value="SELECT T1.COUNTRY_CODE, T1.ACCOUNT_ID, T1.PARTNER_ID, T1.MODIFIED_BY, T1.MODIFIED_DATE, T1.DELTA_TS FROM SOA_ACCOUNT_TEMP T1, PRT_PARTNER T2 where(T1.PARTNER_ID = T2.PARTNER_ID AND T1.COUNTRY_CODE = T2.COUNTRY_CODE)"/>
+      <property name="SqlString" value="SELECT T1.COUNTRY_CODE, T1.ACCOUNT_ID, T1.PARTNER_ID, T1.MODIFIED_BY, T1.MODIFIED_DATE, T1.DELTA_TS, T1.ACCOUNT_NAME, T1.CUSTOMER_SEGMENT FROM SOA_ACCOUNT_TEMP T1, PRT_PARTNER T2 where(T1.PARTNER_ID = T2.PARTNER_ID AND T1.COUNTRY_CODE = T2.COUNTRY_CODE)"/>
       <property name="GetActiveUnitOfWork" value="false"/>
     </interaction-spec>
     <input/>

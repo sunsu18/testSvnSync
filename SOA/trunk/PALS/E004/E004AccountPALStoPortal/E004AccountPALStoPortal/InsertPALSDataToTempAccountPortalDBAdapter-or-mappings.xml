@@ -41,16 +41,6 @@
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
-               <attribute-name>customerGroup</attribute-name>
-               <properties>
-                  <property name="enabled">
-                     <value>false</value>
-                  </property>
-               </properties>
-               <field table="SOA_ACCOUNT_TEMP" name="CUSTOMER_GROUP" xsi:type="column"/>
-               <attribute-classification>java.lang.String</attribute-classification>
-            </attribute-mapping>
-            <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>modifiedBy</attribute-name>
                <field table="SOA_ACCOUNT_TEMP" name="MODIFIED_BY" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
@@ -59,6 +49,16 @@
                <attribute-name>modifiedDate</attribute-name>
                <field table="SOA_ACCOUNT_TEMP" name="MODIFIED_DATE" xsi:type="column"/>
                <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>accountName</attribute-name>
+               <field table="SOA_ACCOUNT_TEMP" name="ACCOUNT_NAME" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>customerSegment</attribute-name>
+               <field table="SOA_ACCOUNT_TEMP" name="CUSTOMER_SEGMENT" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
          </attribute-mappings>
          <descriptor-type>independent</descriptor-type>

@@ -42,6 +42,20 @@
           </xsd:simpleType>
         </xsd:element>
         <xsd:element name="MODIFIED_DATE" type="xsd:dateTime"/>
+              <xsd:element name="accountName" minOccurs="0" nillable="true">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="30"/>
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="customerSegment" minOccurs="0" nillable="true">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="4"/>
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
             </xsd:sequence>
     </xsd:complexType>
     </xsd:element>

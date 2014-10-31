@@ -8,7 +8,7 @@
                     <element name="SenderSystem" type="string"/>
                     <element name="ReceiverSystem" type="string"/>
                     <element name="CountryCode" type="string"/>
-                    <element name="BatchSize" type="integer"/>
+                    <element name="BatchSize" type="string"/>
                     <element name="BatchCount" type="integer"/>
                     <element name="DatabaseJNDI" type="string"/>
                     <element name="InterfaceID" type="string"/>

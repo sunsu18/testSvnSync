@@ -23,12 +23,26 @@
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
+         <xs:element name="kontoBetegn" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="30"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="csskndsegment" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="4"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
       </xs:sequence>
    </xs:complexType>
    <xs:element name="PALSDB2DBAdapterSelect_BatchSize_DeltaTimeStampInputParameters" type="PALSDB2DBAdapterSelect_BatchSize_DeltaTimeStamp"/>
    <xs:complexType name="PALSDB2DBAdapterSelect_BatchSize_DeltaTimeStamp">
       <xs:sequence>
-         <xs:element name="BatchSize" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="BatchSize" type="xs:string" minOccurs="1" maxOccurs="1"/>
          <xs:element name="DeltaTimeStamp" type="xs:string" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
    </xs:complexType>

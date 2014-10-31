@@ -47,16 +47,6 @@
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
-               <attribute-name>accountCustomerGroup</attribute-name>
-               <properties>
-                  <property name="enabled">
-                     <value>false</value>
-                  </property>
-               </properties>
-               <field table="ENGAGE_PALS_ACC_DTA_ERRORLOG" name="ACCOUNT_CUSTOMER_GROUP" xsi:type="column"/>
-               <attribute-classification>java.lang.String</attribute-classification>
-            </attribute-mapping>
-            <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>soaErrorCode</attribute-name>
                <field table="ENGAGE_PALS_ACC_DTA_ERRORLOG" name="SOA_ERROR_CODE" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
@@ -114,6 +104,26 @@
                   </property>
                </properties>
                <field table="ENGAGE_PALS_ACC_DTA_ERRORLOG" name="COUNTRY_CODE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>accountName</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
+               <field table="ENGAGE_PALS_ACC_DTA_ERRORLOG" name="ACCOUNT_NAME" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>customerSegment</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
+               <field table="ENGAGE_PALS_ACC_DTA_ERRORLOG" name="CUSTOMER_SEGMENT" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
          </attribute-mappings>

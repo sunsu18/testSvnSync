@@ -37,16 +37,6 @@
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
-               <attribute-name>customerGroup</attribute-name>
-               <properties>
-                  <property name="enabled">
-                     <value>false</value>
-                  </property>
-               </properties>
-               <field table="PRT_ACCOUNT" name="CUSTOMER_GROUP" xsi:type="column"/>
-               <attribute-classification>java.lang.String</attribute-classification>
-            </attribute-mapping>
-            <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>modifiedBy</attribute-name>
                <field table="PRT_ACCOUNT" name="MODIFIED_BY" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
@@ -244,6 +234,16 @@
                   </property>
                </properties>
                <field table="PRT_ACCOUNT" name="GIRO_NUMBER" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>accountName</attribute-name>
+               <field table="PRT_ACCOUNT" name="ACCOUNT_NAME" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>customerSegment</attribute-name>
+               <field table="PRT_ACCOUNT" name="CUSTOMER_SEGMENT" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
          </attribute-mappings>
