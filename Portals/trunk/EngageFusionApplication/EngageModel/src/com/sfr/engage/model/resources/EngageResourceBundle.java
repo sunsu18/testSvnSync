@@ -161,7 +161,8 @@ public class EngageResourceBundle extends ListResourceBundle {
       { "USER_ASSOCIATION", "" }, { "MANAGE_USER", "" }, { "ALREADY_ASSOCIATED_CARDS", "" }, { "UNSUBSCRIBE_ALERT", "" }, { "DATE_OF_BIRTH", "" },
       { "ENGAGE_ASSOCIATE", "" }, { "ENTER_VALID_EMAIL", "" }, { "ENTER_VALID_EMAIL_ID", "" }, { "ENTER_FIRST_NAME", "" }, { "ENTER_LAST_NAME", "" },
       { "ENTER_PHONE_NUMBER", "" }, { "ENTER_DATE_OF_BIRTH", "" }, { "ENGAGE_BACK", "" }, { "USER_CREATION_SUCCESS", "" }, { "SEARCH_IN", "" }, { "NO_ACTION", "" },
-      { "ENGAGE_NO_ASSOCIATION_FOUND", "" }, { "ENGAGE_IDAM_FAILURE", "" }, {"ENTER_MANDATORY_FIELD",""},  {"ENGAGE_TITLE",""} ,{"MARK_READ",""},{"MARK_UNREAD",""},{"RESTRICTED_USER_INFO_ACCESS",""}};
+      { "ENGAGE_NO_ASSOCIATION_FOUND", "" }, { "ENGAGE_IDAM_FAILURE", "" }, {"ENTER_MANDATORY_FIELD",""},  {"ENGAGE_TITLE",""} ,{"MARK_READ",""},{"MARK_UNREAD",""},{"RESTRICTED_USER_INFO_ACCESS",""},
+      { "B2B_ADMIN_ROLE_INFO", "" }, { "B2M_AC_ROLE_INFO", "" }, {"B2M_CG_ROLE_INFO",""},  {"B2E_ROLE_INFO",""}};
 
     /**
      * This method populates the values of all resource keys from database through PrtGenTranslationVO based on lang parameter.

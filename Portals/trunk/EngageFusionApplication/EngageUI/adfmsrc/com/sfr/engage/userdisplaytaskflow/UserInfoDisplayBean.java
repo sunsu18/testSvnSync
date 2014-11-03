@@ -86,6 +86,7 @@ public class UserInfoDisplayBean {
     private List<String> finalCardNumberValue;
     private List<String> suggestedCardNumberList;
     private List<SelectItem> roleList;
+    private List<SelectItem> roleListColumn;
     private List<String> roleValue;
     private String lang;
     private transient Bindings bindings;
@@ -804,26 +805,26 @@ public class UserInfoDisplayBean {
         if (roleList == null) {
             roleList = new ArrayList<SelectItem>();
             SelectItem selectItem = new SelectItem();
-            if (resourceBundle.containsKey("PARTNER")) {
-                selectItem.setLabel(resourceBundle.getObject("PARTNER").toString());
+            if (resourceBundle.containsKey("B2B_ADMIN")) {
+                selectItem.setLabel(resourceBundle.getObject("B2B_ADMIN").toString());
                 selectItem.setValue("WCP_CARD_B2B_ADMIN");
                 roleList.add(selectItem);
             }
             SelectItem selectItem1 = new SelectItem();
-            if (resourceBundle.containsKey("ACCOUNT")) {
-                selectItem1.setLabel(resourceBundle.getObject("ACCOUNT").toString());
+            if (resourceBundle.containsKey("B2B_MANAGER_AC")) {
+                selectItem1.setLabel(resourceBundle.getObject("B2B_MANAGER_AC").toString());
                 selectItem1.setValue("WCP_CARD_B2B_MGR_AC");
                 roleList.add(selectItem1);
             }
             SelectItem selectItem2 = new SelectItem();
-            if (resourceBundle.containsKey("CARDGROUP")) {
-                selectItem2.setLabel(resourceBundle.getObject("CARDGROUP").toString());
+            if (resourceBundle.containsKey("B2B_MANAGER_CG")) {
+                selectItem2.setLabel(resourceBundle.getObject("B2B_MANAGER_CG").toString());
                 selectItem2.setValue("WCP_CARD_B2B_MGR_CG");
                 roleList.add(selectItem2);
             }
             SelectItem selectItem3 = new SelectItem();
-            if (resourceBundle.containsKey("CARD")) {
-                selectItem3.setLabel(resourceBundle.getObject("CARD").toString());
+            if (resourceBundle.containsKey("B2B_EMPLOYEE")) {
+                selectItem3.setLabel(resourceBundle.getObject("B2B_EMPLOYEE").toString());
                 selectItem3.setValue("WCP_CARD_B2B_EMP");
                 roleList.add(selectItem3);
             }
@@ -3130,6 +3131,43 @@ public class UserInfoDisplayBean {
 
     public List<String> getFinalCardNumberValue() {
         return finalCardNumberValue;
+    }
+
+    public void setRoleListColumn(List<SelectItem> roleListColumn) {
+        this.roleListColumn = roleListColumn;
+    }
+
+    public List<SelectItem> getRoleListColumn() {
+        
+        if (roleListColumn == null) {
+            roleListColumn = new ArrayList<SelectItem>();
+            SelectItem selectItem = new SelectItem();
+            if (resourceBundle.containsKey("PARTNER")) {
+                selectItem.setLabel(resourceBundle.getObject("PARTNER").toString());
+                selectItem.setValue("WCP_CARD_B2B_ADMIN");
+                roleListColumn.add(selectItem);
+            }
+            SelectItem selectItem1 = new SelectItem();
+            if (resourceBundle.containsKey("ACCOUNT")) {
+                selectItem1.setLabel(resourceBundle.getObject("ACCOUNT").toString());
+                selectItem1.setValue("WCP_CARD_B2B_MGR_AC");
+                roleListColumn.add(selectItem1);
+            }
+            SelectItem selectItem2 = new SelectItem();
+            if (resourceBundle.containsKey("CARDGROUP")) {
+                selectItem2.setLabel(resourceBundle.getObject("CARDGROUP").toString());
+                selectItem2.setValue("WCP_CARD_B2B_MGR_CG");
+                roleListColumn.add(selectItem2);
+            }
+            SelectItem selectItem3 = new SelectItem();
+            if (resourceBundle.containsKey("CARD")) {
+                selectItem3.setLabel(resourceBundle.getObject("CARD").toString());
+                selectItem3.setValue("WCP_CARD_B2B_EMP");
+                roleListColumn.add(selectItem3);
+            }
+        }
+        
+        return roleListColumn;
     }
 
     public class Bindings {
