@@ -335,18 +335,7 @@
     </DesignTime>
   </Attribute>
   
-  <Attribute
-    Name="AccountType"
-    Precision="20"
-    ColumnName="ACCOUNT_TYPE"
-    SQLType="VARCHAR"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    TableName="PRT_ACCOUNT">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="20"/>
-    </DesignTime>
-  </Attribute>
+
   <Attribute
     Name="CustomerSegment"
     Precision="4"
