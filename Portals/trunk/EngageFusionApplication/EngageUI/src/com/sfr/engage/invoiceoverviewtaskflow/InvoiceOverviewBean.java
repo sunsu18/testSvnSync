@@ -179,7 +179,7 @@ public class InvoiceOverviewBean implements Serializable {
     private String invoiceType;
     private boolean isCardGroup=true;
     private boolean isCard=false;
-    private final int minusThree = -3;
+    private final int minusOne = -1;
     private static final String PRTNEWINVOICEVO1ITERATORLITRERAL = "PrtNewInvoiceVO1Iterator";
     private static final String PRTNEWINVOICECARDVO1ITERATORLITRERAL = "PrtNewInvoiceCardVO1Iterator";
     private static final String PRTCARDTRANSACTIONINVOICERVO1ITERATORLITRERAL = "PrtCardTransactionInvoiceRVO1Iterator";
@@ -285,7 +285,7 @@ public class InvoiceOverviewBean implements Serializable {
         Date dateNow = new java.util.Date();
         GregorianCalendar gc = new GregorianCalendar();
         gc.setTime(dateNow);
-        gc.add(GregorianCalendar.MONTH, minusThree);
+        gc.add(GregorianCalendar.MONTH, minusOne);
         Date dateBefore = gc.getTime();
         SimpleDateFormat dateformat = new SimpleDateFormat("dd-MMM-yy");
         String tmpFrom = dateformat.format(dateBefore);
