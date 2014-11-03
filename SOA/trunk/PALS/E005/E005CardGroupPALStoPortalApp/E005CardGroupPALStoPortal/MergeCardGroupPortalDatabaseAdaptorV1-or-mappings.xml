@@ -279,6 +279,11 @@
                <field table="PRT_CARDGROUP" name="BLOCK_TIME" xsi:type="column"/>
                <attribute-classification>java.sql.Timestamp</attribute-classification>
             </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>routexCustomerNumber</attribute-name>
+               <field table="PRT_CARDGROUP" name="ROUTEX_CUSTOMER_NUMBER" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
          </attribute-mappings>
          <descriptor-type>independent</descriptor-type>
          <caching>

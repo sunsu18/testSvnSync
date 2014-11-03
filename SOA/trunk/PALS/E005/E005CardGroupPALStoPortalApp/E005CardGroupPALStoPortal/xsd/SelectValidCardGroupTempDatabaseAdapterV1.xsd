@@ -22,6 +22,7 @@
          <xs:element name="MODIFIED_BY" type="xs:string" nillable="true"/>
          <xs:element name="MODIFIED_DATE" type="xs:dateTime" nillable="true"/>
          <xs:element name="DELTA_TS" type="xs:string" nillable="true"/>
+         <xs:element name="ROUTEX_CUSTOMER_NUMBER" type="xs:string" nillable="true"/>
       </xs:sequence>
    </xs:complexType>
 </xs:schema>

@@ -91,6 +91,11 @@
                <field table="ENGAGE_SOA_CARDGROUP_ERRORLOG" name="COUNTRY_CODE" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>routexCustomerNumber</attribute-name>
+               <field table="ENGAGE_SOA_CARDGROUP_ERRORLOG" name="ROUTEX_CUSTOMER_NUMBER" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
          </attribute-mappings>
          <descriptor-type>independent</descriptor-type>
          <caching>

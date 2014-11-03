@@ -15,8 +15,6 @@
   <import namespace="http://oracle.com/sca/soapservice/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/E005CardGroupPALStoPortalClient"
           location="E005CardGroupPALStoPortalClientWrapper.wsdl"
           importType="wsdl"/>
-  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/SelectPALSDB2DBAdaptorV1"
-          location="SelectPALSDB2DBAdaptorV1.wsdl" importType="wsdl"/>
   <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/SelectDeltaTSDBAdapterV1"
           location="SelectDeltaTSDBAdapterV1.wsdl" importType="wsdl"/>
   <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/MergeDeltaTSDatabaseAdapterV1"
@@ -50,6 +48,8 @@
           importType="wsdl"/>
   <import namespace="http://xmlns.oracle.com/pcbpel/adapter/jms/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/SOAPALSNotificationJMSAdapterV1"
           location="SOAPALSNotificationJMSAdapterV1.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/SelectPALSDB2DBAdaptorV1"
+          location="SelectPALSDB2DBAdaptorV1.wsdl" importType="wsdl"/>
   <service name="E005CardGroupPALStoPortalClient"
            ui:wsdlLocation="E005CardGroupPALStoPortalClient.wsdl">
     <interface.wsdl interface="http://oracle.com/sca/soapservice/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/E005CardGroupPALStoPortalClient#wsdl.interface(execute_ptt)"/>
@@ -66,18 +66,6 @@
     <property name="configuration.monitorLocation" type="xs:string"
               many="false">E005CardGroupPALStoPortalBPEL.monitor</property>
   </component>
-  <reference name="SelectPALSDB2DBAdaptorV1"
-             ui:wsdlLocation="SelectPALSDB2DBAdaptorV1.wsdl">
-    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/SelectPALSDB2DBAdaptorV1#wsdl.interface(SelectPALSDB2DBAdaptorV1_ptt)"/>
-    <binding.jca config="SelectPALSDB2DBAdaptorV1_db.jca"/>
-    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
-    <property name="jca.retry.interval" type="xs:int" many="false"
-              override="may">1</property>
-    <property name="jca.retry.backoff" type="xs:int" many="false"
-              override="may">2</property>
-    <property name="jca.retry.maxInterval" type="xs:string" many="false"
-              override="may">120</property>
-  </reference>
   <reference name="SelectDeltaTSDBAdapterV1"
              ui:wsdlLocation="SelectDeltaTSDBAdapterV1.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/SelectDeltaTSDBAdapterV1#wsdl.interface(SelectDeltaTSDBAdapterV1_ptt)"/>
@@ -220,13 +208,21 @@
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/SOAPALSNotificationJMSAdapterV1#wsdl.interface(Produce_Message_ptt)"/>
     <binding.jca config="SOAPALSNotificationJMSAdapterV1_jms.jca"/>
   </reference>
+  <reference name="SelectPALSDB2DBAdaptorV1"
+             ui:wsdlLocation="SelectPALSDB2DBAdaptorV1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/SelectPALSDB2DBAdaptorV1#wsdl.interface(SelectPALSDB2DBAdaptorV1_ptt)"/>
+    <binding.jca config="SelectPALSDB2DBAdaptorV1_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false"
+              override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false"
+              override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:string" many="false"
+              override="may">120</property>
+  </reference>
   <wire>
     <source.uri>E005CardGroupPALStoPortalClient</source.uri>
     <target.uri>E005CardGroupPALStoPortalBPEL/E005CardGroupPALStoPortalClient</target.uri>
-  </wire>
-  <wire>
-    <source.uri>E005CardGroupPALStoPortalBPEL/SelectPALSDB2DBAdaptorV1</source.uri>
-    <target.uri>SelectPALSDB2DBAdaptorV1</target.uri>
   </wire>
   <wire>
     <source.uri>E005CardGroupPALStoPortalBPEL/SelectDeltaTSDBAdapterV1</source.uri>
@@ -279,5 +275,9 @@
   <wire>
     <source.uri>E005CardGroupPALStoPortalBPEL/SOAPALSNotificationJMSAdapterV1</source.uri>
     <target.uri>SOAPALSNotificationJMSAdapterV1</target.uri>
+  </wire>
+  <wire>
+    <source.uri>E005CardGroupPALStoPortalBPEL/SelectPALSDB2DBAdaptorV1</source.uri>
+    <target.uri>SelectPALSDB2DBAdaptorV1</target.uri>
   </wire>
 </composite>

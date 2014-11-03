@@ -6,11 +6,7 @@
          <class>MergeCardGroupTempDatabaseAdapterV1.SoaCardgroupTemp</class>
          <alias>SOA_CARDGROUP_TEMP</alias>
          <primary-key>
-            <field table="SOA_CARDGROUP_TEMP" name="COUNTRY_CODE" xsi:type="column"/>
-            <field table="SOA_CARDGROUP_TEMP" name="PARTNER_ID" xsi:type="column"/>
-            <field table="SOA_CARDGROUP_TEMP" name="CARDGROUP_MAIN_TYPE" xsi:type="column"/>
-            <field table="SOA_CARDGROUP_TEMP" name="CARDGROUP_SUB_TYPE" xsi:type="column"/>
-            <field table="SOA_CARDGROUP_TEMP" name="CARDGROUP_SEQ" xsi:type="column"/>
+            <field table="SOA_CARDGROUP_TEMP" name="DELTA_TS" xsi:type="column"/>
          </primary-key>
          <events/>
          <querying>
@@ -72,6 +68,11 @@
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>deltaTs</attribute-name>
                <field table="SOA_CARDGROUP_TEMP" name="DELTA_TS" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>routexCustomerNumber</attribute-name>
+               <field table="SOA_CARDGROUP_TEMP" name="ROUTEX_CUSTOMER_NUMBER" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
          </attribute-mappings>

@@ -20,8 +20,10 @@
    <entry key="SOA_CARDGROUP_TEMP.CARDGROUP_SUB_TYPE:db_column_not_null">false</entry>
    <entry key="SOA_CARDGROUP_TEMP.CARDGROUP_DESCRIPTION:db_column_size">45</entry>
    <entry key="SOA_CARDGROUP_TEMP.MODIFIED_BY:db_column_not_null">false</entry>
-   <entry key="SOA_CARDGROUP_TEMP.CARDGROUP_MAIN_TYPE:db_column_not_null">false</entry>
+   <entry key="SOA_CARDGROUP_TEMP:db_column_10">ROUTEX_CUSTOMER_NUMBER</entry>
    <entry key="SOA_CARDGROUP_TEMP:db_column_9">DELTA_TS</entry>
+   <entry key="SOA_CARDGROUP_TEMP.CARDGROUP_MAIN_TYPE:db_column_not_null">false</entry>
+   <entry key="SOA_CARDGROUP_TEMP.ROUTEX_CUSTOMER_NUMBER:db_column_type">VARCHAR2</entry>
    <entry key="SOA_CARDGROUP_TEMP:db_column_8">MODIFIED_DATE</entry>
    <entry key="SOA_CARDGROUP_TEMP:db_column_7">MODIFIED_BY</entry>
    <entry key="SOA_CARDGROUP_TEMP:db_column_6">CARDGROUP_DESCRIPTION</entry>
@@ -29,17 +31,19 @@
    <entry key="SOA_CARDGROUP_TEMP.MODIFIED_DATE:db_column_type">TIMESTAMP(6)</entry>
    <entry key="SOA_CARDGROUP_TEMP:db_column_4">CARDGROUP_SEQ</entry>
    <entry key="SOA_CARDGROUP_TEMP:db_column_3">CARDGROUP_SUB_TYPE</entry>
+   <entry key="SOA_CARDGROUP_TEMP.DELTA_TS:db_column_type">VARCHAR2</entry>
    <entry key="SOA_CARDGROUP_TEMP:db_column_2">CARDGROUP_MAIN_TYPE</entry>
    <entry key="SOA_CARDGROUP_TEMP.CARDGROUP_SEQ:db_column_size">5</entry>
-   <entry key="SOA_CARDGROUP_TEMP.DELTA_TS:db_column_type">VARCHAR2</entry>
    <entry key="SOA_CARDGROUP_TEMP:db_column_1">PARTNER_ID</entry>
    <entry key="SOA_CARDGROUP_TEMP:db_column_0">COUNTRY_CODE</entry>
    <entry key="SOA_CARDGROUP_TEMP.COUNTRY_CODE:db_column_not_null">false</entry>
+   <entry key="SOA_CARDGROUP_TEMP.ROUTEX_CUSTOMER_NUMBER:db_column_size">6</entry>
    <entry key="SOA_CARDGROUP_TEMP.MODIFIED_BY:db_column_type">VARCHAR2</entry>
    <entry key="SOA_CARDGROUP_TEMP.CARDGROUP_SEQ:db_column_not_null">false</entry>
    <entry key="SOA_CARDGROUP_TEMP.DELTA_TS:db_column_size">50</entry>
+   <entry key="SOA_CARDGROUP_TEMP.ROUTEX_CUSTOMER_NUMBER:db_column_not_null">false</entry>
    <entry key="SOA_CARDGROUP_TEMP:db_table_type">TABLE</entry>
-   <entry key="SOA_CARDGROUP_TEMP.MODIFIED_BY:db_column_size">50</entry>
    <entry key="SOA_CARDGROUP_TEMP.PARTNER_ID:db_column_not_null">false</entry>
+   <entry key="SOA_CARDGROUP_TEMP.MODIFIED_BY:db_column_size">50</entry>
    <entry key="SOA_CARDGROUP_TEMP.COUNTRY_CODE:db_column_type">VARCHAR2</entry>
 </properties>

@@ -8,10 +8,6 @@
            ui:wsdlLocation="E005CardGroupPALStoPortalClientWrapper.wsdl">
     <interface.wsdl interface="http://oracle.com/sca/soapservice/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/E005CardGroupPALStoPortalClient#wsdl.interface(execute_ptt)"/>
   </service>
-  <reference name="SelectPALSDB2DBAdaptorV1"
-             ui:wsdlLocation="SelectPALSDB2DBAdaptorV1.wsdl">
-    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/SelectPALSDB2DBAdaptorV1#wsdl.interface(SelectPALSDB2DBAdaptorV1_ptt)"/>
-  </reference>
   <reference name="SelectDeltaTSDBAdapterV1"
              ui:wsdlLocation="SelectDeltaTSDBAdapterV1.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/SelectDeltaTSDBAdapterV1#wsdl.interface(SelectDeltaTSDBAdapterV1_ptt)"/>
@@ -63,5 +59,9 @@
   <reference name="SOAPALSNotificationJMSAdapterV1"
              ui:wsdlLocation="SOAPALSNotificationJMSAdapterV1.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/SOAPALSNotificationJMSAdapterV1#wsdl.interface(Produce_Message_ptt)"/>
+  </reference>
+  <reference name="SelectPALSDB2DBAdaptorV1"
+             ui:wsdlLocation="SelectPALSDB2DBAdaptorV1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/SelectPALSDB2DBAdaptorV1#wsdl.interface(SelectPALSDB2DBAdaptorV1_ptt)"/>
   </reference>
 </componentType>
