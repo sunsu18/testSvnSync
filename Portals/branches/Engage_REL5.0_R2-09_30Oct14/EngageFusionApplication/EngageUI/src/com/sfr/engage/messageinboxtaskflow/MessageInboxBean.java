@@ -186,8 +186,8 @@ public class MessageInboxBean implements Serializable {
         cardList = new ArrayList<SelectItem>();
         messageTypeValue = new ArrayList<String>();
         categoryValue = new ArrayList<String>();
-        categoryValue.add(resourceBundle.getObject("ENGAGE_CATEGORY_ADMIN").toString());
-        categoryValue.add(resourceBundle.getObject(Constants.ENGAGECATEGORYNONADMINLITERAL).toString());
+        categoryValue.add("MESSAGES");
+        categoryValue.add("ALERTS");
         messageTypeValue.add("NO");
         messageTypeValue.add("YES");
 
@@ -281,13 +281,14 @@ public class MessageInboxBean implements Serializable {
             SelectItem selectItem = new SelectItem();
             if (resourceBundle.containsKey(Constants.ENGAGE_CATEGORY_ADMIN_LITERAL)) {
                 selectItem.setLabel(resourceBundle.getObject(Constants.ENGAGE_CATEGORY_ADMIN_LITERAL).toString());
-                selectItem.setValue(resourceBundle.getObject(Constants.ENGAGE_CATEGORY_ADMIN_LITERAL).toString());
+                selectItem.setValue("MESSAGES");
+                
                 categoryList.add(selectItem);
             }
             SelectItem selectItem1 = new SelectItem();
             if (resourceBundle.containsKey(Constants.ENGAGECATEGORYNONADMINLITERAL)) {
                 selectItem1.setLabel(resourceBundle.getObject(Constants.ENGAGECATEGORYNONADMINLITERAL).toString());
-                selectItem1.setValue(resourceBundle.getObject(Constants.ENGAGECATEGORYNONADMINLITERAL).toString());
+                selectItem1.setValue("ALERTS");
                 categoryList.add(selectItem1);
             }
 
