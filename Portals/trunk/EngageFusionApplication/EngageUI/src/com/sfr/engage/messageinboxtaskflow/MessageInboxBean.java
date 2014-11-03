@@ -1163,7 +1163,15 @@ public class MessageInboxBean implements Serializable {
 
 
         ViewObject prtNotificationVO = ADFUtils.getViewObject("PrtNotificationVO1Iterator");
-
+        
+        
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " +"categoryValue:"+ selectedCategory);
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " +"showFlag:"+ messageValue);
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "fromDate " + newFromDate);
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "toDate " + newToDate);
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " countryCode" + langSession);
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "userId " + userEmail);
+        
         prtNotificationVO.setNamedWhereClauseParam("categoryValue", selectedCategory);
         prtNotificationVO.setNamedWhereClauseParam("showFlag", messageValue);
         prtNotificationVO.setNamedWhereClauseParam("fromDate", newFromDate);
