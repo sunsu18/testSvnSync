@@ -764,18 +764,6 @@
       <Attr Name="_DisplaySize" Value="3"/>
     </DesignTime>
   </Attribute>
-  <Attribute
-    Name="CardTextline1"
-    Precision="30"
-    ColumnName="CARD_TEXTLINE1"
-    SQLType="VARCHAR"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    TableName="PRT_CARD">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="30"/>
-    </DesignTime>
-  </Attribute>
   
   <Attribute
     Name="CardInvoiceEmail"
@@ -787,6 +775,18 @@
     TableName="PRT_CARD">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CardTextline1"
+    Precision="45"
+    ColumnName="CARD_TEXTLINE_1"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
     </DesignTime>
   </Attribute>
   <AccessorAttribute

@@ -591,16 +591,6 @@ public class PrtCardVORowImpl extends ViewRowImpl {
             }
         }
         ,
-        CardTextline1 {
-            public Object get(PrtCardVORowImpl obj) {
-                return obj.getCardTextline1();
-            }
-
-            public void put(PrtCardVORowImpl obj, Object value) {
-                obj.setCardTextline1((String)value);
-            }
-        }
-        ,
         CardInvoiceEmail {
             public Object get(PrtCardVORowImpl obj) {
                 return obj.getCardInvoiceEmail();
@@ -640,6 +630,16 @@ public class PrtCardVORowImpl extends ViewRowImpl {
                 obj.setLastOneMonthUse((Number)value);
             }
         }
+        ,
+        CardTextline1 {
+            public Object get(PrtCardVORowImpl obj) {
+                return obj.getCardTextline1();
+            }
+
+            public void put(PrtCardVORowImpl obj, Object value) {
+                obj.setCardTextline1((String)value);
+            }
+        }
         ;
         private static AttributesEnum[] vals = null;
         private static int firstIndex = 0;
@@ -668,8 +668,6 @@ public class PrtCardVORowImpl extends ViewRowImpl {
         }
     }
 
-
-    
 
     public static final int COUNTRYCODE = AttributesEnum.CountryCode.index();
     public static final int PARTNERID = AttributesEnum.PartnerId.index();
@@ -727,11 +725,11 @@ public class PrtCardVORowImpl extends ViewRowImpl {
     public static final int EXPIRYDATE = AttributesEnum.Expirydate.index();
     public static final int MANUFACTUREDDATE = AttributesEnum.ManufacturedDate.index();
     public static final int CARDPURCHASEPROFILE = AttributesEnum.CardPurchaseProfile.index();
-    public static final int CARDTEXTLINE1 = AttributesEnum.CardTextline1.index();
     public static final int CARDINVOICEEMAIL = AttributesEnum.CardInvoiceEmail.index();
     public static final int LASTUSED = AttributesEnum.LastUsed.index();
     public static final int LASTTHREEMONTHSUSE = AttributesEnum.LastThreeMonthsUse.index();
     public static final int LASTONEMONTHUSE = AttributesEnum.LastOneMonthUse.index();
+    public static final int CARDTEXTLINE1 = AttributesEnum.CardTextline1.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -1706,21 +1704,6 @@ public class PrtCardVORowImpl extends ViewRowImpl {
         setAttributeInternal(CARDPURCHASEPROFILE, value);
     }
 
-    /**
-     * Gets the attribute value for CARD_TEXTLINE1 using the alias name CardTextline1.
-     * @return the CARD_TEXTLINE1
-     */
-    public String getCardTextline1() {
-        return (String) getAttributeInternal(CARDTEXTLINE1);
-    }
-
-    /**
-     * Sets <code>value</code> as attribute value for CARD_TEXTLINE1 using the alias name CardTextline1.
-     * @param value value to set the CARD_TEXTLINE1
-     */
-    public void setCardTextline1(String value) {
-        setAttributeInternal(CARDTEXTLINE1, value);
-    }
 
     /**
      * Gets the attribute value for CARD_INVOICE_EMAIL using the alias name CardInvoiceEmail.
@@ -1784,6 +1767,22 @@ public class PrtCardVORowImpl extends ViewRowImpl {
      */
     public void setLastOneMonthUse(Number value) {
         setAttributeInternal(LASTONEMONTHUSE, value);
+    }
+
+    /**
+     * Gets the attribute value for CARD_TEXTLINE_1 using the alias name CardTextline1.
+     * @return the CARD_TEXTLINE_1
+     */
+    public String getCardTextline1() {
+        return (String) getAttributeInternal(CARDTEXTLINE1);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for CARD_TEXTLINE_1 using the alias name CardTextline1.
+     * @param value value to set the CARD_TEXTLINE_1
+     */
+    public void setCardTextline1(String value) {
+        setAttributeInternal(CARDTEXTLINE1, value);
     }
 
     /**

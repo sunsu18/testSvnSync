@@ -60,11 +60,11 @@
        PrtCardEO.BLOCK_ACTION, 
        PrtCardEO.MANUFACTURED_DATE, 
        PrtCardEO.CARD_PURCHASE_PROFILE, 
-       PrtCardEO.CARD_TEXTLINE1, 
        PrtCardEO.CARD_INVOICE_EMAIL, 
        PrtCardEO.LAST_USED, 
        PrtCardEO.LAST_THREE_MONTHS_USE, 
-       PrtCardEO.LAST_ONE_MONTH_USE"
+       PrtCardEO.LAST_ONE_MONTH_USE, 
+       PrtCardEO.CARD_TEXTLINE_1"
   FromList="PRT_CARD PrtCardEO"
   BindingStyle="OracleName"
   CustomQuery="false"
@@ -433,12 +433,6 @@
     EntityUsage="PrtCardEO"
     AliasName="CARD_PURCHASE_PROFILE"/>
   <ViewAttribute
-    Name="CardTextline1"
-    PrecisionRule="true"
-    EntityAttrName="CardTextline1"
-    EntityUsage="PrtCardEO"
-    AliasName="CARD_TEXTLINE1"/>
-  <ViewAttribute
     Name="CardInvoiceEmail"
     PrecisionRule="true"
     EntityAttrName="CardInvoiceEmail"
@@ -462,4 +456,10 @@
     EntityAttrName="LastOneMonthUse"
     EntityUsage="PrtCardEO"
     AliasName="LAST_ONE_MONTH_USE"/>
+  <ViewAttribute
+    Name="CardTextline1"
+    PrecisionRule="true"
+    EntityAttrName="CardTextline1"
+    EntityUsage="PrtCardEO"
+    AliasName="CARD_TEXTLINE_1"/>
 </ViewObject>
