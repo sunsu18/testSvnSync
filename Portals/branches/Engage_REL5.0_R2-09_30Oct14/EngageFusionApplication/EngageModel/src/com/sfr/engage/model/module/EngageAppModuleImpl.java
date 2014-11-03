@@ -26,6 +26,7 @@ import com.sfr.engage.model.queries.uvo.PrtCardgroupVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtDriverInformationVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtInvoiceDetailVoImpl;
 import com.sfr.engage.model.queries.uvo.PrtInvoiceVOImpl;
+import com.sfr.engage.model.queries.uvo.PrtNewInvoiceCardVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtNewInvoiceVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtNotifiacationCopyPcmVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtNotificationVOImpl;
@@ -887,5 +888,13 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
      */
     public ViewLinkImpl getPrtCardRuleBusinessHoFk1Link1() {
         return (ViewLinkImpl)findViewLink("PrtCardRuleBusinessHoFk1Link1");
+    }
+
+    /**
+     * Container's getter for PrtNewInvoiceCardVO1.
+     * @return PrtNewInvoiceCardVO1
+     */
+    public PrtNewInvoiceCardVOImpl getPrtNewInvoiceCardVO1() {
+        return (PrtNewInvoiceCardVOImpl)findViewObject("PrtNewInvoiceCardVO1");
     }
 }

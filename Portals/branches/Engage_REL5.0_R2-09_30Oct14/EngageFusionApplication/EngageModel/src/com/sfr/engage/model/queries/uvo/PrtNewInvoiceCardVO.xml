@@ -3,29 +3,29 @@
 <!---->
 <ViewObject
   xmlns="http://xmlns.oracle.com/bc4j"
-  Name="PrtNewInvoiceVO"
+  Name="PrtNewInvoiceCardVO"
   Version="11.1.1.61.92"
   InheritPersonalization="true"
   BindingStyle="OracleName"
   CustomQuery="true"
   PageIterMode="Full"
   UseGlueCode="false"
-  RowClass="com.sfr.engage.model.queries.uvo.PrtNewInvoiceVORowImpl"
-  ComponentClass="com.sfr.engage.model.queries.uvo.PrtNewInvoiceVOImpl">
+  RowClass="com.sfr.engage.model.queries.uvo.PrtNewInvoiceCardVORowImpl"
+  ComponentClass="com.sfr.engage.model.queries.uvo.PrtNewInvoiceCardVOImpl">
   <DesignTime>
-    <Attr Name="_isExpertMode" Value="true"/>
     <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess"/>
+    <Attr Name="_isExpertMode" Value="true"/>
     <Attr Name="_isCodegen" Value="true"/>
   </DesignTime>
   <Properties>
     <SchemaBasedProperties>
       <LABEL
-        ResId="com.sfr.engage.model.queries.uvo.PrtNewInvoiceVO_LABEL"/>
+        ResId="com.sfr.engage.model.queries.uvo.PrtNewInvoiceCardVO_LABEL"/>
     </SchemaBasedProperties>
   </Properties>
   <SQLQuery>
     <![CDATA[select max(decode(prt_card_invoice.collective_invoice_number,null,prt_card_invoice.invoice_number,prt_card_invoice.collective_invoice_number))  as finalInvoice ,
-
+(prt_card_invoice.invoiced_card) as  invoiced_card,
 prt_card_payment_doc.INVOICING_DATE,
 prt_card_payment_doc.COUNTRY_CODE,
 prt_card_invoice.invoice_date,
@@ -47,7 +47,8 @@ and prt_card_invoice.country_code = prt_card_invoice_details.country_code
 (prt_card_payment_doc.invoice_doc_number = decode(prt_card_invoice.collective_invoice_number,null,prt_card_invoice.invoice_number,prt_card_invoice.collective_invoice_number)
 )
 
-GROUP BY  prt_card_payment_doc.INVOICING_DATE, prt_card_payment_doc.COUNTRY_CODE, prt_card_invoice.invoice_date, prt_card_payment_doc.invoicing_due_date, prt_card_payment_doc.partner_id, prt_card_payment_doc.account_id, prt_card_payment_doc.cardgroup_main_type, prt_card_payment_doc.cardgroup_sub_type, prt_card_payment_doc.cardgroup_seq, prt_card_invoice_details.inv_gross_amt, prt_card_invoice_details.inv_vat_amt, prt_card_payment_doc.invoice_doc_type, prt_card_payment_doc.invoice_level
+
+GROUP BY (prt_card_invoice.invoiced_card), prt_card_payment_doc.INVOICING_DATE, prt_card_payment_doc.COUNTRY_CODE, prt_card_invoice.invoice_date, prt_card_payment_doc.invoicing_due_date, prt_card_payment_doc.partner_id, prt_card_payment_doc.account_id, prt_card_payment_doc.cardgroup_main_type, prt_card_payment_doc.cardgroup_sub_type, prt_card_payment_doc.cardgroup_seq, prt_card_invoice_details.inv_gross_amt, prt_card_invoice_details.inv_vat_amt, prt_card_payment_doc.invoice_doc_type, prt_card_payment_doc.invoice_level
 ORDER BY prt_card_invoice.invoice_date,finalInvoice DESC,prt_card_payment_doc.invoicing_due_date]]>
   </SQLQuery>
   <ViewAttribute
@@ -74,6 +75,7 @@ ORDER BY prt_card_invoice.invoice_date,finalInvoice DESC,prt_card_payment_doc.in
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="INVOICED_CARD"
+    Expression="INVOICED_CARD"
     SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="10"/>
@@ -87,8 +89,8 @@ ORDER BY prt_card_invoice.invoice_date,finalInvoice DESC,prt_card_payment_doc.in
     Type="oracle.jbo.domain.Date"
     ColumnType="DATE"
     AliasName="INVOICING_DATE"
-    SQLType="DATE"
-    Expression="INVOICING_DATE">
+    Expression="INVOICING_DATE"
+    SQLType="DATE">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="7"/>
     </DesignTime>
@@ -97,7 +99,6 @@ ORDER BY prt_card_invoice.invoice_date,finalInvoice DESC,prt_card_payment_doc.in
     Name="CountryCode"
     IsUpdateable="false"
     IsPersistent="false"
-    IsNotNull="true"
     PrecisionRule="true"
     Precision="2"
     Type="java.lang.String"
@@ -141,7 +142,6 @@ ORDER BY prt_card_invoice.invoice_date,finalInvoice DESC,prt_card_payment_doc.in
     Name="PartnerId"
     IsUpdateable="false"
     IsPersistent="false"
-    IsNotNull="true"
     PrecisionRule="true"
     Precision="8"
     Type="java.lang.String"
@@ -249,7 +249,6 @@ ORDER BY prt_card_invoice.invoice_date,finalInvoice DESC,prt_card_payment_doc.in
     Name="InvoiceDocType"
     IsUpdateable="false"
     IsPersistent="false"
-    IsNotNull="true"
     PrecisionRule="true"
     Precision="3"
     Type="java.lang.String"
