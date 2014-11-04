@@ -114,7 +114,7 @@
             <af:column sortable="false" headerText="#{sfr.ROLE}" id="c3" width="200px">
               <!--<af:outputText value="#{row.roleName}" id="ot2"/>-->
               <af:selectOneChoice id="soc1" readOnly="true" contentStyle="width: 155px;" showRequired="false" value="#{row.roleName}">
-                <af:forEach items="#{pageFlowScope.UserInfoDisplayManagedBean.roleList}" var="listItem">
+                <af:forEach items="#{pageFlowScope.UserInfoDisplayManagedBean.roleListColumn}" var="listItem">
                   <af:selectItem label="#{listItem.label}" value="#{listItem.value}" id="si2"/>
                 </af:forEach>
               </af:selectOneChoice>
