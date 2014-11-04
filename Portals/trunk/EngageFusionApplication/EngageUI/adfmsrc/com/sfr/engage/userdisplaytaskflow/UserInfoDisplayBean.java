@@ -78,7 +78,7 @@ public class UserInfoDisplayBean {
     private List<String> accountIdValue;
     private List<String> finalAccountIdValue;
     private List<String> finalCardGroupValue;
-    
+
     private List<SelectItem> cardGroupList;
     private List<String> cardGroupValue;
     private List<SelectItem> cardNumberList;
@@ -219,7 +219,7 @@ public class UserInfoDisplayBean {
                     finalCardGroupValue = new ArrayList<String>();
                     cardNumberList = new ArrayList<SelectItem>();
                     cardNumberValue = new ArrayList<String>();
-                    finalCardNumberValue =  new ArrayList<String>();
+                    finalCardNumberValue = new ArrayList<String>();
                     suggestedCardNumberList = new ArrayList<String>();
                 } else {
 
@@ -282,7 +282,7 @@ public class UserInfoDisplayBean {
                                         cardGroupValue.add(partnerInfoList.get(i).getPartnerValue().toString().trim() +
                                                            partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
                                         finalCardGroupValue.add(partnerInfoList.get(i).getPartnerValue().toString().trim() +
-                                                           partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
+                                                                partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
                                         cardGroupIdMap.put(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getDisplayCardGroupIdName().toString(),
                                                            partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
                                         cardGroupDescMap.put(partnerInfoList.get(i).getPartnerValue().toString().trim() +
@@ -1074,7 +1074,7 @@ public class UserInfoDisplayBean {
 
     public void showSearchResults() {
 
-        isTableVisible = true;
+        isTableVisible = false;
         isCgMgrVisible = false;
         isEmpVisible = false;
         isAccMgrVisible = false;
@@ -1478,7 +1478,7 @@ public class UserInfoDisplayBean {
                     }
                     if (userInfoRow.getAttribute("UserDob") != null) {
                         _logger.info("DOB " + userInfoRow.getAttribute("UserDob"));
-                       
+
                         java.util.Date newDob = null;
                         java.sql.Date sqlDateDob = ((oracle.jbo.domain.Date)userInfoRow.getAttribute("UserDob")).dateValue();
                         newDob = new Date(sqlDateDob.getTime());
@@ -1541,9 +1541,9 @@ public class UserInfoDisplayBean {
         java.util.Date utilDate = null;  
         if (jboDate != null) {  
           utilDate = new java.util.Date(jboDate.dateValue().getTime());  
-        }  
-        return utilDate;  
-      }
+        }
+        return utilDate;
+    }
 
     public void populateRoleAssociationTable(boolean flag) {
         _logger.info("inside populateRoleAssociationTable");
@@ -1560,7 +1560,7 @@ public class UserInfoDisplayBean {
             if (null != userInfo) {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " checking user info is not null");
                 userEmail = userInfo.getEmailID();
-          
+
 
                 String[] associatesRoleName = null;
                 if (userInfo.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN)) {
@@ -3138,7 +3138,7 @@ public class UserInfoDisplayBean {
     }
 
     public List<SelectItem> getRoleListColumn() {
-        
+
         if (roleListColumn == null) {
             roleListColumn = new ArrayList<SelectItem>();
             SelectItem selectItem = new SelectItem();
@@ -3166,7 +3166,7 @@ public class UserInfoDisplayBean {
                 roleListColumn.add(selectItem3);
             }
         }
-        
+
         return roleListColumn;
     }
 

@@ -107,6 +107,7 @@ public class DriverInfoBean implements Serializable {
     private static final String DRIVER_NAME_LITRERAL = "driverName";
     private static final String AFMANDATORYFIELDLITERAL = "af_mandatoryfield";
     private static final String AFNONMANDATORYFIELDLITERAL = "af_nonmandatoryfield";
+
     /**
      * @return bindings Object
      */
@@ -150,19 +151,19 @@ public class DriverInfoBean implements Serializable {
     }
 
 
-    private void resetValues(){
-       
+    private void resetValues() {
+
         linkedCardValues = new ArrayList<String>();
         linkedPartnerLOVValues = null;
         linkedPartnerList = new ArrayList<SelectItem>();
         linkedAccountList = new ArrayList<SelectItem>();
         linkedAccountLOVValues = new ArrayList<String>();
-       
-       
+
+
         if (session.getAttribute("Partner_Object_List") != null) {
             partnerInfoList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
         }
-       
+
         if (partnerInfoList != null && partnerInfoList.size() > 0) {
             for (int pa = 0; pa < partnerInfoList.size(); pa++) {
                 countryParam = partnerInfoList.get(0).getCountry().toString();
@@ -715,7 +716,7 @@ public class DriverInfoBean implements Serializable {
         } else {
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() +
                         "Inside else block new driver add for no partner and selected account values:::::::::");
-            displayErrorComponent(getBindings().getLinkedPartner(), true);
+            //            displayErrorComponent(getBindings().getLinkedPartner(), true);
             this.addPartnerNumberDisplayValue = null;
             this.addAccountIdDisplayValue = null;
             this.addCardIdDisplayValue = null;
@@ -1179,7 +1180,7 @@ public class DriverInfoBean implements Serializable {
     public void searchCancel(ActionEvent actionEvent) {
         try {
             LOGGER.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside Driver Search cancel method");
-            
+
             resetValues();
 
             searchResultsShow = false;

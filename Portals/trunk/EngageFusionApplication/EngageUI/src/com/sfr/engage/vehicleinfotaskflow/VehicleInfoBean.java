@@ -149,18 +149,18 @@ public class VehicleInfoBean implements Serializable {
         }
     }
 
-    private void resetValues(){
-        
+    private void resetValues() {
+
         linkedCardValues = new ArrayList<String>();
         linkedPartnerLOVValues = null;
         linkedPartnerList = new ArrayList<SelectItem>();
         linkedAccountList = new ArrayList<SelectItem>();
         linkedAccountLOVValues = new ArrayList<String>();
-        
+
         if (session.getAttribute("Partner_Object_List") != null) {
             partnerInfoList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
         }
-        
+
         if (partnerInfoList != null && partnerInfoList.size() > 0) {
             for (int pa = 0; pa < partnerInfoList.size(); pa++) {
                 countryParam = partnerInfoList.get(0).getCountry().toString().trim();
@@ -212,7 +212,7 @@ public class VehicleInfoBean implements Serializable {
                 }
             }
         }
-        
+
     }
 
 
@@ -739,7 +739,7 @@ public class VehicleInfoBean implements Serializable {
         } else {
             LOGGER.info(accessDC.getDisplayRecord() + this.getClass() +
                         "Inside else block new vehicle add for no partner and selected account values:::::::::");
-            displayErrorComponent(getBindings().getLinkedPartner(), true);
+            //            displayErrorComponent(getBindings().getLinkedPartner(), true);
             this.addPartnerNumberDisplayValue = null;
             this.addAccountIdDisplayValue = null;
             this.addCardIdDisplayValue = null;

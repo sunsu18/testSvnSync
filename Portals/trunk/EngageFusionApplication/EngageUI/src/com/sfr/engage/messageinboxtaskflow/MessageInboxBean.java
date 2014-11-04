@@ -99,7 +99,7 @@ public class MessageInboxBean implements Serializable {
     private Map<String, String> mapAccountListValue;
     private Map<String, String> mapCardGroupListValue;
     private Map<String, String> mapCardListValue;
-   
+
 
     public MessageInboxBean() {
         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " constructor of Message Inbox");
@@ -190,6 +190,7 @@ public class MessageInboxBean implements Serializable {
         categoryValue.add("ALERTS");
         messageTypeValue.add("NO");
         messageTypeValue.add("YES");
+
 
         if (session.getAttribute("Partner_Object_List") != null) {
             partnerInfoList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
@@ -282,7 +283,7 @@ public class MessageInboxBean implements Serializable {
             if (resourceBundle.containsKey(Constants.ENGAGE_CATEGORY_ADMIN_LITERAL)) {
                 selectItem.setLabel(resourceBundle.getObject(Constants.ENGAGE_CATEGORY_ADMIN_LITERAL).toString());
                 selectItem.setValue("MESSAGES");
-                
+
                 categoryList.add(selectItem);
             }
             SelectItem selectItem1 = new SelectItem();
@@ -569,6 +570,11 @@ public class MessageInboxBean implements Serializable {
         //        cardValue = new ArrayList<String>();
         //        cardList = new ArrayList<SelectItem>();
         resetValues();
+        resultToFrom = true;
+        resultFromTo = true;
+        getBindings().setFromDate(getBindings().getFromDate());
+        getBindings().setToDate(getBindings().getToDate());
+
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccount());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getFromDate());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getToDate());
@@ -1164,15 +1170,15 @@ public class MessageInboxBean implements Serializable {
 
 
         ViewObject prtNotificationVO = ADFUtils.getViewObject("PrtNotificationVO1Iterator");
-        
-        
-        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " +"categoryValue:"+ selectedCategory);
-        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " +"showFlag:"+ messageValue);
+
+
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "categoryValue:" + selectedCategory);
+        LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "showFlag:" + messageValue);
         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "fromDate " + newFromDate);
         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "toDate " + newToDate);
         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " countryCode" + langSession);
         LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "userId " + userEmail);
-        
+
         prtNotificationVO.setNamedWhereClauseParam("categoryValue", selectedCategory);
         prtNotificationVO.setNamedWhereClauseParam("showFlag", messageValue);
         prtNotificationVO.setNamedWhereClauseParam("fromDate", newFromDate);
@@ -1181,7 +1187,7 @@ public class MessageInboxBean implements Serializable {
         prtNotificationVO.setNamedWhereClauseParam("userId", userEmail);
 
         if (!isMessage) {
-            
+
             accountQuery = "(";
             cardGroupQuery = "(";
             cardQuery = "(";
@@ -1213,13 +1219,13 @@ public class MessageInboxBean implements Serializable {
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARDGROUP Query Values =" + cardGroupQuery);
                 cardGroupQuery = cardGroupQuery.substring(0, cardGroupQuery.length() - Constants.THREE);
                 cardGroupQuery = cardGroupQuery + "OR PARTNER||CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ is null)";
-                
+
             } else {
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CARDGroup Values < 150 ");
                 mapCardGroupListValue = null;
                 cardGroupQuery =
                         "(INSTR(:cardGroup,PARTNER||CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ)<>0 OR PARTNER||CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ is null) ";
-               
+
 
             }
 
@@ -1228,20 +1234,20 @@ public class MessageInboxBean implements Serializable {
                 mapCardListValue = ValueListSplit.callValueList(cardValue.size(), cardValue);
                 for (int i = 0; i < mapCardListValue.size(); i++) {
                     String values = Constants.CARDLITERAL + i;
-                    
+
                     cardQuery = cardQuery + "INSTR(:" + values + ", CARD_PK)<>0 OR ";
                 }
                 cardQuery = cardQuery.substring(0, cardQuery.length() - Constants.THREE);
                 cardQuery = cardQuery + " OR CARD_PK is null ) ";
 
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
-                
+
 
             } else {
                 LOGGER.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CARD Values < 150 ");
                 mapCardListValue = null;
                 cardQuery = "(INSTR(:card,CARD_PK)<>0 OR CARD_PK is null ) ";
-                
+
             }
 
             prtNotificationVO.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + cardQuery);
@@ -1326,7 +1332,7 @@ public class MessageInboxBean implements Serializable {
         private RichPopup messageInboxPopUp;
         private RichPopup messageInboxPopUp2;
         private RichTable messageTablePopup;
-        
+
         public void setMessageTablePopup(RichTable messageTablePopup) {
             this.messageTablePopup = messageTablePopup;
         }
@@ -1334,7 +1340,7 @@ public class MessageInboxBean implements Serializable {
         public RichTable getMessageTablePopup() {
             return messageTablePopup;
         }
-        
+
         public void setPartnerNumber(RichSelectManyChoice partnerNumber) {
             this.partnerNumber = partnerNumber;
         }
