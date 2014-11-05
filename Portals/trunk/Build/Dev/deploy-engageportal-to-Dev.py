@@ -16,7 +16,7 @@ targetsName='server_cus_ENG_DEV01'
 applicationName='EngagePortal_application1'
 stageModeValue='stage'
 
-artifactLocation=r'C:\Program Files (x86)\Jenkins\jobs\Engage Trunk Build\workspace\EngagePortal\deploy\EngagePortal_application1.ear'
+artifactLocation=r'D:\Ear\EngagePortal_application1.ear'
 
 print ("Hello, Python!")
 connect(adminUser,adminPassword,adminUrl)
