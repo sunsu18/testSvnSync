@@ -16,7 +16,7 @@ targetsName='Cluster_ENG_cus'
 applicationName='EngagePortal_application1'
 stageModeValue='stage'
 
-artifactLocation=r'C:\Users\10607024\.jenkins\jobs\Engage Build and Deployment\workspace\EngagePortal\deploy\EngagePortal_application1.ear'
+artifactLocation=r'C:\Program Files (x86)\Jenkins\jobs\Engage Build and Deployment\workspace\EngagePortal\deploy\EngagePortal_application1.ear'
 
 connect(adminUser,adminPassword,adminUrl)
 activate()
