@@ -101,13 +101,21 @@
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
+         <xs:element name="telefonNr" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="15"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="kredgrenseBel" type="xs:decimal" minOccurs="0"/>
       </xs:sequence>
    </xs:complexType>
    <xs:element name="SelectPALSDB2DBAdapterV1Select_DeltaTimeStamp_BatchSizeInputParameters" type="SelectPALSDB2DBAdapterV1Select_DeltaTimeStamp_BatchSize"/>
    <xs:complexType name="SelectPALSDB2DBAdapterV1Select_DeltaTimeStamp_BatchSize">
       <xs:sequence>
          <xs:element name="DeltaTimeStamp" type="xs:string" minOccurs="1" maxOccurs="1"/>
-         <xs:element name="BatchSize" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="BatchSize" type="xs:string" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
    </xs:complexType>
 </xs:schema>

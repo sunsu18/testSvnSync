@@ -1,14 +1,5 @@
-<?xml version = '1.0' encoding = 'UTF-8'?>
 <?binding.jca SelectPALSDB2DBAdapterV1_db.jca?>
-<wsdl:definitions
-     name="SelectPALSDB2DBAdapterV1"
-     targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/SelectPALSDB2DBAdapterV1"
-     xmlns:ns1="http://www.statoilfuelretail.com/integration/E003/MergeCardGroupValidate"
-     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-     xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/SelectPALSDB2DBAdapterV1"
-     xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
-     xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectPALSDB2DBAdapterV1"
-    >
+<wsdl:definitions name="SelectPALSDB2DBAdapterV1" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/SelectPALSDB2DBAdapterV1" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/SelectPALSDB2DBAdapterV1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectPALSDB2DBAdapterV1">
     <plt:partnerLinkType name="SelectPALSDB2DBAdapterV1_plt">
         <plt:role name="SelectPALSDB2DBAdapterV1_role">
             <plt:portType name="tns:SelectPALSDB2DBAdapterV1_ptt"/>
@@ -16,13 +7,8 @@
     </plt:partnerLinkType>
     <wsdl:types>
         <schema xmlns="http://www.w3.org/2001/XMLSchema">
-            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectPALSDB2DBAdapterV1"
-                 schemaLocation="xsd/SelectPALSDB2DBAdapterV1_table.xsd"/>
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectPALSDB2DBAdapterV1" schemaLocation="xsd/SelectPALSDB2DBAdapterV1_table.xsd"/>
         </schema>
-        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-            <xsd:import namespace="http://www.statoilfuelretail.com/integration/E003/MergeCardGroupValidate"
-                 schemaLocation="xsd/AccountSummaryPartnerValidate.xsd"/>
-        </xsd:schema>
     </wsdl:types>
     <wsdl:message name="SelectPALSDB2DBAdapterV1Select_inputParameters">
         <wsdl:part name="SelectPALSDB2DBAdapterV1Select_inputParameters" element="top:SelectPALSDB2DBAdapterV1Select_DeltaTimeStamp_BatchSizeInputParameters"/>
