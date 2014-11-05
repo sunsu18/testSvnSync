@@ -13,7 +13,7 @@ def deployAll():
  print 'Starting the MDS configuration changes...'
  
  #QA
- archive = getMDSArchiveConfig(fromLocation=r'C:\Users\10607024\.jenkins\jobs\Engage Build and Deployment\workspace\EngagePortal\deploy\EngagePortal_application1.ear')
+ archive = getMDSArchiveConfig(fromLocation=r'C:\Program Files (x86)\Jenkins\jobs\Engage Build and Deployment\workspace\EngagePortal\deploy\EngagePortal_application1.ear')
  archive.setAppMetadataRepository(repository='mds-CustomPortalDS',partition='EngagePortal_application1_V2.0',type='DB',jndi='jdbc/mds/CustomPortalDS')
  archive.save()
  disconnect()
