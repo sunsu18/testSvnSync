@@ -10,99 +10,99 @@
   </path>
 
   <path id="library.ADF.Model.Generic.Runtime">
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.share_11.1.1\adf-share-support.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.share.ca_11.1.1\adf-share-ca.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.share.ca_11.1.1\adf-share-base.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.share_11.1.1\adflogginghandler.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.idm_11.1.1\identitystore.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.xdk_11.1.0\xmlparserv2.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.model_11.1.1\adfm.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\groovy-all-1.6.3.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.ldap_11.1.1\ojmisc.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.share_11.1.1\commons-el.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.share_11.1.1\jsp-el-api.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.share_11.1.1\oracle-el.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.xmlef_11.1.1\xmlef.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.bali.share_11.1.1\share.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\modules\com.bea.core.apache.xercesImpl_2.8.1.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\modules\javax.activation_1.1.0.0_1-1.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\modules\glassfish.jaxb_1.0.0.0_2-1-12.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\modules\javax.xml.bind_2.1.1.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.share_11.1.1\adf-share-support.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.share.ca_11.1.1\adf-share-ca.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.share.ca_11.1.1\adf-share-base.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.share_11.1.1\adflogginghandler.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.idm_11.1.1\identitystore.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.xdk_11.1.0\xmlparserv2.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.model_11.1.1\adfm.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\groovy-all-1.6.3.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.ldap_11.1.1\ojmisc.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.share_11.1.1\commons-el.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.share_11.1.1\jsp-el-api.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.share_11.1.1\oracle-el.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.xmlef_11.1.1\xmlef.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.bali.share_11.1.1\share.jar"/>
+    <pathelement location="C:\Oracle\Middleware\modules\com.bea.core.apache.xercesImpl_2.8.1.jar"/>
+    <pathelement location="C:\Oracle\Middleware\modules\javax.activation_1.1.0.0_1-1.jar"/>
+    <pathelement location="C:\Oracle\Middleware\modules\glassfish.jaxb_1.0.0.0_2-1-12.jar"/>
+    <pathelement location="C:\Oracle\Middleware\modules\javax.xml.bind_2.1.1.jar"/>
   </path>
   <path id="library.ADF.Model.Runtime">
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.idm_11.1.1\identitystore.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.model_11.1.1\adfm.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\groovy-all-1.6.3.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.model_11.1.1\adftransactionsdt.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.view_11.1.1\adf-dt-at-rt.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.model_11.1.1\adfdt_common.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.model_11.1.1\adflibrary.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.xdk_11.1.0\xmlparserv2.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.model_11.1.1\db-ca.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.model_11.1.1\jdev-cm.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.ldap_11.1.1\ojmisc.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.share_11.1.1\commons-el.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.share_11.1.1\jsp-el-api.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.share_11.1.1\oracle-el.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.security_11.1.1\adf-share-security.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.security_11.1.1\adf-controller-security.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\modules\javax.activation_1.1.0.0_1-1.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.idm_11.1.1\identitystore.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.model_11.1.1\adfm.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\groovy-all-1.6.3.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.model_11.1.1\adftransactionsdt.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.view_11.1.1\adf-dt-at-rt.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.model_11.1.1\adfdt_common.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.model_11.1.1\adflibrary.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.xdk_11.1.0\xmlparserv2.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.model_11.1.1\db-ca.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.model_11.1.1\jdev-cm.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.ldap_11.1.1\ojmisc.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.share_11.1.1\commons-el.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.share_11.1.1\jsp-el-api.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.share_11.1.1\oracle-el.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.security_11.1.1\adf-share-security.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.security_11.1.1\adf-controller-security.jar"/>
+    <pathelement location="C:\Oracle\Middleware\modules\javax.activation_1.1.0.0_1-1.jar"/>
   </path>
   <path id="library.ADF.Faces.Runtime.11">
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.view_11.1.1\trinidad-api.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.view_11.1.1\trinidad-impl.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.view_11.1.1\adf-richclient-api-11.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.view_11.1.1\adf-richclient-impl-11.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.view_11.1.1\trinidad-api.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.view_11.1.1\trinidad-impl.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.view_11.1.1\adf-richclient-api-11.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.view_11.1.1\adf-richclient-impl-11.jar"/>
   </path>
   <path id="library.ADF.Faces.Databinding.Runtime">
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.view_11.1.1\adf-faces-databinding-rt.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.view_11.1.1\adf-faces-databinding-rt.jar"/>
   </path>
   <path id="library.JSF.1.2">
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.jsf_1.2.9\glassfish.jsf_1.0.0.0_1-2-15.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.jsf_1.2.9\glassfish.jstl_1.2.0.1.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.jsf_1.2.9\javax.jsf_1.1.0.0_1-2.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.jsf_1.2.9\wls.jsf.di.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.jsf_1.2.9\glassfish.jsf_1.0.0.0_1-2-15.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.jsf_1.2.9\glassfish.jstl_1.2.0.1.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.jsf_1.2.9\javax.jsf_1.1.0.0_1-2.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.jsf_1.2.9\wls.jsf.di.jar"/>
   </path>
   <path id="library.Servlet.Runtime">
-    <pathelement location="C:\Oracle\Middleware2013\modules\javax.servlet_1.0.0.0_2-5.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\modules\javax.jsp_1.2.0.0_2-1.jar"/>
+    <pathelement location="C:\Oracle\Middleware\modules\javax.servlet_1.0.0.0_2-5.jar"/>
+    <pathelement location="C:\Oracle\Middleware\modules\javax.jsp_1.2.0.0_2-1.jar"/>
   </path>
   <path id="library.Commons.Collections.3.1">
-    <pathelement location="C:\Oracle\Middleware2013\modules\com.bea.core.apache.commons.collections_3.2.0.jar"/>
+    <pathelement location="C:\Oracle\Middleware\modules\com.bea.core.apache.commons.collections_3.2.0.jar"/>
   </path>
   <path id="library.Commons.Beanutils.1.6">
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\org.apache.commons.beanutils_1.6.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\org.apache.commons.beanutils_1.6.jar"/>
   </path>
   <path id="library.Commons.Digester.1.8">
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\org.apache.commons.digester_1.8.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\org.apache.commons.digester_1.8.jar"/>
   </path>
   <path id="library.Commons.Logging.1.0.4">
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\org.apache.commons.logging_1.0.4.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\org.apache.commons.logging_1.0.4.jar"/>
   </path>
   <path id="library.ADF.Common.Runtime">
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.share_11.1.1\adf-share-support.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.share.ca_11.1.1\adf-share-ca.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.share.ca_11.1.1\adf-share-base.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.share_11.1.1\adfsharembean.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.share_11.1.1\adflogginghandler.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.idm_11.1.1\identitystore.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.javacache_11.1.1\cache.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.security_11.1.1\adf-share-security.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.security_11.1.1\adf-controller-security.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\modules\javax.activation_1.1.0.0_1-1.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.share_11.1.1\adf-share-support.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.share.ca_11.1.1\adf-share-ca.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.share.ca_11.1.1\adf-share-base.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.share_11.1.1\adfsharembean.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.share_11.1.1\adflogginghandler.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.idm_11.1.1\identitystore.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.javacache_11.1.1\cache.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.security_11.1.1\adf-share-security.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.security_11.1.1\adf-controller-security.jar"/>
+    <pathelement location="C:\Oracle\Middleware\modules\javax.activation_1.1.0.0_1-1.jar"/>
   </path>
   <path id="library.ADF.Controller.Schema">
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.model_11.1.1\adf-controller-schema.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.model_11.1.1\adf-controller-schema.jar"/>
   </path>
   <path id="library.ADF.Controller.Runtime">
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.controller_11.1.1\adf-controller.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.controller_11.1.1\adf-controller-api.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.controller_11.1.1\adf-controller-rt-common.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.controller_11.1.1\adf-controller.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.controller_11.1.1\adf-controller-api.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.controller_11.1.1\adf-controller-rt-common.jar"/>
   </path>
   <path id="library.ADF.Common.Web.Runtime">
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.model_11.1.1\adflibfilter.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.share.ca_11.1.1\adf-share-base.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.javatools_11.1.1\javatools-nodeps.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.model_11.1.1\adflibfilter.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.share.ca_11.1.1\adf-share-base.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.javatools_11.1.1\javatools-nodeps.jar"/>
   </path>
   <path id="library.Common-Lang">
     <pathelement location="lib/commons-lang-2.3.jar"/>
@@ -114,44 +114,44 @@
     <pathelement location="${oracle.home}/sqlj/lib/runtime12.jar"/>
   </path>
   <path id="library.BC4J.Oracle.Domains">
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.model_11.1.1\adfm.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.model_11.1.1\adfm.jar"/>
   </path>
   <path id="library.BC4J.Runtime">
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.share_11.1.1\adf-share-support.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.share.ca_11.1.1\adf-share-ca.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.share.ca_11.1.1\adf-share-base.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.share_11.1.1\adflogginghandler.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.share_11.1.1\adfsharembean.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.jmx_11.1.1\jmxframework.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.jmx_11.1.1\jmxspi.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.idm_11.1.1\identitystore.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.model_11.1.1\adfm.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.model_11.1.1\bc4j-mbeans.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.model_11.1.1\bc4jwizard.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\groovy-all-1.6.3.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.xdk_11.1.0\xmlparserv2.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.model_11.1.1\db-ca.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.model_11.1.1\jdev-cm.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.ldap_11.1.1\ojmisc.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.share_11.1.1\commons-el.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.share_11.1.1\jsp-el-api.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.adf.share_11.1.1\oracle-el.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.javatools_11.1.1\resourcebundle.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\modules\javax.activation_1.1.0.0_1-1.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\modules\javax.mail_1.1.0.0_1-4-1.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.share_11.1.1\adf-share-support.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.share.ca_11.1.1\adf-share-ca.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.share.ca_11.1.1\adf-share-base.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.share_11.1.1\adflogginghandler.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.share_11.1.1\adfsharembean.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.jmx_11.1.1\jmxframework.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.jmx_11.1.1\jmxspi.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.idm_11.1.1\identitystore.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.model_11.1.1\adfm.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.model_11.1.1\bc4j-mbeans.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.model_11.1.1\bc4jwizard.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\groovy-all-1.6.3.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.xdk_11.1.0\xmlparserv2.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.model_11.1.1\db-ca.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.model_11.1.1\jdev-cm.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.ldap_11.1.1\ojmisc.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.share_11.1.1\commons-el.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.share_11.1.1\jsp-el-api.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.adf.share_11.1.1\oracle-el.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.javatools_11.1.1\resourcebundle.jar"/>
+    <pathelement location="C:\Oracle\Middleware\modules\javax.activation_1.1.0.0_1-1.jar"/>
+    <pathelement location="C:\Oracle\Middleware\modules\javax.mail_1.1.0.0_1-4-1.jar"/>
   </path>
   <path id="library.JAX-WS.Client">
-    <pathelement location="C:\Oracle\Middleware2013\wlserver_10.3\server\lib\weblogic.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.jrf_11.1.1\jrf.jar"/>
+    <pathelement location="C:\Oracle\Middleware\wlserver_10.3\server\lib\weblogic.jar"/>
+    <pathelement location="C:\Oracle\Middleware\oracle_common\modules\oracle.jrf_11.1.1\jrf.jar"/>
   </path>
   <path id="library.JAX-WS.Web.Services">
-    <pathelement location="C:\Oracle\Middleware2013\wlserver_10.3\server\lib\weblogic.jar"/>
+    <pathelement location="C:\Oracle\Middleware\wlserver_10.3\server\lib\weblogic.jar"/>
   </path>
   <path id="library.TopLink">
-    <pathelement location="C:\Oracle\Middleware2013\modules\com.oracle.toplink_1.0.0.0_11-1-1-5-0.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\modules\org.eclipse.persistence_1.1.0.0_2-1.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\modules\com.bea.core.antlr.runtime_2.7.7.jar"/>
-    <pathelement location="C:\Oracle\Middleware2013\modules\javax.persistence_1.0.0.0_2-0-0.jar"/>
+    <pathelement location="C:\Oracle\Middleware\modules\com.oracle.toplink_1.0.0.0_11-1-1-5-0.jar"/>
+    <pathelement location="C:\Oracle\Middleware\modules\org.eclipse.persistence_1.1.0.0_2-1.jar"/>
+    <pathelement location="C:\Oracle\Middleware\modules\com.bea.core.antlr.runtime_2.7.7.jar"/>
+    <pathelement location="C:\Oracle\Middleware\modules\javax.persistence_1.0.0.0_2-0-0.jar"/>
   </path>
   <path id="classpath">
     <path refid="library.ADF.Model.Generic.Runtime"/>
