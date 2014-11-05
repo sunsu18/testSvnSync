@@ -1,0 +1,1 @@
+C:\Oracle\Middleware\oracle_common\common\bin\wlst.cmd "C:\Program Files (x86)\Jenkins\jobs\Engage Trunk Build\workspace\Build\engage-mds-Dev_services.py" & C:\Oracle\Middleware\oracle_common\common\bin\wlst.cmd "C:\Program Files (x86)\Jenkins\jobs\Engage Trunk Build\workspace\Build\deploy-engageportal-to-Dev.py"
