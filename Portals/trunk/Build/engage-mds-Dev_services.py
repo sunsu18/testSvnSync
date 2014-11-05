@@ -21,7 +21,7 @@ def deployAll():
  #archive.setAppMetadataRepository(repository='mds-integServerRepos',partition='EngagePortal_application1_V2.0',type='File',path='/C:/Users/10607024.NMUMARL/AppData/Roaming/JDeveloper/system11.1.1.6.38.61.92/DefaultDomain/webcenter/mds-integServerRepos')
  
  #Dev
- archive = getMDSArchiveConfig(fromLocation=r'C:\Users\10607024\.jenkins\jobs\Engage Build and Deployment\workspace\EngagePortal\deploy\EngagePortal_application1.ear')
+ archive = getMDSArchiveConfig(fromLocation=r'C:\Program Files (x86)\Jenkins\jobs\Engage Build and Deployment\workspace\EngagePortal\deploy\EngagePortal_application1.ear')
  archive.setAppMetadataRepository(repository='mds-CustomPortalDS',partition='EngagePortal_application1_V2.0',type='DB',jndi='jdbc/mds/CustomPortalDS')
  archive.save()
  disconnect()
