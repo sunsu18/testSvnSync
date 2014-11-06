@@ -1582,7 +1582,12 @@ public class MyPageListener implements PagePhaseListener {
             }
         } else {
             //userList = userClient.searchUserWithUserId(securityContext.getUserName());
-            userList = userClient.searchUserWithUserId(securityContext.getUserName(), Constants.ENGAGE_PORTAL);
+            if(securityContext.getUserProfile().getProperty(Constants.OPSS_MAIL) != null){
+            userList = userClient.searchUserWithUserId(securityContext.getUserProfile().getProperty(Constants.OPSS_MAIL).toString(), Constants.ENGAGE_PORTAL);
+            }else{
+                log.info(accessDC.getDisplayRecord() + this.getClass() + ".setUserInfoInSession : No email value from securityContext.getUserProfile().getProperty(Constants.OPSS_MAIL)");
+            }
+//            userList = userClient.searchUserWithUserId(securityContext.getUserName(), Constants.ENGAGE_PORTAL);
         }
         /*long elapsedTime = System.currentTimeMillis() - startTime;
             session.setAttribute("SESSION_USER_ERROR", "");
